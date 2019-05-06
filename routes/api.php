@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/', function (Request $request) {
+    return ['message' => 'Hi from PMS API!'];
 });
+
+Route::resource('company', 'CompanyController', ['except' => ['create', 'edit']]);
+Route::resource('property', 'PropertyController', ['except' => ['create', 'edit']]);

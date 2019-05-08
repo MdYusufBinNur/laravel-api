@@ -52,7 +52,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * show a company
+     * get a company
      *
      * @param Company $company
      * @return CompanyResource

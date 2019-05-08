@@ -28,7 +28,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * list all properties
      *
      * @param IndexRequest $request
      * @return PropertyResourceCollection
@@ -40,7 +40,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * create a property
      *
      * @param  StoreRequest $request
      * @return PropertyResource
@@ -52,7 +52,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * get a company
      *
      * @param Property $property
      * @return PropertyResource
@@ -63,7 +63,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * update a company
      *
      * @param  UpdateRequest $request
      * @param  Property $property
@@ -77,7 +77,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * remove a company
      *
      * @param Property $property
      * @return null;

@@ -28,7 +28,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * list all companies
      *
      * @param IndexRequest $request
      * @return CompanyResourceCollection
@@ -40,7 +40,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * create a company
      *
      * @param  StoreRequest $request
      * @return CompanyResource
@@ -52,7 +52,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * show a company
      *
      * @param Company $company
      * @return CompanyResource
@@ -63,7 +63,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * update a company
      *
      * @param  UpdateRequest $request
      * @param  Company $company
@@ -77,7 +77,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * remove a company
      *
      * @param Company $company
      * @return null;

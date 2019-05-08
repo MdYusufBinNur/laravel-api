@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Property extends Model
 {
+    use CommonModelFeatures;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -14,6 +16,7 @@ class Property extends Model
     protected $fillable = [
         'company_id', 'type', 'title', 'subdomain', 'address', 'city',
         'state', 'post_code', 'country', 'language', 'timezone', 'active',
+        'created_by_user_id',
     ];
 
     /**

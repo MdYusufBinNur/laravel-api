@@ -29,6 +29,12 @@ class CreatePropertiesTable extends Migration
             $table->boolean('active')->default(1);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->integer('created_by_user_id')->unsigned()->nullable();
+            $table->foreign('created_by_user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

@@ -2,8 +2,12 @@
 
 namespace App\Repositories;
 
+use App\DbModels\User;
 use App\Repositories\Contracts\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 
 class EloquentBaseRepository implements BaseRepository
 {
@@ -67,6 +71,14 @@ class EloquentBaseRepository implements BaseRepository
      */
     public function save(array $data): \ArrayAccess
     {
+        // set createdBy by loggedInUser if not passed
+        if (!isset($data['created_by_user_id'])) {
+            $loggedInUser = $this->getLoggedInUser();
+            if ($loggedInUser instanceof User) {
+                $data['created_by_user_id'] = $loggedInUser->id;
+            }
+        }
+
         return $this->model->create($data);
     }
 
@@ -161,5 +173,56 @@ class EloquentBaseRepository implements BaseRepository
 
         // return updated records QueryBuilder
         return $this->model->whereIn($key, $values)->get();
+    }
+
+    /**
+     * get modified fields
+     *
+     * @param $model
+     * @param $data
+     * @return array
+     */
+    public function getModifiedFields($model, $data)
+    {
+        $fillAbleProperties = $model->getFillable();
+
+        foreach ($data as $key => $value) {
+            // update only fillAble properties
+            if (in_array($key, $fillAbleProperties)) {
+                $model->$key = $value;
+            }
+        }
+
+        return $model->getDirty();
+    }
+
+    /**
+     * get loggedIn user
+     *
+     * @return User
+     */
+    protected function getLoggedInUser()
+    {
+        if (\Auth::user() instanceof User) {
+            return \Auth::user();
+        } else {
+            return new User();
+        }
+    }
+
+    /**
+     * paginate custom data
+     *
+     * @param array $items
+     * @param int $perPage
+     * @param null $page
+     * @param array $options
+     * @return LengthAwarePaginator
+     */
+    protected function paginateData($items, $perPage = 15, $page = null, array $options = []) : LengthAwarePaginator
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 }

@@ -7,7 +7,7 @@ use App\Http\Requests\Property\StoreRequest;
 use App\Http\Requests\Property\UpdateRequest;
 use App\Http\Resources\PropertyResource;
 use App\Http\Resources\PropertyResourceCollection;
-use App\Property;
+use App\DbModels\Property;
 use App\Repositories\Contracts\PropertyRepository;
 
 class PropertyController extends Controller

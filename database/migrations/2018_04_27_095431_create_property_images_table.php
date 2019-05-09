@@ -15,6 +15,7 @@ class CreatePropertyImagesTable extends Migration
     {
         Schema::create('property_images', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('property_id');
             $table->string('title');
             $table->timestamps();
@@ -24,6 +25,11 @@ class CreatePropertyImagesTable extends Migration
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

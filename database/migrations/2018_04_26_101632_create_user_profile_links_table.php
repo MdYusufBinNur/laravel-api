@@ -15,6 +15,7 @@ class CreateUserProfileLinksTable extends Migration
     {
         Schema::create('user_profile_links', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('user_id');
             $table->enum('type', ['WEBSITE','COMPANY','FACEBOOK','LINKEDIN','MYSPACE','OTHER']);
             $table->string('title');
@@ -26,6 +27,11 @@ class CreateUserProfileLinksTable extends Migration
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

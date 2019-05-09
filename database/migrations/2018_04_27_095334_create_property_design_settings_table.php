@@ -15,6 +15,7 @@ class CreatePropertyDesignSettingsTable extends Migration
     {
         Schema::create('property_design_settings', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('property_id');
             $table->tinyInteger('theme_id')->nullable();
             $table->string('selected_background', 10)->nullable();
@@ -27,6 +28,11 @@ class CreatePropertyDesignSettingsTable extends Migration
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

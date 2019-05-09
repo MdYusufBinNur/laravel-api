@@ -15,6 +15,7 @@ class CreateManagerInvitationsTable extends Migration
     {
         Schema::create('manager_invitations', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('property_id');
             $table->string('first_name');
             $table->string('last_name');
@@ -31,6 +32,11 @@ class CreateManagerInvitationsTable extends Migration
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

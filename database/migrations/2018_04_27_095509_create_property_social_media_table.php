@@ -15,6 +15,7 @@ class CreatePropertySocialMediaTable extends Migration
     {
         Schema::create('property_social_media', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('property_id');
             $table->string('type');
             $table->string('url');
@@ -25,6 +26,11 @@ class CreatePropertySocialMediaTable extends Migration
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

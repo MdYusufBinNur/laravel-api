@@ -15,6 +15,7 @@ class CreatePostMarketplacesTable extends Migration
     {
         Schema::create('post_marketplaces', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('post_id');
             $table->enum('type', ['BUY','SELL']);
             $table->string('title');
@@ -28,6 +29,11 @@ class CreatePostMarketplacesTable extends Migration
                 ->references('id')->on('posts')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

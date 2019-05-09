@@ -15,6 +15,7 @@ class CreateUserProfilePostsTable extends Migration
     {
         Schema::create('user_profile_posts', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('property_id');
             $table->unsignedInteger('by_user_id');
             $table->unsignedInteger('to_user_id');
@@ -37,6 +38,11 @@ class CreateUserProfilePostsTable extends Migration
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

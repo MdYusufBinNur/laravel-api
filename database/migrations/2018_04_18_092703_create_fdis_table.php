@@ -15,6 +15,7 @@ class CreateFdisTable extends Migration
     {
         Schema::create('fdis', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('property_id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('unit_id');
@@ -46,6 +47,11 @@ class CreateFdisTable extends Migration
                 ->references('id')->on('fdi_guest_types')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

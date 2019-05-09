@@ -15,9 +15,15 @@ class CreatePackageTypesTable extends Migration
     {
         Schema::create('package_types', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->string('title');
             $table->tinyInteger('icon');
             $table->timestamps();
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

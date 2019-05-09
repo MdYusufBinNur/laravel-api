@@ -15,6 +15,7 @@ class CreateEnterpriseUsersTable extends Migration
     {
         Schema::create('enterprise_users', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('company_id');
             $table->string('contact_email')->nullable();
@@ -33,6 +34,11 @@ class CreateEnterpriseUsersTable extends Migration
                 ->references('id')->on('companies')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

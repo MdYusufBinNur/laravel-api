@@ -15,6 +15,7 @@ class CreateServiceRequestLogsTable extends Migration
     {
         Schema::create('service_request_logs', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('service_request_id');
             $table->unsignedInteger('user_id');
             $table->text('comments');
@@ -32,6 +33,11 @@ class CreateServiceRequestLogsTable extends Migration
                 ->references('id')->on('service_requests')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

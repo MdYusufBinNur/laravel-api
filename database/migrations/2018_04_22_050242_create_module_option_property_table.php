@@ -15,6 +15,7 @@ class CreateModuleOptionPropertyTable extends Migration
     {
         Schema::create('module_option_property', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('property_id');
             $table->unsignedInteger('module_option_id');
             $table->mediumText('value')->nullable();
@@ -29,6 +30,11 @@ class CreateModuleOptionPropertyTable extends Migration
                 ->references('id')->on('module_options')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

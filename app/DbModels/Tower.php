@@ -12,7 +12,7 @@ class Tower extends Model
      * @var array
      */
     protected $fillable = [
-        'property_id', 'title',
+        'property_id', 'title', 'createdByUserId'
     ];
 
     /**

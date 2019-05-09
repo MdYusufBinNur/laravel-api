@@ -6,5 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class MessageUser extends Model
 {
-    //
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'createdByUserId', 'message_id', 'user_id', 'folder', 'is_read'
+    ];
 }

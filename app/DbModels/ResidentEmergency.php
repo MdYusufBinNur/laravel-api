@@ -6,5 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class ResidentEmergency extends Model
 {
-    //
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'createdByUserId', 'resident_id', 'name', 'relationship', 'address', 'home_phone', 'cell_phone', 'email'
+    ];
 }

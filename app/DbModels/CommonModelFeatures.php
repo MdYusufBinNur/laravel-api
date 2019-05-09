@@ -15,7 +15,6 @@ trait CommonModelFeatures
      */
     public function createdByUser()
     {
-        return $this->belongsTo(User::class, 'created_by_user_id');
+        return $this->belongsTo(User::class, 'createdByUserId');
     }
-
 }

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class LdsSlideProperty extends Pivot
 {
+    use CommonModelFeatures;
+
     /**
      * The attributes that are mass assignable.
      *

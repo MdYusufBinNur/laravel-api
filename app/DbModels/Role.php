@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
+    use CommonModelFeatures;
+
     /**
      * The attributes that are mass assignable.
      *

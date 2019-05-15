@@ -15,6 +15,7 @@ class CreateMessageUsersTable extends Migration
     {
         Schema::create('message_users', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('message_id');
             $table->unsignedInteger('user_id');
             $table->enum('folder', ['INBOX','SENT']);
@@ -31,6 +32,11 @@ class CreateMessageUsersTable extends Migration
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

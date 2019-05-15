@@ -15,6 +15,7 @@ class CreatePackagesTable extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('unit_id');
             $table->unsignedInteger('resident_id');
             $table->unsignedInteger('type_id');
@@ -46,6 +47,11 @@ class CreatePackagesTable extends Migration
                 ->references('id')->on('package_types')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
         });
     }

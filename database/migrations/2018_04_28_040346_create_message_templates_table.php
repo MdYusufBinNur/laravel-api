@@ -15,6 +15,7 @@ class CreateMessageTemplatesTable extends Migration
     {
         Schema::create('message_templates', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('property_id');
             $table->string('title');
             $table->mediumText('text');
@@ -25,6 +26,11 @@ class CreateMessageTemplatesTable extends Migration
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

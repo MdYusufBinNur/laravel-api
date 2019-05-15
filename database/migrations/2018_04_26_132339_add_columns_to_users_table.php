@@ -14,6 +14,7 @@ class AddColumnsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('role_id')->after('id');
             $table->boolean('active')->default(1)->after('role_id');
             $table->dateTime('registered_at')->nullable()->after('remember_token');
@@ -23,6 +24,11 @@ class AddColumnsToUsersTable extends Migration
                 ->references('id')->on('roles')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

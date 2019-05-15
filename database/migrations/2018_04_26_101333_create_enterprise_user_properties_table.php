@@ -15,6 +15,7 @@ class CreateEnterpriseUserPropertiesTable extends Migration
     {
         Schema::create('enterprise_user_properties', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('enterprise_user_id');
             $table->unsignedInteger('property_id');
             $table->boolean('active')->default(1);
@@ -29,6 +30,11 @@ class CreateEnterpriseUserPropertiesTable extends Migration
                 ->references('id')->on('enterprise_users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

@@ -15,6 +15,7 @@ class CreateLdsSettingsTable extends Migration
     {
         Schema::create('lds_settings', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('property_id');
             $table->tinyInteger('refresh_rate');
             $table->boolean('show_packages')->default(1);
@@ -28,6 +29,11 @@ class CreateLdsSettingsTable extends Migration
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

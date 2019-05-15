@@ -15,6 +15,7 @@ class CreateServiceRequestsTable extends Migration
     {
         Schema::create('service_requests', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('unit_id');
             $table->unsignedInteger('category_id');
@@ -50,6 +51,11 @@ class CreateServiceRequestsTable extends Migration
                 ->references('id')->on('service_request_statuses')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

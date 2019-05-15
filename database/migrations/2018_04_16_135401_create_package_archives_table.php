@@ -15,6 +15,7 @@ class CreatePackageArchivesTable extends Migration
     {
         Schema::create('package_archives', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('package_id');
             $table->unsignedInteger('signout_user_id');
             $table->text('signout_comments')->nullable();
@@ -32,6 +33,11 @@ class CreatePackageArchivesTable extends Migration
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

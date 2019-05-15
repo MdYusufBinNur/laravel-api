@@ -15,6 +15,7 @@ class CreateResidentVehiclesTable extends Migration
     {
         Schema::create('resident_vehicles', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('resident_id');
             $table->string('make')->nullable();
             $table->string('model')->nullable();
@@ -27,6 +28,11 @@ class CreateResidentVehiclesTable extends Migration
                 ->references('id')->on('residents')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

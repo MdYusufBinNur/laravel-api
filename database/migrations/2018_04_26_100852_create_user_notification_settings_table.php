@@ -15,6 +15,7 @@ class CreateUserNotificationSettingsTable extends Migration
     {
         Schema::create('user_notification_settings', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('user_id');
             $table->string('type')->nullable();
             $table->boolean('email')->default(1);
@@ -26,6 +27,11 @@ class CreateUserNotificationSettingsTable extends Migration
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

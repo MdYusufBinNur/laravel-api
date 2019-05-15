@@ -15,9 +15,15 @@ class CreateFdiGuestTypesTable extends Migration
     {
         Schema::create('fdi_guest_types', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->string('title');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

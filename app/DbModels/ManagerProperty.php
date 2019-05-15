@@ -6,5 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class ManagerProperty extends Model
 {
-    //
+    use CommonModelFeatures;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'createdByUserId', 'manager_id', 'property_id', 'active'
+    ];
 }

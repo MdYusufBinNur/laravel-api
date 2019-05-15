@@ -15,6 +15,7 @@ class CreateServiceRequestOfficeDetailsTable extends Migration
     {
         Schema::create('service_request_office_details', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('service_request_id');
             $table->unsignedInteger('assigned_user_id');
             $table->string('material_used')->nullable();
@@ -37,6 +38,11 @@ class CreateServiceRequestOfficeDetailsTable extends Migration
                 ->references('id')->on('service_requests')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

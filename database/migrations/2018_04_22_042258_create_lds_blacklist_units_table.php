@@ -15,6 +15,7 @@ class CreateLdsBlacklistUnitsTable extends Migration
     {
         Schema::create('lds_blacklist_units', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('property_id');
             $table->unsignedInteger('unit_id');
             $table->timestamps();
@@ -28,6 +29,11 @@ class CreateLdsBlacklistUnitsTable extends Migration
                 ->references('id')->on('units')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

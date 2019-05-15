@@ -15,6 +15,7 @@ class CreateFdiLogsTable extends Migration
     {
         Schema::create('fdi_logs', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('fdi_id');
             $table->unsignedInteger('user_id');
             $table->mediumText('text');
@@ -31,6 +32,11 @@ class CreateFdiLogsTable extends Migration
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

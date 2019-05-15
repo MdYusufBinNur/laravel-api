@@ -15,6 +15,7 @@ class CreateNotificationTemplatePropertiesTable extends Migration
     {
         Schema::create('notification_template_properties', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('property_id');
             $table->unsignedInteger('template_id');
             $table->timestamps();
@@ -28,6 +29,11 @@ class CreateNotificationTemplatePropertiesTable extends Migration
                 ->references('id')->on('notification_templates')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

@@ -6,13 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Unit extends Model
 {
+    use CommonModelFeatures;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'tower_id', 'title', 'floor', 'line',
+        'tower_id', 'title', 'floor', 'line', 'createdByUserId'
     ];
 
     /**

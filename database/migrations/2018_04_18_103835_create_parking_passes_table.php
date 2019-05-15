@@ -15,6 +15,7 @@ class CreateParkingPassesTable extends Migration
     {
         Schema::create('parking_passes', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('property_id');
             $table->unsignedInteger('unit_id');
             $table->unsignedInteger('submitted_user_id');
@@ -51,6 +52,11 @@ class CreateParkingPassesTable extends Migration
                 ->references('id')->on('units')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

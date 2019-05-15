@@ -15,6 +15,7 @@ class CreateResidentEmergenciesTable extends Migration
     {
         Schema::create('resident_emergencies', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('resident_id');
             $table->string('name')->nullable();
             $table->string('relationship')->nullable();
@@ -29,6 +30,11 @@ class CreateResidentEmergenciesTable extends Migration
                 ->references('id')->on('residents')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

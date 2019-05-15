@@ -6,5 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class PostMarketplace extends Model
 {
-    //
+    use CommonModelFeatures;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'createdByUserId', 'post_id', 'type', 'title', 'price', 'description', 'contact'
+    ];
 }

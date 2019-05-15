@@ -15,6 +15,7 @@ class CreateResidentAccessRequestsTable extends Migration
     {
         Schema::create('resident_access_requests', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('property_id');
             $table->unsignedInteger('unit_id');
             $table->string('first_name');
@@ -41,6 +42,11 @@ class CreateResidentAccessRequestsTable extends Migration
                 ->references('id')->on('units')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

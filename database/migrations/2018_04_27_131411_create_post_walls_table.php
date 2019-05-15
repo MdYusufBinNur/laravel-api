@@ -15,6 +15,7 @@ class CreatePostWallsTable extends Migration
     {
         Schema::create('post_walls', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('post_id');
             $table->mediumText('text');
             $table->timestamps();
@@ -24,6 +25,11 @@ class CreatePostWallsTable extends Migration
                 ->references('id')->on('posts')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

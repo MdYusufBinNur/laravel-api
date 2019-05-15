@@ -15,6 +15,7 @@ class CreatePostEventsTable extends Migration
     {
         Schema::create('post_events', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('post_id');
             $table->unsignedInteger('event_id');
             $table->timestamps();
@@ -29,6 +30,11 @@ class CreatePostEventsTable extends Migration
                 ->references('id')->on('events')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

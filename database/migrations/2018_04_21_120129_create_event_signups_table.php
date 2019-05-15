@@ -15,6 +15,7 @@ class CreateEventSignupsTable extends Migration
     {
         Schema::create('event_signups', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('event_id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('resident_id');
@@ -31,6 +32,11 @@ class CreateEventSignupsTable extends Migration
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

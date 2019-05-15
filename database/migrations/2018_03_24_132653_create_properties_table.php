@@ -15,6 +15,7 @@ class CreatePropertiesTable extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('company_id')->nullable();
             $table->string('type', 50);
             $table->string('title');
@@ -30,8 +31,7 @@ class CreatePropertiesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->integer('created_by_user_id')->unsigned()->nullable();
-            $table->foreign('created_by_user_id')
+            $table->foreign('createdByUserId')
                 ->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

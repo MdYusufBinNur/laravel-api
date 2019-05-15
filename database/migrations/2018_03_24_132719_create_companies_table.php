@@ -15,6 +15,7 @@ class CreateCompaniesTable extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->string('title');
             $table->string('address');
             $table->string('city')->nullable();
@@ -25,8 +26,7 @@ class CreateCompaniesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->integer('created_by_user_id')->unsigned()->nullable();
-            $table->foreign('created_by_user_id')
+            $table->foreign('createdByUserId')
                 ->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

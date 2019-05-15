@@ -6,5 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class FdiLog extends Model
 {
-    //
+    use CommonModelFeatures;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'createdByUserId', 'fdi_id', 'user_id', 'text', 'type'
+    ];
 }
+

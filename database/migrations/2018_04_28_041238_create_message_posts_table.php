@@ -15,6 +15,7 @@ class CreateMessagePostsTable extends Migration
     {
         Schema::create('message_posts', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('message_id');
             $table->unsignedInteger('from_user_id');
             $table->mediumText('text');
@@ -29,6 +30,11 @@ class CreateMessagePostsTable extends Migration
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

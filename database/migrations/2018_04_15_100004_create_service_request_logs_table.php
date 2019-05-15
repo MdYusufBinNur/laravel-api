@@ -19,8 +19,13 @@ class CreateServiceRequestLogsTable extends Migration
             $table->unsignedInteger('service_request_id');
             $table->unsignedInteger('user_id');
             $table->text('comments');
-            $table->enum('type', ['STATUS','COMMENT','FEEDBACK','ASSIGNMENT']);
-            $table->enum('feedback', ['NONE', 'POSITIVE', 'NEGATIVE'])->default('NONE');
+            $table->string('status');
+            $table->string('comment');
+            $table->string('feedback');
+            $table->string('assignment');
+            $table->string('none');
+            $table->string('positive');
+            $table->string('negative');
             $table->boolean('status')->default(1);
             $table->timestamps();
 

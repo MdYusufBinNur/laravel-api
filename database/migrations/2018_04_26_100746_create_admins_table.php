@@ -17,7 +17,9 @@ class CreateAdminsTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('user_id');
-            $table->enum('level', ['ADMIN','STANDARD','LIMITED'])->default('STANDARD');
+            $table->string('admin');
+            $table->string('standard');
+            $table->string('limited');
             $table->timestamps();
 
             $table->foreign('user_id')

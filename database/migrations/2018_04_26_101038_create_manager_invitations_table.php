@@ -21,8 +21,13 @@ class CreateManagerInvitationsTable extends Migration
             $table->string('last_name');
             $table->string('email');
             $table->string('title')->nullable();
-            $table->enum('level', ['ADMIN','STANDARD','LIMITED','RESTRICTED'])->default('ADMIN');
-            $table->enum('status', ['ACTIVE','CANCELLED','COMPLETED'])->default('ACTIVE');
+            $table->string('admin');
+            $table->string('standard');
+            $table->string('limited');
+            $table->string('restricted');
+            $table->string('active');
+            $table->string('cancelled');
+            $table->string('completed');
             $table->string('pin', 20)->nullable();
             $table->dateTime('invited_at');
             $table->timestamps();

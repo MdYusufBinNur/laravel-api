@@ -19,8 +19,15 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('property_id');
             $table->unsignedInteger('created_user_id');
             $table->unsignedInteger('deleted_user_id')->nullable();
-            $table->enum('type', ['MARKETPLACE','WALL','RECOMMEND','EVENT','POLL']);
-            $table->enum('status', ['POSTED','PENDING','APPROVED','DENIED'])->default('POSTED');
+            $table->string('marketplace');
+            $table->string('wall');
+            $table->string('recommend');
+            $table->string('event');
+            $table->string('poll');
+            $table->string('posted');
+            $table->string('pending');
+            $table->string('approved');
+            $table->string('denied');
             $table->smallInteger('like_count')->nullable();
             $table->text('like_users')->nullable();
             $table->boolean('attachment')->default(0);

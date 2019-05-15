@@ -18,7 +18,8 @@ class CreateMessageUsersTable extends Migration
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('message_id');
             $table->unsignedInteger('user_id');
-            $table->enum('folder', ['INBOX','SENT']);
+            $table->string('inbox');
+            $table->string('sent');
             $table->boolean('is_read')->default(0);
             $table->timestamps();
             $table->softDeletes();

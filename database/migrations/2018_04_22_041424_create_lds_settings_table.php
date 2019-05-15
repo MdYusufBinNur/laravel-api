@@ -19,9 +19,13 @@ class CreateLdsSettingsTable extends Migration
             $table->unsignedInteger('property_id');
             $table->tinyInteger('refresh_rate');
             $table->boolean('show_packages')->default(1);
-            $table->enum('icon_size', ['SMALL','LARGE'])->default('LARGE');
-            $table->enum('icon_color', ['WHITE','COLOR'])->default('COLOR');
-            $table->enum('theme', ['CLASSIC','TRADITIONAL','BLACK-TIE'])->default('CLASSIC');
+            $table->string('small');
+            $table->string('large');
+            $table->string('white');
+            $table->string('color');
+            $table->string('classic');
+            $table->string('traditional');
+            $table->string('black-tie');
             $table->timestamps();
             $table->softDeletes();
 

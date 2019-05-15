@@ -8,6 +8,9 @@ class LdsSlide extends Model
 {
     use CommonModelFeatures;
 
+    const TYPE_STANDARD = 'standard';
+    const TYPE_CUSTOM = 'custom';
+
     /**
      * The attributes that are mass assignable.
      *

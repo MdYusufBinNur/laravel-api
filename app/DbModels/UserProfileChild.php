@@ -8,6 +8,9 @@ class UserProfileChild extends Model
 {
     use CommonModelFeatures;
 
+    const GENDER_MALE = 'male';
+    const GENDER_FEMALE = 'female';
+
     /**
      * The attributes that are mass assignable.
      *

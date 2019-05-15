@@ -8,6 +8,12 @@ class FdiLog extends Model
 {
     use CommonModelFeatures;
 
+    const TYPE_ADD = 'add';
+    const TYPE_EDIT = 'edit';
+    const TYPE_EXPIRED = 'expired';
+    const TYPE_APPROVED = 'approved';
+    const TYPE_DENIED = 'denied';
+
     /**
      * The attributes that are mass assignable.
      *

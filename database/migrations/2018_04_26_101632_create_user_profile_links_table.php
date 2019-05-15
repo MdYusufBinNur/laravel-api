@@ -17,7 +17,12 @@ class CreateUserProfileLinksTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('user_id');
-            $table->enum('type', ['WEBSITE','COMPANY','FACEBOOK','LINKEDIN','MYSPACE','OTHER']);
+            $table->string('website');
+            $table->string('company');
+            $table->string('facebook');
+            $table->string('linkedin');
+            $table->string('myspace');
+            $table->string('other');
             $table->string('title');
             $table->string('url');
             $table->timestamps();

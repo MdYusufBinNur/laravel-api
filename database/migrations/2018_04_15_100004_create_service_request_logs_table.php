@@ -19,7 +19,6 @@ class CreateServiceRequestLogsTable extends Migration
             $table->unsignedInteger('service_request_id');
             $table->unsignedInteger('user_id');
             $table->text('comments');
-            $table->string('status');
             $table->string('comment');
             $table->string('feedback');
             $table->string('assignment');

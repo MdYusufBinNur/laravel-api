@@ -14,6 +14,6 @@ class PostApprovalBlacklistUnit extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'unit_id'
+        'createdByUserId', 'unitId'
     ];
 }

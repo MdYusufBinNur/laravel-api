@@ -16,13 +16,13 @@ class CreateAdminsTable extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('userId');
             $table->string('admin');
             $table->string('standard');
             $table->string('limited');
             $table->timestamps();
 
-            $table->foreign('user_id')
+            $table->foreign('userId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

@@ -25,6 +25,6 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'property_id', 'created_user_id', 'deleted_user_id', 'type', 'status', 'like_count', 'like_users', 'attachment'
+        'createdByUserId', 'propertyId', 'createdUserId', 'deletedUserId', 'type', 'status', 'likeCount', 'likeUsers', 'attachment'
     ];
 }

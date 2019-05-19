@@ -16,14 +16,14 @@ class CreateUserNotificationSettingsTable extends Migration
         Schema::create('user_notification_settings', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('userId');
             $table->string('type')->nullable();
             $table->boolean('email')->default(1);
             $table->boolean('sms')->default(1);
             $table->boolean('voice')->default(1);
             $table->timestamps();
 
-            $table->foreign('user_id')
+            $table->foreign('userId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

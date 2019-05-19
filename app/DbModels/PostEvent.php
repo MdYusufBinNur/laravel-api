@@ -14,6 +14,6 @@ class PostEvent extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'post_id', 'event_id'
+        'createdByUserId', 'postId', 'eventId'
     ];
 }

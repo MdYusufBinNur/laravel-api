@@ -16,8 +16,8 @@ class CreatePostRecommendationsTable extends Migration
         Schema::create('post_recommendations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('post_id');
-            $table->unsignedInteger('type_id');
+            $table->unsignedInteger('postId');
+            $table->unsignedInteger('typeId');
             $table->string('name');
             $table->mediumText('description')->nullable();
             $table->string('contact')->nullable();
@@ -25,12 +25,12 @@ class CreatePostRecommendationsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('post_id')
+            $table->foreign('postId')
                 ->references('id')->on('posts')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('type_id')
+            $table->foreign('typeId')
                 ->references('id')->on('post_recommendation_types')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

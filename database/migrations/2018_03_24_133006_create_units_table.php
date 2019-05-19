@@ -16,14 +16,14 @@ class CreateUnitsTable extends Migration
         Schema::create('units', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('tower_id');
+            $table->unsignedInteger('towerId');
             $table->string('title', 50);
             $table->string('floor', 50)->nullable();
             $table->string('line', 50)->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('tower_id')
+            $table->foreign('towerId')
                 ->references('id')->on('towers')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

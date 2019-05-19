@@ -14,6 +14,6 @@ class Announcement extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'property_id', 'title', 'content', 'link', 'linkin_new_windows', 'show_on_website', 'show_on_lds', 'expire_at'
+        'createdByUserId', 'propertyId', 'title', 'content', 'link', 'linkinNewWindows', 'showOnWebsite', 'showOnLds', 'expireAt'
     ];
 }

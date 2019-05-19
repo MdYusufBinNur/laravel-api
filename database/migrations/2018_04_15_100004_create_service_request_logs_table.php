@@ -16,8 +16,8 @@ class CreateServiceRequestLogsTable extends Migration
         Schema::create('service_request_logs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('service_request_id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('serviceRequestId');
+            $table->unsignedInteger('userId');
             $table->text('comments');
             $table->string('comment');
             $table->string('feedback');
@@ -28,12 +28,12 @@ class CreateServiceRequestLogsTable extends Migration
             $table->boolean('status')->default(1);
             $table->timestamps();
 
-            $table->foreign('user_id')
+            $table->foreign('userId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('service_request_id')
+            $table->foreign('serviceRequestId')
                 ->references('id')->on('service_requests')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

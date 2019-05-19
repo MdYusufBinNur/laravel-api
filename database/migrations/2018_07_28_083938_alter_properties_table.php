@@ -15,7 +15,7 @@ class AlterPropertiesTable extends Migration
     {
         Schema::table('properties', function (Blueprint $table) {
 
-            $table->foreign('company_id')
+            $table->foreign('companyId')
                 ->references('id')->on('companies')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

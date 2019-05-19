@@ -14,7 +14,7 @@ class Unit extends Model
      * @var array
      */
     protected $fillable = [
-        'tower_id', 'title', 'floor', 'line', 'createdByUserId'
+        'towerId', 'title', 'floor', 'line', 'createdByUserId'
     ];
 
     /**

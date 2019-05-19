@@ -14,6 +14,6 @@ class NotificationFeed extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'property_id', 'user_id', 'name', 'content', 'is_read', 'is_viewed'
+        'createdByUserId', 'propertyId', 'userId', 'name', 'content', 'isRead', 'isViewed'
     ];
 }

@@ -16,20 +16,20 @@ class CreatePackageArchivesTable extends Migration
         Schema::create('package_archives', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('package_id');
-            $table->unsignedInteger('signout_user_id');
-            $table->text('signout_comments')->nullable();
+            $table->unsignedInteger('packageId');
+            $table->unsignedInteger('signoutUserId');
+            $table->text('signoutComments')->nullable();
             $table->boolean('signature')->default(0);
-            $table->dateTime('signout_at');
+            $table->dateTime('signoutAt');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('package_id')
+            $table->foreign('packageId')
                 ->references('id')->on('packages')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('signout_user_id')
+            $table->foreign('signoutUserId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

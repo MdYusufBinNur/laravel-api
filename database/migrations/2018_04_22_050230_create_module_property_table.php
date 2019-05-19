@@ -16,17 +16,17 @@ class CreateModulePropertyTable extends Migration
         Schema::create('module_property', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('property_id');
-            $table->unsignedInteger('module_id');
+            $table->unsignedInteger('propertyId');
+            $table->unsignedInteger('moduleId');
             $table->boolean('value')->default(1);
             $table->timestamps();
 
-            $table->foreign('property_id')
+            $table->foreign('propertyId')
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('module_id')
+            $table->foreign('moduleId')
                 ->references('id')->on('modules')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

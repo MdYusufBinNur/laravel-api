@@ -14,6 +14,6 @@ class PropertyImage extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'property_id', 'title'
+        'createdByUserId', 'propertyId', 'title'
     ];
 }

@@ -14,6 +14,6 @@ class MessagePost extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'message_id', 'from_user_id', 'text'
+        'createdByUserId', 'messageId', 'fromUserId', 'text'
     ];
 }

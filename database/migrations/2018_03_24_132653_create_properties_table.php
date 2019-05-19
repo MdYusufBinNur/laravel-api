@@ -16,14 +16,14 @@ class CreatePropertiesTable extends Migration
         Schema::create('properties', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('company_id')->nullable();
+            $table->unsignedInteger('companyId')->nullable();
             $table->string('type', 50);
             $table->string('title');
             $table->string('subdomain')->unique();
             $table->string('address');
             $table->string('city')->nullable();
             $table->string('state')->nullable();
-            $table->string('post_code', 10)->nullable();
+            $table->string('postCode', 10)->nullable();
             $table->string('country', 10)->default('BD');
             $table->string('language', 10)->default('en');
             $table->string('timezone', 50)->default('Asia/Dhaka');

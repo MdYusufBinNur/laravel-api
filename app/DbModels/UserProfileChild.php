@@ -17,6 +17,6 @@ class UserProfileChild extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'user_id', 'gender', 'name', 'age'
+        'createdByUserId', 'userId', 'gender', 'name', 'age'
     ];
 }

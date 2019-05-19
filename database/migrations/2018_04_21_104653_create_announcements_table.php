@@ -16,18 +16,18 @@ class CreateAnnouncementsTable extends Migration
         Schema::create('announcements', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('property_id');
+            $table->unsignedInteger('propertyId');
             $table->string('title');
             $table->mediumText('content');
             $table->string('link');
-            $table->boolean('linkin_new_windows')->default(0);
-            $table->boolean('show_on_website')->default(0);
-            $table->boolean('show_on_lds')->default(0);
-            $table->dateTime('expire_at');
+            $table->boolean('linkinNewWindows')->default(0);
+            $table->boolean('showOnWebsite')->default(0);
+            $table->boolean('showOnLds')->default(0);
+            $table->dateTime('expireAt');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('property_id')
+            $table->foreign('propertyId')
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

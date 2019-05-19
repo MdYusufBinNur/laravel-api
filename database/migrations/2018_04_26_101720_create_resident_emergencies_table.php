@@ -16,17 +16,17 @@ class CreateResidentEmergenciesTable extends Migration
         Schema::create('resident_emergencies', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('resident_id');
+            $table->unsignedInteger('residentId');
             $table->string('name')->nullable();
             $table->string('relationship')->nullable();
             $table->string('address')->nullable();
-            $table->string('home_phone', 20)->nullable();
-            $table->string('cell_phone', 20)->nullable();
+            $table->string('homePhone', 20)->nullable();
+            $table->string('cellPhone', 20)->nullable();
             $table->string('email')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('resident_id')
+            $table->foreign('residentId')
                 ->references('id')->on('residents')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

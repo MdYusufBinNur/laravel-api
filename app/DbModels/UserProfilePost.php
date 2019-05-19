@@ -14,6 +14,6 @@ class UserProfilePost extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'property_id', 'by_user_id', 'to_user_id', 'text', 'active'
+        'createdByUserId', 'propertyId', 'byUserId', 'toUserId', 'text', 'active'
     ];
 }

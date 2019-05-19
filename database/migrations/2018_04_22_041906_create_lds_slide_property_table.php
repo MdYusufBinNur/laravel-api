@@ -16,16 +16,16 @@ class CreateLdsSlidePropertyTable extends Migration
         Schema::create('lds_slide_property', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('property_id');
-            $table->unsignedInteger('slide_id');
+            $table->unsignedInteger('propertyId');
+            $table->unsignedInteger('slideId');
             $table->timestamps();
 
-            $table->foreign('property_id')
+            $table->foreign('propertyId')
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('slide_id')
+            $table->foreign('slideId')
                 ->references('id')->on('lds_slides')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

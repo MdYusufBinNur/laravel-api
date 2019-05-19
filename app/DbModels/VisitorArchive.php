@@ -14,6 +14,6 @@ class VisitorArchive extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'visitor_id', 'signout_user_id', 'signature', 'signout_at'
+        'createdByUserId', 'visitorId', 'signoutUserId', 'signature', 'signoutAt'
     ];
 }

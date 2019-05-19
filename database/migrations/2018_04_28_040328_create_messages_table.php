@@ -16,30 +16,30 @@ class CreateMessagesTable extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('property_id');
-            $table->unsignedInteger('from_user_id');
-            $table->unsignedInteger('to_user_id');
+            $table->unsignedInteger('propertyId');
+            $table->unsignedInteger('fromUserId');
+            $table->unsignedInteger('toUserId');
             $table->string('subject');
-            $table->boolean('is_group_message')->default(0);
+            $table->boolean('isGroupMessage')->default(0);
             $table->mediumText('group')->nullable();
-            $table->mediumText('group_names')->nullable();
-            $table->boolean('email_notification')->default(0);
-            $table->boolean('sms_notification')->default(0);
-            $table->boolean('voice_notification')->default(0);
+            $table->mediumText('groupNames')->nullable();
+            $table->boolean('emailNotification')->default(0);
+            $table->boolean('smsNotification')->default(0);
+            $table->boolean('voiceNotification')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('property_id')
+            $table->foreign('propertyId')
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('from_user_id')
+            $table->foreign('fromUserId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('to_user_id')
+            $table->foreign('toUserId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

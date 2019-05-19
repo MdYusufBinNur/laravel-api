@@ -15,12 +15,12 @@ class AddColumnsToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('role_id')->after('id');
-            $table->boolean('active')->default(1)->after('role_id');
-            $table->dateTime('registered_at')->nullable()->after('remember_token');
-            $table->dateTime('last_login_at')->nullable()->after('registered_at');
+            $table->unsignedInteger('roleId')->after('id');
+            $table->boolean('active')->default(1)->after('roleId');
+            $table->dateTime('registeredAt')->nullable()->after('remember_token');
+            $table->dateTime('lastLoginAt')->nullable()->after('registeredAt');
 
-            $table->foreign('role_id')
+            $table->foreign('roleId')
                 ->references('id')->on('roles')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

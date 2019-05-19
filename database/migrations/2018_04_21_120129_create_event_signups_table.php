@@ -16,19 +16,19 @@ class CreateEventSignupsTable extends Migration
         Schema::create('event_signups', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('event_id');
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('resident_id');
+            $table->unsignedInteger('eventId');
+            $table->unsignedInteger('userId');
+            $table->unsignedInteger('residentId');
             $table->unsignedMediumInteger('guests');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('event_id')
+            $table->foreign('eventId')
                 ->references('id')->on('events')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('user_id')
+            $table->foreign('userId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

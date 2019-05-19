@@ -16,9 +16,9 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('property_id');
-            $table->unsignedInteger('created_user_id');
-            $table->unsignedInteger('deleted_user_id')->nullable();
+            $table->unsignedInteger('propertyId');
+            $table->unsignedInteger('createdUserId');
+            $table->unsignedInteger('deletedUserId')->nullable();
             $table->string('marketplace');
             $table->string('wall');
             $table->string('recommend');
@@ -28,23 +28,23 @@ class CreatePostsTable extends Migration
             $table->string('pending');
             $table->string('approved');
             $table->string('denied');
-            $table->smallInteger('like_count')->nullable();
-            $table->text('like_users')->nullable();
+            $table->smallInteger('likeCount')->nullable();
+            $table->text('likeUsers')->nullable();
             $table->boolean('attachment')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('property_id')
+            $table->foreign('propertyId')
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('created_user_id')
+            $table->foreign('createdUserId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('deleted_user_id')
+            $table->foreign('deletedUserId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

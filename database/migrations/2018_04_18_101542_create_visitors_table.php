@@ -16,10 +16,10 @@ class CreateVisitorsTable extends Migration
         Schema::create('visitors', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('property_id');
-            $table->unsignedInteger('signin_user_id');
-            $table->unsignedInteger('unit_id');
-            $table->unsignedInteger('visitor_type_id');
+            $table->unsignedInteger('propertyId');
+            $table->unsignedInteger('signinUserId');
+            $table->unsignedInteger('unitId');
+            $table->unsignedInteger('visitorTypeId');
             $table->string('name');
             $table->string('phone', 20);
             $table->string('email', 100)->nullable();
@@ -30,26 +30,26 @@ class CreateVisitorsTable extends Migration
             $table->boolean('signature')->default(0);
             $table->string('active');
             $table->string('archive');
-            $table->dateTime('signin_at');
+            $table->dateTime('signinAt');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('property_id')
+            $table->foreign('propertyId')
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('signin_user_id')
+            $table->foreign('signinUserId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('unit_id')
+            $table->foreign('unitId')
                 ->references('id')->on('units')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('visitor_type_id')
+            $table->foreign('visitorTypeId')
                 ->references('id')->on('visitor_types')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

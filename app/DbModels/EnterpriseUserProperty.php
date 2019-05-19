@@ -14,6 +14,6 @@ class EnterpriseUserProperty extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'enterprise_user_id', 'property_id', 'active'
+        'createdByUserId', 'enterpriseUserId', 'propertyId', 'active'
     ];
 }

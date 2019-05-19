@@ -16,20 +16,20 @@ class CreateFdisTable extends Migration
         Schema::create('fdis', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('property_id');
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('unit_id');
-            $table->unsignedInteger('guest_type_id');
+            $table->unsignedInteger('propertyId');
+            $table->unsignedInteger('userId');
+            $table->unsignedInteger('unitId');
+            $table->unsignedInteger('guestTypeId');
             $table->string('guest');
             $table->string('mail');
             $table->string('general');
             $table->string('name');
             $table->boolean('photo')->default(0);
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
+            $table->date('startDate')->nullable();
+            $table->date('endDate')->nullable();
             $table->boolean('permanent')->default(0);
             $table->text('comments')->nullable();
-            $table->boolean('can_get_key')->default(0);
+            $table->boolean('canGetKey')->default(0);
             $table->boolean('signature')->default(0);
             $table->string('active');
             $table->string('deleted');
@@ -37,17 +37,17 @@ class CreateFdisTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('property_id')
+            $table->foreign('propertyId')
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('unit_id')
+            $table->foreign('unitId')
                 ->references('id')->on('units')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('guest_type_id')
+            $table->foreign('guestTypeId')
                 ->references('id')->on('fdi_guest_types')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

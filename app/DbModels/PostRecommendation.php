@@ -14,6 +14,6 @@ class PostRecommendation extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'post_id', 'type_id', 'name', 'description', 'contact', 'website'
+        'createdByUserId', 'postId', 'typeId', 'name', 'description', 'contact', 'website'
     ];
 }

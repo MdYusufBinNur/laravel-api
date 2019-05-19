@@ -17,6 +17,6 @@ class ServiceRequestCategory extends Model
      * @var array
      */
     protected $fillable = [
-        'property_id', 'parent_id', 'title', 'type', 'active', 'createdByUserId'
+        'propertyId', 'parentId', 'title', 'type', 'active', 'createdByUserId'
     ];
 }

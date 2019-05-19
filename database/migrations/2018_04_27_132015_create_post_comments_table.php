@@ -16,9 +16,9 @@ class CreatePostCommentsTable extends Migration
         Schema::create('post_comments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('post_id');
-            $table->unsignedInteger('created_user_id');
-            $table->unsignedInteger('deleted_user_id')->nullable();
+            $table->unsignedInteger('postId');
+            $table->unsignedInteger('createdUserId');
+            $table->unsignedInteger('deletedUserId')->nullable();
             $table->string('posted');
             $table->string('pending');
             $table->string('approved');
@@ -27,17 +27,17 @@ class CreatePostCommentsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('post_id')
+            $table->foreign('postId')
                 ->references('id')->on('posts')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('created_user_id')
+            $table->foreign('createdUserId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('deleted_user_id')
+            $table->foreign('deletedUserId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

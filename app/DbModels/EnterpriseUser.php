@@ -17,6 +17,6 @@ class EnterpriseUser extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'user_id', 'company_id', 'contact_email', 'phone', 'title', 'level'
+        'createdByUserId', 'userId', 'companyId', 'contactEmail', 'phone', 'title', 'level'
     ];
 }

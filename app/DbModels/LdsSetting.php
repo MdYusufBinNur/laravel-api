@@ -24,6 +24,6 @@ class LdsSetting extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'property_id', 'refresh_rate', 'show_packages', 'icon_size', 'icon_color', 'theme'
+        'createdByUserId', 'propertyId', 'refreshRate', 'showPackages', 'iconSize', 'iconColor', 'theme'
     ];
 }

@@ -14,6 +14,6 @@ class ModuleOptionProperty extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'property_id', 'module_option_id', 'value'
+        'createdByUserId', 'propertyId', 'moduleOptionId', 'value'
     ];
 }

@@ -14,6 +14,6 @@ class LdsBlacklistUnit extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'property_id', 'unit_id'
+        'createdByUserId', 'propertyId', 'unitId'
     ];
 }

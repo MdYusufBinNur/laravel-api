@@ -14,6 +14,6 @@ class PackageArchive extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'package_id', 'signout_user_id', 'signout_comments', 'signature', 'signout_at',
+        'createdByUserId', 'propertyId', 'signoutUserId', 'signoutComments', 'signature', 'signoutAt',
     ];
 }

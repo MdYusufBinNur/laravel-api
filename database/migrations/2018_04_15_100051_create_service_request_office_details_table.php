@@ -13,28 +13,28 @@ class CreateServiceRequestOfficeDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('service_request_office_details', function (Blueprint $table) {
+        Schema::create('serviceRequestOfficeDetails', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('service_request_id');
-            $table->unsignedInteger('assigned_user_id');
-            $table->string('material_used')->nullable();
-            $table->string('material_amount')->nullable();
+            $table->unsignedInteger('serviceRequestId');
+            $table->unsignedInteger('assignedUserId');
+            $table->string('materialUsed')->nullable();
+            $table->string('materialAmount')->nullable();
             $table->string('handyman')->nullable();
-            $table->boolean('outside_contactor')->default(0);
-            $table->text('parts_needed')->nullable();
+            $table->boolean('outsideContactor')->default(0);
+            $table->text('partsNeeded')->nullable();
             $table->text('comments')->nullable();
-            $table->boolean('temporarily_repaired')->default(0);
+            $table->boolean('temporarilyRepaired')->default(0);
             $table->boolean('signature')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('assigned_user_id')
+            $table->foreign('assignedUserId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('service_request_id')
+            $table->foreign('serviceRequestId')
                 ->references('id')->on('service_requests')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

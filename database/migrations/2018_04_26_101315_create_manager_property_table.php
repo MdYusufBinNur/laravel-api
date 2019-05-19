@@ -16,17 +16,17 @@ class CreateManagerPropertyTable extends Migration
         Schema::create('manager_property', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('manager_id');
-            $table->unsignedInteger('property_id');
+            $table->unsignedInteger('managerId');
+            $table->unsignedInteger('propertyId');
             $table->boolean('active')->default(1);
             $table->timestamps();
 
-            $table->foreign('property_id')
+            $table->foreign('propertyId')
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('manager_id')
+            $table->foreign('managerId')
                 ->references('id')->on('managers')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

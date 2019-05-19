@@ -16,10 +16,10 @@ class CreatePostApprovalBlacklistUnitsTable extends Migration
         Schema::create('post_approval_blacklist_units', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('unit_id');
+            $table->unsignedInteger('unitId');
             $table->timestamps();
 
-            $table->foreign('unit_id')
+            $table->foreign('unitId')
                 ->references('id')->on('units')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

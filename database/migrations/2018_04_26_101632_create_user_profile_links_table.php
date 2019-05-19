@@ -16,7 +16,7 @@ class CreateUserProfileLinksTable extends Migration
         Schema::create('user_profile_links', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('userId');
             $table->string('website');
             $table->string('company');
             $table->string('facebook');
@@ -28,7 +28,7 @@ class CreateUserProfileLinksTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('user_id')
+            $table->foreign('userId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

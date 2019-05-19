@@ -16,17 +16,17 @@ class CreateModuleOptionPropertyTable extends Migration
         Schema::create('module_option_property', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('property_id');
-            $table->unsignedInteger('module_option_id');
+            $table->unsignedInteger('propertyId');
+            $table->unsignedInteger('moduleOptionId');
             $table->mediumText('value')->nullable();
             $table->timestamps();
 
-            $table->foreign('property_id')
+            $table->foreign('propertyId')
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('module_option_id')
+            $table->foreign('moduleOptionId')
                 ->references('id')->on('module_options')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

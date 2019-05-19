@@ -16,8 +16,8 @@ class CreateServiceRequestCategoriesTable extends Migration
         Schema::create('service_request_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('property_id');
-            $table->unsignedInteger('parent_id');
+            $table->unsignedInteger('propertyId');
+            $table->unsignedInteger('parentId');
             $table->string('title');
             $table->string('unit');
             $table->string('commonArea');
@@ -25,12 +25,12 @@ class CreateServiceRequestCategoriesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('property_id')
+            $table->foreign('propertyId')
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('parent_id')
+            $table->foreign('parentId')
                 ->references('id')->on('service_request_categories')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

@@ -14,6 +14,6 @@ class PostWall extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'fdi_id', 'text'
+        'createdByUserId', 'fdiId', 'text'
     ];
 }

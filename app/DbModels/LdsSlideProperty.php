@@ -14,6 +14,6 @@ class LdsSlideProperty extends Pivot
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'property_id', 'slide_id'
+        'createdByUserId', 'propertyId', 'slideId'
     ];
 }

@@ -16,8 +16,9 @@ class CreatePostMarketplacesTable extends Migration
         Schema::create('post_marketplaces', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('post_id');
-            $table->enum('type', ['BUY','SELL']);
+            $table->unsignedInteger('postId');
+            $table->string('buy');
+            $table->string('sell');
             $table->string('title');
             $table->string('price')->nullable();
             $table->mediumText('description')->nullable();
@@ -25,7 +26,7 @@ class CreatePostMarketplacesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('post_id')
+            $table->foreign('postId')
                 ->references('id')->on('posts')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

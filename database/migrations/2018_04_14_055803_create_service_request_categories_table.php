@@ -19,7 +19,8 @@ class CreateServiceRequestCategoriesTable extends Migration
             $table->unsignedInteger('property_id');
             $table->unsignedInteger('parent_id');
             $table->string('title');
-            $table->enum('type', ['UNIT', 'COMMON_AREA']);
+            $table->string('unit');
+            $table->string('commonArea');
             $table->boolean('active')->default(1);
             $table->timestamps();
             $table->softDeletes();

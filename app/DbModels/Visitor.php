@@ -8,6 +8,9 @@ class Visitor extends Model
 {
     use CommonModelFeatures;
 
+    const STATUS_ACTIVE = 'active';
+    const STATUS_ARCHIVE = 'archive';
+    
     /**
      * The attributes that are mass assignable.
      *

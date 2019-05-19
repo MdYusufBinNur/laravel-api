@@ -8,6 +8,9 @@ class ServiceRequestCategory extends Model
 {
     use CommonModelFeatures;
 
+    const TYPE_UNIT = 'unit';
+    const TYPE_COMMON = 'commonArea';
+
     /**
      * The attributes that are mass assignable.
      *

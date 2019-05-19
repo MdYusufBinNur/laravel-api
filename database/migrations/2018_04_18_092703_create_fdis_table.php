@@ -20,7 +20,9 @@ class CreateFdisTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('unit_id');
             $table->unsignedInteger('guest_type_id');
-            $table->enum('type', ['GUEST', 'MAIL', 'GENERAL']);
+            $table->string('guest');
+            $table->string('mail');
+            $table->string('general');
             $table->string('name');
             $table->boolean('photo')->default(0);
             $table->date('start_date')->nullable();
@@ -29,7 +31,9 @@ class CreateFdisTable extends Migration
             $table->text('comments')->nullable();
             $table->boolean('can_get_key')->default(0);
             $table->boolean('signature')->default(0);
-            $table->enum('status', ['ACTIVE', 'DELETED', 'PENDING_APPROVAL']);
+            $table->string('active');
+            $table->string('deleted');
+            $table->string('pendingApproval');
             $table->timestamps();
             $table->softDeletes();
 

@@ -28,7 +28,8 @@ class CreateResidentsTable extends Migration
             $table->boolean('display_public_profile')->default(1);
             $table->boolean('allow_post_note')->default(1);
             $table->boolean('allow_send_message')->default(1);
-            $table->enum('default_dial', ['HOME_PHONE', 'CELL_PHONE'])->default('HOME_PHONE');
+            $table->string('homePhone');
+            $table->string('cellPhone');
             $table->string('home_phone', 20)->nullable();
             $table->string('cell_phone', 20)->nullable();
             $table->string('employer_name')->nullable();

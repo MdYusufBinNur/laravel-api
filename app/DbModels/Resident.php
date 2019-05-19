@@ -8,6 +8,9 @@ class Resident extends Model
 {
     use CommonModelFeatures;
 
+    const DEFAULT_DIAL_HOME_PHONE = 'homePhone';
+    const DEFAULT_DIAL_CELL_PHONE = 'cellPhone';
+
     /**
      * The attributes that are mass assignable.
      *

@@ -17,7 +17,8 @@ class CreateUserProfilesTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('user_id');
-            $table->enum('gender', ['MALE', 'FEMALE']);
+            $table->string('male');
+            $table->string('female');
             $table->string('occupation')->nullable();
             $table->string('home_town')->nullable();
             $table->date('birth_date')->nullable();

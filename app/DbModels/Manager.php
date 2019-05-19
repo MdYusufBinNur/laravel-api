@@ -8,6 +8,11 @@ class Manager extends Model
 {
     use CommonModelFeatures;
 
+    const LEVEL_ADMIN = 'admin';
+    const LEVEL_STANDARD = 'standard';
+    const LEVEL_LIMITED = 'limited';
+    const LEVEL_RESTRICTED = 'restricted';
+
     /**
      * The attributes that are mass assignable.
      *

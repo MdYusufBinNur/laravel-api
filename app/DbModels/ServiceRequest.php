@@ -8,6 +8,14 @@ class ServiceRequest extends Model
 {
     use CommonModelFeatures;
 
+    const TYPE_UNIT = 'unit';
+    const TYPE_COMMON_AREA = 'commonArea';
+    const TYPE_EQUIPMENT = 'equipment';
+
+    const FEEDBACK_NONE = 'none';
+    const FEEDBACK_POSITIVE = 'positive';
+    const FEEDBACK_NEGATIVE = 'negative';
+
     /**
      * The attributes that are mass assignable.
      *

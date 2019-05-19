@@ -16,17 +16,17 @@ class CreateMessagePostsTable extends Migration
         Schema::create('message_posts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('message_id');
-            $table->unsignedInteger('from_user_id');
+            $table->unsignedInteger('messageId');
+            $table->unsignedInteger('fromUserId');
             $table->mediumText('text');
             $table->timestamps();
 
-            $table->foreign('message_id')
+            $table->foreign('messageId')
                 ->references('id')->on('messages')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('from_user_id')
+            $table->foreign('fromUserId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

@@ -19,6 +19,6 @@ class PostComment extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'post_id', 'created_user_id', 'deleted_user_id', 'status', 'text', 'active'
+        'createdByUserId', 'postId', 'createdUserId', 'deletedUserId', 'status', 'text', 'active'
     ];
 }

@@ -16,13 +16,13 @@ class CreateModuleOptionsTable extends Migration
         Schema::create('module_options', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('module_id');
+            $table->unsignedInteger('moduleId');
             $table->string('key');
             $table->string('title');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('module_id')
+            $table->foreign('moduleId')
                 ->references('id')->on('modules')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

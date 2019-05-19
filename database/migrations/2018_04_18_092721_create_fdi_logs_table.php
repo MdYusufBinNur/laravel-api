@@ -16,8 +16,8 @@ class CreateFdiLogsTable extends Migration
         Schema::create('fdi_logs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('fdi_id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('fdiId');
+            $table->unsignedInteger('userId');
             $table->mediumText('text');
             $table->string('add');
             $table->string('edit');
@@ -27,12 +27,12 @@ class CreateFdiLogsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('fdi_id')
+            $table->foreign('fdiId')
                 ->references('id')->on('fdis')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('user_id')
+            $table->foreign('userId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

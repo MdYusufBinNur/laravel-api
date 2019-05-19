@@ -16,20 +16,20 @@ class CreateMessageUsersTable extends Migration
         Schema::create('message_users', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('message_id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('messageId');
+            $table->unsignedInteger('userId');
             $table->string('inbox');
             $table->string('sent');
-            $table->boolean('is_read')->default(0);
+            $table->boolean('isRead')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('message_id')
+            $table->foreign('messageId')
                 ->references('id')->on('messages')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('user_id')
+            $table->foreign('userId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

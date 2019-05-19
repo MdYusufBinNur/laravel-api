@@ -18,6 +18,6 @@ class Admin extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'user_id', 'level',
+        'createdByUserId', 'userId', 'level',
     ];
 }

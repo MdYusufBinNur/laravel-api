@@ -14,6 +14,6 @@ class Message extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'property_id', 'from_user_id', 'to_user_id', 'subject', 'is_group_message', 'group', 'group_names', 'email_notification', 'sms_notification', 'voice_notification'
+        'createdByUserId', 'propertyId', 'fromUserId', 'toUserId', 'subject', 'isGroupMessage', 'group', 'groupNames', 'emailNotification', 'smsNotification', 'voiceNotification'
     ];
 }

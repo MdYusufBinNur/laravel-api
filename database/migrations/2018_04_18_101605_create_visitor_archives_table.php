@@ -16,19 +16,19 @@ class CreateVisitorArchivesTable extends Migration
         Schema::create('visitor_archives', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('visitor_id');
-            $table->unsignedInteger('signout_user_id');
+            $table->unsignedInteger('visitorId');
+            $table->unsignedInteger('signoutUserId');
             $table->boolean('signature')->default(0);
             $table->dateTime('signout_at');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('visitor_id')
+            $table->foreign('visitorId')
                 ->references('id')->on('visitors')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('signout_user_id')
+            $table->foreign('signoutUserId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

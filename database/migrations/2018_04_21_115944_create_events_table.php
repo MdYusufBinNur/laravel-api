@@ -16,26 +16,26 @@ class CreateEventsTable extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('property_id');
-            $table->unsignedInteger('created_user_id');
+            $table->unsignedInteger('propertyId');
+            $table->unsignedInteger('createdUserId');
             $table->string('title');
             $table->mediumText('text')->nullable();
-            $table->unsignedMediumInteger('max_guests');
-            $table->boolean('allowed_sign_up')->default(0);
-            $table->boolean('allday_event')->default(0);
-            $table->boolean('allowed_login_page')->default(0);
-            $table->boolean('has_attachment')->default(0);
-            $table->dateTime('start_at');
-            $table->dateTime('end_at');
+            $table->unsignedMediumInteger('maxGuests');
+            $table->boolean('allowedSignUp')->default(0);
+            $table->boolean('alldayEvent')->default(0);
+            $table->boolean('allowedLoginPage')->default(0);
+            $table->boolean('hasAttachment')->default(0);
+            $table->dateTime('startAt');
+            $table->dateTime('endAt');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('property_id')
+            $table->foreign('propertyId')
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('created_user_id')
+            $table->foreign('createdUserId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

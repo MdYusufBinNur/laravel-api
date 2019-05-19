@@ -19,7 +19,7 @@ class StoreRequest extends Request
             'address'   => 'required|min:3',
             'city'      => '',
             'state'     => '',
-            'post_code' => '',
+            'postCode' => '',
             'country'   => '',
             'active'    => '',
         ];

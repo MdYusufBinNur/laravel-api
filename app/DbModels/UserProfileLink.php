@@ -21,6 +21,6 @@ class UserProfileLink extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'user_id', 'title', 'url', 'type'
+        'createdByUserId', 'userId', 'title', 'url', 'type'
     ];
 }

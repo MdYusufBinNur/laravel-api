@@ -24,7 +24,7 @@ class CompanyResource extends JsonResource
             'state' => $this->state,
             'country' => $this->country,
             'active' => $this->active,
-            'created_by_user' => $this->created_by_user_id,
+            'createdByUser' => $this->createdByUserId,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

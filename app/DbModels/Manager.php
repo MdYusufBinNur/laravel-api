@@ -19,6 +19,6 @@ class Manager extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'user_id', 'contact_email', 'phone', 'title', 'level', 'display_in_corner', 'display_public_profile'
+        'createdByUserId', 'userId', 'contactEmail', 'phone', 'title', 'level', 'displayInCorner', 'displayPublicProfile'
     ];
 }

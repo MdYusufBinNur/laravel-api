@@ -17,6 +17,6 @@ class MessageUser extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'message_id', 'user_id', 'folder', 'is_read'
+        'createdByUserId', 'messageId', 'userId', 'folder', 'isRead'
     ];
 }

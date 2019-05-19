@@ -16,20 +16,20 @@ class CreateManagersTable extends Migration
         Schema::create('managers', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('user_id');
-            $table->string('contact_email')->nullable();
+            $table->unsignedInteger('userId');
+            $table->string('contactEmail')->nullable();
             $table->string('phone', 20)->nullable();
             $table->string('title')->nullable();
             $table->string('admin');
             $table->string('standard');
             $table->string('limited');
             $table->string('restricted');
-            $table->boolean('display_in_corner')->default(1);
-            $table->boolean('display_public_profile')->default(1);
+            $table->boolean('displayInCorner')->default(1);
+            $table->boolean('displayPublicProfile')->default(1);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('user_id')
+            $table->foreign('userId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

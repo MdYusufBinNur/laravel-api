@@ -16,15 +16,15 @@ class CreateResidentVehiclesTable extends Migration
         Schema::create('resident_vehicles', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('resident_id');
+            $table->unsignedInteger('residentId');
             $table->string('make')->nullable();
             $table->string('model')->nullable();
             $table->string('color')->nullable();
-            $table->string('license_plate');
+            $table->string('licensePlate');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('resident_id')
+            $table->foreign('residentId')
                 ->references('id')->on('residents')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

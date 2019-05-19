@@ -14,6 +14,6 @@ class PostPoll extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'post_id', 'text', 'votes', 'voters'
+        'createdByUserId', 'postId', 'text', 'votes', 'voters'
     ];
 }

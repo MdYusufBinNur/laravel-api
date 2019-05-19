@@ -16,15 +16,15 @@ class CreatePropertyDesignSettingsTable extends Migration
         Schema::create('property_design_settings', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('property_id');
-            $table->tinyInteger('theme_id')->nullable();
-            $table->string('selected_background', 10)->nullable();
-            $table->string('selected_headline', 10)->nullable();
-            $table->string('custom_image')->nullable();
-            $table->boolean('tile_uploaded_image')->default(0);
+            $table->unsignedInteger('propertyId');
+            $table->tinyInteger('themeId')->nullable();
+            $table->string('selectedBackground', 10)->nullable();
+            $table->string('selectedHeadline', 10)->nullable();
+            $table->string('customImage')->nullable();
+            $table->boolean('tileUploadedImage')->default(0);
             $table->timestamps();
 
-            $table->foreign('property_id')
+            $table->foreign('propertyId')
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

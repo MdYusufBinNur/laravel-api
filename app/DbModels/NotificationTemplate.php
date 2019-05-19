@@ -14,6 +14,6 @@ class NotificationTemplate extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'type_id', 'title', 'text', 'editable'
+        'createdByUserId', 'typeId', 'title', 'text', 'editable'
     ];
 }

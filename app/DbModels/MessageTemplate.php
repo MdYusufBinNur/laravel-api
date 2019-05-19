@@ -14,6 +14,6 @@ class MessageTemplate extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'property_id', 'title', 'text'
+        'createdByUserId', 'propertyId', 'title', 'text'
     ];
 }

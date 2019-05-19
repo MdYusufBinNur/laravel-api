@@ -16,21 +16,21 @@ class CreateNotificationFeedsTable extends Migration
         Schema::create('notification_feeds', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('property_id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('propertyId');
+            $table->unsignedInteger('userId');
             $table->string('name');
             $table->mediumText('content');
-            $table->boolean('is_read')->default(0);
-            $table->boolean('is_viewed')->default(0);
+            $table->boolean('isRead')->default(0);
+            $table->boolean('isViewed')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('property_id')
+            $table->foreign('propertyId')
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('user_id')
+            $table->foreign('userId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

@@ -16,42 +16,42 @@ class CreateServiceRequestsTable extends Migration
         Schema::create('service_requests', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('unit_id');
-            $table->unsignedInteger('category_id');
-            $table->unsignedInteger('status_id');
+            $table->unsignedInteger('userId');
+            $table->unsignedInteger('unitId');
+            $table->unsignedInteger('categoryId');
+            $table->unsignedInteger('statusId');
             $table->string('unit');
             $table->string('commonArea');
             $table->string('equipment');
             $table->string('phone', 20)->nullable();
             $table->text('description');
-            $table->boolean('permission_to_enter')->default(1);
-            $table->time('preffered_start_time');
-            $table->time('preffered_end_time');
+            $table->boolean('permissionToEnter')->default(1);
+            $table->time('prefferedStartTime');
+            $table->time('prefferedEndTime');
             $table->string('none');
             $table->string('positive');
             $table->string('negative');
             $table->boolean('photo')->default(0);
-            $table->dateTime('resolved_at');
+            $table->dateTime('resolvedAt');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('user_id')
+            $table->foreign('userId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('unit_id')
+            $table->foreign('unitId')
                 ->references('id')->on('units')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('category_id')
+            $table->foreign('categoryId')
                 ->references('id')->on('service_request_categories')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('status_id')
+            $table->foreign('statusId')
                 ->references('id')->on('service_request_statuses')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

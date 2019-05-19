@@ -16,17 +16,17 @@ class CreateEnterpriseUserPropertiesTable extends Migration
         Schema::create('enterprise_user_properties', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('enterprise_user_id');
-            $table->unsignedInteger('property_id');
+            $table->unsignedInteger('enterpriseUserId');
+            $table->unsignedInteger('propertyId');
             $table->boolean('active')->default(1);
             $table->timestamps();
 
-            $table->foreign('property_id')
+            $table->foreign('propertyId')
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('enterprise_user_id')
+            $table->foreign('enterpriseUserId')
                 ->references('id')->on('enterprise_users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

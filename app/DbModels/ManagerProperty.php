@@ -14,6 +14,6 @@ class ManagerProperty extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'manager_id', 'property_id', 'active'
+        'createdByUserId', 'managerId', 'propertyId', 'active'
     ];
 }

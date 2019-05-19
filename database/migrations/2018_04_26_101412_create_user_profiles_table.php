@@ -16,21 +16,21 @@ class CreateUserProfilesTable extends Migration
         Schema::create('user_profiles', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('userId');
             $table->string('male');
             $table->string('female');
             $table->string('occupation')->nullable();
-            $table->string('home_town')->nullable();
-            $table->date('birth_date')->nullable();
+            $table->string('homeTown')->nullable();
+            $table->date('birthDate')->nullable();
             $table->string('language')->nullable();
             $table->string('website')->nullable();
-            $table->string('facebook_username', 100)->nullable();
-            $table->string('twitter_username', 100)->nullable();
-            $table->mediumText('about_me')->nullable();
+            $table->string('facebookUsername', 100)->nullable();
+            $table->string('twitterUsername', 100)->nullable();
+            $table->mediumText('aboutMe')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('user_id')
+            $table->foreign('userId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

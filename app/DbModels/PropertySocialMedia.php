@@ -14,6 +14,6 @@ class PropertySocialMedia extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'property_id', 'url', 'type'
+        'createdByUserId', 'propertyId', 'url', 'type'
     ];
 }

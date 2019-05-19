@@ -14,6 +14,6 @@ class ResidentEmergency extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'resident_id', 'name', 'relationship', 'address', 'home_phone', 'cell_phone', 'email'
+        'createdByUserId', 'residentId', 'name', 'relationship', 'address', 'homePhone', 'cellPhone', 'email'
     ];
 }

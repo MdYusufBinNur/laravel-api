@@ -14,6 +14,6 @@ class EventSignup extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'event_id', 'user_id', 'resident_id', 'guests'
+        'createdByUserId', 'eventId', 'userId', 'residentId', 'guests'
     ];
 }

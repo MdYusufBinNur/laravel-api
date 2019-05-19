@@ -16,24 +16,24 @@ class CreateResidentArchivesTable extends Migration
         Schema::create('resident_archives', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('property_id');
-            $table->unsignedInteger('resident_id');
-            $table->unsignedInteger('unit_id');
-            $table->dateTime('start_at');
-            $table->dateTime('end_at');
+            $table->unsignedInteger('propertyId');
+            $table->unsignedInteger('residentId');
+            $table->unsignedInteger('unitId');
+            $table->dateTime('startAt');
+            $table->dateTime('endAt');
             $table->timestamps();
 
-            $table->foreign('property_id')
+            $table->foreign('propertyId')
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('resident_id')
+            $table->foreign('residentId')
                 ->references('id')->on('residents')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('unit_id')
+            $table->foreign('unitId')
                 ->references('id')->on('units')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

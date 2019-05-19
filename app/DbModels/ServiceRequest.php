@@ -22,6 +22,6 @@ class ServiceRequest extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'unit_id', 'category_id', 'status_id', 'type', 'phone', 'description', 'permission_to_enter', 'preffered_start_time', 'preffered_end_time', 'feedback', 'photo', 'resolved_at', 'createdByUserId'
+        'userId', 'unitId', 'categoryId', 'statusId', 'type', 'phone', 'description', 'permissionToEnter', 'prefferedStartTime', 'prefferedEndTime', 'feedback', 'photo', 'resolvedAt', 'createdByUserId'
     ];
 }

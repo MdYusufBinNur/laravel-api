@@ -16,9 +16,9 @@ class CreateEnterpriseUsersTable extends Migration
         Schema::create('enterprise_users', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('company_id');
-            $table->string('contact_email')->nullable();
+            $table->unsignedInteger('userId');
+            $table->unsignedInteger('companyId');
+            $table->string('contactEmail')->nullable();
             $table->string('phone', 20)->nullable();
             $table->string('title')->nullable();
             $table->string('admin');
@@ -26,12 +26,12 @@ class CreateEnterpriseUsersTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('user_id')
+            $table->foreign('userId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('company_id')
+            $table->foreign('companyId')
                 ->references('id')->on('companies')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

@@ -16,14 +16,14 @@ class CreatePostPollsTable extends Migration
         Schema::create('post_polls', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('post_id');
+            $table->unsignedInteger('postId');
             $table->mediumText('text');
             $table->mediumText('votes')->nullable();
             $table->mediumText('voters')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('post_id')
+            $table->foreign('postId')
                 ->references('id')->on('posts')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

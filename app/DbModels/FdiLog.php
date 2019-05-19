@@ -20,7 +20,7 @@ class FdiLog extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'fdi_id', 'user_id', 'text', 'type'
+        'createdByUserId', 'fdiId', 'userId', 'text', 'type'
     ];
 }
 

@@ -16,9 +16,9 @@ class CreateManagerInvitationsTable extends Migration
         Schema::create('manager_invitations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('property_id');
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->unsignedInteger('propertyId');
+            $table->string('firstName');
+            $table->string('lastName');
             $table->string('email');
             $table->string('title')->nullable();
             $table->string('admin');
@@ -29,11 +29,11 @@ class CreateManagerInvitationsTable extends Migration
             $table->string('cancelled');
             $table->string('completed');
             $table->string('pin', 20)->nullable();
-            $table->dateTime('invited_at');
+            $table->dateTime('invitedAt');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('property_id')
+            $table->foreign('propertyId')
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

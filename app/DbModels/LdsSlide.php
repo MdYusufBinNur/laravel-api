@@ -17,6 +17,6 @@ class LdsSlide extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'title', 'background_color', 'image_id', 'type'
+        'createdByUserId', 'title', 'backgroundColor', 'imageId', 'type'
     ];
 }

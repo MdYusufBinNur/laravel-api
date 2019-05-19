@@ -16,10 +16,10 @@ class CreateResidentAccessRequestsTable extends Migration
         Schema::create('resident_access_requests', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('property_id');
-            $table->unsignedInteger('unit_id');
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->unsignedInteger('propertyId');
+            $table->unsignedInteger('unitId');
+            $table->string('firstName');
+            $table->string('lastName');
             $table->string('email');
             $table->string('type')->nullable();
             $table->string('groups')->nullable();
@@ -29,19 +29,19 @@ class CreateResidentAccessRequestsTable extends Migration
             $table->string('completed');
             $table->boolean('active')->default(1);
             $table->mediumText('comments')->nullable();
-            $table->unsignedInteger('moderated_user_id')->nullable();
-            $table->dateTime('moderated_at')->nullable();
-            $table->date('movedin_date');
-            $table->date('birth_date');
+            $table->unsignedInteger('moderatedUserId')->nullable();
+            $table->dateTime('moderatedAt')->nullable();
+            $table->date('movedinDate');
+            $table->date('birthDate');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('property_id')
+            $table->foreign('propertyId')
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('unit_id')
+            $table->foreign('unitId')
                 ->references('id')->on('units')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

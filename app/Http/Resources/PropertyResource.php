@@ -23,7 +23,7 @@ class PropertyResource extends Resource
             'address'    => $this->address,
             'city'       => $this->city,
             'state'      => $this->state,
-            'post_code'  => $this->post_code,
+            'postCode'  => $this->postCode,
             'country'    => $this->country,
             'language'   => $this->language,
             'timezone'   => $this->timezone,

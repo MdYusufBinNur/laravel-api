@@ -14,6 +14,6 @@ class NotificationTemplateProperty extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'property_id', 'template_id'
+        'createdByUserId', 'propertyId', 'templateId'
     ];
 }

@@ -14,6 +14,6 @@ class ResidentArchive extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'property_id', 'resident_id', 'unit_id', 'start_at', 'end_at'
+        'createdByUserId', 'propertyId', 'residentId', 'unitId', 'startAt', 'endAt'
     ];
 }

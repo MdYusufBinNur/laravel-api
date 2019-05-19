@@ -16,12 +16,12 @@ class CreatePostWallsTable extends Migration
         Schema::create('post_walls', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('post_id');
+            $table->unsignedInteger('postId');
             $table->mediumText('text');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('post_id')
+            $table->foreign('postId')
                 ->references('id')->on('posts')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

@@ -16,34 +16,34 @@ class CreatePackagesTable extends Migration
         Schema::create('packages', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('unit_id');
-            $table->unsignedInteger('resident_id');
-            $table->unsignedInteger('type_id');
-            $table->unsignedInteger('entered_user_id');
-            $table->string('tracking_number')->nullable();
+            $table->unsignedInteger('unitId');
+            $table->unsignedInteger('residentId');
+            $table->unsignedInteger('typeId');
+            $table->unsignedInteger('enteredUserId');
+            $table->string('trackingNumber')->nullable();
             $table->text('comments')->nullable();
-            $table->boolean('notified_by_email')->default(0);
-            $table->boolean('notified_by_text')->default(0);
-            $table->boolean('notified_by_voice')->default(0);
+            $table->boolean('notifiedByEmail')->default(0);
+            $table->boolean('notifiedByText')->default(0);
+            $table->boolean('notifiedByVoice')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('unit_id')
+            $table->foreign('unitId')
                 ->references('id')->on('units')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('resident_id')
+            $table->foreign('residentId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('entered_user_id')
+            $table->foreign('enteredUserId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('type_id')
+            $table->foreign('typeId')
                 ->references('id')->on('package_types')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

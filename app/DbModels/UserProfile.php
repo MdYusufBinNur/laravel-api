@@ -17,6 +17,6 @@ class UserProfile extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'user_id', 'gender', 'occupation', 'home_town', 'birth_date', 'language', 'website', 'facebook_username', 'twitter_username', 'about_me'
+        'createdByUserId', 'userId', 'gender', 'occupation', 'homeTown', 'birthDate', 'language', 'website', 'facebookUsername', 'twitterUsername', 'aboutMe'
     ];
 }

@@ -20,7 +20,7 @@ class CreateCompaniesTable extends Migration
             $table->string('address');
             $table->string('city')->nullable();
             $table->string('state')->nullable();
-            $table->string('post_code', 10)->nullable();
+            $table->string('postCode', 10)->nullable();
             $table->string('country', 10)->default('BD');
             $table->boolean('active')->default(1);
             $table->timestamps();

@@ -16,13 +16,13 @@ class CreateMessageTemplatesTable extends Migration
         Schema::create('message_templates', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('property_id');
+            $table->unsignedInteger('propertyId');
             $table->string('title');
             $table->mediumText('text');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('property_id')
+            $table->foreign('propertyId')
                 ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

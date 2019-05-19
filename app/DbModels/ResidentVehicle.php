@@ -14,6 +14,6 @@ class ResidentVehicle extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'resident_id', 'make', 'model', 'color', 'license_plate'
+        'createdByUserId', 'residentId', 'make', 'model', 'color', 'licensePlate'
     ];
 }

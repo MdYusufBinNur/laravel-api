@@ -14,14 +14,14 @@ class UpdateRequest extends Request
     public function rules()
     {
         return $rules = [
-            'company_id' => 'numeric|exists:companies,id',
+            'companyId' => 'numeric|exists:companies,id',
             'title'      => 'min:3',
             'type'       => 'max:50',
             'subdomain'  => 'unique:properties,subdomain',
             'address'    => 'min:3',
             'city'       => '',
             'state'      => '',
-            'post_code'  => 'max:10',
+            'postCode'  => 'max:10',
             'country'    => 'max:10',
             'language'   => 'max:10',
             'timezone'   => 'max:50',

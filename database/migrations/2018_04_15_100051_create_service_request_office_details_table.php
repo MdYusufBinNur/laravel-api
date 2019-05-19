@@ -13,7 +13,7 @@ class CreateServiceRequestOfficeDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('serviceRequestOfficeDetails', function (Blueprint $table) {
+        Schema::create('service_request_office_details', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('serviceRequestId');

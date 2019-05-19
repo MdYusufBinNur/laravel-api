@@ -18,7 +18,7 @@ class UpdateRequest extends Request
             'address'   => 'min:3',
             'city'      => '',
             'state'     => '',
-            'post_code' => '',
+            'postCode' => '',
             'country'   => '',
             'active'    => '',
         ];

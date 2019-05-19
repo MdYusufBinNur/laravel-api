@@ -16,14 +16,14 @@ class IndexRequest extends Request
     {
         return $rules = [
             'id'         => 'list:numeric',
-            'company_id' => 'list:numeric',
+            'companyId' => 'list:numeric',
             'type'       => 'list:string',
             'title'      => 'list:string',
             'subdomain'  => 'list:string',
             'address'    => 'list:string',
             'city'       => 'list:string',
             'state'      => 'list:string',
-            'post_code'  => 'list:string',
+            'postCode'  => 'list:string',
             'country'    => 'list:string',
             'language'   => 'list:string',
             'timezone'   => 'list:string',

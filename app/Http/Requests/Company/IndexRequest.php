@@ -19,7 +19,7 @@ class IndexRequest extends Request
             'title'     => 'list:string',
             'city'      => 'list:string',
             'state'     => 'list:string',
-            'post_code' => 'list:string',
+            'postCode' => 'list:string',
             'active'    => 'list:string',
         ];
     }

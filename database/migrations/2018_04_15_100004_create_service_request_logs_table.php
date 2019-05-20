@@ -27,6 +27,7 @@ class CreateServiceRequestLogsTable extends Migration
             $table->string('negative');
             $table->boolean('status')->default(1);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('userId')
                 ->references('id')->on('users')

@@ -20,6 +20,7 @@ class CreateModuleOptionPropertyTable extends Migration
             $table->unsignedInteger('moduleOptionId');
             $table->mediumText('value')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('propertyId')
                 ->references('id')->on('properties')

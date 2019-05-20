@@ -23,6 +23,8 @@ class CreateRolesTable extends Migration
                 ->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
+            $table->softDeletes();
         });
     }
 

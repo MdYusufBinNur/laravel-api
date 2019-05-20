@@ -23,6 +23,7 @@ class CreatePropertyDesignSettingsTable extends Migration
             $table->string('customImage')->nullable();
             $table->boolean('tileUploadedImage')->default(0);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('propertyId')
                 ->references('id')->on('properties')

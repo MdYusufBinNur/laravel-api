@@ -22,6 +22,7 @@ class CreateUserNotificationSettingsTable extends Migration
             $table->boolean('sms')->default(1);
             $table->boolean('voice')->default(1);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('userId')
                 ->references('id')->on('users')

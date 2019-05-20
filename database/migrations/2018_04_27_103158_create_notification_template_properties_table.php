@@ -19,6 +19,7 @@ class CreateNotificationTemplatePropertiesTable extends Migration
             $table->unsignedInteger('propertyId');
             $table->unsignedInteger('templateId');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('propertyId')
                 ->references('id')->on('properties')

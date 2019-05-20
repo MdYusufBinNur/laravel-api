@@ -19,6 +19,7 @@ class CreatePackageTypesTable extends Migration
             $table->string('title');
             $table->tinyInteger('icon');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('createdByUserId')
                 ->references('id')->on('users')

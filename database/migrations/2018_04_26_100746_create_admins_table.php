@@ -21,6 +21,7 @@ class CreateAdminsTable extends Migration
             $table->string('standard');
             $table->string('limited');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('userId')
                 ->references('id')->on('users')

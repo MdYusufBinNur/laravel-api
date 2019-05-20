@@ -19,6 +19,7 @@ class CreateLdsSlidePropertyTable extends Migration
             $table->unsignedInteger('propertyId');
             $table->unsignedInteger('slideId');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('propertyId')
                 ->references('id')->on('properties')

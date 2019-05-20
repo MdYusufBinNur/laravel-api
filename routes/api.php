@@ -19,3 +19,4 @@ Route::get('/', function (Request $request) {
 
 Route::resource('company', 'CompanyController', ['except' => ['create', 'edit']]);
 Route::resource('property', 'PropertyController', ['except' => ['create', 'edit']]);
+Route::resource('tower', 'TowerController', ['except' => ['create', 'edit']]);

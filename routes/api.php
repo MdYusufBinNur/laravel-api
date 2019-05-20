@@ -21,3 +21,4 @@ Route::resource('company', 'CompanyController', ['except' => ['create', 'edit']]
 Route::resource('property', 'PropertyController', ['except' => ['create', 'edit']]);
 Route::resource('tower', 'TowerController', ['except' => ['create', 'edit']]);
 Route::resource('role', 'RoleController', ['except' => ['create', 'edit']]);
+Route::resource('resident', 'ResidentController', ['except' => ['create', 'edit']]);

@@ -4,14 +4,17 @@ namespace App\Providers;
 
 use App\DbModels\Company;
 use App\DbModels\Property;
+use App\DbModels\Resident;
 use App\DbModels\Role;
 use App\DbModels\Tower;
 use App\Repositories\Contracts\CompanyRepository;
 use App\Repositories\Contracts\PropertyRepository;
+use App\Repositories\Contracts\ResidentRepository;
 use App\Repositories\Contracts\RoleRepository;
 use App\Repositories\Contracts\TowerRepository;
 use App\Repositories\EloquentCompanyRepository;
 use App\Repositories\EloquentPropertyRepository;
+use App\Repositories\EloquentResidentRepository;
 use App\Repositories\EloquentRoleRepository;
 use App\Repositories\EloquentTowerRepository;
 use Illuminate\Support\ServiceProvider;
@@ -55,6 +58,10 @@ class RepositoryServiceProvider extends ServiceProvider
             return new EloquentRoleRepository(new Role());
         });
 
+        // bind ResidentRepository
+        $this->app->bind(ResidentRepository::class, function() {
+            return new EloquentResidentRepository(new Resident());
+        });
 
     }
 }

@@ -7,11 +7,14 @@ use App\DbModels\Property;
 use App\DbModels\Resident;
 use App\DbModels\Role;
 use App\DbModels\Tower;
+use App\DbModels\Unit;
 use App\Repositories\Contracts\CompanyRepository;
+use App\Repositories\EloquentUnitRepository;
 use App\Repositories\Contracts\PropertyRepository;
 use App\Repositories\Contracts\ResidentRepository;
 use App\Repositories\Contracts\RoleRepository;
 use App\Repositories\Contracts\TowerRepository;
+use App\Repositories\Contracts\UnitRepository;
 use App\Repositories\EloquentCompanyRepository;
 use App\Repositories\EloquentPropertyRepository;
 use App\Repositories\EloquentResidentRepository;
@@ -61,6 +64,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind ResidentRepository
         $this->app->bind(ResidentRepository::class, function() {
             return new EloquentResidentRepository(new Resident());
+        });
+
+        // bind UnitRepository
+        $this->app->bind(UnitRepository::class, function() {
+            return new EloquentUnitRepository(new Unit());
         });
 
     }

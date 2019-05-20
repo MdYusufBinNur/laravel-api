@@ -22,6 +22,7 @@ class CreateResidentArchivesTable extends Migration
             $table->dateTime('startAt');
             $table->dateTime('endAt');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('propertyId')
                 ->references('id')->on('properties')

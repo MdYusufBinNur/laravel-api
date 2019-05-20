@@ -18,6 +18,7 @@ class CreatePostApprovalBlacklistUnitsTable extends Migration
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('unitId');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('unitId')
                 ->references('id')->on('units')

@@ -19,6 +19,7 @@ class CreateLdsBlacklistUnitsTable extends Migration
             $table->unsignedInteger('propertyId');
             $table->unsignedInteger('unitId');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('propertyId')
                 ->references('id')->on('properties')

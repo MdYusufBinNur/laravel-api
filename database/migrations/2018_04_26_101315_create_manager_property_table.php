@@ -20,6 +20,7 @@ class CreateManagerPropertyTable extends Migration
             $table->unsignedInteger('propertyId');
             $table->boolean('active')->default(1);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('propertyId')
                 ->references('id')->on('properties')

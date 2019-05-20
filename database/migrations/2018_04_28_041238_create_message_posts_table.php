@@ -20,6 +20,7 @@ class CreateMessagePostsTable extends Migration
             $table->unsignedInteger('fromUserId');
             $table->mediumText('text');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('messageId')
                 ->references('id')->on('messages')

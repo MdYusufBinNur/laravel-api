@@ -8,7 +8,9 @@ use App\DbModels\Resident;
 use App\DbModels\Role;
 use App\DbModels\Tower;
 use App\DbModels\Unit;
+use App\DbModels\User;
 use App\Repositories\Contracts\CompanyRepository;
+use App\Repositories\Contracts\UserRepository;
 use App\Repositories\EloquentUnitRepository;
 use App\Repositories\Contracts\PropertyRepository;
 use App\Repositories\Contracts\ResidentRepository;
@@ -20,6 +22,7 @@ use App\Repositories\EloquentPropertyRepository;
 use App\Repositories\EloquentResidentRepository;
 use App\Repositories\EloquentRoleRepository;
 use App\Repositories\EloquentTowerRepository;
+use App\Repositories\EloquentUserRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -41,6 +44,11 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // bind UserRepository
+        $this->app->bind(UserRepository::class, function() {
+            return new EloquentUserRepository(new User());
+        });
+
         // bind CompanyRepository
         $this->app->bind(CompanyRepository::class, function() {
             return new EloquentCompanyRepository(new Company());

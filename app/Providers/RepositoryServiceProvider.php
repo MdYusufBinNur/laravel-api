@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\DbModels\Company;
 use App\DbModels\Module;
+use App\DbModels\ModuleOption;
 use App\DbModels\Property;
 use App\DbModels\Resident;
 use App\DbModels\Role;
@@ -11,8 +12,10 @@ use App\DbModels\Tower;
 use App\DbModels\Unit;
 use App\DbModels\User;
 use App\Repositories\Contracts\CompanyRepository;
+use App\Repositories\Contracts\ModuleOptionRepository;
 use App\Repositories\Contracts\ModuleRepository;
 use App\Repositories\Contracts\UserRepository;
+use App\Repositories\EloquentModuleOptionRepository;
 use App\Repositories\EloquentModuleRepository;
 use App\Repositories\EloquentUnitRepository;
 use App\Repositories\Contracts\PropertyRepository;
@@ -85,6 +88,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind ModuleRepository
         $this->app->bind(ModuleRepository::class, function() {
             return new EloquentModuleRepository(new Module());
+        });
+
+        // bind ModuleOptionRepository
+        $this->app->bind(ModuleOptionRepository::class, function() {
+            return new EloquentModuleOptionRepository(new ModuleOption());
         });
     }
 }

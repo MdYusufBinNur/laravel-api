@@ -31,4 +31,10 @@ Route::resource('tower', 'TowerController', ['except' => ['create', 'edit']]);
 
 Route::resource('unit', 'UnitController', ['except' => ['create', 'edit']]);
 
+Route::resource('module', 'ModuleController', ['except' => ['create', 'edit']]);
+
+Route::resource('module-option', 'ModuleOptionController', ['except' => ['create', 'edit']]);
+
+Route::resource('module-property', 'ModulePropertyController', ['except' => ['create', 'edit']]);
+
 Route::resource('module-option-property', 'ModuleOptionPropertyController', ['except' => ['create', 'edit']]);

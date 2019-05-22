@@ -37,3 +37,4 @@ Route::resource('module-option', 'ModuleOptionController', ['except' => ['create
 
 Route::resource('module-property', 'ModulePropertyController', ['except' => ['create', 'edit']]);
 
+Route::resource('module-option-property', 'ModuleOptionPropertyController', ['except' => ['create', 'edit']]);

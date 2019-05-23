@@ -2,9 +2,7 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-
-class TowerResource extends JsonResource
+class TowerResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +13,10 @@ class TowerResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'         => $this->id,
-            'propertyId'    => $this->propertyId,
-            'title'      => $this->title,
-            'createdByUserId'  => $this->createdByUserId,
+            'id' => $this->id,
+            'propertyId' => $this->propertyId,
+            'title' => $this->title,
+            'createdByUserId' => $this->createdByUserId,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

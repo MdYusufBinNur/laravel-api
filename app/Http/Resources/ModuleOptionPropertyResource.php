@@ -2,9 +2,7 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-
-class ModuleOptionPropertyResource extends JsonResource
+class ModuleOptionPropertyResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -15,13 +13,13 @@ class ModuleOptionPropertyResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'                    => $this->id,
-            'createdByUserId'       => $this->createdByUserId,
-            'propertyId'            => $this->propertyId,
-            'moduleOptionId'        => $this->moduleOptionId,
-            'value'                 => $this->value,
-            'created_at'            => $this->created_at,
-            'updated_at'            => $this->updated_at
+            'id' => $this->id,
+            'createdByUserId' => $this->createdByUserId,
+            'propertyId' => $this->propertyId,
+            'moduleOptionId' => $this->moduleOptionId,
+            'value' => $this->value,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
         ];
     }
 }

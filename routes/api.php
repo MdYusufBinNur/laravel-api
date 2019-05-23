@@ -44,3 +44,5 @@ Route::resource('announcement', 'AnnouncementController', ['except' => ['create'
 Route::resource('event', 'EventController', ['except' => ['create', 'edit']]);
 
 Route::resource('event-signup', 'EventSignupController', ['except' => ['create', 'edit']]);
+
+Route::resource('notification-feed', 'NotificationFeedController', ['except' => ['create', 'edit']]);

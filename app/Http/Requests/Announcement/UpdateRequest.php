@@ -24,7 +24,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'propertyId' => 'required|exists:properties,id',
+            'propertyId' => 'exists:properties,id',
             'title' => 'min:5|max:191',
             'content' => 'min:5|max:256',
             'link' => 'min:5|max:190',

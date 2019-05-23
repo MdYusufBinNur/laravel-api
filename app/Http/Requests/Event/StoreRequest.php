@@ -25,6 +25,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'propertyId' => 'required|exists:properties,id',
+            'createdUserId' => 'required|numeric',
             'title' => 'required|min:5|max:191',
             'text' => 'min:5|max:512',
             'maxGuests' => 'required|numeric',

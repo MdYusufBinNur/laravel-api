@@ -25,6 +25,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'propertyId' => 'exists:properties,id',
+            'createdUserId' => 'numeric',
             'title' => 'min:5|max:191',
             'text' => 'min:5|max:512',
             'maxGuests' => 'numeric',

@@ -40,3 +40,5 @@ Route::resource('module-property', 'ModulePropertyController', ['except' => ['cr
 Route::resource('module-option-property', 'ModuleOptionPropertyController', ['except' => ['create', 'edit']]);
 
 Route::resource('announcement', 'AnnouncementController', ['except' => ['create', 'edit']]);
+
+Route::resource('event', 'EventController', ['except' => ['create', 'edit']]);

@@ -28,9 +28,9 @@ class UpdateRequest extends FormRequest
             'title' => 'min:5|max:191',
             'content' => 'min:5|max:256',
             'link' => 'min:5|max:190',
-            'linkinNewWindows' => 'numeric',
-            'showOnWebsite' => 'numeric',
-            'showOnLds' => 'numeric',
+            'linkinNewWindows' => 'boolean',
+            'showOnWebsite' => 'boolean',
+            'showOnLds' => 'boolean',
             'expireAt' => 'date',
         ];
     }

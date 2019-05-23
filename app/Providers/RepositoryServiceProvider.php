@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\DbModels\Announcement;
 use App\DbModels\Company;
 use App\DbModels\Event;
+use App\DbModels\EventSignup;
 use App\DbModels\Module;
 use App\DbModels\ModuleOption;
 use App\DbModels\ModuleProperty;
@@ -19,12 +20,14 @@ use App\DbModels\UserRole;
 use App\Repositories\Contracts\AnnouncementRepository;
 use App\Repositories\Contracts\CompanyRepository;
 use App\Repositories\Contracts\EventRepository;
+use App\Repositories\Contracts\EventSignupRepository;
 use App\Repositories\Contracts\ModuleOptionRepository;
 use App\Repositories\Contracts\ModuleRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
 use App\Repositories\EloquentAnnouncementRepository;
 use App\Repositories\EloquentEventRepository;
+use App\Repositories\EloquentEventSignupRepository;
 use App\Repositories\EloquentModuleOptionRepository;
 use App\Repositories\EloquentModuleRepository;
 use App\Repositories\Contracts\ModulePropertyRepository;
@@ -133,6 +136,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind EventRepository
         $this->app->bind(EventRepository::class, function() {
             return new EloquentEventRepository(new Event());
+        });
+
+        // bind EventSignupRepository
+        $this->app->bind(EventSignupRepository::class, function() {
+            return new EloquentEventSignupRepository(new EventSignup());
         });
     }
 }

@@ -42,3 +42,5 @@ Route::resource('module-option-property', 'ModuleOptionPropertyController', ['ex
 Route::resource('announcement', 'AnnouncementController', ['except' => ['create', 'edit']]);
 
 Route::resource('event', 'EventController', ['except' => ['create', 'edit']]);
+
+Route::resource('event-signup', 'EventSignupController', ['except' => ['create', 'edit']]);

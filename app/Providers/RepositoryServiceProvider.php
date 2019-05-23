@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\DbModels\Announcement;
 use App\DbModels\Company;
 use App\DbModels\Module;
 use App\DbModels\ModuleOption;
@@ -14,11 +15,13 @@ use App\DbModels\Tower;
 use App\DbModels\Unit;
 use App\DbModels\User;
 use App\DbModels\UserRole;
+use App\Repositories\Contracts\AnnouncementRepository;
 use App\Repositories\Contracts\CompanyRepository;
 use App\Repositories\Contracts\ModuleOptionRepository;
 use App\Repositories\Contracts\ModuleRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
+use App\Repositories\EloquentAnnouncementRepository;
 use App\Repositories\EloquentModuleOptionRepository;
 use App\Repositories\EloquentModuleRepository;
 use App\Repositories\Contracts\ModulePropertyRepository;
@@ -117,6 +120,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind UserRoleRepository
         $this->app->bind(UserRoleRepository::class, function() {
             return new EloquentUserRoleRepository(new UserRole());
+        });
+
+        // bind AnnouncementRepository
+        $this->app->bind(AnnouncementRepository::class, function() {
+            return new EloquentAnnouncementRepository(new Announcement());
         });
     }
 }

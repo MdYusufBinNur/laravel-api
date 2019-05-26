@@ -14,11 +14,12 @@ class IndexRequest extends Request
     public function rules()
     {
         return [
+            'id' => 'list:numeric',
             'packageId' => 'list:numeric',
             'signoutUserId' => 'list:numeric',
             'signoutComments' => 'list:string',
             'signature' => 'list:boolean',
-            'signoutAt' => 'list:dateTime',
+            'signoutAt' => 'list:date',
         ];
     }
 }

@@ -14,6 +14,7 @@ class IndexRequest extends Request
     public function rules()
     {
         return [
+            'id' => 'list:numeric',
             'unitId' => 'list:numeric',
             'residentId' => 'list:numeric',
             'typeId' => 'list:numeric',

@@ -2,9 +2,7 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-
-class PackageResource extends JsonResource
+class PackageResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -26,6 +24,8 @@ class PackageResource extends JsonResource
             'notifiedByEmail' => $this->notifiedByEmail,
             'notifiedByText' => $this->notifiedByEmail,
             'notifiedByVoice' => $this->notifiedByVoice,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
         ];
     }
 }

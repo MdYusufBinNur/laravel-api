@@ -4,7 +4,7 @@
 namespace App\Repositories\Contracts;
 
 
-interface PackageTypeRepository
+interface PackageTypeRepository extends BaseRepository
 {
 
 }

@@ -4,7 +4,9 @@
 namespace App\Repositories;
 
 
-class EloquentPackageTypeRepository
+use App\Repositories\Contracts\PackageTypeRepository;
+
+class EloquentPackageTypeRepository extends EloquentBaseRepository implements PackageTypeRepository
 {
 
 }

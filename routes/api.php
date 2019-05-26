@@ -50,3 +50,5 @@ Route::resource('notification-feed', 'NotificationFeedController', ['except' => 
 Route::resource('package', 'PackageController', ['except' => ['create', 'edit']]);
 
 Route::resource('package-archive', 'PackageArchiveController', ['except' => ['create', 'edit']]);
+
+Route::resource('package-type', 'PackageTypeController', ['except' => ['create', 'edit']]);

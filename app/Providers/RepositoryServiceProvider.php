@@ -12,6 +12,7 @@ use App\DbModels\ModuleProperty;
 use App\DbModels\ModuleOptionProperty;
 use App\DbModels\NotificationFeed;
 use App\DbModels\Package;
+use App\DbModels\PackageArchive;
 use App\DbModels\Property;
 use App\DbModels\Resident;
 use App\DbModels\Role;
@@ -26,6 +27,7 @@ use App\Repositories\Contracts\EventSignupRepository;
 use App\Repositories\Contracts\ModuleOptionRepository;
 use App\Repositories\Contracts\ModuleRepository;
 use App\Repositories\Contracts\NotificationFeedRepository;
+use App\Repositories\Contracts\PackageArchiveRepository;
 use App\Repositories\Contracts\PackageRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
@@ -39,6 +41,7 @@ use App\Repositories\EloquentModulePropertyRepository;
 use App\Repositories\Contracts\ModuleOptionPropertyRepository;
 use App\Repositories\EloquentModuleOptionPropertyRepository;
 use App\Repositories\EloquentNotificationFeedRepository;
+use App\Repositories\EloquentPackageArchiveRepository;
 use App\Repositories\EloquentPackageRepository;
 use App\Repositories\EloquentUnitRepository;
 use App\Repositories\Contracts\PropertyRepository;
@@ -157,6 +160,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind PackageRepository
         $this->app->bind(PackageRepository::class, function() {
             return new EloquentPackageRepository(new Package());
+        });
+
+        // bind PackageArchiveRepository
+        $this->app->bind(PackageArchiveRepository::class, function() {
+            return new EloquentPackageArchiveRepository(new PackageArchive());
         });
     }
 }

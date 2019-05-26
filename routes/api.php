@@ -48,3 +48,5 @@ Route::resource('event-signup', 'EventSignupController', ['except' => ['create',
 Route::resource('notification-feed', 'NotificationFeedController', ['except' => ['create', 'edit']]);
 
 Route::resource('package', 'PackageController', ['except' => ['create', 'edit']]);
+
+Route::resource('package-archive', 'PackageArchiveController', ['except' => ['create', 'edit']]);

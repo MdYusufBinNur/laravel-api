@@ -55,11 +55,13 @@ class PropertySocialMediaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param PropertySocialMedia $propertySocialMedia
+     * @param $id
      * @return PropertySocialMediaResource
      */
-    public function show(PropertySocialMedia $propertySocialMedia)
+    public function show($id)
     {
+        $propertySocialMedia = $this->propertySocialMediaRepository->findOne($id);
+
         return new PropertySocialMediaResource($propertySocialMedia);
     }
 
@@ -67,12 +69,14 @@ class PropertySocialMediaController extends Controller
      * Update the specified resource in storage.
      *
      * @param UpdateRequest $request
-     * @param PropertySocialMedia $propertySocialMedia
+     * @param $id
      * @return PropertySocialMediaResource
      */
-    public function update(UpdateRequest $request, PropertySocialMedia $propertySocialMedia)
+    public function update(UpdateRequest $request, $id)
     {
-        $propertySocialMedia = $this->propertySocialMediaRepository->update($propertySocialMedia, $request->all());
+        $getPropertySocialMedia = $this->propertySocialMediaRepository->findOne($id);
+
+        $propertySocialMedia = $this->propertySocialMediaRepository->update($getPropertySocialMedia, $request->all());
 
         return new PropertySocialMediaResource($propertySocialMedia);
     }
@@ -80,12 +84,14 @@ class PropertySocialMediaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param PropertySocialMedia $propertySocialMedia
+     * @param $id
      * @return void
      */
-    public function destroy(PropertySocialMedia $propertySocialMedia)
+    public function destroy($id)
     {
-        $this->propertySocialMediaRepository->delete($propertySocialMedia);
+        $getPropertySocialMedia = $this->propertySocialMediaRepository->findOne($id);
+
+        $this->propertySocialMediaRepository->delete($getPropertySocialMedia);
 
         return response()->json(null, 204);
     }

@@ -21,6 +21,8 @@ Route::resource('user', 'UserController', ['except' => ['create', 'edit']]);
 
 Route::resource('role', 'RoleController', ['except' => ['create', 'edit']]);
 
+Route::resource('user-role', 'UserRoleController', ['except' => ['create', 'edit']]);
+
 Route::resource('company', 'CompanyController', ['except' => ['create', 'edit']]);
 
 Route::resource('property', 'PropertyController', ['except' => ['create', 'edit']]);

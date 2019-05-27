@@ -60,7 +60,7 @@ class PropertySocialMediaController extends Controller
      */
     public function show($id)
     {
-        $propertySocialMedia = $this->propertySocialMediaRepository->findOne($id);
+        $propertySocialMedia = $this->propertySocialMediaRepository->findOne($id) ?? abort(404);
 
         return new PropertySocialMediaResource($propertySocialMedia);
     }
@@ -74,7 +74,7 @@ class PropertySocialMediaController extends Controller
      */
     public function update(UpdateRequest $request, $id)
     {
-        $getPropertySocialMedia = $this->propertySocialMediaRepository->findOne($id);
+        $getPropertySocialMedia = $this->propertySocialMediaRepository->findOne($id) ?? abort(404);
 
         $propertySocialMedia = $this->propertySocialMediaRepository->update($getPropertySocialMedia, $request->all());
 
@@ -89,7 +89,7 @@ class PropertySocialMediaController extends Controller
      */
     public function destroy($id)
     {
-        $getPropertySocialMedia = $this->propertySocialMediaRepository->findOne($id);
+        $getPropertySocialMedia = $this->propertySocialMediaRepository->findOne($id) ?? abort(404);
 
         $this->propertySocialMediaRepository->delete($getPropertySocialMedia);
 

@@ -21,6 +21,7 @@ use App\DbModels\Resident;
 use App\DbModels\ResidentAccessRequest;
 use App\DbModels\ResidentArchive;
 use App\DbModels\ResidentEmergency;
+use App\DbModels\ResidentVehicle;
 use App\DbModels\Role;
 use App\DbModels\Tower;
 use App\DbModels\Unit;
@@ -41,6 +42,7 @@ use App\Repositories\Contracts\PropertySocialMediaRepository;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use App\Repositories\Contracts\ResidentArchiveRepository;
 use App\Repositories\Contracts\ResidentEmergencyRepository;
+use App\Repositories\Contracts\ResidentVehicleRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
 use App\Repositories\EloquentAnnouncementRepository;
@@ -61,6 +63,7 @@ use App\Repositories\EloquentPropertySocialMediaRepository;
 use App\Repositories\EloquentResidentAccessRequestRepository;
 use App\Repositories\EloquentResidentArchiveRepository;
 use App\Repositories\EloquentResidentEmergencyRepository;
+use App\Repositories\EloquentResidentVehicleRepository;
 use App\Repositories\EloquentUnitRepository;
 use App\Repositories\Contracts\PropertyRepository;
 use App\Repositories\Contracts\ResidentRepository;
@@ -213,6 +216,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind ResidentEmergencyRepository
         $this->app->bind(ResidentEmergencyRepository::class, function() {
             return new EloquentResidentEmergencyRepository(new ResidentEmergency());
+        });
+
+        // bind ResidentVehicleRepository
+        $this->app->bind(ResidentVehicleRepository::class, function() {
+            return new EloquentResidentVehicleRepository(new ResidentVehicle());
         });
     }
 }

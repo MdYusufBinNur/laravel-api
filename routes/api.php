@@ -64,3 +64,5 @@ Route::resource('resident-access-request', 'ResidentAccessRequestController', ['
 Route::resource('resident-archive', 'ResidentArchiveController', ['except' => ['create', 'edit']]);
 
 Route::resource('resident-emergency', 'ResidentEmergencyController', ['except' => ['create', 'edit']]);
+
+Route::resource('resident-vehicle', 'ResidentVehicleController', ['except' => ['create', 'edit']]);

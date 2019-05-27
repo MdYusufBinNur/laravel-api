@@ -60,3 +60,5 @@ Route::resource('property-design-setting', 'PropertyDesignSettingController', ['
 Route::resource('property-social-media', 'PropertySocialMediaController', ['except' => ['create', 'edit']]);
 
 Route::resource('resident-access-request', 'ResidentAccessRequestController', ['except' => ['create', 'edit']]);
+
+Route::resource('resident-archive', 'ResidentArchiveController', ['except' => ['create', 'edit']]);

@@ -58,3 +58,5 @@ Route::resource('package-type', 'PackageTypeController', ['except' => ['create',
 Route::resource('property-design-setting', 'PropertyDesignSettingController', ['except' => ['create', 'edit']]);
 
 Route::resource('property-social-media', 'PropertySocialMediaController', ['except' => ['create', 'edit']]);
+
+Route::resource('resident-access-request', 'ResidentAccessRequestController', ['except' => ['create', 'edit']]);

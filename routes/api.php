@@ -56,3 +56,5 @@ Route::resource('package-archive', 'PackageArchiveController', ['except' => ['cr
 Route::resource('package-type', 'PackageTypeController', ['except' => ['create', 'edit']]);
 
 Route::resource('property-design-setting', 'PropertyDesignSettingController', ['except' => ['create', 'edit']]);
+
+Route::resource('property-social-media', 'PropertySocialMediaController', ['except' => ['create', 'edit']]);

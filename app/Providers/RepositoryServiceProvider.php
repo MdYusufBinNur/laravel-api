@@ -16,6 +16,7 @@ use App\DbModels\PackageArchive;
 use App\DbModels\PackageType;
 use App\DbModels\Property;
 use App\DbModels\PropertyDesignSetting;
+use App\DbModels\PropertySocialMedia;
 use App\DbModels\Resident;
 use App\DbModels\Role;
 use App\DbModels\Tower;
@@ -33,6 +34,7 @@ use App\Repositories\Contracts\PackageArchiveRepository;
 use App\Repositories\Contracts\PackageRepository;
 use App\Repositories\Contracts\PackageTypeRepository;
 use App\Repositories\Contracts\PropertyDesignSettingRepository;
+use App\Repositories\Contracts\PropertySocialMediaRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
 use App\Repositories\EloquentAnnouncementRepository;
@@ -49,6 +51,7 @@ use App\Repositories\EloquentPackageArchiveRepository;
 use App\Repositories\EloquentPackageRepository;
 use App\Repositories\EloquentPackageTypeRepository;
 use App\Repositories\EloquentPropertyDesignSettingRepository;
+use App\Repositories\EloquentPropertySocialMediaRepository;
 use App\Repositories\EloquentUnitRepository;
 use App\Repositories\Contracts\PropertyRepository;
 use App\Repositories\Contracts\ResidentRepository;
@@ -181,6 +184,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind PropertyDesignSettingRepository
         $this->app->bind(PropertyDesignSettingRepository::class, function() {
             return new EloquentPropertyDesignSettingRepository(new PropertyDesignSetting());
+        });
+
+        // bind PropertySocialMediaRepository
+        $this->app->bind(PropertySocialMediaRepository::class, function() {
+            return new EloquentPropertySocialMediaRepository(new PropertySocialMedia());
         });
     }
 }

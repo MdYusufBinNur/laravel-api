@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\DbModels\ResidentAccessRequest;
 use App\Http\Requests\ResidentAccessRequest\IndexRequest;
 use App\Http\Requests\ResidentAccessRequest\StoreRequest;
+use App\Http\Requests\ResidentAccessRequest\UpdateRequest;
 use App\Http\Resources\ResidentAccessRequestResource;
 use App\Http\Resources\ResidentAccessRequestResourceCollection;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
@@ -54,45 +56,36 @@ class ResidentAccessRequestController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param ResidentAccessRequest $residentAccessRequest
+     * @return ResidentAccessRequestResource
      */
-    public function show($id)
+    public function show(ResidentAccessRequest $residentAccessRequest)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return new ResidentAccessRequestResource($residentAccessRequest);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateRequest $request
+     * @param ResidentAccessRequest $residentAccessRequest
+     * @return ResidentAccessRequestResource
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, ResidentAccessRequest $residentAccessRequest)
     {
-        //
+        $residentAccessRequest = $this->residentAccessRequestRepository->update($residentAccessRequest, $request->all());
+
+        return new ResidentAccessRequestResource($residentAccessRequest);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param ResidentAccessRequest $residentAccessRequest
+     * @return void
      */
-    public function destroy($id)
+    public function destroy(ResidentAccessRequest $residentAccessRequest)
     {
-        //
+        $this->residentAccessRequestRepository->delete($residentAccessRequest);
     }
 }

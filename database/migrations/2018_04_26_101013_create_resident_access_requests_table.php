@@ -23,10 +23,7 @@ class CreateResidentAccessRequestsTable extends Migration
             $table->string('email');
             $table->string('type')->nullable();
             $table->string('groups')->nullable();
-            $table->string('approved');
-            $table->string('denied');
-            $table->string('pending');
-            $table->string('completed');
+            $table->string('status');
             $table->boolean('active')->default(1);
             $table->mediumText('comments')->nullable();
             $table->unsignedInteger('moderatedUserId')->nullable();

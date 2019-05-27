@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\ResidentAccessRequest;
 
+use App\DbModels\ResidentAccessRequest;
 use App\Http\Requests\Request;
 
 class StoreRequest extends Request
@@ -21,10 +22,7 @@ class StoreRequest extends Request
             'email' => 'required|email|unique:resident_access_requests,email|min:3|max:191',
             'type' => 'min:3|max:191',
             'groups' => 'min:3|max:191',
-            'approved' => '',
-            'denied' => '',
-            'pending' => '',
-            'completed' => '',
+            'status' => 'in:' . ResidentAccessRequest::STATUS_APPROVED . ',' . ResidentAccessRequest::STATUS_DENIED . ','. ResidentAccessRequest::STATUS_COMPLETED . ',' . ResidentAccessRequest::STATUS_PENDING,
             'active' => 'required|boolean',
             'comments' => 'min:3|max:1024',
             'moderatedUserId' => 'integer',

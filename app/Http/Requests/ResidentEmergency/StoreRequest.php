@@ -18,9 +18,9 @@ class StoreRequest extends Request
             'name' => 'min:3|max:191',
             'relationship' => 'min:3|max:191',
             'address' => 'min:3|max:191',
-            'homePhone' => 'min:3|max:20',
-            'cellPhone' => 'min:3|max:20',
-            'email' => 'unique:resident_emergencies,email|min:3|max:191',
+            'homePhone' => 'min:11|max:20',
+            'cellPhone' => 'min:11|max:20',
+            'email' => 'unique:resident_emergencies,email|email',
         ];
     }
 }

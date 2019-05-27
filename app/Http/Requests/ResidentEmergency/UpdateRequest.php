@@ -20,7 +20,7 @@ class UpdateRequest extends Request
             'address' => 'min:3|max:191',
             'homePhone' => 'min:3|max:20',
             'cellPhone' => 'min:3|max:20',
-            'email' => 'unique:resident_emergencies,email|min:3|max:191',
+            'email' => 'unique:resident_emergencies,email|email',
         ];
     }
 }

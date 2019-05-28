@@ -82,3 +82,5 @@ Route::resource('post-event', 'PostEventController', ['except' => ['create', 'ed
 Route::resource('post-marketplace', 'PostMarketplaceController', ['except' => ['create', 'edit']]);
 
 Route::resource('post-poll', 'PostPollController', ['except' => ['create', 'edit']]);
+
+Route::resource('post-recommendation-type', 'PostRecommendationTypeController', ['except' => ['create', 'edit']]);

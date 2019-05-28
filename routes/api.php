@@ -68,3 +68,5 @@ Route::resource('resident-emergency', 'ResidentEmergencyController', ['except' =
 Route::resource('resident-vehicle', 'ResidentVehicleController', ['except' => ['create', 'edit']]);
 
 Route::resource('parking-pass', 'ParkingPassController', ['except' => ['create', 'edit']]);
+
+Route::resource('post', 'PostController', ['except' => ['create', 'edit']]);

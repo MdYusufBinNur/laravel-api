@@ -15,6 +15,7 @@ use App\DbModels\Package;
 use App\DbModels\PackageArchive;
 use App\DbModels\PackageType;
 use App\DbModels\ParkingPass;
+use App\DbModels\Post;
 use App\DbModels\Property;
 use App\DbModels\PropertyDesignSetting;
 use App\DbModels\PropertySocialMedia;
@@ -39,6 +40,7 @@ use App\Repositories\Contracts\PackageArchiveRepository;
 use App\Repositories\Contracts\PackageRepository;
 use App\Repositories\Contracts\PackageTypeRepository;
 use App\Repositories\Contracts\ParkingPassRepository;
+use App\Repositories\Contracts\PostRepository;
 use App\Repositories\Contracts\PropertyDesignSettingRepository;
 use App\Repositories\Contracts\PropertySocialMediaRepository;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
@@ -61,6 +63,7 @@ use App\Repositories\EloquentPackageArchiveRepository;
 use App\Repositories\EloquentPackageRepository;
 use App\Repositories\EloquentPackageTypeRepository;
 use App\Repositories\EloquentParkingPassRepository;
+use App\Repositories\EloquentPostRepository;
 use App\Repositories\EloquentPropertyDesignSettingRepository;
 use App\Repositories\EloquentPropertySocialMediaRepository;
 use App\Repositories\EloquentResidentAccessRequestRepository;
@@ -229,6 +232,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind ParkingPassRepository
         $this->app->bind(ParkingPassRepository::class, function() {
             return new EloquentParkingPassRepository(new ParkingPass());
+        });
+
+        // bind PostRepository
+        $this->app->bind(PostRepository::class, function() {
+            return new EloquentPostRepository(new Post());
         });
     }
 }

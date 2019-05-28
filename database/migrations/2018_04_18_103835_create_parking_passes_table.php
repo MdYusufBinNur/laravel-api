@@ -21,10 +21,8 @@ class CreateParkingPassesTable extends Migration
             $table->unsignedInteger('submittedUserId');
             $table->unsignedInteger('voidedUserId');
             $table->string('number', 20);
-            $table->string('unit');
-            $table->string('office');
-            $table->string('active');
-            $table->string('voided');
+            $table->string('type');
+            $table->string('status');
             $table->string('vehicleMake', 100)->nullable();
             $table->string('vehicleModel', 100)->nullable();
             $table->string('vehicleLicensePlate', 100)->nullable();

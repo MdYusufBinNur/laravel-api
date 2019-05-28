@@ -17,8 +17,7 @@ class CreatePostMarketplacesTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('postId');
-            $table->string('buy');
-            $table->string('sell');
+            $table->string('type');
             $table->string('title');
             $table->string('price')->nullable();
             $table->mediumText('description')->nullable();

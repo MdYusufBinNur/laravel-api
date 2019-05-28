@@ -78,3 +78,5 @@ Route::resource('post-approval-blacklist-unit', 'PostApprovalBlacklistUnitContro
 Route::resource('post-comment', 'PostCommentController', ['except' => ['create', 'edit']]);
 
 Route::resource('post-event', 'PostEventController', ['except' => ['create', 'edit']]);
+
+Route::resource('post-marketplace', 'PostMarketplaceController', ['except' => ['create', 'edit']]);

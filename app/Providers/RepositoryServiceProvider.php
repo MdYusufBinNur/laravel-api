@@ -18,6 +18,7 @@ use App\DbModels\ParkingPass;
 use App\DbModels\Post;
 use App\DbModels\PostApprovalArchive;
 use App\DbModels\PostApprovalBlacklistUnit;
+use App\DbModels\PostComment;
 use App\DbModels\Property;
 use App\DbModels\PropertyDesignSetting;
 use App\DbModels\PropertySocialMedia;
@@ -44,6 +45,7 @@ use App\Repositories\Contracts\PackageTypeRepository;
 use App\Repositories\Contracts\ParkingPassRepository;
 use App\Repositories\Contracts\PostApprovalArchiveRepository;
 use App\Repositories\Contracts\PostApprovalBlacklistUnitRepository;
+use App\Repositories\Contracts\PostCommentRepository;
 use App\Repositories\Contracts\PostRepository;
 use App\Repositories\Contracts\PropertyDesignSettingRepository;
 use App\Repositories\Contracts\PropertySocialMediaRepository;
@@ -69,6 +71,7 @@ use App\Repositories\EloquentPackageTypeRepository;
 use App\Repositories\EloquentParkingPassRepository;
 use App\Repositories\EloquentPostApprovalArchiveRepository;
 use App\Repositories\EloquentPostApprovalBlacklistUnitRepository;
+use App\Repositories\EloquentPostCommentRepository;
 use App\Repositories\EloquentPostRepository;
 use App\Repositories\EloquentPropertyDesignSettingRepository;
 use App\Repositories\EloquentPropertySocialMediaRepository;
@@ -253,6 +256,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind PostApprovalBlacklistUnitRepository
         $this->app->bind(PostApprovalBlacklistUnitRepository::class, function() {
             return new EloquentPostApprovalBlacklistUnitRepository(new PostApprovalBlacklistUnit());
+        });
+
+        // bind PostCommentRepository
+        $this->app->bind(PostCommentRepository::class, function() {
+            return new EloquentPostCommentRepository(new PostComment());
         });
     }
 }

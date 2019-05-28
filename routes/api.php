@@ -72,3 +72,5 @@ Route::resource('parking-pass', 'ParkingPassController', ['except' => ['create',
 Route::resource('post', 'PostController', ['except' => ['create', 'edit']]);
 
 Route::resource('post-approval-archive', 'PostApprovalArchiveController', ['except' => ['create', 'edit']]);
+
+Route::resource('post-approval-blacklist-unit', 'PostApprovalBlacklistUnitController', ['except' => ['create', 'edit']]);

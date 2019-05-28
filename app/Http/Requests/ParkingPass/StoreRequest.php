@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\ParkingPass;
 
+use App\DbModels\ParkingPass;
 use App\Http\Requests\Request;
 
 class StoreRequest extends Request
@@ -19,8 +20,8 @@ class StoreRequest extends Request
             'submittedUserId' => 'required|exists:users,id',
             'voidedUserId' => 'required|exists:users,id',
             'number' => 'required|max:20',
-            'type' => 'required|min:3|max:191',
-            'status' => 'required|min:3|max:191',
+            'type' => 'in:'. ParkingPass::TYPE_OFFICE . ',' . ParkingPass::TYPE_UNIT,
+            'status' => 'in:'. ParkingPass::STATUS_ACTIVE. ','. ParkingPass::STATUS_VOIDED,
             'vehicleMake' => 'min:3|max:100',
             'vehicleModel' => 'min:3|max:100',
             'vehicleLicensePlate' => 'min:3|max:100',

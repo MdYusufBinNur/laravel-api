@@ -21,6 +21,7 @@ use App\DbModels\PostApprovalBlacklistUnit;
 use App\DbModels\PostComment;
 use App\DbModels\PostEvent;
 use App\DbModels\PostMarketplace;
+use App\DbModels\PostPoll;
 use App\DbModels\Property;
 use App\DbModels\PropertyDesignSetting;
 use App\DbModels\PropertySocialMedia;
@@ -50,6 +51,7 @@ use App\Repositories\Contracts\PostApprovalBlacklistUnitRepository;
 use App\Repositories\Contracts\PostCommentRepository;
 use App\Repositories\Contracts\PostEventRepository;
 use App\Repositories\Contracts\PostMarketplaceRepository;
+use App\Repositories\Contracts\PostPollRepository;
 use App\Repositories\Contracts\PostRepository;
 use App\Repositories\Contracts\PropertyDesignSettingRepository;
 use App\Repositories\Contracts\PropertySocialMediaRepository;
@@ -78,6 +80,7 @@ use App\Repositories\EloquentPostApprovalBlacklistUnitRepository;
 use App\Repositories\EloquentPostCommentRepository;
 use App\Repositories\EloquentPostEventRepository;
 use App\Repositories\EloquentPostMarketplaceRepository;
+use App\Repositories\EloquentPostPollRepository;
 use App\Repositories\EloquentPostRepository;
 use App\Repositories\EloquentPropertyDesignSettingRepository;
 use App\Repositories\EloquentPropertySocialMediaRepository;
@@ -277,6 +280,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind PostMarketplaceRepository
         $this->app->bind(PostMarketplaceRepository::class, function() {
             return new EloquentPostMarketplaceRepository(new PostMarketplace());
+        });
+
+        // bind PostPollRepository
+        $this->app->bind(PostPollRepository::class, function() {
+            return new EloquentPostPollRepository(new PostPoll());
         });
     }
 }

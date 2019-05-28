@@ -18,8 +18,7 @@ class CreatePostApprovalArchivesTable extends Migration
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('postId');
             $table->unsignedInteger('statusChangedUserId');
-            $table->string('approved');
-            $table->string('denied');
+            $table->string('status');
             $table->mediumText('reason')->nullable();
             $table->timestamps();
             $table->softDeletes();

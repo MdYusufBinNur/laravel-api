@@ -27,6 +27,7 @@ use App\DbModels\PostRecommendationType;
 use App\DbModels\PostWall;
 use App\DbModels\Property;
 use App\DbModels\PropertyDesignSetting;
+use App\DbModels\PropertyImage;
 use App\DbModels\PropertySocialMedia;
 use App\DbModels\Resident;
 use App\DbModels\ResidentAccessRequest;
@@ -60,6 +61,7 @@ use App\Repositories\Contracts\PostRecommendationTypeRepository;
 use App\Repositories\Contracts\PostRepository;
 use App\Repositories\Contracts\PostWallRepository;
 use App\Repositories\Contracts\PropertyDesignSettingRepository;
+use App\Repositories\Contracts\PropertyImageRepository;
 use App\Repositories\Contracts\PropertySocialMediaRepository;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use App\Repositories\Contracts\ResidentArchiveRepository;
@@ -92,6 +94,7 @@ use App\Repositories\EloquentPostRecommendationTypeRepository;
 use App\Repositories\EloquentPostRepository;
 use App\Repositories\EloquentPostWallRepository;
 use App\Repositories\EloquentPropertyDesignSettingRepository;
+use App\Repositories\EloquentPropertyImageRepository;
 use App\Repositories\EloquentPropertySocialMediaRepository;
 use App\Repositories\EloquentResidentAccessRequestRepository;
 use App\Repositories\EloquentResidentArchiveRepository;
@@ -309,6 +312,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind PostWallRepository
         $this->app->bind(PostWallRepository::class, function() {
             return new EloquentPostWallRepository(new PostWall());
+        });
+
+        // bind PropertyImageRepository
+        $this->app->bind(PropertyImageRepository::class, function() {
+            return new EloquentPropertyImageRepository(new PropertyImage());
         });
     }
 }

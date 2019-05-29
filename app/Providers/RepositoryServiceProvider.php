@@ -14,8 +14,23 @@ use App\DbModels\NotificationFeed;
 use App\DbModels\Package;
 use App\DbModels\PackageArchive;
 use App\DbModels\PackageType;
+use App\DbModels\ParkingPass;
+use App\DbModels\Post;
+use App\DbModels\PostApprovalArchive;
+use App\DbModels\PostApprovalBlacklistUnit;
+use App\DbModels\PostComment;
+use App\DbModels\PostEvent;
+use App\DbModels\PostMarketplace;
+use App\DbModels\PostPoll;
+use App\DbModels\PostRecommendationType;
 use App\DbModels\Property;
+use App\DbModels\PropertyDesignSetting;
+use App\DbModels\PropertySocialMedia;
 use App\DbModels\Resident;
+use App\DbModels\ResidentAccessRequest;
+use App\DbModels\ResidentArchive;
+use App\DbModels\ResidentEmergency;
+use App\DbModels\ResidentVehicle;
 use App\DbModels\Role;
 use App\DbModels\Tower;
 use App\DbModels\Unit;
@@ -31,6 +46,21 @@ use App\Repositories\Contracts\NotificationFeedRepository;
 use App\Repositories\Contracts\PackageArchiveRepository;
 use App\Repositories\Contracts\PackageRepository;
 use App\Repositories\Contracts\PackageTypeRepository;
+use App\Repositories\Contracts\ParkingPassRepository;
+use App\Repositories\Contracts\PostApprovalArchiveRepository;
+use App\Repositories\Contracts\PostApprovalBlacklistUnitRepository;
+use App\Repositories\Contracts\PostCommentRepository;
+use App\Repositories\Contracts\PostEventRepository;
+use App\Repositories\Contracts\PostMarketplaceRepository;
+use App\Repositories\Contracts\PostPollRepository;
+use App\Repositories\Contracts\PostRecommendationTypeRepository;
+use App\Repositories\Contracts\PostRepository;
+use App\Repositories\Contracts\PropertyDesignSettingRepository;
+use App\Repositories\Contracts\PropertySocialMediaRepository;
+use App\Repositories\Contracts\ResidentAccessRequestRepository;
+use App\Repositories\Contracts\ResidentArchiveRepository;
+use App\Repositories\Contracts\ResidentEmergencyRepository;
+use App\Repositories\Contracts\ResidentVehicleRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
 use App\Repositories\EloquentAnnouncementRepository;
@@ -46,6 +76,21 @@ use App\Repositories\EloquentNotificationFeedRepository;
 use App\Repositories\EloquentPackageArchiveRepository;
 use App\Repositories\EloquentPackageRepository;
 use App\Repositories\EloquentPackageTypeRepository;
+use App\Repositories\EloquentParkingPassRepository;
+use App\Repositories\EloquentPostApprovalArchiveRepository;
+use App\Repositories\EloquentPostApprovalBlacklistUnitRepository;
+use App\Repositories\EloquentPostCommentRepository;
+use App\Repositories\EloquentPostEventRepository;
+use App\Repositories\EloquentPostMarketplaceRepository;
+use App\Repositories\EloquentPostPollRepository;
+use App\Repositories\EloquentPostRecommendationTypeRepository;
+use App\Repositories\EloquentPostRepository;
+use App\Repositories\EloquentPropertyDesignSettingRepository;
+use App\Repositories\EloquentPropertySocialMediaRepository;
+use App\Repositories\EloquentResidentAccessRequestRepository;
+use App\Repositories\EloquentResidentArchiveRepository;
+use App\Repositories\EloquentResidentEmergencyRepository;
+use App\Repositories\EloquentResidentVehicleRepository;
 use App\Repositories\EloquentUnitRepository;
 use App\Repositories\Contracts\PropertyRepository;
 use App\Repositories\Contracts\ResidentRepository;
@@ -173,6 +218,81 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind PackageTypeRepository
         $this->app->bind(PackageTypeRepository::class, function() {
             return new EloquentPackageTypeRepository(new PackageType());
+        });
+
+        // bind PropertyDesignSettingRepository
+        $this->app->bind(PropertyDesignSettingRepository::class, function() {
+            return new EloquentPropertyDesignSettingRepository(new PropertyDesignSetting());
+        });
+
+        // bind PropertySocialMediaRepository
+        $this->app->bind(PropertySocialMediaRepository::class, function() {
+            return new EloquentPropertySocialMediaRepository(new PropertySocialMedia());
+        });
+
+        // bind ResidentAccessRequestRepository
+        $this->app->bind(ResidentAccessRequestRepository::class, function() {
+            return new EloquentResidentAccessRequestRepository(new ResidentAccessRequest());
+        });
+
+        // bind ResidentArchiveRepository
+        $this->app->bind(ResidentArchiveRepository::class, function() {
+            return new EloquentResidentArchiveRepository(new ResidentArchive());
+        });
+
+        // bind ResidentEmergencyRepository
+        $this->app->bind(ResidentEmergencyRepository::class, function() {
+            return new EloquentResidentEmergencyRepository(new ResidentEmergency());
+        });
+
+        // bind ResidentVehicleRepository
+        $this->app->bind(ResidentVehicleRepository::class, function() {
+            return new EloquentResidentVehicleRepository(new ResidentVehicle());
+        });
+
+        // bind ParkingPassRepository
+        $this->app->bind(ParkingPassRepository::class, function() {
+            return new EloquentParkingPassRepository(new ParkingPass());
+        });
+
+        // bind PostRepository
+        $this->app->bind(PostRepository::class, function() {
+            return new EloquentPostRepository(new Post());
+        });
+
+        // bind PostApprovalArchiveRepository
+        $this->app->bind(PostApprovalArchiveRepository::class, function() {
+            return new EloquentPostApprovalArchiveRepository(new PostApprovalArchive());
+        });
+
+        // bind PostApprovalBlacklistUnitRepository
+        $this->app->bind(PostApprovalBlacklistUnitRepository::class, function() {
+            return new EloquentPostApprovalBlacklistUnitRepository(new PostApprovalBlacklistUnit());
+        });
+
+        // bind PostCommentRepository
+        $this->app->bind(PostCommentRepository::class, function() {
+            return new EloquentPostCommentRepository(new PostComment());
+        });
+
+        // bind PostEventRepository
+        $this->app->bind(PostEventRepository::class, function() {
+            return new EloquentPostEventRepository(new PostEvent());
+        });
+
+        // bind PostMarketplaceRepository
+        $this->app->bind(PostMarketplaceRepository::class, function() {
+            return new EloquentPostMarketplaceRepository(new PostMarketplace());
+        });
+
+        // bind PostPollRepository
+        $this->app->bind(PostPollRepository::class, function() {
+            return new EloquentPostPollRepository(new PostPoll());
+        });
+
+        // bind PostRecommendationTypeRepository
+        $this->app->bind(PostRecommendationTypeRepository::class, function() {
+            return new EloquentPostRecommendationTypeRepository(new PostRecommendationType());
         });
     }
 }

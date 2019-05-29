@@ -19,10 +19,8 @@ class CreatePostCommentsTable extends Migration
             $table->unsignedInteger('postId');
             $table->unsignedInteger('createdUserId');
             $table->unsignedInteger('deletedUserId')->nullable();
-            $table->string('posted');
-            $table->string('pending');
-            $table->string('approved');
-            $table->string('denied');            $table->mediumText('text');
+            $table->string('status');
+            $table->mediumText('text');
             $table->boolean('active')->default(1);
             $table->timestamps();
             $table->softDeletes();

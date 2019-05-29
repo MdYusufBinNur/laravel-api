@@ -21,6 +21,8 @@ Route::resource('user', 'UserController', ['except' => ['create', 'edit']]);
 
 Route::resource('role', 'RoleController', ['except' => ['create', 'edit']]);
 
+Route::resource('user-role', 'UserRoleController', ['except' => ['create', 'edit']]);
+
 Route::resource('company', 'CompanyController', ['except' => ['create', 'edit']]);
 
 Route::resource('property', 'PropertyController', ['except' => ['create', 'edit']]);
@@ -52,3 +54,33 @@ Route::resource('package', 'PackageController', ['except' => ['create', 'edit']]
 Route::resource('package-archive', 'PackageArchiveController', ['except' => ['create', 'edit']]);
 
 Route::resource('package-type', 'PackageTypeController', ['except' => ['create', 'edit']]);
+
+Route::resource('property-design-setting', 'PropertyDesignSettingController', ['except' => ['create', 'edit']]);
+
+Route::resource('property-social-media', 'PropertySocialMediaController', ['except' => ['create', 'edit']]);
+
+Route::resource('resident-access-request', 'ResidentAccessRequestController', ['except' => ['create', 'edit']]);
+
+Route::resource('resident-archive', 'ResidentArchiveController', ['except' => ['create', 'edit']]);
+
+Route::resource('resident-emergency', 'ResidentEmergencyController', ['except' => ['create', 'edit']]);
+
+Route::resource('resident-vehicle', 'ResidentVehicleController', ['except' => ['create', 'edit']]);
+
+Route::resource('parking-pass', 'ParkingPassController', ['except' => ['create', 'edit']]);
+
+Route::resource('post', 'PostController', ['except' => ['create', 'edit']]);
+
+Route::resource('post-approval-archive', 'PostApprovalArchiveController', ['except' => ['create', 'edit']]);
+
+Route::resource('post-approval-blacklist-unit', 'PostApprovalBlacklistUnitController', ['except' => ['create', 'edit']]);
+
+Route::resource('post-comment', 'PostCommentController', ['except' => ['create', 'edit']]);
+
+Route::resource('post-event', 'PostEventController', ['except' => ['create', 'edit']]);
+
+Route::resource('post-marketplace', 'PostMarketplaceController', ['except' => ['create', 'edit']]);
+
+Route::resource('post-poll', 'PostPollController', ['except' => ['create', 'edit']]);
+
+Route::resource('post-recommendation-type', 'PostRecommendationTypeController', ['except' => ['create', 'edit']]);

@@ -4,7 +4,6 @@ namespace App\Http\Requests\ServiceRequest;
 
 use App\DbModels\ServiceRequest;
 use App\Http\Requests\Request;
-use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends Request
 {

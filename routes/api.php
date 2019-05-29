@@ -92,3 +92,5 @@ Route::resource('post-wall', 'PostWallController', ['except' => ['create', 'edit
 Route::resource('property-image', 'PropertyImageController', ['except' => ['create', 'edit']]);
 
 Route::resource('service-request-category', 'ServiceRequestCategoryController', ['except' => ['create', 'edit']]);
+
+Route::resource('service-request', 'ServiceRequestController', ['except' => ['create', 'edit']]);

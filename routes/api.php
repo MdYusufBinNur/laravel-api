@@ -94,3 +94,5 @@ Route::resource('property-image', 'PropertyImageController', ['except' => ['crea
 Route::resource('service-request-category', 'ServiceRequestCategoryController', ['except' => ['create', 'edit']]);
 
 Route::resource('service-request', 'ServiceRequestController', ['except' => ['create', 'edit']]);
+
+Route::resource('service-request-log', 'ServiceRequestLogController', ['except' => ['create', 'edit']]);

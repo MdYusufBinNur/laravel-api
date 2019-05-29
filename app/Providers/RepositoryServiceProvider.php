@@ -37,6 +37,7 @@ use App\DbModels\ResidentVehicle;
 use App\DbModels\Role;
 use App\DbModels\ServiceRequest;
 use App\DbModels\ServiceRequestCategory;
+use App\DbModels\ServiceRequestLog;
 use App\DbModels\Tower;
 use App\DbModels\Unit;
 use App\DbModels\User;
@@ -70,6 +71,7 @@ use App\Repositories\Contracts\ResidentArchiveRepository;
 use App\Repositories\Contracts\ResidentEmergencyRepository;
 use App\Repositories\Contracts\ResidentVehicleRepository;
 use App\Repositories\Contracts\ServiceRequestCategoryRepository;
+use App\Repositories\Contracts\ServiceRequestLogRepository;
 use App\Repositories\Contracts\ServiceRequestRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
@@ -105,6 +107,7 @@ use App\Repositories\EloquentResidentArchiveRepository;
 use App\Repositories\EloquentResidentEmergencyRepository;
 use App\Repositories\EloquentResidentVehicleRepository;
 use App\Repositories\EloquentServiceRequestCategoryRepository;
+use App\Repositories\EloquentServiceRequestLogRepository;
 use App\Repositories\EloquentServiceRequestRepository;
 use App\Repositories\EloquentUnitRepository;
 use App\Repositories\Contracts\PropertyRepository;
@@ -333,6 +336,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind ServiceRequestRepository
         $this->app->bind(ServiceRequestRepository::class, function() {
             return new EloquentServiceRequestRepository(new ServiceRequest());
+        });
+
+        // bind ServiceRequestLogRepository
+        $this->app->bind(ServiceRequestLogRepository::class, function() {
+            return new EloquentServiceRequestLogRepository(new ServiceRequestLog());
         });
     }
 }

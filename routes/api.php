@@ -96,3 +96,5 @@ Route::resource('service-request-category', 'ServiceRequestCategoryController', 
 Route::resource('service-request', 'ServiceRequestController', ['except' => ['create', 'edit']]);
 
 Route::resource('service-request-log', 'ServiceRequestLogController', ['except' => ['create', 'edit']]);
+
+Route::resource('service-request-office-detail', 'ServiceRequestOfficeDetailController', ['except' => ['create', 'edit']]);

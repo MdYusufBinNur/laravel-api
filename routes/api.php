@@ -88,3 +88,5 @@ Route::resource('post-recommendation-type', 'PostRecommendationTypeController', 
 Route::resource('post-recommendation', 'PostRecommendationController', ['except' => ['create', 'edit']]);
 
 Route::resource('post-wall', 'PostWallController', ['except' => ['create', 'edit']]);
+
+Route::resource('property-image', 'PropertyImageController', ['except' => ['create', 'edit']]);

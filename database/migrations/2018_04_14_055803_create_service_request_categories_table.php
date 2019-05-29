@@ -17,10 +17,9 @@ class CreateServiceRequestCategoriesTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
-            $table->unsignedInteger('parentId');
+            $table->unsignedInteger('parentId')->nullable();
             $table->string('title');
-            $table->string('unit');
-            $table->string('commonArea');
+            $table->string('type');
             $table->boolean('active')->default(1);
             $table->timestamps();
             $table->softDeletes();

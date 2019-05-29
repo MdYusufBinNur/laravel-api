@@ -35,6 +35,7 @@ use App\DbModels\ResidentArchive;
 use App\DbModels\ResidentEmergency;
 use App\DbModels\ResidentVehicle;
 use App\DbModels\Role;
+use App\DbModels\ServiceRequestCategory;
 use App\DbModels\Tower;
 use App\DbModels\Unit;
 use App\DbModels\User;
@@ -67,6 +68,7 @@ use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use App\Repositories\Contracts\ResidentArchiveRepository;
 use App\Repositories\Contracts\ResidentEmergencyRepository;
 use App\Repositories\Contracts\ResidentVehicleRepository;
+use App\Repositories\Contracts\ServiceRequestCategoryRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
 use App\Repositories\EloquentAnnouncementRepository;
@@ -100,6 +102,7 @@ use App\Repositories\EloquentResidentAccessRequestRepository;
 use App\Repositories\EloquentResidentArchiveRepository;
 use App\Repositories\EloquentResidentEmergencyRepository;
 use App\Repositories\EloquentResidentVehicleRepository;
+use App\Repositories\EloquentServiceRequestCategoryRepository;
 use App\Repositories\EloquentUnitRepository;
 use App\Repositories\Contracts\PropertyRepository;
 use App\Repositories\Contracts\ResidentRepository;
@@ -317,6 +320,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind PropertyImageRepository
         $this->app->bind(PropertyImageRepository::class, function() {
             return new EloquentPropertyImageRepository(new PropertyImage());
+        });
+
+        // bind ServiceRequestCategoryRepository
+        $this->app->bind(ServiceRequestCategoryRepository::class, function() {
+            return new EloquentServiceRequestCategoryRepository(new ServiceRequestCategory());
         });
     }
 }

@@ -22,6 +22,7 @@ use App\DbModels\PostComment;
 use App\DbModels\PostEvent;
 use App\DbModels\PostMarketplace;
 use App\DbModels\PostPoll;
+use App\DbModels\PostRecommendation;
 use App\DbModels\PostRecommendationType;
 use App\DbModels\Property;
 use App\DbModels\PropertyDesignSetting;
@@ -53,6 +54,7 @@ use App\Repositories\Contracts\PostCommentRepository;
 use App\Repositories\Contracts\PostEventRepository;
 use App\Repositories\Contracts\PostMarketplaceRepository;
 use App\Repositories\Contracts\PostPollRepository;
+use App\Repositories\Contracts\PostRecommendationRepository;
 use App\Repositories\Contracts\PostRecommendationTypeRepository;
 use App\Repositories\Contracts\PostRepository;
 use App\Repositories\Contracts\PropertyDesignSettingRepository;
@@ -83,6 +85,7 @@ use App\Repositories\EloquentPostCommentRepository;
 use App\Repositories\EloquentPostEventRepository;
 use App\Repositories\EloquentPostMarketplaceRepository;
 use App\Repositories\EloquentPostPollRepository;
+use App\Repositories\EloquentPostRecommendationRepository;
 use App\Repositories\EloquentPostRecommendationTypeRepository;
 use App\Repositories\EloquentPostRepository;
 use App\Repositories\EloquentPropertyDesignSettingRepository;
@@ -293,6 +296,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind PostRecommendationTypeRepository
         $this->app->bind(PostRecommendationTypeRepository::class, function() {
             return new EloquentPostRecommendationTypeRepository(new PostRecommendationType());
+        });
+
+        // bind PostRecommendationRepository
+        $this->app->bind(PostRecommendationRepository::class, function() {
+            return new EloquentPostRecommendationRepository(new PostRecommendation());
         });
     }
 }

@@ -98,3 +98,5 @@ Route::resource('service-request', 'ServiceRequestController', ['except' => ['cr
 Route::resource('service-request-log', 'ServiceRequestLogController', ['except' => ['create', 'edit']]);
 
 Route::resource('service-request-office-detail', 'ServiceRequestOfficeDetailController', ['except' => ['create', 'edit']]);
+
+Route::resource('service-request-status', 'ServiceRequestStatusController', ['except' => ['create', 'edit']]);

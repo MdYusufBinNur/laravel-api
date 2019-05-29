@@ -86,3 +86,5 @@ Route::resource('post-poll', 'PostPollController', ['except' => ['create', 'edit
 Route::resource('post-recommendation-type', 'PostRecommendationTypeController', ['except' => ['create', 'edit']]);
 
 Route::resource('post-recommendation', 'PostRecommendationController', ['except' => ['create', 'edit']]);
+
+Route::resource('post-wall', 'PostWallController', ['except' => ['create', 'edit']]);

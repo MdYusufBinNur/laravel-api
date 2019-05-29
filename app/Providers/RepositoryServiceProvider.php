@@ -24,6 +24,7 @@ use App\DbModels\PostMarketplace;
 use App\DbModels\PostPoll;
 use App\DbModels\PostRecommendation;
 use App\DbModels\PostRecommendationType;
+use App\DbModels\PostWall;
 use App\DbModels\Property;
 use App\DbModels\PropertyDesignSetting;
 use App\DbModels\PropertySocialMedia;
@@ -57,6 +58,7 @@ use App\Repositories\Contracts\PostPollRepository;
 use App\Repositories\Contracts\PostRecommendationRepository;
 use App\Repositories\Contracts\PostRecommendationTypeRepository;
 use App\Repositories\Contracts\PostRepository;
+use App\Repositories\Contracts\PostWallRepository;
 use App\Repositories\Contracts\PropertyDesignSettingRepository;
 use App\Repositories\Contracts\PropertySocialMediaRepository;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
@@ -88,6 +90,7 @@ use App\Repositories\EloquentPostPollRepository;
 use App\Repositories\EloquentPostRecommendationRepository;
 use App\Repositories\EloquentPostRecommendationTypeRepository;
 use App\Repositories\EloquentPostRepository;
+use App\Repositories\EloquentPostWallRepository;
 use App\Repositories\EloquentPropertyDesignSettingRepository;
 use App\Repositories\EloquentPropertySocialMediaRepository;
 use App\Repositories\EloquentResidentAccessRequestRepository;
@@ -301,6 +304,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind PostRecommendationRepository
         $this->app->bind(PostRecommendationRepository::class, function() {
             return new EloquentPostRecommendationRepository(new PostRecommendation());
+        });
+
+        // bind PostWallRepository
+        $this->app->bind(PostWallRepository::class, function() {
+            return new EloquentPostWallRepository(new PostWall());
         });
     }
 }

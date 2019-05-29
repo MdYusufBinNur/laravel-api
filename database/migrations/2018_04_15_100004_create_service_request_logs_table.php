@@ -18,13 +18,8 @@ class CreateServiceRequestLogsTable extends Migration
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('serviceRequestId');
             $table->unsignedInteger('userId');
-            $table->text('comments');
-            $table->string('comment');
+            $table->string('type');
             $table->string('feedback');
-            $table->string('assignment');
-            $table->string('none');
-            $table->string('positive');
-            $table->string('negative');
             $table->boolean('status')->default(1);
             $table->timestamps();
             $table->softDeletes();

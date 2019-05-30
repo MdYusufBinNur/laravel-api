@@ -44,6 +44,7 @@ use App\DbModels\Tower;
 use App\DbModels\Unit;
 use App\DbModels\User;
 use App\DbModels\UserNotificationSetting;
+use App\DbModels\UserProfile;
 use App\DbModels\UserRole;
 use App\Repositories\Contracts\AnnouncementRepository;
 use App\Repositories\Contracts\CompanyRepository;
@@ -79,6 +80,7 @@ use App\Repositories\Contracts\ServiceRequestOfficeDetailRepository;
 use App\Repositories\Contracts\ServiceRequestRepository;
 use App\Repositories\Contracts\ServiceRequestStatusRepository;
 use App\Repositories\Contracts\UserNotificationSettingRepository;
+use App\Repositories\Contracts\UserProfileRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
 use App\Repositories\EloquentAnnouncementRepository;
@@ -129,6 +131,7 @@ use App\Repositories\EloquentResidentRepository;
 use App\Repositories\EloquentRoleRepository;
 use App\Repositories\EloquentTowerRepository;
 use App\Repositories\EloquentUserNotificationSettingRepository;
+use App\Repositories\EloquentUserProfileRepository;
 use App\Repositories\EloquentUserRepository;
 use App\Repositories\EloquentUserRoleRepository;
 use Illuminate\Support\ServiceProvider;
@@ -365,6 +368,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind UserNotificationSettingRepository
         $this->app->bind(UserNotificationSettingRepository::class, function() {
             return new EloquentUserNotificationSettingRepository(new UserNotificationSetting());
+        });
+
+        // bind UserProfileRepository
+        $this->app->bind(UserProfileRepository::class, function() {
+            return new EloquentUserProfileRepository(new UserProfile());
         });
     }
 }

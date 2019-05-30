@@ -108,3 +108,5 @@ Route::resource('user-profile', 'UserProfileController', ['except' => ['create',
 Route::resource('user-profile-child', 'UserProfileChildController', ['except' => ['create', 'edit']]);
 
 Route::resource('user-profile-link', 'UserProfileLinkController', ['except' => ['create', 'edit']]);
+
+Route::resource('user-profile-post', 'UserProfilePostController', ['except' => ['create', 'edit']]);

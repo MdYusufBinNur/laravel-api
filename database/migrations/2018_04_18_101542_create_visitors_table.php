@@ -28,8 +28,7 @@ class CreateVisitorsTable extends Migration
             $table->boolean('permanent')->default(0);
             $table->mediumText('comments')->nullable();
             $table->boolean('signature')->default(0);
-            $table->string('active');
-            $table->string('archive');
+            $table->string('status');
             $table->dateTime('signinAt');
             $table->timestamps();
             $table->softDeletes();

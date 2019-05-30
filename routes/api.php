@@ -112,3 +112,5 @@ Route::resource('user-profile-link', 'UserProfileLinkController', ['except' => [
 Route::resource('user-profile-post', 'UserProfilePostController', ['except' => ['create', 'edit']]);
 
 Route::resource('visitor-type', 'VisitorTypeController', ['except' => ['create', 'edit']]);
+
+Route::resource('visitor', 'VisitorController', ['except' => ['create', 'edit']]);

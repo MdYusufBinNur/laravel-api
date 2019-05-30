@@ -17,8 +17,7 @@ class CreateUserProfileChildrenTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('userId');
-            $table->string('male');
-            $table->string('female');
+            $table->string('gender');
             $table->string('name');
             $table->string('age', 10)->nullable();
             $table->timestamps();

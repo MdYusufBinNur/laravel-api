@@ -102,3 +102,5 @@ Route::resource('service-request-office-detail', 'ServiceRequestOfficeDetailCont
 Route::resource('service-request-status', 'ServiceRequestStatusController', ['except' => ['create', 'edit']]);
 
 Route::resource('user-notification-setting', 'UserNotificationSettingController', ['except' => ['create', 'edit']]);
+
+Route::resource('user-profile', 'UserProfileController', ['except' => ['create', 'edit']]);

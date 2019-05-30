@@ -114,3 +114,5 @@ Route::resource('user-profile-post', 'UserProfilePostController', ['except' => [
 Route::resource('visitor-type', 'VisitorTypeController', ['except' => ['create', 'edit']]);
 
 Route::resource('visitor', 'VisitorController', ['except' => ['create', 'edit']]);
+
+Route::resource('visitor-archive', 'VisitorArchiveController', ['except' => ['create', 'edit']]);

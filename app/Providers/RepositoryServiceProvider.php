@@ -50,6 +50,7 @@ use App\DbModels\UserProfileLink;
 use App\DbModels\UserProfilePost;
 use App\DbModels\UserRole;
 use App\DbModels\Visitor;
+use App\DbModels\VisitorArchive;
 use App\DbModels\VisitorType;
 use App\Repositories\Contracts\AnnouncementRepository;
 use App\Repositories\Contracts\CompanyRepository;
@@ -91,6 +92,7 @@ use App\Repositories\Contracts\UserProfilePostRepository;
 use App\Repositories\Contracts\UserProfileRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
+use App\Repositories\Contracts\VisitorArchiveRepository;
 use App\Repositories\Contracts\VisitorRepository;
 use App\Repositories\Contracts\VisitorTypeRepository;
 use App\Repositories\EloquentAnnouncementRepository;
@@ -147,6 +149,7 @@ use App\Repositories\EloquentUserProfilePostRepository;
 use App\Repositories\EloquentUserProfileRepository;
 use App\Repositories\EloquentUserRepository;
 use App\Repositories\EloquentUserRoleRepository;
+use App\Repositories\EloquentVisitorArchiveRepository;
 use App\Repositories\EloquentVisitorRepository;
 use App\Repositories\EloquentVisitorTypeRepository;
 use Illuminate\Support\ServiceProvider;
@@ -413,6 +416,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind VisitorTypeRepository
         $this->app->bind(VisitorRepository::class, function() {
             return new EloquentVisitorRepository(new Visitor());
+        });
+
+        // bind VisitorArchiveRepository
+        $this->app->bind(VisitorArchiveRepository::class, function() {
+            return new EloquentVisitorArchiveRepository(new VisitorArchive());
         });
     }
 }

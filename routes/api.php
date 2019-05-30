@@ -106,3 +106,5 @@ Route::resource('user-notification-setting', 'UserNotificationSettingController'
 Route::resource('user-profile', 'UserProfileController', ['except' => ['create', 'edit']]);
 
 Route::resource('user-profile-child', 'UserProfileChildController', ['except' => ['create', 'edit']]);
+
+Route::resource('user-profile-link', 'UserProfileLinkController', ['except' => ['create', 'edit']]);

@@ -46,6 +46,7 @@ use App\DbModels\User;
 use App\DbModels\UserNotificationSetting;
 use App\DbModels\UserProfile;
 use App\DbModels\UserProfileChild;
+use App\DbModels\UserProfileLink;
 use App\DbModels\UserRole;
 use App\Repositories\Contracts\AnnouncementRepository;
 use App\Repositories\Contracts\CompanyRepository;
@@ -82,6 +83,7 @@ use App\Repositories\Contracts\ServiceRequestRepository;
 use App\Repositories\Contracts\ServiceRequestStatusRepository;
 use App\Repositories\Contracts\UserNotificationSettingRepository;
 use App\Repositories\Contracts\UserProfileChildRepository;
+use App\Repositories\Contracts\UserProfileLinkRepository;
 use App\Repositories\Contracts\UserProfileRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
@@ -134,6 +136,7 @@ use App\Repositories\EloquentRoleRepository;
 use App\Repositories\EloquentTowerRepository;
 use App\Repositories\EloquentUserNotificationSettingRepository;
 use App\Repositories\EloquentUserProfileChildRepository;
+use App\Repositories\EloquentUserProfileLinkRepository;
 use App\Repositories\EloquentUserProfileRepository;
 use App\Repositories\EloquentUserRepository;
 use App\Repositories\EloquentUserRoleRepository;
@@ -381,6 +384,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind UserProfileChildRepository
         $this->app->bind(UserProfileChildRepository::class, function() {
             return new EloquentUserProfileChildRepository(new UserProfileChild());
+        });
+
+        // bind UserProfileChildRepository
+        $this->app->bind(UserProfileLinkRepository::class, function() {
+            return new EloquentUserProfileLinkRepository(new UserProfileLink());
         });
     }
 }

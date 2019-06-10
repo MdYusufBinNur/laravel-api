@@ -12,5 +12,57 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
+        factory(App\DbModels\Role::class, 5)->create();
+
+        factory(App\DbModels\User::class, 10)->create();
+
+        factory(App\DbModels\Admin::class, 5)->create();
+
+        factory(App\DbModels\Company::class, 5)->create();
+
+        factory(App\DbModels\Property::class, 10)->create();
+        factory(App\DbModels\PropertyDesignSetting::class, 5)->create();
+        factory(App\DbModels\PropertyImage::class, 5)->create();
+        factory(App\DbModels\PropertySocialMedia::class, 5)->create();
+
+        factory(App\DbModels\Tower::class, 30)->create();
+
+        factory(App\DbModels\Unit::class, 100)->create();
+
+        factory(App\DbModels\Resident::class, 100)->create();
+        factory(App\DbModels\ResidentEmergency::class, 10)->create();
+        factory(App\DbModels\ResidentVehicle::class, 20)->create();
+
+        factory(App\DbModels\Announcement::class, 5)->create();
+
+        factory(App\DbModels\VisitorType::class, 5)->create();
+        factory(App\DbModels\Visitor::class, 20)->create();
+        factory(App\DbModels\VisitorArchive::class, 20)->create();
+
+        factory(App\DbModels\UserProfile::class, 20)->create();
+        factory(App\DbModels\UserProfileChild::class, 20)->create();
+        factory(App\DbModels\UserProfileLink::class, 20)->create();
+        factory(App\DbModels\UserProfilePost::class, 20)->create();
+
+        factory(App\DbModels\ServiceRequestCategory::class, 2)->create();
+        factory(App\DbModels\ServiceRequestStatus::class, 2)->create();
+        factory(App\DbModels\ServiceRequest::class, 3)->create();
+        factory(App\DbModels\ServiceRequestOfficeDetail::class, 5)->create();
+        factory(App\DbModels\ServiceRequestLog::class, 5)->create();
+
+        factory(App\DbModels\EnterpriseUser::class, 5)->create();
+        factory(App\DbModels\EnterpriseUserProperty::class, 5)->create();
+
+        factory(App\DbModels\Event::class, 5)->create();
+        factory(App\DbModels\EventSignup::class, 5)->create();
+
+        factory(App\DbModels\FdiGuestType::class, 5)->create();
+        factory(App\DbModels\Fdi::class, 5)->create();
+        factory(App\DbModels\FdiLog::class, 5)->create();
+
+        factory(App\DbModels\LdsBlacklistUnit::class, 5)->create();
+        factory(App\DbModels\FdiLog::class, 5)->create();
+
+
     }
 }

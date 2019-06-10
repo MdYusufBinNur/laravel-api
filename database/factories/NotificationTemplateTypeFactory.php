@@ -2,11 +2,11 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\Model;
 use Faker\Generator as Faker;
 
-$factory->define(Model::class, function (Faker $faker) {
+$factory->define(App\DbModels\NotificationTemplateType::class, function (Faker $faker) {
     return [
-        //
+        'key' => $faker->randomKey(),
+        'module' => $faker->sentence,
     ];
 });

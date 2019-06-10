@@ -2,11 +2,12 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\Model;
 use Faker\Generator as Faker;
 
-$factory->define(Model::class, function (Faker $faker) {
+$factory->define(App\DbModels\ModuleOption::class, function (Faker $faker) {
     return [
-        //
+        'moduleId' =>  App\DbModels\Module::all()->random()->id,
+        'key' => $faker->randomKey(),
+        'title' => $faker->title,
     ];
 });

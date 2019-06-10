@@ -61,8 +61,32 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\FdiLog::class, 5)->create();
 
         factory(App\DbModels\LdsBlacklistUnit::class, 5)->create();
-        factory(App\DbModels\FdiLog::class, 5)->create();
+        factory(App\DbModels\LdsSlide::class, 5)->create();
+        factory(App\DbModels\LdsSlideProperty::class, 5)->create();
+        factory(App\DbModels\LdsSetting::class, 5)->create();
+
+        factory(App\DbModels\Manager::class, 3)->create();
+
+        factory(App\DbModels\Message::class, 10)->create();
+        factory(App\DbModels\MessagePost::class, 10)->create();
+        factory(App\DbModels\MessageTemplate::class, 10)->create();
+        factory(App\DbModels\MessageUser::class, 10)->create();
 
 
+        factory(App\DbModels\Module::class, 10)->create();
+        factory(App\DbModels\ModuleOption::class, 10)->create();
+        factory(App\DbModels\ModuleOptionProperty::class, 10)->create();
+        factory(App\DbModels\ModuleProperty::class, 10)->create();
+
+        factory(App\DbModels\NotificationFeed::class, 10)->create();
+        factory(App\DbModels\NotificationTemplateType::class, 2)->create();
+        factory(App\DbModels\NotificationTemplate::class, 5)->create();
+        factory(App\DbModels\NotificationTemplateProperty::class, 5)->create();
+
+        factory(App\DbModels\PackageType::class, 5)->create();
+        factory(App\DbModels\Package::class, 5)->create();
+        factory(App\DbModels\PackageArchive::class, 5)->create();
+
+        factory(App\DbModels\ParkingPass::class, 5)->create();
     }
 }

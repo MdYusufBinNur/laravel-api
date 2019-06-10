@@ -2,11 +2,11 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\Model;
 use Faker\Generator as Faker;
 
-$factory->define(Model::class, function (Faker $faker) {
+$factory->define(App\DbModels\LdsSlideProperty::class, function (Faker $faker) {
     return [
-        //
+        'propertyId' =>  App\DbModels\Property::all()->random()->id,
+        'slideId' =>  App\DbModels\LdsSlide::all()->random()->id,
     ];
 });

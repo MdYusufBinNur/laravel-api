@@ -20,10 +20,7 @@ class CreateManagersTable extends Migration
             $table->string('contactEmail')->nullable();
             $table->string('phone', 20)->nullable();
             $table->string('title')->nullable();
-            $table->string('admin');
-            $table->string('standard');
-            $table->string('limited');
-            $table->string('restricted');
+            $table->string('level');
             $table->boolean('displayInCorner')->default(1);
             $table->boolean('displayPublicProfile')->default(1);
             $table->timestamps();

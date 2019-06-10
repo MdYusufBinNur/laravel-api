@@ -4,10 +4,9 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\DbModels\ModuleProperty::class, function (Faker $faker) {
+$factory->define(App\DbModels\NotificationTemplateProperty::class, function (Faker $faker) {
     return [
         'propertyId' =>  App\DbModels\Property::all()->random()->id,
-        'moduleId' =>  App\DbModels\Module::all()->random()->id,
-        'signature' => $faker->boolean,
+        'templateId' =>  App\DbModels\NotificationTemplate::all()->random()->id,
     ];
 });

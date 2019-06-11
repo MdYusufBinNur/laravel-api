@@ -9,7 +9,7 @@ $factory->define(App\DbModels\Manager::class, function (Faker $faker) {
     return [
         'userId' =>  App\DbModels\User::all()->random()->id,
         'contactEmail' => $faker->email,
-        'phone' => $faker->phoneNumber,
+        'phone' => substr($faker->phoneNumber,0,20),
         'title' => $faker->title,
         'level' => $faker->randomElement(array('admin','standard','limited','restricted')),
         'displayInCorner' => $faker->boolean,

@@ -6,8 +6,8 @@ use Faker\Generator as Faker;
 
 $factory->define(App\DbModels\FdiLog::class, function (Faker $faker) {
     return [
-        'fdiId' =>  App\DbModels\VisitorType::all()->random()->id,
-        'userId' =>  App\DbModels\VisitorType::all()->random()->id,
+        'fdiId' =>  App\DbModels\Fdi::all()->random()->id,
+        'userId' =>  App\DbModels\User::all()->random()->id,
         'text' => $faker->sentence,
         'type' => $faker->randomElement(array('add','edit','expired','approved','denied')),
     ];

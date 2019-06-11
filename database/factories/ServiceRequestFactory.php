@@ -12,7 +12,7 @@ $factory->define(App\DbModels\ServiceRequest::class, function (Faker $faker) {
         'categoryId' =>  App\DbModels\ServiceRequestCategory::all()->random()->id,
         'statusId' =>  App\DbModels\ServiceRequestStatus::all()->random()->id,
         'type' => $faker->randomElement(array('unit','commonArea','equipment')),
-        'phone' => $faker->phoneNumber,
+        'phone' =>  substr($faker->phoneNumber,0,20),
         'description' => $faker->sentence,
         'permissionToEnter' => $faker->boolean,
         'prefferedStartTime' => $faker->time(),

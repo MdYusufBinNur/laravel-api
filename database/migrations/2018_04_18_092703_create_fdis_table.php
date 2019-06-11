@@ -20,9 +20,7 @@ class CreateFdisTable extends Migration
             $table->unsignedInteger('userId');
             $table->unsignedInteger('unitId');
             $table->unsignedInteger('guestTypeId');
-            $table->string('guest');
-            $table->string('mail');
-            $table->string('general');
+            $table->string('type');
             $table->string('name');
             $table->boolean('photo')->default(0);
             $table->date('startDate')->nullable();
@@ -31,9 +29,7 @@ class CreateFdisTable extends Migration
             $table->text('comments')->nullable();
             $table->boolean('canGetKey')->default(0);
             $table->boolean('signature')->default(0);
-            $table->string('active');
-            $table->string('deleted');
-            $table->string('pendingApproval');
+            $table->string('status');
             $table->timestamps();
             $table->softDeletes();
 

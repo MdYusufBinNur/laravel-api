@@ -21,8 +21,7 @@ class CreateEnterpriseUsersTable extends Migration
             $table->string('contactEmail')->nullable();
             $table->string('phone', 20)->nullable();
             $table->string('title')->nullable();
-            $table->string('admin');
-            $table->string('standard');
+            $table->string('level');
             $table->timestamps();
             $table->softDeletes();
 

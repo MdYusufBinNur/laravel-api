@@ -11,10 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+//        $this->call(UsersTableSeeder::class);
         factory(App\DbModels\Role::class, 5)->create();
 
-        factory(App\DbModels\User::class, 10)->create();
+        factory(App\User::class, 10)->create();
 
         factory(App\DbModels\Admin::class, 5)->create();
 
@@ -32,17 +32,19 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\Resident::class, 100)->create();
         factory(App\DbModels\ResidentEmergency::class, 10)->create();
         factory(App\DbModels\ResidentVehicle::class, 20)->create();
+        factory(App\DbModels\ResidentArchive::class, 5)->create();
+        factory(App\DbModels\ResidentAccessRequest::class, 5)->create();
 
         factory(App\DbModels\Announcement::class, 5)->create();
-
-        factory(App\DbModels\VisitorType::class, 5)->create();
-        factory(App\DbModels\Visitor::class, 20)->create();
-        factory(App\DbModels\VisitorArchive::class, 20)->create();
 
         factory(App\DbModels\UserProfile::class, 20)->create();
         factory(App\DbModels\UserProfileChild::class, 20)->create();
         factory(App\DbModels\UserProfileLink::class, 20)->create();
         factory(App\DbModels\UserProfilePost::class, 20)->create();
+
+        factory(App\DbModels\VisitorType::class, 5)->create();
+        factory(App\DbModels\Visitor::class, 20)->create();
+        factory(App\DbModels\VisitorArchive::class, 5)->create();
 
         factory(App\DbModels\ServiceRequestCategory::class, 2)->create();
         factory(App\DbModels\ServiceRequestStatus::class, 2)->create();
@@ -65,8 +67,6 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\LdsSlideProperty::class, 5)->create();
         factory(App\DbModels\LdsSetting::class, 5)->create();
 
-        factory(App\DbModels\Manager::class, 3)->create();
-
         factory(App\DbModels\Message::class, 10)->create();
         factory(App\DbModels\MessagePost::class, 10)->create();
         factory(App\DbModels\MessageTemplate::class, 10)->create();
@@ -78,6 +78,11 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\ModuleOptionProperty::class, 10)->create();
         factory(App\DbModels\ModuleProperty::class, 10)->create();
 
+
+        factory(App\DbModels\Manager::class, 3)->create();
+        factory(App\DbModels\ManagerInvitation::class, 5)->create();
+        factory(App\DbModels\ManagerProperty::class, 5)->create();
+
         factory(App\DbModels\NotificationFeed::class, 10)->create();
         factory(App\DbModels\NotificationTemplateType::class, 2)->create();
         factory(App\DbModels\NotificationTemplate::class, 5)->create();
@@ -88,5 +93,16 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\PackageArchive::class, 5)->create();
 
         factory(App\DbModels\ParkingPass::class, 5)->create();
+
+        factory(App\DbModels\Post::class, 5)->create();
+        factory(App\DbModels\PostEvent::class, 5)->create();
+        factory(App\DbModels\PostMarketplace::class, 5)->create();
+        factory(App\DbModels\PostWall::class, 5)->create();
+        factory(App\DbModels\PostComment::class, 5)->create();
+        factory(App\DbModels\PostPoll::class, 5)->create();
+        factory(App\DbModels\PostRecommendationType::class, 5)->create();
+        factory(App\DbModels\PostRecommendation::class, 5)->create();
+        factory(App\DbModels\PostApprovalArchive::class, 5)->create();
+        factory(App\DbModels\PostApprovalBlacklistUnit::class, 5)->create();
     }
 }

@@ -8,7 +8,7 @@ $factory->define(App\DbModels\Unit::class, function (Faker $faker) {
     return [
         'towerId' => App\DbModels\Tower::all()->random()->id,
         'title' => $faker->title,
-        'floor' => $faker->randomNumber(1,30),
-        'line' => $faker->randomNumber(1,20),
+        'floor' => $faker->numberBetween(1,30),
+        'line' => $faker->numberBetween(1,20),
     ];
 });

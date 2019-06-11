@@ -34,7 +34,7 @@ class CreatePackagesTable extends Migration
                 ->onDelete('cascade');
 
             $table->foreign('residentId')
-                ->references('id')->on('residents')
+                ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

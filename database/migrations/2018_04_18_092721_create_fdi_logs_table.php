@@ -19,11 +19,7 @@ class CreateFdiLogsTable extends Migration
             $table->unsignedInteger('fdiId');
             $table->unsignedInteger('userId');
             $table->mediumText('text');
-            $table->string('add');
-            $table->string('edit');
-            $table->string('expired');
-            $table->string('approved');
-            $table->string('denied');
+            $table->string('type');
             $table->timestamps();
             $table->softDeletes();
 

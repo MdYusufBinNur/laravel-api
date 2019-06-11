@@ -2,11 +2,11 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\Model;
 use Faker\Generator as Faker;
 
-$factory->define(Model::class, function (Faker $faker) {
+$factory->define(App\DbModels\PostWall::class, function (Faker $faker) {
     return [
-        //
+        'postId' =>  App\DbModels\Post::all()->random()->id,
+        'text' => $faker->sentence,
     ];
 });

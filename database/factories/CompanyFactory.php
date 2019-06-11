@@ -11,7 +11,7 @@ $factory->define(App\DbModels\Company::class, function (Faker $faker) {
         'city' => $faker->city,
         'state' => $faker->state,
         'postCode' => $faker->postcode,
-        'country' => $faker->country,
+        'country' => $faker->randomElement(array('BD','India','UK','USA','UAE','SL')),
         'active' => $faker->boolean,
     ];
 });

@@ -10,7 +10,7 @@ $factory->define(App\DbModels\ParkingPass::class, function (Faker $faker) {
         'unitId' =>  App\DbModels\Unit::all()->random()->id,
         'submittedUserId' =>  App\DbModels\User::all()->random()->id,
         'voidedUserId' =>  App\DbModels\User::all()->random()->id,
-        'number' => $faker->phoneNumber,
+        'number' =>  substr($faker->phoneNumber,0,20),
         'type' => $faker->randomElement(array('unit','office')),
         'status' => $faker->randomElement(array('active','voided')),
         'vehicleMake' => $faker->randomKey(),

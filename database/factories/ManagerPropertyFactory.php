@@ -4,12 +4,10 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\DbModels\ServiceRequestCategory::class, function (Faker $faker) {
+$factory->define(App\DbModels\ManagerProperty::class, function (Faker $faker) {
     return [
+        'managerId' =>  App\DbModels\Manager::all()->random()->id,
         'propertyId' =>  App\DbModels\Property::all()->random()->id,
-        'parentId' =>  1,
-        'type' => $faker->randomElement(array('unit','commonArea')),
-        'title' => $faker->title,
         'active' => $faker->boolean,
     ];
 });

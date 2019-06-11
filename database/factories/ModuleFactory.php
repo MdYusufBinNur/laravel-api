@@ -6,7 +6,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\DbModels\Module::class, function (Faker $faker) {
     return [
-        'key' => $faker->randomKey(),
+        'key' => $faker->randomAscii,
         'title' => $faker->title,
     ];
 });

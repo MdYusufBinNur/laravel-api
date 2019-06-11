@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 $factory->define(App\DbModels\LdsSetting::class, function (Faker $faker) {
     return [
         'propertyId' =>  App\DbModels\Property::all()->random()->id,
-        'refreshRate' => $faker->name,
+        'refreshRate' => $faker->numberBetween(1,100),
         'showPackages' => $faker->boolean,
         'iconSize' => $faker->randomElement(array('small','large')),
         'iconColor' => $faker->randomElement(array('white','color')),

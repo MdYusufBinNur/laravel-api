@@ -11,7 +11,7 @@ $factory->define(App\DbModels\Visitor::class, function (Faker $faker) {
         'unitId' => App\DbModels\Unit::all()->random()->id,
         'visitorTypeId' =>  App\DbModels\VisitorType::all()->random()->id,
         'name' => $faker->name,
-        'phone' => $faker->phoneNumber,
+        'phone' => substr($faker->phoneNumber,0,20),
         'email' => $faker->email,
         'company' => $faker->company,
         'photo' => $faker->boolean,

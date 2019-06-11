@@ -19,8 +19,7 @@ class CreateLdsSlidesTable extends Migration
             $table->string('title');
             $table->string('backgroundColor', 20)->nullable();
             $table->mediumInteger('imageId');
-            $table->string('standard');
-            $table->string('custom');
+            $table->string('type');
             $table->timestamps();
             $table->softDeletes();
 

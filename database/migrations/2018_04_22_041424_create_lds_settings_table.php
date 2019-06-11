@@ -18,14 +18,10 @@ class CreateLdsSettingsTable extends Migration
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
             $table->tinyInteger('refreshRate');
-            $table->boolean('show_packages')->default(1);
-            $table->string('small');
-            $table->string('large');
-            $table->string('white');
-            $table->string('color');
-            $table->string('classic');
-            $table->string('traditional');
-            $table->string('black-tie');
+            $table->boolean('showPackages')->default(1);
+            $table->string('iconSize');
+            $table->string('iconColor');
+            $table->string('theme');
             $table->timestamps();
             $table->softDeletes();
 

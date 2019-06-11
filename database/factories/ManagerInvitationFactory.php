@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 $factory->define(App\DbModels\ManagerInvitation::class, function (Faker $faker) {
     return [
-        'propertyId' =>  App\DbModels\User::all()->random()->id,
+        'propertyId' =>  App\DbModels\Manager::all()->random()->id,
         'firstName' => $faker->firstName,
         'lastName' => $faker->lastName,
         'email' => $faker->email,

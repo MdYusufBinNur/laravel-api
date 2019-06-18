@@ -17,7 +17,10 @@ class StoreRequest extends Request
         return $rules = [
             'email' => 'email|required|unique:users',
             'name' => 'max:100',
-            'password' => 'required|min:5'
+            'password' => 'required|min:5',
+            'isActive' => 'boolean',
+            'roles' => '',
+            'roles.roleId' => 'required|exists:roles,id',
         ];
     }
 

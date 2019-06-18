@@ -17,6 +17,8 @@ class UserResource extends Resource
             'name' => $this->name,
             'email' => $this->email,
             'lastLoginAt' => $this->phone,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

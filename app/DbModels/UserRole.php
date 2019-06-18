@@ -10,7 +10,7 @@ class UserRole extends Model
      * Table name
      * @var string
      */
-    public  $table = 'users_roles';
+    protected  $table = 'users_roles';
 
     /**
      * The attributes that are mass assignable.

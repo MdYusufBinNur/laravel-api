@@ -21,7 +21,10 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
 
         return parent::findOne($id);
     }
-
+    
+    /**
+     * @inheritDoc
+     */
     public function save(array $data): \ArrayAccess
     {
         DB::beginTransaction();

@@ -118,4 +118,6 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::resource('visitor', 'VisitorController', ['except' => ['create', 'edit']]);
 
     Route::resource('visitor-archive', 'VisitorArchiveController', ['except' => ['create', 'edit']]);
+
+    Route::apiResource('attachment', 'AttachmentController', ['except' => ['update']]);
 });

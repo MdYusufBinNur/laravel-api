@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\DbModels\Announcement;
+use App\DbModels\Attachment;
 use App\DbModels\Company;
 use App\DbModels\Event;
 use App\DbModels\EventSignup;
@@ -53,6 +54,7 @@ use App\DbModels\Visitor;
 use App\DbModels\VisitorArchive;
 use App\DbModels\VisitorType;
 use App\Repositories\Contracts\AnnouncementRepository;
+use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\CompanyRepository;
 use App\Repositories\Contracts\EventRepository;
 use App\Repositories\Contracts\EventSignupRepository;
@@ -96,6 +98,7 @@ use App\Repositories\Contracts\VisitorArchiveRepository;
 use App\Repositories\Contracts\VisitorRepository;
 use App\Repositories\Contracts\VisitorTypeRepository;
 use App\Repositories\EloquentAnnouncementRepository;
+use App\Repositories\EloquentAttachmentRepository;
 use App\Repositories\EloquentEventRepository;
 use App\Repositories\EloquentEventSignupRepository;
 use App\Repositories\EloquentModuleOptionRepository;
@@ -222,7 +225,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ModulePropertyRepository::class, function() {
             return new EloquentModulePropertyRepository(new ModuleProperty());
         });
-      
+
         // bind ModuleOptionPropertyRepository
         $this->app->bind(ModuleOptionPropertyRepository::class, function() {
             return new EloquentModuleOptionPropertyRepository(new ModuleOptionProperty());
@@ -421,6 +424,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind VisitorArchiveRepository
         $this->app->bind(VisitorArchiveRepository::class, function() {
             return new EloquentVisitorArchiveRepository(new VisitorArchive());
+        });
+
+        // bind AttachmentRepository
+        $this->app->bind(AttachmentRepository::class, function() {
+            return new EloquentAttachmentRepository(new Attachment());
         });
     }
 }

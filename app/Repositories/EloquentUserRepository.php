@@ -40,4 +40,26 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
 
         return $user;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function update(\ArrayAccess $model, array $data): \ArrayAccess
+    {
+        $userRoleRepository = app(UserRoleRepository::class);
+
+        $user = parent::update($model, $data);
+
+        if(array_key_exists('addNewRole', $data) && array_key_exists('roles', $data)) {
+
+            $userRoleRepository->save(['roleId' => $data['roles']['roleId'], 'userId' => $data['id']]);
+
+        } else if(array_key_exists('roles', $data)) {
+
+            $userRole = $userRoleRepository->findOneBy(['id' => $data['roles']['id']]);
+            $userRoleRepository->update($userRole,['roleId' => $data['roles']['roleId']]);
+        }
+
+        return $user;
+    }
 }

@@ -22,7 +22,9 @@ class UpdateRequest extends Request
             'email' => Rule::unique('users')->ignore($userId, 'id'),
             'name' => '',
             'isActive' => 'boolean',
+            'updateRoleId' => 'boolean',
             'roles' => '',
+            'roles.id' => 'exists:users_roles,id',
             'roles.roleId' => 'exists:roles,id',
         ];
     }

@@ -120,4 +120,5 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::resource('visitor-archive', 'VisitorArchiveController', ['except' => ['create', 'edit']]);
 
     Route::apiResource('attachment', 'AttachmentController', ['except' => ['update']]);
+    Route::get('attachment-type', 'AttachmentTypeController@index');
 });

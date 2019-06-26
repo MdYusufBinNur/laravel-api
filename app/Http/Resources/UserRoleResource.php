@@ -13,6 +13,7 @@ class UserRoleResource extends Resource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'userId' => $this->userId,
             'roleId' => $this->roleId,
         ];

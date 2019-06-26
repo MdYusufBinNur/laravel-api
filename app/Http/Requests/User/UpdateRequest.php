@@ -15,12 +15,17 @@ class UpdateRequest extends Request
      */
     public function rules()
     {
-        $userId = $this->segment(2);
+        $userId = $this->segment(4);
         return $rules = [
             'password' => 'min:5|required_with:current_password',
             'current_password' => 'required_with:password',
             'email' => Rule::unique('users')->ignore($userId, 'id'),
-            'name' => ''
+            'name' => '',
+            'isActive' => 'boolean',
+            'addNewRole' => 'boolean',
+            'roles' => '',
+            'roles.id' => 'exists:users_roles,id',
+            'roles.roleId' => 'exists:roles,id',
         ];
     }
 

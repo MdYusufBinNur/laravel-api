@@ -16,6 +16,8 @@ class UserResource extends Resource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'isActive' => $this->isActive,
+            'roles' => new UserRoleResourceCollection($this->userRole),
             'lastLoginAt' => $this->phone,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

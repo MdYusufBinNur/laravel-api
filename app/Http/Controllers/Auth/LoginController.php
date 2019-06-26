@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\DbModels\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Resources\UserResource;
 use App\Repositories\Contracts\UserRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -47,7 +48,7 @@ class LoginController extends Controller
                 }
                 $token = $user->createToken('Password Grant Client');
 
-                return response(['access_token' => $token->accessToken], 200);
+                return response(['accessToken' => $token->accessToken, 'user' => new UserResource($user)], 200);
             } else {
                 return response(['message' => __('auth.password_mismatch')], 422);
             }

@@ -20,6 +20,7 @@ class CompanyResource extends Resource
             'city' => $this->city,
             'state' => $this->state,
             'country' => $this->country,
+            'postCode' => $this->postCode,
             'active' => $this->active,
             'createdByUser' => $this->createdByUserId,
             'created_at' => $this->created_at,

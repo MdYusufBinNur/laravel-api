@@ -19,6 +19,7 @@ class CreatePropertiesTable extends Migration
             $table->unsignedInteger('companyId')->nullable();
             $table->string('type', 50);
             $table->string('title');
+            $table->string('domain')->unique();
             $table->string('subdomain')->unique();
             $table->string('address');
             $table->string('city')->nullable();

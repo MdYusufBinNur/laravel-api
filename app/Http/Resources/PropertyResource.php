@@ -16,9 +16,10 @@ class PropertyResource extends Resource
     {
         return [
             'id' => $this->id,
-            'company' => $this->company,
+            'company' => $this->companyId,
             'type' => $this->type,
             'title' => $this->title,
+            'domain' => $this->domain,
             'subdomain' => $this->subdomain,
             'address' => $this->address,
             'city' => $this->city,

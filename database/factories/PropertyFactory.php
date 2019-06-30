@@ -10,6 +10,7 @@ $factory->define(App\DbModels\Property::class, function (Faker $faker) {
         'companyId' => App\DbModels\Company::all()->random()->id,
         'type' => $faker->randomElement(array('Market','Hostel','Building','Hotel')),
         'title' => $faker->title,
+        'domain' => $faker->unique()->domainWord,
         'subdomain' => $faker->unique()->domainWord,
         'address' => $faker->address,
         'city' => $faker->city,

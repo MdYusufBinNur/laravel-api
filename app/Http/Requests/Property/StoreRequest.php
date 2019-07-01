@@ -18,7 +18,7 @@ class StoreRequest extends Request
             'companyId'  => 'numeric|exists:companies,id',
             'type'       => 'required|max:50',
             'title'      => 'required|min:3',
-            'domain'     => 'required|unique:properties,domain',
+            'domain'     => '',
             'subdomain'  => 'required|unique:properties,subdomain',
             'address'    => 'required|min:3',
             'city'       => '',

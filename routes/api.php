@@ -124,4 +124,6 @@ Route::group(['prefix' => 'api/v1'], function () {
 
     Route::post('login', 'Auth\\LoginController@index');
     Route::get('logout', 'Auth\\LoginController@logout');
+
+    Route::resource('role-category', 'RoleCategoryController', ['except' => ['create', 'edit']]);
 });

@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRolesTable extends Migration
+class CreateRoleCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +14,28 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('role_categories', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->integer('roleCategoryId');
-            $table->string('title');
+            $table->string('category');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('createdByUserId')
                 ->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-
-            $table->softDeletes();
         });
+
+
+
+        DB::table('role_categories')->insert([
+            ['category' => 'Admin'],
+            ['category' => 'Property'],
+            ['category' => 'Company']
+        ]);
+
+
     }
 
     /**
@@ -36,6 +45,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('role_categories');
     }
 }

@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Role;
+namespace App\Http\Requests\RoleCategory;
 
 use App\Http\Requests\Request;
 
 class IndexRequest extends Request
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -14,11 +13,9 @@ class IndexRequest extends Request
      */
     public function rules()
     {
-        return $rules = [
-            'id'               => 'list:numeric',
-            'title'            => 'list:string',
-            'roleCategoryId'   => 'list:numeric',
+        return [
+            'id'        => 'list:numeric',
+            'title'     => 'list:string',
         ];
     }
-
 }

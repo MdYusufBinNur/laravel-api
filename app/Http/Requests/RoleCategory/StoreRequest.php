@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Role;
+namespace App\Http\Requests\RoleCategory;
 
 use App\Http\Requests\Request;
 
 class StoreRequest extends Request
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -14,9 +13,8 @@ class StoreRequest extends Request
      */
     public function rules()
     {
-        return $rules = [
-            'title'             => 'required|unique:roles,title|min:3',
-            'roleCategoryId'    => 'required|exists:role_categories,id',
+        return [
+            'category' => 'required|min:3|max:100',
         ];
     }
 }

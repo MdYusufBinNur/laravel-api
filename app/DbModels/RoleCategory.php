@@ -4,7 +4,7 @@ namespace App\DbModels;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class RoleCategory extends Model
 {
     use CommonModelFeatures;
 
@@ -14,6 +14,6 @@ class Role extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId','roleCategoryId', 'title'
+        'createdByUserId', 'category'
     ];
 }

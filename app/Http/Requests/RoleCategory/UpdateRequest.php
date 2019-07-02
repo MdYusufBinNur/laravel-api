@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Role;
+namespace App\Http\Requests\RoleCategory;
 
 use App\Http\Requests\Request;
 
@@ -13,10 +13,8 @@ class UpdateRequest extends Request
      */
     public function rules()
     {
-        return $rules = [
-            'title'             => 'min:3',
-            'roleCategoryId'    => 'exists:role_categories,id',
+        return [
+            'category' => 'min:3|max:100',
         ];
     }
-
 }

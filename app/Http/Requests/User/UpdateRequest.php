@@ -21,6 +21,7 @@ class UpdateRequest extends Request
             'current_password' => 'required_with:password',
             'email' => Rule::unique('users')->ignore($userId, 'id'),
             'name' => '',
+            'locale' => '',
             'isActive' => 'boolean',
             'addNewRole' => 'boolean',
             'roles' => '',

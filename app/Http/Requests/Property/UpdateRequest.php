@@ -17,7 +17,7 @@ class UpdateRequest extends Request
             'companyId'  => 'numeric|exists:companies,id',
             'title'      => 'min:3',
             'type'       => 'max:50',
-            'domain'     => 'unique:properties,domain',
+            'domain'     => '',
             'subdomain'  => 'unique:properties,subdomain',
             'address'    => 'min:3',
             'city'       => '',

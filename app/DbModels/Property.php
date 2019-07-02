@@ -14,7 +14,7 @@ class Property extends Model
      * @var array
      */
     protected $fillable = [
-        'companyId', 'type', 'title', 'subdomain', 'address', 'city',
+        'companyId', 'type', 'title', 'domain', 'subdomain', 'address', 'city',
         'state', 'postCode', 'country', 'language', 'timezone', 'active',
         'createdByUserId',
     ];

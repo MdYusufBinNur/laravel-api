@@ -18,6 +18,7 @@ class StoreRequest extends Request
             'email' => 'email|required|unique:users',
             'name' => 'max:100',
             'password' => 'required|min:5',
+            'locale' => '',
             'isActive' => 'boolean',
             'roles' => '',
             'roles.roleId' => 'required|exists:roles,id',

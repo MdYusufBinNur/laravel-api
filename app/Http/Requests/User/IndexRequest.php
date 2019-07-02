@@ -18,6 +18,7 @@ class IndexRequest extends Request
             'id' => 'list:numeric',
             'email' => 'list:email',
             'name' => 'list:string',
+            'locale' => 'list:string',
         ];
     }
 

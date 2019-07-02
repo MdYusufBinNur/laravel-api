@@ -15,7 +15,7 @@ class CreateRoleCategoriesTable extends Migration
     public function up()
     {
         Schema::create('role_categories', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->string('category');
             $table->timestamps();
@@ -30,9 +30,9 @@ class CreateRoleCategoriesTable extends Migration
 
 
         DB::table('role_categories')->insert([
-            ['category' => 'Admin'],
-            ['category' => 'Property'],
-            ['category' => 'Company']
+            ['id' => 1, 'category' => 'Admin'],
+            ['id' => 2, 'category' => 'Property'],
+            ['id' => 3, 'category' => 'Company']
         ]);
 
 

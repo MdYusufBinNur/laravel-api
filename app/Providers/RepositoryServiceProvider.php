@@ -36,6 +36,7 @@ use App\DbModels\ResidentArchive;
 use App\DbModels\ResidentEmergency;
 use App\DbModels\ResidentVehicle;
 use App\DbModels\Role;
+use App\DbModels\RoleCategory;
 use App\DbModels\ServiceRequest;
 use App\DbModels\ServiceRequestCategory;
 use App\DbModels\ServiceRequestLog;
@@ -82,6 +83,7 @@ use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use App\Repositories\Contracts\ResidentArchiveRepository;
 use App\Repositories\Contracts\ResidentEmergencyRepository;
 use App\Repositories\Contracts\ResidentVehicleRepository;
+use App\Repositories\Contracts\RoleCategoryRepository;
 use App\Repositories\Contracts\ServiceRequestCategoryRepository;
 use App\Repositories\Contracts\ServiceRequestLogRepository;
 use App\Repositories\Contracts\ServiceRequestOfficeDetailRepository;
@@ -129,6 +131,7 @@ use App\Repositories\EloquentResidentAccessRequestRepository;
 use App\Repositories\EloquentResidentArchiveRepository;
 use App\Repositories\EloquentResidentEmergencyRepository;
 use App\Repositories\EloquentResidentVehicleRepository;
+use App\Repositories\EloquentRoleCategoryRepository;
 use App\Repositories\EloquentServiceRequestCategoryRepository;
 use App\Repositories\EloquentServiceRequestLogRepository;
 use App\Repositories\EloquentServiceRequestOfficeDetailRepository;
@@ -429,6 +432,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind AttachmentRepository
         $this->app->bind(AttachmentRepository::class, function() {
             return new EloquentAttachmentRepository(new Attachment());
+        });
+
+        // bind RoleCategoryRepository
+        $this->app->bind(RoleCategoryRepository::class, function() {
+            return new EloquentRoleCategoryRepository(new RoleCategory());
         });
     }
 }

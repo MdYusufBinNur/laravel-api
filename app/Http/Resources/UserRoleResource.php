@@ -16,6 +16,7 @@ class UserRoleResource extends Resource
             'id' => $this->id,
             'userId' => $this->userId,
             'roleId' => $this->roleId,
+            'propertyId' => $this->propertyId,
         ];
     }
 }

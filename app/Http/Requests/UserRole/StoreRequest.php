@@ -17,6 +17,7 @@ class StoreRequest extends Request
         return [
             'roleId' => 'exists:roles,id',
             'userId' => 'exists:users,id',
+            'propertyId' => 'exists:properties,id',
         ];
     }
 }

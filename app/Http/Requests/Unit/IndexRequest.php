@@ -15,11 +15,12 @@ class IndexRequest extends Request
     public function rules()
     {
         return $rules = [
-            'id'        => 'list:numeric',
-            'towerId'   => 'list:numeric',
-            'title'     => 'list:string',
-            'floor'     => 'list:string',
-            'line'      => 'list:string',
+            'id'           => 'list:numeric',
+            'towerId'      => 'list:numeric',
+            'propertyId'   => 'list:numeric',
+            'title'        => 'list:string',
+            'floor'        => 'list:string',
+            'line'         => 'list:string',
         ];
     }
 

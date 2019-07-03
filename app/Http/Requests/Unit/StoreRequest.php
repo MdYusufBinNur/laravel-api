@@ -15,10 +15,11 @@ class StoreRequest extends Request
     public function rules()
     {
         return $rules = [
-            'towerId'   => 'required|exists:towers,id',
-            'title'     => 'required|min:5|max:50',
-            'floor'     => 'max:50',
-            'line'      => 'max:50',
+            'towerId'      => 'exists:towers,id',
+            'propertyId'   => 'required|exists:properties,id',
+            'title'        => 'required|min:5|max:50',
+            'floor'        => 'max:50',
+            'line'         => 'max:50',
         ];
     }
 }

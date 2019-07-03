@@ -16,7 +16,8 @@ class CreateUnitsTable extends Migration
         Schema::create('units', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('towerId');
+            $table->unsignedInteger('towerId')->nullable();
+            $table->unsignedInteger('propertyId');
             $table->string('title', 50);
             $table->string('floor', 50)->nullable();
             $table->string('line', 50)->nullable();
@@ -25,6 +26,11 @@ class CreateUnitsTable extends Migration
 
             $table->foreign('towerId')
                 ->references('id')->on('towers')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('propertyId')
+                ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

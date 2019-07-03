@@ -17,6 +17,7 @@ class IndexRequest extends Request
             'id' => 'list:numeric',
             'userId' => 'list:numeric',
             'roleId' => 'list:numeric',
+            'propertyId' => 'list:numeric',
         ];
     }
 }

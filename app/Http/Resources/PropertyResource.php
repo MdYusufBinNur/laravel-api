@@ -2,8 +2,6 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\Resource;
-
 class PropertyResource extends Resource
 {
     /**
@@ -29,6 +27,16 @@ class PropertyResource extends Resource
             'language' => $this->language,
             'timezone' => $this->timezone,
             'active' => $this->active,
+
+            $this->mergeWhen($this->needToInclude($request, 'noOfUsers'), [
+                'noOfUsers' => $this->users->count(),
+            ]),
+            $this->mergeWhen($this->needToInclude($request, 'noOfUnits'), [
+                'noOfUnits' => $this->units->count(),
+            ]),
+            $this->mergeWhen($this->needToInclude($request, 'noOfTowers'), [
+                'noOfTowers' => $this->towers->count(),
+            ]),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

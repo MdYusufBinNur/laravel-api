@@ -9,6 +9,21 @@ use Illuminate\Support\Facades\DB;
 
 class EloquentUserRepository extends EloquentBaseRepository implements UserRepository
 {
+    /**
+     * @inheritdoc
+     */
+    public function findBy(array $searchCriteria = [], $withTrashed = false)
+    {
+        if (isset($searchCriteria['query'])) {
+            $userIds = $this->model->where('email', 'like', '%'.$searchCriteria['query'].'%')
+                ->orWhere('name', 'like', '%'.$searchCriteria['query'].'%')
+                ->pluck('id')->toArray();
+            $searchCriteria['id'] = implode(",", $userIds);
+            unset($searchCriteria['query']);
+        }
+
+        return parent::findBy($searchCriteria, $withTrashed);
+    }
 
     /**
      * @inheritdoc
@@ -21,7 +36,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
 
         return parent::findOne($id);
     }
-    
+
     /**
      * @inheritDoc
      */

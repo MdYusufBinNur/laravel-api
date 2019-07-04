@@ -22,6 +22,12 @@ class CompanyResource extends Resource
             'country' => $this->country,
             'postCode' => $this->postCode,
             'active' => $this->active,
+            $this->mergeWhen($this->needToInclude($request, 'noOfProperties'), [
+                'noOfProperties' => $this->properties->count(),
+            ]),
+            $this->mergeWhen($this->needToInclude($request,'noOfEnterpriseUsers'), [
+                'noOfEnterpriseUsers' => $this->noOfEnterpriseUsers->count(),
+            ]),
             'createdByUser' => $this->createdByUserId,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at

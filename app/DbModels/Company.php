@@ -37,7 +37,7 @@ class Company extends Model
     }
 
     /**
-     * Get the noOfEnterpriseUsers for the company.
+     * Get the no of enterprise users of the company..
      *
      * @return \Illuminate\Database\Eloquent\Relations\hasManyThrough
      */

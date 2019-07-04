@@ -21,6 +21,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
             $searchCriteria['id'] = implode(",", $userIds);
             unset($searchCriteria['query']);
         }
+        $searchCriteria['eagerLoad'] = ['userRole'];
 
         return parent::findBy($searchCriteria, $withTrashed);
     }

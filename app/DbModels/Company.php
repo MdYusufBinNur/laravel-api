@@ -33,6 +33,17 @@ class Company extends Model
      */
     public function properties()
     {
-        return $this->hasMany(Property::class);
+        return $this->hasMany(Property::class,'companyId', 'id');
     }
+
+    /**
+     * Get the noOfEnterpriseUsers for the company.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasManyThrough
+     */
+    public function noOfEnterpriseUsers()
+    {
+        return $this->hasManyThrough(UserRole::class, Property::class, 'companyId', 'propertyId', 'id', 'id');
+    }
+
 }

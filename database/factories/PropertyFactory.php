@@ -9,7 +9,7 @@ $factory->define(App\DbModels\Property::class, function (Faker $faker) {
     return [
         'companyId' => App\DbModels\Company::all()->random()->id,
         'type' => $faker->randomElement(array('Market','Hostel','Building','Hotel')),
-        'title' => $faker->title,
+        'title' => $faker->company,
         'domain' => $faker->unique()->domainWord,
         'subdomain' => $faker->unique()->domainWord,
         'address' => $faker->address,

@@ -11,6 +11,7 @@ $factory->define(App\DbModels\User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'isActive' => $faker->boolean,
         'password' => 'password', // password
+        'locale' => 'yes', // password
         'remember_token' => Str::random(10),
     ];
 });

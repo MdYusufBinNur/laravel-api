@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class EloquentBaseRepository implements BaseRepository
 {
@@ -29,23 +30,35 @@ class EloquentBaseRepository implements BaseRepository
     /**
      * @inheritdoc
      */
-    public function findOne($id): ?\ArrayAccess
+    public function findOne($id, $withTrashed = false): ?\ArrayAccess
     {
-        return $this->model->find($id);
+        $queryBuilder = $this->model;
+
+        if ($withTrashed) {
+            $queryBuilder->withTrashed();
+        }
+
+        return $queryBuilder->find($id);
     }
 
     /**
      * @inheritdoc
      */
-    public function findOneBy(array $criteria): ?\ArrayAccess
+    public function findOneBy(array $criteria, $withTrashed = false): ?\ArrayAccess
     {
-        return $this->model->where($criteria)->first();
+        $queryBuilder =  $this->model->where($criteria);
+
+        if ($withTrashed) {
+            $queryBuilder->withTrashed();
+        }
+
+        return $queryBuilder->first();
     }
 
     /**
      * @inheritdoc
      */
-    public function findBy(array $searchCriteria = [])
+    public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
         $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 50; // it's needed for pagination
         $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';
@@ -53,6 +66,39 @@ class EloquentBaseRepository implements BaseRepository
         $queryBuilder = $this->model->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
+
+        if ($withTrashed) {
+            $queryBuilder->withTrashed();
+        }
+
+        if (isset($searchCriteria['eagerLoad'])) {
+            $queryBuilder->with($searchCriteria['eagerLoad']);
+        }
+        if (isset($searchCriteria['rawOrder'])) {
+            $queryBuilder->orderByRaw(DB::raw("FIELD(id, {$searchCriteria['id']})"));
+        } else {
+            $queryBuilder->orderBy($orderBy, $orderDirection);
+        }
+
+        return $queryBuilder->paginate($limit);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function findByPartialText(array $searchCriteria = [], $withTrashed = false)
+    {
+        // almost a duplicate of findBy. Created a separate function just in case if want to make it intelligent in the future.
+        $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 50; // it's needed for pagination
+        $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';
+        $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
+        $queryBuilder = $this->model->where(function ($query) use ($searchCriteria) {
+            $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria, 'like');
+        });
+
+        if ($withTrashed) {
+            $queryBuilder->withTrashed();
+        }
 
         if (isset($searchCriteria['eagerLoad'])) {
             $queryBuilder->with($searchCriteria['eagerLoad']);
@@ -72,10 +118,10 @@ class EloquentBaseRepository implements BaseRepository
     public function save(array $data): \ArrayAccess
     {
         // set createdBy by loggedInUser if not passed
-        if (!isset($data['created_by_user_id'])) {
+        if (!isset($data['createdBy'])) {
             $loggedInUser = $this->getLoggedInUser();
             if ($loggedInUser instanceof User) {
-                $data['created_by_user_id'] = $loggedInUser->id;
+                $data['createdBy'] = $loggedInUser->id;
             }
         }
 
@@ -109,9 +155,15 @@ class EloquentBaseRepository implements BaseRepository
     /**
      * @inheritdoc
      */
-    public function findIn(string $key, array $values): ?\IteratorAggregate
+    public function findIn(string $key, array $values, $withTrashed = false): ?\IteratorAggregate
     {
-        return $this->model->whereIn($key, $values)->get();
+        $queryBuilder = $this->model->whereIn($key, $values);
+
+        if ($withTrashed) {
+            $queryBuilder->withTrashed();
+        }
+
+        return $queryBuilder->get();
     }
 
     /**
@@ -123,15 +175,35 @@ class EloquentBaseRepository implements BaseRepository
     }
 
     /**
+     * @inheritdoc
+     */
+    public function patch(array $searchCriteria, array $data) : \ArrayAccess
+    {
+        $userNotificationSetting = $this->findOneBy($searchCriteria);
+
+        if ($userNotificationSetting instanceof Model) {
+            $userNotificationSetting = $this->update($userNotificationSetting, $data);
+            return $userNotificationSetting;
+        } else {
+            return $this->save($data);
+        }
+
+    }
+
+    /**
      * Apply condition on query builder based on search criteria
      *
      * @param Object $queryBuilder
      * @param array $searchCriteria
+     * @param string $operator
      * @return mixed
      */
-    protected function applySearchCriteriaInQueryBuilder($queryBuilder, array $searchCriteria = [])
-    {
-        unset($searchCriteria['include'], $searchCriteria['eagerLoad'], $searchCriteria['rawOrder'] ); //don't need that field for query. only needed for transformer.
+    protected function applySearchCriteriaInQueryBuilder(
+        $queryBuilder,
+        array $searchCriteria = [],
+        string $operator = '='
+    ) {
+        unset($searchCriteria['include'], $searchCriteria['eagerLoad'], $searchCriteria['rawOrder'], $searchCriteria['detailed']); //don't need that field for query. only needed for transformer.
 
         foreach ($searchCriteria as $key => $value) {
 
@@ -152,9 +224,11 @@ class EloquentBaseRepository implements BaseRepository
                     if (count($allValues) > 1) {
                         $queryBuilder->whereIn($key, $allValues);
                     } else {
-
-                        $operator = '=';
-                        $queryBuilder->where($key, $operator, $value);
+                        if ($operator == 'like') {
+                            $queryBuilder->where($key, $operator, '%' . $value . '%');
+                        } else {
+                            $queryBuilder->where($key, $operator, $value);
+                        }
                     }
                 }
             }

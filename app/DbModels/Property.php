@@ -14,7 +14,7 @@ class Property extends Model
      * @var array
      */
     protected $fillable = [
-        'companyId', 'type', 'title', 'subdomain', 'address', 'city',
+        'companyId', 'type', 'title', 'domain', 'subdomain', 'address', 'city',
         'state', 'postCode', 'country', 'language', 'timezone', 'active',
         'createdByUserId',
     ];
@@ -26,17 +26,17 @@ class Property extends Model
      */
     public function towers()
     {
-        return $this->hasMany(Tower::class);
+        return $this->hasMany(Tower::class, 'propertyId', 'id');
     }
 
     /**
      * Get all of the units for the property.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\hasManyThrough
      */
     public function units()
     {
-        return $this->hasManyThrough(Unit::class, Tower::class);
+        return $this->hasManyThrough(Unit::class, Tower::class, 'propertyId', 'towerId', 'id', 'id');
     }
 
     /**
@@ -47,5 +47,15 @@ class Property extends Model
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    /**
+     * Get the users for the property.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function users()
+    {
+        return $this->hasMany(UserRole::class, 'propertyId', 'id');
     }
 }

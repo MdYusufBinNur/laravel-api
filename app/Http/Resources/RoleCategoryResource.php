@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-class UserRoleResource extends Resource
+class RoleCategoryResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -14,10 +14,7 @@ class UserRoleResource extends Resource
     {
         return [
             'id' => $this->id,
-            'userId' => $this->userId,
-            'roleId' => $this->roleId,
-            'role' => new RoleResourceCollection($this->role),
-            'propertyId' => $this->propertyId,
+            'category' => $this->category,
         ];
     }
 }

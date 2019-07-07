@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Requests\UserRole;
+namespace App\Http\Requests\Auth;
 
 use App\Http\Requests\Request;
 
-class StoreRequest extends Request
+class LoginRequest extends Request
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -15,9 +14,8 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'roleId' => 'exists:roles,id',
-            'userId' => 'exists:users,id',
-            'propertyId' => 'exists:properties,id',
+            'email' => 'required|email',
+            'password' => 'required',
         ];
     }
 }

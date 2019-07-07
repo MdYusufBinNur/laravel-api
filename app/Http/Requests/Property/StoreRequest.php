@@ -15,14 +15,15 @@ class StoreRequest extends Request
     public function rules()
     {
         return $rules = [
-            'companyId' => 'numeric|exists:companies,id',
+            'companyId'  => 'numeric|exists:companies,id',
             'type'       => 'required|max:50',
             'title'      => 'required|min:3',
+            'domain'     => '',
             'subdomain'  => 'required|unique:properties,subdomain',
             'address'    => 'required|min:3',
             'city'       => '',
             'state'      => '',
-            'postCode'  => 'max:10',
+            'postCode'   => 'max:10',
             'country'    => 'max:10',
             'language'   => 'max:10',
             'timezone'   => 'max:50',

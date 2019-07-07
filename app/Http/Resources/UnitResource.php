@@ -16,6 +16,7 @@ class UnitResource extends Resource
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
             'towerId' => $this->towerId,
+            'propertyId' => $this->propertyId,
             'floor' => $this->floor,
             'title' => $this->title,
             'line' => $this->line,

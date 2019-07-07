@@ -21,11 +21,13 @@ class UpdateRequest extends Request
             'current_password' => 'required_with:password',
             'email' => Rule::unique('users')->ignore($userId, 'id'),
             'name' => '',
+            'locale' => '',
             'isActive' => 'boolean',
             'addNewRole' => 'boolean',
             'roles' => '',
             'roles.id' => 'exists:users_roles,id',
             'roles.roleId' => 'exists:roles,id',
+            'roles.propertyId' => 'exists:properties,id'
         ];
     }
 

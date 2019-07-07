@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -18,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('locale')->nullable();
             $table->integer('isActive')->default(0);
             $table->dateTime('lastLoginAt')->nullable();
             $table->rememberToken();
@@ -31,6 +33,17 @@ class CreateUsersTable extends Migration
                 ->onUpdate('cascade');
 
         });
+
+        DB::table('users')->insert([
+            [
+                'id' => 1,
+                'name'  => 'Reformed Tech',
+                'email'  => 'admin@reformedtech.org',
+                'locale'  => '',
+                'password' => '$2y$10$vJX.iBcEML3.xy6.GlMIpujmRJEJ2AKA23W.QorDX7tMokPrSxf/i',
+                'isActive' => 1
+            ],
+        ]);
     }
 
     /**

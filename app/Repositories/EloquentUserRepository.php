@@ -9,6 +9,17 @@ use Illuminate\Support\Facades\DB;
 
 class EloquentUserRepository extends EloquentBaseRepository implements UserRepository
 {
+    /**
+     * @inheritdoc
+     */
+    public function findBy(array $searchCriteria = [], $withTrashed = false)
+    {
+        $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
+
+        $searchCriteria['eagerLoad'] = ['userRole'];
+
+        return parent::findBy($searchCriteria, $withTrashed);
+    }
 
     /**
      * @inheritdoc
@@ -21,7 +32,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
 
         return parent::findOne($id);
     }
-    
+
     /**
      * @inheritDoc
      */
@@ -61,5 +72,33 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
         }
 
         return $user;
+    }
+
+    /**
+     * shorten the search based on search criteria
+     *
+     * @param $searchCriteria
+     * @return mixed
+     */
+    private function applyFilterInUserSearch($searchCriteria)
+    {
+        if (isset($searchCriteria['query'])) {
+            $searchCriteria['id'] = $this->model->where('email', 'like', '%'.$searchCriteria['query'].'%')
+                ->orWhere('name', 'like', '%'.$searchCriteria['query'].'%')
+                ->pluck('id')->toArray();
+            unset($searchCriteria['query']);
+        }
+
+        if (isset($searchCriteria['roleId'])) {
+            $userRoleRepository = app(UserRoleRepository::class);
+            $userIds = $userRoleRepository->model->where('roleId', $searchCriteria['roleId'])->pluck('userId')->toArray();
+            $searchCriteria['id'] = isset($searchCriteria['id']) ? array_intersect($searchCriteria['id'], $userIds) : $userIds;
+            unset($searchCriteria['roleId']);
+        }
+
+        if (isset($searchCriteria['id'])) {
+            $searchCriteria['id'] = implode(",", array_unique($searchCriteria['id']));
+        }
+        return $searchCriteria;
     }
 }

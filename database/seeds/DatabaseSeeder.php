@@ -11,8 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-//        $this->call(UsersTableSeeder::class);
-        factory(App\DbModels\Role::class, 5)->create();
+//        factory(App\DbModels\Role::class, 5)->create();      
+        factory(App\DbModels\Company::class, 5)->create();
+
+        factory(App\DbModels\Property::class, 10)->create();
 
         factory(App\DbModels\User::class, 100)->create()->each(function($u) {
             $u->userRole()->save(factory(App\DbModels\UserRole::class)->create());
@@ -20,9 +22,11 @@ class DatabaseSeeder extends Seeder
 
         factory(App\DbModels\Admin::class, 5)->create();
 
-        factory(App\DbModels\Company::class, 5)->create();
+        factory(App\DbModels\User::class, 100)->create()->each(function($u) {
+            $u->userRole()->save(factory(App\DbModels\UserRole::class)->create());
+        });
+        factory(App\DbModels\Admin::class, 5)->create();
 
-        factory(App\DbModels\Property::class, 10)->create();
         factory(App\DbModels\PropertyDesignSetting::class, 5)->create();
         factory(App\DbModels\PropertyImage::class, 5)->create();
         factory(App\DbModels\PropertySocialMedia::class, 5)->create();

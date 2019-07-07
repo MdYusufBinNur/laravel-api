@@ -6,7 +6,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\DbModels\Company::class, function (Faker $faker) {
     return [
-        'title' => $faker->title,
+        'title' => $faker->company,
         'address' => $faker->address,
         'city' => $faker->city,
         'state' => $faker->state,

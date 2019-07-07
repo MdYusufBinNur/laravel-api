@@ -18,107 +18,116 @@ Route::get('/', function (Request $request) {
 });
 
 Route::group(['prefix' => 'api/v1'], function () {
+    Route::group(['middleware' => ['auth:api']], function () {
+        Route::apiResource('user', 'UserController');
 
-    Route::resource('user', 'UserController', ['except' => ['create', 'edit']]);
+        Route::apiResource('role', 'RoleController');
 
-    Route::resource('role', 'RoleController', ['except' => ['create', 'edit']]);
+        Route::apiResource('user-role', 'UserRoleController');
 
-    Route::resource('user-role', 'UserRoleController', ['except' => ['create', 'edit']]);
+        Route::apiResource('company', 'CompanyController');
 
-    Route::resource('company', 'CompanyController', ['except' => ['create', 'edit']]);
+        Route::apiResource('property', 'PropertyController', ['except' => ['get']]);
 
-    Route::resource('property', 'PropertyController', ['except' => ['create', 'edit']]);
+        Route::apiResource('resident', 'ResidentController');
 
-    Route::resource('resident', 'ResidentController', ['except' => ['create', 'edit']]);
+        Route::apiResource('tower', 'TowerController');
 
-    Route::resource('tower', 'TowerController', ['except' => ['create', 'edit']]);
+        Route::apiResource('unit', 'UnitController');
 
-    Route::resource('unit', 'UnitController', ['except' => ['create', 'edit']]);
+        Route::apiResource('module', 'ModuleController');
 
-    Route::resource('module', 'ModuleController', ['except' => ['create', 'edit']]);
+        Route::apiResource('module-option', 'ModuleOptionController');
 
-    Route::resource('module-option', 'ModuleOptionController', ['except' => ['create', 'edit']]);
+        Route::apiResource('module-property', 'ModulePropertyController');
 
-    Route::resource('module-property', 'ModulePropertyController', ['except' => ['create', 'edit']]);
+        Route::apiResource('module-option-property', 'ModuleOptionPropertyController');
 
-    Route::resource('module-option-property', 'ModuleOptionPropertyController', ['except' => ['create', 'edit']]);
+        Route::apiResource('announcement', 'AnnouncementController');
 
-    Route::resource('announcement', 'AnnouncementController', ['except' => ['create', 'edit']]);
+        Route::apiResource('event', 'EventController');
 
-    Route::resource('event', 'EventController', ['except' => ['create', 'edit']]);
+        Route::apiResource('event-signup', 'EventSignupController');
 
-    Route::resource('event-signup', 'EventSignupController', ['except' => ['create', 'edit']]);
+        Route::apiResource('notification-feed', 'NotificationFeedController');
 
-    Route::resource('notification-feed', 'NotificationFeedController', ['except' => ['create', 'edit']]);
+        Route::apiResource('package', 'PackageController');
 
-    Route::resource('package', 'PackageController', ['except' => ['create', 'edit']]);
+        Route::apiResource('package-archive', 'PackageArchiveController');
 
-    Route::resource('package-archive', 'PackageArchiveController', ['except' => ['create', 'edit']]);
+        Route::apiResource('package-type', 'PackageTypeController');
 
-    Route::resource('package-type', 'PackageTypeController', ['except' => ['create', 'edit']]);
+        Route::apiResource('property-design-setting', 'PropertyDesignSettingController');
 
-    Route::resource('property-design-setting', 'PropertyDesignSettingController', ['except' => ['create', 'edit']]);
+        Route::apiResource('property-social-media', 'PropertySocialMediaController');
 
-    Route::resource('property-social-media', 'PropertySocialMediaController', ['except' => ['create', 'edit']]);
+        Route::apiResource('resident-access-request', 'ResidentAccessRequestController');
 
-    Route::resource('resident-access-request', 'ResidentAccessRequestController', ['except' => ['create', 'edit']]);
+        Route::apiResource('resident-archive', 'ResidentArchiveController');
 
-    Route::resource('resident-archive', 'ResidentArchiveController', ['except' => ['create', 'edit']]);
+        Route::apiResource('resident-emergency', 'ResidentEmergencyController');
 
-    Route::resource('resident-emergency', 'ResidentEmergencyController', ['except' => ['create', 'edit']]);
+        Route::apiResource('resident-vehicle', 'ResidentVehicleController');
 
-    Route::resource('resident-vehicle', 'ResidentVehicleController', ['except' => ['create', 'edit']]);
+        Route::apiResource('parking-pass', 'ParkingPassController');
 
-    Route::resource('parking-pass', 'ParkingPassController', ['except' => ['create', 'edit']]);
+        Route::apiResource('post', 'PostController');
 
-    Route::resource('post', 'PostController', ['except' => ['create', 'edit']]);
+        Route::apiResource('post-approval-archive', 'PostApprovalArchiveController');
 
-    Route::resource('post-approval-archive', 'PostApprovalArchiveController', ['except' => ['create', 'edit']]);
+        Route::apiResource('post-approval-blacklist-unit', 'PostApprovalBlacklistUnitController');
 
-    Route::resource('post-approval-blacklist-unit', 'PostApprovalBlacklistUnitController', ['except' => ['create', 'edit']]);
+        Route::apiResource('post-comment', 'PostCommentController');
 
-    Route::resource('post-comment', 'PostCommentController', ['except' => ['create', 'edit']]);
+        Route::apiResource('post-event', 'PostEventController');
 
-    Route::resource('post-event', 'PostEventController', ['except' => ['create', 'edit']]);
+        Route::apiResource('post-marketplace', 'PostMarketplaceController');
 
-    Route::resource('post-marketplace', 'PostMarketplaceController', ['except' => ['create', 'edit']]);
+        Route::apiResource('post-poll', 'PostPollController');
 
-    Route::resource('post-poll', 'PostPollController', ['except' => ['create', 'edit']]);
+        Route::apiResource('post-recommendation-type', 'PostRecommendationTypeController');
 
-    Route::resource('post-recommendation-type', 'PostRecommendationTypeController', ['except' => ['create', 'edit']]);
+        Route::apiResource('post-recommendation', 'PostRecommendationController');
 
-    Route::resource('post-recommendation', 'PostRecommendationController', ['except' => ['create', 'edit']]);
+        Route::apiResource('post-wall', 'PostWallController');
 
-    Route::resource('post-wall', 'PostWallController', ['except' => ['create', 'edit']]);
+        Route::apiResource('property-image', 'PropertyImageController');
 
-    Route::resource('property-image', 'PropertyImageController', ['except' => ['create', 'edit']]);
+        Route::apiResource('service-request-category', 'ServiceRequestCategoryController');
 
-    Route::resource('service-request-category', 'ServiceRequestCategoryController', ['except' => ['create', 'edit']]);
+        Route::apiResource('service-request', 'ServiceRequestController');
 
-    Route::resource('service-request', 'ServiceRequestController', ['except' => ['create', 'edit']]);
+        Route::apiResource('service-request-log', 'ServiceRequestLogController');
 
-    Route::resource('service-request-log', 'ServiceRequestLogController', ['except' => ['create', 'edit']]);
+        Route::apiResource('service-request-office-detail', 'ServiceRequestOfficeDetailController');
 
-    Route::resource('service-request-office-detail', 'ServiceRequestOfficeDetailController', ['except' => ['create', 'edit']]);
+        Route::apiResource('service-request-status', 'ServiceRequestStatusController');
 
-    Route::resource('service-request-status', 'ServiceRequestStatusController', ['except' => ['create', 'edit']]);
+        Route::apiResource('user-notification-setting', 'UserNotificationSettingController');
 
-    Route::resource('user-notification-setting', 'UserNotificationSettingController', ['except' => ['create', 'edit']]);
+        Route::apiResource('user-profile', 'UserProfileController');
 
-    Route::resource('user-profile', 'UserProfileController', ['except' => ['create', 'edit']]);
+        Route::apiResource('user-profile-child', 'UserProfileChildController');
 
-    Route::resource('user-profile-child', 'UserProfileChildController', ['except' => ['create', 'edit']]);
+        Route::apiResource('user-profile-link', 'UserProfileLinkController');
 
-    Route::resource('user-profile-link', 'UserProfileLinkController', ['except' => ['create', 'edit']]);
+        Route::apiResource('user-profile-post', 'UserProfilePostController');
 
-    Route::resource('user-profile-post', 'UserProfilePostController', ['except' => ['create', 'edit']]);
+        Route::apiResource('visitor-type', 'VisitorTypeController');
 
-    Route::resource('visitor-type', 'VisitorTypeController', ['except' => ['create', 'edit']]);
+        Route::apiResource('visitor', 'VisitorController');
 
-    Route::resource('visitor', 'VisitorController', ['except' => ['create', 'edit']]);
+        Route::apiResource('visitor-archive', 'VisitorArchiveController');
 
-    Route::resource('visitor-archive', 'VisitorArchiveController', ['except' => ['create', 'edit']]);
+        Route::apiResource('role-category', 'RoleCategoryController');
+    });
 
+    //route without authentication
+    Route::get('property/{property}', 'PropertyController@show');
+    
     Route::apiResource('attachment', 'AttachmentController', ['except' => ['update']]);
     Route::get('attachment-type', 'AttachmentTypeController@index');
+
+    Route::post('login', 'Auth\\LoginController@index');
+    Route::get('logout', 'Auth\\LoginController@logout');
 });

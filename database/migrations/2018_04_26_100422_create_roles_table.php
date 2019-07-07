@@ -16,6 +16,7 @@ class CreateRolesTable extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
+            $table->integer('roleCategoryId')->unsigned();
             $table->string('title');
             $table->timestamps();
 
@@ -24,8 +25,24 @@ class CreateRolesTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
+            $table->foreign('roleCategoryId')
+                ->references('id')->on('role_categories')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
             $table->softDeletes();
         });
+
+        DB::table('roles')->insert([
+            ['id' => 1, 'roleCategoryId' => 1,  'title'  => 'limited'],
+            ['id' => 2, 'roleCategoryId' => 1,  'title'  => 'standard'],
+            ['id' => 3, 'roleCategoryId' => 1,  'title'  => 'admin'],
+
+            ['id' => 4, 'roleCategoryId' => 2,  'title'  => 'limited'],
+            ['id' => 5, 'roleCategoryId' => 2,  'title'  => 'standard'],
+
+            ['id' => 6, 'roleCategoryId' => 3,  'title'  => 'enterprise'],
+        ]);
     }
 
     /**

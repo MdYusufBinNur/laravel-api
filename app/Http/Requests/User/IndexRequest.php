@@ -19,7 +19,8 @@ class IndexRequest extends Request
             'email' => 'list:email',
             'name' => 'list:string',
             'locale' => 'list:string',
-            'query' => 'string'
+            'query' => 'string',
+            'roleId' => 'string'
         ];
     }
 

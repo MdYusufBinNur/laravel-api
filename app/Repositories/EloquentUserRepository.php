@@ -14,13 +14,8 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        if (isset($searchCriteria['query'])) {
-            $userIds = $this->model->where('email', 'like', '%'.$searchCriteria['query'].'%')
-                ->orWhere('name', 'like', '%'.$searchCriteria['query'].'%')
-                ->pluck('id')->toArray();
-            $searchCriteria['id'] = implode(",", $userIds);
-            unset($searchCriteria['query']);
-        }
+        $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
+
         $searchCriteria['eagerLoad'] = ['userRole'];
 
         return parent::findBy($searchCriteria, $withTrashed);
@@ -77,5 +72,30 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
         }
 
         return $user;
+    }
+
+    /**
+     * shorten the search based on search criteria
+     *
+     * @param $searchCriteria
+     * @return mixed
+     */
+    private function applyFilterInUserSearch($searchCriteria)
+    {
+        if (isset($searchCriteria['query'])) {
+            $userIds = $this->model->where('email', 'like', '%'.$searchCriteria['query'].'%')
+                ->orWhere('name', 'like', '%'.$searchCriteria['query'].'%')
+                ->pluck('id')->toArray();
+            $searchCriteria['id'] = implode(",", $userIds);
+            unset($searchCriteria['query']);
+        }
+
+        if (isset($searchCriteria['roleId'])) {
+            $userRoleRepository = app(UserRoleRepository::class);
+            $userIds = $userRoleRepository->model->where('roleId', $searchCriteria['roleId'])->pluck('userId')->unique()->toArray();
+            $searchCriteria['id'] = implode($userIds);
+            unset($searchCriteria['roleId']);
+        }
+        return $searchCriteria;
     }
 }

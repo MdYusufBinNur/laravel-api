@@ -83,18 +83,21 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
     private function applyFilterInUserSearch($searchCriteria)
     {
         if (isset($searchCriteria['query'])) {
-            $userIds = $this->model->where('email', 'like', '%'.$searchCriteria['query'].'%')
+            $searchCriteria['id'] = $this->model->where('email', 'like', '%'.$searchCriteria['query'].'%')
                 ->orWhere('name', 'like', '%'.$searchCriteria['query'].'%')
                 ->pluck('id')->toArray();
-            $searchCriteria['id'] = implode(",", $userIds);
             unset($searchCriteria['query']);
         }
 
         if (isset($searchCriteria['roleId'])) {
             $userRoleRepository = app(UserRoleRepository::class);
-            $userIds = $userRoleRepository->model->where('roleId', $searchCriteria['roleId'])->pluck('userId')->unique()->toArray();
-            $searchCriteria['id'] = implode($userIds);
+            $userIds = $userRoleRepository->model->where('roleId', $searchCriteria['roleId'])->pluck('userId')->toArray();
+            $searchCriteria['id'] = isset($searchCriteria['id']) ? array_intersect($searchCriteria['id'], $userIds) : $userIds;
             unset($searchCriteria['roleId']);
+        }
+
+        if (isset($searchCriteria['id'])) {
+            $searchCriteria['id'] = implode(",", array_unique($searchCriteria['id']));
         }
         return $searchCriteria;
     }

@@ -14,7 +14,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return $rules = [
-            'companyId'  => 'exists:companies,id',
+            'companyId'  => 'nullable|exists:companies,id',
             'title'      => 'min:3',
             'type'       => 'max:50',
             'domain'     => '',

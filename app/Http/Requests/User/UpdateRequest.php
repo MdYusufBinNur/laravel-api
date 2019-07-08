@@ -25,7 +25,7 @@ class UpdateRequest extends Request
             'isActive' => 'boolean',
             'addNewRole' => 'boolean',
             'roles' => '',
-            'roles.id' => 'exists:users_roles,id',
+            'roles.id' => 'exists:user_roles,id',
             'roles.roleId' => 'exists:roles,id',
             'roles.propertyId' => 'exists:properties,id'
         ];

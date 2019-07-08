@@ -22,7 +22,7 @@ class StoreRequest extends Request
             'isActive' => 'boolean',
             'roles' => '',
             'roles.roleId' => 'required|exists:roles,id',
-            'roles.propertyId' => 'required|exists:properties,id'
+            'roles.propertyId' => 'exists:properties,id'
         ];
     }
 

@@ -15,7 +15,7 @@ class StoreRequest extends Request
     public function rules()
     {
         return $rules = [
-            'companyId'  => '',
+            'companyId'  => 'exists:companies,id’',
             'type'       => 'required|max:50',
             'title'      => 'required|min:3',
             'domain'     => '',

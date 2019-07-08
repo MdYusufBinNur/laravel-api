@@ -63,12 +63,12 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
 
         if(array_key_exists('addNewRole', $data) && array_key_exists('roles', $data)) {
 
-            $userRoleRepository->save(['roleId' => $data['roles']['roleId'], 'userId' => $data['id']]);
+            $userRoleRepository->save(['roleId' => $data['roles']['roleId'], 'userId' => $data['id'], 'propertyId' => $data['roles']['propertyId']]);
 
         } else if(array_key_exists('roles', $data)) {
 
             $userRole = $userRoleRepository->findOneBy(['id' => $data['roles']['id']]);
-            $userRoleRepository->update($userRole,['roleId' => $data['roles']['roleId']]);
+            $userRoleRepository->update($userRole,['roleId' => $data['roles']['roleId'], 'propertyId' => $data['roles']['propertyId']]);
         }
 
         return $user;

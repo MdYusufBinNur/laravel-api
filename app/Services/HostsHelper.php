@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class Hosts
+class HostsHelper
 {
     /**
      * get host from a url

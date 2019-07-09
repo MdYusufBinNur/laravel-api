@@ -21,8 +21,23 @@ class UserRole extends Model
         'roleId', 'userId', 'propertyId'
     ];
 
+    /**
+     * get the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'userId');
+    }
+
+    /**
+     * get role of the users
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function role()
     {
-        return $this->hasMany(Role::class, 'id', 'roleId');
+        return $this->hasOne(Role::class, 'id', 'roleId');
     }
 }

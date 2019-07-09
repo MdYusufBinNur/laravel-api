@@ -40,7 +40,7 @@ class User extends Authenticatable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function userRole()
+    public function userRoles()
     {
        return $this->hasMany(UserRole::class, 'userId', 'id');
     }
@@ -54,4 +54,20 @@ class User extends Authenticatable
     {
         return (boolean) $this->isActive;
     }
+
+    /**
+     * is a master admin user
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        foreach ($this->userRoles as $userRole) {
+            if (in_array($userRole->role->title, [Role::ROLE_ADMIN])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

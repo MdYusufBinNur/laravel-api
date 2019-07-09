@@ -16,4 +16,6 @@ class Role extends Model
     protected $fillable = [
         'createdByUserId','roleCategoryId', 'title'
     ];
+
+    const ROLE_ADMIN = 'admin';
 }

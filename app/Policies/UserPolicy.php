@@ -30,7 +30,7 @@ class UserPolicy
      */
     public function list(User $currentUser)
     {
-        return true;
+        return false;
     }
 
     /**

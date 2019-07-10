@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateModuleOptionPropertyTable extends Migration
+class CreateLdsSlidePropertiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateModuleOptionPropertyTable extends Migration
      */
     public function up()
     {
-        Schema::create('module_option_property', function (Blueprint $table) {
+        Schema::create('lds_slide_properties', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
-            $table->unsignedInteger('moduleOptionId');
-            $table->mediumText('value')->nullable();
+            $table->unsignedInteger('slideId');
             $table->timestamps();
             $table->softDeletes();
 
@@ -27,8 +26,8 @@ class CreateModuleOptionPropertyTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('moduleOptionId')
-                ->references('id')->on('module_options')
+            $table->foreign('slideId')
+                ->references('id')->on('lds_slides')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
@@ -46,6 +45,6 @@ class CreateModuleOptionPropertyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('module_option_property');
+        Schema::dropIfExists('lds_slide_properties');
     }
 }

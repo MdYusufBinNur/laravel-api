@@ -8,7 +8,7 @@ class ManagerProperty extends Model
 {
     use CommonModelFeatures;
 
-    protected $table = 'manager_property';
+    protected $table = 'manager_properties';
 
     /**
      * The attributes that are mass assignable.

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateManagerPropertyTable extends Migration
+class CreateModulePropertiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateManagerPropertyTable extends Migration
      */
     public function up()
     {
-        Schema::create('manager_property', function (Blueprint $table) {
+        Schema::create('module_properties', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('managerId');
             $table->unsignedInteger('propertyId');
-            $table->boolean('active')->default(1);
+            $table->unsignedInteger('moduleId');
+            $table->boolean('value')->default(1);
             $table->timestamps();
             $table->softDeletes();
 
@@ -27,8 +27,8 @@ class CreateManagerPropertyTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('managerId')
-                ->references('id')->on('managers')
+            $table->foreign('moduleId')
+                ->references('id')->on('modules')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
@@ -46,6 +46,6 @@ class CreateManagerPropertyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('manager_property');
+        Schema::dropIfExists('module_properties');
     }
 }

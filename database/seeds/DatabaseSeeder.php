@@ -1,5 +1,7 @@
 <?php
 
+use App\DbModels\User;
+use App\DbModels\UserRole;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -11,13 +13,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        factory(App\DbModels\Company::class, 5)->create();
+
+        factory(App\DbModels\Property::class, 10)->create();
+
         //insert a admin user
         $user = factory(App\DbModels\User::class)->create(['name' => 'Jobber Ali Admin', 'email' => 'admin@reformedtech.org', 'password' => 'password', 'isActive' => 1]);
         factory(App\DbModels\UserRole::class)->create(['userId' => $user->id, 'roleId' => 3]);
 
-        factory(App\DbModels\Company::class, 5)->create();
-
-        factory(App\DbModels\Property::class, 10)->create();
 
         factory(App\DbModels\User::class, 100)->create()->each(function($u) {
             $u->userRoles()->save(factory(App\DbModels\UserRole::class)->create());

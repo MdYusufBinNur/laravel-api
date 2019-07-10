@@ -36,10 +36,10 @@ class CreateRolesTable extends Migration
         DB::table('roles')->insert([
             ['id' => 1, 'roleCategoryId' => 1,  'title'  => 'limited'],
             ['id' => 2, 'roleCategoryId' => 1,  'title'  => 'standard'],
-            ['id' => 3, 'roleCategoryId' => 1,  'title'  => 'admin'],
+            ['id' => 3, 'roleCategoryId' => 1,  'title'  => 'super'],
 
-            ['id' => 4, 'roleCategoryId' => 2,  'title'  => 'limited'],
-            ['id' => 5, 'roleCategoryId' => 2,  'title'  => 'standard'],
+            ['id' => 4, 'roleCategoryId' => 2,  'title'  => 'staff'],
+            ['id' => 5, 'roleCategoryId' => 2,  'title'  => 'resident'],
 
             ['id' => 6, 'roleCategoryId' => 3,  'title'  => 'enterprise'],
         ]);

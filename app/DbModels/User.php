@@ -38,9 +38,11 @@ class User extends Authenticatable
     }
 
     /**
+     * user and roles relationship
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function userRole()
+    public function userRoles()
     {
        return $this->hasMany(UserRole::class, 'userId', 'id');
     }
@@ -54,4 +56,66 @@ class User extends Authenticatable
     {
         return (boolean) $this->isActive;
     }
+
+    /**
+     * is a super admin user
+     *
+     * @return bool
+     */
+    public function isSuperAdmin()
+    {
+        foreach ($this->userRoles as $userRole) {
+            if ($userRole->isSuperAdminUserRole()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * is a standard admin user
+     *
+     * @return bool
+     */
+    public function isStandardAdmin()
+    {
+        foreach ($this->userRoles as $userRole) {
+            if ($userRole->isStandardAdminUserRole()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * is a limited admin user
+     *
+     * @return bool
+     */
+    public function isLimitedAdmin()
+    {
+        foreach ($this->userRoles as $userRole) {
+            if ($userRole->isLimitedAdminUserRole()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * is a any kind of admin user
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        foreach ($this->userRoles as $userRole) {
+            if ($userRole->isAdminUserRole()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

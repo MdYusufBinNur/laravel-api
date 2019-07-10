@@ -11,19 +11,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-//        factory(App\DbModels\Role::class, 5)->create();      
+        //insert a admin user
+        $user = factory(App\DbModels\User::class)->create(['name' => 'Jobber Ali Admin', 'email' => 'admin@reformedtech.org', 'password' => 'password', 'isActive' => 1]);
+        factory(App\DbModels\UserRole::class)->create(['userId' => $user->id, 'roleId' => 3]);
+
         factory(App\DbModels\Company::class, 5)->create();
 
         factory(App\DbModels\Property::class, 10)->create();
 
         factory(App\DbModels\User::class, 100)->create()->each(function($u) {
-            $u->userRole()->save(factory(App\DbModels\UserRole::class)->create());
+            $u->userRoles()->save(factory(App\DbModels\UserRole::class)->create());
         });
 
         factory(App\DbModels\Admin::class, 5)->create();
 
         factory(App\DbModels\User::class, 100)->create()->each(function($u) {
-            $u->userRole()->save(factory(App\DbModels\UserRole::class)->create());
+            $u->userRoles()->save(factory(App\DbModels\UserRole::class)->create());
         });
         factory(App\DbModels\Admin::class, 5)->create();
 

@@ -17,7 +17,7 @@ class UserRoleResource extends Resource
             'userId' => $this->userId,
             'roleId' => $this->roleId,
             $this->mergeWhen($this->needToInclude($request, 'role'), [
-                'role' => new RoleResourceCollection($this->role),
+                'role' => new UserRoleResource($this->role),
             ]),
             'propertyId' => $this->propertyId,
         ];

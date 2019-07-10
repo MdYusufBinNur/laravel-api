@@ -69,6 +69,8 @@ class UserController extends Controller
             return response()->json(['status' => 404, 'message' => 'Resource not found with the specific id.'], 404);
         }
 
+        $this->authorize('show', $user);
+
         return new UserResource($user);
     }
 

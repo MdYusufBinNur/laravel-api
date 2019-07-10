@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateModulePropertyTable extends Migration
+class CreateModuleOptionPropertyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateModulePropertyTable extends Migration
      */
     public function up()
     {
-        Schema::create('module_property', function (Blueprint $table) {
+        Schema::create('module_option_properties', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
-            $table->unsignedInteger('moduleId');
-            $table->boolean('value')->default(1);
+            $table->unsignedInteger('moduleOptionId');
+            $table->mediumText('value')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
@@ -27,8 +27,8 @@ class CreateModulePropertyTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('moduleId')
-                ->references('id')->on('modules')
+            $table->foreign('moduleOptionId')
+                ->references('id')->on('module_options')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
@@ -46,6 +46,6 @@ class CreateModulePropertyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('module_property');
+        Schema::dropIfExists('module_option_properties');
     }
 }

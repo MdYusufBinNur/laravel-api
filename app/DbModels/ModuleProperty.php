@@ -8,7 +8,7 @@ class ModuleProperty extends Model
 {
     use CommonModelFeatures;
 
-    protected $table = 'module_property';
+    protected $table = 'module_properties';
 
     /**
      * The attributes that are mass assignable.

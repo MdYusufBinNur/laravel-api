@@ -8,6 +8,8 @@ class LdsSlideProperty extends Pivot
 {
     use CommonModelFeatures;
 
+    protected $table = 'lds_slide_properties';
+
     /**
      * The attributes that are mass assignable.
      *

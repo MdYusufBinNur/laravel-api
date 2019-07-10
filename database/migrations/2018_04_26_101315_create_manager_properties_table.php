@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLdsSlidePropertyTable extends Migration
+class CreateManagerPropertiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateLdsSlidePropertyTable extends Migration
      */
     public function up()
     {
-        Schema::create('lds_slide_property', function (Blueprint $table) {
+        Schema::create('manager_properties', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
+            $table->unsignedInteger('managerId');
             $table->unsignedInteger('propertyId');
-            $table->unsignedInteger('slideId');
+            $table->boolean('active')->default(1);
             $table->timestamps();
             $table->softDeletes();
 
@@ -26,8 +27,8 @@ class CreateLdsSlidePropertyTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('slideId')
-                ->references('id')->on('lds_slides')
+            $table->foreign('managerId')
+                ->references('id')->on('managers')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
@@ -45,6 +46,6 @@ class CreateLdsSlidePropertyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lds_slide_property');
+        Schema::dropIfExists('manager_properties');
     }
 }

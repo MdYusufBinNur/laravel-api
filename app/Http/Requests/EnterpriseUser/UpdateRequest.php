@@ -20,6 +20,7 @@ class UpdateRequest extends Request
             'contactEmail' =>  'email',
             'phone' =>  'min:12|max:20',
             'title' =>  'min:3|max:512',
+            'propertyId' => 'nullable|exists:properties,id',
             'level' =>  'in:'.EnterpriseUser::LEVEL_ADMIN.','.EnterpriseUser::LEVEL_STANDARD,
             'users' => '',
             'users.name' => 'min:3|max:100',

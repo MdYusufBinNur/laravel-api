@@ -6,6 +6,7 @@ use App\DbModels\Announcement;
 use App\DbModels\Attachment;
 use App\DbModels\Company;
 use App\DbModels\EnterpriseUser;
+use App\DbModels\EnterpriseUserProperty;
 use App\DbModels\Event;
 use App\DbModels\EventSignup;
 use App\DbModels\Module;
@@ -58,6 +59,7 @@ use App\DbModels\VisitorType;
 use App\Repositories\Contracts\AnnouncementRepository;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\CompanyRepository;
+use App\Repositories\Contracts\EnterpriseUserPropertyRepository;
 use App\Repositories\Contracts\EnterpriseUserRepository;
 use App\Repositories\Contracts\EventRepository;
 use App\Repositories\Contracts\EventSignupRepository;
@@ -103,6 +105,7 @@ use App\Repositories\Contracts\VisitorRepository;
 use App\Repositories\Contracts\VisitorTypeRepository;
 use App\Repositories\EloquentAnnouncementRepository;
 use App\Repositories\EloquentAttachmentRepository;
+use App\Repositories\EloquentEnterpriseUserPropertyRepository;
 use App\Repositories\EloquentEnterpriseUserRepository;
 use App\Repositories\EloquentEventRepository;
 use App\Repositories\EloquentEventSignupRepository;
@@ -445,6 +448,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind EnterpriseUserRepository
         $this->app->bind(EnterpriseUserRepository::class, function() {
             return new EloquentEnterpriseUserRepository(new EnterpriseUser());
+        });
+
+        // bind EnterpriseUserPropertyRepository
+        $this->app->bind(EnterpriseUserPropertyRepository::class, function() {
+            return new EloquentEnterpriseUserPropertyRepository(new EnterpriseUserProperty());
         });
     }
 }

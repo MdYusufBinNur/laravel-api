@@ -20,6 +20,7 @@ class StoreRequest extends Request
             'contactEmail' =>  'email',
             'phone' =>  'min:12|max:20',
             'title' =>  'min:3|max:512',
+            'propertyId' => 'nullable|exists:properties,id',
             'level' =>  'in:'.EnterpriseUser::LEVEL_ADMIN.','.EnterpriseUser::LEVEL_STANDARD,
             'users' => '',
             'users.name' => 'required|min:3|max:100',
@@ -27,7 +28,7 @@ class StoreRequest extends Request
             'users.password' => 'required|min:5',
             'roles' => '',
             'roles.roleId' => 'required|exists:roles,id',
-            'roles.propertyId' => 'exists:properties,id'
+            'roles.propertyId' => 'exists:properties,id',
         ];
     }
 }

@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\DbModels\Announcement;
 use App\DbModels\Attachment;
 use App\DbModels\Company;
+use App\DbModels\EnterpriseUser;
 use App\DbModels\Event;
 use App\DbModels\EventSignup;
 use App\DbModels\Module;
@@ -57,6 +58,7 @@ use App\DbModels\VisitorType;
 use App\Repositories\Contracts\AnnouncementRepository;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\CompanyRepository;
+use App\Repositories\Contracts\EnterpriseUserRepository;
 use App\Repositories\Contracts\EventRepository;
 use App\Repositories\Contracts\EventSignupRepository;
 use App\Repositories\Contracts\ModuleOptionRepository;
@@ -101,6 +103,7 @@ use App\Repositories\Contracts\VisitorRepository;
 use App\Repositories\Contracts\VisitorTypeRepository;
 use App\Repositories\EloquentAnnouncementRepository;
 use App\Repositories\EloquentAttachmentRepository;
+use App\Repositories\EloquentEnterpriseUserRepository;
 use App\Repositories\EloquentEventRepository;
 use App\Repositories\EloquentEventSignupRepository;
 use App\Repositories\EloquentModuleOptionRepository;
@@ -437,6 +440,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind RoleCategoryRepository
         $this->app->bind(RoleCategoryRepository::class, function() {
             return new EloquentRoleCategoryRepository(new RoleCategory());
+        });
+
+        // bind EnterpriseUserRepository
+        $this->app->bind(EnterpriseUserRepository::class, function() {
+            return new EloquentEnterpriseUserRepository(new EnterpriseUser());
         });
     }
 }

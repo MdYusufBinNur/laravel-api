@@ -22,13 +22,6 @@ class UpdateRequest extends Request
             'title' =>  'min:3|max:512',
             'propertyId' => 'nullable|exists:properties,id',
             'level' =>  'in:'.EnterpriseUser::LEVEL_ADMIN.','.EnterpriseUser::LEVEL_STANDARD,
-            'users' => '',
-            'users.name' => 'min:3|max:100',
-            'users.email' => 'email|unique:users',
-            'users.password' => 'min:5',
-            'roles' => '',
-            'roles.roleId' => 'exists:roles,id',
-            'roles.propertyId' => 'exists:properties,id'
         ];
     }
 }

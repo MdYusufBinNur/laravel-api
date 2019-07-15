@@ -4,7 +4,9 @@
 namespace App\Repositories;
 
 
+use App\DbModels\Role;
 use App\Repositories\Contracts\ResidentRepository;
+use App\Repositories\Contracts\RoleRepository;
 use App\Repositories\Contracts\UserRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -21,7 +23,11 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         if(array_key_exists('users', $data))
         {
             $data['roles']['propertyId'] = $data['propertyId'];
-            $data['roles']['roleId'] = 5;
+
+            $roleRepository = app(RoleRepository::class);
+            $role = $roleRepository->findOneBy(['title' => Role::ROLE_RESIDENT_USER]);
+            $data['roles']['roleId'] = $role->id;
+
             $userRepository = app(UserRepository::class);
             $user = $userRepository->save(array_merge($data['users'], ['roles' => $data['roles']]));
             $data['userId'] = $user->id;

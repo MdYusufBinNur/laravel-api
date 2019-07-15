@@ -17,13 +17,12 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
      */
     public function save(array $data): \ArrayAccess
     {
-
         DB::beginTransaction();
 
-        if(array_key_exists('users', $data))
-        {
+        if(array_key_exists('users', $data)){
             $data['roles']['propertyId'] = $data['propertyId'];
 
+            //to get the role id of a const role name
             $roleRepository = app(RoleRepository::class);
             $role = $roleRepository->findOneBy(['title' => Role::ROLE_RESIDENT_USER]);
             $data['roles']['roleId'] = $role->id;
@@ -37,6 +36,5 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         DB::commit();
 
         return $resident;
-
     }
 }

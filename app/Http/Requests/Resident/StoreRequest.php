@@ -16,7 +16,7 @@ class StoreRequest extends Request
     {
         return $rules = [
             'propertyId'            => 'required|exists:properties,id',
-            'userId'                => 'exists:users,id',
+            'userId'                => 'required_without:users|exists:users,id',
             'unitId'                => 'required|exists:units,id',
             'contactEmail'          => 'required|email|unique:residents,contactEmail',
             'type'                  => 'required|min:5|max:100',

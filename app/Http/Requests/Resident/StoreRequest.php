@@ -38,13 +38,10 @@ class StoreRequest extends Request
             'secondaryPhone'        => 'max:20',
             'secondaryEmail'        => 'email|unique:residents,secondaryEmail',
             'joiningDate'           => 'required|date',
-            'users' => '',
-            'users.name' => 'required|min:3|max:100',
-            'users.email' => 'required|email|unique:users',
-            'users.password' => 'required|min:5',
-            'roles' => '',
-            'roles.roleId' => 'required|exists:roles,id',
-            'roles.propertyId' => 'exists:properties,id',
+            'users'                 => 'required_without:userId',
+            'users.name'            => 'required_without:userId|min:3|max:100',
+            'users.email'           => 'required_without:userId|email|unique:users',
+            'users.password'        => 'required_without:userId|min:5',
         ];
     }
 }

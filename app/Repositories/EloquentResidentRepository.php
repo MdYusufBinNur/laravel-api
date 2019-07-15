@@ -18,10 +18,14 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
 
         DB::beginTransaction();
 
-        $userRepository = app(UserRepository::class);
-        $user = $userRepository->save(array_merge($data['users'], array('roles' => $data['roles'])));
-
-        $data['userId'] = $user->id;
+        if(array_key_exists('users', $data))
+        {
+            $data['roles']['propertyId'] = $data['propertyId'];
+            $data['roles']['roleId'] = 5;
+            $userRepository = app(UserRepository::class);
+            $user = $userRepository->save(array_merge($data['users'], ['roles' => $data['roles']]));
+            $data['userId'] = $user->id;
+        }
 
         $resident = parent::save($data);
         DB::commit();

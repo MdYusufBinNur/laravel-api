@@ -16,7 +16,7 @@ class StoreRequest extends Request
     {
         return $rules = [
             'propertyId'            => 'required|exists:properties,id',
-            'userId'                => 'required|exists:users,id',
+            'userId'                => 'required_without:users|exists:users,id',
             'unitId'                => 'required|exists:units,id',
             'contactEmail'          => 'required|email|unique:residents,contactEmail',
             'type'                  => 'required|min:5|max:100',
@@ -38,6 +38,10 @@ class StoreRequest extends Request
             'secondaryPhone'        => 'max:20',
             'secondaryEmail'        => 'email|unique:residents,secondaryEmail',
             'joiningDate'           => 'required|date',
+            'users'                 => 'required_without:userId',
+            'users.name'            => 'required_without:userId|min:3|max:100',
+            'users.email'           => 'required_without:userId|email|unique:users',
+            'users.password'        => 'required_without:userId|min:5',
         ];
     }
 }

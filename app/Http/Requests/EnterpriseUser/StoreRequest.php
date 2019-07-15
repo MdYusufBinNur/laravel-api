@@ -15,7 +15,7 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'userId' =>  'exists:users,id',
+            'userId' =>  'required_without:users|exists:users,id',
             'companyId' =>  'required|exists:companies,id',
             'contactEmail' =>  'email',
             'phone' =>  'min:12|max:20',

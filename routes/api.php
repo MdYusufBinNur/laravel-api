@@ -120,6 +120,10 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('visitor-archive', 'VisitorArchiveController');
 
         Route::apiResource('role-category', 'RoleCategoryController');
+
+        Route::apiResource('enterprise-user', 'EnterpriseUserController');
+
+        Route::apiResource('enterprise-user-property', 'EnterpriseUserPropertyController');
     });
 
     //route without authentication

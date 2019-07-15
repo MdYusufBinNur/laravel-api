@@ -14,7 +14,6 @@ class EnterpriseUserResource extends Resource
     {
         return [
             'id' => $this->id,
-            'createdByUserId' => $this->createdByUserId,
             'userId' => $this->userId,
             'companyId' => $this->companyId,
             'contactEmail' => $this->contactEmail,

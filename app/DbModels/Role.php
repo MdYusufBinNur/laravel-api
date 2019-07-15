@@ -21,6 +21,8 @@ class Role extends Model
     const ROLE_STANDARD_ADMIN = 'standard';
     const ROLE_LIMITED_ADMIN = 'limited';
 
+    const ROLE_ENTERPRISE_USER = 'enterprise';
+
     /**
      * get the role category of the role
      *

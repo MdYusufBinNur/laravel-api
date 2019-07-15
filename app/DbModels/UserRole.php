@@ -80,4 +80,12 @@ class UserRole extends Model
     {
         return $this->role->isAdminRole();
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(Property::class, 'id', 'propertyId' );
+    }
 }

@@ -19,7 +19,7 @@ class UserResource extends Resource
             'locale' => $this->locale,
             'isActive' => $this->isActive,
             'roles' => new UserRoleResourceCollection($this->userRoles),
-            'lastLoginAt' => $this->phone,
+            'lastLoginAt' => $this->lastLoginAt,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

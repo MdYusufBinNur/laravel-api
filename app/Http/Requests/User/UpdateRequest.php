@@ -27,7 +27,7 @@ class UpdateRequest extends Request
             'roles' => '',
             'roles.id' => 'exists:user_roles,id',
             'roles.roleId' => 'exists:roles,id',
-            'roles.propertyId' => 'exists:properties,id'
+            'roles.propertyId' => 'nullable|exists:properties,id'
         ];
     }
 

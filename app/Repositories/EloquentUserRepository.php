@@ -45,7 +45,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
         $roleRepository = app(RoleRepository::class);
         $role = $roleRepository->findOneBy(['id' => $data['roles']['roleId']]);
         $userRoleRepository = app(UserRoleRepository::class);
-        $userRoleRepository->save(['roleId' => $role->id, 'userId' => $user->id ]);
+        $userRoleRepository->save(['roleId' => $role->id, 'userId' => $user->id, 'propertyId' => $data['roles']['propertyId'] ]);
 
         DB::commit();
 

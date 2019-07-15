@@ -132,4 +132,27 @@ class UserRole extends Model
         return $this->role->hasStaffRole();
     }
 
+    /**
+     * does the staff have access to the property
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function doesStaffHaveAccessToTheProperty(int $propertyId)
+    {
+        return $this->hasStaffUserRole()
+            && $this->hasThePropertyAssigned($propertyId);
+    }
+
+    /**
+     * has the user's role assigned to the property
+     *
+     * @param int $propertyId
+     * @return boolean
+     */
+    public function hasThePropertyAssigned(int $propertyId)
+    {
+        return $this->property->id === $propertyId;
+    }
+
 }

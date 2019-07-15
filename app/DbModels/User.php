@@ -179,4 +179,20 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    /**
+     * is a staff of the property
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function isAStaffOfTheProperty(int $propertyId)
+    {
+        foreach ($this->userRoles as $userRole) {
+            if ($userRole->doesStaffHaveAccessToTheProperty($propertyId)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

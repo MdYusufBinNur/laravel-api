@@ -65,12 +65,53 @@ class Role extends Model
 
 
     /**
-     * is any admin role
+     * has any admin role
      *
      * @return bool
      */
-    public function isAdminRole()
+    public function hasAdminRole()
     {
         return in_array($this->title, [self::ROLE_ADMIN_SUPER['title'], self::ROLE_ADMIN_SUPER['title'], self::ROLE_ADMIN_LIMITED['title']]);
+    }
+
+    /**
+     * is a priority staff role
+     *
+     * @return bool
+     */
+    public function isPriorityStaffRole()
+    {
+        return $this->title === self::ROLE_STAFF_PRIORITY['title'];
+    }
+
+    /**
+     * is a standard staff role
+     *
+     * @return bool
+     */
+    public function isStandardStaffRole()
+    {
+        return $this->title === self::ROLE_STAFF_STANDARD['title'];
+    }
+
+    /**
+     * is limited staff role
+     *
+     * @return bool
+     */
+    public function isLimitedStaffRole()
+    {
+        return $this->title === self::ROLE_STAFF_LIMITED['title'];
+    }
+
+
+    /**
+     * has any staff role
+     *
+     * @return bool
+     */
+    public function hasStaffRole()
+    {
+        return in_array($this->title, [self::ROLE_STAFF_PRIORITY['title'], self::ROLE_STAFF_STANDARD['title'], self::ROLE_STAFF_LIMITED['title']]);
     }
 }

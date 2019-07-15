@@ -34,7 +34,7 @@ class UserRole extends Model
     /**
      * get role of the users
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne | Role
      */
     public function role()
     {

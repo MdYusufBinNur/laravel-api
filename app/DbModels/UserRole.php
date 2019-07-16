@@ -10,14 +10,14 @@ class UserRole extends Model
      * Table name
      * @var string
      */
-    protected  $table = 'user_roles';
+    protected $table = 'user_roles';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable=[
+    protected $fillable = [
         'roleId', 'userId', 'propertyId'
     ];
 
@@ -48,7 +48,17 @@ class UserRole extends Model
      */
     public function property()
     {
-        return $this->hasOne(Property::class, 'id', 'propertyId' );
+        return $this->hasOne(Property::class, 'id', 'propertyId');
+    }
+
+    /**
+     * user and enterprise_users relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function enterpriseUsers()
+    {
+        return $this->hasMany(EnterpriseUser::class, 'userId', 'userId');
     }
 
     /**
@@ -183,6 +193,44 @@ class UserRole extends Model
     public function hasEnterpriseUserRole()
     {
         return $this->role->hasEnterpriseRole();
+    }
+
+    /**
+     * does the staff have access to the property
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function doesEnterpriseUserRoleHaveAccessToTheProperty(int $propertyId)
+    {
+        if ($this->isAdminEnterpriseUserRole()) {
+            return true;
+        }
+
+        if ($this->hasEnterpriseUserRole()) {
+            foreach ($this->enterpriseUsers as $enterpriseUser) {
+                return in_array($propertyId, $enterpriseUser->enterPriseUserProperties->pluck('propertyId')->toArray());
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * does the staff have access to the company
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function doesEnterpriseUserRoleHaveAdminAccessToTheCompany(int $companyId)
+    {
+        if ($this->isAdminEnterpriseUserRole()) {
+            foreach ($this->enterpriseUsers as $enterpriseUser) {
+                return $enterpriseUser->companyId == $companyId;
+            }
+        }
+
+        return false;
     }
 
 }

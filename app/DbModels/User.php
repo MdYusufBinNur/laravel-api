@@ -241,4 +241,36 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    /**
+     * is a enterprise user of the company
+     *
+     * @param int $companyId
+     * @return bool
+     */
+    public function isAnAdminEnterpriseUserOfTheCompany(int $companyId)
+    {
+        foreach ($this->userRoles as $userRole) {
+            if ($userRole->doesEnterpriseUserRoleHaveAdminAccessToTheCompany($companyId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * is an enterprise user of the company
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function isAnEnterpriseUserOfTheProperty(int $propertyId)
+    {
+        foreach ($this->userRoles as $userRole) {
+            if ($userRole->doesEnterpriseUserRoleHaveAccessToTheProperty($propertyId)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

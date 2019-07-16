@@ -195,4 +195,50 @@ class User extends Authenticatable
         }
         return false;
     }
+
+
+    /**
+     * is a standard staff user
+     *
+     * @return bool
+     */
+    public function isAdminEnterpriseUser()
+    {
+        foreach ($this->userRoles as $userRole) {
+            if ($userRole->isAdminEnterpriseUserRole()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * is a limited staff user
+     *
+     * @return bool
+     */
+    public function isStandardEnterpriseUser()
+    {
+        foreach ($this->userRoles as $userRole) {
+            if ($userRole->isStandardEnterpriseUserRole()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * is a any kind of staff user
+     *
+     * @return bool
+     */
+    public function isEnterpriseUser()
+    {
+        foreach ($this->userRoles as $userRole) {
+            if ($userRole->hasEnterpriseUserRole()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -114,4 +114,35 @@ class Role extends Model
     {
         return in_array($this->title, [self::ROLE_STAFF_PRIORITY['title'], self::ROLE_STAFF_STANDARD['title'], self::ROLE_STAFF_LIMITED['title']]);
     }
+
+    /**
+     * is a enterprise's admin role
+     *
+     * @return bool
+     */
+    public function isAdminEnterpriseRole()
+    {
+        return $this->title === self::ROLE_ENTERPRISE_ADMIN['title'];
+    }
+
+    /**
+     * is enterprise's standard role
+     *
+     * @return bool
+     */
+    public function isStandardEnterpriseRole()
+    {
+        return $this->title === self::ROLE_ENTERPRISE_STANDARD['title'];
+    }
+
+
+    /**
+     * has any enterprise role
+     *
+     * @return bool
+     */
+    public function hasEnterpriseRole()
+    {
+        return in_array($this->title, [self::ROLE_ENTERPRISE_ADMIN['title'], self::ROLE_ENTERPRISE_STANDARD['title']]);
+    }
 }

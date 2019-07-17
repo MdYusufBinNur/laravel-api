@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -67,6 +68,8 @@ class Handler extends ExceptionHandler
         }
 
         if ($exception instanceof NotFoundHttpException) {
+            // log it in bugsnag
+            Bugsnag::notifyException($exception);
             return response()->json((['status' => 404, 'message' => 'The requested resource was not found.']), 404);
         }
 

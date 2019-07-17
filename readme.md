@@ -27,4 +27,10 @@ PMS is a service based web application for property management.
       - An Owner Resident User will <strong> have access to the property's community & resident related features.</strong>
     - ##### Tenant Resident User
       - A Tenant Resident User will <strong> have access to the property's community & resident related features.</strong>
+    - ##### Student Type Resident User  
+      - A Student Resident User will <strong> have access to the property's community & resident related features.</strong>
+    - ##### Shop Owner Type Resident User 
+      - A Shop Owner Resident User will <strong> have access to the propert's community & resident related features.</strong>  
+    
+    
 

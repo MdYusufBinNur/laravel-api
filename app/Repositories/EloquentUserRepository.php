@@ -14,11 +14,21 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
+
+        $cacheKey = 'findBy:user-search:' . json_encode($searchCriteria);
+        if (($user = $this->getCacheByKey($cacheKey))) {
+            return $user;
+        }
+
         $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
 
         $searchCriteria['eagerLoad'] = ['userRoles'];
 
-        return parent::findBy($searchCriteria, $withTrashed);
+        $users =  parent::findBy($searchCriteria, $withTrashed);
+
+        $this->setCacheByKey($cacheKey, $users);
+
+        return $users;
     }
 
     /**

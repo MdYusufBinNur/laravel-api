@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class EloquentBaseRepository implements BaseRepository
 {
+    use EloquentCacheTrait;
     /**
      * @var Model
      */
@@ -39,6 +40,7 @@ class EloquentBaseRepository implements BaseRepository
         }
 
         return $queryBuilder->find($id);
+
     }
 
     /**
@@ -52,7 +54,9 @@ class EloquentBaseRepository implements BaseRepository
             $queryBuilder->withTrashed();
         }
 
-        return $queryBuilder->first();
+        $item = $queryBuilder->first();
+
+        return $item;
     }
 
     /**
@@ -117,11 +121,14 @@ class EloquentBaseRepository implements BaseRepository
      */
     public function save(array $data): \ArrayAccess
     {
+        //remove this repository related cache
+        $this->removeThisClassCache();
+
         // set createdBy by loggedInUser if not passed
-        if (!isset($data['createdBy'])) {
+        if (!isset($data['createdByUserId'])) {
             $loggedInUser = $this->getLoggedInUser();
             if ($loggedInUser instanceof User) {
-                $data['createdBy'] = $loggedInUser->id;
+                $data['createdByUserId'] = $loggedInUser->id;
             }
         }
 
@@ -133,6 +140,9 @@ class EloquentBaseRepository implements BaseRepository
      */
     public function update(\ArrayAccess $model, array $data): \ArrayAccess
     {
+        //remove this repository related cache
+        $this->removeThisClassCache();
+
         $fillAbleProperties = $this->model->getFillable();
 
         foreach ($data as $key => $value) {
@@ -171,6 +181,9 @@ class EloquentBaseRepository implements BaseRepository
      */
     public function delete(\ArrayAccess $model): bool
     {
+        //remove this repository related cache
+        $this->removeThisClassCache();
+
         return $model->delete();
     }
 
@@ -179,6 +192,9 @@ class EloquentBaseRepository implements BaseRepository
      */
     public function patch(array $searchCriteria, array $data) : \ArrayAccess
     {
+        //remove this repository related cache
+        $this->removeThisClassCache();
+
         $userNotificationSetting = $this->findOneBy($searchCriteria);
 
         if ($userNotificationSetting instanceof Model) {
@@ -242,6 +258,9 @@ class EloquentBaseRepository implements BaseRepository
      */
     public function updateIn(string $key, array $values, array $data): \IteratorAggregate
     {
+        // remove all cache related to this class
+        $this->removeThisClassCache();
+
         // updated records
         $this->model->whereIn($key, $values)->update($data);
 

@@ -16,7 +16,6 @@ class CreateRolesTable extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->integer('roleCategoryId')->unsigned();
             $table->string('title');
             $table->timestamps();
 
@@ -25,23 +24,23 @@ class CreateRolesTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->foreign('roleCategoryId')
-                ->references('id')->on('role_categories')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-
             $table->softDeletes();
         });
 
         DB::table('roles')->insert([
-            ['id' => 1, 'roleCategoryId' => 1,  'title'  => 'limited'],
-            ['id' => 2, 'roleCategoryId' => 1,  'title'  => 'standard'],
-            ['id' => 3, 'roleCategoryId' => 1,  'title'  => 'super'],
+            ['id' => 1, 'title' => 'super_admin'],
+            ['id' => 2, 'title' => 'standard_admin'],
+            ['id' => 3, 'title' => 'limited_admin'],
 
-            ['id' => 4, 'roleCategoryId' => 2,  'title'  => 'staff'],
-            ['id' => 5, 'roleCategoryId' => 2,  'title'  => 'resident'],
+            ['id' => 4, 'title' => 'enterprise_admin'],
+            ['id' => 5, 'title' => 'enterprise_standard'],
 
-            ['id' => 6, 'roleCategoryId' => 3,  'title'  => 'enterprise'],
+            ['id' => 6, 'title' => 'priority_staff'],
+            ['id' => 7, 'title' => 'standard_staff'],
+            ['id' => 8, 'title' => 'limited_staff'],
+
+            ['id' => 9, 'title' => 'resident_tenant'],
+            ['id' => 10, 'title' => 'resident_owner']
         ]);
     }
 

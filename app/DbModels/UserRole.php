@@ -10,14 +10,14 @@ class UserRole extends Model
      * Table name
      * @var string
      */
-    protected  $table = 'user_roles';
+    protected $table = 'user_roles';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable=[
+    protected $fillable = [
         'roleId', 'userId', 'propertyId'
     ];
 
@@ -32,13 +32,33 @@ class UserRole extends Model
     }
 
     /**
-     * get role of the users
+     * get the role of the user
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function role()
     {
         return $this->hasOne(Role::class, 'id', 'roleId');
+    }
+
+    /**
+     * get the property related to the user's role
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(Property::class, 'id', 'propertyId');
+    }
+
+    /**
+     * user and enterprise_users relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function enterpriseUsers()
+    {
+        return $this->hasMany(EnterpriseUser::class, 'userId', 'userId');
     }
 
     /**
@@ -72,20 +92,145 @@ class UserRole extends Model
     }
 
     /**
-     * is a admin user role
+     * has any admin user role
      *
      * @return boolean
      */
-    public function isAdminUserRole()
+    public function hasAdminUserRole()
     {
-        return $this->role->isAdminRole();
+        return $this->role->hasAdminRole();
+    }
+
+
+    /**
+     * is a priority staff user
+     *
+     * @return boolean
+     */
+    public function isPriorityStaffUserRole()
+    {
+        return $this->role->isSuperStaffRole();
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * is a standard staff user
+     *
+     * @return boolean
      */
-    public function property()
+    public function isStandardStaffUserRole()
     {
-        return $this->hasOne(Property::class, 'id', 'propertyId' );
+        return $this->role->isStandardStaffRole();
     }
+
+    /**
+     * is a limited staff user
+     *
+     * @return boolean
+     */
+    public function isLimitedStaffUserRole()
+    {
+        return $this->role->isLimitedStaffRole();
+    }
+
+    /**
+     * has any staff user role
+     *
+     * @return boolean
+     */
+    public function hasStaffUserRole()
+    {
+        return $this->role->hasStaffRole();
+    }
+
+    /**
+     * does the staff have access to the property
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function doesStaffHaveAccessToTheProperty(int $propertyId)
+    {
+        return $this->hasStaffUserRole()
+            && $this->hasThePropertyAssigned($propertyId);
+    }
+
+    /**
+     * has the user's role assigned to the property
+     *
+     * @param int $propertyId
+     * @return boolean
+     */
+    public function hasThePropertyAssigned(int $propertyId)
+    {
+        return $this->property->id === $propertyId;
+    }
+
+    /**
+     * is a enterprise's admin user role
+     *
+     * @return boolean
+     */
+    public function isAdminEnterpriseUserRole()
+    {
+        return $this->role->isAdminEnterpriseRole();
+    }
+
+    /**
+     * is a enterprise's standard user
+     *
+     * @return boolean
+     */
+    public function isStandardEnterpriseUserRole()
+    {
+        return $this->role->isStandardEnterpriseRole();
+    }
+
+    /**
+     * has any enterprise user role
+     *
+     * @return boolean
+     */
+    public function hasEnterpriseUserRole()
+    {
+        return $this->role->hasEnterpriseRole();
+    }
+
+    /**
+     * does the staff have access to the property
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function doesEnterpriseUserRoleHaveAccessToTheProperty(int $propertyId)
+    {
+        if ($this->isAdminEnterpriseUserRole()) {
+            return true;
+        }
+
+        if ($this->hasEnterpriseUserRole()) {
+            foreach ($this->enterpriseUsers as $enterpriseUser) {
+                return in_array($propertyId, $enterpriseUser->enterPriseUserProperties->pluck('propertyId')->toArray());
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * does the staff have access to the company
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function doesEnterpriseUserRoleHaveAdminAccessToTheCompany(int $companyId)
+    {
+        if ($this->isAdminEnterpriseUserRole()) {
+            foreach ($this->enterpriseUsers as $enterpriseUser) {
+                return $enterpriseUser->companyId == $companyId;
+            }
+        }
+
+        return false;
+    }
+
 }

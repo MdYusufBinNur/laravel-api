@@ -17,7 +17,7 @@ class IndexRequest extends Request
         return $rules = [
             'id'               => 'list:numeric',
             'title'            => 'list:string',
-            'roleCategoryId'   => 'list:numeric',
+            'type'            => 'list:string',
         ];
     }
 

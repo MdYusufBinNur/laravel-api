@@ -440,11 +440,6 @@ class RepositoryServiceProvider extends ServiceProvider
             return new EloquentAttachmentRepository(new Attachment());
         });
 
-        // bind RoleCategoryRepository
-        $this->app->bind(RoleCategoryRepository::class, function() {
-            return new EloquentRoleCategoryRepository(new RoleCategory());
-        });
-
         // bind EnterpriseUserRepository
         $this->app->bind(EnterpriseUserRepository::class, function() {
             return new EloquentEnterpriseUserRepository(new EnterpriseUser());

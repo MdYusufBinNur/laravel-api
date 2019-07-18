@@ -14,23 +14,23 @@ class Role extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'roleCategoryId', 'title'
+        'createdByUserId', 'type', 'title'
     ];
 
     // N.B. setting `id` statically for quicker insert
-    const ROLE_ADMIN_SUPER = ['id' => 1, 'title' => 'super_admin'];
-    const ROLE_ADMIN_STANDARD = ['id' => 2, 'title' => 'standard_admin'];
-    const ROLE_ADMIN_LIMITED = ['id' => 3, 'title' => 'limited_admin'];
+    const ROLE_ADMIN_SUPER = ['id' => 1, 'type' => 'admin', 'title' => 'super_admin'];
+    const ROLE_ADMIN_STANDARD = ['id' => 2, 'type' => 'admin', 'title' => 'standard_admin'];
+    const ROLE_ADMIN_LIMITED = ['id' => 3, 'type' => 'admin', 'title' => 'limited_admin'];
 
-    const ROLE_ENTERPRISE_ADMIN = ['id' => 4, 'title' => 'enterprise_admin'];
-    const ROLE_ENTERPRISE_STANDARD = ['id' => 5, 'title' => 'enterprise_standard'];
+    const ROLE_ENTERPRISE_ADMIN = ['id' => 4, 'type' => 'enterprise', 'title' => 'enterprise_admin'];
+    const ROLE_ENTERPRISE_STANDARD = ['id' => 5, 'type' => 'enterprise', 'title' => 'enterprise_standard'];
 
-    const ROLE_STAFF_PRIORITY = ['id' => 6, 'title' => 'priority_staff'];
-    const ROLE_STAFF_STANDARD = ['id' => 7, 'title' => 'standard_staff'];
-    const ROLE_STAFF_LIMITED = ['id' => 8, 'title' => 'limited_staff'];
+    const ROLE_STAFF_PRIORITY = ['id' => 6, 'type' => 'staff', 'title' => 'priority_staff'];
+    const ROLE_STAFF_STANDARD = ['id' => 7, 'type' => 'staff', 'title' => 'standard_staff'];
+    const ROLE_STAFF_LIMITED = ['id' => 8, 'type' => 'staff', 'title' => 'limited_staff'];
 
-    const ROLE_RESIDENT_TENANT = ['id' => 9, 'title' => 'resident_tenant'];
-    const ROLE_RESIDENT_OWNER = ['id' => 10, 'title' => 'resident_owner'];
+    const ROLE_RESIDENT_TENANT = ['id' => 9, 'type' => 'resident', 'title' => 'resident_tenant'];
+    const ROLE_RESIDENT_OWNER = ['id' => 10, 'type' => 'resident', 'title' => 'resident_owner'];
 
 
     /**

@@ -15,7 +15,7 @@ class UpdateRequest extends Request
     {
         return $rules = [
             'title'             => 'min:3',
-            'roleCategoryId'    => 'exists:role_categories,id',
+            'type'             => 'min:3|max:20',
         ];
     }
 

@@ -16,7 +16,7 @@ class StoreRequest extends Request
     {
         return $rules = [
             'title'             => 'required|unique:roles,title|min:3',
-            'roleCategoryId'    => 'required|exists:role_categories,id',
+            'type'             => 'required|min:3|max:20',
         ];
     }
 }

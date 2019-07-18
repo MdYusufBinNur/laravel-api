@@ -22,10 +22,14 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         if(array_key_exists('users', $data)){
             $data['roles']['propertyId'] = $data['propertyId'];
 
-            //to get the role id of a const role name
-            $roleRepository = app(RoleRepository::class);
-            $role = $roleRepository->findOneBy(['title' => Role::ROLE_RESIDENT_USER]);
-            $data['roles']['roleId'] = $role->id;
+            if(array_key_exists('roleId', $data['users'])) {
+                $roleId = $data['users']['roleId'];
+            }
+            else {
+                $roleId = Role::ROLE_RESIDENT_TENANT['id'];
+            }
+
+            $data['roles']['roleId'] = $roleId;
 
             $userRepository = app(UserRepository::class);
             $user = $userRepository->save(array_merge($data['users'], ['roles' => $data['roles']]));

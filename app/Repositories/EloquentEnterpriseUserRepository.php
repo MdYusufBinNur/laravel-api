@@ -25,11 +25,14 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
             if(array_key_exists('propertyId', $data)) {
                 $data['roles']['propertyId'] = $data['propertyId'];
             }
-
-            //to get the role id of a role name by const value of a model
-            $roleRepository = app(RoleRepository::class);
-            $role = $roleRepository->findOneBy(['title' => Role::ROLE_ENTERPRISE_USER]);
-            $data['roles']['roleId'] = $role->id;
+            
+            if(array_key_exists('roleId', $data['users'])) {
+                $roleId = $data['users']['roleId'];
+            }
+            else {
+                $roleId = Role::ROLE_ENTERPRISE_STANDARD['id'];
+            }
+            $data['roles']['roleId'] = $roleId;
 
             $userRepository = app(UserRepository::class);
             $user = $userRepository->save(array_merge($data['users'], ['roles' => $data['roles']]));

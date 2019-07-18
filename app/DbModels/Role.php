@@ -18,7 +18,7 @@ class Role extends Model
     ];
 
     // N.B. setting `id` statically for quicker insert
-    const ROLE_ADMIN_SUPER = ['id' => 1, 'title' => 'admin_super'];
+    const ROLE_ADMIN_SUPER = ['id' => 1, 'title' => 'super_admin'];
     const ROLE_ADMIN_STANDARD = ['id' => 2, 'title' => 'standard_admin'];
     const ROLE_ADMIN_LIMITED = ['id' => 3, 'title' => 'limited_admin'];
 
@@ -54,7 +54,7 @@ class Role extends Model
     }
 
     /**
-     * is limited admin role
+     * is a limited admin role
      *
      * @return bool
      */
@@ -95,7 +95,7 @@ class Role extends Model
     }
 
     /**
-     * is limited staff role
+     * is a limited staff role
      *
      * @return bool
      */
@@ -126,7 +126,7 @@ class Role extends Model
     }
 
     /**
-     * is enterprise's standard role
+     * is a enterprise's standard role
      *
      * @return bool
      */

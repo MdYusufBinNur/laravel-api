@@ -25,7 +25,7 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
             if(array_key_exists('propertyId', $data)) {
                 $data['roles']['propertyId'] = $data['propertyId'];
             }
-            
+
             if(array_key_exists('roleId', $data['users'])) {
                 $roleId = $data['users']['roleId'];
             }

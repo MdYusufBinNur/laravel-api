@@ -7,14 +7,28 @@ use Illuminate\Support\Facades\Cache;
 trait EloquentCacheTrait {
 
     /**
-     * generate key cache
+     * get cache key
      *
      * @param $key
      * @return string
      */
-    public function generateCacheKey($key)
+    public function getCacheKey($key)
     {
         return $key;
+    }
+
+    /**
+     * get cache tag
+     *
+     * @param $tag
+     * @return string
+     */
+    public function getCacheTag($tag = null)
+    {
+        if (empty($tag)) {
+            $tag = get_called_class();
+        }
+        return $tag;
     }
 
     /**
@@ -23,10 +37,13 @@ trait EloquentCacheTrait {
      * @param $key
      * @return mixed
      */
-    public function getCacheByKey($key)
+    public function getCacheByKey($key, $tag = null)
     {
-        $cacheKey = $this->generateCacheKey($key);
-        return Cache::tags(get_called_class())->get($cacheKey);
+        if (env('APP_ENV') == 'local') {
+            return null;
+        }
+
+        return Cache::tags($this->getCacheTag($tag))->get($this->getCacheKey($key));
 
     }
 
@@ -34,33 +51,33 @@ trait EloquentCacheTrait {
      * set a cache item
      *
      * @param mixed $key
-     * @param $value
+     * @param mixed $value
+     * @param string $tag
      * @param bool $withCacheKeyGenertor
      */
-    public function setCacheByKey($key, $value, $withCacheKeyGenertor = true)
+    public function setCacheByKey($key, $value, $tag = null , $withCacheKeyGenerator = true)
     {
-        $cacheKey = $withCacheKeyGenertor ? $this->generateCacheKey($key) : $key;
-        Cache::tags(get_called_class())->put($cacheKey, $value);
+        Cache::tags($this->getCacheTag($tag))->put($this->getCacheKey($key), $value);
     }
 
     /**
      * remove a cache item
      *
-     * @param $key
-     * @param $value
+     * @param string $key
+     * @param string $key
      */
-    public function removeCache($key)
+    public function removeCache($key, $tag = null)
     {
-        $cacheKey = $this->generateCacheKey($key);
-        Cache::tags(get_called_class())->forget($cacheKey);
+        Cache::tags($this->getCacheTag($tag))->forget($this->getCacheKey($key));
     }
 
     /**
-     * remove all cache
+     * remove a tagged caches
+     *
+     * @param $tag
      */
-    public function removeThisClassCache()
+    public function removeThisClassCache($tag = null)
     {
-
-        Cache::tags(get_called_class())->flush();
+        Cache::tags($this->getCacheTag($tag))->flush();
     }
 }

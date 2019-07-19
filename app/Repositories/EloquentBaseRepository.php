@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 class EloquentBaseRepository implements BaseRepository
 {
     use EloquentCacheTrait;
+
     /**
      * @var Model
      */
@@ -33,13 +34,22 @@ class EloquentBaseRepository implements BaseRepository
      */
     public function findOne($id, $withTrashed = false): ?\ArrayAccess
     {
+        $cacheKey = 'findOne:' . $id;
+        if (($item = $this->getCacheByKey($cacheKey))) {
+            return $item;
+        }
+
         $queryBuilder = $this->model;
 
         if ($withTrashed) {
             $queryBuilder->withTrashed();
         }
 
-        return $queryBuilder->find($id);
+        $item = $queryBuilder->find($id);
+
+        $this->setCacheByKey($cacheKey, $item);
+
+        return $item;
 
     }
 
@@ -48,6 +58,11 @@ class EloquentBaseRepository implements BaseRepository
      */
     public function findOneBy(array $criteria, $withTrashed = false): ?\ArrayAccess
     {
+        $cacheKey = 'findOneBy:' . json_encode($criteria);
+        if (($item = $this->getCacheByKey($cacheKey))) {
+            return $item;
+        }
+
         $queryBuilder =  $this->model->where($criteria);
 
         if ($withTrashed) {
@@ -55,6 +70,9 @@ class EloquentBaseRepository implements BaseRepository
         }
 
         $item = $queryBuilder->first();
+
+        $this->setCacheByKey($cacheKey, $item);
+
 
         return $item;
     }

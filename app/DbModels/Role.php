@@ -29,8 +29,10 @@ class Role extends Model
     const ROLE_STAFF_STANDARD = ['id' => 7, 'type' => 'staff', 'title' => 'standard_staff'];
     const ROLE_STAFF_LIMITED = ['id' => 8, 'type' => 'staff', 'title' => 'limited_staff'];
 
-    const ROLE_RESIDENT_TENANT = ['id' => 9, 'type' => 'resident', 'title' => 'resident_tenant'];
-    const ROLE_RESIDENT_OWNER = ['id' => 10, 'type' => 'resident', 'title' => 'resident_owner'];
+    const ROLE_RESIDENT_OWNER = ['id' => 9, 'type' => 'resident', 'title' => 'resident_owner'];
+    const ROLE_RESIDENT_TENANT = ['id' => 10, 'type' => 'resident', 'title' => 'resident_tenant'];
+    const ROLE_RESIDENT_SHOP = ['id' => 11, 'type' => 'resident', 'title' => 'resident_shop'];
+    const ROLE_RESIDENT_STUDENT = ['id' => 12, 'type' => 'resident', 'title' => 'resident_student'];
 
 
     /**
@@ -135,7 +137,6 @@ class Role extends Model
         return $this->title === self::ROLE_ENTERPRISE_STANDARD['title'];
     }
 
-
     /**
      * has any enterprise role
      *
@@ -144,5 +145,55 @@ class Role extends Model
     public function hasEnterpriseRole()
     {
         return in_array($this->title, [self::ROLE_ENTERPRISE_ADMIN['title'], self::ROLE_ENTERPRISE_STANDARD['title']]);
+    }
+
+    /**
+     * is a owner type residents role
+     *
+     * @return bool
+     */
+    public function isOwnerResidentRole()
+    {
+        return $this->title === self::ROLE_RESIDENT_OWNER['title'];
+    }
+
+    /**
+     * is a enterprise's admin role
+     *
+     * @return bool
+     */
+    public function isTenantResidentRole()
+    {
+        return $this->title === self::ROLE_RESIDENT_TENANT['title'];
+    }
+
+    /**
+     * is a shop type residents role
+     *
+     * @return bool
+     */
+    public function isShopResidentRole()
+    {
+        return $this->title === self::ROLE_RESIDENT_SHOP['title'];
+    }
+
+    /**
+     * is a student type residents role
+     *
+     * @return bool
+     */
+    public function isStudentResidentRole()
+    {
+        return $this->title === self::ROLE_RESIDENT_STUDENT['title'];
+    }
+
+    /**
+     * has any resident role
+     *
+     * @return bool
+     */
+    public function hasResidentRole()
+    {
+        return in_array($this->title, [self::ROLE_RESIDENT_OWNER['title'], self::ROLE_RESIDENT_TENANT['title'], self::ROLE_RESIDENT_SHOP, self::ROLE_RESIDENT_STUDENT]);
     }
 }

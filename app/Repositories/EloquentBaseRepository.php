@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 
 class EloquentBaseRepository implements BaseRepository
 {
+    use EloquentCacheTrait;
+
     /**
      * @var Model
      */
@@ -32,13 +34,23 @@ class EloquentBaseRepository implements BaseRepository
      */
     public function findOne($id, $withTrashed = false): ?\ArrayAccess
     {
+        $cacheKey = 'findOne:' . $id;
+        if (($item = $this->getCacheByKey($cacheKey))) {
+            return $item;
+        }
+
         $queryBuilder = $this->model;
 
         if ($withTrashed) {
             $queryBuilder->withTrashed();
         }
 
-        return $queryBuilder->find($id);
+        $item = $queryBuilder->find($id);
+
+        $this->setCacheByKey($cacheKey, $item);
+
+        return $item;
+
     }
 
     /**
@@ -46,13 +58,23 @@ class EloquentBaseRepository implements BaseRepository
      */
     public function findOneBy(array $criteria, $withTrashed = false): ?\ArrayAccess
     {
+        $cacheKey = 'findOneBy:' . json_encode($criteria);
+        if (($item = $this->getCacheByKey($cacheKey))) {
+            return $item;
+        }
+
         $queryBuilder =  $this->model->where($criteria);
 
         if ($withTrashed) {
             $queryBuilder->withTrashed();
         }
 
-        return $queryBuilder->first();
+        $item = $queryBuilder->first();
+
+        $this->setCacheByKey($cacheKey, $item);
+
+
+        return $item;
     }
 
     /**
@@ -117,11 +139,14 @@ class EloquentBaseRepository implements BaseRepository
      */
     public function save(array $data): \ArrayAccess
     {
+        //remove this repository related cache
+        $this->removeThisClassCache();
+
         // set createdBy by loggedInUser if not passed
-        if (!isset($data['createdBy'])) {
+        if (!isset($data['createdByUserId'])) {
             $loggedInUser = $this->getLoggedInUser();
             if ($loggedInUser instanceof User) {
-                $data['createdBy'] = $loggedInUser->id;
+                $data['createdByUserId'] = $loggedInUser->id;
             }
         }
 
@@ -133,6 +158,9 @@ class EloquentBaseRepository implements BaseRepository
      */
     public function update(\ArrayAccess $model, array $data): \ArrayAccess
     {
+        //remove this repository related cache
+        $this->removeThisClassCache();
+
         $fillAbleProperties = $this->model->getFillable();
 
         foreach ($data as $key => $value) {
@@ -171,6 +199,9 @@ class EloquentBaseRepository implements BaseRepository
      */
     public function delete(\ArrayAccess $model): bool
     {
+        //remove this repository related cache
+        $this->removeThisClassCache();
+
         return $model->delete();
     }
 
@@ -179,6 +210,9 @@ class EloquentBaseRepository implements BaseRepository
      */
     public function patch(array $searchCriteria, array $data) : \ArrayAccess
     {
+        //remove this repository related cache
+        $this->removeThisClassCache();
+
         $userNotificationSetting = $this->findOneBy($searchCriteria);
 
         if ($userNotificationSetting instanceof Model) {
@@ -242,6 +276,9 @@ class EloquentBaseRepository implements BaseRepository
      */
     public function updateIn(string $key, array $values, array $data): \IteratorAggregate
     {
+        // remove all cache related to this class
+        $this->removeThisClassCache();
+
         // updated records
         $this->model->whereIn($key, $values)->update($data);
 

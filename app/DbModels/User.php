@@ -284,14 +284,20 @@ class User extends Authenticatable
         return false;
     }
 
+
     /**
-     * is a resident user
+     * is a owner type resident
      *
      * @return bool
      */
-    public function isResident()
+    public function isOwnerResident()
     {
-        return $this->residents()->count() > 0;
+        foreach ($this->userRoles as $userRoles) {
+            if ($userRoles->isOwnerResidentUserRole()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -299,10 +305,10 @@ class User extends Authenticatable
      *
      * @return bool
      */
-    public function isTenantTypeResident()
+    public function isTenantResident()
     {
-        foreach ($this->residents as $resident) {
-            if ($resident->isTypeTenant()) {
+        foreach ($this->userRoles as $userRole) {
+            if ($userRole->isTenantResidentUserRole()) {
                 return true;
             }
         }
@@ -310,19 +316,50 @@ class User extends Authenticatable
     }
 
     /**
-     * is a owner type resident
+     * is a shop type resident
      *
      * @return bool
      */
-    public function isOwnerTypeResident()
+    public function isShopResident()
     {
-        foreach ($this->residents as $resident) {
-            if ($resident->isTypeOwner()) {
+        foreach ($this->userRoles as $userRoles) {
+            if ($userRoles->isShopResidentUserRole()) {
                 return true;
             }
         }
         return false;
     }
+
+    /**
+     * is a student type resident
+     *
+     * @return bool
+     */
+    public function isStudentResident()
+    {
+        foreach ($this->userRoles as $userRoles) {
+            if ($userRoles->isStudentResidentUserRole()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * is a any kind of resident user
+     *
+     * @return bool
+     */
+    public function isResident()
+    {
+        foreach ($this->userRoles as $userRole) {
+            if ($userRole->hasResidentUserRole()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     /**
      * has the resident access to the property
@@ -342,4 +379,5 @@ class User extends Authenticatable
 
         return false;
     }
+
 }

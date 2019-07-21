@@ -219,7 +219,7 @@ class UserRole extends Model
     /**
      * does the staff have access to the company
      *
-     * @param int $propertyId
+     * @param int $companyId
      * @return bool
      */
     public function doesEnterpriseUserRoleHaveAdminAccessToTheCompany(int $companyId)
@@ -231,6 +231,57 @@ class UserRole extends Model
         }
 
         return false;
+    }
+
+    /**
+     * is a owner type resident's user role
+     *
+     * @return boolean
+     */
+    public function isOwnerResidentUserRole()
+    {
+        return $this->role->isOwnerResidentRole();
+    }
+
+    /**
+     * is a tenant type resident's user role
+     *
+     * @return boolean
+     */
+    public function isTenantResidentUserRole()
+    {
+        return $this->role->isTenantResidentRole();
+    }
+
+    /**
+     * is a shop type resident's user role
+     *
+     * @return boolean
+     */
+    public function isShopResidentUserRole()
+    {
+        return $this->role->isShopResidentRole();
+    }
+
+    /**
+     * is a student type resident's user role
+     *
+     * @return boolean
+     */
+    public function isStudentResidentUserRole()
+    {
+        return $this->role->isStudentResidentRole();
+    }
+
+
+    /**
+     * has any resident user role
+     *
+     * @return boolean
+     */
+    public function hasResidentUserRole()
+    {
+        return $this->role->hasResidentRole();
     }
 
 }

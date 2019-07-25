@@ -23,6 +23,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        \DB::listen(function ($query) {
+            if (env('APP_ENV') !== 'prod') {
+                \Log::debug("[time: $query->time] " . $query->sql . ' , ' . json_encode($query->bindings));
+            }
+            // $query->sql
+            // $query->bindings
+            // $query->time
+        });
     }
 }

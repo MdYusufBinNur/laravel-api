@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\DbModels\Role;
 use App\Repositories\Contracts\RoleRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
@@ -99,16 +100,46 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
             unset($searchCriteria['query']);
         }
 
-        if (isset($searchCriteria['roleId'])) {
+        if (isset($searchCriteria['roleId']) || isset($searchCriteria['propertyId'])) {
             $userRoleRepository = app(UserRoleRepository::class);
-            $userIds = $userRoleRepository->model->where('roleId', $searchCriteria['roleId'])->pluck('userId')->toArray();
+            $queryBuilder = $userRoleRepository->model;
+
+            if (isset($searchCriteria['roleId'])) {
+                if (!is_array($searchCriteria['roleId'])) {
+                    $searchCriteria['roleId'] = [$searchCriteria['roleId']];
+                }
+                $queryBuilder = $queryBuilder->whereIn('roleId', $searchCriteria['roleId']);
+            }
+
+            if (isset($searchCriteria['propertyId'])) {
+                $queryBuilder = $queryBuilder->where('propertyId', $searchCriteria['propertyId']);
+            }
+
+            $userIds = $queryBuilder->pluck('userId')->toArray();
             $searchCriteria['id'] = isset($searchCriteria['id']) ? array_intersect($searchCriteria['id'], $userIds) : $userIds;
             unset($searchCriteria['roleId']);
+            unset($searchCriteria['propertyId']);
         }
 
         if (isset($searchCriteria['id'])) {
             $searchCriteria['id'] = implode(",", array_unique($searchCriteria['id']));
         }
         return $searchCriteria;
+    }
+
+    /**
+     * @param int $propertyId
+     * @param array $searchCriteria
+     * @return mixed
+     */
+    public function findStaffsByPropertyId(int $propertyId, array $searchCriteria = [])
+    {
+        $searchCriteria['propertyId'] = $propertyId;
+
+        if (!isset($searchCriteria['roleId'])) {
+            $searchCriteria['roleId'] = [Role::ROLE_STAFF_PRIORITY['id'], Role::ROLE_STAFF_STANDARD['id'], Role::ROLE_STAFF_LIMITED['id']];
+        }
+
+        return $this->findBy($searchCriteria);
     }
 }

@@ -41,4 +41,14 @@ class Manager extends Model
     {
         return $this->hasOne(User::class, 'id', 'userId');
     }
+
+    /**
+     * get the user roles
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\Hasmany
+     */
+    public function userRoles()
+    {
+        return $this->hasMany(UserRole::class, 'userId', 'userId');
+    }
 }

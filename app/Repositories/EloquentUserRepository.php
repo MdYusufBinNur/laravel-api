@@ -3,10 +3,11 @@
 namespace App\Repositories;
 
 use App\DbModels\Role;
-use App\Repositories\Contracts\RoleRepository;
+use App\DbModels\UserRole;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EloquentUserRepository extends EloquentBaseRepository implements UserRepository
 {
@@ -53,10 +54,11 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
 
         $user = parent::save($data);
 
-        $roleRepository = app(RoleRepository::class);
-        $role = $roleRepository->findOneBy(['id' => $data['roles']['roleId']]);
-        $userRoleRepository = app(UserRoleRepository::class);
-        $userRoleRepository->save(['roleId' => $role->id, 'userId' => $user->id, 'propertyId' => $data['roles']['propertyId'] ]);
+        if (isset($data['role'])) {
+            $data['role']['userId'] = $user->id;
+            $userRoleRepository = app(UserRoleRepository::class);
+            $userRoleRepository->save($data['role']);
+        }
 
         DB::commit();
 
@@ -68,19 +70,28 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
      */
     public function update(\ArrayAccess $model, array $data): \ArrayAccess
     {
+        DB::beginTransaction();
+
         $userRoleRepository = app(UserRoleRepository::class);
 
         $user = parent::update($model, $data);
 
-        if(array_key_exists('addNewRole', $data) && array_key_exists('roles', $data)) {
+        if(array_key_exists('role', $data)) {
 
-            $userRoleRepository->save(['roleId' => $data['roles']['roleId'], 'userId' => $data['id'], 'propertyId' => $data['roles']['propertyId']]);
-
-        } else if(array_key_exists('roles', $data)) {
-
-            $userRole = $userRoleRepository->findOneBy(['id' => $data['roles']['id']]);
-            $userRoleRepository->update($userRole, $data['roles']);
+            if (isset($data['role']['oldRoleId'])) {
+                $userRole = $userRoleRepository->findOneBy(['userId' => $user->id, 'roleId' => $data['role']['oldRoleId']]);
+                if ($userRole instanceof UserRole) {
+                    $userRoleRepository->update($userRole, $data['role']);
+                } else {
+                    throw new NotFoundHttpException();
+                }
+            } else {
+                $data['role']['userId'] = $user->id;
+                $userRoleRepository->patch($data['role'], $data['role']);
+            }
         }
+
+        DB::commit();
 
         return $user;
     }

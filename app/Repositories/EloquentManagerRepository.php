@@ -40,6 +40,7 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
 
         return $queryBuilder->select('managers.*')
             ->orderBy($orderBy, $orderDirection)
+            ->with(['user', 'userRoles'])
             ->paginate($limit);
     }
 
@@ -58,10 +59,11 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
             $user = $userRepository->save($data['user']);
         }
 
-        $data['roles']['userId'] = $user->id;
-        $data['roles']['propertyId'] = $data['propertyId'];
-        $userRoleRepository->save($data['roles']);
+        $data['role']['userId'] = $user->id;
+        $data['role']['propertyId'] = $data['propertyId'];
+        $userRoleRepository->save($data['role']);
 
+        $data['userId'] = $user->id;
         $manager = parent::save($data);
 
         DB::commit();
@@ -84,18 +86,18 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
             $userRepository->update($staff->user, $data['user']);
         }
 
-        if(isset($data['roles'])) {
+        if(isset($data['role'])) {
             $userRoleRepository = app(UserRoleRepository::class);
 
-            $data['roles']['propertyId'] = $data['propertyId'] ?? $staff->propertyId;
+            $data['role']['propertyId'] = $data['propertyId'] ?? $staff->propertyId;
 
-            if (isset($data['roles']['addNewRole'])) {
-                unset($data['roles']['addNewRole']);
-                $data['roles']['userId'] = $staff->user->id;
-                $userRoleRepository->patch($data['roles'], $data['roles']);
+            if (isset($data['role']['addNewRole'])) {
+                unset($data['role']['addNewRole']);
+                $data['role']['userId'] = $staff->user->id;
+                $userRoleRepository->patch($data['role'], $data['role']);
             } else {
-                $userRole = $userRoleRepository->findOneBy(['userId' => $staff->user->id, 'propertyId' => $data['roles']['propertyId']]);
-                $userRoleRepository->update($userRole, $data['roles']);
+                $userRole = $userRoleRepository->findOneBy(['userId' => $staff->user->id, 'propertyId' => $data['role']['propertyId']]);
+                $userRoleRepository->update($userRole, $data['role']);
             }
         }
 
@@ -113,8 +115,8 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
         $userRoleRepository = app(UserRoleRepository::class);
         $userRepository = app(UserRepository::class);
 
-        if (isset($data['roles'])) {
-            $userRoles = $userRoleRepository->model->where($data['roles'])->count();
+        if (isset($data['role'])) {
+            $userRoles = $userRoleRepository->model->where($data['role'])->count();
             foreach ($userRoles as $userRole) {
                 $userRoleRepository->delete($userRole);
             }

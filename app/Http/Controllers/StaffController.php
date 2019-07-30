@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\DbModels\Manager;
-use App\DbModels\User;
 use App\Http\Requests\Staff\DestroyRequest;
 use App\Http\Requests\Staff\IndexRequest;
 use App\Http\Requests\Staff\StoreRequest;

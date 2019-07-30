@@ -16,23 +16,23 @@ class UpdateRequest extends Request
     {
         return $rules = [
             'contactEmail' => 'email',
-            'propertyId' => 'exists:properties,id',
+            'propertyId' => 'exists:properties,id|required_with:role.addNewRole',
             'phone' => 'max:100',
             'title' => 'min:5',
             'level' => '',
             'displayInCorner' => 'boolean',
             'displayPublicProfile' => '',
 
-            'users' => '',
-            'users.email' => 'email|unique:users',
-            'users.name' => 'users|max:100',
-            'users.password' => 'users|min:5',
-            'users.locale' => '',
-            'users.isActive' => 'boolean',
+            'user' => '',
+            'user.email' => 'email|unique:users',
+            'user.name' => 'users|max:100',
+            'user.password' => 'users|min:5',
+            'user.locale' => '',
+            'user.isActive' => 'boolean',
 
-            'roles' => '',
-            'roles.addNewRole' => 'boolean',
-            'roles.roleId' => 'in:' . Role::ROLE_STAFF_PRIORITY['id'] . ',' . Role::ROLE_STAFF_STANDARD['id'] . ',' . Role::ROLE_STAFF_LIMITED['id'],
+            'role' => '',
+            'role.addNewRole' => 'boolean',
+            'role.roleId' => 'in:' . Role::ROLE_STAFF_PRIORITY['id'] . ',' . Role::ROLE_STAFF_STANDARD['id'] . ',' . Role::ROLE_STAFF_LIMITED['id'],
         ];
     }
 

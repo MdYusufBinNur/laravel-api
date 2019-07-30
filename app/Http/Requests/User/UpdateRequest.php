@@ -23,11 +23,11 @@ class UpdateRequest extends Request
             'name' => '',
             'locale' => '',
             'isActive' => 'boolean',
-            'addNewRole' => 'boolean',
-            'roles' => '',
-            'roles.id' => 'exists:user_roles,id', //todo what if, addNewRole is not given & roles.id is not given too.
-            'roles.roleId' => 'exists:roles,id',
-            'roles.propertyId' => 'nullable|exists:properties,id'
+            'role' => '',
+            'role.id' => 'exists:user_roles,id', //todo what if, addNewRole is not given & roles.id is not given too.
+            'role.roleId' => 'exists:roles,id',
+            'role.oldRoleId' => 'exists:roles,id',
+            'role.propertyId' => 'nullable|exists:properties,id'
         ];
     }
 

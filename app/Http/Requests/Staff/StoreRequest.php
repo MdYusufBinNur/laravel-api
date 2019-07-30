@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Staff;
 
+use App\DbModels\Role;
 use App\Http\Requests\Request;
 
 class StoreRequest extends Request
@@ -15,14 +16,25 @@ class StoreRequest extends Request
     public function rules()
     {
         return $rules = [
-            'email' => 'email|required|unique:users',
-            'name' => 'max:100',
-            'password' => 'required|min:5',
-            'locale' => '',
-            'isActive' => 'boolean',
+            'contactEmail' => 'email',
+            'propertyId' => 'exists:properties,id',
+            'phone' => 'max:100',
+            'title' => 'min:5',
+            'level' => '',
+            'displayInCorner' => 'boolean',
+            'displayPublicProfile' => '',
+
+            'userId' => 'required_without:users|exists:users,id',
+            'users' => 'required_without:userId',
+            'users.email' => 'required_with:users|email|unique:users',
+            'users.name' => 'required_with:users|max:100',
+            'users.password' => 'required_with:users|min:5',
+            'users.locale' => '',
+            'users.isActive' => 'boolean',
+
             'roles' => '',
-            'roles.roleId' => 'required|exists:roles,id',
-            'roles.propertyId' => 'nullable|exists:properties,id'
+            'roles.roleId' => 'required|in:' . Role::ROLE_STAFF_PRIORITY['id'] . ',' . Role::ROLE_STAFF_STANDARD['id'] . ',' . Role::ROLE_STAFF_LIMITED['id'],
+            'roles.propertyId' => 'required|exists:properties,id',
         ];
     }
 

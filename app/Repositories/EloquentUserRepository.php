@@ -102,7 +102,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
 
         if (isset($searchCriteria['roleId']) || isset($searchCriteria['propertyId'])) {
             $userRoleRepository = app(UserRoleRepository::class);
-            $queryBuilder = $userRoleRepository->model;
+            $queryBuilder = $userRoleRepository->model->select('userId');
 
             if (isset($searchCriteria['roleId'])) {
                 if (!is_array($searchCriteria['roleId'])) {
@@ -124,18 +124,18 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
         if (isset($searchCriteria['id'])) {
             $searchCriteria['id'] = implode(",", array_unique($searchCriteria['id']));
         }
+
         return $searchCriteria;
     }
 
     /**
-     * @param int $propertyId
+     * find staffs
+     *
      * @param array $searchCriteria
      * @return mixed
      */
-    public function findStaffsByPropertyId(int $propertyId, array $searchCriteria = [])
+    public function findStaffs(array $searchCriteria = [])
     {
-        $searchCriteria['propertyId'] = $propertyId;
-
         if (!isset($searchCriteria['roleId'])) {
             $searchCriteria['roleId'] = [Role::ROLE_STAFF_PRIORITY['id'], Role::ROLE_STAFF_STANDARD['id'], Role::ROLE_STAFF_LIMITED['id']];
         }

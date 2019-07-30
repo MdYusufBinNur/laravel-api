@@ -19,6 +19,26 @@ class Manager extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'userId', 'contactEmail', 'phone', 'title', 'level', 'displayInCorner', 'displayPublicProfile'
+        'createdByUserId', 'userId', 'propertyId', 'contactEmail', 'phone', 'title', 'level', 'displayInCorner', 'displayPublicProfile'
     ];
+
+    /**
+     * get the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'userId');
+    }
+
+    /**
+     * get the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function properties()
+    {
+        return $this->hasOne(User::class, 'id', 'userId');
+    }
 }

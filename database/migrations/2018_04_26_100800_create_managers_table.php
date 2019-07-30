@@ -17,6 +17,7 @@ class CreateManagersTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('userId');
+            $table->unsignedInteger('propertyId')->nullable();
             $table->string('contactEmail')->nullable();
             $table->string('phone', 20)->nullable();
             $table->string('title')->nullable();
@@ -28,6 +29,11 @@ class CreateManagersTable extends Migration
 
             $table->foreign('userId')
                 ->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('propertyId')
+                ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

@@ -2,30 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\DbModels\Manager;
 use App\DbModels\User;
+use App\Http\Requests\Staff\DestroyRequest;
 use App\Http\Requests\Staff\IndexRequest;
 use App\Http\Requests\Staff\StoreRequest;
 use App\Http\Requests\Staff\UpdateRequest;
+use App\Http\Resources\StaffResource;
+use App\Http\Resources\StaffResourceCollection;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserResourceCollection;
-use App\Repositories\Contracts\UserRepository;
+use App\Repositories\Contracts\ManagerRepository;
 use Illuminate\Auth\Access\AuthorizationException;
 
 class StaffController extends Controller
 {
     /**
-     * @var UserRepository
+     * @var ManagerRepository
      */
-    protected $userRepository;
+    protected $managerRepository;
 
     /**
      * UserController constructor.
      *
-     * @param UserRepository $userRepository
+     * @param ManagerRepository $managerRepository
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(ManagerRepository $managerRepository)
     {
-        $this->userRepository = $userRepository;
+        $this->managerRepository = $managerRepository;
     }
 
     /**
@@ -36,9 +40,9 @@ class StaffController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $users = $this->userRepository->findStaffsByPropertyId($request->get('propertyId'), $request->all());
+        $users = $this->managerRepository->findStaffUsers($request->all());
 
-        return new UserResourceCollection($users);
+        return new StaffResourceCollection($users);
     }
 
     /**
@@ -49,9 +53,9 @@ class StaffController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $user = $this->userRepository->save($request->all());
+        $staff = $this->managerRepository->save($request->all());
 
-        return new UserResource($user);
+        return new StaffResource($staff);
     }
 
     /**
@@ -63,42 +67,43 @@ class StaffController extends Controller
      */
     public function show($id)
     {
-        $user = $this->userRepository->findOne($id);
+        $user = $this->managerRepository->findOne($id);
 
-        if (!$user instanceof User) {
+        if (!$user instanceof Manager) {
             return response()->json(['status' => 404, 'message' => 'Resource not found with the specific id.'], 404);
         }
 
-        $this->authorize('show', $user);
+        //$this->authorize('show', $user);
 
-        return new UserResource($user);
+        return new StaffResource($user);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  UpdateRequest  $request
-     * @param  \App\DbModels\User  $user
+     * @param  Manager $staff
      * @return UserResource
      * @throws AuthorizationException
      */
-    public function update(UpdateRequest $request, User $user)
+    public function update(UpdateRequest $request, Manager $staff)
     {
-        $user = $this->userRepository->update($user, $request->all());
+        $staff = $this->managerRepository->update($staff, $request->all());
 
-        return new UserResource($user);
+        return new StaffResource($staff);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\DbModels\User  $user
+     * @param DestroyRequest $request
+     * @param Manager $staff
      * @return null;
      * @throws AuthorizationException
      */
-    public function destroy(User $user)
+    public function destroy(DestroyRequest $request, Manager $staff)
     {
-        $this->userRepository->delete($user);
+        $this->managerRepository->deleteStaff($staff, $request->all());
         return response()->json(null, 204);
     }
 }

@@ -2,9 +2,8 @@
 
 namespace App\Http\Requests\Staff;
 
+use App\DbModels\Role;
 use App\Http\Requests\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
 
 class UpdateRequest extends Request
 {
@@ -15,61 +14,25 @@ class UpdateRequest extends Request
      */
     public function rules()
     {
-        $userId = $this->segment(4);
         return $rules = [
-            'password' => 'min:5|required_with:current_password',
-            'current_password' => 'required_with:password',
-            'email' => Rule::unique('users')->ignore($userId, 'id'),
-            'name' => '',
-            'locale' => '',
-            'isActive' => 'boolean',
-            'addNewRole' => 'boolean',
+            'contactEmail' => 'email',
+            'propertyId' => 'exists:properties,id',
+            'phone' => 'max:100',
+            'title' => 'min:5',
+            'level' => '',
+            'displayInCorner' => 'boolean',
+            'displayPublicProfile' => '',
+
+            'users' => '',
+            'users.email' => 'email|unique:users',
+            'users.name' => 'users|max:100',
+            'users.password' => 'users|min:5',
+            'users.locale' => '',
+            'users.isActive' => 'boolean',
+
             'roles' => '',
-            'roles.id' => 'exists:user_roles,id', //todo what if, addNewRole is not given & roles.id is not given too.
-            'roles.roleId' => 'exists:roles,id',
-            'roles.propertyId' => 'nullable|exists:properties,id'
-        ];
-    }
-
-    /**
-     * Configure the validator instance.
-     *
-     * @param \Illuminate\Validation\Validator $validator
-     * @return void
-     */
-    public function withValidator($validator)
-    {
-        parent::withValidator($validator);
-
-        $validator->after(function ($validator) {
-            if ($this->input('password')) {
-
-                // get User model from route binding
-                $user = $this->route('user');
-
-                if (empty($user->password)) {
-                    $this->request->add(['password' => $this->input('password')]);
-                    $this->request->remove('current_password');
-                } else if (Hash::check($this->input('current_password'), $user->password)) {
-                    $this->request->add(['password' => $this->input('password')]);
-                    $this->request->remove('current_password');
-                } else {
-                    $validator->errors()->add('current_password', 'Current password doesn\'t match.');
-                }
-            }
-        });
-    }
-
-
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            'password.required_with' => 'New password is required when current password is present.',
+            'roles.addNewRole' => 'boolean',
+            'roles.roleId' => 'in:' . Role::ROLE_STAFF_PRIORITY['id'] . ',' . Role::ROLE_STAFF_STANDARD['id'] . ',' . Role::ROLE_STAFF_LIMITED['id'],
         ];
     }
 

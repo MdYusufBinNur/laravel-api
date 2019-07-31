@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Resident;
 
+use App\DbModels\Role;
 use App\Http\Requests\Request;
 
 class StoreRequest extends Request
@@ -16,10 +17,10 @@ class StoreRequest extends Request
     {
         return $rules = [
             'propertyId'            => 'required|exists:properties,id',
-            'userId'                => 'required_without:users|exists:users,id',
+            'userId'                => 'required_without:user|exists:users,id',
             'unitId'                => 'required|exists:units,id',
-            'contactEmail'          => 'required|email|unique:residents,contactEmail',
-            'type'                  => 'required|min:5|max:100',
+            'contactEmail'          => 'required|email',
+            'type'                  => 'required|in:' . implode(',', [Role::ROLE_RESIDENT_OWNER['id'], Role::ROLE_RESIDENT_TENANT['id'], Role::ROLE_RESIDENT_STUDENT['id'], Role::ROLE_RESIDENT_SHOP['id']]),
             'group'                 => 'required|min:5|max:100',
             'boardMember'           => 'numeric',
             'sendEmailPermission'   => 'numeric',
@@ -36,12 +37,13 @@ class StoreRequest extends Request
             'businessEmail'         => '',
             'secondaryAddress'      => '',
             'secondaryPhone'        => 'max:20',
-            'secondaryEmail'        => 'email|unique:residents,secondaryEmail',
+            'secondaryEmail'        => 'email',
             'joiningDate'           => 'required|date',
-            'users'                 => 'required_without:userId',
-            'users.name'            => 'required_without:userId|min:3|max:100',
-            'users.email'           => 'required_without:userId|email|unique:users',
-            'users.password'        => 'required_without:userId|min:5',
+
+            'user'                 => 'required_without:userId',
+            'user.name'            => 'required_without:userId|min:3|max:100',
+            'user.email'           => 'required_without:userId|email|unique:users,email',
+            'user.password'        => 'required_without:userId|min:5',
         ];
     }
 }

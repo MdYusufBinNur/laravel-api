@@ -9,7 +9,6 @@ use App\Http\Requests\Resident\UpdateRequest;
 use App\Http\Resources\ResidentResource;
 use App\Http\Resources\ResidentResourceCollection;
 use App\Repositories\Contracts\ResidentRepository;
-use Illuminate\Http\Request;
 
 class ResidentController extends Controller
 {

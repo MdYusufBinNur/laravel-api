@@ -19,20 +19,17 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
     {
         DB::beginTransaction();
 
-        if(array_key_exists('users', $data)){
-            $data['roles']['propertyId'] = $data['propertyId'];
+        if(array_key_exists('user', $data)){
+            $data['role']['propertyId'] = $data['propertyId'];
 
-            if(array_key_exists('roleId', $data['users'])) {
-                $roleId = $data['users']['roleId'];
+            if(array_key_exists('roleId', $data['user'])) {
+                $data['role']['roleId'] = $data['user']['roleId'];
+            } else {
+                $data['role']['roleId'] = Role::ROLE_RESIDENT_TENANT['id'];
             }
-            else {
-                $roleId = Role::ROLE_RESIDENT_TENANT['id'];
-            }
-
-            $data['roles']['roleId'] = $roleId;
 
             $userRepository = app(UserRepository::class);
-            $user = $userRepository->save(array_merge($data['users'], ['roles' => $data['roles']]));
+            $user = $userRepository->save(array_merge($data['user'], ['role' => $data['role']]));
             $data['userId'] = $user->id;
         }
 
@@ -40,5 +37,14 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         DB::commit();
 
         return $resident;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findBy(array $searchCriteria = [], $withTrashed = false)
+    {
+        $searchCriteria['eagerLoad'] = isset($searchCriteria['include']) ? ['user', 'user.userRoles'] : [];
+        return parent::findBy($searchCriteria);
     }
 }

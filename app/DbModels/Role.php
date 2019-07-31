@@ -34,7 +34,6 @@ class Role extends Model
     const ROLE_RESIDENT_SHOP = ['id' => 11, 'type' => 'resident', 'title' => 'resident_shop'];
     const ROLE_RESIDENT_STUDENT = ['id' => 12, 'type' => 'resident', 'title' => 'resident_student'];
 
-
     /**
      * is a super admin role
      *

@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,9 +24,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \DB::listen(function ($query) {
-             Log::info( $query->sql . " :: " . json_encode($query->bindings));
-            // $query->bindings
-            // $query->time
+            if (env('APP_ENV') !== 'prod') {
+                \Log::debug("[time: $query->time] " . $query->sql . ' , ' . json_encode($query->bindings));
+            }
         });
     }
 }

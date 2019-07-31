@@ -116,7 +116,7 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
         $userRepository = app(UserRepository::class);
 
         if (isset($data['role'])) {
-            $userRoles = $userRoleRepository->model->where($data['role'])->count();
+            $userRoles = $userRoleRepository->model->where($data['role'])->get();
             foreach ($userRoles as $userRole) {
                 $userRoleRepository->delete($userRole);
             }

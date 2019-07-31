@@ -27,9 +27,6 @@ class AppServiceProvider extends ServiceProvider
             if (env('APP_ENV') !== 'prod') {
                 \Log::debug("[time: $query->time] " . $query->sql . ' , ' . json_encode($query->bindings));
             }
-            // $query->sql
-            // $query->bindings
-            // $query->time
         });
     }
 }

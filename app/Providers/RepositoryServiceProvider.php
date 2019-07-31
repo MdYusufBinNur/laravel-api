@@ -9,6 +9,7 @@ use App\DbModels\EnterpriseUser;
 use App\DbModels\EnterpriseUserProperty;
 use App\DbModels\Event;
 use App\DbModels\EventSignup;
+use App\DbModels\Manager;
 use App\DbModels\Module;
 use App\DbModels\ModuleOption;
 use App\DbModels\ModuleProperty;
@@ -62,6 +63,7 @@ use App\Repositories\Contracts\EnterpriseUserPropertyRepository;
 use App\Repositories\Contracts\EnterpriseUserRepository;
 use App\Repositories\Contracts\EventRepository;
 use App\Repositories\Contracts\EventSignupRepository;
+use App\Repositories\Contracts\ManagerRepository;
 use App\Repositories\Contracts\ModuleOptionRepository;
 use App\Repositories\Contracts\ModuleRepository;
 use App\Repositories\Contracts\NotificationFeedRepository;
@@ -107,6 +109,7 @@ use App\Repositories\EloquentEnterpriseUserPropertyRepository;
 use App\Repositories\EloquentEnterpriseUserRepository;
 use App\Repositories\EloquentEventRepository;
 use App\Repositories\EloquentEventSignupRepository;
+use App\Repositories\EloquentManagerRepository;
 use App\Repositories\EloquentModuleOptionRepository;
 use App\Repositories\EloquentModuleRepository;
 use App\Repositories\Contracts\ModulePropertyRepository;
@@ -255,6 +258,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind EventSignupRepository
         $this->app->bind(EventSignupRepository::class, function() {
             return new EloquentEventSignupRepository(new EventSignup());
+        });
+
+        // bind ManagerRepository
+        $this->app->bind(ManagerRepository::class, function() {
+            return new EloquentManagerRepository(new Manager());
         });
 
         // bind NotificationFeedRepository

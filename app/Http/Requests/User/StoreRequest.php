@@ -20,9 +20,9 @@ class StoreRequest extends Request
             'password' => 'required|min:5',
             'locale' => '',
             'isActive' => 'boolean',
-            'roles' => '',
-            'roles.roleId' => 'required|exists:roles,id',
-            'roles.propertyId' => 'nullable|exists:properties,id'
+            'role' => '',
+            'role.roleId' => 'required|exists:roles,id',
+            'role.propertyId' => 'nullable|exists:properties,id'
         ];
     }
 

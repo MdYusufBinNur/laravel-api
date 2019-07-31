@@ -19,4 +19,14 @@ trait CommonModelFeatures
     {
         return $this->belongsTo(User::class, 'createdByUserId');
     }
+
+    /**
+     * static method for getting table name
+     *
+     * @return mixed
+     */
+    public static function getTableName()
+    {
+        return with(new static)->getTable();
+    }
 }

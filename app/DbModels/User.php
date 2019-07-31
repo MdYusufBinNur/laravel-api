@@ -58,6 +58,16 @@ class User extends Authenticatable
     }
 
     /**
+     * user and managers relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function managers()
+    {
+        return $this->hasMany(Manager::class, 'userId', 'id');
+    }
+
+    /**
      * is a active user
      *
      * @return bool

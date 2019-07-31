@@ -124,6 +124,9 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('enterprise-user', 'EnterpriseUserController');
 
         Route::apiResource('enterprise-user-property', 'EnterpriseUserPropertyController');
+
+        Route::apiResource('staff', 'StaffController');
+
     });
 
     //route without authentication

@@ -9,6 +9,9 @@ use Carbon\Carbon;
 
 class EloquentResidentArchiveRepository extends EloquentBaseRepository implements ResidentArchiveRepository
 {
+    /**
+     * @inheritDoc
+     */
     public function saveByResident(\ArrayAccess $resident): \ArrayAccess
     {
         return $this->save([

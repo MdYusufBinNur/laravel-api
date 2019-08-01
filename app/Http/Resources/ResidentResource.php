@@ -39,7 +39,10 @@ class ResidentResource extends Resource
             'secondaryEmail' => $this->secondaryEmail,
             'joiningDate' => $this->joiningDate,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'updated_at' => $this->updated_at,
+            $this->mergeWhen($this->needToInclude($request, 'user'), [
+                'user' => new UserResource($this->user)
+            ]),
         ];
     }
 }

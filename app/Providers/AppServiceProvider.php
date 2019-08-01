@@ -23,9 +23,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \DB::listen(function ($query) {
+        $noOfRequests = 0;
+        \DB::listen(function ($query) use (&$noOfRequests) {
             if (env('APP_ENV') !== 'prod') {
-                \Log::debug("[time: $query->time] " . $query->sql . ' , ' . json_encode($query->bindings));
+                $noOfRequests++;
+                \Log::debug("$noOfRequests - [time: $query->time] " . $query->sql . ' , ' . json_encode($query->bindings));
             }
         });
     }

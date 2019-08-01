@@ -5,9 +5,11 @@ namespace App\Repositories;
 
 
 use App\DbModels\Role;
+use App\Repositories\Contracts\ResidentArchiveRepository;
 use App\Repositories\Contracts\ResidentRepository;
 use App\Repositories\Contracts\RoleRepository;
 use App\Repositories\Contracts\UserRepository;
+use App\Repositories\Contracts\UserRoleRepository;
 use Illuminate\Support\Facades\DB;
 
 class EloquentResidentRepository extends EloquentBaseRepository implements ResidentRepository
@@ -19,20 +21,17 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
     {
         DB::beginTransaction();
 
-        if(array_key_exists('users', $data)){
-            $data['roles']['propertyId'] = $data['propertyId'];
+        if(array_key_exists('user', $data)){
+            $data['role']['propertyId'] = $data['propertyId'];
 
-            if(array_key_exists('roleId', $data['users'])) {
-                $roleId = $data['users']['roleId'];
+            if(array_key_exists('roleId', $data['user'])) {
+                $data['role']['roleId'] = $data['user']['roleId'];
+            } else {
+                $data['role']['roleId'] = Role::ROLE_RESIDENT_TENANT['id'];
             }
-            else {
-                $roleId = Role::ROLE_RESIDENT_TENANT['id'];
-            }
-
-            $data['roles']['roleId'] = $roleId;
 
             $userRepository = app(UserRepository::class);
-            $user = $userRepository->save(array_merge($data['users'], ['roles' => $data['roles']]));
+            $user = $userRepository->save(array_merge($data['user'], ['role' => $data['role']]));
             $data['userId'] = $user->id;
         }
 
@@ -40,5 +39,44 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         DB::commit();
 
         return $resident;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findBy(array $searchCriteria = [], $withTrashed = false)
+    {
+        $searchCriteria['eagerLoad'] = isset($searchCriteria['include']) ? ['user', 'user.userRoles'] : [];
+        return parent::findBy($searchCriteria);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function delete(\ArrayAccess $resident): bool
+    {
+        DB::beginTransaction();
+        $userRoleRepository = app(UserRoleRepository::class);
+        $residentArchiveRepository = app(ResidentArchiveRepository::class);
+
+        // at first archive the resident
+        $residentArchiveRepository->saveByResident($resident);
+
+        //2nd remove the user's role
+        $userRole = $userRoleRepository->model
+            ->where(['userId' => $resident->user->id, 'propertyId' => $resident->propertyId])
+            ->whereIn('roleId', [Role::ROLE_RESIDENT_OWNER['id'], Role::ROLE_RESIDENT_TENANT['id'], Role::ROLE_RESIDENT_SHOP['id'], Role::ROLE_RESIDENT_STUDENT['id']])
+            ->first();
+        $userRoleRepository->delete($userRole);
+
+        parent::delete($resident);
+
+        //N.B. not deleting user intentionally
+
+        DB::commit();
+
+
+
+        return true;
     }
 }

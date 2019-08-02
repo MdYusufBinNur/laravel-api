@@ -127,6 +127,8 @@ Route::group(['prefix' => 'api/v1'], function () {
 
         Route::apiResource('staff', 'StaffController');
 
+        Route::get('residents-by-units', 'ResidentByUnitController@index');
+
     });
 
     //route without authentication

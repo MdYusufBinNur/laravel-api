@@ -8,8 +8,7 @@ $factory->define(App\DbModels\ResidentAccessRequest::class, function (Faker $fak
     return [
         'propertyId' => App\DbModels\Property::all()->random()->id,
         'unitId' => App\DbModels\Unit::all()->random()->id,
-        'firstName' => $faker->firstName,
-        'lastName' => $faker->lastName,
+        'name' => $faker->name,
         'email' => $faker->unique()->email,
         'type' => '',
         'groups' => '',

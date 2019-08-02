@@ -8,8 +8,7 @@ use Illuminate\Support\Str;
 $factory->define(App\DbModels\ManagerInvitation::class, function (Faker $faker) {
     return [
         'propertyId' =>  App\DbModels\Manager::all()->random()->id,
-        'firstName' => $faker->firstName,
-        'lastName' => $faker->lastName,
+        'name' => $faker->name,
         'email' => $faker->email,
         'title' => $faker->title,
         'level' => $faker->randomElement(array('admin','standard','limited','restricted')),

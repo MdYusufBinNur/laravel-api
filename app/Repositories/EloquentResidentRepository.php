@@ -5,6 +5,8 @@ namespace App\Repositories;
 
 
 use App\DbModels\Role;
+use App\DbModels\User;
+use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use App\Repositories\Contracts\ResidentArchiveRepository;
 use App\Repositories\Contracts\ResidentRepository;
 use App\Repositories\Contracts\RoleRepository;
@@ -78,5 +80,33 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
 
 
         return true;
+    }
+
+    public function getResidentsByUnits(array $searchCriteria = [])
+    {
+        $residents = $this->model
+            //->where('propertyId', $searchCriteria['propertyId'])
+            ->select('residents.id', 'units.title', 'residents.unitId', 'users.id as userId', 'users.name', 'users.email')
+            ->join('users', 'users.id', '=', 'residents.userId')
+            ->join('units', 'units.id', '=', 'residents.unitId')
+        ->get()->toArray();
+
+
+
+        $residentAccessRequestRepository = app(ResidentAccessRequestRepository::class);
+        $residentAccessRequests = $residentAccessRequestRepository->model
+            //->where('propertyId', $searchCriteria['propertyId'])
+            ->select('resident_access_requests.id as residentAccessRequestId', 'title', 'unitId', 'name', 'email')
+            ->join('units', 'resident_access_requests.unitId', '=', 'units.id')
+            ->get()->toArray();
+
+        $residents = array_merge($residents, $residentAccessRequests);
+
+        $residentsByUnits = [];
+        foreach($residents as $index => $resident){
+            $residentsByUnits[$resident['title']][$index] = $resident;
+        }
+
+        return $residentsByUnits;
     }
 }

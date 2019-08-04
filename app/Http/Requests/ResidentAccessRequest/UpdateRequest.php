@@ -17,8 +17,7 @@ class UpdateRequest extends Request
         return [
             'propertyId' => 'exists:properties,id',
             'unitId' => 'exists:units,id',
-            'firstName' => 'min:3|max:191',
-            'lastName' => 'min:3|max:191',
+            'name' => 'min:3|max:191',
             'email' => 'email|unique:resident_access_requests,email|min;3|max:191',
             'type' => 'min:3|max:191',
             'groups' => 'min:3|max:191',

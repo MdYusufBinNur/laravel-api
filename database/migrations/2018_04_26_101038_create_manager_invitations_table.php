@@ -17,8 +17,7 @@ class CreateManagerInvitationsTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
-            $table->string('firstName');
-            $table->string('lastName');
+            $table->string('name');
             $table->string('email');
             $table->string('title')->nullable();
             $table->string('level');

@@ -23,6 +23,6 @@ class ManagerInvitation extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'firstName', 'lastName', 'email', 'title', 'level', 'status', 'pin', 'invitedAt'
+        'createdByUserId', 'propertyId', 'name', 'email', 'title', 'level', 'status', 'pin', 'invitedAt'
     ];
 }

@@ -17,8 +17,7 @@ class StoreRequest extends Request
         return [
             'propertyId' => 'required|exists:properties,id',
             'unitId' => 'required|exists:units,id',
-            'firstName' => 'required|min:3|max:191',
-            'lastName' => 'required|min:3|max:191',
+            'name' => 'required|min:3|max:191',
             'email' => 'required|email|unique:resident_access_requests,email|min:3|max:191',
             'type' => 'min:3|max:191',
             'groups' => 'min:3|max:191',

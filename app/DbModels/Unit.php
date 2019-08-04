@@ -26,4 +26,14 @@ class Unit extends Model
     {
         return $this->belongsTo(Tower::class);
     }
+
+    /**
+     * user and residents relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function residents()
+    {
+        return $this->hasMany(Resident::class, 'unitId', 'id')->where('propertyId', $this->propertyId);
+    }
 }

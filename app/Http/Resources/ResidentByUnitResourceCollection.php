@@ -14,6 +14,6 @@ class ResidentByUnitResourceCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return ['units' => parent::toArray($request)];
     }
 }

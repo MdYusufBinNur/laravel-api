@@ -4,12 +4,13 @@
 namespace App\Repositories;
 
 
+use App\DbModels\ResidentAccessRequest;
 use App\DbModels\Role;
+use App\DbModels\Unit;
 use App\DbModels\User;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use App\Repositories\Contracts\ResidentArchiveRepository;
 use App\Repositories\Contracts\ResidentRepository;
-use App\Repositories\Contracts\RoleRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
 use Illuminate\Support\Facades\DB;
@@ -82,26 +83,37 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         return true;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getResidentsByUnits(array $searchCriteria = [])
     {
+        $thisModelTable = $this->model->getTable();
+        $userModelTable = User::getTableName();
+        $residentAccessRequestModelTable = ResidentAccessRequest::getTableName();
+        $unitModelTable = Unit::getTableName();
+
+        // get all residents
         $residents = $this->model
-            //->where('propertyId', $searchCriteria['propertyId'])
-            ->select('residents.id', 'units.title', 'residents.unitId', 'users.id as userId', 'users.name', 'users.email')
-            ->join('users', 'users.id', '=', 'residents.userId')
-            ->join('units', 'units.id', '=', 'residents.unitId')
+            ->where($thisModelTable . '.propertyId', $searchCriteria['propertyId'])
+            ->select($thisModelTable . '.id', 'units.title', $thisModelTable . '.unitId', 'users.id as userId', 'users.name', 'users.email')
+            ->join($userModelTable, $userModelTable . '.id', '=', $thisModelTable . '.userId')
+            ->join($unitModelTable, $unitModelTable . '.id', '=', $thisModelTable . '.unitId')
         ->get()->toArray();
 
 
-
+        // get all residents by access request
         $residentAccessRequestRepository = app(ResidentAccessRequestRepository::class);
         $residentAccessRequests = $residentAccessRequestRepository->model
-            //->where('propertyId', $searchCriteria['propertyId'])
-            ->select('resident_access_requests.id as residentAccessRequestId', 'title', 'unitId', 'name', 'email')
-            ->join('units', 'resident_access_requests.unitId', '=', 'units.id')
+            ->where($residentAccessRequestModelTable . '.propertyId', $searchCriteria['propertyId'])
+            ->select($residentAccessRequestModelTable . '.id as residentAccessRequestId', $unitModelTable . '.title', $residentAccessRequestModelTable . '.unitId', $residentAccessRequestModelTable. '.name', $residentAccessRequestModelTable . '.email')
+            ->join($unitModelTable, $residentAccessRequestModelTable. '.unitId', '=', $unitModelTable . '.id')
             ->get()->toArray();
 
+        // merge residents and to be resident (access request)
         $residents = array_merge($residents, $residentAccessRequests);
 
+        // group by units
         $residentsByUnits = [];
         foreach($residents as $index => $resident){
             $residentsByUnits[$resident['title']][$index] = $resident;

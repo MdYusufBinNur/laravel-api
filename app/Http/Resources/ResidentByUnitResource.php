@@ -15,7 +15,7 @@ class ResidentByUnitResource extends Resource
         $residentsByUnits = [];
         foreach ($this->resource as $resident) {
             $residentsByUnits[] = [
-                'id' => $resident['id'] ?? null,
+                'residentId' => $resident['id'] ?? null,
                 'title' => $resident['title'],
                 'unitId' => $resident['unitId'],
                 'email' => $resident['email'] ?? '',

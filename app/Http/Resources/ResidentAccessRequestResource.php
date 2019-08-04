@@ -26,7 +26,7 @@ class ResidentAccessRequestResource extends Resource
             'comments' => $this->comments,
             'moderatedUserId' => $this->moderatedUserId,
             'moderatedAt' => $this->moderatedAt,
-            'movedinDate' => $this->movedinDate,
+            'movedInDate' => $this->movedInDate,
             'birthDate' => $this->birthDate,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at

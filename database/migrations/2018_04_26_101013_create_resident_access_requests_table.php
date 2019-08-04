@@ -20,15 +20,16 @@ class CreateResidentAccessRequestsTable extends Migration
             $table->unsignedInteger('unitId');
             $table->string('name');
             $table->string('email');
+            $table->string('pin')->unique();
             $table->string('type')->nullable();
-            $table->string('groups')->nullable();
+            $table->string('groups')->nullable(); //todo
             $table->string('status');
             $table->boolean('active')->default(1);
             $table->mediumText('comments')->nullable();
             $table->unsignedInteger('moderatedUserId')->nullable();
             $table->dateTime('moderatedAt')->nullable();
-            $table->date('movedinDate');
-            $table->date('birthDate');
+            $table->date('movedInDate');
+            $table->date('birthDate')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

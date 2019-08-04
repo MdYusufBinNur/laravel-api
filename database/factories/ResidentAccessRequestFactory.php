@@ -3,6 +3,7 @@
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 $factory->define(App\DbModels\ResidentAccessRequest::class, function (Faker $faker) {
     return [
@@ -11,6 +12,7 @@ $factory->define(App\DbModels\ResidentAccessRequest::class, function (Faker $fak
         'name' => $faker->name,
         'email' => $faker->unique()->email,
         'type' => '',
+        'pin' => Str::random(6),
         'groups' => '',
         'status' => $faker->randomElement(array('approved','denied','completed','pending')),
         'active' => $faker->boolean,

@@ -20,13 +20,11 @@ class IndexRequest extends Request
             'name' => 'list:string',
             'email' => 'list:string',
             'type' => 'list:string',
-            'groups' => 'list:string',
             'status' => 'list:string',
             'active' => 'list:boolean',
-            'comments' => 'list:string',
             'moderatedUserId' => 'list:integer',
             'moderatedAt' => 'list:dateTime',
-            'movedinDate' => 'list:date',
+            'movedInDate' => 'list:date',
             'birthDate' => 'list:date',
         ];
     }

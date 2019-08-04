@@ -61,7 +61,7 @@ Route::group(['prefix' => 'api/v1'], function () {
 
         Route::apiResource('property-social-media', 'PropertySocialMediaController');
 
-        Route::apiResource('resident-access-request', 'ResidentAccessRequestController');
+        Route::apiResource('resident-access-request', 'ResidentAccessRequestController', ['except' => ['post']]);
 
         Route::apiResource('resident-archive', 'ResidentArchiveController');
 
@@ -136,6 +136,9 @@ Route::group(['prefix' => 'api/v1'], function () {
 
     Route::apiResource('attachment', 'AttachmentController', ['except' => ['update']]);
     Route::get('attachment-type', 'AttachmentTypeController@index');
+
+    Route::post('resident-access-request', 'ResidentAccessRequestController@store');
+
 
     Route::post('login', 'Auth\\LoginController@index');
     Route::get('logout', 'Auth\\LoginController@logout');

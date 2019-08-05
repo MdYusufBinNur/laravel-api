@@ -20,11 +20,11 @@ class Unit extends Model
     /**
      * Get the tower of the unit
      *
-     * @return \Illuminate\Database\Eloquent\Relations\Belongs
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function tower()
     {
-        return $this->belongsTo(Tower::class);
+        return $this->hasOne(Tower::class, 'id', 'towerId');
     }
 
     /**

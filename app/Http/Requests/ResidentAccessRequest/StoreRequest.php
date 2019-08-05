@@ -29,6 +29,7 @@ class StoreRequest extends Request
             'moderatedAt' => 'date',
             'movedInDate' => 'date',
             'birthDate' => 'date',
+            'accessInPast' => 'boolean'
         ];
     }
 }

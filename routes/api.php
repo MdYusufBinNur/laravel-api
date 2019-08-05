@@ -29,7 +29,7 @@ Route::group(['prefix' => 'api/v1'], function () {
 
         Route::apiResource('property', 'PropertyController', ['except' => ['get']]);
 
-        Route::apiResource('resident', 'ResidentController');
+        Route::apiResource('resident', 'ResidentController',['except' => ['post']]);
 
         Route::apiResource('tower', 'TowerController');
 
@@ -139,6 +139,7 @@ Route::group(['prefix' => 'api/v1'], function () {
 
     Route::post('resident-access-request', 'ResidentAccessRequestController@store');
 
+    Route::post('resident', 'ResidentController@store');
 
     Route::post('login', 'Auth\\LoginController@index');
     Route::get('logout', 'Auth\\LoginController@logout');

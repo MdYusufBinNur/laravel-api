@@ -17,7 +17,7 @@ class CreateUserNotificationSettingsTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('userId');
-            $table->string('type')->nullable();
+            $table->integer('type')->nullable();
             $table->boolean('email')->default(1);
             $table->boolean('sms')->default(1);
             $table->boolean('voice')->default(1);

@@ -8,6 +8,7 @@ use App\DbModels\ResidentAccessRequest;
 use App\DbModels\Role;
 use App\DbModels\Unit;
 use App\DbModels\User;
+use App\Events\ResidentCreatedEvent;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use App\Repositories\Contracts\ResidentArchiveRepository;
 use App\Repositories\Contracts\ResidentRepository;
@@ -40,6 +41,9 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
 
         $resident = parent::save($data);
         DB::commit();
+
+        // fire resident created event
+        event(new ResidentCreatedEvent($resident));
 
         return $resident;
     }

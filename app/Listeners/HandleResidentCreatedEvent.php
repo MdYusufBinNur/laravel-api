@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
-class HandleResidentCreatedEvent implements ShouldQueue
+class HandleResidentCreatedEvent
 {
     /**
      * Handle the event.

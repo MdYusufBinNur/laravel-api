@@ -35,11 +35,6 @@ class CreateUserNotificationSettingsTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('typeId')
-                ->references('id')->on('user_notification_types')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
             $table->foreign('createdByUserId')
                 ->references('id')->on('users')
                 ->onDelete('cascade')

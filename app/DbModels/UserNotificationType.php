@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserNotificationType extends Model
 {
-    //
+    protected $fillable = [
+        'createdByUserId', 'type'
+    ];
 }

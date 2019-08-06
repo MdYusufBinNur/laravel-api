@@ -15,11 +15,12 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'userId' => 'required|exists:users,id',
-            'typeId' => 'required|exists:user_notification_types,id',
-            'email' => 'boolean',
-            'sms' => 'boolean',
-            'voice' => 'boolean',
+            'userNotificationSettings' => '',
+            'userNotificationSettings.*.userId' => 'required|exists:users,id',
+            'userNotificationSettings.*.typeId' => 'required|exists:user_notification_types,id',
+            'userNotificationSettings.*.email' => 'boolean',
+            'userNotificationSettings.*.sms' => 'boolean',
+            'userNotificationSettings.*.voice' => 'boolean',
         ];
     }
 }

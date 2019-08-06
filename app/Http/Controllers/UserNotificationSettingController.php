@@ -10,6 +10,7 @@ use App\Http\Resources\UserNotificationSettingResource;
 use App\Http\Resources\UserNotificationSettingResourceCollection;
 use App\Repositories\Contracts\UserNotificationSettingRepository;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Array_;
 
 class UserNotificationSettingController extends Controller
 {
@@ -48,9 +49,14 @@ class UserNotificationSettingController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $userNotificationSetting = $this->userNotificationSettingRepository->save($request->all());
+        $notificationsSettings = [];
+        foreach ($request as $data){
+            var_dump($data);die();
 
-        return new UserNotificationSettingResource($userNotificationSetting);
+            $notificationsSettings = $data;
+            $this->userNotificationSettingRepository->save($data->all());
+        }
+        return new UserNotificationSettingResource($notificationsSettings);
     }
 
     /**

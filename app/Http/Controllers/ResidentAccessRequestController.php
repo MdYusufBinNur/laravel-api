@@ -56,12 +56,12 @@ class ResidentAccessRequestController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param $data
+     * @param Request $request
      * @return ResidentAccessRequestResource
      */
-    public function show($data)
+    public function show(Request $request)
     {
-        $residentAccessRequest = $this->residentAccessRequestRepository->findOneBy(['email' => $data['email'], 'pin' => $data['pin']]);
+        $residentAccessRequest = $this->residentAccessRequestRepository->findOneBy(['email' => $request['email'], 'pin' => $request['pin']]);
 
         if (!$residentAccessRequest instanceof ResidentAccessRequest) {
             return response()->json(['status' => 404, 'message' => 'Incorrect pin!!'], 404);

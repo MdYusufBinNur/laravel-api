@@ -61,7 +61,7 @@ Route::group(['prefix' => 'api/v1'], function () {
 
         Route::apiResource('property-social-media', 'PropertySocialMediaController');
 
-        Route::apiResource('resident-access-request', 'ResidentAccessRequestController', ['except' => ['post']]);
+        Route::apiResource('resident-access-request', 'ResidentAccessRequestController', ['except' => ['post','get']]);
 
         Route::apiResource('resident-archive', 'ResidentArchiveController');
 

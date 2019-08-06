@@ -16,7 +16,7 @@ class IndexRequest extends Request
         return [
             'id' => 'list:numeric',
             'userId' => 'list:numeric',
-            'type' => 'list:string',
+            'typeId' => 'list:numeric',
             'email' => 'list:boolean',
             'sms' => 'list:boolean',
             'voice' => 'list:boolean',

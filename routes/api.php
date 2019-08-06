@@ -129,6 +129,9 @@ Route::group(['prefix' => 'api/v1'], function () {
 
         Route::get('residents-by-units', 'ResidentByUnitController@index');
 
+        Route::apiResource('user-notification-type', 'UserNotificationTypeController', ['except' => 'get']);
+
+
     });
 
     //route without authentication
@@ -144,6 +147,8 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::post('resident', 'ResidentController@store');
 
     Route::post('user-notification-setting', 'UserNotificationSettingController@store');
+
+    Route::get('user-notification-type', 'UserNotificationTypeController@index');
 
     Route::post('resident-emergency', 'ResidentEmergencyController@store');
 

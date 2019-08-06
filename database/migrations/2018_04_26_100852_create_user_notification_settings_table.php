@@ -17,6 +17,7 @@ class CreateUserNotificationSettingsTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('userId');
+            $table->unsignedInteger('propertyId');
             $table->integer('type')->nullable();
             $table->boolean('email')->default(1);
             $table->boolean('sms')->default(1);
@@ -26,6 +27,11 @@ class CreateUserNotificationSettingsTable extends Migration
 
             $table->foreign('userId')
                 ->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('propertyId')
+                ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

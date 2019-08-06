@@ -15,7 +15,7 @@ class UpdateRequest extends Request
     {
         return [
             'userId' => 'exists:users,id',
-            'type' => 'min:3|max:191',
+            'typeId' => 'exists:user_notification_types,id',
             'email' => 'boolean',
             'sms' => 'boolean',
             'voice' => 'boolean',

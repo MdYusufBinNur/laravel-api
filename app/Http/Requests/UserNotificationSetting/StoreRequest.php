@@ -16,7 +16,7 @@ class StoreRequest extends Request
     {
         return [
             'userId' => 'required|exists:users,id',
-            'type' => 'in:'.UserNotificationSetting::TYPE_DAILY_DIGEST['id'].','.UserNotificationSetting::TYPE_LEAVE_NOTE['id'].','.UserNotificationSetting::TYPE_DELIVERY_PICKUP['id'].','.UserNotificationSetting::TYPE_SERVICE_REQUEST['id'].','.UserNotificationSetting::TYPE_RETURN_MY_KEY['id'],
+            'typeId' => 'required|exists:user_notification_types,id',
             'email' => 'boolean',
             'sms' => 'boolean',
             'voice' => 'boolean',

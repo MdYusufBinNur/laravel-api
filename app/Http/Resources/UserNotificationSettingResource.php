@@ -17,6 +17,7 @@ class UserNotificationSettingResource extends Resource
             'createdByUserId' => $this->createdByUserId,
             'userId' => $this->userId,
             'typeId' => $this->typeId,
+            'propertyId' => $this->propertyId,
             'email' => $this->email,
             'sms' => $this->sms,
             'voice' => $this->voice,

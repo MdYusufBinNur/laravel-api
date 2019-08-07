@@ -9,8 +9,6 @@ use App\Http\Requests\UserNotificationSetting\UpdateRequest;
 use App\Http\Resources\UserNotificationSettingResource;
 use App\Http\Resources\UserNotificationSettingResourceCollection;
 use App\Repositories\Contracts\UserNotificationSettingRepository;
-use Illuminate\Http\Request;
-use phpDocumentor\Reflection\Types\Array_;
 
 class UserNotificationSettingController extends Controller
 {
@@ -45,18 +43,18 @@ class UserNotificationSettingController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  StoreRequest  $request
-     * @return UserNotificationSettingResource
+     * @return UserNotificationSettingResourceCollection
      */
     public function store(StoreRequest $request)
     {
-        $notificationsSettings = [];
-        foreach ($request as $data){
-            var_dump($data);die();
+        $settings = $request->json()->all();
+        $userNotificationSettings = $settings['userNotificationSettings'];
 
-            $notificationsSettings = $data;
-            $this->userNotificationSettingRepository->save($data->all());
+        foreach ($userNotificationSettings as $data){
+            $this->userNotificationSettingRepository->save($data);
         }
-        return new UserNotificationSettingResource($notificationsSettings);
+
+        return response()->json(['status' => 201, 'message' => 'Data has been stored Successfully.'], 201);
     }
 
     /**

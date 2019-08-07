@@ -18,6 +18,7 @@ class UserNotificationTypeResource extends JsonResource
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
             'type' => $this->type,
+            'description' => $this->description,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

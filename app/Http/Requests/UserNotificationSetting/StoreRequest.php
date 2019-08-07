@@ -16,8 +16,8 @@ class StoreRequest extends Request
     {
         return [
             'userNotificationSettings' => '',
-            'userNotificationSettings.*.userId' => 'required|exists:users,id',
             'userNotificationSettings.*.typeId' => 'required|exists:user_notification_types,id',
+            'userNotificationSettings.*.userId' => 'required|exists:users,id',
             'userNotificationSettings.*.email' => 'boolean',
             'userNotificationSettings.*.sms' => 'boolean',
             'userNotificationSettings.*.voice' => 'boolean',

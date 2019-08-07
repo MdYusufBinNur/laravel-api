@@ -19,13 +19,12 @@ class EloquentResidentAccessRequestRepository extends EloquentBaseRepository imp
     public function save(array $data): \ArrayAccess
     {
         if($data['accessInPast'] == true){
-            $isResidentArchive = $this->accessInPast($data['email']);
+            $isResidentArchive = $this->hadAccessInThePast($data['email']);
 
             if($isResidentArchive){
                 $data['pin'] = $this->generatePin(); // TODO: will moved resident archive to active resident
             }
         }
-
         unset($data['accessInPast']);
 
         if (!isset($data['movedInDate'])) {
@@ -64,7 +63,7 @@ class EloquentResidentAccessRequestRepository extends EloquentBaseRepository imp
         return $pin;
     }
 
-    public function accessInPast($data)
+    public function hadAccessInThePast($data)
     {
         $residentArchiveRepository = app(ResidentArchiveRepository::class);
         if ( $residentArchiveRepository->findOneBy(['email' => $data]) instanceof ResidentArchive) {

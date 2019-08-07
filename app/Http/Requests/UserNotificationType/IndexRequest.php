@@ -16,7 +16,8 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:string',
-            'type' => 'string'
+            'type' => 'string',
+            'description' => 'string'
         ];
     }
 }

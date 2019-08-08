@@ -65,7 +65,7 @@ Route::group(['prefix' => 'api/v1'], function () {
 
         Route::apiResource('resident-archive', 'ResidentArchiveController');
 
-        Route::apiResource('resident-emergency', 'ResidentEmergencyController', ['except' => ['post']]);
+        Route::apiResource('resident-emergency', 'ResidentEmergencyController');
 
         Route::apiResource('resident-vehicle', 'ResidentVehicleController');
 
@@ -103,7 +103,7 @@ Route::group(['prefix' => 'api/v1'], function () {
 
         Route::apiResource('service-request-status', 'ServiceRequestStatusController');
 
-        Route::apiResource('user-notification-setting', 'UserNotificationSettingController', ['except' => ['post']]);
+        Route::apiResource('user-notification-setting', 'UserNotificationSettingController');
 
         Route::apiResource('user-profile', 'UserProfileController');
 
@@ -129,7 +129,7 @@ Route::group(['prefix' => 'api/v1'], function () {
 
         Route::get('residents-by-units', 'ResidentByUnitController@index');
 
-        Route::apiResource('user-notification-type', 'UserNotificationTypeController', ['except' => 'get']);
+        Route::apiResource('user-notification-type', 'UserNotificationTypeController');
 
 
     });
@@ -145,13 +145,6 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::get('resident-access-request', 'ResidentAccessRequestController@show');
 
     Route::post('resident', 'ResidentController@store');
-
-    Route::post('user-notification-setting', 'UserNotificationSettingController@store');
-
-    Route::get('user-notification-type', 'UserNotificationTypeController@index');
-
-    Route::post('resident-emergency', 'ResidentEmergencyController@store');
-
 
     Route::post('login', 'Auth\\LoginController@index');
     Route::get('logout', 'Auth\\LoginController@logout');

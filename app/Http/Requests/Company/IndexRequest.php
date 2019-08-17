@@ -21,6 +21,7 @@ class IndexRequest extends Request
             'state'     => 'list:string',
             'postCode' => 'list:string',
             'active'    => 'list:string',
+            'query'    => 'string',
         ];
     }
 

@@ -29,7 +29,7 @@ Route::group(['prefix' => 'api/v1'], function () {
 
         Route::apiResource('property', 'PropertyController', ['except' => ['get']]);
 
-        Route::apiResource('resident', 'ResidentController');
+        Route::apiResource('resident', 'ResidentController',['except' => ['post']]);
 
         Route::apiResource('tower', 'TowerController');
 
@@ -61,7 +61,7 @@ Route::group(['prefix' => 'api/v1'], function () {
 
         Route::apiResource('property-social-media', 'PropertySocialMediaController');
 
-        Route::apiResource('resident-access-request', 'ResidentAccessRequestController', ['except' => ['post']]);
+        Route::apiResource('resident-access-request', 'ResidentAccessRequestController', ['except' => ['post','get']]);
 
         Route::apiResource('resident-archive', 'ResidentArchiveController');
 
@@ -129,6 +129,9 @@ Route::group(['prefix' => 'api/v1'], function () {
 
         Route::get('residents-by-units', 'ResidentByUnitController@index');
 
+        Route::apiResource('user-notification-type', 'UserNotificationTypeController');
+
+
     });
 
     //route without authentication
@@ -139,6 +142,9 @@ Route::group(['prefix' => 'api/v1'], function () {
 
     Route::post('resident-access-request', 'ResidentAccessRequestController@store');
 
+    Route::get('resident-access-request', 'ResidentAccessRequestController@show');
+
+    Route::post('resident', 'ResidentController@store');
 
     Route::post('login', 'Auth\\LoginController@index');
     Route::get('logout', 'Auth\\LoginController@logout');

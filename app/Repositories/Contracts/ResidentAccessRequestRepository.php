@@ -13,4 +13,6 @@ interface ResidentAccessRequestRepository extends BaseRepository
      */
     public function generatePin() : string;
 
+    public function hadAccessInThePast($data);
+
 }

@@ -5,7 +5,9 @@ namespace App\Repositories;
 
 
 use App\DbModels\ResidentAccessRequest;
+use App\DbModels\ResidentArchive;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
+use App\Repositories\Contracts\ResidentArchiveRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 
@@ -16,6 +18,15 @@ class EloquentResidentAccessRequestRepository extends EloquentBaseRepository imp
      */
     public function save(array $data): \ArrayAccess
     {
+        if($data['accessInPast'] == true){
+            $isResidentArchive = $this->hadAccessInThePast($data['email']);
+
+            if($isResidentArchive){
+                $data['pin'] = $this->generatePin(); // TODO: will moved resident archive to active resident
+            }
+        }
+        unset($data['accessInPast']);
+
         if (!isset($data['movedInDate'])) {
             $data['movedInDate'] = Carbon::now()->toDateString();
         }
@@ -50,6 +61,14 @@ class EloquentResidentAccessRequestRepository extends EloquentBaseRepository imp
             }
         }
         return $pin;
+    }
+
+    public function hadAccessInThePast($data)
+    {
+        $residentArchiveRepository = app(ResidentArchiveRepository::class);
+        if ( $residentArchiveRepository->findOneBy(['email' => $data]) instanceof ResidentArchive) {
+            return true;
+        }
     }
 
 }

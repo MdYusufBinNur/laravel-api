@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\RoleCategory;
+namespace App\Http\Requests\UserNotificationType;
 
 use App\Http\Requests\Request;
 
-class IndexRequest extends Request
+class StoreRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,8 +14,8 @@ class IndexRequest extends Request
     public function rules()
     {
         return [
-            'id'        => 'list:numeric',
-            'title'     => 'list:string',
+            'type' => 'required|min:3|max:512',
+            'description' => 'min:10|max:1012'
         ];
     }
 }

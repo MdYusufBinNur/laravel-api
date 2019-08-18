@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources;
 
-class UserNotificationSettingResource extends Resource
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class UserNotificationTypeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,12 +17,8 @@ class UserNotificationSettingResource extends Resource
         return [
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
-            'userId' => $this->userId,
-            'typeId' => $this->typeId,
-            'propertyId' => $this->propertyId,
-            'email' => $this->email,
-            'sms' => $this->sms,
-            'voice' => $this->voice,
+            'type' => $this->type,
+            'description' => $this->description,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\UserNotificationSetting;
 
+use App\DbModels\UserNotificationSetting;
 use App\Http\Requests\Request;
 
 class StoreRequest extends Request
@@ -14,11 +15,12 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'userId' => 'required|exists:users,id',
-            'type' => 'min:3|max:191',
-            'email' => 'boolean',
-            'sms' => 'boolean',
-            'voice' => 'boolean',
+            'userNotificationSettings' => '',
+            'userNotificationSettings.*.typeId' => 'required|exists:user_notification_types,id',
+            'userNotificationSettings.*.userId' => 'required|exists:users,id',
+            'userNotificationSettings.*.email' => 'boolean',
+            'userNotificationSettings.*.sms' => 'boolean',
+            'userNotificationSettings.*.voice' => 'boolean',
         ];
     }
 }

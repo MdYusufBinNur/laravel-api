@@ -14,11 +14,12 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'userId' => 'exists:users,id',
-            'type' => 'min:3|max:191',
-            'email' => 'boolean',
-            'sms' => 'boolean',
-            'voice' => 'boolean',
+            'userNotificationSettings' => '',
+            'userNotificationSettings.*.userId' => 'exists:users,id',
+            'userNotificationSettings.*.typeId' => 'exists:user_notification_types,id',
+            'userNotificationSettings.*.email' => 'boolean',
+            'userNotificationSettings.*.sms' => 'boolean',
+            'userNotificationSettings.*.voice' => 'boolean',
         ];
     }
 }

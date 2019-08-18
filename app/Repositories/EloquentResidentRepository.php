@@ -14,6 +14,7 @@ use App\Repositories\Contracts\ResidentArchiveRepository;
 use App\Repositories\Contracts\ResidentRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class EloquentResidentRepository extends EloquentBaseRepository implements ResidentRepository
@@ -37,6 +38,10 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
             $userRepository = app(UserRepository::class);
             $user = $userRepository->save(array_merge($data['user'], ['role' => $data['role']]));
             $data['userId'] = $user->id;
+        }
+
+        if (!isset($data['joiningDate'])) {
+            $data['joiningDate'] = Carbon::now()->toDateString();
         }
 
         $resident = parent::save($data);

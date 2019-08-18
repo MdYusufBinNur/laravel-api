@@ -68,6 +68,16 @@ class User extends Authenticatable
     }
 
     /**
+     * user and enterprise user relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function enterpriseUser()
+    {
+        return $this->hasOne(EnterpriseUser::class, 'userId');
+    }
+
+    /**
      * is a active user
      *
      * @return bool

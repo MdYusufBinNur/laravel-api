@@ -1,11 +1,29 @@
 <?php
 namespace App\Repositories;
 
+use App\DbModels\EnterpriseUser;
 use App\Repositories\Contracts\PropertyRepository;
 use App\Services\HostsHelper;
 
 class EloquentPropertyRepository extends EloquentBaseRepository implements PropertyRepository
 {
+
+    /**
+     * @inheritdoc
+     */
+    public function findByHost($host): ?\ArrayAccess
+    {
+        $searchCriteria = [];
+        if (!ctype_digit($host)) {
+            $searchCriteria = HostsHelper::getSearchCriteriaForAHost($host);
+        }
+
+        return parent::findOneBy($searchCriteria);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
         $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
@@ -23,6 +41,20 @@ class EloquentPropertyRepository extends EloquentBaseRepository implements Prope
      */
     private function applyFilterInUserSearch($searchCriteria)
     {
+        $loggedInUser = $this->getLoggedInUser();
+
+        if (!$loggedInUser->isAdmin()) {
+            if ($loggedInUser->isEnterpriseUser()) {
+                $enterpriseUser = $loggedInUser->enterpriseUser;
+                if ($enterpriseUser instanceof EnterpriseUser) {
+                    $searchCriteria['id'] = $enterpriseUser->enterPriseUserProperties()->pluck('id')->toArray();
+                }
+            } else {
+                $searchCriteria['id'] = [];
+            }
+        }
+
+
         if (array_key_exists('host', $searchCriteria)) {
             $hostSearchCriteria = HostsHelper::getSearchCriteriaForAHost($searchCriteria['host']);
             $searchCriteria = array_merge($searchCriteria, $hostSearchCriteria);
@@ -30,11 +62,14 @@ class EloquentPropertyRepository extends EloquentBaseRepository implements Prope
         }
 
         if (isset($searchCriteria['query'])) {
-            $searchCriteria['id'] = $this->model
+            $propertyIds = $this->model
                 ->where('title', 'like', '%'.$searchCriteria['query'].'%')
                 ->orWhere('type', 'like', '%'.$searchCriteria['query'].'%')
                 ->orWhere('subdomain', 'like', '%'.$searchCriteria['query'].'%')
                 ->pluck('id')->toArray();
+
+            $searchCriteria['id'] = isset($searchCriteria['id']) ? array_intersect($searchCriteria['id'], $propertyIds) : $propertyIds;
+
             unset($searchCriteria['query']);
         }
 

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\DbModels\Property;
 use App\DbModels\User;
 use App\Policies\UserPolicy;
 use Illuminate\Support\Facades\Gate;

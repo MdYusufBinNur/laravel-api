@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Property\IndexRequest;
+use App\Http\Requests\Property\PropertyByHostRequest;
 use App\Http\Requests\Property\StoreRequest;
 use App\Http\Requests\Property\UpdateRequest;
 use App\Http\Resources\PropertyResource;
@@ -88,4 +89,22 @@ class PropertyController extends Controller
 
         return response()->json(null, 204);
     }
+
+    /**
+     * find a property by host
+     *
+     * @param PropertyByHostRequest $request
+     * @return PropertyResource|\Illuminate\Http\JsonResponse
+     */
+    public function propertyByHost(PropertyByHostRequest $request)
+    {
+        $property = $this->propertyRepository->findByHost($request->get('host'));
+
+        if (!$property instanceof Property) {
+            return response()->json(['status' => 404, 'message' => 'Resource not found with the specific id.'], 404);
+        }
+
+        return new PropertyResource($property);
+    }
+
 }

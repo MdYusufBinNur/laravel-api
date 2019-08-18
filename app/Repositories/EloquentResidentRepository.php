@@ -58,8 +58,10 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
+        $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
+
         $searchCriteria['eagerLoad'] = isset($searchCriteria['include']) ? ['user', 'user.userRoles'] : [];
-        return parent::findBy($searchCriteria);
+        return parent::findBy($searchCriteria,$withTrashed);
     }
 
     /**
@@ -130,4 +132,26 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
 
         return $residentsByUnits;
     }
+
+    /**
+     * shorten the search based on search criteria
+     *
+     * @param $searchCriteria
+     * @return mixed
+     */
+    private function applyFilterInUserSearch($searchCriteria)
+    {
+        if (isset($searchCriteria['query'])) {
+            $searchCriteria['id'] = $this->model->where('contactEmail', 'like', '%'.$searchCriteria['query'].'%')
+                ->pluck('id')->toArray();
+            unset($searchCriteria['query']);
+        }
+
+        if (isset($searchCriteria['id'])) {
+            $searchCriteria['id'] = implode(",", array_unique($searchCriteria['id']));
+        }
+
+        return $searchCriteria;
+    }
+
 }

@@ -39,6 +39,7 @@ class IndexRequest extends Request
             'secondaryPhone'        => 'list:string',
             'secondaryEmail'        => 'list:string',
             'joiningDate'           => 'list:date',
+            'query'                 => 'string',
         ];
     }
 

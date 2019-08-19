@@ -22,14 +22,14 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\UserRole::class)->create(['userId' => $user->id, 'roleId' => 3]);
 
 
-        factory(App\DbModels\User::class, 100)->create()->each(function($u) {
+        /*factory(App\DbModels\User::class, 100)->create()->each(function($u) {
             $u->userRoles()->save(factory(App\DbModels\UserRole::class)->create());
-        });
+        });*/
 
         factory(App\DbModels\Admin::class, 5)->create();
 
         factory(App\DbModels\User::class, 100)->create()->each(function($u) {
-            $u->userRoles()->save(factory(App\DbModels\UserRole::class)->create());
+            factory(App\DbModels\UserRole::class)->create();
         });
         factory(App\DbModels\Admin::class, 5)->create();
 

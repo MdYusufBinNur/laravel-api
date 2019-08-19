@@ -24,7 +24,7 @@ class StoreRequest extends Request
             'displayInCorner' => 'boolean',
             'displayPublicProfile' => '',
 
-            'userId' => 'required_without:user|exists:users,id',
+            'userId' => 'required_without:user|exists:users,id|unique_with:user_roles,userId,propertyId,role.roleId=roleId',
             'user' => 'required_without:userId',
             'user.email' => 'required_with:user|email|unique:users,email',
             'user.name' => 'required_with:user|max:100',

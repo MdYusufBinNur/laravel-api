@@ -35,7 +35,7 @@ class StaffController extends Controller
      * Display a listing of the resource.
      *
      * @param IndexRequest $request
-     * @return UserResourceCollection
+     * @return StaffResourceCollection
      */
     public function index(IndexRequest $request)
     {
@@ -48,7 +48,7 @@ class StaffController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  StoreRequest  $request
-     * @return UserResource
+     * @return StaffResource
      */
     public function store(StoreRequest $request)
     {
@@ -61,7 +61,7 @@ class StaffController extends Controller
      * Display the specified resource.
      *
      * @param  \App\DbModels\User  $user
-     * @return UserResource
+     * @return StaffResource
      * @throws AuthorizationException
      */
     public function show($id)
@@ -82,7 +82,7 @@ class StaffController extends Controller
      *
      * @param  UpdateRequest  $request
      * @param  Manager $staff
-     * @return UserResource
+     * @return StaffResource
      * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, Manager $staff)

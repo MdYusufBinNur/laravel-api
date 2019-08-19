@@ -178,6 +178,7 @@ return [
 
         \App\Providers\RepositoryServiceProvider::class,
         \App\Providers\ValidatorServiceProvider::class,
+        Felixkiss\UniqueWithValidator\ServiceProvider::class,
 
     ],
 

@@ -16,6 +16,7 @@ use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EloquentResidentRepository extends EloquentBaseRepository implements ResidentRepository
 {
@@ -51,6 +52,28 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         event(new ResidentCreatedEvent($resident));
 
         return $resident;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function update(\ArrayAccess $model, array $data): \ArrayAccess
+    {
+        if(array_key_exists('user', $data)){
+
+            $data['role']['propertyId'] = $data['propertyId'];
+            $data['role']['roleId'] = $data['user']['roleId'];
+
+            $userRepository = app(UserRepository::class);
+            $user = $userRepository->findOneBy(['id' => $data['user']['id']]);
+            if ($user instanceof User) {
+                $userRepository->update($user, array_merge($data['user'], ['role' => $data['role']]));
+            } else {
+                throw new NotFoundHttpException();
+            }
+        }
+
+        return parent::update($model, $data);
     }
 
     /**

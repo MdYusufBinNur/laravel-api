@@ -18,18 +18,20 @@ class EloquentResidentAccessRequestRepository extends EloquentBaseRepository imp
      */
     public function save(array $data): \ArrayAccess
     {
-        if($data['accessInPast'] == true){
+        if (isset($data['accessInPast'])) {
             $isResidentArchive = $this->hadAccessInThePast($data['email']);
 
-            if($isResidentArchive){
-                $data['pin'] = $this->generatePin(); // TODO: will moved resident archive to active resident
+            if ($isResidentArchive) {
+                // TODO: will be moved resident archive to active resident
             }
         }
+
         unset($data['accessInPast']);
 
         if (!isset($data['movedInDate'])) {
             $data['movedInDate'] = Carbon::now()->toDateString();
         }
+
         $data['pin'] = $this->generatePin();
         return parent::save($data);
     }
@@ -50,7 +52,7 @@ class EloquentResidentAccessRequestRepository extends EloquentBaseRepository imp
     /**
      * @inheritDoc
      */
-    public function generatePin() : string
+    public function generatePin(): string
     {
         $isUniquePin = true;
         $pin = '';
@@ -63,10 +65,13 @@ class EloquentResidentAccessRequestRepository extends EloquentBaseRepository imp
         return $pin;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function hadAccessInThePast($data)
     {
         $residentArchiveRepository = app(ResidentArchiveRepository::class);
-        if ( $residentArchiveRepository->findOneBy(['email' => $data]) instanceof ResidentArchive) {
+        if ($residentArchiveRepository->findOneBy(['email' => $data]) instanceof ResidentArchive) {
             return true;
         }
     }

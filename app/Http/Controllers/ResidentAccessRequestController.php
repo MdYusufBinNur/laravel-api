@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DbModels\ResidentAccessRequest;
 use App\Http\Requests\ResidentAccessRequest\IndexRequest;
+use App\Http\Requests\ResidentAccessRequest\ShowRequest;
 use App\Http\Requests\ResidentAccessRequest\StoreRequest;
 use App\Http\Requests\ResidentAccessRequest\UpdateRequest;
 use App\Http\Resources\ResidentAccessRequestResource;
@@ -56,10 +57,10 @@ class ResidentAccessRequestController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Request $request
+     * @param ShowRequest $request
      * @return ResidentAccessRequestResource
      */
-    public function show(Request $request)
+    public function show(ShowRequest $request)
     {
         $residentAccessRequest = $this->residentAccessRequestRepository->findOneBy(['pin' => $request['pin']]);
 

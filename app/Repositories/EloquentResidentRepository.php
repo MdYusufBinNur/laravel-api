@@ -16,6 +16,7 @@ use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EloquentResidentRepository extends EloquentBaseRepository implements ResidentRepository
 {
@@ -56,10 +57,34 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
     /**
      * @inheritDoc
      */
+    public function update(\ArrayAccess $model, array $data): \ArrayAccess
+    {
+        if(array_key_exists('user', $data)){
+
+            $data['role']['propertyId'] = $data['propertyId'];
+            $data['role']['roleId'] = $data['user']['roleId'];
+
+            $userRepository = app(UserRepository::class);
+            $user = $userRepository->findOneBy(['id' => $data['user']['id']]);
+            if ($user instanceof User) {
+                $userRepository->update($user, array_merge($data['user'], ['role' => $data['role']]));
+            } else {
+                throw new NotFoundHttpException();
+            }
+        }
+
+        return parent::update($model, $data);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
+        $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
+
         $searchCriteria['eagerLoad'] = isset($searchCriteria['include']) ? ['user', 'user.userRoles'] : [];
-        return parent::findBy($searchCriteria);
+        return parent::findBy($searchCriteria,$withTrashed);
     }
 
     /**
@@ -130,4 +155,26 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
 
         return $residentsByUnits;
     }
+
+    /**
+     * shorten the search based on search criteria
+     *
+     * @param $searchCriteria
+     * @return mixed
+     */
+    private function applyFilterInUserSearch($searchCriteria)
+    {
+        if (isset($searchCriteria['query'])) {
+            $searchCriteria['id'] = $this->model->where('contactEmail', 'like', '%'.$searchCriteria['query'].'%')
+                ->pluck('id')->toArray();
+            unset($searchCriteria['query']);
+        }
+
+        if (isset($searchCriteria['id'])) {
+            $searchCriteria['id'] = implode(",", array_unique($searchCriteria['id']));
+        }
+
+        return $searchCriteria;
+    }
+
 }

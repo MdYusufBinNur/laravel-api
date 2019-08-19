@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Resident;
 
+use App\DbModels\Role;
 use App\Http\Requests\Request;
+use Illuminate\Validation\Rule;
 
 class UpdateRequest extends Request
 {
@@ -13,12 +15,13 @@ class UpdateRequest extends Request
      */
     public function rules()
     {
+        $userId = $this->segment(4);
         return $rules = [
             'propertyId'            => 'exists:properties,id',
             'userId'                => 'exists:users,id',
             'unitId'                => 'exists:units,id',
-            'contactEmail'          => 'email|unique:residents,contactEmail',
-            'type'                  => 'min:5|max:100',
+            'contactEmail'          => 'email',
+            'type'                  => 'in:' . implode(',', [Role::ROLE_RESIDENT_OWNER['id'], Role::ROLE_RESIDENT_TENANT['id'], Role::ROLE_RESIDENT_STUDENT['id'], Role::ROLE_RESIDENT_SHOP['id']]),
             'group'                 => 'min:5|max:100',
             'boardMember'           => 'numeric',
             'sendEmailPermission'   => 'numeric',
@@ -35,8 +38,13 @@ class UpdateRequest extends Request
             'businessEmail'         => '',
             'secondaryAddress'      => '',
             'secondaryPhone'        => 'max:20',
-            'secondaryEmail'        => 'email|unique:residents,secondaryEmail',
+            'secondaryEmail'        => 'email',
             'joiningDate'           => 'date',
+
+            'user'                 => '',
+            'user.name'            => 'min:3|max:100',
+            'email'                => Rule::unique('users')->ignore($userId, 'id'),
+            'user.password'        => 'min:5',
         ];
     }
 

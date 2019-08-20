@@ -3,7 +3,9 @@
 namespace App\Http\Requests\Staff;
 
 use App\DbModels\Role;
+use App\DbModels\User;
 use App\Http\Requests\Request;
+use Illuminate\Support\Facades\DB;
 
 class UpdateRequest extends Request
 {
@@ -14,6 +16,9 @@ class UpdateRequest extends Request
      */
     public function rules()
     {
+        $staffId = $this->segment(4);
+        $userId = DB::table('managers')->where('id', '=', $staffId)->pluck('userId')->toArray()[0];
+
         return $rules = [
             'contactEmail' => 'email',
             'propertyId' => 'exists:properties,id|required_with:role.addNewRole',
@@ -24,9 +29,9 @@ class UpdateRequest extends Request
             'displayPublicProfile' => '',
 
             'user' => '',
-            'user.email' => 'email|unique:users',
-            'user.name' => 'users|max:100',
-            'user.password' => 'users|min:5',
+            'user.email' => 'email|unique:users,email,' . $userId . ',id',
+            'user.name' => 'max:100',
+            'user.password' => 'min:5',
             'user.locale' => '',
             'user.isActive' => 'boolean',
 

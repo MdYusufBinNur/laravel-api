@@ -83,21 +83,19 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
         $userRepository = app(UserRepository::class);
 
         if(isset($data['user'])) {
-            $userRepository->update($staff->user, $data['user']);
+            $user = $userRepository->update($staff->user, $data['user']);
         }
 
         if(isset($data['role'])) {
             $userRoleRepository = app(UserRoleRepository::class);
 
             $data['role']['propertyId'] = $data['propertyId'] ?? $staff->propertyId;
-
+            $data['role']['userId'] = $staff->user->id;
             if (isset($data['role']['addNewRole'])) {
                 unset($data['role']['addNewRole']);
-                $data['role']['userId'] = $staff->user->id;
                 $userRoleRepository->patch($data['role'], $data['role']);
             } else {
-                $userRole = $userRoleRepository->findOneBy(['userId' => $staff->user->id, 'propertyId' => $data['role']['propertyId']]);
-                $userRoleRepository->update($userRole, $data['role']);
+                $userRoleRepository->patch($data['role'], $data['role']);
             }
         }
 

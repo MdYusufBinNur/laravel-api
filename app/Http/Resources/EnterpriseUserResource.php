@@ -21,7 +21,8 @@ class EnterpriseUserResource extends Resource
             'title' => $this->title,
             'level' => $this->level,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'updated_at' => $this->updated_at,
+            'properties' => new EnterpriseUserPropertyResourceCollection($this->enterpriseUserProperties)
         ];
     }
 }

@@ -65,7 +65,7 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\ServiceRequestLog::class, 5)->create();
 
         factory(App\DbModels\EnterpriseUser::class, 5)->create();
-        factory(App\DbModels\EnterpriseUserProperty::class, 5)->create();
+        //factory(App\DbModels\EnterpriseUserProperty::class, 5)->create();
 
         factory(App\DbModels\Event::class, 5)->create();
         factory(App\DbModels\EventSignup::class, 5)->create();

@@ -213,11 +213,11 @@ class EloquentBaseRepository implements BaseRepository
         //remove this repository related cache
         $this->removeThisClassCache();
 
-        $userNotificationSetting = $this->findOneBy($searchCriteria);
+        $model = $this->findOneBy($searchCriteria);
 
-        if ($userNotificationSetting instanceof Model) {
-            $userNotificationSetting = $this->update($userNotificationSetting, $data);
-            return $userNotificationSetting;
+        if ($model instanceof Model) {
+            $model = $this->update($model, $data);
+            return $model;
         } else {
             return $this->save($data);
         }

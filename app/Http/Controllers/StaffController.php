@@ -9,8 +9,6 @@ use App\Http\Requests\Staff\StoreRequest;
 use App\Http\Requests\Staff\UpdateRequest;
 use App\Http\Resources\StaffResource;
 use App\Http\Resources\StaffResourceCollection;
-use App\Http\Resources\UserResource;
-use App\Http\Resources\UserResourceCollection;
 use App\Repositories\Contracts\ManagerRepository;
 use Illuminate\Auth\Access\AuthorizationException;
 

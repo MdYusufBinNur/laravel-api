@@ -36,6 +36,8 @@ class CreateEnterpriseUserPropertiesTable extends Migration
                 ->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
+            $table->unique(['enterpriseUserId', 'propertyId']);
         });
     }
 

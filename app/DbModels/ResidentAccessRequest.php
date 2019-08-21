@@ -25,4 +25,24 @@ class ResidentAccessRequest extends Model
     protected $attributes = [
         'status' => self::STATUS_PENDING,
     ];
+
+    /**
+     * get the property
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(Property::class, 'id', 'propertyId');
+    }
+
+    /**
+     * get the unit
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function unit()
+    {
+        return $this->hasOne(Unit::class, 'id', 'unitId');
+    }
 }

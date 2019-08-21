@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\DbModels\ResidentAccessRequest;
 use App\DbModels\ResidentArchive;
+use App\Events\ResidentAccessRequestCreatedEvent;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use App\Repositories\Contracts\ResidentArchiveRepository;
 use Carbon\Carbon;
@@ -33,7 +34,13 @@ class EloquentResidentAccessRequestRepository extends EloquentBaseRepository imp
         }
 
         $data['pin'] = $this->generatePin();
-        return parent::save($data);
+
+        $residentAccessRequest = parent::save($data);
+
+        // fire resident access request created event
+        event(new ResidentAccessRequestCreatedEvent($residentAccessRequest));
+
+        return $residentAccessRequest;
     }
 
     /**

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\ResidentAccessRequestCreatedEvent;
 use App\Events\ResidentCreatedEvent;
+use App\Listeners\HandleResidentAccessRequestCreatedEvent;
 use App\Listeners\HandleResidentCreatedEvent;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
@@ -19,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         ResidentCreatedEvent::class => [
             HandleResidentCreatedEvent::class,
+        ],
+        ResidentAccessRequestCreatedEvent::class => [
+            HandleResidentAccessRequestCreatedEvent::class,
         ],
     ];
 

@@ -1,14 +1,10 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\ResidentAccessRequest;
 
-use App\Events\ResidentAccessRequestCreatedEvent;
-use App\Events\ResidentCreatedEvent;
-use App\Mail\ResidentAccessRequestCreated;
-use App\Mail\ResidentCreated;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\ResidentAccessRequest\ResidentAccessRequestCreatedEvent;
+use App\Mail\ResidentAccessRequest\ResidentAccessRequestCreated;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class HandleResidentAccessRequestCreatedEvent implements ShouldQueue
@@ -23,6 +19,7 @@ class HandleResidentAccessRequestCreatedEvent implements ShouldQueue
     {
         $residentAccessRequest = $event->residentAccessRequest;
         $eventOptions = $event->options;
+
         Mail::to($residentAccessRequest->email)->send(new ResidentAccessRequestCreated($residentAccessRequest));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\Resident;
 
 use App\DbModels\Resident;
 use Illuminate\Mail\Mailable;

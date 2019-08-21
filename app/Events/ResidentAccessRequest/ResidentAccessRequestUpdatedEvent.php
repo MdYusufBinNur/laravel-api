@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace App\Events\ResidentAccessRequest;
 
 use App\DbModels\Resident;
 use App\DbModels\ResidentAccessRequest;

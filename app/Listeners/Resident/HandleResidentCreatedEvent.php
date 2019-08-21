@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Resident;
 
-use App\Events\ResidentCreatedEvent;
-use App\Mail\ResidentCreated;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\Resident\ResidentCreatedEvent;
+use App\Mail\Resident\ResidentCreated;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class HandleResidentCreatedEvent implements ShouldQueue

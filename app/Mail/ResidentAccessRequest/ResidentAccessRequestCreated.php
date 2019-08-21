@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\ResidentAccessRequest;
 
 use App\DbModels\ResidentAccessRequest;
 use Illuminate\Mail\Mailable;

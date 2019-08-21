@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\ResidentAccessRequest;
 
-use App\Events\ResidentAccessRequestUpdatedEvent;
-use App\Mail\GeneratePin;
-use App\Mail\ResidentAccessRequestCreated;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\ResidentAccessRequest\ResidentAccessRequestUpdatedEvent;
+use App\Mail\ResidentAccessRequest\GeneratePin;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class HandleResidentAccessRequestUpdatedEvent implements ShouldQueue

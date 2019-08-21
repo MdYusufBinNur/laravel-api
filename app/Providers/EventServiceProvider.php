@@ -4,12 +4,12 @@ namespace App\Providers;
 
 use App\Events\EnterpriseUser\EnterpriseUserCreatedEvent;
 use App\Events\Manager\ManagerCreatedEvent;
-use App\Events\ResidentAccessRequestCreatedEvent;
-use App\Events\ResidentAccessRequestUpdatedEvent;
-use App\Events\ResidentCreatedEvent;
-use App\Listeners\HandleResidentAccessRequestCreatedEvent;
-use App\Listeners\HandleResidentAccessRequestUpdatedEvent;
-use App\Listeners\HandleResidentCreatedEvent;
+use App\Events\ResidentAccessRequest\ResidentAccessRequestCreatedEvent;
+use App\Events\ResidentAccessRequest\ResidentAccessRequestUpdatedEvent;
+use App\Events\Resident\ResidentCreatedEvent;
+use App\Listeners\ResidentAccessRequest\HandleResidentAccessRequestCreatedEvent;
+use App\Listeners\ResidentAccessRequest\HandleResidentAccessRequestUpdatedEvent;
+use App\Listeners\Resident\HandleResidentCreatedEvent;
 use App\Listeners\EnterpriseUser\HandleEnterpriseUserCreatedEvent;
 use App\Listeners\Manager\HandleManagerCreatedEvent;
 use Illuminate\Support\Facades\Event;

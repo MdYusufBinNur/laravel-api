@@ -8,7 +8,7 @@ use App\DbModels\ResidentAccessRequest;
 use App\DbModels\Role;
 use App\DbModels\Unit;
 use App\DbModels\User;
-use App\Events\ResidentCreatedEvent;
+use App\Events\Resident\ResidentCreatedEvent;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use App\Repositories\Contracts\ResidentArchiveRepository;
 use App\Repositories\Contracts\ResidentRepository;

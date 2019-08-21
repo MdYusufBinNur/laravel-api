@@ -6,8 +6,8 @@ namespace App\Repositories;
 
 use App\DbModels\ResidentAccessRequest;
 use App\DbModels\ResidentArchive;
-use App\Events\ResidentAccessRequestCreatedEvent;
-use App\Events\ResidentAccessRequestUpdatedEvent;
+use App\Events\ResidentAccessRequest\ResidentAccessRequestCreatedEvent;
+use App\Events\ResidentAccessRequest\ResidentAccessRequestUpdatedEvent;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use App\Repositories\Contracts\ResidentArchiveRepository;
 use Carbon\Carbon;

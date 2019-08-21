@@ -37,7 +37,7 @@ class EnterpriseUserCreatedMail extends Mailable
         $user = $enterpriseUser->user;
         $company = $enterpriseUser->company;
 
-        return $this->subject("Welcome to {$company->title} community")->view('enterprise-user.created')
+        return $this->subject("Welcome to {$company->title} company")->view('enterprise-user.created')
             ->with(['enterpriseUser' => $enterpriseUser, 'user' => $user, 'company' => $company]);
     }
 }

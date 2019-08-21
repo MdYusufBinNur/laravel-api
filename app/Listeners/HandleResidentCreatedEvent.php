@@ -14,7 +14,7 @@ class HandleResidentCreatedEvent
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param ResidentCreatedEvent $event
      * @return void
      */
     public function handle(ResidentCreatedEvent $event)

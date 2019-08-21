@@ -21,16 +21,20 @@ class DatabaseSeeder extends Seeder
         $user = factory(App\DbModels\User::class)->create(['name' => 'Jobber Ali Admin', 'email' => 'admin@reformedtech.org', 'password' => 'password', 'isActive' => 1]);
         factory(App\DbModels\UserRole::class)->create(['userId' => $user->id, 'roleId' => 3]);
 
-
-        /*factory(App\DbModels\User::class, 100)->create()->each(function($u) {
-            $u->userRoles()->save(factory(App\DbModels\UserRole::class)->create());
-        });*/
-
         factory(App\DbModels\Admin::class, 5)->create();
 
         factory(App\DbModels\User::class, 100)->create()->each(function($u) {
-            factory(App\DbModels\UserRole::class)->create();
+
+            // to avoid duplicate entries in user_roles table
+            repeat:
+            try {
+                factory(App\DbModels\UserRole::class)->create();
+            } catch (\Illuminate\Database\QueryException $e) {
+                factory(App\DbModels\UserRole::class)->create();
+                goto repeat;
+            }
         });
+
         factory(App\DbModels\Admin::class, 5)->create();
 
         factory(App\DbModels\PropertyDesignSetting::class, 5)->create();

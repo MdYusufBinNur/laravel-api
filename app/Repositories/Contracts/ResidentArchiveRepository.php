@@ -13,4 +13,13 @@ interface ResidentArchiveRepository extends BaseRepository
      * @return \ArrayAccess
      */
     public function saveByResident(\ArrayAccess $resident): \ArrayAccess;
+
+
+    /**
+     * save multiple residents in archive from resident data
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function saveMultipleResidents(array $data);
 }

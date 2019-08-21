@@ -25,6 +25,8 @@ class EloquentResidentAccessRequestRepository extends EloquentBaseRepository imp
 
             if ($isResidentArchive) {
                 // TODO: will be moved resident archive to active resident
+                // there is high chance there is still soft deleted resident in residents table
+                // just need to update the resident
             }
         }
 

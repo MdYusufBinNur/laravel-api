@@ -149,6 +149,7 @@ return [
         'userId' => 'userId',
         'unitId' => 'unitId',
         'residentId' => 'residentId',
+        'residentIds' => 'residentIds',
 
         //todo
     ],

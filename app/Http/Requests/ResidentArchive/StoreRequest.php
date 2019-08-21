@@ -14,11 +14,7 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'propertyId' => 'required|exists:properties,id',
-            'residentId' => 'required|exists:residents,id',
-            'unitId' => 'required|exists:units,id',
-            'startAt' => 'required|date',
-            'endAt' => 'required|date',
+            'residentIds' => 'required|json|json_ids:residents,id',
         ];
     }
 }

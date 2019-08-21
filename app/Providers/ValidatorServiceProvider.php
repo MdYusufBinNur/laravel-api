@@ -17,8 +17,16 @@ class ValidatorServiceProvider extends ServiceProvider
         \Validator::extend('list', 'App\Http\Validators\ListValidator@validateList');
         \Validator::replacer('list', 'App\Http\Validators\ListValidator@validationMessage');
 
+        //domain
         \Validator::extend('domain', 'App\Http\Validators\DomainValidator@validateDomain');
         \Validator::replacer('domain', 'App\Http\Validators\DomainValidator@validationMessage');
+
+        //json_ids
+        \Validator::extend('json_ids', 'App\Http\Validators\JsonIdsValidators@validateJsonIds');
+        \Validator::replacer('json_ids', 'App\Http\Validators\JsonIdsValidators@validationMessage');
+
+
+
 
     }
 

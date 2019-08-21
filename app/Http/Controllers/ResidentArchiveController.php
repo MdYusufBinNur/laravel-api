@@ -44,13 +44,12 @@ class ResidentArchiveController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreRequest $request
-     * @return ResidentArchiveResource
      */
     public function store(StoreRequest $request)
     {
-        $residentArchive = $this->residentArchiveRepository->save($request->all());
+        $residentArchives = $this->residentArchiveRepository->saveMultipleResidents($request->all());
 
-        return new ResidentArchiveResource($residentArchive);
+        return new ResidentArchiveResourceCollection($residentArchives);
     }
 
     /**

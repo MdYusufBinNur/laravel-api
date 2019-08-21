@@ -14,4 +14,12 @@ interface ResidentRepository extends BaseRepository
      */
     public function getResidentsByUnits(array $searchCriteria = []);
 
+
+    /**
+     * move out (all) residents
+     *
+     * @param array $residentIds
+     * @return bool
+     */
+    public function moveOutResidents(array $residentIds): bool ;
 }

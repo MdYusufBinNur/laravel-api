@@ -8,6 +8,7 @@ use App\DbModels\ResidentAccessRequest;
 use App\DbModels\Role;
 use App\DbModels\Unit;
 use App\DbModels\User;
+use App\DbModels\UserRole;
 use App\Events\Resident\ResidentCreatedEvent;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use App\Repositories\Contracts\ResidentArchiveRepository;
@@ -104,7 +105,9 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
             ->where(['userId' => $resident->user->id, 'propertyId' => $resident->propertyId])
             ->whereIn('roleId', [Role::ROLE_RESIDENT_OWNER['id'], Role::ROLE_RESIDENT_TENANT['id'], Role::ROLE_RESIDENT_SHOP['id'], Role::ROLE_RESIDENT_STUDENT['id']])
             ->first();
-        $userRoleRepository->delete($userRole);
+        if ($userRole instanceof UserRole) {
+            $userRoleRepository->delete($userRole);
+        }
 
         parent::delete($resident);
 
@@ -175,6 +178,22 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         }
 
         return $searchCriteria;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function moveOutResidents(array $residentIds): bool
+    {
+        $hasDeletedAny = false;
+        $residents = $this->model->whereIn('id', $residentIds)->get();
+        foreach ($residents as $resident) {
+            $this->delete($resident);
+            $hasDeletedAny = true;
+        }
+
+        return $hasDeletedAny;
     }
 
 }

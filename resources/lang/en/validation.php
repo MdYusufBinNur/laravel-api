@@ -146,9 +146,10 @@ return [
 
     'attributes' => [
         'propertyId' => 'propertyId',
-        'propertyId' => 'propertyId',
+        'userId' => 'userId',
         'unitId' => 'unitId',
         'residentId' => 'residentId',
+
         //todo
     ],
 

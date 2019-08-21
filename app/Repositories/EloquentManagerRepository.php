@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\DbModels\Role;
 use App\DbModels\UserRole;
+use App\Events\Manager\ManagerCreatedEvent;
 use App\Repositories\Contracts\ManagerRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
@@ -67,6 +68,8 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
         $manager = parent::save($data);
 
         DB::commit();
+
+        event(new ManagerCreatedEvent($manager, $data));
 
         return $manager;
 

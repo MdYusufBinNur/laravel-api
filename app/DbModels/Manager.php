@@ -37,9 +37,9 @@ class Manager extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function properties()
+    public function property()
     {
-        return $this->hasOne(User::class, 'id', 'userId');
+        return $this->hasOne(Property::class, 'id', 'propertyId');
     }
 
     /**

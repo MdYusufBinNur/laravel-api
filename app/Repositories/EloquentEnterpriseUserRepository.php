@@ -5,9 +5,9 @@ namespace App\Repositories;
 
 
 use App\DbModels\Role;
+use App\Events\EnterpriseUser\EnterpriseUserCreatedEvent;
 use App\Repositories\Contracts\EnterpriseUserPropertyRepository;
 use App\Repositories\Contracts\EnterpriseUserRepository;
-use App\Repositories\Contracts\RoleRepository;
 use App\Repositories\Contracts\UserRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -47,6 +47,9 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
             $enterpriseUserPropertyRepository = app(EnterpriseUserPropertyRepository::class);
             $enterpriseUserPropertyRepository->save(['enterpriseUserId' => $enterpriseUser->id, 'propertyId'=>$data['propertyId']]);
         }
+
+        // fire EnterpriseUserCreatedEvent
+        event(new EnterpriseUserCreatedEvent($enterpriseUser, $data));
 
         DB::commit();
 

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Events\EnterpriseUser\EnterpriseUserCreatedEvent;
 use App\Events\Manager\ManagerCreatedEvent;
 use App\Events\ResidentAccessRequestCreatedEvent;
 use App\Events\ResidentAccessRequestUpdatedEvent;
@@ -9,6 +10,7 @@ use App\Events\ResidentCreatedEvent;
 use App\Listeners\HandleResidentAccessRequestCreatedEvent;
 use App\Listeners\HandleResidentAccessRequestUpdatedEvent;
 use App\Listeners\HandleResidentCreatedEvent;
+use App\Listeners\EnterpriseUser\HandleEnterpriseUserCreatedEvent;
 use App\Listeners\Manager\HandleManagerCreatedEvent;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
@@ -35,6 +37,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ManagerCreatedEvent::class => [
             HandleManagerCreatedEvent::class
+        ],
+        EnterpriseUserCreatedEvent::class => [
+            HandleEnterpriseUserCreatedEvent::class
         ]
     ];
 

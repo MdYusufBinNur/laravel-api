@@ -67,9 +67,11 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
         $data['userId'] = $user->id;
         $manager = parent::save($data);
 
+        // fire ManagerCreatedEvent
+        event(new ManagerCreatedEvent($manager, $data));
+
         DB::commit();
 
-        event(new ManagerCreatedEvent($manager, $data));
 
         return $manager;
 

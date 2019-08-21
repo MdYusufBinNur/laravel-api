@@ -11,7 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class GeneratePin extends Mailable implements ShouldQueue
 {
-    use Queueable, SerializesModels;
+    use SerializesModels;
 
     /**
      * @var ResidentAccessRequest

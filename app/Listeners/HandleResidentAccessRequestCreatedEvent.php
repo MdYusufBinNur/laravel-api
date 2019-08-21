@@ -11,7 +11,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
-class HandleResidentAccessRequestCreatedEvent
+class HandleResidentAccessRequestCreatedEvent implements ShouldQueue
 {
     /**
      * Handle the event.

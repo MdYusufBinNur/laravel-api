@@ -10,7 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
-class HandleResidentAccessRequestUpdatedEvent
+class HandleResidentAccessRequestUpdatedEvent implements ShouldQueue
 {
     /**
      * Handle the event.
@@ -22,7 +22,6 @@ class HandleResidentAccessRequestUpdatedEvent
     {
         $residentAccessRequest = $event->residentAccessRequest;
         $eventOptions = $event->options;
-
         if (isset($eventOptions['pin'])) {
             Mail::to($residentAccessRequest->email)->send(new GeneratePin($residentAccessRequest));
         }

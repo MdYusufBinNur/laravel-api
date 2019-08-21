@@ -144,6 +144,12 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'propertyId' => 'propertyId',
+        'propertyId' => 'propertyId',
+        'unitId' => 'unitId',
+        'residentId' => 'residentId',
+        //todo
+    ],
 
 ];

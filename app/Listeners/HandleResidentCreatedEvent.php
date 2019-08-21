@@ -20,6 +20,5 @@ class HandleResidentCreatedEvent implements ShouldQueue
     public function handle(ResidentCreatedEvent $event)
     {
         Mail::to($event->resident->contactEmail)->send(new ResidentCreated($event->resident));
-
     }
 }

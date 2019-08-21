@@ -5,9 +5,8 @@ namespace App\Mail;
 use App\DbModels\Resident;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ResidentCreated extends Mailable implements ShouldQueue
+class ResidentCreated extends Mailable
 {
     use SerializesModels;
 

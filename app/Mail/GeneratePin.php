@@ -2,16 +2,13 @@
 
 namespace App\Mail;
 
-use App\DbModels\Resident;
 use App\DbModels\ResidentAccessRequest;
-use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
-class GeneratePin extends Mailable implements ShouldQueue
+class GeneratePin extends Mailable
 {
-    use Queueable, SerializesModels;
+    use SerializesModels;
 
     /**
      * @var ResidentAccessRequest

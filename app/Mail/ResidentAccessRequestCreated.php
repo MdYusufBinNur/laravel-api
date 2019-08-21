@@ -3,12 +3,10 @@
 namespace App\Mail;
 
 use App\DbModels\ResidentAccessRequest;
-use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ResidentAccessRequestCreated extends Mailable implements ShouldQueue
+class ResidentAccessRequestCreated extends Mailable
 {
     use SerializesModels;
 

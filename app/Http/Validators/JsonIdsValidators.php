@@ -56,12 +56,16 @@ class JsonIdsValidators
     /**
      * is list of valid Ids
      *
-     * @param array $array
+     * @param mixed $list
      * @return bool
      */
-    private function isValidIdsList(array $array) {
+    private function isValidIdsList($list)
+    {
+        if (is_null($list)) {
+            return false;
+        }
         $isValid = true;
-        foreach ($array as $item) {
+        foreach ($list as $item) {
             if (is_object($item)) {
                 $isValid = false;
             }

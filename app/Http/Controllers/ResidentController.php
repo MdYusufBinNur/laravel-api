@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DbModels\Resident;
 use App\Http\Requests\Resident\IndexRequest;
 use App\Http\Requests\Resident\StoreRequest;
+use App\Http\Requests\Resident\TransferResidentRequest;
 use App\Http\Requests\Resident\UpdateRequest;
 use App\Http\Resources\ResidentResource;
 use App\Http\Resources\ResidentResourceCollection;
@@ -88,5 +89,17 @@ class ResidentController extends Controller
         $this->residentRepository->delete($resident);
 
         return response()->json(null, 204);
+    }
+
+
+    /**
+     * @param TransferResidentRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function residentTransfer(TransferResidentRequest $request)
+    {
+        $residents = $this->residentRepository->transferResidents($request->all());
+
+        return new ResidentResourceCollection($residents);
     }
 }

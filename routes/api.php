@@ -30,6 +30,8 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('property', 'PropertyController', ['except' => ['get']]);
 
         Route::apiResource('resident', 'ResidentController',['except' => ['post']]);
+        Route::put('residents-transfer', 'ResidentController@residentTransfer');
+
 
         Route::apiResource('tower', 'TowerController');
 

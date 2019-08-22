@@ -196,4 +196,18 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         return $hasDeletedAny;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function transferResidents(array $data)
+    {
+        $residents = $this->model->whereIn('id', json_decode($data['residentIds']))->get();
+        unset($data['residentIds']);
+        foreach ($residents as $resident) {
+            $residents[] =$this->update($resident, $data);
+        }
+
+        return $residents;
+    }
+
 }

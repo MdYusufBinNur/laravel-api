@@ -1,4 +1,3 @@
-//todo
+@extends('resident.layouts-created')
 
-{{$resident->contactEmail}}
-{{$resident->user->name}}
+@section ('title', 'this is title 2')

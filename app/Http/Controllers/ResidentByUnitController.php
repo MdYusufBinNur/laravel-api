@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\DbModels\Resident;
 use App\Http\Requests\Resident\IndexRequest;
-use App\Http\Requests\Resident\StoreRequest;
-use App\Http\Requests\Resident\UpdateRequest;
+use App\Http\Requests\Resident\ResidentByUnitRequest;
 use App\Http\Resources\ResidentByUnitResourceCollection;
-use App\Http\Resources\ResidentResource;
-use App\Http\Resources\ResidentResourceCollection;
 use App\Repositories\Contracts\ResidentRepository;
 
 class ResidentByUnitController extends Controller
@@ -31,9 +27,9 @@ class ResidentByUnitController extends Controller
      * Display a listing of the  Resident resource.
      *
      * @param IndexRequest $request
-     * @return ResidentResourceCollection
+     * @return ResidentByUnitResourceCollection
      */
-    public function index(IndexRequest $request)
+    public function index(ResidentByUnitRequest $request)
     {
         $residents = $this->residentRepository->getResidentsByUnits($request->all());
         return new ResidentByUnitResourceCollection(collect($residents));

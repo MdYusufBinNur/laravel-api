@@ -24,7 +24,9 @@ class ResidentAccessRequestResource extends Resource
             'status' => $this->status,
             'active' => $this->active,
             'comments' => $this->comments,
-            'pin' => $this->pin,
+            $this->mergeWhen($this->needToInclude($request, 'pin'), [
+                'pin' => $this->pin,
+            ]),
             'moderatedUserId' => $this->moderatedUserId,
             'moderatedAt' => $this->moderatedAt,
             'movedInDate' => $this->movedInDate,

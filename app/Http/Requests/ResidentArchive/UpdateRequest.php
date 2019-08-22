@@ -14,6 +14,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
+            'email' => 'exists:residents,email',
             'propertyId' => 'exists:properties,id',
             'residentId' => 'exists:residents,id',
             'unitId' => 'exists:units,id',

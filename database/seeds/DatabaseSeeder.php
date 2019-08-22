@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
 
         //insert a admin user
         $user = factory(App\DbModels\User::class)->create(['name' => 'Jobber Ali Admin', 'email' => 'admin@reformedtech.org', 'password' => 'password', 'isActive' => 1]);
-        factory(App\DbModels\UserRole::class)->create(['userId' => $user->id, 'roleId' => 3]);
+        factory(App\DbModels\UserRole::class)->create(['userId' => $user->id, 'roleId' => 1]);
 
         factory(App\DbModels\Admin::class, 5)->create();
 

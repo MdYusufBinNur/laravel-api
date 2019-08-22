@@ -17,7 +17,7 @@ class EloquentResidentArchiveRepository extends EloquentBaseRepository implement
     public function saveByResident(\ArrayAccess $resident): \ArrayAccess
     {
         return $this->save([
-            'email' => $resident->email,
+            'email' => $resident->contactEmail,
             'propertyId' => $resident->propertyId,
             'unitId' => $resident->unitId,
             'residentId'=> $resident->id,

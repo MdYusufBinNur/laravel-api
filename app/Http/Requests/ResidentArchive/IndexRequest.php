@@ -15,6 +15,7 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
+            'email' => 'list:email',
             'propertyId' => 'list:numeric',
             'residentId' => 'list:numeric',
             'unitId' => 'list:numeric',

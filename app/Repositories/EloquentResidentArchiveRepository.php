@@ -18,6 +18,7 @@ class EloquentResidentArchiveRepository extends EloquentBaseRepository implement
     {
         return $this->save([
             'propertyId' => $resident->propertyId,
+            'email' => $resident->contactEmail,
             'unitId' => $resident->unitId,
             'residentId'=> $resident->id,
             'startAt' => $resident->created_at,

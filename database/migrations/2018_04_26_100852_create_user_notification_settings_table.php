@@ -40,7 +40,7 @@ class CreateUserNotificationSettingsTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->unique(['propertyId', 'typeId', 'propertyId']);
+            $table->unique(['userId', 'propertyId', 'typeId']);
         });
     }
 

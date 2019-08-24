@@ -84,6 +84,9 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('notification-feed', 'NotificationFeedController');
         Route::apiResource('user-notification-setting', 'UserNotificationSettingController');
         Route::apiResource('user-notification-type', 'UserNotificationTypeController');
+        Route::get('user-notification', 'UserNotificationController@index');
+        Route::put('user-notification', 'UserNotificationController@update');
+        Route::get('user-notification/{id}', 'UserNotificationController@show');
 
 
         /**

@@ -16,6 +16,11 @@ class JsonIdsValidators
     {
         $tableName = $parameters[0];
         $column = $parameters[1];
+
+        if (!is_string($value)) {
+            return false;
+        }
+
         $ids = \json_decode($value);
 
         if (!$this->isValidIdsList($ids)) {
@@ -61,7 +66,7 @@ class JsonIdsValidators
      */
     private function isValidIdsList($list)
     {
-        if (is_null($list)) {
+        if (!is_array($list)) {
             return false;
         }
         $isValid = true;

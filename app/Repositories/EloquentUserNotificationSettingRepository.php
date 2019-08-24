@@ -9,6 +9,16 @@ use Illuminate\Support\Arr;
 
 class EloquentUserNotificationSettingRepository extends EloquentBaseRepository implements UserNotificationSettingRepository
 {
+    public function findBy(array $searchCriteria = [], $withTrashed = false)
+    {
+        if (!$this->getLoggedInUser()->isAdmin()) {
+            $searchCriteria['userId'] = $this->getLoggedInUser()->id;
+        }
+
+        return parent::findBy($searchCriteria, $withTrashed);
+    }
+
+
     /**
      * @inheritDoc
      */

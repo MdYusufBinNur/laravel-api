@@ -33,7 +33,7 @@ Route::group(['prefix' => 'api/v1'], function () {
 
         Route::apiResource('tower', 'TowerController');
 
-        Route::apiResource('unit', 'UnitController');
+        Route::apiResource('unit', 'UnitController', ['except' => ['get']]);
 
         Route::apiResource('module', 'ModuleController');
 
@@ -137,6 +137,8 @@ Route::group(['prefix' => 'api/v1'], function () {
     //route without authentication
     Route::get('property/{property}', 'PropertyController@show');
     Route::get('property-by-host', 'PropertyController@propertyByHost');
+    Route::get('unit', 'UnitController@index');
+
 
     Route::apiResource('attachment', 'AttachmentController', ['except' => ['update']]);
     Route::get('attachment-type', 'AttachmentTypeController@index');

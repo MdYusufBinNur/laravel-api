@@ -31,11 +31,6 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('user-profile-child', 'UserProfileChildController');
         Route::apiResource('user-profile-link', 'UserProfileLinkController');
         Route::apiResource('user-profile-post', 'UserProfilePostController');
-
-        /**
-         * related to staff features
-         */
-
         Route::apiResource('staff', 'StaffController');
 
 
@@ -86,7 +81,6 @@ Route::group(['prefix' => 'api/v1'], function () {
         /**
          * related to notifications features
          */
-
         Route::apiResource('notification-feed', 'NotificationFeedController');
         Route::apiResource('user-notification-setting', 'UserNotificationSettingController');
         Route::apiResource('user-notification-type', 'UserNotificationTypeController');
@@ -95,8 +89,6 @@ Route::group(['prefix' => 'api/v1'], function () {
         /**
          * related to package features
          */
-
-
         Route::apiResource('package', 'PackageController');
         Route::apiResource('package-archive', 'PackageArchiveController');
         Route::apiResource('package-type', 'PackageTypeController');
@@ -138,8 +130,6 @@ Route::group(['prefix' => 'api/v1'], function () {
          * related to parking features
          */
         Route::apiResource('parking-pass', 'ParkingPassController');
-
-
 
     });
 

@@ -14,7 +14,7 @@ class CreateUserNotificationTypesTable extends Migration
     public function up()
     {
         Schema::create('user_notification_types', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('type');
             $table->string('description')->nullable();
             $table->timestamps();

@@ -73,7 +73,7 @@ Route::group(['prefix' => 'api/v1'], function () {
          */
         Route::apiResource('resident', 'ResidentController',['except' => ['post']]);
         Route::put('residents-transfer', 'ResidentController@residentTransfer');
-        Route::apiResource('resident-access-request', 'ResidentAccessRequestController', ['except' => ['post','get']]);
+        Route::apiResource('resident-access-request', 'ResidentAccessRequestController', ['except' => ['post']]);
         Route::apiResource('resident-archive', 'ResidentArchiveController');
         Route::apiResource('resident-emergency', 'ResidentEmergencyController');
         Route::apiResource('resident-vehicle', 'ResidentVehicleController');
@@ -148,7 +148,7 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::get('attachment-type', 'AttachmentTypeController@index');
 
     Route::post('resident-access-request', 'ResidentAccessRequestController@store');
-    Route::get('resident-access-request', 'ResidentAccessRequestController@show');
+    Route::get('resident-access-request-without-auth', 'ResidentAccessRequestController@show');
     Route::post('resident', 'ResidentController@store');
 
     Route::post('login', 'Auth\\LoginController@index');

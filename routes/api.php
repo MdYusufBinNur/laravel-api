@@ -68,6 +68,9 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('announcement', 'AnnouncementController');
 
 
+        /**
+         * related to residents features
+         */
         Route::apiResource('resident', 'ResidentController',['except' => ['post']]);
         Route::put('residents-transfer', 'ResidentController@residentTransfer');
         Route::apiResource('resident-access-request', 'ResidentAccessRequestController', ['except' => ['post']]);

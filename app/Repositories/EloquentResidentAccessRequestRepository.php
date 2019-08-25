@@ -51,6 +51,7 @@ class EloquentResidentAccessRequestRepository extends EloquentBaseRepository imp
      */
     public function update(\ArrayAccess $model, array $data): \ArrayAccess
     {
+        $oldResidentAccessRequest = clone $model;
         if (!empty($data['regeneratePin'])) {
             unset($data['regeneratePin']);
             $data['pin'] = $this->generatePin();
@@ -59,7 +60,7 @@ class EloquentResidentAccessRequestRepository extends EloquentBaseRepository imp
         $residentAccessRequest = parent::update($model, $data);
 
         // fire resident access request updated event
-        event(new ResidentAccessRequestUpdatedEvent($residentAccessRequest, $data));
+        event(new ResidentAccessRequestUpdatedEvent($residentAccessRequest, array_merge($data, ['oldResidentAccessRequest' => $oldResidentAccessRequest])));
 
         return $residentAccessRequest;
     }

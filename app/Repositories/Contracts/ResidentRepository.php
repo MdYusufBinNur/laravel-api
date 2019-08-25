@@ -22,4 +22,13 @@ interface ResidentRepository extends BaseRepository
      * @return bool
      */
     public function moveOutResidents(array $residentIds): bool ;
+
+
+    /**
+     * transfer resident(s) to different units and property
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function transferResidents(array $data);
 }

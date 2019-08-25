@@ -213,9 +213,13 @@ class EloquentBaseRepository implements BaseRepository
         //remove this repository related cache
         $this->removeThisClassCache();
 
-        $model = $this->findOneBy($searchCriteria);
+        $model = $this->findOneBy($searchCriteria, true);
 
         if ($model instanceof Model) {
+            if ($model->trashed()) {
+                $model->restore();
+            }
+
             $model = $this->update($model, $data);
             return $model;
         } else {

@@ -28,10 +28,10 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
     {
         DB::beginTransaction();
 
-        if(array_key_exists('user', $data)){
+        if (array_key_exists('user', $data)) {
             $data['role']['propertyId'] = $data['propertyId'];
 
-            if(array_key_exists('roleId', $data['user'])) {
+            if (array_key_exists('roleId', $data['user'])) {
                 $data['role']['roleId'] = $data['user']['roleId'];
             } else {
                 $data['role']['roleId'] = Role::ROLE_RESIDENT_TENANT['id'];
@@ -60,7 +60,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
      */
     public function update(\ArrayAccess $model, array $data): \ArrayAccess
     {
-        if(array_key_exists('user', $data)){
+        if (array_key_exists('user', $data)) {
 
             $data['role']['propertyId'] = $data['propertyId'];
             $data['role']['roleId'] = $data['user']['roleId'];
@@ -85,7 +85,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
 
         $searchCriteria['eagerLoad'] = isset($searchCriteria['include']) ? ['user', 'user.userRoles'] : [];
-        return parent::findBy($searchCriteria,$withTrashed);
+        return parent::findBy($searchCriteria, $withTrashed);
     }
 
     /**
@@ -116,7 +116,6 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         DB::commit();
 
 
-
         return true;
     }
 
@@ -131,28 +130,45 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         $unitModelTable = Unit::getTableName();
 
         // get all residents
-        $residents = $this->model
-            ->where($thisModelTable . '.propertyId', $searchCriteria['propertyId'])
-            ->select($thisModelTable . '.id', 'units.title', $thisModelTable . '.unitId', 'users.id as userId', 'users.name', 'users.email')
+        $residentBuilder = $this->model->where($thisModelTable . '.propertyId', $searchCriteria['propertyId']);
+
+        if (isset($searchCriteria['unitId'])) {
+            $residentBuilder->where($thisModelTable . '.unitId', $searchCriteria['unitId']);
+        }
+        $residentBuilder = $residentBuilder->select($thisModelTable . '.id', 'units.title', $thisModelTable . '.unitId', 'users.id as userId', 'users.name', 'users.email')
             ->join($userModelTable, $userModelTable . '.id', '=', $thisModelTable . '.userId')
-            ->join($unitModelTable, $unitModelTable . '.id', '=', $thisModelTable . '.unitId')
-        ->get()->toArray();
+            ->join($unitModelTable, $unitModelTable . '.id', '=', $thisModelTable . '.unitId');
 
 
-        // get all residents by access request
-        $residentAccessRequestRepository = app(ResidentAccessRequestRepository::class);
-        $residentAccessRequests = $residentAccessRequestRepository->model
-            ->where($residentAccessRequestModelTable . '.propertyId', $searchCriteria['propertyId'])
-            ->select($residentAccessRequestModelTable . '.id as residentAccessRequestId', $unitModelTable . '.title', $residentAccessRequestModelTable . '.unitId', $residentAccessRequestModelTable. '.name', $residentAccessRequestModelTable . '.email')
-            ->join($unitModelTable, $residentAccessRequestModelTable. '.unitId', '=', $unitModelTable . '.id')
-            ->get()->toArray();
+        if (!empty($searchCriteria['pastResident'])) {
 
-        // merge residents and to be resident (access request)
-        $residents = array_merge($residents, $residentAccessRequests);
+            //get all past residents
+            $residents = $residentBuilder->onlyTrashed()->get()->toArray();
+
+        } else {
+
+            $residents = $residentBuilder->get()->toArray();
+
+            // get all residents by access request
+            $residentAccessRequestRepository = app(ResidentAccessRequestRepository::class);
+            $residentAccessRequestsQueryBuilder = $residentAccessRequestRepository->model;
+
+            if (isset($searchCriteria['unitId'])) {
+                $residentAccessRequestsQueryBuilder = $residentAccessRequestsQueryBuilder->where($residentAccessRequestModelTable . '.unitId', $searchCriteria['unitId']);
+            }
+
+            $residentAccessRequests = $residentAccessRequestsQueryBuilder->where($residentAccessRequestModelTable . '.propertyId', $searchCriteria['propertyId'])
+                ->select($residentAccessRequestModelTable . '.id as residentAccessRequestId', $unitModelTable . '.title', $residentAccessRequestModelTable . '.unitId', $residentAccessRequestModelTable . '.name', $residentAccessRequestModelTable . '.email')
+                ->join($unitModelTable, $residentAccessRequestModelTable . '.unitId', '=', $unitModelTable . '.id')
+                ->get()->toArray();
+
+            // merge residents and to be resident (access request)
+            $residents = array_merge($residents, $residentAccessRequests);
+        }
 
         // group by units
         $residentsByUnits = [];
-        foreach($residents as $index => $resident){
+        foreach ($residents as $index => $resident) {
             $residentsByUnits[$resident['title']][$index] = $resident;
         }
 
@@ -168,7 +184,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
     private function applyFilterInUserSearch($searchCriteria)
     {
         if (isset($searchCriteria['query'])) {
-            $searchCriteria['id'] = $this->model->where('contactEmail', 'like', '%'.$searchCriteria['query'].'%')
+            $searchCriteria['id'] = $this->model->where('contactEmail', 'like', '%' . $searchCriteria['query'] . '%')
                 ->pluck('id')->toArray();
             unset($searchCriteria['query']);
         }
@@ -194,6 +210,20 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         }
 
         return $hasDeletedAny;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function transferResidents(array $data)
+    {
+        $residents = $this->model->whereIn('id', json_decode($data['residentIds']))->get();
+        unset($data['residentIds']);
+        foreach ($residents as $resident) {
+            $residents[] = $this->update($resident, $data);
+        }
+
+        return $residents;
     }
 
 }

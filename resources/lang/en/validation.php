@@ -150,6 +150,8 @@ return [
         'unitId' => 'unitId',
         'residentId' => 'residentId',
         'residentIds' => 'residentIds',
+        'readStatus' => 'readStatus',
+        'notificationIds' => 'notificationIds',
 
         //todo
     ],

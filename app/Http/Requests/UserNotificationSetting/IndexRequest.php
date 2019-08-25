@@ -16,10 +16,7 @@ class IndexRequest extends Request
         return [
             'id' => 'list:numeric',
             'userId' => 'list:numeric',
-            'typeId' => 'list:numeric',
-            'email' => 'list:boolean',
-            'sms' => 'list:boolean',
-            'voice' => 'list:boolean',
+            'typeId' => 'list:numeric'
         ];
     }
 }

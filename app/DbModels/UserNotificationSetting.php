@@ -14,6 +14,6 @@ class UserNotificationSetting extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'userId', 'email', 'sms', 'typeId', 'voice'
+        'createdByUserId', 'propertyId', 'userId', 'email', 'sms', 'typeId', 'voice'
     ];
 }

@@ -47,14 +47,9 @@ class UserNotificationSettingController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $settings = $request->json()->all();
-        $userNotificationSettings = $settings['userNotificationSettings'];
+        $userNotificationSettings = $this->userNotificationSettingRepository->saveUserNotificationSettings($request->all());
 
-        foreach ($userNotificationSettings as $data){
-            $this->userNotificationSettingRepository->save($data);
-        }
-
-        return response()->json(['status' => 201, 'message' => 'Data has been stored Successfully.'], 201);
+        return new UserNotificationSettingResourceCollection(collect($userNotificationSettings));
     }
 
     /**

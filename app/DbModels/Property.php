@@ -15,9 +15,15 @@ class Property extends Model
      */
     protected $fillable = [
         'companyId', 'type', 'title', 'domain', 'subdomain', 'address', 'city',
-        'state', 'postCode', 'country', 'language', 'timezone', 'active',
+        'state', 'postCode', 'country', 'language', 'timezone', 'unregisteredResidentNotifications', 'active',
         'createdByUserId',
     ];
+
+    protected $casts = [
+        'active' => 'boolean',
+        'unregisteredResidentNotifications' => 'boolean',
+    ];
+
 
     /**
      * Get the towers for the property.

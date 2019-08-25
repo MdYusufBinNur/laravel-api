@@ -7,7 +7,7 @@ class PropertyResource extends Resource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request
+     * @param \Illuminate\Http\Request
      * @return array
      */
     public function toArray($request)
@@ -26,6 +26,7 @@ class PropertyResource extends Resource
             'country' => $this->country,
             'language' => $this->language,
             'timezone' => $this->timezone,
+            'unregisteredResidentNotifications' => $this->unregisteredResidentNotifications,
             'active' => $this->active,
 
             $this->mergeWhen($this->needToInclude($request, 'noOfUsers'), [

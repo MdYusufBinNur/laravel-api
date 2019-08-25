@@ -19,7 +19,7 @@ class UpdateRequest extends Request
             'companyId'  => 'nullable|exists:companies,id',
             'title'      => 'min:3',
             'type'       => 'max:50',
-            'domain'     => 'domain|' . Rule::unique('properties')->ignore($propertyId, 'id'),
+            'domain'     => 'domain|' . Rule::unique('properties')->ignore($propertyId, 'id') . '|regex:/(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/',
             'subdomain'  => 'regex:/^[0-9A-Za-z.\-_]+$/|' . Rule::unique('properties')->ignore($propertyId, 'id'),
             'address'    => 'min:3',
             'city'       => '',
@@ -29,6 +29,7 @@ class UpdateRequest extends Request
             'language'   => 'max:10',
             'timezone'   => 'max:50',
             'active'     => 'numeric',
+            'unregisteredResidentNotifications' => 'boolean',
         ];
     }
 

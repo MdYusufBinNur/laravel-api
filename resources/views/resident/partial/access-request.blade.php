@@ -59,18 +59,19 @@
                                                     style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
                                                     <span
                                                         style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e;  margin-top: 0; text-align: left; font-size: 15px; font-weight: bold;">
-                                                        Login for {{-- {{$residentAccessRequest->name}}--}}  </span><br>
+                                                        Login for:  {{$residentAccessRequest->name}} </span><br>
                                                     <span
                                                         style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e;  margin-top: 0; text-align: left; font-size: 15px; font-weight: bold;">
-                                                    </span>Unit: {{-- {{$unit->title}}  --}}
+                                                        Unit:  {{$unit->title}}
+                                                    </span >
                                                     <table class="subcopy" width="100%" cellpadding="0" cellspacing="0"
                                                         style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; border-top: 1px solid #edeff2; margin-top: 25px; padding-top: 25px;">
                                                         <tr>
                                                             <td
                                                                 style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
                                                                 <span
-                                                                    style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e;  margin-top: 0; text-align: left; font-size: 15px; font-weight: bold;">
-                                                                    Pin: {{-- {{$residentAccessRequest->pin}} --}}
+                                                                    style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: blue;  margin-top: 0; text-align: left; font-size: 15px; font-weight: bold;">
+                                                                    Pin: {{$residentAccessRequest->pin}}
                                                                 </span>
                              
                                                             </td>

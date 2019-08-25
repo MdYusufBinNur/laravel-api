@@ -26,6 +26,7 @@ class IndexRequest extends Request
             'moderatedAt' => 'list:dateTime',
             'movedInDate' => 'list:date',
             'birthDate' => 'list:date',
+            'query' => 'string',
         ];
     }
 }

@@ -50,7 +50,9 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('property-social-media', 'PropertySocialMediaController');
         Route::apiResource('property-image', 'PropertyImageController');
         Route::apiResource('tower', 'TowerController');
-        Route::apiResource('unit', 'UnitController');
+      
+        Route::apiResource('unit', 'UnitController', ['except' => ['get']]);
+
         Route::apiResource('module', 'ModuleController');
         Route::apiResource('module-option', 'ModuleOptionController');
         Route::apiResource('module-property', 'ModulePropertyController');
@@ -71,7 +73,7 @@ Route::group(['prefix' => 'api/v1'], function () {
          */
         Route::apiResource('resident', 'ResidentController',['except' => ['post']]);
         Route::put('residents-transfer', 'ResidentController@residentTransfer');
-        Route::apiResource('resident-access-request', 'ResidentAccessRequestController', ['except' => ['post','get']]);
+        Route::apiResource('resident-access-request', 'ResidentAccessRequestController', ['except' => ['post']]);
         Route::apiResource('resident-archive', 'ResidentArchiveController');
         Route::apiResource('resident-emergency', 'ResidentEmergencyController');
         Route::apiResource('resident-vehicle', 'ResidentVehicleController');
@@ -139,6 +141,8 @@ Route::group(['prefix' => 'api/v1'], function () {
     //route without authentication
     Route::get('property/{property}', 'PropertyController@show');
     Route::get('property-by-host', 'PropertyController@propertyByHost');
+    Route::get('unit', 'UnitController@index');
+
 
     Route::apiResource('attachment', 'AttachmentController', ['except' => ['update']]);
     Route::get('attachment-type', 'AttachmentTypeController@index');

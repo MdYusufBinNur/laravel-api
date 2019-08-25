@@ -1,3 +1,3 @@
 @extends('resident.layouts-created')
 
-@section ('title', 'this is title 2')
+@section ('title', 'Hi, '.$resident->user->name. ' You successfully created your profile')

@@ -67,10 +67,7 @@ Route::group(['prefix' => 'api/v1'], function () {
 
         Route::apiResource('announcement', 'AnnouncementController');
 
-
-        /**
-         * related to residents features
-         */
+R
         Route::apiResource('resident', 'ResidentController',['except' => ['post']]);
         Route::put('residents-transfer', 'ResidentController@residentTransfer');
         Route::apiResource('resident-access-request', 'ResidentAccessRequestController', ['except' => ['post']]);
@@ -148,7 +145,7 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::get('attachment-type', 'AttachmentTypeController@index');
 
     Route::post('resident-access-request', 'ResidentAccessRequestController@store');
-    Route::get('resident-access-request-without-auth', 'ResidentAccessRequestController@show');
+    Route::get('resident-access-request', 'ResidentAccessRequestController@show');
     Route::post('resident', 'ResidentController@store');
 
     Route::post('login', 'Auth\\LoginController@index');

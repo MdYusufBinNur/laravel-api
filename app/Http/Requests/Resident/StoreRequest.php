@@ -19,7 +19,7 @@ class StoreRequest extends Request
             'propertyId'            => 'required|exists:properties,id',
             'userId'                => 'required_without:user|exists:users,id',
             'unitId'                => 'required|exists:units,id',
-            'contactEmail'          => 'required|email',
+            'contactEmail'          => 'required|unique:residents,contactEmail',
             'type'                  => 'in:' . implode(',', [Role::ROLE_RESIDENT_OWNER['id'], Role::ROLE_RESIDENT_TENANT['id'], Role::ROLE_RESIDENT_STUDENT['id'], Role::ROLE_RESIDENT_SHOP['id']]),
             'group'                 => 'min:5|max:100',
             'boardMember'           => 'numeric',

@@ -2,47 +2,53 @@
 
 namespace App\Http\Controllers;
 
+use App\DbModels\PasswordReset;
 use App\Http\Requests\PasswordReset\StoreRequest;
-use App\Repositories\Contracts\UserRepository;
-use http\Message;
-use Illuminate\Http\Request;
+use App\Http\Resources\PasswordResetResource;
+use App\Repositories\Contracts\PasswordResetRepository;
 
 class PasswordResetController extends Controller
 {
     /**
-     * @var UserRepository
+     * @var PasswordResetRepository
      */
-    protected $userRepository;
+    protected $passwordResetRepository;
 
     /**
      * PasswordResetController constructor.
-     * @param UserRepository $userRepository
+     * @param PasswordResetRepository $passwordResetRepository
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(PasswordResetRepository $passwordResetRepository)
     {
-        $this->userRepository = $userRepository;
+        $this->passwordResetRepository = $passwordResetRepository;
     }
     /**
      * Store a newly created resource in storage.
      *
      * @param  StoreRequest  $request
-     * @return Message
+     * @return PasswordResetResource
      */
     public function store(StoreRequest $request)
     {
-        $this->userRepository->save($request->all());
+        $passwordReset = $this->passwordResetRepository->save($request->all());
 
-        return response()->json('Password Updated Successfully', 200);
+        return new PasswordResetResource($passwordReset);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $token
+     * @return PasswordResetResource
      */
-    public function show($id)
+    public function show($token)
     {
-        //
+        $passwordReset = $this->passwordResetRepository->findOneBy(['token' => $token]);
+
+        if (!$passwordReset instanceof PasswordReset) {
+            return response()->json(['status' => 404, 'message' => 'Resource not found with the specific id.'], 404);
+        }
+
+        return new PasswordResetResource($passwordReset);
     }
 }

@@ -27,11 +27,12 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('role', 'RoleController');
         Route::apiResource('user-role', 'UserRoleController');
         Route::apiResource('user-profile', 'UserProfileController');
-        Route::apiResource('role-category', 'RoleCategoryController');
         Route::apiResource('user-profile-child', 'UserProfileChildController');
         Route::apiResource('user-profile-link', 'UserProfileLinkController');
         Route::apiResource('user-profile-post', 'UserProfilePostController');
         Route::apiResource('staff', 'StaffController');
+        Route::post('password-reset', 'PasswordResetController@store');
+        Route::get('password-reset/{token}', 'PasswordResetController@show');
 
 
         /**

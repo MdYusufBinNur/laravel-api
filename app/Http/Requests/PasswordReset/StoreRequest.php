@@ -14,8 +14,8 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'password' => 'min:5|required_with:current_password',
-            'current_password' => 'required_with:password',
+            'email' => 'required|email',
+            'token' => 'required|min:3|max:256',
         ];
     }
 }

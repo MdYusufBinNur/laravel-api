@@ -16,4 +16,18 @@ class Event extends Model
     protected $fillable = [
         'createdByUserId', 'propertyId', 'createdUserId', 'title', 'text', 'maxGuests', 'allowedSignUp', 'alldayEvent', 'allowedLoginPage', 'hasAttachment', 'startAt', 'endAt'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'allowedSignUp' => 'boolean',
+        'alldayEvent' => 'boolean',
+        'allowedLoginPage' => 'boolean',
+        'hasAttachment' => 'boolean',
+        'startAt' => 'datetime:Y-m-d h:i',
+        'endAt' => 'datetime:Y-m-d h:i',
+    ];
 }

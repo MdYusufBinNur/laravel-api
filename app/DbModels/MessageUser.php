@@ -19,4 +19,13 @@ class MessageUser extends Model
     protected $fillable = [
         'createdByUserId', 'messageId', 'userId', 'folder', 'isRead'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'isRead' => 'boolean',
+    ];
 }

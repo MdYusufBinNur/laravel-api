@@ -26,4 +26,13 @@ class LdsSetting extends Model
     protected $fillable = [
         'createdByUserId', 'propertyId', 'refreshRate', 'showPackages', 'iconSize', 'iconColor', 'theme'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'showPackages' => 'boolean',
+    ];
 }

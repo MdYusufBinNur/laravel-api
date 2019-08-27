@@ -27,6 +27,15 @@ class Company extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'active' => 'boolean',
+    ];
+
+    /**
      * Get the properties for the company.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

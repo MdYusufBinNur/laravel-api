@@ -22,4 +22,15 @@ class ParkingPass extends Model
     protected $fillable = [
         'createdByUserId', 'propertyId', 'unitId', 'submittedUserId', 'voidedUserId', 'number', 'type', 'status', 'vehicleMake', 'vehicleModel', 'vehicleLicensePlate', 'otherDetail', 'startAt', 'endAt', 'voidedAt'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'startAt' => 'datetime:Y-m-d h:i',
+        'endAt' => 'datetime:Y-m-d h:i',
+        'voidedAt' => 'datetime:Y-m-d h:i',
+    ];
 }

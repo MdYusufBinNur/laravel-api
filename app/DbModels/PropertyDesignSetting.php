@@ -16,4 +16,13 @@ class PropertyDesignSetting extends Model
     protected $fillable = [
         'createdByUserId', 'propertyId', 'themeId', 'selectedBackground', 'selectedHeadline', 'customImage', 'tileUploadedImage',
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'tileUploadedImage' => 'boolean',
+    ];
 }

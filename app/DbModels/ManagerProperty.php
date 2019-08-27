@@ -18,4 +18,13 @@ class ManagerProperty extends Model
     protected $fillable = [
         'createdByUserId', 'managerId', 'propertyId', 'active'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'active' => 'boolean',
+    ];
 }

@@ -16,4 +16,16 @@ class Message extends Model
     protected $fillable = [
         'createdByUserId', 'propertyId', 'fromUserId', 'toUserId', 'subject', 'isGroupMessage', 'group', 'groupNames', 'emailNotification', 'smsNotification', 'voiceNotification'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'isGroupMessage' => 'boolean',
+        'emailNotification' => 'boolean',
+        'smsNotification' => 'boolean',
+        'voiceNotification' => 'boolean',
+    ];
 }

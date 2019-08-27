@@ -24,16 +24,7 @@ class Property extends Model
         'unregisteredResidentNotifications' => 'boolean',
     ];
 
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'active' => 'boolean',
-    ];
-
+    
     /**
      * Get the towers for the property.
      *

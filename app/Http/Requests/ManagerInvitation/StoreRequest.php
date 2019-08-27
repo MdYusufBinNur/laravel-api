@@ -21,7 +21,6 @@ class StoreRequest extends FormRequest
             'title'             => 'min:3|max:512',
             'level'             => 'in:'.ManagerInvitation::LEVEL_ADMIN.','.ManagerInvitation::LEVEL_STANDARD.','.ManagerInvitation::LEVEL_LIMITED.','.ManagerInvitation::LEVEL_RESTRICTED,
             'status'            => 'in:'.ManagerInvitation::STATUS_ACTIVE.','.ManagerInvitation::STATUS_CANCELLED.','.ManagerInvitation::STATUS_COMPLETED,
-            'pin'               => 'required|min:5|max:20',
             'invitedAt'          => 'required|date',
         ];
     }

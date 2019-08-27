@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\ManagerInvitation;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Request;
 
-class IndexRequest extends FormRequest
+class IndexRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.

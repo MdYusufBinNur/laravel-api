@@ -3,9 +3,9 @@
 namespace App\Http\Requests\ManagerInvitation;
 
 use App\DbModels\ManagerInvitation;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Request;
 
-class UpdateRequest extends FormRequest
+class UpdateRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.

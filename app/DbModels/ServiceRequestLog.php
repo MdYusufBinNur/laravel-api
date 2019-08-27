@@ -25,4 +25,13 @@ class ServiceRequestLog extends Model
     protected $fillable = [
         'userId', 'comments', 'feedback', 'type', 'status', 'createdByUserId'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'status' => 'boolean',
+    ];
 }

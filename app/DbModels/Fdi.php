@@ -24,4 +24,18 @@ class Fdi extends Model
     protected $fillable = [
         'createdByUserId', 'propertyId', 'userId', 'unitId', 'guestTypeId', 'type', 'name', 'photo', 'startDate', 'endDate', 'permanent', 'comments', 'canGetKey', 'signature', 'status'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'photo' => 'boolean',
+        'permanent' => 'boolean',
+        'canGetKey' => 'boolean',
+        'signature' => 'boolean',
+        'startDate' => 'datetime:Y-m-d',
+        'endDate' => 'datetime:Y-m-d',
+    ];
 }

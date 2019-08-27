@@ -25,4 +25,13 @@ class ManagerInvitation extends Model
     protected $fillable = [
         'createdByUserId', 'propertyId', 'name', 'email', 'title', 'level', 'status', 'pin', 'invitedAt'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'invitedAt' => 'datetime:Y-m-d',
+    ];
 }

@@ -16,4 +16,15 @@ class Package extends Model
     protected $fillable = [
         'createdByUserId', 'unitId', 'residentId', 'typeId', 'enteredUserId', 'trackingNumber', 'comments', 'notifiedByEmail', 'notifiedByText', 'notifiedByVoice'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'notifiedByEmail' => 'boolean',
+        'notifiedByText' => 'boolean',
+        'notifiedByVoice' => 'boolean',
+    ];
 }

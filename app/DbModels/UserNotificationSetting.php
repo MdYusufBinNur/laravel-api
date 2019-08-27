@@ -16,4 +16,16 @@ class UserNotificationSetting extends Model
     protected $fillable = [
         'createdByUserId', 'propertyId', 'userId', 'email', 'sms', 'typeId', 'voice'
     ];
+
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email' => 'boolean',
+        'sms' => 'boolean',
+        'voice' => 'boolean',
+    ];
 }

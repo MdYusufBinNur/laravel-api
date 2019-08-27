@@ -16,4 +16,14 @@ class ResidentArchive extends Model
     protected $fillable = [
         'createdByUserId', 'propertyId', 'email', 'residentId', 'unitId', 'startAt', 'endAt'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'startAt' => 'datetime:Y-m-d h:i',
+        'endAt' => 'datetime:Y-m-d h:i',
+    ];
 }

@@ -16,4 +16,13 @@ class NotificationTemplate extends Model
     protected $fillable = [
         'createdByUserId', 'typeId', 'title', 'text', 'editable'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'editable' => 'boolean',
+    ];
 }

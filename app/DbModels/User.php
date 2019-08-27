@@ -30,6 +30,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'lastLoginAt' => 'datetime:Y-m-d h:i',
+    ];
+
+    /**
      * @param $pass
      */
     public function setPasswordAttribute($password)

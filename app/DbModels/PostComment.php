@@ -21,4 +21,13 @@ class PostComment extends Model
     protected $fillable = [
         'createdByUserId', 'postId', 'createdUserId', 'deletedUserId', 'status', 'text', 'active'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'active' => 'boolean',
+    ];
 }

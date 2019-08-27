@@ -20,6 +20,15 @@ class Property extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'active' => 'boolean',
+    ];
+
+    /**
      * Get the towers for the property.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

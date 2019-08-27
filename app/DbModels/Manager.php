@@ -23,6 +23,16 @@ class Manager extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'displayInCorner' => 'boolean',
+        'displayPublicProfile' => 'boolean',
+    ];
+
+    /**
      * get the user
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

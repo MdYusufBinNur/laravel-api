@@ -18,4 +18,13 @@ class ModuleProperty extends Model
     protected $fillable = [
         'createdByUserId', 'propertyId', 'moduleId', 'value'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'value' => 'boolean',
+    ];
 }

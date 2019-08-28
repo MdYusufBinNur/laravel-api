@@ -19,7 +19,6 @@ class IndexRequest extends Request
             'themeId' => 'list:integer',
             'selectedBackground' => 'list:string',
             'selectedHeadline' => 'list:string',
-            'customImage' => 'list:string',
             'tileUploadedImage' => 'list:boolean',
         ];
     }

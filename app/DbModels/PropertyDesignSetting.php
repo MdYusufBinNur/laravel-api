@@ -14,7 +14,7 @@ class PropertyDesignSetting extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'themeId', 'selectedBackground', 'selectedHeadline', 'customImage', 'tileUploadedImage',
+        'createdByUserId', 'propertyId', 'themeId', 'selectedBackground', 'selectedHeadline', 'customImageAttachmentId', 'tileUploadedImage',
     ];
 
     /**

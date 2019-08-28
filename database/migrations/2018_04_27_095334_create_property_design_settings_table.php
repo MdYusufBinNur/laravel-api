@@ -20,13 +20,18 @@ class CreatePropertyDesignSettingsTable extends Migration
             $table->tinyInteger('themeId')->nullable();
             $table->string('selectedBackground', 10)->nullable();
             $table->string('selectedHeadline', 10)->nullable();
-            $table->string('customImage')->nullable();
+            $table->unsignedInteger('customImageAttachmentId')->nullable();
             $table->boolean('tileUploadedImage')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('propertyId')
                 ->references('id')->on('properties')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('customImageAttachmentId')
+                ->references('id')->on('attachments')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

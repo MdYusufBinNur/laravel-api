@@ -19,7 +19,7 @@ class PropertyDesignSettingResource extends Resource
             'themeId' => $this->themeId,
             'selectedBackground' => $this->selectedBackground,
             'selectedHeadline' => $this->selectedHeadline,
-            'customImage' => $this->customImage,
+            'customImageAttachmentId' => $this->customImageAttachmentId,
             'tileUploadedImage' => $this->tileUploadedImage,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at

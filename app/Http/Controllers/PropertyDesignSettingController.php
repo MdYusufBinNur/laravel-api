@@ -47,7 +47,7 @@ class PropertyDesignSettingController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $propertyDesignSetting = $this->propertyDesignSettingRepository->save($request->all());
+        $propertyDesignSetting = $this->propertyDesignSettingRepository->setDesignSetting($request->all());
 
         return new PropertyDesignSettingResource($propertyDesignSetting);
     }

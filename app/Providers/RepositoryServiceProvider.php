@@ -16,6 +16,9 @@ use App\DbModels\ModuleOption;
 use App\DbModels\ModuleProperty;
 use App\DbModels\ModuleOptionProperty;
 use App\DbModels\NotificationFeed;
+use App\DbModels\NotificationTemplate;
+use App\DbModels\NotificationTemplateProperty;
+use App\DbModels\NotificationTemplateType;
 use App\DbModels\Package;
 use App\DbModels\PackageArchive;
 use App\DbModels\PackageType;
@@ -72,6 +75,9 @@ use App\Repositories\Contracts\MangerInvitationRepository;
 use App\Repositories\Contracts\ModuleOptionRepository;
 use App\Repositories\Contracts\ModuleRepository;
 use App\Repositories\Contracts\NotificationFeedRepository;
+use App\Repositories\Contracts\NotificationTemplatePropertyRepository;
+use App\Repositories\Contracts\NotificationTemplateRepository;
+use App\Repositories\Contracts\NotificationTemplateTypeRepository;
 use App\Repositories\Contracts\PackageArchiveRepository;
 use App\Repositories\Contracts\PackageRepository;
 use App\Repositories\Contracts\PackageTypeRepository;
@@ -126,6 +132,8 @@ use App\Repositories\EloquentModulePropertyRepository;
 use App\Repositories\Contracts\ModuleOptionPropertyRepository;
 use App\Repositories\EloquentModuleOptionPropertyRepository;
 use App\Repositories\EloquentNotificationFeedRepository;
+use App\Repositories\EloquentNotificationTemplatePropertyRepository;
+use App\Repositories\EloquentNotificationTemplateTypeRepository;
 use App\Repositories\EloquentPackageArchiveRepository;
 use App\Repositories\EloquentPackageRepository;
 use App\Repositories\EloquentPackageTypeRepository;
@@ -485,6 +493,21 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind PasswordResetRepository
         $this->app->bind(PasswordResetRepository::class, function() {
             return new EloquentPasswordResetRepository(new PasswordReset());
+        });
+
+        // bind NotificationTemplateTypeRepository
+        $this->app->bind(NotificationTemplateTypeRepository::class, function() {
+            return new EloquentNotificationTemplateTypeRepository(new NotificationTemplateType());
+        });
+
+        // bind NotificationTemplateRepository
+        $this->app->bind(NotificationTemplateRepository::class, function() {
+            return new EloquentNotificationTemplateTypeRepository(new NotificationTemplate());
+        });
+
+        // bind NotificationTemplateRepository
+        $this->app->bind(NotificationTemplatePropertyRepository::class, function() {
+            return new EloquentNotificationTemplatePropertyRepository(new NotificationTemplateProperty());
         });
     }
 }

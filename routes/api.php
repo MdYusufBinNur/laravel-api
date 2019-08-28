@@ -139,6 +139,13 @@ Route::group(['prefix' => 'api/v1'], function () {
 
         Route::apiResource('manager-invitation','ManagerInvitationController');
 
+        /**
+         * related to Settings System Notification
+         */
+        Route::apiResource('notification-template-type','NotificationTemplateTypeController');
+        Route::apiResource('notification-template','NotificationTemplateController');
+        Route::apiResource('notification-template-property','NotificationTemplatePropertyController');
+
     });
 
     //route without authentication

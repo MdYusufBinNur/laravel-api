@@ -2,20 +2,10 @@
 
 namespace App\Http\Requests\NotificationTemplateProperty;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Request;
 
-class UpdateRequest extends FormRequest
+class UpdateRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +14,8 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'propertyId' => 'exists:properties,id',
+            'templateId' => 'exists:notification_templates,id',
         ];
     }
 }

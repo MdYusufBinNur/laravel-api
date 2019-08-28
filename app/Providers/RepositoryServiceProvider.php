@@ -133,6 +133,7 @@ use App\Repositories\Contracts\ModuleOptionPropertyRepository;
 use App\Repositories\EloquentModuleOptionPropertyRepository;
 use App\Repositories\EloquentNotificationFeedRepository;
 use App\Repositories\EloquentNotificationTemplatePropertyRepository;
+use App\Repositories\EloquentNotificationTemplateRepository;
 use App\Repositories\EloquentNotificationTemplateTypeRepository;
 use App\Repositories\EloquentPackageArchiveRepository;
 use App\Repositories\EloquentPackageRepository;
@@ -502,7 +503,7 @@ class RepositoryServiceProvider extends ServiceProvider
 
         // bind NotificationTemplateRepository
         $this->app->bind(NotificationTemplateRepository::class, function() {
-            return new EloquentNotificationTemplateTypeRepository(new NotificationTemplate());
+            return new EloquentNotificationTemplateRepository(new NotificationTemplate());
         });
 
         // bind NotificationTemplateRepository

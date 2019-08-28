@@ -38,6 +38,12 @@ class PropertyResource extends Resource
             $this->mergeWhen($this->needToInclude($request, 'noOfTowers'), [
                 'noOfTowers' => $this->towers->count(),
             ]),
+            $this->mergeWhen($this->needToInclude($request, 'images'), [
+                'images' => new PropertyImageResourceCollection($this->propertyImages)
+            ]),
+            $this->mergeWhen($this->needToInclude($request, 'designSettings'), [
+                'designSettings' => new PropertyDesignSettingResource($this->propertyDesignSetting)
+            ]),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

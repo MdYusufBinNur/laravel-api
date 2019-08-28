@@ -28,7 +28,7 @@ class EloquentPropertyRepository extends EloquentBaseRepository implements Prope
     {
         $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
 
-        $searchCriteria['eagerLoad'] = ['users','units','towers'];
+        $searchCriteria['eagerLoad'] = ['users','units','towers', 'propertyDesignSetting', 'propertyImages'];
 
         return parent::findBy($searchCriteria, $withTrashed);
     }

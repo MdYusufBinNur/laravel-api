@@ -10,9 +10,10 @@ class Attachment extends Model
     use SoftDeletes;
 
     const ATTACHMENT_TYPE_GENERIC = 'generic';
-    const ATTACHMENT_TYPE_PROPERTY_LOGO = 'logo';
     const ATTACHMENT_TYPE_USER_PROFILE = 'user-profile';
+    const ATTACHMENT_TYPE_PROPERTY_LOGO = 'logo';
     const ATTACHMENT_TYPE_PROPERTY_DESIGN_CUSTOM = 'property-custom';
+    const ATTACHMENT_TYPE_PROPERTY_SLIDE = 'property-slide';
 
     /**
      * The database table used by the model.
@@ -67,6 +68,9 @@ class Attachment extends Model
                 break;
             case self::ATTACHMENT_TYPE_PROPERTY_DESIGN_CUSTOM:
                 $directoryName = 'property-customs';
+                break;
+            case self::ATTACHMENT_TYPE_PROPERTY_SLIDE:
+                $directoryName = 'property-slides';
                 break;
         }
 

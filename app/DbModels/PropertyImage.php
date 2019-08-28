@@ -14,6 +14,16 @@ class PropertyImage extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'title'
+        'createdByUserId', 'propertyId', 'title', 'imageId'
     ];
+
+    /**
+     * Get the custom image
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function image()
+    {
+        return $this->belongsTo(Attachment::class, 'imageId');
+    }
 }

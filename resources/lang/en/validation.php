@@ -152,6 +152,8 @@ return [
         'residentIds' => 'residentIds',
         'readStatus' => 'readStatus',
         'notificationIds' => 'notificationIds',
+        'customImageAttachmentId' => 'customImageAttachmentId',
+        'imageId' => 'imageId',
 
         //todo
     ],

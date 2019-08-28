@@ -64,4 +64,24 @@ class Property extends Model
     {
         return $this->hasMany(UserRole::class, 'propertyId', 'id');
     }
+
+    /**
+     * get images
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function propertyImages()
+    {
+        return $this->hasMany(PropertyImage::class, 'propertyId', 'id');
+    }
+
+    /**
+     * get images
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function propertyDesignSetting()
+    {
+        return $this->hasOne(PropertyDesignSetting::class, 'propertyId', 'id');
+    }
 }

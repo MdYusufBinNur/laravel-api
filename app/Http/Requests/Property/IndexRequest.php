@@ -30,7 +30,8 @@ class IndexRequest extends Request
             'timezone'   => 'list:string',
             'active'     => 'list:numeric',
             'host'       => 'string',
-            'query'       => 'string'
+            'query'      => 'string'
+
         ];
     }
 

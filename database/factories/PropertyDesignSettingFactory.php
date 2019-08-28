@@ -10,7 +10,7 @@ $factory->define(App\DbModels\PropertyDesignSetting::class, function (Faker $fak
         'themeId' => $faker->numberBetween(1,10),
         'selectedBackground' => $faker->randomElement(array('red','grey','black','white')),
         'selectedHeadline' => $faker->title,
-        'customImageAttachmentId' => 1,
+        'customImageAttachmentId' => factory(\App\DbModels\Attachment::class)->create()->id,
         'tileUploadedImage' => $faker->boolean,
     ];
 });

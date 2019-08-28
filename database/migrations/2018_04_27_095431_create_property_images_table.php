@@ -18,11 +18,17 @@ class CreatePropertyImagesTable extends Migration
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
             $table->string('title');
+            $table->unsignedInteger('imageId');
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('propertyId')
                 ->references('id')->on('properties')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('imageId')
+                ->references('id')->on('attachments')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

@@ -20,6 +20,7 @@ use App\DbModels\Package;
 use App\DbModels\PackageArchive;
 use App\DbModels\PackageType;
 use App\DbModels\ParkingPass;
+use App\DbModels\PasswordReset;
 use App\DbModels\Post;
 use App\DbModels\PostApprovalArchive;
 use App\DbModels\PostApprovalBlacklistUnit;
@@ -75,6 +76,7 @@ use App\Repositories\Contracts\PackageArchiveRepository;
 use App\Repositories\Contracts\PackageRepository;
 use App\Repositories\Contracts\PackageTypeRepository;
 use App\Repositories\Contracts\ParkingPassRepository;
+use App\Repositories\Contracts\PasswordResetRepository;
 use App\Repositories\Contracts\PostApprovalArchiveRepository;
 use App\Repositories\Contracts\PostApprovalBlacklistUnitRepository;
 use App\Repositories\Contracts\PostCommentRepository;
@@ -128,6 +130,7 @@ use App\Repositories\EloquentPackageArchiveRepository;
 use App\Repositories\EloquentPackageRepository;
 use App\Repositories\EloquentPackageTypeRepository;
 use App\Repositories\EloquentParkingPassRepository;
+use App\Repositories\EloquentPasswordResetRepository;
 use App\Repositories\EloquentPostApprovalArchiveRepository;
 use App\Repositories\EloquentPostApprovalBlacklistUnitRepository;
 use App\Repositories\EloquentPostCommentRepository;
@@ -477,6 +480,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind MangerInvitationRepository
         $this->app->bind(MangerInvitationRepository::class, function() {
             return new EloquentMangerInvitationRepository(new ManagerInvitation());
+        });
+      
+        // bind PasswordResetRepository
+        $this->app->bind(PasswordResetRepository::class, function() {
+            return new EloquentPasswordResetRepository(new PasswordReset());
         });
     }
 }

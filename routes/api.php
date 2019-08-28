@@ -31,6 +31,8 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('user-profile-link', 'UserProfileLinkController');
         Route::apiResource('user-profile-post', 'UserProfilePostController');
         Route::apiResource('staff', 'StaffController');
+        Route::post('password-reset', 'PasswordResetController@store');
+        Route::get('password-reset/{token}', 'PasswordResetController@show');
 
 
         /**

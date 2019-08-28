@@ -17,6 +17,14 @@ class EnterpriseUserProperty extends Model
         'createdByUserId', 'enterpriseUserId', 'propertyId', 'active'
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'active' => 'boolean',
+    ];
 
     /**
      * get the enterprise user

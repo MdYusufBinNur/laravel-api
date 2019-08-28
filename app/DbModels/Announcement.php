@@ -16,4 +16,16 @@ class Announcement extends Model
     protected $fillable = [
         'createdByUserId', 'propertyId', 'title', 'content', 'link', 'linkinNewWindows', 'showOnWebsite', 'showOnLds', 'expireAt'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'linkinNewWindows' => 'boolean',
+        'showOnWebsite' => 'boolean',
+        'showOnLds' => 'boolean',
+        'expireAt' => 'datetime:Y-m-d h:i',
+    ];
 }

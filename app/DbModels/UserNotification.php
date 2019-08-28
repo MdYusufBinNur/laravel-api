@@ -16,4 +16,13 @@ class UserNotification extends Model
     protected $fillable = [
         'createdByUserId', 'toUserId', 'fromUserId', 'userNotificationTypeId', 'resourceId', 'message', 'readStatus'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'readStatus' => 'boolean',
+    ];
 }

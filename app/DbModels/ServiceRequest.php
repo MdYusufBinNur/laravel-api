@@ -24,4 +24,16 @@ class ServiceRequest extends Model
     protected $fillable = [
         'userId', 'unitId', 'categoryId', 'statusId', 'type', 'phone', 'description', 'permissionToEnter', 'prefferedStartTime', 'prefferedEndTime', 'feedback', 'photo', 'resolvedAt', 'createdByUserId'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'permissionToEnter' => 'boolean',
+        'photo' => 'boolean',
+        'resolvedAt' => 'datetime:Y-m-d h:i',
+    ];
+
 }

@@ -23,6 +23,21 @@ class Resident extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'boardMember' => 'boolean',
+        'sendEmailPermission' => 'boolean',
+        'displayUnit' => 'boolean',
+        'displayPublicProfile' => 'boolean',
+        'allowPostNote' => 'boolean',
+        'allowSendMessage' => 'boolean',
+        'joiningDate' => 'datetime:Y-m-d h:i',
+    ];
+
+    /**
      * get the user
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

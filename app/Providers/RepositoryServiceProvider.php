@@ -10,6 +10,7 @@ use App\DbModels\EnterpriseUserProperty;
 use App\DbModels\Event;
 use App\DbModels\EventSignup;
 use App\DbModels\Manager;
+use App\DbModels\ManagerInvitation;
 use App\DbModels\Module;
 use App\DbModels\ModuleOption;
 use App\DbModels\ModuleProperty;
@@ -67,6 +68,7 @@ use App\Repositories\Contracts\EnterpriseUserRepository;
 use App\Repositories\Contracts\EventRepository;
 use App\Repositories\Contracts\EventSignupRepository;
 use App\Repositories\Contracts\ManagerRepository;
+use App\Repositories\Contracts\MangerInvitationRepository;
 use App\Repositories\Contracts\ModuleOptionRepository;
 use App\Repositories\Contracts\ModuleRepository;
 use App\Repositories\Contracts\NotificationFeedRepository;
@@ -116,6 +118,7 @@ use App\Repositories\EloquentEnterpriseUserRepository;
 use App\Repositories\EloquentEventRepository;
 use App\Repositories\EloquentEventSignupRepository;
 use App\Repositories\EloquentManagerRepository;
+use App\Repositories\EloquentMangerInvitationRepository;
 use App\Repositories\EloquentModuleOptionRepository;
 use App\Repositories\EloquentModuleRepository;
 use App\Repositories\Contracts\ModulePropertyRepository;
@@ -474,6 +477,11 @@ class RepositoryServiceProvider extends ServiceProvider
             return new EloquentUserNotificationRepository(new UserNotification());
         });
 
+        // bind MangerInvitationRepository
+        $this->app->bind(MangerInvitationRepository::class, function() {
+            return new EloquentMangerInvitationRepository(new ManagerInvitation());
+        });
+      
         // bind PasswordResetRepository
         $this->app->bind(PasswordResetRepository::class, function() {
             return new EloquentPasswordResetRepository(new PasswordReset());

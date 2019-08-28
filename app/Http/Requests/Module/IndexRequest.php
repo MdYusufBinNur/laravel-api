@@ -24,9 +24,15 @@ class IndexRequest extends FormRequest
     public function rules()
     {
         return $rules = [
-            'id'        => 'list:numeric',
-            'key'       => 'list:string',
-            'title'     => 'list:string',
+            'id'                => 'list:numeric',
+            'propertyId'        => 'list:numeric',
+            'email'             => 'list:string',
+            'name'              => 'list:string',
+            'title'             => 'list:string',
+            'level'             => 'list:string',
+            'status'            => 'list:string',
+            'pin'               => 'list:string',
+            'inviteAt'          => 'date',
         ];
     }
 }

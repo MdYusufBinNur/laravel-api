@@ -27,4 +27,13 @@ class Post extends Model
     protected $fillable = [
         'createdByUserId', 'propertyId', 'createdUserId', 'deletedUserId', 'type', 'status', 'likeCount', 'likeUsers', 'attachment'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'attachment' => 'boolean',
+    ];
 }

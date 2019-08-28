@@ -19,4 +19,14 @@ class ServiceRequestCategory extends Model
     protected $fillable = [
         'propertyId', 'parentId', 'title', 'type', 'active', 'createdByUserId'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'active' => 'boolean',
+    ];
+
 }

@@ -16,4 +16,15 @@ class ServiceRequestOfficeDetail extends Model
     protected $fillable = [
         'serviceRequestId', 'assignedUserId', 'materialUsed', 'materialAmount', 'handyman', 'outsideContactor', 'partsNeeded', 'comments', 'temporarilyRepaired', 'signature', 'createdByUserId'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'outsideContactor' => 'boolean',
+        'temporarilyRepaired' => 'boolean',
+        'signature' => 'boolean',
+    ];
 }

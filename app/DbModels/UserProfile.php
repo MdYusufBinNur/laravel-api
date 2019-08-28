@@ -19,4 +19,13 @@ class UserProfile extends Model
     protected $fillable = [
         'createdByUserId', 'userId', 'gender', 'occupation', 'homeTown', 'birthDate', 'language', 'website', 'facebookUsername', 'twitterUsername', 'aboutMe'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'birthDate' => 'datetime:h:i',
+    ];
 }

@@ -24,7 +24,7 @@ class Property extends Model
         'unregisteredResidentNotifications' => 'boolean',
     ];
 
-
+    
     /**
      * Get the towers for the property.
      *

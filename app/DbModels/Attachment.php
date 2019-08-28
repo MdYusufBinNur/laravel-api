@@ -11,7 +11,8 @@ class Attachment extends Model
 
     const ATTACHMENT_TYPE_GENERIC = 'generic';
     const ATTACHMENT_TYPE_PROPERTY_LOGO = 'logo';
-    const ATTACHMENT_TYPE_USER_PROFILE_PIC = 'user-profile-pic';
+    const ATTACHMENT_TYPE_USER_PROFILE = 'user-profile';
+    const ATTACHMENT_TYPE_PROPERTY_DESIGN_CUSTOM = 'property-custom';
 
     /**
      * The database table used by the model.
@@ -56,13 +57,16 @@ class Attachment extends Model
         $directoryName = 'generic';
         switch ($attachmentType) {
             case self::ATTACHMENT_TYPE_GENERIC:
-                $directoryName = 'product-images';
+                $directoryName = 'generic';
                 break;
             case self::ATTACHMENT_TYPE_PROPERTY_LOGO:
                 $directoryName = 'logos';
                 break;
-            case self::ATTACHMENT_TYPE_USER_PROFILE_PIC:
+            case self::ATTACHMENT_TYPE_USER_PROFILE:
                 $directoryName = 'user-profile-pics';
+                break;
+            case self::ATTACHMENT_TYPE_PROPERTY_DESIGN_CUSTOM:
+                $directoryName = 'property-customs';
                 break;
         }
 

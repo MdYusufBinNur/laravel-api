@@ -25,4 +25,14 @@ class PropertyDesignSetting extends Model
     protected $casts = [
         'tileUploadedImage' => 'boolean',
     ];
+
+    /**
+     * Get the custom image
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function customImage()
+    {
+        return $this->belongsTo(Attachment::class, 'customImageAttachmentId');
+    }
 }

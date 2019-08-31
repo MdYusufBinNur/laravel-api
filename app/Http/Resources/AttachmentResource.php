@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 
+use Carbon\Carbon;
+
 class AttachmentResource extends Resource
 {
     /**
@@ -24,7 +26,7 @@ class AttachmentResource extends Resource
             'resourceId'   => $this->resourceId,
             'fileType'     => $this->fileType,
             'fileSize'     => $this->fileSize,
-            'fileUrl'      => \Storage::url($directoryName . '/' . $this->fileName),
+            'fileUrl'      => \Storage::temporaryUrl($directoryName . '/' . $this->fileName, Carbon::now()->addMinutes(10)),
         ];
     }
 }

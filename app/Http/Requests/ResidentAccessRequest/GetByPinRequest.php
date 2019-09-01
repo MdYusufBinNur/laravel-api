@@ -4,7 +4,7 @@ namespace App\Http\Requests\ResidentAccessRequest;
 
 use App\Http\Requests\Request;
 
-class ShowRequest extends Request
+class GetByPinRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.

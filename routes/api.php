@@ -158,7 +158,7 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::get('attachment-type', 'AttachmentTypeController@index');
 
     Route::post('resident-access-request', 'ResidentAccessRequestController@store');
-    Route::get('resident-access-request', 'ResidentAccessRequestController@show');
+    Route::get('resident-access-request-using-pin', 'ResidentAccessRequestController@getByPin');
     Route::post('resident', 'ResidentController@store');
 
     Route::post('login', 'Auth\\LoginController@index');

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DbModels\ResidentAccessRequest;
+use App\Http\Requests\ResidentAccessRequest\GetByPinRequest;
 use App\Http\Requests\ResidentAccessRequest\IndexRequest;
-use App\Http\Requests\ResidentAccessRequest\ShowRequest;
 use App\Http\Requests\ResidentAccessRequest\StoreRequest;
 use App\Http\Requests\ResidentAccessRequest\UpdateRequest;
 use App\Http\Resources\ResidentAccessRequestResource;
@@ -57,17 +57,11 @@ class ResidentAccessRequestController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param ShowRequest $request
+     * @param ResidentAccessRequest $residentAccessRequest
      * @return ResidentAccessRequestResource
      */
-    public function show(ShowRequest $request)
+    public function show(ResidentAccessRequest $residentAccessRequest)
     {
-        $residentAccessRequest = $this->residentAccessRequestRepository->findOneBy(['pin' => $request['pin']]);
-
-        if (!$residentAccessRequest instanceof ResidentAccessRequest) {
-            return response()->json(['status' => 404, 'message' => 'Incorrect pin!!'], 404);
-        }
-
         return new ResidentAccessRequestResource($residentAccessRequest);
     }
 
@@ -94,5 +88,23 @@ class ResidentAccessRequestController extends Controller
     public function destroy(ResidentAccessRequest $residentAccessRequest)
     {
         $this->residentAccessRequestRepository->delete($residentAccessRequest);
+    }
+
+
+    /**
+     * get resident access request by pin
+     *
+     * @param GetByPinRequest $request
+     * @return ResidentAccessRequestResource
+     */
+    public function getByPin(GetByPinRequest $request)
+    {
+        $residentAccessRequest = $this->residentAccessRequestRepository->findOneBy(['pin' => $request['pin']]);
+
+        if (!$residentAccessRequest instanceof ResidentAccessRequest) {
+            return response()->json(['status' => 404, 'message' => 'Incorrect pin!!'], 404);
+        }
+
+        return new ResidentAccessRequestResource($residentAccessRequest);
     }
 }

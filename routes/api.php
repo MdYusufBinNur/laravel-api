@@ -54,8 +54,8 @@ Route::group(['prefix' => 'api/v1'], function () {
       
         Route::apiResource('unit', 'UnitController', ['except' => ['get']]);
 
-        Route::get('module', 'ModuleController@index'); // temporary disable other methods
-        Route::get('module-option', 'ModuleOptionController@index'); // temporary disable other methods
+        Route::apiResource('module', 'ModuleController');
+        Route::apiResource('module-option', 'ModuleOptionController');
         Route::apiResource('module-property', 'ModulePropertyController');
         Route::apiResource('module-option-property', 'ModuleOptionPropertyController');
 

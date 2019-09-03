@@ -38,7 +38,7 @@ class InsertModulesAndOptions extends Migration
             ['moduleId' => 2, 'key' => 'requireSignature', 'title' => 'Require a signature for releasing a package.'],
 
 
-            ['moduleId' => 7, 'key' => 'moduleName', 'title' => 'Packages'],
+            ['moduleId' => 7, 'key' => 'moduleName', 'title' => 'Module name of the SR'],
             ['moduleId' => 7, 'key' => 'residentsLeaveFeedback', 'title' => 'Allow residents to leave feedback on service requests'],
             ['moduleId' => 7, 'key' => 'permissionToEnterOptions', 'title' => 'Allow "permission to enter" options'],
             ['moduleId' => 7, 'key' => 'allowOwnersToSubmitRequests', 'title' => 'Allow only owners to submit service requests'],

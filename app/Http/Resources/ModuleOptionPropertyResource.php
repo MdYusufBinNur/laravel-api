@@ -16,10 +16,9 @@ class ModuleOptionPropertyResource extends Resource
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
             'propertyId' => $this->propertyId,
-            'moduleOptionId' => $this->moduleOptionId,
             'value' => $this->value,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'updated_at' => $this->updated_at,
+            'moduleOption' => new ModuleOptionResource($this->moduleOption)
         ];
     }
 }

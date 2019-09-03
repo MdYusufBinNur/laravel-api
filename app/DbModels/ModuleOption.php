@@ -18,4 +18,14 @@ class ModuleOption extends Model
     protected $fillable = [
         'createdByUserId', 'moduleId', 'key', 'title'
     ];
+
+    /**
+     * get the module
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function module()
+    {
+        return $this->hasOne(Module::class, 'id', 'moduleId');
+    }
 }

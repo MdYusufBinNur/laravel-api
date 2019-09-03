@@ -13,6 +13,7 @@ class EloquentModuleOptionPropertyRepository extends EloquentBaseRepository impl
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
+        $searchCriteria['eagerLoad'] = ['moduleOption', 'ModuleOption.module'];
         return parent::findBy($searchCriteria, $withTrashed);
     }
 

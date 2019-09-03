@@ -37,4 +37,14 @@ class ModuleProperty extends Model
     {
         return $this->hasOne(Module::class, 'id', 'moduleId');
     }
+
+    /**
+     * get the property
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function propertyId()
+    {
+        return $this->hasOne(Property::class, 'id', 'propertyId');
+    }
 }

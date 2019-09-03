@@ -51,7 +51,6 @@ class InsertModulesAndOptions extends Migration
             ['moduleId' => 12, 'key' => 'allowKeyAccess', 'title' => 'Allow users to give key access permissions'],
             ['moduleId' => 12, 'key' => 'maxGuestsPerUnit', 'title' => 'Max guests per unit'],
             ['moduleId' => 12, 'key' => 'maxStayPerGuest', 'title' => 'Max stay per unit'],
-            ['moduleId' => 12, 'key' => 'maxStayPerGuest', 'title' => 'Max stay per unit'],
             ['moduleId' => 12, 'key' => 'customDisclaimer', 'title' => 'Add a custom disclaimer for residents at the bottom of the "Add a Guest" form'],
 
             ['moduleId' => 13, 'key' => 'generalDiscussion', 'title' => 'When a general discussion is posted'],

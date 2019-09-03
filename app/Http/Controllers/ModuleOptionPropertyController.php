@@ -9,7 +9,6 @@ use App\Http\Requests\ModuleOptionProperty\UpdateRequest;
 use App\Http\Resources\ModuleOptionPropertyResource;
 use App\Http\Resources\ModuleOptionPropertyResourceCollection;
 use App\Repositories\Contracts\ModuleOptionPropertyRepository;
-use Illuminate\Http\Request;
 
 class ModuleOptionPropertyController extends Controller
 {
@@ -43,14 +42,15 @@ class ModuleOptionPropertyController extends Controller
     /**
      * Store a newly created ModuleOptionProperty resource in storage.
      *
-     * @param  StoreRequest  $request
-     * @return ModuleOptionPropertyResource
+     * @param StoreRequest $request
+     * @return ModuleOptionPropertyResourceCollection
      */
     public function store(StoreRequest $request)
     {
-        $moduleOptionProperty = $this->moduleOptionPropertyRepository->save($request->all());
+        $moduleOptionProperty = $this->moduleOptionPropertyRepository->saveModuleOptionProperty($request->all());
 
-        return new ModuleOptionPropertyResource($moduleOptionProperty);
+        return new ModuleOptionPropertyResourceCollection($moduleOptionProperty);
+
     }
 
     /**

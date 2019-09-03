@@ -7,16 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 class StoreRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -24,9 +14,11 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'propertyId'        => 'required|numeric|exists:properties,id',
-            'value'             => 'required|max:50',
-            'moduleOptionId'    => 'required|numeric|exists:module_options,id',
+            'propertyId' => 'required|numeric|exists:properties,id',
+
+            'moduleOptionProperty' => 'required',
+            'moduleOptionProperty.*.moduleOptionId' => 'required|numeric|exists:module_options,id',
+            'moduleOptionProperty.*.value' => 'required|max:50',
         ];
     }
 }

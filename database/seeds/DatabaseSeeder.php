@@ -88,10 +88,10 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\MessageUser::class, 10)->create();
 
 
-        factory(App\DbModels\Module::class, 10)->create();
-        factory(App\DbModels\ModuleOption::class, 10)->create();
-        factory(App\DbModels\ModuleOptionProperty::class, 10)->create();
-        factory(App\DbModels\ModuleProperty::class, 10)->create();
+        //factory(App\DbModels\Module::class, 10)->create();
+        //factory(App\DbModels\ModuleOption::class, 10)->create();
+        //factory(App\DbModels\ModuleOptionProperty::class, 10)->create();
+        //factory(App\DbModels\ModuleProperty::class, 10)->create();
 
 
         factory(App\DbModels\Manager::class, 3)->create();

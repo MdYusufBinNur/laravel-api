@@ -2,20 +2,10 @@
 
 namespace App\Http\Requests\ModuleOption;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Request;
 
-class IndexRequest extends FormRequest
+class IndexRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -27,7 +17,6 @@ class IndexRequest extends FormRequest
             'id'        => 'list:numeric',
             'moduleId'  => 'list:numeric',
             'key'       => 'list:string',
-            'title'     => 'list:string',
         ];
     }
 }

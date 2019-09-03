@@ -14,11 +14,8 @@ class ModuleResource extends Resource
     {
         return [
             'id' => $this->id,
-            'createdByUserId' => $this->createdByUserId,
             'key' => $this->key,
             'title' => $this->title,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
         ];
     }
 }

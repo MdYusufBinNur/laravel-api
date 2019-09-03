@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         factory(App\DbModels\Company::class, 5)->create();
 
+        factory(App\DbModels\Property::class)->create(['subdomain' => 'test']);
         factory(App\DbModels\Property::class, 10)->create();
 
         //insert a admin user

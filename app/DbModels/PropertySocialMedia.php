@@ -16,4 +16,14 @@ class PropertySocialMedia extends Model
     protected $fillable = [
         'createdByUserId', 'propertyId', 'url', 'type'
     ];
+
+    /**
+     * get the property
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(Property::class, 'id', 'propertyId');
+    }
 }

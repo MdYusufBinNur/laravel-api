@@ -34,7 +34,7 @@ class ModuleOptionProperty extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function propertyId()
+    public function property()
     {
         return $this->hasOne(Property::class, 'id', 'propertyId');
     }

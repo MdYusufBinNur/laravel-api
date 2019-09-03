@@ -43,13 +43,13 @@ class PropertySocialMediaController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreRequest  $request
-     * @return PropertySocialMediaResource
+     * @return PropertySocialMediaResourceCollection
      */
     public function store(StoreRequest $request)
     {
-        $propertySocialMedia = $this->propertySocialMediaRepository->save($request->all());
+        $propertySocialMedia = $this->propertySocialMediaRepository->savePropertySocialMedia($request->all());
 
-        return new PropertySocialMediaResource($propertySocialMedia);
+        return new PropertySocialMediaResourceCollection($propertySocialMedia);
     }
 
     /**

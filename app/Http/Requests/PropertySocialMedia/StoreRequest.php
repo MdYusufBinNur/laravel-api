@@ -15,8 +15,9 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' => 'required|exists:properties,id',
-            'type' => 'required|min:3|max:191',
-            'url' => 'required|min:3|max:191',
+            'propertySocialMedia' => 'required',
+            'propertySocialMedia.*.type' => 'required|in:twitter,facebook,youtube,other',
+            'propertySocialMedia.*.url' => 'required|min:10|max:191',
         ];
     }
 }

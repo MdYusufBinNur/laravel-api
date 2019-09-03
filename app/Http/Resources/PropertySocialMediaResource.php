@@ -16,11 +16,9 @@ class PropertySocialMediaResource extends Resource
     {
         return [
             'id' => $this->id,
-            'createdByUserId' => $this->createdByUserId,
             'propertyId' => $this->propertyId,
             'type' => $this->type,
             'url' => $this->url,
-            'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];
     }

@@ -16,6 +16,7 @@ class PropertyImageResource extends Resource
             'id' => $this->id,
             'createdByUserId' =>  $this->createdByUserId,
             'propertyId' =>  $this->propertyId,
+            'type' =>  $this->type,
             'image' =>  new AttachmentResource($this->image),
             'title' =>  $this->title,
             'created_at' => $this->created_at,

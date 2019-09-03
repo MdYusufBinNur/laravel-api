@@ -17,6 +17,7 @@ class CreatePropertyImagesTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
+            $table->string('type');
             $table->string('title');
             $table->unsignedInteger('imageId');
             $table->timestamps();

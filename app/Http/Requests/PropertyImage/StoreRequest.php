@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\PropertyImage;
 
+use App\DbModels\PropertyImage;
 use App\Http\Requests\Request;
 
 class StoreRequest extends Request
@@ -15,6 +16,10 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' =>  'required|exists:properties,id',
+            'type' =>  'required|in:'
+                . PropertyImage::TYPE_BANNER . ','
+                . PropertyImage::TYPE_LOGO . ','
+                . PropertyImage::TYPE_GALLERY,
             'title' =>  'min:3|max:191',
             'imageId' =>  'required|exists:attachments,id',
         ];

@@ -48,7 +48,7 @@ class PropertyImageController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $propertyImage = $this->propertyImageRepository->save($request->all());
+        $propertyImage = $this->propertyImageRepository->setPropertyImage($request->all());
 
         return new PropertyImageResource($propertyImage);
     }

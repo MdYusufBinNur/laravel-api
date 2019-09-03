@@ -8,13 +8,16 @@ class PropertyImage extends Model
 {
     use CommonModelFeatures;
 
+    const TYPE_LOGO = 'logo';
+    const TYPE_BANNER = 'banner';
+    const TYPE_GALLERY = 'gallery';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'title', 'imageId'
+        'createdByUserId', 'propertyId', 'title', 'imageId', 'type'
     ];
 
     /**

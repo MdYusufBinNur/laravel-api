@@ -27,4 +27,14 @@ class ModuleProperty extends Model
     protected $casts = [
         'value' => 'boolean',
     ];
+
+    /**
+     * get the module
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function module()
+    {
+        return $this->hasOne(Module::class, 'id', 'moduleId');
+    }
 }

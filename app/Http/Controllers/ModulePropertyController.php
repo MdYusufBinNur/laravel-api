@@ -48,7 +48,7 @@ class ModulePropertyController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $moduleProperty = $this->modulePropertyRepository->save($request->all());
+        $moduleProperty = $this->modulePropertyRepository->setModuleProperty($request->all());
 
         return new ModulePropertyResource($moduleProperty);
     }
@@ -73,7 +73,7 @@ class ModulePropertyController extends Controller
      */
     public function update(UpdateRequest $request, ModuleProperty $moduleProperty)
     {
-        $moduleProperty = $this->modulePropertyRepository->update($moduleProperty, $request->all());
+        $moduleProperty = $this->modulePropertyRepository->setModuleProperty($moduleProperty, $request->all());
 
         return new ModulePropertyResource($moduleProperty);
     }

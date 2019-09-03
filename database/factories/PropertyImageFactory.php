@@ -8,6 +8,7 @@ $factory->define(App\DbModels\PropertyImage::class, function (Faker $faker) {
     return [
         'propertyId' =>  App\DbModels\Property::all()->random()->id,
         'title' => $faker->title,
-        'imageId' => factory(\App\DbModels\Attachment::class)->create()->id
+        'imageId' => factory(\App\DbModels\Attachment::class)->create()->id,
+        'type' => $faker->randomElement(['logo', 'banner', 'gallery']),
     ];
 });

@@ -31,6 +31,9 @@ class CreateModuleOptionsTable extends Migration
                 ->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            
+            $table->unique(['moduleId', 'key']);
+
         });
     }
 

@@ -15,6 +15,7 @@ class PackageResource extends Resource
         return [
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
+            'propertyId' => $this->propertyId,
             'unitId' => $this->unitId,
             'residentId' => $this->residentId,
             'typeId' => $this->typeId,

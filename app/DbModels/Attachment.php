@@ -11,7 +11,9 @@ class Attachment extends Model
 
     const ATTACHMENT_TYPE_GENERIC = 'generic';
     const ATTACHMENT_TYPE_USER_PROFILE = 'user-profile';
-    const ATTACHMENT_TYPE_PROPERTY_LOGO = 'logo';
+    const ATTACHMENT_TYPE_PROPERTY_LOGO = 'property-logo';
+    const ATTACHMENT_TYPE_PROPERTY_GALLERY = 'property-gallery';
+    const ATTACHMENT_TYPE_PROPERTY_BANNER = 'property-banner';
     const ATTACHMENT_TYPE_PROPERTY_DESIGN_CUSTOM = 'property-custom';
     const ATTACHMENT_TYPE_PROPERTY_SLIDE = 'property-slide';
 
@@ -61,7 +63,13 @@ class Attachment extends Model
                 $directoryName = 'generic';
                 break;
             case self::ATTACHMENT_TYPE_PROPERTY_LOGO:
-                $directoryName = 'logos';
+                $directoryName = 'property-logos';
+                break;
+            case self::ATTACHMENT_TYPE_PROPERTY_BANNER:
+                $directoryName = 'property-banners';
+                break;
+            case self::ATTACHMENT_TYPE_PROPERTY_GALLERY:
+                $directoryName = 'property-galleries';
                 break;
             case self::ATTACHMENT_TYPE_USER_PROFILE:
                 $directoryName = 'user-profile-pics';

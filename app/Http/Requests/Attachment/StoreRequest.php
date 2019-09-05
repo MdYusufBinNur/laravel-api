@@ -18,6 +18,8 @@ class StoreRequest extends Request
         return $rules = [
             'type'         => 'required|in:' . Attachment::ATTACHMENT_TYPE_GENERIC
                 . ',' . Attachment::ATTACHMENT_TYPE_PROPERTY_LOGO
+                . ',' . Attachment::ATTACHMENT_TYPE_PROPERTY_BANNER
+                . ',' . Attachment::ATTACHMENT_TYPE_PROPERTY_GALLERY
                 . ',' . Attachment::ATTACHMENT_TYPE_USER_PROFILE
                 . ',' . Attachment::ATTACHMENT_TYPE_PROPERTY_DESIGN_CUSTOM
                 . ',' . Attachment::ATTACHMENT_TYPE_PROPERTY_SLIDE,

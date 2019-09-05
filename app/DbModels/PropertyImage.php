@@ -8,9 +8,9 @@ class PropertyImage extends Model
 {
     use CommonModelFeatures;
 
-    const TYPE_LOGO = 'logo';
-    const TYPE_BANNER = 'banner';
-    const TYPE_GALLERY = 'gallery';
+    const TYPE_LOGO = 'property-logo';
+    const TYPE_BANNER = 'property-banner';
+    const TYPE_GALLERY = 'property-gallery';
     /**
      * The attributes that are mass assignable.
      *

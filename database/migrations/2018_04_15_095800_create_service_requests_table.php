@@ -19,14 +19,13 @@ class CreateServiceRequestsTable extends Migration
             $table->unsignedInteger('userId');
             $table->unsignedInteger('unitId');
             $table->unsignedInteger('categoryId');
-            $table->unsignedInteger('statusId');
-            $table->string('type');
+            $table->string('status', 20)->default('new');
             $table->string('phone', 20)->nullable();
             $table->text('description');
             $table->boolean('permissionToEnter')->default(1);
-            $table->time('prefferedStartTime');
-            $table->time('prefferedEndTime');
-            $table->string('feedback');
+            $table->dateTime('preferredStartTime');
+            $table->dateTime('preferredEndTime');
+            $table->string('feedback')>nullable();;
             $table->boolean('photo')->default(0);
             $table->dateTime('resolvedAt');
             $table->timestamps();
@@ -44,11 +43,6 @@ class CreateServiceRequestsTable extends Migration
 
             $table->foreign('categoryId')
                 ->references('id')->on('service_request_categories')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
-            $table->foreign('statusId')
-                ->references('id')->on('service_request_statuses')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

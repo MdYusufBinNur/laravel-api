@@ -8,13 +8,15 @@ class ServiceRequest extends Model
 {
     use CommonModelFeatures;
 
-    const TYPE_UNIT = 'unit';
-    const TYPE_COMMON_AREA = 'commonArea';
-    const TYPE_EQUIPMENT = 'equipment';
-
     const FEEDBACK_NONE = 'none';
     const FEEDBACK_POSITIVE = 'positive';
     const FEEDBACK_NEGATIVE = 'negative';
+
+    const STATUS_NEW = 'new';
+    const STATUS_IN_PROGRESS = 'in_progress';
+    const STATUS_ON_HOLD = 'on_hold';
+    const STATUS_CANCELLED = 'canceled';
+    const STATUS_RESOLVED = 'resolved';
 
     /**
      * The attributes that are mass assignable.
@@ -22,7 +24,7 @@ class ServiceRequest extends Model
      * @var array
      */
     protected $fillable = [
-        'userId', 'unitId', 'categoryId', 'statusId', 'type', 'phone', 'description', 'permissionToEnter', 'prefferedStartTime', 'prefferedEndTime', 'feedback', 'photo', 'resolvedAt', 'createdByUserId'
+        'userId', 'unitId', 'categoryId', 'status', 'type', 'phone', 'description', 'permissionToEnter', 'preferredStartTime', 'preferredEndTime', 'feedback', 'photo', 'resolvedAt', 'createdByUserId'
     ];
 
     /**

@@ -16,15 +16,12 @@ class UpdateRequest extends Request
     {
         return [
             'userId' => 'exists:users,id',
-            'unitId' => 'exists:units,id',
-            'categoryId' => 'exists:service_request_categories,id',
-            'statusId' => 'exists:service_request_statuses,id',
-            'type' => 'in:'.ServiceRequest::TYPE_UNIT.','.ServiceRequest::TYPE_COMMON_AREA.','.ServiceRequest::TYPE_EQUIPMENT,
+            'status' => 'in:' . ServiceRequest::STATUS_NEW . ',' . ServiceRequest::STATUS_IN_PROGRESS . ',' . ServiceRequest::STATUS_ON_HOLD . ',' . ServiceRequest::STATUS_CANCELLED . ',' . ServiceRequest::STATUS_RESOLVED,
             'phone' => 'min:11|max:20',
             'description' => 'min:10|max:1024',
             'permissionToEnter' => 'boolean',
-            'prefferedStartTime' => 'date_format:H:i',
-            'prefferedEndTime' => 'date_format:H:i',
+            'preferredStartTime' => 'date',
+            'preferredEndTime' => 'date',
             'feedback' => 'in:'.ServiceRequest::FEEDBACK_POSITIVE.','.ServiceRequest::FEEDBACK_NEGATIVE.','.ServiceRequest::FEEDBACK_NONE,
             'photo' => 'boolean',
             'resolvedAt' => 'date',

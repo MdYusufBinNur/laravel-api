@@ -7,11 +7,13 @@ use App\Events\Manager\ManagerCreatedEvent;
 use App\Events\ResidentAccessRequest\ResidentAccessRequestCreatedEvent;
 use App\Events\ResidentAccessRequest\ResidentAccessRequestUpdatedEvent;
 use App\Events\Resident\ResidentCreatedEvent;
+use App\Events\ServiceRequest\ServiceRequestUpdatedEvent;
 use App\Listeners\ResidentAccessRequest\HandleResidentAccessRequestCreatedEvent;
 use App\Listeners\ResidentAccessRequest\HandleResidentAccessRequestUpdatedEvent;
 use App\Listeners\Resident\HandleResidentCreatedEvent;
 use App\Listeners\EnterpriseUser\HandleEnterpriseUserCreatedEvent;
 use App\Listeners\Manager\HandleManagerCreatedEvent;
+use App\Listeners\ServiceRequest\HandleServiceRequestUpdatedEvent;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -40,6 +42,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         EnterpriseUserCreatedEvent::class => [
             HandleEnterpriseUserCreatedEvent::class
+        ],
+        ServiceRequestUpdatedEvent::class => [
+            HandleServiceRequestUpdatedEvent::class
         ]
     ];
 

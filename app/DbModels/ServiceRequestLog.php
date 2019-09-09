@@ -23,7 +23,7 @@ class ServiceRequestLog extends Model
      * @var array
      */
     protected $fillable = [
-        'userId', 'comments', 'feedback', 'type', 'status', 'createdByUserId'
+        'userId', 'serviceRequestId', 'comments', 'feedback', 'type', 'status', 'createdByUserId'
     ];
 
     /**

@@ -19,8 +19,8 @@ class CreateServiceRequestLogsTable extends Migration
             $table->unsignedInteger('serviceRequestId');
             $table->unsignedInteger('userId');
             $table->string('type');
-            $table->string('feedback');
-            $table->boolean('status')->default(1);
+            $table->string('feedback')->nullable();
+            $table->string('status', 20)->nullable();
             $table->timestamps();
             $table->softDeletes();
 

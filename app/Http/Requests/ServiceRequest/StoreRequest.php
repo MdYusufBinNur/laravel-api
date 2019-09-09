@@ -23,7 +23,8 @@ class StoreRequest extends Request
             'permissionToEnter' => 'boolean',
             'preferredStartTime' => 'date',
             'preferredEndTime' => 'date',
-            'photo' => 'boolean'
+            'photo' => 'boolean',
+            'attachmentId' => 'exists:attachments,id'
         ];
     }
 }

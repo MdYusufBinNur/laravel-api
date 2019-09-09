@@ -17,7 +17,7 @@ class CreateAttachmentsTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->string('type');
-            $table->string('resourceId');
+            $table->string('resourceId')->nullable();
             $table->string('fileName');
             $table->text('descriptions')->nullable();
             $table->string('fileType')->nullable();

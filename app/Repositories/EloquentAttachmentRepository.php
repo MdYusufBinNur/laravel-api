@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\DbModels\Attachment;
 use App\Repositories\Contracts\AttachmentRepository;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
@@ -55,5 +56,13 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
         return array_filter($reflectionClass->getConstants(), function ($constant) {
             return strpos($constant, 'ATTACHMENT_TYPE_') === 0;
         }, ARRAY_FILTER_USE_KEY);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function updateResourceId(Attachment $attachment, $id)
+    {
+        return parent::update($attachment, ['resourceId' => $id]);
     }
 }

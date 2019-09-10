@@ -51,7 +51,8 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('property-social-media', 'PropertySocialMediaController');
         Route::apiResource('property-image', 'PropertyImageController');
         Route::apiResource('tower', 'TowerController');
-      
+        Route::apiResource('property-general-info', 'PropertyGeneralInfoController');
+
         Route::apiResource('unit', 'UnitController', ['except' => ['get']]);
 
         Route::apiResource('module', 'ModuleController');

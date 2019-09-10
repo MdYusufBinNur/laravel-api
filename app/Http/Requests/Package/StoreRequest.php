@@ -14,6 +14,7 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
+            'propertyId' => 'required|exists:properties,id',
             'unitId' => 'required|exists:units,id',
             'residentId' => 'required|exists:residents,id',
             'typeId' => 'required|exists:package_types,id',

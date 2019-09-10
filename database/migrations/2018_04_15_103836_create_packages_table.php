@@ -16,6 +16,7 @@ class CreatePackagesTable extends Migration
         Schema::create('packages', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
+            $table->unsignedInteger('propertyId');
             $table->unsignedInteger('unitId');
             $table->unsignedInteger('residentId');
             $table->unsignedInteger('typeId');
@@ -27,6 +28,11 @@ class CreatePackagesTable extends Migration
             $table->boolean('notifiedByVoice')->default(0);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('propertyId')
+                ->references('id')->on('properties')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
 
             $table->foreign('unitId')
                 ->references('id')->on('units')

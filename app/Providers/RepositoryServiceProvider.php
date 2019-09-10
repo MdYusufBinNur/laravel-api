@@ -36,6 +36,7 @@ use App\DbModels\PostRecommendationType;
 use App\DbModels\PostWall;
 use App\DbModels\Property;
 use App\DbModels\PropertyDesignSetting;
+use App\DbModels\PropertyGeneralInfo;
 use App\DbModels\PropertyImage;
 use App\DbModels\PropertySocialMedia;
 use App\DbModels\Resident;
@@ -94,6 +95,7 @@ use App\Repositories\Contracts\PostRecommendationTypeRepository;
 use App\Repositories\Contracts\PostRepository;
 use App\Repositories\Contracts\PostWallRepository;
 use App\Repositories\Contracts\PropertyDesignSettingRepository;
+use App\Repositories\Contracts\PropertyGeneralInfoRepository;
 use App\Repositories\Contracts\PropertyImageRepository;
 use App\Repositories\Contracts\PropertySocialMediaRepository;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
@@ -151,6 +153,7 @@ use App\Repositories\EloquentPostRecommendationTypeRepository;
 use App\Repositories\EloquentPostRepository;
 use App\Repositories\EloquentPostWallRepository;
 use App\Repositories\EloquentPropertyDesignSettingRepository;
+use App\Repositories\EloquentPropertyGeneralInfoRepository;
 use App\Repositories\EloquentPropertyImageRepository;
 use App\Repositories\EloquentPropertySocialMediaRepository;
 use App\Repositories\EloquentResidentAccessRequestRepository;
@@ -509,6 +512,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind NotificationTemplateRepository
         $this->app->bind(NotificationTemplatePropertyRepository::class, function() {
             return new EloquentNotificationTemplatePropertyRepository(new NotificationTemplateProperty());
+        });
+
+        // bind PropertyGeneralInfoRepository
+        $this->app->bind(PropertyGeneralInfoRepository::class, function() {
+            return new EloquentPropertyGeneralInfoRepository(new PropertyGeneralInfo());
         });
     }
 }

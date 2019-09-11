@@ -13,6 +13,15 @@ class EloquentServiceRequestMessageRepository extends EloquentBaseRepository imp
     /**
      * @inheritDoc
      */
+    public function findBy(array $searchCriteria = [], $withTrashed = false)
+    {
+        $searchCriteria['eagerLoad'] = ['user'];
+        return parent::findBy($searchCriteria, $withTrashed);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function save(array $data): \ArrayAccess
     {
         $serviceRequestMessage = parent::save($data);

@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\DB;
 
 class EloquentServiceRequestRepository extends EloquentBaseRepository implements ServiceRequestRepository
 {
+    /**
+     * @inheritDoc
+     */
     public function save(array $data): \ArrayAccess
     {
         DB::beginTransaction();
@@ -41,7 +44,7 @@ class EloquentServiceRequestRepository extends EloquentBaseRepository implements
      */
     public function update(\ArrayAccess $model, array $data): \ArrayAccess
     {
-        // save text ServiceRequestMessage
+        // save text in ServiceRequestMessage
         if (isset($data['feedbackText'])) {
             $serviceRequestMessageRepository = app(ServiceRequestMessageRepository::class);
             $serviceRequestMessageRepository->saveByServiceRequest($model, $data['feedbackText'], ServiceRequestMessage::TYPE_FEEDBACK);
@@ -55,9 +58,13 @@ class EloquentServiceRequestRepository extends EloquentBaseRepository implements
         return $serviceRequest;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = isset($searchCriteria['include']) ? ['logs', 'logs.user'] : [];
+        $searchCriteria['eagerLoad'] = isset($searchCriteria['include']) ? ['user', 'unit', 'unit.tower', 'logs', 'logs.user', 'user.userRoles'] : [];
+
         return parent::findBy($searchCriteria, $withTrashed);
     }
 

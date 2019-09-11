@@ -16,7 +16,13 @@ class ServiceRequestResource extends Resource
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
             'userId' => $this->userId,
+            $this->mergeWhen($this->needToInclude($request, 'user'), [
+                'user' => new UserResource($this->user),
+            ]),
             'unitId' => $this->unitId,
+            $this->mergeWhen($this->needToInclude($request, 'unit'), [
+                'unit' => new UnitResource($this->unit),
+            ]),
             'categoryId' => $this->categoryId,
             'status' => $this->status,
             'phone' => $this->phone,

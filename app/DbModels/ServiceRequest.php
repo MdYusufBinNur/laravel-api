@@ -68,4 +68,24 @@ class ServiceRequest extends Model
         return $this->hasMany(ServiceRequestLog::class, 'serviceRequestId', 'id');
     }
 
+    /**
+     * user of the service request
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'userId');
+    }
+
+    /**
+     * unit of the service request
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function unit()
+    {
+        return $this->hasOne(Unit::class, 'id', 'unitId');
+    }
+
 }

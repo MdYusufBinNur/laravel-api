@@ -5,12 +5,14 @@ namespace App\Repositories;
 
 
 use App\DbModels\Attachment;
+use App\DbModels\ServiceRequest;
 use App\DbModels\ServiceRequestMessage;
 use App\Events\ServiceRequest\ServiceRequestCreatedEvent;
 use App\Events\ServiceRequest\ServiceRequestUpdatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\ServiceRequestMessageRepository;
 use App\Repositories\Contracts\ServiceRequestRepository;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class EloquentServiceRequestRepository extends EloquentBaseRepository implements ServiceRequestRepository
@@ -51,6 +53,12 @@ class EloquentServiceRequestRepository extends EloquentBaseRepository implements
             unset($data['feedbackText']);
         }
 
+        if (isset($data['status']) ) {
+            if ($data['status'] == ServiceRequest::STATUS_RESOLVED) {
+                $data['resolvedAt'] = Carbon::now();
+            }
+        }
+
         $serviceRequest = parent::update($model, $data);
 
         event(new ServiceRequestUpdatedEvent($model, $this->generateEventOptionsForModel()));
@@ -63,7 +71,7 @@ class EloquentServiceRequestRepository extends EloquentBaseRepository implements
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = isset($searchCriteria['include']) ? ['user', 'unit', 'unit.tower', 'logs', 'logs.user', 'user.userRoles'] : [];
+        $searchCriteria['eagerLoad'] = isset($searchCriteria['include']) ? ['user', 'serviceRequestCategory', 'unit', 'unit.tower', 'logs', 'logs.user', 'user.userRoles'] : [];
 
         return parent::findBy($searchCriteria, $withTrashed);
     }

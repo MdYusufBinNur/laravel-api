@@ -26,9 +26,9 @@ class CreateServiceRequestsTable extends Migration
             $table->boolean('permissionToEnter')->default(1);
             $table->dateTime('preferredStartTime');
             $table->dateTime('preferredEndTime');
-            $table->string('feedback', 20)>nullable();
+            $table->string('feedback', 20)->nullable();
             $table->boolean('photo')->default(0);
-            $table->dateTime('resolvedAt');
+            $table->dateTime('resolvedAt')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

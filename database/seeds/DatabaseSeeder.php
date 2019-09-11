@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\Company::class, 5)->create();
 
         factory(App\DbModels\Property::class)->create(['subdomain' => 'test']);
-        factory(App\DbModels\Property::class, 10)->create();
+        factory(App\DbModels\Property::class, 20)->create();
 
         //insert a admin user
         $user = factory(App\DbModels\User::class)->create(['name' => 'Jobber Ali Admin', 'email' => 'admin@reformedtech.org', 'password' => 'password', 'isActive' => 1]);
@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
 
         factory(App\DbModels\PropertyDesignSetting::class, 5)->create();
         factory(App\DbModels\PropertyImage::class, 5)->create();
-        factory(App\DbModels\PropertySocialMedia::class, 5)->create();
+        factory(App\DbModels\PropertySocialMedia::class, 3)->create();
 
         factory(App\DbModels\Tower::class, 30)->create();
 
@@ -63,7 +63,6 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\VisitorArchive::class, 5)->create();
 
         factory(App\DbModels\ServiceRequestCategory::class, 2)->create();
-        factory(App\DbModels\ServiceRequestStatus::class, 2)->create();
         factory(App\DbModels\ServiceRequest::class, 3)->create();
         factory(App\DbModels\ServiceRequestOfficeDetail::class, 5)->create();
         factory(App\DbModels\ServiceRequestLog::class, 5)->create();

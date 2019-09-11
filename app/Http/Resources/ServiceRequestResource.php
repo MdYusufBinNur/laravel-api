@@ -24,6 +24,9 @@ class ServiceRequestResource extends Resource
                 'unit' => new UnitResource($this->unit),
             ]),
             'categoryId' => $this->categoryId,
+            $this->mergeWhen($this->needToInclude($request, 'unit'), [
+                'category' => new ServiceRequestCategoryResource($this->serviceRequestCategory),
+            ]),
             'status' => $this->status,
             'phone' => $this->phone,
             'description' => $this->description,

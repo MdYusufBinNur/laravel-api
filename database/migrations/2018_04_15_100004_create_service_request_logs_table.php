@@ -20,7 +20,7 @@ class CreateServiceRequestLogsTable extends Migration
             $table->unsignedBigInteger('serviceRequestMessageId')->nullable();
             $table->unsignedInteger('userId');
             $table->string('type');
-            $table->string('feedbackText')->nullable();
+            $table->string('feedback')->nullable();
             $table->string('status', 20)->nullable();
             $table->timestamps();
             $table->softDeletes();

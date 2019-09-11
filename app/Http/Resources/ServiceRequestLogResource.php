@@ -22,7 +22,7 @@ class ServiceRequestLogResource extends Resource
             'serviceRequestId' => $this->serviceRequestId,
             'userId' => $this->userId,
             'type' => $this->type,
-            'feedback' => $this->feedbackText,
+            'feedback' => $this->feedback,
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at

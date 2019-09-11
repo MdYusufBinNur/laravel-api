@@ -88,4 +88,14 @@ class ServiceRequest extends Model
         return $this->hasOne(Unit::class, 'id', 'unitId');
     }
 
+    /**
+     * category of the service request
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function serviceRequestCategory()
+    {
+        return $this->hasOne(ServiceRequestCategory::class, 'id', 'categoryId');
+    }
+
 }

@@ -14,12 +14,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'propertyId' => 'exists:properties,id',
-            'serviceRequestId' => 'exists:service_requests,id',
-            'userId' => 'exists:users,id',
-            'unitId' => 'exists:units,id',
             'text' => 'min:10|max:2048',
-            'type' => 'in:comment,open,status,feedback',
             'readStatus' => 'boolean',
         ];
     }

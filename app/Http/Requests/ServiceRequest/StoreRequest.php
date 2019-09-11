@@ -15,19 +15,17 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
+            'propertyId' => 'required|exists:properties,id',
             'userId' => 'required|exists:users,id',
             'unitId' => 'required|exists:units,id',
             'categoryId' => 'required|exists:service_request_categories,id',
-            'statusId' => 'required|exists:service_request_statuses,id',
-            'type' => 'in:'.ServiceRequest::TYPE_UNIT.','.ServiceRequest::TYPE_COMMON_AREA.','.ServiceRequest::TYPE_EQUIPMENT,
             'phone' => 'min:11|max:20',
             'description' => 'required|min:10|max:1024',
             'permissionToEnter' => 'boolean',
-            'prefferedStartTime' => 'required|date_format:H:i',
-            'prefferedEndTime' => 'required|date_format:H:i',
-            'feedback' => 'in:'.ServiceRequest::FEEDBACK_POSITIVE.','.ServiceRequest::FEEDBACK_NEGATIVE.','.ServiceRequest::FEEDBACK_NONE,
+            'preferredStartTime' => 'date',
+            'preferredEndTime' => 'date',
             'photo' => 'boolean',
-            'resolvedAt' => 'required|date',
+            'attachmentId' => 'exists:attachments,id'
         ];
     }
 }

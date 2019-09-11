@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\DbModels\User;
 use App\Repositories\Contracts\BaseRepository;
+use function GuzzleHttp\Promise\all;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -18,6 +19,11 @@ class EloquentBaseRepository implements BaseRepository
      * @var Model
      */
     protected $model;
+
+    /**
+     * @var Model
+     */
+    protected $oldModel;
 
     /**
      * EloquentBaseRepository constructor.
@@ -158,6 +164,8 @@ class EloquentBaseRepository implements BaseRepository
      */
     public function update(\ArrayAccess $model, array $data): \ArrayAccess
     {
+        $this->oldModel = clone $model;
+
         //remove this repository related cache
         $this->removeThisClassCache();
 
@@ -339,5 +347,15 @@ class EloquentBaseRepository implements BaseRepository
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
         $items = $items instanceof Collection ? $items : Collection::make($items);
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+    }
+
+    public function generateEventOptionsForModel($additionalData = [])
+    {
+        $request = request();
+        $options['request'] = $request->toArray();
+        if ($request->isMethod('PUT')) {
+            $options['oldServiceRequest'] = $this->oldModel;
+        }
+        return array_merge($options, $additionalData);
     }
 }

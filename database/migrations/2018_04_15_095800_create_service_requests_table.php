@@ -16,21 +16,26 @@ class CreateServiceRequestsTable extends Migration
         Schema::create('service_requests', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
+            $table->unsignedInteger('propertyId');
             $table->unsignedInteger('userId');
             $table->unsignedInteger('unitId');
             $table->unsignedInteger('categoryId');
-            $table->unsignedInteger('statusId');
-            $table->string('type');
+            $table->string('status', 20)->default('new');
             $table->string('phone', 20)->nullable();
             $table->text('description');
             $table->boolean('permissionToEnter')->default(1);
-            $table->time('prefferedStartTime');
-            $table->time('prefferedEndTime');
-            $table->string('feedback');
+            $table->dateTime('preferredStartTime');
+            $table->dateTime('preferredEndTime');
+            $table->string('feedback', 20)->nullable();
             $table->boolean('photo')->default(0);
-            $table->dateTime('resolvedAt');
+            $table->dateTime('resolvedAt')->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('propertyId')
+                ->references('id')->on('properties')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
 
             $table->foreign('userId')
                 ->references('id')->on('users')
@@ -44,11 +49,6 @@ class CreateServiceRequestsTable extends Migration
 
             $table->foreign('categoryId')
                 ->references('id')->on('service_request_categories')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
-            $table->foreign('statusId')
-                ->references('id')->on('service_request_statuses')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

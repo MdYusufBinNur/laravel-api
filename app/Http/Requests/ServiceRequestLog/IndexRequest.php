@@ -18,7 +18,6 @@ class IndexRequest extends Request
             'serviceRequestId' => 'list:numeric',
             'userId' => 'list:numeric',
             'type' => 'list:string',
-            'feedback' => 'list:string',
             'status' => 'list:boolean',
         ];
     }

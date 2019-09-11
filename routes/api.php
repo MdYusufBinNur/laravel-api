@@ -124,6 +124,7 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('service-request-log', 'ServiceRequestLogController');
         Route::apiResource('service-request-office-detail', 'ServiceRequestOfficeDetailController');
         Route::apiResource('service-request-status', 'ServiceRequestStatusController');
+        Route::apiResource('service-request-message', 'ServiceRequestMessageController');
 
 
         /**

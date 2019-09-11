@@ -16,6 +16,7 @@ class CreateServiceRequestsTable extends Migration
         Schema::create('service_requests', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
+            $table->unsignedInteger('propertyId');
             $table->unsignedInteger('userId');
             $table->unsignedInteger('unitId');
             $table->unsignedInteger('categoryId');
@@ -25,11 +26,16 @@ class CreateServiceRequestsTable extends Migration
             $table->boolean('permissionToEnter')->default(1);
             $table->dateTime('preferredStartTime');
             $table->dateTime('preferredEndTime');
-            $table->string('feedback')>nullable();;
+            $table->string('feedback', 20)>nullable();
             $table->boolean('photo')->default(0);
             $table->dateTime('resolvedAt');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('propertyId')
+                ->references('id')->on('properties')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
 
             $table->foreign('userId')
                 ->references('id')->on('users')

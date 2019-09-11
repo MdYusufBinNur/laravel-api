@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\ServiceRequestMessage;
 
+use App\DbModels\ServiceRequestMessage;
 use App\Http\Requests\Request;
 
 class StoreRequest extends Request
@@ -19,7 +20,7 @@ class StoreRequest extends Request
             'userId' => 'required|exists:users,id',
             'unitId' => 'required|exists:units,id',
             'text' => 'required|min:10|max:2048',
-            'type' => 'in:comment,open,status,feedback',
+            'type' => 'required|in:' . ServiceRequestMessage::TYPE_COMMENT . ',' . ServiceRequestMessage::TYPE_FEEDBACK,
             'readStatus' => 'boolean',
         ];
     }

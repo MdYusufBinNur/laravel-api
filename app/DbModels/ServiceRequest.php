@@ -24,7 +24,7 @@ class ServiceRequest extends Model
      * @var array
      */
     protected $fillable = [
-        'userId', 'unitId', 'categoryId', 'status', 'type', 'phone', 'description', 'permissionToEnter', 'preferredStartTime', 'preferredEndTime', 'feedback', 'photo', 'resolvedAt', 'createdByUserId'
+        'propertyId', 'userId', 'unitId', 'categoryId', 'status', 'type', 'phone', 'description', 'permissionToEnter', 'preferredStartTime', 'preferredEndTime', 'feedback', 'photo', 'resolvedAt', 'createdByUserId'
     ];
 
     /**
@@ -37,5 +37,35 @@ class ServiceRequest extends Model
         'photo' => 'boolean',
         'resolvedAt' => 'datetime:Y-m-d h:i',
     ];
+
+    /**
+     * set default values
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'status' => self::STATUS_NEW,
+    ];
+
+
+    /**
+     * service request and its message relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function messages()
+    {
+        return $this->hasMany(ServiceRequestMessage::class, 'serviceRequestId', 'id');
+    }
+
+    /**
+     * service request and its log relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function logs()
+    {
+        return $this->hasMany(ServiceRequestLog::class, 'serviceRequestId', 'id');
+    }
 
 }

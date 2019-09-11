@@ -21,6 +21,9 @@ class ServiceRequestMessageResource extends Resource
             'text' => $this->text,
             'type' => $this->type,
             'readStatus' => $this->readStatus,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'user' => $this->user,
         ];
     }
 }

@@ -28,7 +28,11 @@ class ServiceRequestResource extends Resource
             'photo' => $this->photo,
             'resolvedAt' => $this->resolvedAt,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'updated_at' => $this->updated_at,
+            $this->mergeWhen($this->needToInclude($request, 'logs'), [
+                'logs' => new ServiceRequestLogResourceCollection($this->logs),
+            ]),
+
         ];
     }
 }

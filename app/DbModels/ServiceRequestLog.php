@@ -8,6 +8,7 @@ class ServiceRequestLog extends Model
 {
     use CommonModelFeatures;
 
+    const TYPE_CREATED = 'created';
     const TYPE_STATUS = 'status';
     const TYPE_COMMENT = 'comment';
     const TYPE_FEEDBACK = 'feedback';
@@ -23,15 +24,36 @@ class ServiceRequestLog extends Model
      * @var array
      */
     protected $fillable = [
-        'userId', 'serviceRequestId', 'comments', 'feedback', 'type', 'status', 'createdByUserId'
+        'userId', 'serviceRequestId', 'serviceRequestMessageId', 'feedback', 'type', 'status', 'createdByUserId'
     ];
 
     /**
-     * The attributes that should be cast to native types.
+     * service request
      *
-     * @var array
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    protected $casts = [
-        'status' => 'boolean',
-    ];
+    public function serviceRequest()
+    {
+        return $this->hasOne(ServiceRequest::class, 'id', 'serviceRequestId');
+    }
+
+    /**
+     * service request and its message
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function message()
+    {
+        return $this->hasOne(ServiceRequestMessage::class, 'id', 'serviceRequestMessageId');
+    }
+
+    /**
+     * get the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'userId');
+    }
 }

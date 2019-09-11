@@ -3,6 +3,7 @@
 namespace App\Listeners\ServiceRequest;
 
 use App\DbModels\ResidentAccessRequest;
+use App\DbModels\ServiceRequestLog;
 use App\Events\ServiceRequest\ServiceRequestUpdatedEvent;
 use App\Listeners\CommonListenerFeatures;
 use App\Events\ResidentAccessRequest\ResidentAccessRequestUpdatedEvent;
@@ -35,7 +36,7 @@ class HandleServiceRequestUpdatedEvent implements ShouldQueue
             $serviceRequestLogRepository->save([
                 'serviceRequestId' => $serviceRequest->id,
                 'userId' => $serviceRequest->userId,
-                'type' => 'status',
+                'type' => ServiceRequestLog::TYPE_STATUS,
                 'status' => $serviceRequest->status,
             ]);
         }
@@ -46,7 +47,16 @@ class HandleServiceRequestUpdatedEvent implements ShouldQueue
                 'serviceRequestId' => $serviceRequest->id,
                 'userId' => $serviceRequest->userId,
                 'feedback' => $serviceRequest->feedback,
-                'type' => 'feedback',
+                'type' => ServiceRequestLog::TYPE_FEEDBACK,
+            ]);
+        }
+
+        // log `assignment` changes
+        if ($this->hasAFieldValueChanged($serviceRequest, $oldServiceRequest, 'userId')) {
+            $serviceRequestLogRepository->save([
+                'serviceRequestId' => $serviceRequest->id,
+                'userId' => $serviceRequest->userId,
+                'type' => ServiceRequestLog::TYPE_ASSIGNMENT,
             ]);
         }
 

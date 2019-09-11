@@ -25,6 +25,7 @@ class UpdateRequest extends Request
             'feedback' => 'in:'.ServiceRequest::FEEDBACK_POSITIVE.','.ServiceRequest::FEEDBACK_NEGATIVE.','.ServiceRequest::FEEDBACK_NONE,
             'photo' => 'boolean',
             'resolvedAt' => 'date',
+            'feedbackText' => '',
         ];
     }
 }

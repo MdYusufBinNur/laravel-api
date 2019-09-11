@@ -5,8 +5,11 @@ namespace App\Repositories;
 
 
 use App\DbModels\Attachment;
+use App\DbModels\ServiceRequestMessage;
+use App\Events\ServiceRequest\ServiceRequestCreatedEvent;
 use App\Events\ServiceRequest\ServiceRequestUpdatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
+use App\Repositories\Contracts\ServiceRequestMessageRepository;
 use App\Repositories\Contracts\ServiceRequestRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -27,6 +30,9 @@ class EloquentServiceRequestRepository extends EloquentBaseRepository implements
 
         DB::commit();
 
+        // fire service request created event
+        event(new ServiceRequestCreatedEvent($serviceRequest, $this->generateEventOptionsForModel()));
+
         return $serviceRequest;
     }
 
@@ -35,12 +41,24 @@ class EloquentServiceRequestRepository extends EloquentBaseRepository implements
      */
     public function update(\ArrayAccess $model, array $data): \ArrayAccess
     {
+        // save text ServiceRequestMessage
+        if (isset($data['feedbackText'])) {
+            $serviceRequestMessageRepository = app(ServiceRequestMessageRepository::class);
+            $serviceRequestMessageRepository->saveByServiceRequest($model, $data['feedbackText'], ServiceRequestMessage::TYPE_FEEDBACK);
+            unset($data['feedbackText']);
+        }
+
         $serviceRequest = parent::update($model, $data);
 
         event(new ServiceRequestUpdatedEvent($model, $this->generateEventOptionsForModel()));
-        //event(new ServiceRequestUpdatedEvent($model, array_merge(['oldServiceRequest' => $this->oldModel], $data)));
 
         return $serviceRequest;
+    }
+
+    public function findBy(array $searchCriteria = [], $withTrashed = false)
+    {
+        $searchCriteria['eagerLoad'] = isset($searchCriteria['include']) ? ['logs', 'logs.user'] : [];
+        return parent::findBy($searchCriteria, $withTrashed);
     }
 
 }

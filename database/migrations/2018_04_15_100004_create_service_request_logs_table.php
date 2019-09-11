@@ -17,9 +17,10 @@ class CreateServiceRequestLogsTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('serviceRequestId');
+            $table->unsignedBigInteger('serviceRequestMessageId')->nullable();
             $table->unsignedInteger('userId');
             $table->string('type');
-            $table->string('feedback')->nullable();
+            $table->string('feedbackText')->nullable();
             $table->string('status', 20)->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -33,6 +34,12 @@ class CreateServiceRequestLogsTable extends Migration
                 ->references('id')->on('service_requests')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('serviceRequestMessageId')
+                ->references('id')->on('service_request_messages')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
 
             $table->foreign('createdByUserId')
                 ->references('id')->on('users')

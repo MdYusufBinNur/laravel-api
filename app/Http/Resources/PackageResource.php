@@ -15,9 +15,13 @@ class PackageResource extends Resource
         return [
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
+            'propertyId' => $this->propertyId,
             'unitId' => $this->unitId,
+            'unit' => new UnitResource($this->unit),
             'residentId' => $this->residentId,
+            'resident' => new ResidentResource($this->resident),
             'typeId' => $this->typeId,
+            'type' => new PackageTypeResource($this->type),
             'enteredUserId' => $this->enteredUserId,
             'trackingNumber' => $this->trackingNumber,
             'comments' => $this->trackingNumber,

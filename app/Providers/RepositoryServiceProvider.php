@@ -36,6 +36,7 @@ use App\DbModels\PostRecommendationType;
 use App\DbModels\PostWall;
 use App\DbModels\Property;
 use App\DbModels\PropertyDesignSetting;
+use App\DbModels\PropertyGeneralInfo;
 use App\DbModels\PropertyImage;
 use App\DbModels\PropertySocialMedia;
 use App\DbModels\Resident;
@@ -47,6 +48,7 @@ use App\DbModels\Role;
 use App\DbModels\ServiceRequest;
 use App\DbModels\ServiceRequestCategory;
 use App\DbModels\ServiceRequestLog;
+use App\DbModels\ServiceRequestMessage;
 use App\DbModels\ServiceRequestOfficeDetail;
 use App\DbModels\ServiceRequestStatus;
 use App\DbModels\Tower;
@@ -94,6 +96,7 @@ use App\Repositories\Contracts\PostRecommendationTypeRepository;
 use App\Repositories\Contracts\PostRepository;
 use App\Repositories\Contracts\PostWallRepository;
 use App\Repositories\Contracts\PropertyDesignSettingRepository;
+use App\Repositories\Contracts\PropertyGeneralInfoRepository;
 use App\Repositories\Contracts\PropertyImageRepository;
 use App\Repositories\Contracts\PropertySocialMediaRepository;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
@@ -102,6 +105,7 @@ use App\Repositories\Contracts\ResidentEmergencyRepository;
 use App\Repositories\Contracts\ResidentVehicleRepository;
 use App\Repositories\Contracts\ServiceRequestCategoryRepository;
 use App\Repositories\Contracts\ServiceRequestLogRepository;
+use App\Repositories\Contracts\ServiceRequestMessageRepository;
 use App\Repositories\Contracts\ServiceRequestOfficeDetailRepository;
 use App\Repositories\Contracts\ServiceRequestRepository;
 use App\Repositories\Contracts\ServiceRequestStatusRepository;
@@ -151,6 +155,7 @@ use App\Repositories\EloquentPostRecommendationTypeRepository;
 use App\Repositories\EloquentPostRepository;
 use App\Repositories\EloquentPostWallRepository;
 use App\Repositories\EloquentPropertyDesignSettingRepository;
+use App\Repositories\EloquentPropertyGeneralInfoRepository;
 use App\Repositories\EloquentPropertyImageRepository;
 use App\Repositories\EloquentPropertySocialMediaRepository;
 use App\Repositories\EloquentResidentAccessRequestRepository;
@@ -159,6 +164,7 @@ use App\Repositories\EloquentResidentEmergencyRepository;
 use App\Repositories\EloquentResidentVehicleRepository;
 use App\Repositories\EloquentServiceRequestCategoryRepository;
 use App\Repositories\EloquentServiceRequestLogRepository;
+use App\Repositories\EloquentServiceRequestMessageRepository;
 use App\Repositories\EloquentServiceRequestOfficeDetailRepository;
 use App\Repositories\EloquentServiceRequestRepository;
 use App\Repositories\EloquentServiceRequestStatusRepository;
@@ -509,6 +515,16 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind NotificationTemplateRepository
         $this->app->bind(NotificationTemplatePropertyRepository::class, function() {
             return new EloquentNotificationTemplatePropertyRepository(new NotificationTemplateProperty());
+        });
+
+        // bind PropertyGeneralInfoRepository
+        $this->app->bind(PropertyGeneralInfoRepository::class, function() {
+            return new EloquentPropertyGeneralInfoRepository(new PropertyGeneralInfo());
+        });
+
+        // bind ServiceRequestMessageRepository
+        $this->app->bind(ServiceRequestMessageRepository::class, function() {
+            return new EloquentServiceRequestMessageRepository(new ServiceRequestMessage());
         });
     }
 }

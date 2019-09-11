@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePackagesTable extends Migration
+class CreateServiceRequestMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,16 @@ class CreatePackagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('packages', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('service_request_messages', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
+            $table->unsignedInteger('serviceRequestId');
+            $table->unsignedInteger('userId');
             $table->unsignedInteger('unitId');
-            $table->unsignedInteger('residentId');
-            $table->unsignedInteger('typeId');
-            $table->unsignedInteger('enteredUserId');
-            $table->string('trackingNumber')->nullable();
-            $table->text('comments')->nullable();
-            $table->boolean('notifiedByEmail')->default(0);
-            $table->boolean('notifiedByText')->default(0);
-            $table->boolean('notifiedByVoice')->default(0);
+            $table->mediumText('text');
+            $table->string('type');
+            $table->boolean('readStatus')->default(false);
             $table->timestamps();
             $table->softDeletes();
 
@@ -34,23 +31,18 @@ class CreatePackagesTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
+            $table->foreign('serviceRequestId')
+                ->references('id')->on('service_requests')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('userId')
+                ->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
             $table->foreign('unitId')
                 ->references('id')->on('units')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
-            $table->foreign('residentId')
-                ->references('id')->on('users')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
-            $table->foreign('enteredUserId')
-                ->references('id')->on('users')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
-            $table->foreign('typeId')
-                ->references('id')->on('package_types')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
@@ -58,7 +50,6 @@ class CreatePackagesTable extends Migration
                 ->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-
         });
     }
 
@@ -69,6 +60,6 @@ class CreatePackagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('packages');
+        Schema::dropIfExists('service_request_messages');
     }
 }

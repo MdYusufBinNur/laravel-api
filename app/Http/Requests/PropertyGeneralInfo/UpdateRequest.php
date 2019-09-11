@@ -3,6 +3,7 @@
 namespace App\Http\Requests\PropertyGeneralInfo;
 
 use App\Http\Requests\Request;
+use Illuminate\Validation\Rule;
 
 class UpdateRequest extends Request
 {
@@ -13,12 +14,13 @@ class UpdateRequest extends Request
      */
     public function rules()
     {
+        $id = $this->segment(4);
         return [
             'propertyId' => 'exists:properties,id|unique:property_general_infos,propertyId',
             'officeHours' => 'min:7|max:20',
             'phone' => 'min:11|max:20',
             'emergenceContact' => 'min:5|max:1024',
-            'email' => 'email|unique:property_general_infos,email',
+            'email' => Rule::unique('property_general_infos')->ignore($id, 'id'),
             'additionalInfo' => 'min:3:max:1024',
         ];
     }

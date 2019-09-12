@@ -147,6 +147,13 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('notification-template','NotificationTemplateController');
         Route::apiResource('notification-template-property','NotificationTemplatePropertyController');
 
+        /**
+         * related to FDI
+         */
+        Route::apiResource('fdi-guest-type','FdiGuestTypeController');
+        Route::apiResource('fdi','FdiController');
+        Route::apiResource('fdi-log','FdiLogController');
+
     });
 
     //route without authentication

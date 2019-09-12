@@ -40,9 +40,9 @@ class ResidentResource extends Resource
             'joiningDate' => $this->joiningDate,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            $this->mergeWhen($this->needToInclude($request, 'user'), [
-                'user' => new UserResource($this->user)
-            ]),
+            'user' => $this->when($this->needToInclude($request, 'user'), function () {
+                return new UserResource($this->user);
+            }),
         ];
     }
 }

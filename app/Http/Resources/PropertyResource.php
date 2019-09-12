@@ -29,21 +29,21 @@ class PropertyResource extends Resource
             'unregisteredResidentNotifications' => $this->unregisteredResidentNotifications,
             'active' => $this->active,
 
-            $this->mergeWhen($this->needToInclude($request, 'noOfUsers'), [
-                'noOfUsers' => $this->users->count(),
-            ]),
-            $this->mergeWhen($this->needToInclude($request, 'noOfUnits'), [
-                'noOfUnits' => $this->units->count(),
-            ]),
-            $this->mergeWhen($this->needToInclude($request, 'noOfTowers'), [
-                'noOfTowers' => $this->towers->count(),
-            ]),
-            $this->mergeWhen($this->needToInclude($request, 'images'), [
-                'images' => new PropertyImageResourceCollection($this->propertyImages)
-            ]),
-            $this->mergeWhen($this->needToInclude($request, 'designSettings'), [
-                'designSettings' => new PropertyDesignSettingResource($this->propertyDesignSetting)
-            ]),
+            'noOfUsers' => $this->when($this->needToInclude($request, 'noOfUsers'), function () {
+                return $this->users->count();
+            }),
+            'noOfUnits' => $this->when($this->needToInclude($request, 'noOfUnits'), function () {
+                return $this->units->count();
+            }),
+            'noOfTowers' => $this->when($this->needToInclude($request, 'noOfTowers'), function () {
+                return $this->towers->count();
+            }),
+            'images' => $this->when($this->needToInclude($request, 'images'), function () {
+                return new PropertyImageResourceCollection($this->propertyImages);
+            }),
+            'designSettings' => $this->when($this->needToInclude($request, 'designSettings'), function () {
+                return new PropertyDesignSettingResource($this->propertyDesignSetting);
+            }),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

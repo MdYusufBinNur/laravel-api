@@ -14,19 +14,20 @@ class ServiceRequestResource extends Resource
     {
         return [
             'id' => $this->id,
+            'propertyId' => $this->propertyId,
             'createdByUserId' => $this->createdByUserId,
             'userId' => $this->userId,
-            $this->mergeWhen($this->needToInclude($request, 'user'), [
-                'user' => new UserResource($this->user),
-            ]),
+            'user' => $this->when($this->needToInclude($request, 'user'), function () {
+                return new UserResource($this->user);
+            }),
             'unitId' => $this->unitId,
-            $this->mergeWhen($this->needToInclude($request, 'unit'), [
-                'unit' => new UnitResource($this->unit),
-            ]),
+            'unit' => $this->when($this->needToInclude($request, 'unit'), function () {
+                return new UnitResource($this->unit);
+            }),
             'categoryId' => $this->categoryId,
-            $this->mergeWhen($this->needToInclude($request, 'unit'), [
-                'category' => new ServiceRequestCategoryResource($this->serviceRequestCategory),
-            ]),
+            'category' => $this->when($this->needToInclude($request, 'category'), function () {
+                return new ServiceRequestCategoryResource($this->serviceRequestCategory);
+            }),
             'status' => $this->status,
             'phone' => $this->phone,
             'description' => $this->description,
@@ -38,10 +39,9 @@ class ServiceRequestResource extends Resource
             'resolvedAt' => $this->resolvedAt,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            $this->mergeWhen($this->needToInclude($request, 'logs'), [
-                'logs' => new ServiceRequestLogResourceCollection($this->logs),
-            ]),
-
+            'logs' => $this->when($this->needToInclude($request, 'logs'), function () {
+                return new ServiceRequestLogResourceCollection($this->logs);
+            })
         ];
     }
 }

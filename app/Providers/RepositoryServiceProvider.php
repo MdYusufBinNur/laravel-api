@@ -133,6 +133,7 @@ use App\Repositories\EloquentEnterpriseUserPropertyRepository;
 use App\Repositories\EloquentEnterpriseUserRepository;
 use App\Repositories\EloquentEventRepository;
 use App\Repositories\EloquentEventSignupRepository;
+use App\Repositories\EloquentFdiGuestTypeRepository;
 use App\Repositories\EloquentFdiLogRepository;
 use App\Repositories\EloquentFdiRepository;
 use App\Repositories\EloquentManagerRepository;
@@ -547,7 +548,7 @@ class RepositoryServiceProvider extends ServiceProvider
 
         // bind FdiGuestTypeRepository
         $this->app->bind(FdiGuestTypeRepository::class, function() {
-            return new EloquentServiceRequestMessageRepository(new FdiGuestType());
+            return new EloquentFdiGuestTypeRepository(new FdiGuestType());
         });
     }
 }

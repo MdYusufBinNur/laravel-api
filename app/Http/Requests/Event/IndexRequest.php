@@ -33,8 +33,8 @@ class IndexRequest extends FormRequest
             'alldayEvent' => 'list:boolean',
             'allowedLoginPage' => 'list:boolean',
             'hasAttachment' => 'list:boolean',
-            'startAt' => 'list:dateTime',
-            'endAt' => 'list:dateTime',
+            'startAt' => 'date_format:"H:i"',
+            'endAt' => 'date_format:"H:i"',
         ];
     }
 }

@@ -27,7 +27,5 @@ class Event extends Model
         'alldayEvent' => 'boolean',
         'allowedLoginPage' => 'boolean',
         'hasAttachment' => 'boolean',
-        'startAt' => 'datetime:Y-m-d h:i',
-        'endAt' => 'datetime:Y-m-d h:i',
     ];
 }

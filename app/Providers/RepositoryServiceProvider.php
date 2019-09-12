@@ -9,6 +9,9 @@ use App\DbModels\EnterpriseUser;
 use App\DbModels\EnterpriseUserProperty;
 use App\DbModels\Event;
 use App\DbModels\EventSignup;
+use App\DbModels\Fdi;
+use App\DbModels\FdiGuestType;
+use App\DbModels\FdiLog;
 use App\DbModels\Manager;
 use App\DbModels\ManagerInvitation;
 use App\DbModels\Module;
@@ -72,6 +75,9 @@ use App\Repositories\Contracts\EnterpriseUserPropertyRepository;
 use App\Repositories\Contracts\EnterpriseUserRepository;
 use App\Repositories\Contracts\EventRepository;
 use App\Repositories\Contracts\EventSignupRepository;
+use App\Repositories\Contracts\FdiGuestTypeRepository;
+use App\Repositories\Contracts\FdiLogRepository;
+use App\Repositories\Contracts\FdiRepository;
 use App\Repositories\Contracts\ManagerRepository;
 use App\Repositories\Contracts\MangerInvitationRepository;
 use App\Repositories\Contracts\ModuleOptionRepository;
@@ -127,6 +133,8 @@ use App\Repositories\EloquentEnterpriseUserPropertyRepository;
 use App\Repositories\EloquentEnterpriseUserRepository;
 use App\Repositories\EloquentEventRepository;
 use App\Repositories\EloquentEventSignupRepository;
+use App\Repositories\EloquentFdiLogRepository;
+use App\Repositories\EloquentFdiRepository;
 use App\Repositories\EloquentManagerRepository;
 use App\Repositories\EloquentMangerInvitationRepository;
 use App\Repositories\EloquentModuleOptionRepository;
@@ -525,6 +533,21 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind ServiceRequestMessageRepository
         $this->app->bind(ServiceRequestMessageRepository::class, function() {
             return new EloquentServiceRequestMessageRepository(new ServiceRequestMessage());
+        });
+
+        // bind FdiRepository
+        $this->app->bind(FdiRepository::class, function() {
+            return new EloquentFdiRepository(new Fdi());
+        });
+
+        // bind FdiLogRepository
+        $this->app->bind(FdiLogRepository::class, function() {
+            return new EloquentFdiLogRepository(new FdiLog());
+        });
+
+        // bind FdiGuestTypeRepository
+        $this->app->bind(FdiGuestTypeRepository::class, function() {
+            return new EloquentServiceRequestMessageRepository(new FdiGuestType());
         });
     }
 }

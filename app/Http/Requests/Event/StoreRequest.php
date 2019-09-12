@@ -33,8 +33,8 @@ class StoreRequest extends FormRequest
             'alldayEvent' => 'boolean',
             'allowedLoginPage' => 'boolean',
             'hasAttachment' => 'boolean',
-            'startAt' => 'required|date',
-            'endAt' => 'required|date',
+            'startAt' => 'date_format:"H:i"|required|before:timeEnd',
+            'endAt' => 'date_format:"H:i"|required|before:timeEnd',
         ];
     }
 }

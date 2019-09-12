@@ -545,10 +545,5 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(FdiLogRepository::class, function() {
             return new EloquentFdiLogRepository(new FdiLog());
         });
-
-        // bind FdiGuestTypeRepository
-        $this->app->bind(FdiGuestTypeRepository::class, function() {
-            return new EloquentFdiGuestTypeRepository(new FdiGuestType());
-        });
     }
 }

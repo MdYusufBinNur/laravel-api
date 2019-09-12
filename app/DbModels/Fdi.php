@@ -22,7 +22,7 @@ class Fdi extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'userId', 'unitId', 'guestTypeId', 'type', 'name', 'photo', 'startDate', 'endDate', 'permanent', 'comments', 'canGetKey', 'signature', 'status'
+        'createdByUserId', 'propertyId', 'userId', 'unitId', 'type', 'name', 'photo', 'startDate', 'endDate', 'permanent', 'comments', 'canGetKey', 'signature', 'status'
     ];
 
     /**
@@ -38,4 +38,35 @@ class Fdi extends Model
         'startDate' => 'datetime:Y-m-d',
         'endDate' => 'datetime:Y-m-d',
     ];
+
+
+    /**
+     * get the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'userId');
+    }
+
+    /**
+     * get the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function unit()
+    {
+        return $this->hasOne(Unit::class, 'id', 'unitId');
+    }
+
+    /**
+     * get the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function propertyId()
+    {
+        return $this->hasOne(Unit::class, 'id', 'unitId');
+    }
 }

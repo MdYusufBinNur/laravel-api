@@ -24,7 +24,7 @@ class ResidentAccessRequestResource extends Resource
             'status' => $this->status,
             'active' => $this->active,
             'comments' => $this->comments,
-            'pin' => $this->when($this->needToInclude($request, 'pin'), function () {
+            'pin' => $this->when($this->needToInclude($request, 'residentAccessRequest.pin'), function () {
                 return $this->pin;
             }),
             'moderatedUserId' => $this->moderatedUserId,

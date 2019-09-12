@@ -16,10 +16,10 @@ class UserRoleResource extends Resource
             'id' => $this->id,
             'userId' => $this->userId,
             'roleId' => $this->roleId,
-            'role' => $this->when($this->needToInclude($request, 'role'), function () {
+            'role' => $this->when($this->needToInclude($request, 'userRole.role'), function () {
                 return new RoleResource($this->role);
             }),
-            'property' => $this->when($this->needToInclude($request, 'property'), function () {
+            'property' => $this->when($this->needToInclude($request, 'userRole.property'), function () {
                 return new PropertyResource($this->property);
             }),
             'propertyId' => $this->propertyId,

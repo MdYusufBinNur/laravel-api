@@ -28,20 +28,19 @@ class PropertyResource extends Resource
             'timezone' => $this->timezone,
             'unregisteredResidentNotifications' => $this->unregisteredResidentNotifications,
             'active' => $this->active,
-
-            'noOfUsers' => $this->when($this->needToInclude($request, 'noOfUsers'), function () {
+            'noOfUsers' => $this->when($this->needToInclude($request, 'property.noOfUsers'), function () {
                 return $this->users->count();
             }),
-            'noOfUnits' => $this->when($this->needToInclude($request, 'noOfUnits'), function () {
+            'noOfUnits' => $this->when($this->needToInclude($request, 'property.noOfUnits'), function () {
                 return $this->units->count();
             }),
-            'noOfTowers' => $this->when($this->needToInclude($request, 'noOfTowers'), function () {
+            'noOfTowers' => $this->when($this->needToInclude($request, 'property.noOfTowers'), function () {
                 return $this->towers->count();
             }),
-            'images' => $this->when($this->needToInclude($request, 'images'), function () {
+            'images' => $this->when($this->needToInclude($request, 'property.images'), function () {
                 return new PropertyImageResourceCollection($this->propertyImages);
             }),
-            'designSettings' => $this->when($this->needToInclude($request, 'designSettings'), function () {
+            'designSettings' => $this->when($this->needToInclude($request, 'property.designSettings'), function () {
                 return new PropertyDesignSettingResource($this->propertyDesignSetting);
             }),
             'created_at' => $this->created_at,

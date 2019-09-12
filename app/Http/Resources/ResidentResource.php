@@ -40,7 +40,7 @@ class ResidentResource extends Resource
             'joiningDate' => $this->joiningDate,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'user' => $this->when($this->needToInclude($request, 'user'), function () {
+            'user' => $this->when($this->needToInclude($request, 'resident.user'), function () {
                 return new UserResource($this->user);
             }),
         ];

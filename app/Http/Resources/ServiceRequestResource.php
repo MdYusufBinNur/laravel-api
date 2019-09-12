@@ -17,15 +17,15 @@ class ServiceRequestResource extends Resource
             'propertyId' => $this->propertyId,
             'createdByUserId' => $this->createdByUserId,
             'userId' => $this->userId,
-            'user' => $this->when($this->needToInclude($request, 'user'), function () {
+            'user' => $this->when($this->needToInclude($request, 'sr.user'), function () {
                 return new UserResource($this->user);
             }),
             'unitId' => $this->unitId,
-            'unit' => $this->when($this->needToInclude($request, 'unit'), function () {
+            'unit' => $this->when($this->needToInclude($request, 'sr.unit'), function () {
                 return new UnitResource($this->unit);
             }),
             'categoryId' => $this->categoryId,
-            'category' => $this->when($this->needToInclude($request, 'category'), function () {
+            'category' => $this->when($this->needToInclude($request, 'sr.category'), function () {
                 return new ServiceRequestCategoryResource($this->serviceRequestCategory);
             }),
             'status' => $this->status,
@@ -39,7 +39,7 @@ class ServiceRequestResource extends Resource
             'resolvedAt' => $this->resolvedAt,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'logs' => $this->when($this->needToInclude($request, 'logs'), function () {
+            'logs' => $this->when($this->needToInclude($request, 'sr.logs'), function () {
                 return new ServiceRequestLogResourceCollection($this->logs);
             })
         ];

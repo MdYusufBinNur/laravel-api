@@ -22,10 +22,10 @@ class CompanyResource extends Resource
             'country' => $this->country,
             'postCode' => $this->postCode,
             'active' => $this->active,
-            'noOfProperties' => $this->when($this->needToInclude($request, 'noOfProperties'), function () {
+            'noOfProperties' => $this->when($this->needToInclude($request, 'company.noOfProperties'), function () {
                return $this->properties->count();
             }),
-            'noOfEnterpriseUsers' => $this->when($this->needToInclude($request, 'noOfEnterpriseUsers'), function () {
+            'noOfEnterpriseUsers' => $this->when($this->needToInclude($request, 'company.noOfEnterpriseUsers'), function () {
                 return $this->noOfEnterpriseUsers->count();
             }),
             'createdByUser' => $this->createdByUserId,

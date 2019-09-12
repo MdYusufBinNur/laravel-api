@@ -22,7 +22,9 @@ class AttachmentResource extends Resource
             'fileName'     => $this->fileName,
             'descriptions' => $this->descriptions,
             'type'         => $this->type,
-            'createdBy'    => new UserResource($this->user),
+            'createdBy' => $this->when($this->needToInclude($request, 'attachment.createdBy'), function () {
+                return new UserResource($this->user);
+            }),
             'resourceId'   => $this->resourceId,
             'fileType'     => $this->fileType,
             'fileSize'     => $this->fileSize,

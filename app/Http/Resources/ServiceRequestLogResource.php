@@ -20,6 +20,9 @@ class ServiceRequestLogResource extends Resource
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
             'serviceRequestId' => $this->serviceRequestId,
+            'serviceRequest' => $this->when($this->needToInclude($request, 'srLog.serviceRequest'), function () {
+                return new ServiceRequestResource($this->serviceRequest);
+            }),
             'userId' => $this->userId,
             'type' => $this->type,
             'feedback' => $this->feedback,

@@ -16,7 +16,9 @@ class ModuleOptionResource extends Resource
             'id' => $this->id,
             'key' => $this->key,
             'title' => $this->title,
-            'module' => new ModuleOptionResource($this->module),
+            'module' => $this->when($this->needToInclude($request, 'mo.module'), function () {
+                return new ModuleResource($this->module);
+            }),
         ];
     }
 }

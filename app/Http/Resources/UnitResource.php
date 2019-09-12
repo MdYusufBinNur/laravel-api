@@ -15,7 +15,9 @@ class UnitResource extends Resource
         return [
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
-            'tower' => new TowerResource($this->tower),
+            'tower' => $this->when($this->needToInclude($request, 'unit.tower'), function () {
+                return new TowerResource($this->tower);
+            }),
             'propertyId' => $this->propertyId,
             'floor' => $this->floor,
             'title' => $this->title,

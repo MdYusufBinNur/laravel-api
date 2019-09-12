@@ -17,11 +17,17 @@ class PackageResource extends Resource
             'createdByUserId' => $this->createdByUserId,
             'propertyId' => $this->propertyId,
             'unitId' => $this->unitId,
-            'unit' => new UnitResource($this->unit),
+            'unit' => $this->when($this->needToInclude($request, 'package.unit'), function () {
+                return new UnitResource($this->unit);
+            }),
             'residentId' => $this->residentId,
-            'resident' => new ResidentResource($this->resident),
+            'resident' => $this->when($this->needToInclude($request, 'package.resident'), function () {
+                return new ResidentResource($this->resident);
+            }),
             'typeId' => $this->typeId,
-            'type' => new PackageTypeResource($this->type),
+            'type' => $this->when($this->needToInclude($request, 'package.type'), function () {
+                return new PackageTypeResource($this->type);
+            }),
             'enteredUserId' => $this->enteredUserId,
             'trackingNumber' => $this->trackingNumber,
             'comments' => $this->trackingNumber,

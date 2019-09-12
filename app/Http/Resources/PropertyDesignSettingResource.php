@@ -19,7 +19,9 @@ class PropertyDesignSettingResource extends Resource
             'themeId' => $this->themeId,
             'selectedBackground' => $this->selectedBackground,
             'selectedHeadline' => $this->selectedHeadline,
-            'customImage' => new AttachmentResource($this->customImage),
+            'customImage' => $this->when($this->needToInclude($request, 'pds.customImage'), function () {
+                return new AttachmentResource($this->customImage);
+            }),
             'tileUploadedImage' => $this->tileUploadedImage,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at

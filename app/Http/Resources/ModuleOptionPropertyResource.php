@@ -18,7 +18,9 @@ class ModuleOptionPropertyResource extends Resource
             'propertyId' => $this->propertyId,
             'value' => $this->value,
             'updated_at' => $this->updated_at,
-            'moduleOption' => new ModuleOptionResource($this->moduleOption)
+            'moduleOption' => $this->when($this->needToInclude($request, 'mop.moduleOption'), function () {
+                return new ModuleOptionResource($this->moduleOption);
+            }),
         ];
     }
 }

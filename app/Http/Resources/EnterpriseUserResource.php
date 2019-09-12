@@ -22,7 +22,9 @@ class EnterpriseUserResource extends Resource
             'level' => $this->level,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'properties' => new EnterpriseUserPropertyResourceCollection($this->enterpriseUserProperties)
+            'properties' => $this->when($this->needToInclude($request, 'eu.properties'), function () {
+                return new EnterpriseUserPropertyResourceCollection($this->enterpriseUserProperties);
+            })
         ];
     }
 }

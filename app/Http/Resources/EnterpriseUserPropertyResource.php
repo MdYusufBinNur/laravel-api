@@ -2,9 +2,7 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-
-class EnterpriseUserPropertyResource extends JsonResource
+class EnterpriseUserPropertyResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +15,13 @@ class EnterpriseUserPropertyResource extends JsonResource
         return [
             'id' => $this->id,
             'enterpriseUserId' => $this->enterpriseUserId,
+            'enterpriseUser' => $this->when($this->needToInclude($request, 'eup.enterpriseUser'), function () {
+                return new EnterpriseUserResource($this->enterPriseUser);
+            }),
             'propertyId' => $this->propertyId,
+            'property' => $this->when($this->needToInclude($request, 'eup.property'), function () {
+                return new PropertyResource($this->property);
+            }),
             'active' => $this->active,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at

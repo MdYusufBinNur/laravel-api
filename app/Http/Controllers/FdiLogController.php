@@ -2,83 +2,92 @@
 
 namespace App\Http\Controllers;
 
+use App\DbModels\FdiLog;
+use App\Http\Requests\FdiLog\IndexRequest;
+use App\Http\Requests\FdiLog\UpdateRequest;
+use App\Http\Resources\FdiLogResource;
+use App\Http\Resources\FdiLogResourceCollection;
+use App\Repositories\Contracts\FdiLogRepository;
 use Illuminate\Http\Request;
 
 class FdiLogController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @var FdiLogRepository
      */
-    public function index()
+    protected $fdiLogRepository;
+
+    /**
+     * FdiLogController constructor.
+     * @param FdiLogRepository $fdiLogRepository
+     */
+    public function __construct(FdiLogRepository $fdiLogRepository)
     {
-        //
+        $this->fdiLogRepository = $fdiLogRepository;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param IndexRequest $request
+     * @return FdiLogResourceCollection
      */
-    public function create()
+    public function index(IndexRequest $request)
     {
-        //
+        $fdiLogs = $this->fdiLogRepository->findBy($request->all());
+
+        return new FdiLogResourceCollection($fdiLogs);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return FdiLogResource
      */
     public function store(Request $request)
     {
-        //
+        $fdiLog = $this->fdiLogRepository->save($request->all());
+
+        return new FdiLogResource($fdiLog);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param FdiLog $fdiLog
+     * @return FdiLogResource
      */
-    public function show($id)
+    public function show(FdiLog $fdiLog)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return new FdiLogResource($fdiLog);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateRequest $request
+     * @param FdiLog $fdiLog
+     * @return FdiLogResource
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, FdiLog $fdiLog)
     {
-        //
+        $fdiLog = $this->fdiLogRepository->update($fdiLog, $request->all());
+
+        return new FdiLogResource($fdiLog);
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param FdiLog $fdiLog
+     * @return void
      */
-    public function destroy($id)
+    public function destroy(FdiLog $fdiLog)
     {
-        //
+        $this->fdiLogRepository->delete($fdiLog);
+
+        return response()->json(null, 204);
     }
 }

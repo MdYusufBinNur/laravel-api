@@ -2,83 +2,91 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\DbModels\FdiGuestType;
+use App\Http\Requests\FdiGuestType\IndexRequest;
+use App\Http\Requests\FdiGuestType\StoreRequest;
+use App\Http\Requests\FdiGuestType\UpdateRequest;
+use App\Http\Resources\FdiGuestTypeResource;
+use App\Http\Resources\FdiGuestTypeResourceCollection;
+use App\Repositories\Contracts\FdiGuestTypeRepository;
 
 class FdiGuestTypeController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @var FdiGuestTypeRepository
      */
-    public function index()
+    protected $fdiGuestTypeRepository;
+
+    /**
+     * FdiGuestTypeController constructor.
+     * @param FdiGuestTypeRepository $fdiGuestTypeRepository
+     */
+    public function __construct(FdiGuestTypeRepository $fdiGuestTypeRepository)
     {
-        //
+        $this->fdiGuestTypeRepository = $fdiGuestTypeRepository;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param IndexRequest $request
+     * @return FdiGuestTypeResourceCollection
      */
-    public function create()
+    public function index(IndexRequest $request)
     {
-        //
+        $fdiGuestTypes = $this->fdiGuestTypeRepository->findBy($request->all());
+
+        return new FdiGuestTypeResourceCollection($fdiGuestTypes);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return FdiGuestTypeResource
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $fdiGuestType = $this->fdiGuestTypeRepository->save($request->all());
+
+        return new FdiGuestTypeResource($fdiGuestType);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param FdiGuestType $fdiGuestType
+     * @return FdiGuestTypeResource
      */
-    public function show($id)
+    public function show(FdiGuestType $fdiGuestType)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return new FdiGuestTypeResource($fdiGuestType);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateRequest $request
+     * @param FdiGuestType $fdiGuestType
+     * @return FdiGuestTypeResource
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, FdiGuestType $fdiGuestType)
     {
-        //
+        $fdiGuestType = $this->fdiGuestTypeRepository->update($fdiGuestType, $request->all());
+
+        return new FdiGuestTypeResource($fdiGuestType);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param FdiGuestType $fdiGuestType
+     * @return void
      */
-    public function destroy($id)
+    public function destroy(FdiGuestType $fdiGuestType)
     {
-        //
+        $this->fdiGuestTypeRepository->delete($fdiGuestType);
+
+        return response()->json(null, 204);
     }
 }

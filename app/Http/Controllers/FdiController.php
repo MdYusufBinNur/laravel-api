@@ -2,83 +2,91 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\DbModels\Fdi;
+use App\Http\Requests\Fdi\IndexRequest;
+use App\Http\Requests\Fdi\StoreRequest;
+use App\Http\Requests\Fdi\UpdateRequest;
+use App\Http\Resources\FdiResource;
+use App\Http\Resources\FdiResourceCollection;
+use App\Repositories\Contracts\FdiRepository;
 
 class FdiController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @var FdiRepository
      */
-    public function index()
+    protected $fdiRepository;
+
+    /**
+     * FdiController constructor.
+     * @param FdiRepository $fdiRepository
+     */
+    public function __construct(FdiRepository $fdiRepository)
     {
-        //
+        $this->fdiRepository = $fdiRepository;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param IndexRequest $request
+     * @return FdiResourceCollection
      */
-    public function create()
+    public function index(IndexRequest $request)
     {
-        //
+        $fdis = $this->fdiRepository->findBy($request->all());
+
+        return new FdiResourceCollection($fdis);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return FdiResource
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $fdi = $this->fdiRepository->save($request->all());
+
+        return new FdiResource($fdi);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Fdi $fdi
+     * @return FdiResource
      */
-    public function show($id)
+    public function show(Fdi $fdi)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return new FdiResource($fdi);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateRequest $request
+     * @param Fdi $fdi
+     * @return FdiResource
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, Fdi $fdi)
     {
-        //
+        $fdi = $this->fdiRepository->update($fdi, $request->all());
+
+        return new FdiResource($fdi);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Fdi $fdi
+     * @return void
      */
-    public function destroy($id)
+    public function destroy(Fdi $fdi)
     {
-        //
+        $this->fdiRepository->delete($fdi);
+
+        return response()->json(null, 204);
     }
 }

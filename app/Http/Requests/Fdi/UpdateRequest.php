@@ -16,19 +16,16 @@ class UpdateRequest extends Request
     {
         return [
             'propertyId' => 'exists:properties,id',
-            'userId' => 'exists:users,id',
             'unitId' => 'exists:units,id',
-            'guestTypeId' => 'exists:fdi_guest_types,id',
-            'type' => 'in:'.Fdi::TYPE_GENERAL.','.Fdi::TYPE_GUEST.','.Fdi::TYPE_MAIL,
-            'name' => 'min:3|max:100',
-            'photo' => 'boolean',
+            'type' => 'in:' . Fdi::TYPE_GENERAL . ',' . Fdi::TYPE_GUEST . ',' . Fdi::TYPE_MAIL,
+            'name' => 'required_if:type,==,' . Fdi::TYPE_GUEST  . 'min:3|max:100',
+            'visitorType' => 'required_if:type,==,' . Fdi::TYPE_GUEST . '|in:' . Fdi::VISITOR_TYPE_GUEST . ',' . Fdi::VISITOR_TYPE_FAMILY . ',' . Fdi::VISITOR_TYPE_CONTRACTOR,
             'startDate' => 'date',
-            'endDate' => 'date',
+            'endDate' => 'date|after_or_equal:startDate',
             'permanent' => 'boolean',
             'comments' => '',
             'canGetKey' => 'boolean',
             'signature' => 'boolean',
-            'status' => 'in:'.Fdi::STATUS_ACTIVE.','.Fdi::STATUS_DELETED.','.Fdi::STATUS_PENDING_APPROVAL,
         ];
     }
 }

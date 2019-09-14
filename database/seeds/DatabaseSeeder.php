@@ -73,7 +73,6 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\Event::class, 5)->create();
         factory(App\DbModels\EventSignup::class, 5)->create();
 
-        factory(App\DbModels\FdiGuestType::class, 5)->create();
         factory(App\DbModels\Fdi::class, 5)->create();
         factory(App\DbModels\FdiLog::class, 5)->create();
 

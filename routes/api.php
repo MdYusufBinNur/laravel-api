@@ -150,7 +150,6 @@ Route::group(['prefix' => 'api/v1'], function () {
         /**
          * related to FDI
          */
-        Route::apiResource('fdi-guest-type','FdiGuestTypeController');
         Route::apiResource('fdi','FdiController');
         Route::apiResource('fdi-log','FdiLogController');
 

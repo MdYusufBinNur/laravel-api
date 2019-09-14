@@ -14,7 +14,11 @@ class Fdi extends Model
 
     const STATUS_ACTIVE = 'active';
     const STATUS_DELETED = 'deleted';
-    const STATUS_PENDING_APPROVAL = 'pendingApproval';
+    const STATUS_PENDING_APPROVAL = 'pending-approval';
+
+    const VISITOR_TYPE_GUEST = 'guest';
+    const VISITOR_TYPE_FAMILY = 'family';
+    const VISITOR_TYPE_CONTRACTOR = 'contractor';
 
     /**
      * The attributes that are mass assignable.
@@ -22,7 +26,7 @@ class Fdi extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'userId', 'unitId', 'type', 'name', 'photo', 'startDate', 'endDate', 'permanent', 'comments', 'canGetKey', 'signature', 'status'
+        'createdByUserId', 'propertyId', 'unitId', 'type', 'visitorType', 'name', 'photo', 'startDate', 'endDate', 'permanent', 'comments', 'canGetKey', 'signature', 'status'
     ];
 
     /**
@@ -35,9 +39,19 @@ class Fdi extends Model
         'permanent' => 'boolean',
         'canGetKey' => 'boolean',
         'signature' => 'boolean',
-        'startDate' => 'datetime:Y-m-d',
-        'endDate' => 'datetime:Y-m-d',
+        'startDate' => 'datetime',
+        'endDate' => 'datetime',
     ];
+
+    /**
+     * set default values
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'status' => self::STATUS_ACTIVE,
+    ];
+
 
 
     /**
@@ -61,11 +75,11 @@ class Fdi extends Model
     }
 
     /**
-     * get the user
+     * get the property
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function propertyId()
+    public function property()
     {
         return $this->hasOne(Unit::class, 'id', 'unitId');
     }

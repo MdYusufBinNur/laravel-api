@@ -15,16 +15,17 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
-            'propertyId' => 'list:numeric',
+            'propertyId' => 'required|list:numeric',
             'userId' => 'list:numeric',
             'unitId' => 'list:numeric',
-            'guestTypeId' => 'list:numeric',
             'type' => 'list:string',
+            'visitorType' => 'list:string',
             'name' => 'list:string',
-            'startDate' => 'list:date',
-            'endDate' => 'list:date',
-            'canGetKey' => 'list:boolean',
-            'signature' => 'list:boolean',
+            'startDate' => 'date',
+            'endDate' => 'date',
+            'canGetKey' => 'boolean',
+            'signature' => 'boolean',
+            'permanent' => 'boolean',
             'status' => 'list:string',
         ];
     }

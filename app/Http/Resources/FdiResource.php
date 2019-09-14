@@ -28,7 +28,6 @@ class FdiResource extends Resource
             }),
             'type' => $this->type,
             'name' => $this->name,
-            'photo' => $this->photo,
             'startDate' => $this->startDate,
             'endDate' => $this->endDate,
             'permanent' => $this->permanent,

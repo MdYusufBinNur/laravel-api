@@ -85,7 +85,7 @@ class FdiController extends Controller
      */
     public function destroy(Fdi $fdi)
     {
-        $this->fdiRepository->delete($fdi);
+        $this->fdiRepository->deleteFdi($fdi);
 
         return response()->json(null, 204);
     }

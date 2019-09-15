@@ -7,7 +7,7 @@ use App\Repositories\Contracts\FdiRepository;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class FdIValidationCheck extends Command
+class FdiValidationCheck extends Command
 {
     /**
      * The name and signature of the console command.
@@ -52,9 +52,15 @@ class FdIValidationCheck extends Command
             ->where('status', Fdi::STATUS_ACTIVE)
             ->get();
 
-        foreach ($fdis as $fdi) {
+        $affectedFdis = [];
+        foreach ($fdis as $index => $fdi) {
             $this->fdiRepository->update($fdi, ['status' => Fdi::STATUS_EXPIRED]);
+
+            //only for output
+            $affectedFdis[$index]['fdiId'] = $fdi->id;
+            $affectedFdis[$index]['propertyId'] = $fdi->propertyId;
         }
 
+        $this->table(['propertyId', 'fdiId'], $affectedFdis);
     }
 }

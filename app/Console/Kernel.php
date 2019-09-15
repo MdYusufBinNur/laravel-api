@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('pms:fdi-validation')
-            ->everyMinute()
+            ->daily()
             ->emailOutputTo('dev@reformedtech.org')
             ->emailOutputOnFailure('dev@reformedtech.org');
         ;

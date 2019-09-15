@@ -36,6 +36,16 @@ class EloquentBaseRepository implements BaseRepository
     }
 
     /**
+     * get the model
+     *
+     * @return Model
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
      * @inheritdoc
      */
     public function findOne($id, $withTrashed = false): ?\ArrayAccess

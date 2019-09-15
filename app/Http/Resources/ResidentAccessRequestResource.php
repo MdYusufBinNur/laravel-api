@@ -17,6 +17,9 @@ class ResidentAccessRequestResource extends Resource
             'createdByUserId' => $this->createdByUserId,
             'propertyId' => $this->propertyId,
             'unitId' => $this->unitId,
+            'unit' => $this->when($this->needToInclude($request, 'residentAccessRequest.unit'), function () {
+                return new UnitResource($this->unit);
+            }),
             'name' => $this->name,
             'email' => $this->email,
             'type' => $this->type,

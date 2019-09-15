@@ -409,4 +409,14 @@ class User extends Authenticatable
         return false;
     }
 
+    /**
+     * get user's profile picture
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function userProfilePic()
+    {
+        return $this->hasOne(Attachment::class, 'resourceId')->where('type', Attachment::ATTACHMENT_TYPE_USER_PROFILE);
+    }
+
 }

@@ -21,6 +21,9 @@ class UserResource extends Resource
             'roles' => $this->when($this->needToInclude($request, 'user.roles'), function () {
                 return new UserRoleResourceCollection($this->userRoles);
             }),
+            'profilePic' => $this->when($this->needToInclude($request, 'user.profilePic'), function () {
+                return new AttachmentResource($this->userProfilePic);
+            }),
             'lastLoginAt' => $this->lastLoginAt,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at

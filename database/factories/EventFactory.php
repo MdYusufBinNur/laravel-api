@@ -15,7 +15,8 @@ $factory->define(App\DbModels\Event::class, function (Faker $faker) {
         'alldayEvent' => $faker->boolean,
         'allowedLoginPage' => $faker->boolean,
         'hasAttachment' => $faker->boolean,
-        'startAt' => $faker->dateTime,
-        'endAt' => $faker->dateTime,
+        'startAt' => $faker->time,
+        'endAt' => $faker->time,
+        'date' => $faker->dateTime,
     ];
 });

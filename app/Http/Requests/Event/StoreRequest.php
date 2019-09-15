@@ -35,6 +35,7 @@ class StoreRequest extends FormRequest
             'hasAttachment' => 'boolean',
             'startAt' => 'date_format:"H:i"|required|before:timeEnd',
             'endAt' => 'date_format:"H:i"|required|before:timeEnd',
+            'date' => 'required|date',
         ];
     }
 }

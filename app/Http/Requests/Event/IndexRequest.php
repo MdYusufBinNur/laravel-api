@@ -35,6 +35,7 @@ class IndexRequest extends FormRequest
             'hasAttachment' => 'list:boolean',
             'startAt' => 'date_format:"H:i"',
             'endAt' => 'date_format:"H:i"',
+            'date' => 'date',
         ];
     }
 }

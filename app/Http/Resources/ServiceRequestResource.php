@@ -35,7 +35,9 @@ class ServiceRequestResource extends Resource
             'preferredStartTime' => $this->preferredStartTime,
             'preferredEndTime' => $this->preferredEndTime,
             'feedback' => $this->feedback,
-            'photo' => $this->photo,
+            'photos' => $this->when($this->needToInclude($request, 'sr.photos'), function () {
+                return new AttachmentResourceCollection($this->serviceRequestPhotos);
+            }),
             'resolvedAt' => $this->resolvedAt,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

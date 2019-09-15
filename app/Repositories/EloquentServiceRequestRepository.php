@@ -71,7 +71,7 @@ class EloquentServiceRequestRepository extends EloquentBaseRepository implements
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = isset($searchCriteria['include']) ? ['user', 'serviceRequestCategory', 'unit', 'unit.tower', 'logs', 'logs.user', 'user.userRoles'] : [];
+        $searchCriteria['eagerLoad'] = ['user', 'serviceRequestCategory', 'unit', 'unit.tower', 'logs', 'logs.user', 'user.userRoles', 'serviceRequestPhotos'];
 
         return parent::findBy($searchCriteria, $withTrashed);
     }

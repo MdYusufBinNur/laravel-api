@@ -16,6 +16,7 @@ class Attachment extends Model
     const ATTACHMENT_TYPE_PROPERTY_BANNER = 'property-banner';
     const ATTACHMENT_TYPE_PROPERTY_DESIGN_CUSTOM = 'property-custom';
     const ATTACHMENT_TYPE_PROPERTY_SLIDE = 'property-slide';
+    const ATTACHMENT_TYPE_SERVICE_REQUEST = 'service-request';
 
     /**
      * The database table used by the model.
@@ -79,6 +80,9 @@ class Attachment extends Model
                 break;
             case self::ATTACHMENT_TYPE_PROPERTY_SLIDE:
                 $directoryName = 'property-slides';
+                break;
+            case self::ATTACHMENT_TYPE_SERVICE_REQUEST:
+                $directoryName = 'service-requests';
                 break;
         }
 

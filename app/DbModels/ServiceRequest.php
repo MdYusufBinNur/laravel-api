@@ -98,4 +98,13 @@ class ServiceRequest extends Model
         return $this->hasOne(ServiceRequestCategory::class, 'id', 'categoryId');
     }
 
+    /**
+     * get service request photos
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function serviceRequestPhotos()
+    {
+        return $this->hasMany(Attachment::class, 'resourceId')->where('type', Attachment::ATTACHMENT_TYPE_SERVICE_REQUEST);
+    }
 }

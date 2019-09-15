@@ -51,7 +51,7 @@ class Fdi extends Model
     ];
 
     /**
-     * get the user
+     * get the unit
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

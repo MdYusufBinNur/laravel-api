@@ -23,5 +23,15 @@ class FdiLog extends Model
     protected $fillable = [
         'createdByUserId', 'fdiId', 'userId', 'text', 'type'
     ];
+
+    /**
+     * get the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'userId');
+    }
 }
 

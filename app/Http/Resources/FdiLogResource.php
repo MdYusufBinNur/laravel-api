@@ -33,7 +33,7 @@ class FdiLogResource extends Resource
     {
         $message = [];
 
-        $message['readable'] = Str::title($this->text) . ' by ' . $this->createdByUser->name;
+        $message['readable'] = Str::title($this->text) . ' by ' . $this->user->name;
 
         return $message;
     }

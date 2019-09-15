@@ -15,16 +15,12 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
-            'propertyId' => 'list:numeric',
+            'propertyId' => 'required|list:numeric',
             'unitId' => 'list:numeric',
             'residentId' => 'list:numeric',
             'typeId' => 'list:numeric',
             'enteredUserId' => 'list:numeric',
             'trackingNumber' => 'list:string',
-            'comments' => 'list:string',
-            'notifiedByEmail' => 'list:boolean',
-            'notifiedByText' => 'list:boolean',
-            'notifiedByVoice' => 'list:boolean',
         ];
     }
 }

@@ -17,9 +17,9 @@ class CreateVisitorArchivesTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('visitorId');
-            $table->unsignedInteger('signoutUserId');
+            $table->unsignedInteger('signOutUserId');
             $table->boolean('signature')->default(0);
-            $table->dateTime('signout_at');
+            $table->dateTime('signOutAt');
             $table->timestamps();
             $table->softDeletes();
 
@@ -28,7 +28,7 @@ class CreateVisitorArchivesTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('signoutUserId')
+            $table->foreign('signOutUserId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

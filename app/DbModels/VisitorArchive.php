@@ -14,7 +14,7 @@ class VisitorArchive extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'visitorId', 'signoutUserId', 'signature', 'signoutAt'
+        'createdByUserId', 'visitorId', 'signOutUserId', 'signature', 'signOutAt'
     ];
 
     /**
@@ -24,6 +24,6 @@ class VisitorArchive extends Model
      */
     protected $casts = [
         'signature' => 'boolean',
-        'signout_at' => 'datetime:Y-m-d h:i',
+        'signOutAt' => 'datetime:Y-m-d h:i',
     ];
 }

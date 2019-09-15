@@ -158,6 +158,8 @@ return [
         'startDate' => 'startDate',
         'endDate' => 'endDate',
         'canGetKey' => 'canGetKey',
+        'packageId' => 'packageId',
+        'signOutComment' => 'signOutComment'
 
         //todo
     ],

@@ -16,9 +16,9 @@ class IndexRequest extends Request
         return [
             'id' => 'list:numeric',
             'visitorId' => 'list:numeric',
-            'signoutUserId' => 'list:numeric',
+            'signOutUserId' => 'list:numeric',
             'signature' => 'list:boolean',
-            'signout_at' => 'list:date',
+            'signOutAt' => 'list:date',
         ];
     }
 }

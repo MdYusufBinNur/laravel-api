@@ -16,9 +16,9 @@ class VisitorArchiveResource extends Resource
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
             'visitorId' => $this->visitorId,
-            'signoutUserId' => $this->signoutUserId,
+            'signOutUserId' => $this->signOutUserId,
             'signature' => $this->signature,
-            'signout_at' => $this->signout_at,
+            'signOutAt' => $this->signOutAt,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

@@ -18,12 +18,9 @@ class UpdateRequest extends Request
             'unitId' => 'exists:units,id',
             'residentId' => 'exists:residents,id',
             'typeId' => 'exists:package_types,id',
-            'enteredUserId' => 'exists:users,id',
             'trackingNumber' => 'min:3|max:191',
-            'comments' => 'min:3|max:1024',
-            'notifiedByEmail' => 'boolean',
-            'notifiedByText' => 'boolean',
-            'notifiedByVoice' => 'boolean',
+            'description' => 'min:3|max:1024',
+            'comments' => 'min:3|max:1024'
         ];
     }
 }

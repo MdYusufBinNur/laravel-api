@@ -14,7 +14,7 @@ class PackageArchive extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'packageId', 'signoutUserId', 'signoutComments', 'signature', 'signoutAt',
+        'createdByUserId', 'packageId', 'propertyId', 'signOutUserId', 'signOutComment', 'signature', 'signOutAt',
     ];
 
     /**
@@ -24,6 +24,26 @@ class PackageArchive extends Model
      */
     protected $casts = [
         'signature' => 'boolean',
-        'signoutAt' => 'datetime:Y-m-d h:i',
+        'signOutAt' => 'datetime:Y-m-d h:i',
     ];
+
+    /**
+     * get the package
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function package()
+    {
+        return $this->hasOne(Package::class,'id','packageId');
+    }
+
+    /**
+     * get the property
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(Property::class, 'id', 'propertyId');
+    }
 }

@@ -14,11 +14,11 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'packageId' => 'required|exists:packages,id',
-            'signoutUserId' => 'required|exists:users,id',
-            'signoutComments' => 'min:3|max:512',
-            'signature' => 'boolean',
-            'signoutAt' => 'required|date',
+            'packageId' => 'required|unique:package_archives,packageId|exists:packages,id',
+            'propertyId' => 'required|exists:properties,id',
+            'signOutUserId' => 'required|exists:users,id',
+            'signOutComment' => 'min:3|max:512',
+            'signature' => 'boolean'
         ];
     }
 }

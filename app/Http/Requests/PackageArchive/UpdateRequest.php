@@ -14,11 +14,10 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'packageId' => 'exists:packages,id',
-            'signoutUserId' => 'exists:users,id',
-            'signoutComments' => 'min:3|max:512',
+            'signOutUserId' => 'exists:users,id',
+            'signOutComment' => 'min:3|max:512',
             'signature' => 'boolean',
-            'signoutAt' => 'date',
+            'signOutAt' => 'date',
         ];
     }
 }

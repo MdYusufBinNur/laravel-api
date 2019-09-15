@@ -14,7 +14,7 @@ class Package extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'unitId', 'propertyId', 'residentId', 'typeId', 'enteredUserId', 'trackingNumber', 'comments', 'notifiedByEmail', 'notifiedByText', 'notifiedByVoice'
+        'createdByUserId', 'unitId', 'propertyId', 'residentId', 'typeId', 'enteredUserId', 'trackingNumber', 'description', 'comments', 'notifiedByEmail', 'notifiedByText', 'notifiedByVoice'
     ];
 
     /**
@@ -49,6 +49,16 @@ class Package extends Model
     }
 
     /**
+     * get entered user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function enteredUser()
+    {
+        return $this->hasOne(User::class,'id','enteredUserId');
+    }
+
+    /**
      * user and enterprise user relationship
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -56,6 +66,16 @@ class Package extends Model
     public function type()
     {
         return $this->hasOne(PackageType::class,'id','typeId');
+    }
+
+    /**
+     * get the property
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(Property::class, 'id', 'propertyId');
     }
 
 }

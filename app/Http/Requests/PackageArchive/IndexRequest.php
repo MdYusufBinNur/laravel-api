@@ -15,11 +15,12 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
+            'propertyId' => 'required|list:numeric',
             'packageId' => 'list:numeric',
-            'signoutUserId' => 'list:numeric',
-            'signoutComments' => 'list:string',
+            'signOutUserId' => 'list:numeric',
+            'signOutComment' => 'list:string',
             'signature' => 'list:boolean',
-            'signoutAt' => 'list:date',
+            'signOutAt' => 'list:date',
         ];
     }
 }

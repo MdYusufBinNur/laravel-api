@@ -15,11 +15,18 @@ class PackageArchiveResource extends Resource
         return [
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
+            'propertyId' => $this->propertyId,
+            'property' => $this->when($this->needToInclude($request, 'pa.property'), function () {
+                return new PropertyResource($this->property);
+            }),
             'packageId' => $this->packageId,
-            'signoutUserId' => $this->signoutUserId,
-            'signoutComments' => $this->signoutComments,
+            'package' => $this->when($this->needToInclude($request, 'pa.package'), function () {
+                return new PackageResource($this->package);
+            }),
+            'signOutUserId' => $this->signOutUserId,
+            'signOutComment' => $this->signOutComment,
             'signature' => $this->signature,
-            'signoutAt' => $this->signoutAt,
+            'signOutAt' => $this->signOutAt,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

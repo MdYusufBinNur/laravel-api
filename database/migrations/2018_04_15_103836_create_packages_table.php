@@ -17,12 +17,13 @@ class CreatePackagesTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
-            $table->unsignedInteger('unitId');
-            $table->unsignedInteger('residentId');
+            $table->unsignedInteger('unitId')->nullable();;
+            $table->unsignedInteger('residentId')->nullable();;
             $table->unsignedInteger('typeId');
-            $table->unsignedInteger('enteredUserId');
+            $table->unsignedInteger('enteredUserId')->nullable();;
             $table->string('trackingNumber')->nullable();
-            $table->text('comments')->nullable();
+            $table->string('comments')->nullable();
+            $table->text('description')->nullable();
             $table->boolean('notifiedByEmail')->default(0);
             $table->boolean('notifiedByText')->default(0);
             $table->boolean('notifiedByVoice')->default(0);

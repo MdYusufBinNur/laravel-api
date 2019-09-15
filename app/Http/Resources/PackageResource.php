@@ -16,6 +16,9 @@ class PackageResource extends Resource
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
             'propertyId' => $this->propertyId,
+            'property' => $this->when($this->needToInclude($request, 'pa.property'), function () {
+                return new PropertyResource($this->property);
+            }),
             'unitId' => $this->unitId,
             'unit' => $this->when($this->needToInclude($request, 'package.unit'), function () {
                 return new UnitResource($this->unit);
@@ -29,8 +32,12 @@ class PackageResource extends Resource
                 return new PackageTypeResource($this->type);
             }),
             'enteredUserId' => $this->enteredUserId,
+            'enteredUser' => $this->when($this->needToInclude($request, 'package.enteredUser'), function () {
+                return new UserResource($this->enteredUser);
+            }),
             'trackingNumber' => $this->trackingNumber,
-            'comments' => $this->trackingNumber,
+            'description' => $this->description,
+            'comments' => $this->comments,
             'notifiedByEmail' => $this->notifiedByEmail,
             'notifiedByText' => $this->notifiedByEmail,
             'notifiedByVoice' => $this->notifiedByVoice,

@@ -15,9 +15,9 @@ class UpdateRequest extends Request
     {
         return [
             'visitorId' => 'exists:visitors:id',
-            'signoutUserId' => 'exists:users:id',
+            'signOutUserId' => 'exists:users:id',
             'signature' => 'boolean',
-            'signout_at' => 'date',
+            'signOutAt' => 'date',
         ];
     }
 }

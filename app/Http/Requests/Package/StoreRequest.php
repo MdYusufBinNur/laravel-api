@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Requests\Package;
 
 
@@ -15,15 +16,12 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' => 'required|exists:properties,id',
-            'unitId' => 'required|exists:units,id',
-            'residentId' => 'required|exists:residents,id',
+            'unitId' => 'required_without:residentId|exists:units,id',
+            'residentId' => 'required_without:unitId|exists:residents,id',
             'typeId' => 'required|exists:package_types,id',
-            'enteredUserId' => 'required|exists:users,id',
             'trackingNumber' => 'min:3|max:191',
+            'description' => 'min:3|max:1024',
             'comments' => 'min:3|max:1024',
-            'notifiedByEmail' => 'boolean',
-            'notifiedByText' => 'boolean',
-            'notifiedByVoice' => 'boolean',
         ];
     }
 }

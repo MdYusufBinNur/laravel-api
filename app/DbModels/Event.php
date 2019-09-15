@@ -14,7 +14,7 @@ class Event extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'createdUserId', 'title', 'text', 'maxGuests', 'allowedSignUp', 'alldayEvent', 'allowedLoginPage', 'hasAttachment', 'startAt', 'endAt'
+        'createdByUserId', 'propertyId', 'createdUserId', 'title', 'text', 'maxGuests', 'allowedSignUp', 'alldayEvent', 'allowedLoginPage', 'hasAttachment', 'startAt', 'endAt', 'date'
     ];
 
     /**
@@ -27,5 +27,6 @@ class Event extends Model
         'alldayEvent' => 'boolean',
         'allowedLoginPage' => 'boolean',
         'hasAttachment' => 'boolean',
+        'date' => 'datetime: Y-m-d h:i',
     ];
 }

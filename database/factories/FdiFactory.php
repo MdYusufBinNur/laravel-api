@@ -2,13 +2,14 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
+use App\DbModels\Unit;
 use Faker\Generator as Faker;
 
 $factory->define(App\DbModels\Fdi::class, function (Faker $faker) {
     return [
         'propertyId' =>  App\DbModels\Property::all()->random()->id,
         'unitId' =>  App\DbModels\Unit::all()->random()->id,
-        'visitorType' =>  $faker->randomElement(array('guest','family','contractor')),
+        'guestTypeId' =>  App\DbModels\FdiGuestType::all()->random()->id,
         'name' => $faker->name,
         'type' => $faker->randomElement(array('guest','mail','general')),
         'photo' => $faker->boolean,

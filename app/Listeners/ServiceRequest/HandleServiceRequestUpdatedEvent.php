@@ -27,7 +27,7 @@ class HandleServiceRequestUpdatedEvent implements ShouldQueue
     {
         $serviceRequest = $event->serviceRequest;
         $eventOptions = $event->options;
-        $oldServiceRequest = $eventOptions['oldServiceRequest'];
+        $oldServiceRequest = $eventOptions['oldModel'];
 
         $serviceRequestLogRepository = app(ServiceRequestLogRepository::class);
 

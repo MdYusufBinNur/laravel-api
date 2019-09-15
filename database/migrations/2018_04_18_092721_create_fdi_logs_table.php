@@ -18,7 +18,7 @@ class CreateFdiLogsTable extends Migration
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('fdiId');
             $table->unsignedInteger('userId');
-            $table->mediumText('text');
+            $table->mediumText('text')->nullable();
             $table->string('type');
             $table->timestamps();
             $table->softDeletes();

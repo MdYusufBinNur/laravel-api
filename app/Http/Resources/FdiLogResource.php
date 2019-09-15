@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Support\Str;
+
 class FdiLogResource extends Resource
 {
     /**
@@ -12,7 +14,7 @@ class FdiLogResource extends Resource
      */
     public function toArray($request)
     {
-        return [
+        $response =  [
             'id' => $this->id,
             'fdiId' => $this->fdiId,
             'userId' => $this->userId,
@@ -21,5 +23,18 @@ class FdiLogResource extends Resource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
+
+        $additionalMessage = $this->buildMessage();
+
+        return array_merge($response, $additionalMessage);
+    }
+
+    private function buildMessage()
+    {
+        $message = [];
+
+        $message['readable'] = Str::title($this->text) . ' by ' . $this->createdByUser->name;
+
+        return $message;
     }
 }

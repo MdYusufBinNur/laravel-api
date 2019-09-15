@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Events\EnterpriseUser\EnterpriseUserCreatedEvent;
+use App\Events\Fdi\FdiCreatedEvent;
+use App\Events\Fdi\FdiUpdatedEvent;
 use App\Events\Manager\ManagerCreatedEvent;
 use App\Events\ResidentAccessRequest\ResidentAccessRequestCreatedEvent;
 use App\Events\ResidentAccessRequest\ResidentAccessRequestUpdatedEvent;
@@ -10,6 +12,8 @@ use App\Events\Resident\ResidentCreatedEvent;
 use App\Events\ServiceRequest\ServiceRequestCreatedEvent;
 use App\Events\ServiceRequest\ServiceRequestUpdatedEvent;
 use App\Events\ServiceRequestMessage\ServiceRequestMessageCreatedEvent;
+use App\Listeners\Fdi\HandleFdiCreatedEvent;
+use App\Listeners\Fdi\HandleFdiUpdatedEvent;
 use App\Listeners\ResidentAccessRequest\HandleResidentAccessRequestCreatedEvent;
 use App\Listeners\ResidentAccessRequest\HandleResidentAccessRequestUpdatedEvent;
 use App\Listeners\Resident\HandleResidentCreatedEvent;
@@ -55,6 +59,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         ServiceRequestMessageCreatedEvent::class => [
             HandleServiceRequestMessageCreatedEvent::class
+        ],
+        FdiCreatedEvent::class => [
+            HandleFdiCreatedEvent::class
+        ],
+        FdiUpdatedEvent::class => [
+            HandleFdiUpdatedEvent::class
         ]
     ];
 

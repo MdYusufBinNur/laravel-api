@@ -14,7 +14,9 @@ class Fdi extends Model
 
     const STATUS_ACTIVE = 'active';
     const STATUS_DELETED = 'deleted';
-    const STATUS_PENDING_APPROVAL = 'pending-approval';
+    const STATUS_PENDING_APPROVAL = 'pending';
+    const STATUS_DENIED = 'denied';
+    const STATUS_EXPIRED = 'expired';
 
     const VISITOR_TYPE_GUEST = 'guest';
     const VISITOR_TYPE_FAMILY = 'family';
@@ -52,8 +54,6 @@ class Fdi extends Model
         'status' => self::STATUS_ACTIVE,
     ];
 
-
-
     /**
      * get the user
      *
@@ -82,5 +82,15 @@ class Fdi extends Model
     public function property()
     {
         return $this->hasOne(Unit::class, 'id', 'unitId');
+    }
+
+    /**
+     * service request and its log relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function logs()
+    {
+        return $this->hasMany(FdiLog::class, 'fdiId', 'id');
     }
 }

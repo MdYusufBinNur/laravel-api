@@ -6,6 +6,8 @@ namespace App\Repositories;
 
 use App\DbModels\Attachment;
 use App\DbModels\Fdi;
+use App\Events\Fdi\FdiCreatedEvent;
+use App\Events\Fdi\FdiUpdatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\FdiRepository;
 use Carbon\Carbon;
@@ -27,6 +29,21 @@ class EloquentFdiRepository extends EloquentBaseRepository implements FdiReposit
             }
             unset($data['attachmentId']);
         }
+
+        // fire service request created event
+        event(new FdiCreatedEvent($fdi, $this->generateEventOptionsForModel()));
+
+        return $fdi;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function update(\ArrayAccess $model, array $data): \ArrayAccess
+    {
+        $fdi = parent::update($model, $data);
+
+        event(new FdiUpdatedEvent($model, $this->generateEventOptionsForModel()));
 
         return $fdi;
     }
@@ -99,6 +116,12 @@ class EloquentFdiRepository extends EloquentBaseRepository implements FdiReposit
                     break;
                 case Fdi::STATUS_PENDING_APPROVAL:
                     $status = Fdi::STATUS_PENDING_APPROVAL;
+                    break;
+                case Fdi::STATUS_EXPIRED:
+                    $status = Fdi::STATUS_EXPIRED;
+                    break;
+                case Fdi::STATUS_DENIED:
+                    $status = Fdi::STATUS_DENIED;
                     break;
                 case 'future':
                     $status = 'future';

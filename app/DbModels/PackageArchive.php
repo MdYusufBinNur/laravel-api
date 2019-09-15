@@ -46,4 +46,14 @@ class PackageArchive extends Model
     {
         return $this->hasOne(Property::class, 'id', 'propertyId');
     }
+
+    /**
+     * get the signOutUser
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function signOutUser()
+    {
+        return $this->hasOne(User::class, 'id', 'signOutUserId');
+    }
 }

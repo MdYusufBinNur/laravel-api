@@ -24,6 +24,9 @@ class PackageArchiveResource extends Resource
                 return new PackageResource($this->package);
             }),
             'signOutUserId' => $this->signOutUserId,
+            'signOutUser' => $this->when($this->needToInclude($request, 'pa.signOutUser'), function () {
+                return new UserResource($this->signOutUser);
+            }),
             'signOutComment' => $this->signOutComment,
             'signature' => $this->signature,
             'signOutAt' => $this->signOutAt,

@@ -14,7 +14,7 @@ class EloquentPackageArchiveRepository extends EloquentBaseRepository implements
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = ['property', 'package', 'package.property', 'package.type','package.resident','package.unit', 'package.enteredUser'];
+        $searchCriteria['eagerLoad'] = ['property', 'package', 'signOutUser', 'package.property', 'package.type','package.resident','package.unit', 'package.enteredUser'];
 
         $packages =  parent::findBy($searchCriteria, $withTrashed);
 

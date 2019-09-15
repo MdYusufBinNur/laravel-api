@@ -103,7 +103,7 @@ class EloquentFdiRepository extends EloquentBaseRepository implements FdiReposit
      * get search criteria by status
      *
      * @param array $searchCriteria
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return string
      */
     private function getSearchCriteriaByStatus(array $searchCriteria)
     {

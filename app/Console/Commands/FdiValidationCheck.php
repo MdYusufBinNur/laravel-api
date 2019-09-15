@@ -56,11 +56,14 @@ class FdiValidationCheck extends Command
         foreach ($fdis as $index => $fdi) {
             $this->fdiRepository->update($fdi, ['status' => Fdi::STATUS_EXPIRED]);
 
-            //only for output
+            //only for output, sequence is important
             $affectedFdis[$index]['fdiId'] = $fdi->id;
             $affectedFdis[$index]['propertyId'] = $fdi->propertyId;
+            $affectedFdis[$index]['type'] = $fdi->type;
+            $affectedFdis[$index]['startDate'] = $fdi->startDate;
+            $affectedFdis[$index]['endDate'] = $fdi->endDate;
         }
 
-        $this->table(['propertyId', 'fdiId'], $affectedFdis);
+        $this->table(['fdiId', 'propertyId', 'type', 'startDate', 'endDate'], $affectedFdis);
     }
 }

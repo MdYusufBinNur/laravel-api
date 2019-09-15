@@ -26,7 +26,9 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('pms:fdi-validation')
             ->everyMinute()
-            ->emailOutputTo('dev@reformedtech.org');
+            ->emailOutputTo('dev@reformedtech.org')
+            ->emailOutputOnFailure('dev@reformedtech.org');
+        ;
     }
 
     /**

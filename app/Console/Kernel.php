@@ -26,6 +26,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('pms:fdi-validation')
             ->daily()
+            ->name("FDI Validation!")
             ->emailOutputTo('dev@reformedtech.org')
             ->emailOutputOnFailure('dev@reformedtech.org');
         ;

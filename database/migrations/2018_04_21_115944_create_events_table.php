@@ -25,6 +25,7 @@ class CreateEventsTable extends Migration
             $table->boolean('alldayEvent')->default(0);
             $table->boolean('allowedLoginPage')->default(0);
             $table->boolean('hasAttachment')->default(0);
+            $table->date('date');
             $table->time('startAt');
             $table->time('endAt');
             $table->timestamps();

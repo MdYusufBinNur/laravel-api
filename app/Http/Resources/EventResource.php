@@ -26,6 +26,7 @@ class EventResource extends Resource
             'hasAttachment' => $this->hasAttachment,
             'startAt' => $this->startAt,
             'endAt' => $this->endAt,
+            'date' => $this->date,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

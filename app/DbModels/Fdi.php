@@ -14,7 +14,13 @@ class Fdi extends Model
 
     const STATUS_ACTIVE = 'active';
     const STATUS_DELETED = 'deleted';
-    const STATUS_PENDING_APPROVAL = 'pendingApproval';
+    const STATUS_PENDING_APPROVAL = 'pending';
+    const STATUS_DENIED = 'denied';
+    const STATUS_EXPIRED = 'expired';
+
+    const VISITOR_TYPE_GUEST = 'guest';
+    const VISITOR_TYPE_FAMILY = 'family';
+    const VISITOR_TYPE_CONTRACTOR = 'contractor';
 
     /**
      * The attributes that are mass assignable.
@@ -22,7 +28,7 @@ class Fdi extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'userId', 'unitId', 'guestTypeId', 'type', 'name', 'photo', 'startDate', 'endDate', 'permanent', 'comments', 'canGetKey', 'signature', 'status'
+        'createdByUserId', 'propertyId', 'unitId', 'type', 'visitorType', 'name', 'photo', 'startDate', 'endDate', 'permanent', 'comments', 'canGetKey', 'signature', 'status'
     ];
 
     /**
@@ -35,7 +41,56 @@ class Fdi extends Model
         'permanent' => 'boolean',
         'canGetKey' => 'boolean',
         'signature' => 'boolean',
-        'startDate' => 'datetime:Y-m-d',
-        'endDate' => 'datetime:Y-m-d',
+        'startDate' => 'datetime',
+        'endDate' => 'datetime',
     ];
+
+    /**
+     * set default values
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'status' => self::STATUS_ACTIVE,
+    ];
+
+    /**
+     * get the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'userId');
+    }
+
+    /**
+     * get the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function unit()
+    {
+        return $this->hasOne(Unit::class, 'id', 'unitId');
+    }
+
+    /**
+     * get the property
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(Unit::class, 'id', 'unitId');
+    }
+
+    /**
+     * service request and its log relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function logs()
+    {
+        return $this->hasMany(FdiLog::class, 'fdiId', 'id');
+    }
 }

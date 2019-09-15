@@ -16,19 +16,18 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' => 'required|exists:properties,id',
-            'userId' => 'required|exists:users,id',
             'unitId' => 'required|exists:units,id',
-            'guestTypeId' => 'required|exists:fdi_guest_types,id',
-            'type' => 'required|in:'.Fdi::TYPE_GENERAL.','.Fdi::TYPE_GUEST.','.Fdi::TYPE_MAIL,
-            'name' => 'required|min:3|max:100',
-            'photo' => 'boolean',
+            'type' => 'required|in:' . Fdi::TYPE_GENERAL . ',' . Fdi::TYPE_GUEST . ',' . Fdi::TYPE_MAIL,
+            'visitorType' => 'required_if:type,==,' . Fdi::TYPE_GUEST . '|in:' . Fdi::VISITOR_TYPE_GUEST . ',' . Fdi::VISITOR_TYPE_FAMILY . ',' . Fdi::VISITOR_TYPE_CONTRACTOR,
+            'name' => 'required_if:type,==,' . Fdi::TYPE_GUEST . 'min:3|max:100',
             'startDate' => 'date',
-            'endDate' => 'date',
+            'endDate' => 'date|after_or_equal:startDate',
             'permanent' => 'boolean',
             'comments' => '',
             'canGetKey' => 'boolean',
             'signature' => 'boolean',
-            'status' => 'required|in:'.Fdi::STATUS_ACTIVE.','.Fdi::STATUS_DELETED.','.Fdi::STATUS_PENDING_APPROVAL,
+            'status' => 'in:' . Fdi::STATUS_ACTIVE . ',' . Fdi::STATUS_PENDING_APPROVAL,
+            'attachmentId' => 'exists:attachments,id'
         ];
     }
 }

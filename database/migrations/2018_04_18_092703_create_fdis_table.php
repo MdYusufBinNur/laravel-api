@@ -17,14 +17,13 @@ class CreateFdisTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
-            $table->unsignedInteger('userId');
             $table->unsignedInteger('unitId');
-            $table->unsignedInteger('guestTypeId');
+            $table->string('visitorType')->nullable();
             $table->string('type');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->boolean('photo')->default(0);
-            $table->date('startDate')->nullable();
-            $table->date('endDate')->nullable();
+            $table->dateTime('startDate')->nullable();
+            $table->dateTime('endDate')->nullable();
             $table->boolean('permanent')->default(0);
             $table->text('comments')->nullable();
             $table->boolean('canGetKey')->default(0);
@@ -40,11 +39,6 @@ class CreateFdisTable extends Migration
 
             $table->foreign('unitId')
                 ->references('id')->on('units')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
-            $table->foreign('guestTypeId')
-                ->references('id')->on('fdi_guest_types')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

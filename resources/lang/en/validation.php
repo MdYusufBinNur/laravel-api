@@ -154,6 +154,10 @@ return [
         'notificationIds' => 'notificationIds',
         'customImageAttachmentId' => 'customImageAttachmentId',
         'imageId' => 'imageId',
+        'attachmentId' => 'attachmentId',
+        'startDate' => 'startDate',
+        'endDate' => 'endDate',
+        'canGetKey' => 'canGetKey',
 
         //todo
     ],

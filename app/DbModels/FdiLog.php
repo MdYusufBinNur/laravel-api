@@ -12,6 +12,7 @@ class FdiLog extends Model
     const TYPE_EDIT = 'edit';
     const TYPE_EXPIRED = 'expired';
     const TYPE_APPROVED = 'approved';
+    const TYPE_PENDING = 'pending';
     const TYPE_DENIED = 'denied';
 
     /**

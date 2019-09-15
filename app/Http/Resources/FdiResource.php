@@ -20,9 +20,9 @@ class FdiResource extends Resource
             'property' => $this->when($this->needToInclude($request, 'fdi.property'), function () {
                 return new UnitResource($this->property);
             }),
-            'userId' => $this->userId,
-            'user' => $this->when($this->needToInclude($request, 'fdi.user'), function () {
-                return new UserResource($this->user);
+            'createdByUserId' => $this->createdByUserId,
+            'createdByUser' => $this->when($this->needToInclude($request, 'fdi.createdByUser'), function () {
+                return new UserResource($this->createdByUser);
             }),
             'unitId' => $this->unitId,
             'unit' => $this->when($this->needToInclude($request, 'fdi.unit'), function () {

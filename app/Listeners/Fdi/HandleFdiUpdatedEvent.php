@@ -34,6 +34,7 @@ class HandleFdiUpdatedEvent implements ShouldQueue
         if (!empty($changedData)) {
             $fdiLogRepository->save([
                 'fdiId' => $fdi->id,
+                'createdByUserId' => $fdi->createdByUserId,
                 'userId' => $fdi->createdByUserId,
                 'type' => $this->getTypeByChangedData($changedData),
                 'status' => $fdi->status,

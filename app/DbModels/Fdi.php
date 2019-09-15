@@ -55,16 +55,6 @@ class Fdi extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function user()
-    {
-        return $this->hasOne(User::class, 'id', 'userId');
-    }
-
-    /**
-     * get the user
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
     public function unit()
     {
         return $this->hasOne(Unit::class, 'id', 'unitId');

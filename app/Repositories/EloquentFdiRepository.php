@@ -90,7 +90,7 @@ class EloquentFdiRepository extends EloquentBaseRepository implements FdiReposit
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
-        $queryBuilder->with(['user', 'unit', 'property']);
+        $queryBuilder->with(['user', 'unit', 'property', 'logs', 'logs.createdByUser']);
 
         $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15; // it's needed for pagination
         $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';

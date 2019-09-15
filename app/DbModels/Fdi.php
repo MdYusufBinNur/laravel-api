@@ -18,17 +18,13 @@ class Fdi extends Model
     const STATUS_DENIED = 'denied';
     const STATUS_EXPIRED = 'expired';
 
-    const VISITOR_TYPE_GUEST = 'guest';
-    const VISITOR_TYPE_FAMILY = 'family';
-    const VISITOR_TYPE_CONTRACTOR = 'contractor';
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'unitId', 'type', 'visitorType', 'name', 'photo', 'startDate', 'endDate', 'permanent', 'comments', 'canGetKey', 'signature', 'status'
+        'createdByUserId', 'propertyId', 'unitId', 'type', 'guestTypeId', 'name', 'photo', 'startDate', 'endDate', 'permanent', 'comments', 'canGetKey', 'signature', 'status'
     ];
 
     /**
@@ -82,6 +78,16 @@ class Fdi extends Model
     public function property()
     {
         return $this->hasOne(Unit::class, 'id', 'unitId');
+    }
+
+    /**
+     * get the guest type
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function guestType()
+    {
+        return $this->hasOne(FdiGuestType::class, 'id', 'guestTypeId');
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Requests\Fdi;
 
 use App\DbModels\Fdi;
 use App\Http\Requests\Request;
+use function PHPSTORM_META\type;
 
 class StoreRequest extends Request
 {
@@ -18,7 +19,7 @@ class StoreRequest extends Request
             'propertyId' => 'required|exists:properties,id',
             'unitId' => 'required|exists:units,id',
             'type' => 'required|in:' . Fdi::TYPE_GENERAL . ',' . Fdi::TYPE_GUEST . ',' . Fdi::TYPE_MAIL,
-            'visitorType' => 'required_if:type,==,' . Fdi::TYPE_GUEST . '|in:' . Fdi::VISITOR_TYPE_GUEST . ',' . Fdi::VISITOR_TYPE_FAMILY . ',' . Fdi::VISITOR_TYPE_CONTRACTOR,
+            'guestTypeId' => 'exists:fdi_guest_types,id|required_if:type,=,' . Fdi::TYPE_GUEST,
             'name' => 'required_if:type,==,' . Fdi::TYPE_GUEST . 'min:3|max:100',
             'startDate' => 'date',
             'endDate' => 'date|after_or_equal:startDate',

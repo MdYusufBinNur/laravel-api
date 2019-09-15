@@ -353,7 +353,7 @@ class EloquentBaseRepository implements BaseRepository
     {
         $request = request();
         $options['request'] = $request->toArray();
-        if ($request->isMethod('PUT')) {
+        if ($this->oldModel instanceof \ArrayAccess) {
             $options['oldModel'] = $this->oldModel;
         }
         return array_merge($options, $additionalData);

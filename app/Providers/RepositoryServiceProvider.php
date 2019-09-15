@@ -10,6 +10,7 @@ use App\DbModels\EnterpriseUserProperty;
 use App\DbModels\Event;
 use App\DbModels\EventSignup;
 use App\DbModels\Fdi;
+use App\DbModels\FdiGuestType;
 use App\DbModels\FdiLog;
 use App\DbModels\Manager;
 use App\DbModels\ManagerInvitation;
@@ -74,6 +75,7 @@ use App\Repositories\Contracts\EnterpriseUserPropertyRepository;
 use App\Repositories\Contracts\EnterpriseUserRepository;
 use App\Repositories\Contracts\EventRepository;
 use App\Repositories\Contracts\EventSignupRepository;
+use App\Repositories\Contracts\FdiGuestTypeRepository;
 use App\Repositories\Contracts\FdiLogRepository;
 use App\Repositories\Contracts\FdiRepository;
 use App\Repositories\Contracts\ManagerRepository;
@@ -131,6 +133,7 @@ use App\Repositories\EloquentEnterpriseUserPropertyRepository;
 use App\Repositories\EloquentEnterpriseUserRepository;
 use App\Repositories\EloquentEventRepository;
 use App\Repositories\EloquentEventSignupRepository;
+use App\Repositories\EloquentFdiGuestTypeRepository;
 use App\Repositories\EloquentFdiLogRepository;
 use App\Repositories\EloquentFdiRepository;
 use App\Repositories\EloquentManagerRepository;
@@ -541,6 +544,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind FdiLogRepository
         $this->app->bind(FdiLogRepository::class, function() {
             return new EloquentFdiLogRepository(new FdiLog());
+        });
+
+        // bind FdiGuestTypeRepository
+        $this->app->bind(FdiGuestTypeRepository::class, function() {
+            return new EloquentFdiGuestTypeRepository(new FdiGuestType());
         });
     }
 }

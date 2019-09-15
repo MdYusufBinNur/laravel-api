@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\DbModels\FdiGuestType;
+
 class FdiResource extends Resource
 {
     /**
@@ -28,6 +30,10 @@ class FdiResource extends Resource
             }),
             'type' => $this->type,
             'name' => $this->name,
+            'guestTypeId' => $this->guestTypeId,
+            'guestType' => $this->when($this->needToInclude($request, 'fdi.guestType'), function () {
+                return new FdiGuestTypeResource($this->guestType);
+            }),
             'startDate' => $this->startDate,
             'endDate' => $this->endDate,
             'permanent' => $this->permanent,

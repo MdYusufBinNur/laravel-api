@@ -19,7 +19,7 @@ class IndexRequest extends Request
             'userId' => 'list:numeric',
             'unitId' => 'list:numeric',
             'type' => 'list:string',
-            'visitorType' => 'list:string',
+            'guestTypeId' => 'list:string',
             'name' => 'list:string',
             'startDate' => 'date',
             'endDate' => 'date',

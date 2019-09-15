@@ -37,7 +37,7 @@ class HandleFdiUpdatedEvent implements ShouldQueue
                 'userId' => $fdi->createdByUserId,
                 'type' => $this->getTypeByChangedData($changedData),
                 'status' => $fdi->status,
-                'text' =>  $this->getTextByStatus($fdi->status),
+                'text' =>  $this->getTextByStatus($fdi->status, $oldFdi),
             ]);
         }
 
@@ -49,12 +49,12 @@ class HandleFdiUpdatedEvent implements ShouldQueue
      * @param string $status
      * @return string
      */
-    private function getTextByStatus($status)
+    private function getTextByStatus($status, $oldFdi)
     {
         $text = '';
         switch ($status) {
             case Fdi::STATUS_ACTIVE:
-                $text = 'Activated';
+                $text = $oldFdi->status == Fdi::STATUS_PENDING_APPROVAL ? 'Approved' : 'Activated';
                 break;
             case Fdi::STATUS_PENDING_APPROVAL:
                 $text = 'Pending for approval';

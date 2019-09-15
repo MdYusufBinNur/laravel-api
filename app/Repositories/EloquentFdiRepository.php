@@ -68,7 +68,7 @@ class EloquentFdiRepository extends EloquentBaseRepository implements FdiReposit
         $queryBuilder = $this->model;
 
         if ($searchCriteria['status'] === 'future') {
-            $queryBuilder = $queryBuilder->whereDate('startDate','>', Carbon::now());
+            $queryBuilder = $queryBuilder->whereDate('startDate', '>', Carbon::now());
             unset($searchCriteria['status']);
         }
 
@@ -77,12 +77,14 @@ class EloquentFdiRepository extends EloquentBaseRepository implements FdiReposit
         }
 
         if (isset($searchCriteria['endDate'])) {
-            $queryBuilder = $queryBuilder->whereDate('endDate','<=', Carbon::parse($searchCriteria['endDate']));
+            $queryBuilder = $queryBuilder->whereDate('endDate', '<=', Carbon::parse($searchCriteria['endDate']))
+                ->orWhere('permanent', 1);
             unset($searchCriteria['endDate']);
         }
 
         if (isset($searchCriteria['startDate'])) {
-            $queryBuilder = $queryBuilder->whereDate('startDate','>=', Carbon::parse($searchCriteria['startDate']));
+            $queryBuilder = $queryBuilder->whereDate('startDate', '>=', Carbon::parse($searchCriteria['startDate']))
+                ->orWhere('permanent', 1);
             unset($searchCriteria['startDate']);
         }
 

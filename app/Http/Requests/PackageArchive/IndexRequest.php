@@ -18,9 +18,8 @@ class IndexRequest extends Request
             'propertyId' => 'required|list:numeric',
             'packageId' => 'list:numeric',
             'signOutUserId' => 'list:numeric',
-            'signOutComment' => 'list:string',
-            'signature' => 'list:boolean',
-            'signOutAt' => 'list:date',
+            'startDate' => 'date',
+            'endDate' => 'date',
         ];
     }
 }

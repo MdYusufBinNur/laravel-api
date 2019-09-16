@@ -16,11 +16,30 @@ class EloquentPackageArchiveRepository extends EloquentBaseRepository implements
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = ['property', 'package', 'signOutUser', 'package.property', 'package.type','package.resident','package.unit', 'package.enteredUser'];
+        //todo search by unitId, keyword
+        $queryBuilder = $this->model;
 
-        $packages =  parent::findBy($searchCriteria, $withTrashed);
+        if (isset($searchCriteria['endDate'])) {
+            $queryBuilder = $queryBuilder->whereDate('signOutAt', '<=', Carbon::parse($searchCriteria['endDate']));
+            unset($searchCriteria['endDate']);
+        }
 
-        return $packages;
+        if (isset($searchCriteria['startDate'])) {
+            $queryBuilder = $queryBuilder->whereDate('signOutAt', '>=', Carbon::parse($searchCriteria['startDate']));
+            unset($searchCriteria['startDate']);
+        }
+
+        $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
+            $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
+        });
+        $queryBuilder->with(['property', 'package', 'signOutUser', 'package.property', 'package.type','package.resident','package.unit', 'package.enteredUser']);
+
+        $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;
+        $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';
+        $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
+        $queryBuilder->orderBy($orderBy, $orderDirection);
+
+        return $queryBuilder->paginate($limit);
     }
 
     /**

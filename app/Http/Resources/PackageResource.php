@@ -37,7 +37,7 @@ class PackageResource extends Resource
             }),
             'trackingNumber' => $this->trackingNumber,
             'description' => $this->description,
-            'comments' => $this->comments,
+            'comment' => $this->comment,
             'notifiedByEmail' => $this->notifiedByEmail,
             'notifiedByText' => $this->notifiedByEmail,
             'notifiedByVoice' => $this->notifiedByVoice,

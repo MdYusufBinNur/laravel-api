@@ -13,7 +13,7 @@ $factory->define(App\DbModels\ServiceRequestOfficeDetail::class, function (Faker
         'handyman' => $faker->name,
         'outsideContactor' => $faker->boolean,
         'partsNeeded' => $faker->word,
-        'comments' => $faker->sentence,
+        'comment' => $faker->sentence,
         'temporarilyRepaired' => $faker->boolean,
         'signature' => $faker->boolean,
     ];

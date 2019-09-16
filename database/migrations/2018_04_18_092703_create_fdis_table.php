@@ -25,7 +25,7 @@ class CreateFdisTable extends Migration
             $table->dateTime('startDate')->nullable();
             $table->dateTime('endDate')->nullable();
             $table->boolean('permanent')->default(0);
-            $table->text('comments')->nullable();
+            $table->text('comment')->nullable();
             $table->boolean('canGetKey')->default(0);
             $table->boolean('signature')->default(0);
             $table->string('status');

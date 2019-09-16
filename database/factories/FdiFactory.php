@@ -16,7 +16,7 @@ $factory->define(App\DbModels\Fdi::class, function (Faker $faker) {
         'startDate' => $faker->dateTime,
         'endDate' => $faker->dateTime,
         'permanent' => $faker->boolean,
-        'comments' => $faker->sentence,
+        'comment' => $faker->sentence,
         'canGetKey' => $faker->boolean,
         'signature' => $faker->boolean,
         'status' => $faker->randomElement(array('active','deleted','pendingApproval')),

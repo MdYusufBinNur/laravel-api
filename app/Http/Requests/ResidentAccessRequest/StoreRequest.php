@@ -24,7 +24,7 @@ class StoreRequest extends Request
             'groups' => 'min:3|max:191', //todo
             'status' => 'in:' . ResidentAccessRequest::STATUS_APPROVED . ',' . ResidentAccessRequest::STATUS_DENIED . ','. ResidentAccessRequest::STATUS_COMPLETED . ',' . ResidentAccessRequest::STATUS_PENDING,
             'active' => 'boolean',
-            'comments' => 'min:3|max:1024',
+            'comment' => 'min:3|max:1024',
             'moderatedUserId' => 'integer',
             'moderatedAt' => 'date',
             'movedInDate' => 'date',

@@ -17,7 +17,7 @@ class Visitor extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'signinUserId', 'unitId', 'visitorTypeId', 'name', 'phone', 'email', 'company', 'photo', 'permanent', 'comments', 'signature', 'status', 'signinAt'
+        'createdByUserId', 'propertyId', 'signinUserId', 'unitId', 'visitorTypeId', 'name', 'phone', 'email', 'company', 'photo', 'permanent', 'comment', 'signature', 'status', 'signinAt'
     ];
 
     /**

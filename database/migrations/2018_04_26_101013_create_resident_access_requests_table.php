@@ -25,7 +25,7 @@ class CreateResidentAccessRequestsTable extends Migration
             $table->string('groups')->nullable(); //todo
             $table->string('status');
             $table->boolean('active')->default(1);
-            $table->mediumText('comments')->nullable();
+            $table->mediumText('comment')->nullable();
             $table->unsignedInteger('moderatedUserId')->nullable();
             $table->dateTime('moderatedAt')->nullable();
             $table->date('movedInDate');

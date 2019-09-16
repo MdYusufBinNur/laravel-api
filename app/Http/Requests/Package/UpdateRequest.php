@@ -20,7 +20,7 @@ class UpdateRequest extends Request
             'typeId' => 'exists:package_types,id',
             'trackingNumber' => 'min:3|max:191',
             'description' => 'min:3|max:1024',
-            'comments' => 'min:3|max:1024'
+            'comment' => 'min:3|max:1024'
         ];
     }
 }

@@ -22,7 +22,7 @@ class CreatePackagesTable extends Migration
             $table->unsignedInteger('typeId');
             $table->unsignedInteger('enteredUserId')->nullable();;
             $table->string('trackingNumber')->nullable();
-            $table->string('comments')->nullable();
+            $table->string('comment')->nullable();
             $table->text('description')->nullable();
             $table->boolean('notifiedByEmail')->default(0);
             $table->boolean('notifiedByText')->default(0);

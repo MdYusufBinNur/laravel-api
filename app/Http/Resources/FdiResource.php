@@ -37,7 +37,7 @@ class FdiResource extends Resource
             'startDate' => $this->startDate,
             'endDate' => $this->endDate,
             'permanent' => $this->permanent,
-            'comments' => $this->comments,
+            'comment' => $this->comment,
             'canGetKey' => $this->canGetKey,
             'signature' => $this->signature,
             'status' => $this->status,

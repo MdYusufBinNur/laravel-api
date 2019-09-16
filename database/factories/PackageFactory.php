@@ -12,7 +12,7 @@ $factory->define(App\DbModels\Package::class, function (Faker $faker) {
         'typeId' =>  App\DbModels\PackageType::all()->random()->id,
         'enteredUserId' =>  App\DbModels\User::all()->random()->id,
         'trackingNumber' => $faker->randomAscii,
-        'comments' => $faker->sentence,
+        'comment' => $faker->sentence,
         'notifiedByEmail' => $faker->boolean,
         'notifiedByText' => $faker->boolean,
         'notifiedByVoice' => $faker->boolean,

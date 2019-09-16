@@ -24,7 +24,7 @@ class Fdi extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'unitId', 'type', 'guestTypeId', 'name', 'photo', 'startDate', 'endDate', 'permanent', 'comments', 'canGetKey', 'signature', 'status'
+        'createdByUserId', 'propertyId', 'unitId', 'type', 'guestTypeId', 'name', 'photo', 'startDate', 'endDate', 'permanent', 'comment', 'canGetKey', 'signature', 'status'
     ];
 
     /**

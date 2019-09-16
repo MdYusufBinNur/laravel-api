@@ -16,7 +16,7 @@ $factory->define(App\DbModels\ResidentAccessRequest::class, function (Faker $fak
         'groups' => '',
         'status' => $faker->randomElement(array('approved','denied','completed','pending')),
         'active' => $faker->boolean,
-        'comments' => $faker->sentence,
+        'comment' => $faker->sentence,
         'moderatedUserId' => $faker->numberBetween(1,100),
         'moderatedAt' => $faker->dateTime,
         'movedinDate' => $faker->dateTime,

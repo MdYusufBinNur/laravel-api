@@ -23,7 +23,7 @@ class CreateServiceRequestOfficeDetailsTable extends Migration
             $table->string('handyman')->nullable();
             $table->boolean('outsideContactor')->default(0);
             $table->text('partsNeeded')->nullable();
-            $table->text('comments')->nullable();
+            $table->text('comment')->nullable();
             $table->boolean('temporarilyRepaired')->default(0);
             $table->boolean('signature')->default(0);
             $table->timestamps();

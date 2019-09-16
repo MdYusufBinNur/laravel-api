@@ -25,7 +25,7 @@ class VisitorResource extends Resource
             'company' => $this->company,
             'photo' => $this->photo,
             'permanent' => $this->permanent,
-            'comments' => $this->comments,
+            'comment' => $this->comment,
             'signature' => $this->signature,
             'status' => $this->status,
             'signinAt' => $this->signinAt,

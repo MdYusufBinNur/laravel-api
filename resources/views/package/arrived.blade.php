@@ -6,7 +6,7 @@ Tracking Number: {{$package->trackingNumber}}
 <br>
 Description: {{$package->description}}
 <br>
-Comments: {{$package->comments}}
+Comments: {{$package->comment}}
 <br>
 
 

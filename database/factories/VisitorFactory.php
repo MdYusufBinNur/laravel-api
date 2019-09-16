@@ -16,7 +16,7 @@ $factory->define(App\DbModels\Visitor::class, function (Faker $faker) {
         'company' => $faker->company,
         'photo' => $faker->boolean,
         'permanent' => $faker->boolean,
-        'comments' => $faker->sentence,
+        'comment' => $faker->sentence,
         'signature' => $faker->boolean,
         'status' => $faker->sentence,
         'signinAt' => $faker->dateTime,

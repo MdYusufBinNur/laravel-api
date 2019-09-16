@@ -21,7 +21,7 @@ class StoreRequest extends Request
             'handyman' => 'min:3|max:191',
             'outsideContactor' => 'boolean',
             'partsNeeded' => 'min:3|max:1024',
-            'comments' => 'min:3|max:1024',
+            'comment' => 'min:3|max:1024',
             'temporarilyRepaired' => 'boolean',
             'signature' => 'boolean',
         ];

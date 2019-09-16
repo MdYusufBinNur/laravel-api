@@ -14,7 +14,7 @@ class ServiceRequestOfficeDetail extends Model
      * @var array
      */
     protected $fillable = [
-        'serviceRequestId', 'assignedUserId', 'materialUsed', 'materialAmount', 'handyman', 'outsideContactor', 'partsNeeded', 'comments', 'temporarilyRepaired', 'signature', 'createdByUserId'
+        'serviceRequestId', 'assignedUserId', 'materialUsed', 'materialAmount', 'handyman', 'outsideContactor', 'partsNeeded', 'comment', 'temporarilyRepaired', 'signature', 'createdByUserId'
     ];
 
     /**

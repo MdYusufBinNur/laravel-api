@@ -14,7 +14,7 @@ class Package extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'unitId', 'propertyId', 'residentId', 'typeId', 'enteredUserId', 'trackingNumber', 'description', 'comments', 'notifiedByEmail', 'notifiedByText', 'notifiedByVoice'
+        'createdByUserId', 'unitId', 'propertyId', 'residentId', 'typeId', 'enteredUserId', 'trackingNumber', 'description', 'comment', 'notifiedByEmail', 'notifiedByText', 'notifiedByVoice'
     ];
 
     /**

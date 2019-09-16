@@ -25,7 +25,7 @@ class StoreRequest extends Request
             'company' => 'min:3|max:191',
             'photo' => 'boolean',
             'permanent' => 'boolean',
-            'comments' => 'min:3|max:1024',
+            'comment' => 'min:3|max:1024',
             'signature' => 'boolean',
             'status' => 'in:'.Visitor::STATUS_ACTIVE.','.Visitor::STATUS_ARCHIVE,
             'signinAt' => 'required|date',

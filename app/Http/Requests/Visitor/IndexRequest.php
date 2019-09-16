@@ -25,7 +25,7 @@ class IndexRequest extends Request
             'company' => 'list:string',
             'photo' => 'list:boolean',
             'permanent' => 'list:boolean',
-            'comments' => 'list:string',
+            'comment' => 'list:string',
             'signature' => 'list:boolean',
             'status' => 'list:string',
             'signinAt' => 'list:date',

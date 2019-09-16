@@ -24,7 +24,7 @@ class StoreRequest extends Request
             'startDate' => 'date',
             'endDate' => 'date|after_or_equal:startDate',
             'permanent' => 'boolean',
-            'comments' => '',
+            'comment' => '',
             'canGetKey' => 'boolean',
             'signature' => 'boolean',
             'status' => 'in:' . Fdi::STATUS_ACTIVE . ',' . Fdi::STATUS_PENDING_APPROVAL,

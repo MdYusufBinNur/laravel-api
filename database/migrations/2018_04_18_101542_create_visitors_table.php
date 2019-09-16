@@ -26,7 +26,7 @@ class CreateVisitorsTable extends Migration
             $table->string('company', 200)->nullable();
             $table->boolean('photo')->default(0);
             $table->boolean('permanent')->default(0);
-            $table->mediumText('comments')->nullable();
+            $table->mediumText('comment')->nullable();
             $table->boolean('signature')->default(0);
             $table->string('status');
             $table->dateTime('signinAt');

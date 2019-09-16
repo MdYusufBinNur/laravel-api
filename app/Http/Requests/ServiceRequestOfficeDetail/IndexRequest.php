@@ -22,7 +22,7 @@ class IndexRequest extends Request
             'handyman' => 'list:string',
             'outsideContactor' => 'list:boolean',
             'partsNeeded' => 'list:text',
-            'comments' => 'list:text',
+            'comment' => 'list:text',
             'temporarilyRepaired' => 'list:boolean',
             'signature' => 'list:boolean',
         ];

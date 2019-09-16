@@ -22,7 +22,7 @@ class ServiceRequestOfficeDetailResource extends Resource
             'handyman' => $this->handyman,
             'outsideContactor' => $this->outsideContactor,
             'partsNeeded' => $this->partsNeeded,
-            'comments' => $this->comments,
+            'comment' => $this->comment,
             'temporarilyRepaired' => $this->temporarilyRepaired,
             'signature' => $this->signature,
             'created_at' => $this->created_at,

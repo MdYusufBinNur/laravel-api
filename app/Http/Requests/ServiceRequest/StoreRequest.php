@@ -25,7 +25,7 @@ class StoreRequest extends Request
             'preferredStartTime' => 'date',
             'preferredEndTime' => 'date',
             'photo' => 'boolean',
-            'attachmentId' => 'exists:attachments,id'
+            'attachmentIds' => 'json|json_ids:attachments,id'
         ];
     }
 }

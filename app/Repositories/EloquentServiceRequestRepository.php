@@ -24,12 +24,18 @@ class EloquentServiceRequestRepository extends EloquentBaseRepository implements
     {
         DB::beginTransaction();
         $serviceRequest = parent::save($data);
-        if (isset($data['attachmentId'])) {
+
+        if (isset($data['attachmentIds'])) {
+            $attachmentIds = json_decode($data['attachmentIds']);
             $attachmentRepository = app(AttachmentRepository::class);
-            $attachment = $attachmentRepository->findOne($data['attachmentId']);
-            if ($attachment instanceof Attachment) {
-                $attachmentRepository->updateResourceId($attachment, $serviceRequest->id);
+
+            foreach ($attachmentIds as $attachment) {
+                $attachment = $attachmentRepository->findOne($attachment);
+                if ($attachment instanceof Attachment) {
+                    $attachmentRepository->updateResourceId($attachment, $serviceRequest->id);
+                }
             }
+
             unset($data['attachmentId']);
         }
 

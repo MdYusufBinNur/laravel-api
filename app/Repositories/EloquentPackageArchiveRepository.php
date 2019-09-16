@@ -5,7 +5,9 @@ namespace App\Repositories;
 
 
 use App\Repositories\Contracts\PackageArchiveRepository;
+use App\Repositories\Contracts\PackageRepository;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class EloquentPackageArchiveRepository extends EloquentBaseRepository implements PackageArchiveRepository
 {
@@ -26,8 +28,14 @@ class EloquentPackageArchiveRepository extends EloquentBaseRepository implements
      */
     public function save(array $data): \ArrayAccess
     {
+        DB::beginTransaction();
         $data['signOutAt'] = Carbon::now();
         $packageArchive = parent::save($data);
+
+        $packageRepository = app(PackageRepository::class);
+        $packageRepository->delete($packageArchive->package);
+
+        DB::commit();
 
         return $packageArchive;
     }

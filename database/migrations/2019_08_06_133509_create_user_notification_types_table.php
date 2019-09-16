@@ -35,7 +35,10 @@ class CreateUserNotificationTypesTable extends Migration
             ['id' => 3, 'type' => 'key_log'],
             ['id' => 4, 'type' => 'left_notes'],
             ['id' => 5, 'type' => 'packages'],
-            ['id' => 6, 'type' => 'service_request_update'],
+            ['id' => 6, 'type' => 'service_request'],
+            ['id' => 7, 'type' => 'fdi'],
+            ['id' => 8, 'type' => 'amenity'],
+            ['id' => 9, 'type' => 'residentAllowedToContact'],
         ]);
     }
 

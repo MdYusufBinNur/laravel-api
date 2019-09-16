@@ -3,7 +3,7 @@
 
 namespace App\Repositories;
 
-
+use App\Events\PackageArchive\PackageArchivedCreatedEvent;
 use App\Repositories\Contracts\PackageArchiveRepository;
 use App\Repositories\Contracts\PackageRepository;
 use Carbon\Carbon;
@@ -36,6 +36,19 @@ class EloquentPackageArchiveRepository extends EloquentBaseRepository implements
         $packageRepository->delete($packageArchive->package);
 
         DB::commit();
+
+        event(new PackageArchivedCreatedEvent($packageArchive, $this->generateEventOptionsForModel()));
+
+
+        return $packageArchive;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function update(\ArrayAccess $model, array $data): \ArrayAccess
+    {
+        $packageArchive = parent::update($model, $data);
 
         return $packageArchive;
     }

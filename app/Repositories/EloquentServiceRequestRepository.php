@@ -67,7 +67,7 @@ class EloquentServiceRequestRepository extends EloquentBaseRepository implements
 
         $serviceRequest = parent::update($model, $data);
 
-        event(new ServiceRequestUpdatedEvent($model, $this->generateEventOptionsForModel()));
+        event(new ServiceRequestUpdatedEvent($serviceRequest, $this->generateEventOptionsForModel()));
 
         return $serviceRequest;
     }

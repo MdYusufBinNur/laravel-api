@@ -2,16 +2,11 @@
 
 namespace App\Listeners\ServiceRequest;
 
-use App\DbModels\ResidentAccessRequest;
 use App\DbModels\ServiceRequestLog;
 use App\Events\ServiceRequest\ServiceRequestUpdatedEvent;
 use App\Listeners\CommonListenerFeatures;
-use App\Events\ResidentAccessRequest\ResidentAccessRequestUpdatedEvent;
-use App\Mail\ResidentAccessRequest\GeneratePin;
-use App\Mail\ResidentAccessRequest\ResidentAccessRequestApproved;
 use App\Repositories\Contracts\ServiceRequestLogRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Mail;
 
 class HandleServiceRequestUpdatedEvent implements ShouldQueue
 {

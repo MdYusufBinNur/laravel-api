@@ -4,6 +4,8 @@
 namespace App\Repositories;
 
 
+use App\Events\Package\PackageCreatedEvent;
+use App\Events\Package\PackageUpdatedEvent;
 use App\Repositories\Contracts\PackageRepository;
 use Carbon\Carbon;
 
@@ -14,9 +16,7 @@ class EloquentPackageRepository extends EloquentBaseRepository implements Packag
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-
         $queryBuilder = $this->model;
-
 
         if (isset($searchCriteria['endDate'])) {
             $queryBuilder = $queryBuilder->whereDate('created_at', '<=', Carbon::parse($searchCriteria['endDate']));
@@ -47,6 +47,20 @@ class EloquentPackageRepository extends EloquentBaseRepository implements Packag
     {
         $data['enteredUserId'] = $this->getLoggedInUser()->id;
         $package = parent::save($data);
+
+        event(new PackageCreatedEvent($package, $this->generateEventOptionsForModel()));
+
+        return $package;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function update(\ArrayAccess $model, array $data): \ArrayAccess
+    {
+        $package = parent::update($model, $data);
+
+        event(new PackageUpdatedEvent($package, $this->generateEventOptionsForModel()));
 
         return $package;
     }

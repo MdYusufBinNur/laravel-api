@@ -34,7 +34,7 @@ class PackageArchive extends Model
      */
     public function package()
     {
-        return $this->hasOne(Package::class,'id','packageId');
+        return $this->hasOne(Package::class,'id','packageId')->withTrashed();
     }
 
     /**

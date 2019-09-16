@@ -6,6 +6,9 @@ use App\Events\EnterpriseUser\EnterpriseUserCreatedEvent;
 use App\Events\Fdi\FdiCreatedEvent;
 use App\Events\Fdi\FdiUpdatedEvent;
 use App\Events\Manager\ManagerCreatedEvent;
+use App\Events\Package\PackageCreatedEvent;
+use App\Events\Package\PackageUpdatedEvent;
+use App\Events\PackageArchive\PackageArchivedCreatedEvent;
 use App\Events\ResidentAccessRequest\ResidentAccessRequestCreatedEvent;
 use App\Events\ResidentAccessRequest\ResidentAccessRequestUpdatedEvent;
 use App\Events\Resident\ResidentCreatedEvent;
@@ -14,11 +17,14 @@ use App\Events\ServiceRequest\ServiceRequestUpdatedEvent;
 use App\Events\ServiceRequestMessage\ServiceRequestMessageCreatedEvent;
 use App\Listeners\Fdi\HandleFdiCreatedEvent;
 use App\Listeners\Fdi\HandleFdiUpdatedEvent;
+use App\Listeners\PackageArchive\HandlePackageArchivedCreatedEvent;
 use App\Listeners\ResidentAccessRequest\HandleResidentAccessRequestCreatedEvent;
 use App\Listeners\ResidentAccessRequest\HandleResidentAccessRequestUpdatedEvent;
 use App\Listeners\Resident\HandleResidentCreatedEvent;
 use App\Listeners\EnterpriseUser\HandleEnterpriseUserCreatedEvent;
 use App\Listeners\Manager\HandleManagerCreatedEvent;
+use App\Listeners\Package\HandlePackageCreatedEvent;
+use App\Listeners\Package\HandlePackageUpdatedEvent;
 use App\Listeners\ServiceRequest\HandleServiceRequestCreatedEvent;
 use App\Listeners\ServiceRequest\HandleServiceRequestUpdatedEvent;
 use App\Listeners\ServiceRequestMessage\HandleServiceRequestMessageCreatedEvent;
@@ -65,7 +71,16 @@ class EventServiceProvider extends ServiceProvider
         ],
         FdiUpdatedEvent::class => [
             HandleFdiUpdatedEvent::class
-        ]
+        ],
+        PackageCreatedEvent::class => [
+            HandlePackageCreatedEvent::class
+        ],
+        PackageUpdatedEvent::class => [
+            HandlePackageUpdatedEvent::class
+        ],
+        PackageArchivedCreatedEvent::class => [
+            HandlePackageArchivedCreatedEvent::class
+        ],
     ];
 
     /**

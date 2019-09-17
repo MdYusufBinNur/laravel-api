@@ -3,6 +3,7 @@
 
 namespace App\Repositories;
 
+use App\DbModels\Package;
 use App\Events\PackageArchive\PackageArchivedCreatedEvent;
 use App\Repositories\Contracts\PackageArchiveRepository;
 use App\Repositories\Contracts\PackageRepository;
@@ -16,8 +17,17 @@ class EloquentPackageArchiveRepository extends EloquentBaseRepository implements
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        //todo search by unitId, keyword
-        $queryBuilder = $this->model;
+        $thisModelTable = $this->model->getTable();
+        $packageModelTable = Package::getTableName();
+        //todo search by keyword
+        $queryBuilder = $this->model
+            ->select($packageModelTable . '.*', $thisModelTable . '.*')
+            ->join('packages', 'packages' . '.id', '=', 'package_archives' . '.packageId');
+
+        if (isset($searchCriteria['unitId'])) {
+            $queryBuilder = $queryBuilder->where('packages.unitId', $searchCriteria['unitId']);
+            unset($searchCriteria['unitId']);
+        }
 
         if (isset($searchCriteria['endDate'])) {
             $queryBuilder = $queryBuilder->whereDate('signOutAt', '<=', Carbon::parse($searchCriteria['endDate']));
@@ -29,13 +39,19 @@ class EloquentPackageArchiveRepository extends EloquentBaseRepository implements
             unset($searchCriteria['startDate']);
         }
 
+        foreach ($searchCriteria as $key => $value) {
+            $searchCriteria[$thisModelTable. '.' . $key] = $value;
+            unset($searchCriteria[$key]);
+        }
+
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
         $queryBuilder->with(['property', 'package', 'signOutUser', 'package.property', 'package.type','package.resident','package.unit', 'package.enteredUser']);
 
+
         $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;
-        $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';
+        $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : $thisModelTable . '.id';
         $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
         $queryBuilder->orderBy($orderBy, $orderDirection);
 

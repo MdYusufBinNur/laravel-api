@@ -20,6 +20,7 @@ class IndexRequest extends Request
             'signOutUserId' => 'list:numeric',
             'startDate' => 'date',
             'endDate' => 'date',
+            'unitId' => '',
         ];
     }
 }

@@ -17,7 +17,7 @@ class EloquentPackageRepository extends EloquentBaseRepository implements Packag
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
         //todo search by unitId, keyword
-        
+
         $queryBuilder = $this->model;
 
         if (isset($searchCriteria['endDate'])) {

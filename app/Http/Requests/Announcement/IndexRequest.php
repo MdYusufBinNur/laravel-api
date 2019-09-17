@@ -31,7 +31,9 @@ class IndexRequest extends FormRequest
             'linkinNewWindows' => 'list:boolean',
             'showOnWebsite' => 'list:boolean',
             'showOnLds' => 'list:boolean',
-            'expireAt' => 'dateTime',
+            'expireAt' => 'date',
+            'isExpired' => 'boolean',
+            'query' => 'string',
         ];
     }
 }

@@ -33,8 +33,8 @@ class UpdateRequest extends FormRequest
             'alldayEvent' => 'boolean',
             'allowedLoginPage' => 'boolean',
             'hasAttachment' => 'boolean',
-            'startAt' => 'date_format:"H:i"|required|before:timeEnd',
-            'endAt' => 'date_format:"H:i"|required|before:timeEnd',
+            'startAt' => 'date_format:"H:i"|before:timeEnd',
+            'endAt' => 'date_format:"H:i"|before:timeEnd',
             'date' => 'date',
         ];
     }

@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 use App\DbModels\Visitor;
+use App\Events\Visitor\VisitorCreatedEvent;
 use App\Repositories\Contracts\VisitorRepository;
 use Carbon\Carbon;
 
@@ -18,7 +19,11 @@ class EloquentVisitorRepository extends EloquentBaseRepository implements Visito
         $data['signInUserId'] = $this->getLoggedInUser()->id;
         $data['signInAt'] = Carbon::now();
 
-        return parent::save($data);
+        $visitor = parent::save($data);
+
+        event(new VisitorCreatedEvent($visitor, $this->generateEventOptionsForModel()));
+
+        return $visitor;
     }
 
     /**
@@ -49,7 +54,6 @@ class EloquentVisitorRepository extends EloquentBaseRepository implements Visito
         $queryBuilder->orderBy($orderBy, $orderDirection);
         return $queryBuilder->paginate($limit);
 
-        return parent::findBy($searchCriteria, $withTrashed);
     }
 
 }

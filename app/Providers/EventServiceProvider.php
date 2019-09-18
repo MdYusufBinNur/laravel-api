@@ -15,6 +15,7 @@ use App\Events\Resident\ResidentCreatedEvent;
 use App\Events\ServiceRequest\ServiceRequestCreatedEvent;
 use App\Events\ServiceRequest\ServiceRequestUpdatedEvent;
 use App\Events\ServiceRequestMessage\ServiceRequestMessageCreatedEvent;
+use App\Events\Visitor\VisitorCreatedEvent;
 use App\Listeners\Fdi\HandleFdiCreatedEvent;
 use App\Listeners\Fdi\HandleFdiUpdatedEvent;
 use App\Listeners\PackageArchive\HandlePackageArchivedCreatedEvent;
@@ -28,6 +29,7 @@ use App\Listeners\Package\HandlePackageUpdatedEvent;
 use App\Listeners\ServiceRequest\HandleServiceRequestCreatedEvent;
 use App\Listeners\ServiceRequest\HandleServiceRequestUpdatedEvent;
 use App\Listeners\ServiceRequestMessage\HandleServiceRequestMessageCreatedEvent;
+use App\Listeners\Visitor\HandleVisitorCreatedEvent;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -81,6 +83,10 @@ class EventServiceProvider extends ServiceProvider
         PackageArchivedCreatedEvent::class => [
             HandlePackageArchivedCreatedEvent::class
         ],
+        VisitorCreatedEvent::class => [
+            HandleVisitorCreatedEvent::class
+        ],
+
     ];
 
     /**

@@ -46,7 +46,6 @@ class EloquentPackageArchiveRepository extends EloquentBaseRepository implements
                 $searchCriteria[$thisModelTable. '.' . $key] = $value;
                 unset($searchCriteria[$key]);
             }
-
         }
 
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {

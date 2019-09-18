@@ -14,10 +14,9 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'visitorId' => 'required|exists:visitors:id',
-            'signOutUserId' => 'required|exists:users:id',
+            'propertyId' => 'required|exists:properties,id',
+            'visitorId' => 'required|exists:visitors,id|unique:visitor_archives,visitorId',
             'signature' => 'boolean',
-            'signOutAt' => 'required|date',
         ];
     }
 }

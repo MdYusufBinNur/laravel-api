@@ -15,6 +15,7 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
+            'propertyId' => 'required|numeric',
             'visitorId' => 'list:numeric',
             'signOutUserId' => 'list:numeric',
             'signature' => 'list:boolean',

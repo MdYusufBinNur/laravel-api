@@ -14,6 +14,6 @@ class VisitorType extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'title'
+        'createdByUserId', 'title', 'propertyId'
     ];
 }

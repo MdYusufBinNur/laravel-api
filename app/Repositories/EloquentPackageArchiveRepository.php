@@ -40,8 +40,11 @@ class EloquentPackageArchiveRepository extends EloquentBaseRepository implements
         }
 
         foreach ($searchCriteria as $key => $value) {
-            $searchCriteria[$thisModelTable. '.' . $key] = $value;
-            unset($searchCriteria[$key]);
+            if ($key != 'include') {
+                $searchCriteria[$thisModelTable. '.' . $key] = $value;
+                unset($searchCriteria[$key]);
+            }
+
         }
 
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {

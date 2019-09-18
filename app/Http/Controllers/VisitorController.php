@@ -9,7 +9,6 @@ use App\Http\Requests\Visitor\UpdateRequest;
 use App\Http\Resources\VisitorResource;
 use App\Http\Resources\VisitorResourceCollection;
 use App\Repositories\Contracts\VisitorRepository;
-use Illuminate\Http\Request;
 
 class VisitorController extends Controller
 {

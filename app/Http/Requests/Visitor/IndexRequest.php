@@ -15,8 +15,8 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
-            'propertyId' => 'list:numeric',
-            'signinUserId' => 'list:numeric',
+            'propertyId' => 'required|numeric',
+            'signInUserId' => 'list:numeric',
             'unitId' => 'list:numeric',
             'visitorTypeId' => 'list:numeric',
             'name' => 'list:string',
@@ -28,7 +28,7 @@ class IndexRequest extends Request
             'comment' => 'list:string',
             'signature' => 'list:boolean',
             'status' => 'list:string',
-            'signinAt' => 'list:date',
+            'signInAt' => 'list:date',
         ];
     }
 }

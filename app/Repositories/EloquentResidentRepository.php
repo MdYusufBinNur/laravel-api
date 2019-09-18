@@ -189,6 +189,11 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
             unset($searchCriteria['query']);
         }
 
+        if (isset($searchCriteria['searchResident'])) {
+            $searchCriteria['id'] = $this->getResidentsByName($searchCriteria);
+            unset($searchCriteria['searchResident']);
+        }
+
         if (isset($searchCriteria['id'])) {
             $searchCriteria['id'] = implode(",", array_unique($searchCriteria['id']));
         }
@@ -224,6 +229,22 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         }
 
         return $residents;
+    }
+
+    public function getResidentsByName(array $searchCriteria = [])
+    {
+        $thisModelTable = $this->model->getTable();
+        $userModelTable = User::getTableName();
+
+        // get all residents
+        $residentBuilder = $this->model->where('propertyId', $searchCriteria['propertyId']);
+
+        $residentIds = $residentBuilder->select($thisModelTable.'.id')
+            ->join($userModelTable, $userModelTable . '.id', '=', $thisModelTable . '.userId')
+            ->where($userModelTable.'.name', 'like', '%' . $searchCriteria['searchResident'] . '%')
+            ->pluck('id')->toArray();
+
+        return $residentIds;
     }
 
 }

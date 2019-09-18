@@ -19,7 +19,9 @@ class IndexRequest extends Request
             'visitorId' => 'list:numeric',
             'signOutUserId' => 'list:numeric',
             'signature' => 'list:boolean',
-            'signOutAt' => 'list:date',
+            'startDate' => 'date',
+            'endDate' => 'date|after:startDate',
+            'unitId' => '',
         ];
     }
 }

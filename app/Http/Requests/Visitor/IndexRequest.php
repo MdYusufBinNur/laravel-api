@@ -19,16 +19,14 @@ class IndexRequest extends Request
             'signInUserId' => 'list:numeric',
             'unitId' => 'list:numeric',
             'visitorTypeId' => 'list:numeric',
-            'name' => 'list:string',
             'phone' => 'list:string',
             'email' => 'list:string',
             'company' => 'list:string',
-            'photo' => 'list:boolean',
             'permanent' => 'list:boolean',
-            'comment' => 'list:string',
             'signature' => 'list:boolean',
             'status' => 'list:string',
-            'signInAt' => 'list:date',
+            'startDate' => 'date',
+            'endDate' => 'date|after:startDate',
         ];
     }
 }

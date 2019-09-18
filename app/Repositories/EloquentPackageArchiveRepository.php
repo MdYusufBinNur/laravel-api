@@ -19,13 +19,15 @@ class EloquentPackageArchiveRepository extends EloquentBaseRepository implements
     {
         $thisModelTable = $this->model->getTable();
         $packageModelTable = Package::getTableName();
+
         //todo search by keyword
+
         $queryBuilder = $this->model
             ->select($packageModelTable . '.*', $thisModelTable . '.*')
-            ->join('packages', 'packages' . '.id', '=', 'package_archives' . '.packageId');
+            ->join($packageModelTable, 'packages' . '.id', '=', 'package_archives' . '.packageId');
 
         if (isset($searchCriteria['unitId'])) {
-            $queryBuilder = $queryBuilder->where('packages.unitId', $searchCriteria['unitId']);
+            $queryBuilder = $queryBuilder->where($packageModelTable. '.unitId', $searchCriteria['unitId']);
             unset($searchCriteria['unitId']);
         }
 
@@ -50,8 +52,8 @@ class EloquentPackageArchiveRepository extends EloquentBaseRepository implements
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
-        $queryBuilder->with(['property', 'package', 'signOutUser', 'package.property', 'package.type','package.resident','package.unit', 'package.enteredUser']);
 
+        $queryBuilder->with(['property', 'package', 'signOutUser', 'package.property', 'package.type','package.resident','package.unit', 'package.enteredUser']);
 
         $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;
         $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : $thisModelTable . '.id';

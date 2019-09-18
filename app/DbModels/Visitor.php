@@ -32,6 +32,7 @@ class Visitor extends Model
         'signInAt' => 'datetime:Y-m-d h:i',
     ];
 
+
     /**
      * get the property
      *
@@ -40,6 +41,16 @@ class Visitor extends Model
     public function property()
     {
         return $this->hasOne(Property::class, 'id', 'propertyId');
+    }
+
+    /**
+     * get the unit
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function unit()
+    {
+        return $this->hasOne(Unit::class, 'id', 'unitId');
     }
 
     /**

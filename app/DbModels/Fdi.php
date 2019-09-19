@@ -89,4 +89,14 @@ class Fdi extends Model
     {
         return $this->hasMany(FdiLog::class, 'fdiId', 'id');
     }
+
+    /**
+     * get service request photos
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function fdiPhoto()
+    {
+        return $this->hasOne(Attachment::class, 'resourceId')->where('type', Attachment::ATTACHMENT_TYPE_FDI);
+    }
 }

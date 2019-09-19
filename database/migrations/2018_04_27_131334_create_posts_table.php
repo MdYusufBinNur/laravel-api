@@ -17,7 +17,6 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
-            $table->unsignedInteger('createdUserId');
             $table->unsignedInteger('deletedUserId')->nullable();
             $table->string('type');
             $table->string('status');
@@ -29,11 +28,6 @@ class CreatePostsTable extends Migration
 
             $table->foreign('propertyId')
                 ->references('id')->on('properties')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
-            $table->foreign('createdUserId')
-                ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

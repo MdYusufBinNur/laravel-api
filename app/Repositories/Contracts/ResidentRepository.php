@@ -14,6 +14,14 @@ interface ResidentRepository extends BaseRepository
      */
     public function getResidentsByUnits(array $searchCriteria = []);
 
+    /**
+     * get residents by searching name from user table
+     *
+     * @param array $searchCriteria
+     * @return array
+     */
+    public function getResidentsByName(array $searchCriteria = []);
+
 
     /**
      * move out (all) residents

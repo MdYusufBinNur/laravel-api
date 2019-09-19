@@ -23,7 +23,8 @@ class StoreRequest extends Request
                 . ',' . Attachment::ATTACHMENT_TYPE_USER_PROFILE
                 . ',' . Attachment::ATTACHMENT_TYPE_PROPERTY_DESIGN_CUSTOM
                 . ',' . Attachment::ATTACHMENT_TYPE_PROPERTY_SLIDE
-                . ',' . Attachment::ATTACHMENT_TYPE_SERVICE_REQUEST,
+                . ',' . Attachment::ATTACHMENT_TYPE_SERVICE_REQUEST
+                . ',' . Attachment::ATTACHMENT_TYPE_FDI,
             'fileSource'   => 'required|file|max:2048',
             'resourceId'   => 'required',
             'fileName'     => '',

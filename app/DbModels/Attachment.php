@@ -17,9 +17,7 @@ class Attachment extends Model
     const ATTACHMENT_TYPE_PROPERTY_DESIGN_CUSTOM = 'property-custom';
     const ATTACHMENT_TYPE_PROPERTY_SLIDE = 'property-slide';
     const ATTACHMENT_TYPE_SERVICE_REQUEST = 'service-request';
-    const ATTACHMENT_TYPE_FDI_GUEST = 'fdi-guest';
-    const ATTACHMENT_TYPE_FDI_FAMILY = 'fdi-family';
-    const ATTACHMENT_TYPE_FDI_CONTRACTOR = 'fdi-contractor';
+    const ATTACHMENT_TYPE_FDI = 'fdi';
 
     /**
      * The database table used by the model.
@@ -87,14 +85,8 @@ class Attachment extends Model
             case self::ATTACHMENT_TYPE_SERVICE_REQUEST:
                 $directoryName = 'service-requests';
                 break;
-            case self::ATTACHMENT_TYPE_FDI_GUEST:
-                $directoryName = 'fdi-guest';
-                break;
-            case self::ATTACHMENT_TYPE_FDI_FAMILY:
-                $directoryName = 'fdi-family';
-                break;
-            case self::ATTACHMENT_TYPE_FDI_CONTRACTOR:
-                $directoryName = 'fdi-contractor';
+            case self::ATTACHMENT_TYPE_FDI:
+                $directoryName = 'fdi';
                 break;
         }
 

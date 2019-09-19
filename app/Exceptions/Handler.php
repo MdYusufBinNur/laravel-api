@@ -10,6 +10,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class Handler extends ExceptionHandler
 {
@@ -67,7 +68,7 @@ class Handler extends ExceptionHandler
             return response()->json((['status' => 404, 'message' => 'Resource not found with the specific id.']), 404);
         }
 
-        if ($exception instanceof NotFoundHttpException) {
+        if ($exception instanceof NotFoundHttpException || $exception instanceof RouteNotFoundException) {
             // log it in bugsnag
             Bugsnag::notifyException($exception);
             return response()->json((['status' => 404, 'message' => 'The requested resource was not found.']), 404);

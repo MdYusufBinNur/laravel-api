@@ -46,8 +46,8 @@ class FdiResource extends Resource
             'logs' => $this->when($this->needToInclude($request, 'fdi.logs'), function () {
                 return new FdiLogResourceCollection($this->logs);
             }),
-            'photo' => $this->when($this->needToInclude($request, 'fdi.photo'), function () {
-                return new AttachmentResourceCollection($this->fdiPhoto);
+            'images' => $this->when($this->needToInclude($request, 'fdi.images'), function () {
+                return new AttachmentResourceCollection($this->fdiImages);
             }),
         ];
     }

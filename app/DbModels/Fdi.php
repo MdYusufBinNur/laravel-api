@@ -93,10 +93,10 @@ class Fdi extends Model
     /**
      * get service request photos
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function fdiPhoto()
+    public function fdiImages()
     {
-        return $this->hasOne(Attachment::class, 'resourceId')->where('type', Attachment::ATTACHMENT_TYPE_FDI);
+        return $this->hasMany(Attachment::class, 'resourceId')->where('type', Attachment::ATTACHMENT_TYPE_FDI);
     }
 }

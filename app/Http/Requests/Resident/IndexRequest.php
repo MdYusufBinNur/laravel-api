@@ -40,6 +40,7 @@ class IndexRequest extends Request
             'secondaryEmail'        => 'list:string',
             'joiningDate'           => 'list:date',
             'query'                 => 'string',
+            'withName'              => 'string',
         ];
     }
 

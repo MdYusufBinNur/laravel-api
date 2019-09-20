@@ -44,16 +44,6 @@ class Post extends Model
     ];
 
     /**
-     * getter for likeUsers column
-     *
-     * @return mixed
-     */
-    /*public function getLikeUsersAttribute()
-    {
-        return json_decode($this->attributes['likeUsers']);
-    }*/
-
-    /**
      * setter for likeUsers column
      * - it will also handle like count
      *

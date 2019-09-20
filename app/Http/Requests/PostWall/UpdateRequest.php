@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\PostWall;
 
+use App\DbModels\Post;
 use App\Http\Requests\Request;
 
 class UpdateRequest extends Request
@@ -14,8 +15,11 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'postId' =>  'exists:posts,id',
-            'text' =>  'min:3|max:1024',
+            'text' => 'string',
+            'post' => '',
+            'post.status' => 'in:' . Post::STATUS_PENDING . ',' . Post::STATUS_DENIED . ',' . Post::STATUS_APPROVED . ',' . Post::STATUS_POSTED,
+            'post.likeChanged' => 'boolean',
+            'post.attachmentIds' => 'json|json_ids:attachments,id'
         ];
     }
 }

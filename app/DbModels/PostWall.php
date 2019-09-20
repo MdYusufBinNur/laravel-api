@@ -14,6 +14,16 @@ class PostWall extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'fdiId', 'text'
+        'createdByUserId', 'postId', 'text'
     ];
+
+    /**
+     * get the post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function post()
+    {
+        return $this->hasOne(Post::class, 'id', 'postId');
+    }
 }

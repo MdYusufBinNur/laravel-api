@@ -4,7 +4,6 @@
 namespace App\Repositories;
 
 
-use App\DbModels\Attachment;
 use App\DbModels\Post;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\PostRepository;

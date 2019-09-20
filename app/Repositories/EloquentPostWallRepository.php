@@ -20,6 +20,7 @@ class EloquentPostWallRepository extends EloquentBaseRepository implements PostW
 
         if (isset($data['post'])) {
             $postRepository = app(PostRepository::class);
+            $data['post']['type'] = Post::TYPE_WALL;
             $post = $postRepository->save($data['post']);
             $data['postId'] = $post->id;
         }
@@ -63,10 +64,8 @@ class EloquentPostWallRepository extends EloquentBaseRepository implements PostW
         $post = $postRepository->findOne($model->postId);
 
         if ($post instanceof Post) {
-            $postRepository->delete($model);
+            $postRepository->delete($post);
         }
-
-        $postRepository->delete($model);
 
         $postWall = parent::delete($model);
 

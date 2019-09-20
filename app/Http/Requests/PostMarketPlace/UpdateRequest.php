@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\PostMarketPlace;
 
+use App\DbModels\Post;
 use App\DbModels\PostMarketplace;
 use App\Http\Requests\Request;
 
@@ -15,12 +16,16 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'postId' =>  'exists:posts,id',
             'type' =>  'in:'.PostMarketplace::TYPE_BUY. ','. PostMarketplace::TYPE_SELL,
             'title' =>  'min:3|max:191',
             'price' =>  'min:3|max:191',
             'description' => 'min:3|max:1024',
             'contact' => 'min:3|max:191',
+
+            'post' => '',
+            'post.status' => 'in:' . Post::STATUS_PENDING . ',' . Post::STATUS_DENIED . ',' . Post::STATUS_APPROVED . ',' . Post::STATUS_POSTED,
+            'post.likeChanged' => 'boolean',
+            'post.attachmentIds' => 'json|json_ids:attachments,id',
         ];
     }
 }

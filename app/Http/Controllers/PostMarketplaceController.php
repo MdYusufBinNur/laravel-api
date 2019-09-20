@@ -9,7 +9,6 @@ use App\Http\Requests\PostMarketPlace\UpdateRequest;
 use App\Http\Resources\PostMarketPlaceResource;
 use App\Http\Resources\PostMarketPlaceResourceCollection;
 use App\Repositories\Contracts\PostMarketplaceRepository;
-use Illuminate\Http\Request;
 
 class PostMarketplaceController extends Controller
 {

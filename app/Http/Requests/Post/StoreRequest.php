@@ -16,7 +16,7 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' => 'required|exists:properties,id',
-            'type' => 'required|in:' . Post::TYPE_EVENT . ',' . Post::TYPE_MARKETPLACE . ',' . Post::TYPE_POLL, ',' . Post::TYPE_RECOMMENDATION . ',' . Post::TYPE_WALL,
+            'type' => 'required|in:' . Post::TYPE_EVENT . ',' . Post::TYPE_MARKETPLACE . ',' . Post::TYPE_POLL . ',' . Post::TYPE_RECOMMENDATION . ',' . Post::TYPE_WALL,
             'attachmentIds' => 'json|json_ids:attachments,id'
         ];
     }

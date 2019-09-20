@@ -35,7 +35,45 @@ class Post extends Model
      */
     protected $casts = [
         'attachment' => 'boolean',
+        'likeUsers' => 'array'
     ];
+
+    protected $attributes = [
+        'likeCount' => 0,
+        'likeUsers' => "[]",
+    ];
+
+    /**
+     * getter for likeUsers column
+     *
+     * @return mixed
+     */
+    /*public function getLikeUsersAttribute()
+    {
+        return json_decode($this->attributes['likeUsers']);
+    }*/
+
+    /**
+     * setter for likeUsers column
+     * - it will also handle like count
+     *
+     * @param $userId
+     * @return mixed
+     */
+    public function setLikeUsersAttribute($userId)
+    {
+        $currentLikedUsers = $this->likeUsers;
+        $key = array_search($userId, $currentLikedUsers);
+        if ($key === false) {
+            array_push($currentLikedUsers, $userId);
+            $this->attributes['likeUsers'] = json_encode($currentLikedUsers);
+            $this->attributes['likeCount']++;
+        } else {
+            unset($currentLikedUsers[$key]);
+            $this->attributes['likeCount']--;
+            $this->attributes['likeUsers'] = json_encode($currentLikedUsers);
+        }
+    }
 
     /**
      * get the property

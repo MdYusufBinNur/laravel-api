@@ -21,7 +21,7 @@ class CreatePostsTable extends Migration
             $table->string('type');
             $table->string('status');
             $table->smallInteger('likeCount')->nullable();
-            $table->text('likeUsers')->nullable();
+            $table->json('likeUsers')->nullable();
             $table->boolean('attachment')->default(0);
             $table->timestamps();
             $table->softDeletes();

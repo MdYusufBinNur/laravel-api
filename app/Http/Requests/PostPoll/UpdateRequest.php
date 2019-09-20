@@ -21,7 +21,6 @@ class UpdateRequest extends Request
             "answers" => 'array',
             "answers.*" => 'string',
             "voteOn" =>  'numeric',
-            "oldVoteOn" => 'numeric',
             'post' => '',
             'post.status' => 'in:' . Post::STATUS_PENDING . ',' . Post::STATUS_DENIED . ',' . Post::STATUS_APPROVED . ',' . Post::STATUS_POSTED,
             'post.likeChanged' => 'boolean',

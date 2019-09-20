@@ -28,7 +28,6 @@ class EloquentPostPollRepository extends EloquentBaseRepository implements PostP
             $post = $postRepository->save($data['post']);
             $data['postId'] = $post->id;
         }
-
         $postPoll = parent::save($data);
 
         DB::commit();
@@ -43,7 +42,6 @@ class EloquentPostPollRepository extends EloquentBaseRepository implements PostP
     {
         DB::beginTransaction();
 
-        $data['voters'] = $this->getLoggedInUser()->id;
         $answersAndVotes = $this->getUpdateAnswerAndVotes($model, $data);
 
         $data["text"] = [
@@ -51,6 +49,9 @@ class EloquentPostPollRepository extends EloquentBaseRepository implements PostP
             'answers' => $answersAndVotes['answers'] ?? $model->text['answers']
         ];
         $data['votes'] = $answersAndVotes['votes'];
+        if (isset($data['voteOn'])) {
+            $data['voters'] = ['userId' => $this->getLoggedInUser()->id, 'voteOn' => $data['voteOn']];
+        }
 
         $postPoll = parent::update($model, $data);
         if (isset($data['post'])) {
@@ -69,29 +70,23 @@ class EloquentPostPollRepository extends EloquentBaseRepository implements PostP
 
     private function getUpdateAnswerAndVotes($model, $data)
     {
-
-        //mapped answer with votes
         $currentVotes = $model->votes;
+        if (isset($data['voteOn'])) {
 
-        if (in_array($data['voters'],$model->voters)) {
-
-            if (isset($data['oldVoteOn'])) {
-                $currentVotes[$data['oldVoteOn']]--;
-            } else {
-                //todo move this to form request
+            if ($data['voteOn'] > count($model->text['answers']) - 1) {
+                //todo move it to UpdateRequest
                 throw ValidationException::withMessages([
-                    'oldVoteOn' => ['oldVoteOn field is required when you update your vote']
+                    'voteOn' => ['Wrong answer - out of bound.']
                 ]);
             }
+
         }
 
-        if (isset($data['voteOn'])) {
-            $currentVotes[$data['voteOn']]++;
-        }
-
+        //mapped answer with votes
         $answersWithVotes = array_combine($model->text['answers'], $currentVotes);
 
         if (isset($data['answers'])) {
+
             // remove old answers
             foreach ($model->text['answers'] as $answer) {
                 if (!in_array($answer, $data['answers'])) {

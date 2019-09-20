@@ -41,16 +41,33 @@ class PostPoll extends Model
     /**
      * setter for voters column
      *
-     * @param $userId
+     * @param array $voteInfo
      * @return mixed
      */
-    public function setVotersAttribute($userId)
+    public function setVotersAttribute($voteInfo)
     {
         $currentVoters = $this->voters;
-        $key = array_search($userId, $currentVoters);
-        if ($key === false) {
-            array_push($currentVoters, $userId);
-            $this->attributes['voters'] = json_encode($currentVoters);
+        $currentVotes = $this->votes;
+        $voted = false;
+
+        foreach ($currentVoters as $key => $currentVoter) {
+            if ($currentVoter['userId'] == $voteInfo['userId']) {
+                $currentVoters[$key]['voteOn'] = $voteInfo['voteOn'];
+                if ($currentVotes[$currentVoter['voteOn']] != 0) {
+                    $currentVotes[$currentVoter['voteOn']]--;
+                }
+
+                $voted = true;
+                break;
+            }
         }
+
+        if (!$voted) {
+            array_push($currentVoters, $voteInfo);
+        }
+
+        $currentVotes[$voteInfo['voteOn']]++;
+        $this->attributes['votes'] = json_encode($currentVotes);
+        $this->attributes['voters'] = json_encode($currentVoters);
     }
 }

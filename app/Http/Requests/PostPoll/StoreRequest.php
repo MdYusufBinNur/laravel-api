@@ -14,10 +14,13 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'postId' =>  'required|exists:posts,id',
-            'text' =>  'required|min:5|max:1024',
-            'votes' =>  'min:5|max:1024',
-            'voters' =>  'min:5|max:1024',
+            'postId' =>  'required_without|exists:posts,id',
+            "question" => 'required|string',
+            "answers" => 'required|array',
+            "answers.*" => 'required|string',
+            'post' => '',
+            'post.propertyId' => 'required_with:post|exists:properties,id',
+            'post.attachmentIds' => 'json|json_ids:attachments,id',
         ];
     }
 }

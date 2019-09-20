@@ -17,9 +17,9 @@ class CreatePostPollsTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('postId');
-            $table->mediumText('text');
-            $table->mediumText('votes')->nullable();
-            $table->mediumText('voters')->nullable();
+            $table->json('text');
+            $table->json('votes')->nullable();
+            $table->json('voters')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

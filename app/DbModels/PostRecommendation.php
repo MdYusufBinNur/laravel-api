@@ -16,4 +16,24 @@ class PostRecommendation extends Model
     protected $fillable = [
         'createdByUserId', 'postId', 'typeId', 'name', 'description', 'contact', 'website'
     ];
+
+    /**
+     * get the post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function post()
+    {
+        return $this->hasOne(Post::class, 'id', 'postId');
+    }
+
+    /**
+     * get the recommendation's type
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function recommendationType()
+    {
+        return $this->hasOne(PostRecommendationType::class, 'id', 'typeId');
+    }
 }

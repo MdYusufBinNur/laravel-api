@@ -16,7 +16,13 @@ class PostRecommendationResource extends Resource
             'id' => $this->id,
             'createdByUserId' =>  $this->createdByUserId,
             'postId' =>  $this->postId,
+            'post' => $this->when($this->needToInclude($request, 'pr.post'), function () {
+                return new PostResource($this->post);
+            }),
             'typeId' =>  $this->typeId,
+            'type' => $this->when($this->needToInclude($request, 'pr.type'), function () {
+                return new PostRecommendationTypeResource($this->recommendationType);
+            }),
             'name' =>  $this->name,
             'description' =>  $this->description,
             'contact' =>  $this->contact,

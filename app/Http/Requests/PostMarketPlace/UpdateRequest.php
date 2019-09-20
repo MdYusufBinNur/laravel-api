@@ -19,7 +19,7 @@ class UpdateRequest extends Request
             'type' =>  'in:'.PostMarketplace::TYPE_BUY. ','. PostMarketplace::TYPE_SELL,
             'title' =>  'min:3|max:191',
             'price' =>  'min:3|max:191',
-            'description' => 'min:3|max:1024',
+            'description' => 'string',
             'contact' => 'min:3|max:191',
 
             'post' => '',

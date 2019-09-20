@@ -18,8 +18,7 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
     {
         DB::beginTransaction();
 
-        $data['status'] = $data['status'] ?? Post::STATUS_POSTED;
-        $data['status'] = $this->getLoggedInUser()->id;
+        $data['status'] = Post::STATUS_POSTED; //todo based on property setting
 
         $post = parent::save($data);
 

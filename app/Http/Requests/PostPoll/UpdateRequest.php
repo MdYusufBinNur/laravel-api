@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\PostPoll;
 
+use App\DbModels\Post;
 use App\Http\Requests\Request;
 
 class UpdateRequest extends Request
@@ -15,9 +16,16 @@ class UpdateRequest extends Request
     {
         return [
             'postId' =>  'exists:posts,id',
-            'text' =>  'min:5|max:1024',
-            'votes' =>  'min:5|max:1024',
-            'voters' =>  'min:5|max:1024',
+
+            "question" => 'string',
+            "answers" => 'array',
+            "answers.*" => 'string',
+            "voteOn" =>  'numeric',
+            "oldVoteOn" => 'numeric',
+            'post' => '',
+            'post.status' => 'in:' . Post::STATUS_PENDING . ',' . Post::STATUS_DENIED . ',' . Post::STATUS_APPROVED . ',' . Post::STATUS_POSTED,
+            'post.likeChanged' => 'boolean',
+            'post.attachmentIds' => 'json|json_ids:attachments,id',
         ];
     }
 }

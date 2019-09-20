@@ -18,6 +18,7 @@ class StoreRequest extends Request
             "question" => 'required|string',
             "answers" => 'required|array',
             "answers.*" => 'required|string',
+
             'post' => '',
             'post.propertyId' => 'required_with:post|exists:properties,id',
             'post.attachmentIds' => 'json|json_ids:attachments,id',

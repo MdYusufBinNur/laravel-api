@@ -1,7 +1,7 @@
 <?php
 
-
 namespace App\Listeners;
+
 
 trait CommonListenerFeatures
 {
@@ -14,10 +14,20 @@ trait CommonListenerFeatures
      */
     public function getChangedData($newModel, $oldModel)
     {
-        $newData = $newModel->toArray();
-        $oldData = $oldModel->toArray();
+        // FIY, only single dimensional array
+        $newData = array_filter($newModel->toArray(), function ($element) {
+            return !is_array($element);
+        });
+
+        $oldData = array_filter($oldModel->toArray(), function ($element) {
+            return !is_array($element);
+        });
+
         return array_diff_assoc($newData, $oldData);
     }
+
+
+
 
     /**
      * has a field value changed

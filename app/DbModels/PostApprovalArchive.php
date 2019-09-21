@@ -17,6 +17,6 @@ class PostApprovalArchive extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'postId', 'statusChangedUserId', 'status', 'reason'
+        'createdByUserId', 'postId', 'status', 'reason'
     ];
 }

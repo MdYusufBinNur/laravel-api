@@ -16,6 +16,7 @@ class UpdateRequest extends Request
     {
         return [
             'status' =>  'in:'. Post::STATUS_PENDING. ','. Post::STATUS_DENIED. ','. Post::STATUS_APPROVED. ','. Post::STATUS_POSTED,
+            'reason' => 'required_if:status,' .  Post::STATUS_PENDING. ','. Post::STATUS_DENIED,
             'likeChanged' =>  'boolean',
             'attachmentIds' => 'json|json_ids:attachments,id'
         ];

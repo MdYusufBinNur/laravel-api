@@ -5,7 +5,9 @@ namespace App\Repositories;
 
 
 use App\DbModels\Post;
+use App\Events\Post\PostUpdatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
+use App\Repositories\Contracts\PostApprovalArchiveRepository;
 use App\Repositories\Contracts\PostRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -61,7 +63,10 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
             unset($data['attachmentId']);
         }
 
+        event(new PostUpdatedEvent($post, $this->generateEventOptionsForModel()));
+
         DB::commit();
+
 
         return $post;
     }

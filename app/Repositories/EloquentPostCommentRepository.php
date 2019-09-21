@@ -26,4 +26,19 @@ class EloquentPostCommentRepository extends EloquentBaseRepository implements Po
 
         return $postComment;
     }
+
+    public function delete(\ArrayAccess $model): bool
+    {
+        DB::beginTransaction();
+
+        $data['deleteUserId'] = $this->getLoggedInUser()->id;
+        $postComment = $this->update($model, $data);
+        $deleted = parent::delete($postComment);
+
+        DB::commit();
+
+        return $deleted;
+    }
+
+
 }

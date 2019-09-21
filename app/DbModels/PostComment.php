@@ -19,7 +19,7 @@ class PostComment extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'postId', 'createdUserId', 'deletedUserId', 'status', 'text', 'active'
+        'createdByUserId', 'postId', 'deletedUserId', 'status', 'text'
     ];
 
     /**
@@ -28,6 +28,16 @@ class PostComment extends Model
      * @var array
      */
     protected $casts = [
-        'active' => 'boolean',
+
     ];
+
+    /**
+     * get the post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function post()
+    {
+        return $this->hasOne(Post::class, 'id', 'postId');
+    }
 }

@@ -16,4 +16,24 @@ class PostEvent extends Model
     protected $fillable = [
         'createdByUserId', 'postId', 'eventId'
     ];
+
+    /**
+     * get the post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function post()
+    {
+        return $this->hasOne(Post::class, 'id', 'postId');
+    }
+
+    /**
+     * get the event
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function event()
+    {
+        return $this->hasOne(Event::class, 'id', 'eventId');
+    }
 }

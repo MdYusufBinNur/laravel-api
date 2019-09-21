@@ -70,4 +70,14 @@ class PostPoll extends Model
         $this->attributes['votes'] = json_encode($currentVotes);
         $this->attributes['voters'] = json_encode($currentVoters);
     }
+
+    /**
+     * get the post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function post()
+    {
+        return $this->hasOne(Post::class, 'id', 'postId');
+    }
 }

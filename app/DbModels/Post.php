@@ -137,4 +137,14 @@ class Post extends Model
     {
         return $this->hasMany(PostComment::class, 'postId');
     }
+
+    /**
+     * get the post approval archive
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function approvalArchives()
+    {
+        return $this->hasMany(PostApprovalArchive::class, 'postId');
+    }
 }

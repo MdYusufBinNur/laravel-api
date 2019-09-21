@@ -29,7 +29,7 @@ class HandlePostUpdatedEvent implements ShouldQueue
         $oldPost = $eventOptions['oldModel'];
 
         $hasStatusChanged = $this->hasAFieldValueChanged($post, $oldPost, 'status');
-        
+
         if ($hasStatusChanged) {
             $postApprovalArchiveRepository = app(PostApprovalArchiveRepository::class);
             $postApprovalArchiveRepository->save([

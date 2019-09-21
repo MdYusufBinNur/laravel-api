@@ -35,6 +35,9 @@ class PostResource extends Resource
             'attachments' => $this->when($this->needToInclude($request, 'post.attachments'), function () {
                 return new AttachmentResourceCollection($this->attachments);
             }),
+            'approvalArchives' => $this->when($this->needToInclude($request, 'post.approvalArchives'), function () {
+                return new PostApprovalArchiveResourceCollection($this->approvalArchives);
+            }),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

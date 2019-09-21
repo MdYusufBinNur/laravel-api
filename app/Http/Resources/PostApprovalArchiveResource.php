@@ -16,7 +16,6 @@ class PostApprovalArchiveResource extends Resource
             'id' => $this->id,
             'createdByUserId' =>  $this->createdByUserId,
             'postId' =>  $this->postId,
-            'statusChangedUserId' =>  $this->statusChangedUserId,
             'status' =>  $this->status,
             'reason' =>  $this->reason,
             'created_at' => $this->created_at,

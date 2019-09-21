@@ -127,4 +127,14 @@ class Post extends Model
     {
         return $this->hasMany(Attachment::class, 'resourceId')->where('type', Attachment::ATTACHMENT_TYPE_POST);
     }
+
+    /**
+     * get the comments
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(PostComment::class, 'postId');
+    }
 }

@@ -26,6 +26,9 @@ class PostResource extends Resource
             'details' => $this->when($this->needToInclude($request, 'post.details'), function () {
                 return $this->getResourceByType();
             }),
+            'comments' => $this->when($this->needToInclude($request, 'post.comments'), function () {
+                return new PostCommentResourceCollection($this->comments);
+            }),
             'status' =>  $this->status,
             'likeCount' =>  $this->likeCount,
             'likeUsers' =>  $this->likeUsers,

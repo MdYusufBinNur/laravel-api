@@ -24,7 +24,7 @@ class EloquentPostPollRepository extends EloquentBaseRepository implements PostP
 
         if (isset($data['post'])) {
             $postRepository = app(PostRepository::class);
-            $data['post']['type'] = Post::TYPE_RECOMMENDATION;
+            $data['post']['type'] = Post::TYPE_POLL;
             $post = $postRepository->save($data['post']);
             $data['postId'] = $post->id;
         }
@@ -102,12 +102,32 @@ class EloquentPostPollRepository extends EloquentBaseRepository implements PostP
             }
         }
 
-
         return [
             'answers' => array_keys($answersWithVotes),
             'votes' => array_values($answersWithVotes),
         ];
 
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function delete(\ArrayAccess $model): bool
+    {
+        DB::beginTransaction();
+
+        $postRepository = app(PostRepository::class);
+        $post = $postRepository->findOne($model->postId);
+
+        if ($post instanceof Post) {
+            $postRepository->delete($post);
+        }
+
+        $postPoll = parent::delete($model);
+
+        DB::commit();
+
+        return $postPoll;
     }
 
 }

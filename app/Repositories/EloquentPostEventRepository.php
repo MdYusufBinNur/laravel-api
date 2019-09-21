@@ -20,7 +20,7 @@ class EloquentPostEventRepository extends EloquentBaseRepository implements Post
 
         if (isset($data['post'])) {
             $postRepository = app(PostRepository::class);
-            $data['post']['type'] = Post::TYPE_RECOMMENDATION;
+            $data['post']['type'] = Post::TYPE_EVENT;
             $post = $postRepository->save($data['post']);
             $data['postId'] = $post->id;
         }
@@ -47,6 +47,27 @@ class EloquentPostEventRepository extends EloquentBaseRepository implements Post
                 $postRepository->update($post, $data['post']);
             }
         }
+
+        DB::commit();
+
+        return $postEvent;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function delete(\ArrayAccess $model): bool
+    {
+        DB::beginTransaction();
+
+        $postRepository = app(PostRepository::class);
+        $post = $postRepository->findOne($model->postId);
+
+        if ($post instanceof Post) {
+            $postRepository->delete($post);
+        }
+
+        $postEvent = parent::delete($model);
 
         DB::commit();
 

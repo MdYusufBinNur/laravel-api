@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\DbModels\Visitor;
 use App\Repositories\Contracts\VisitorArchiveRepository;
+use App\Repositories\Contracts\VisitorRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -22,7 +23,7 @@ class EloquentVisitorArchiveRepository extends EloquentBaseRepository implements
         $data['signOutAt'] = Carbon::now();
         $visitorArchive = parent::save($data);
 
-        $visitorRepository = app(VisitorArchiveRepository::class);
+        $visitorRepository = app(VisitorRepository::class);
         $visitorRepository->delete($visitorArchive->visitor);
 
         DB::commit();

@@ -6,8 +6,8 @@ use App\DbModels\PostApprovalBlacklistUnit;
 use App\Http\Requests\PostApprovalBlacklistUnit\IndexRequest;
 use App\Http\Requests\PostApprovalBlacklistUnit\StoreRequest;
 use App\Http\Requests\PostApprovalBlacklistUnit\UpdateRequest;
-use App\Http\Resources\PostApprovalArchiveResourceCollection;
 use App\Http\Resources\PostApprovalBlacklistUnitResource;
+use App\Http\Resources\PostApprovalBlacklistUnitResourceCollection;
 use App\Repositories\Contracts\PostApprovalBlacklistUnitRepository;
 
 class PostApprovalBlacklistUnitController extends Controller
@@ -30,13 +30,13 @@ class PostApprovalBlacklistUnitController extends Controller
      * Display a listing of the resource.
      *
      * @param IndexRequest $request
-     * @return PostApprovalArchiveResourceCollection
+     * @return PostApprovalBlacklistUnitResourceCollection
      */
     public function index(IndexRequest $request)
     {
         $postApprovalBlacklistUnits = $this->postApprovalBlacklistUnitRepository->findBy($request->all());
 
-        return new PostApprovalArchiveResourceCollection($postApprovalBlacklistUnits);
+        return new PostApprovalBlacklistUnitResourceCollection($postApprovalBlacklistUnits);
     }
 
     /**

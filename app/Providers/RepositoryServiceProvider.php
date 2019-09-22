@@ -12,6 +12,10 @@ use App\DbModels\EventSignup;
 use App\DbModels\Fdi;
 use App\DbModels\FdiGuestType;
 use App\DbModels\FdiLog;
+use App\DbModels\LdsBlacklistUnit;
+use App\DbModels\LdsSetting;
+use App\DbModels\LdsSlide;
+use App\DbModels\LdsSlideProperty;
 use App\DbModels\Manager;
 use App\DbModels\ManagerInvitation;
 use App\DbModels\Module;
@@ -78,6 +82,10 @@ use App\Repositories\Contracts\EventSignupRepository;
 use App\Repositories\Contracts\FdiGuestTypeRepository;
 use App\Repositories\Contracts\FdiLogRepository;
 use App\Repositories\Contracts\FdiRepository;
+use App\Repositories\Contracts\LdsBlacklistUnitRepository;
+use App\Repositories\Contracts\LdsSettingRepository;
+use App\Repositories\Contracts\LdsSlidePropertyRepository;
+use App\Repositories\Contracts\LdsSlideRepository;
 use App\Repositories\Contracts\ManagerRepository;
 use App\Repositories\Contracts\MangerInvitationRepository;
 use App\Repositories\Contracts\ModuleOptionRepository;
@@ -136,6 +144,10 @@ use App\Repositories\EloquentEventSignupRepository;
 use App\Repositories\EloquentFdiGuestTypeRepository;
 use App\Repositories\EloquentFdiLogRepository;
 use App\Repositories\EloquentFdiRepository;
+use App\Repositories\EloquentLdsBlacklistUnitRepository;
+use App\Repositories\EloquentLdsSettingRepository;
+use App\Repositories\EloquentLdsSlidePropertyRepository;
+use App\Repositories\EloquentLdsSlideRepository;
 use App\Repositories\EloquentManagerRepository;
 use App\Repositories\EloquentMangerInvitationRepository;
 use App\Repositories\EloquentModuleOptionRepository;
@@ -549,6 +561,26 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind FdiGuestTypeRepository
         $this->app->bind(FdiGuestTypeRepository::class, function() {
             return new EloquentFdiGuestTypeRepository(new FdiGuestType());
+        });
+
+        // bind LdsSlideRepository
+        $this->app->bind(LdsSlideRepository::class, function() {
+            return new EloquentLdsSlideRepository(new LdsSlide());
+        });
+
+        // bind LdsSettingRepository
+        $this->app->bind(LdsSettingRepository::class, function() {
+            return new EloquentLdsSettingRepository(new LdsSetting());
+        });
+
+        // bind LdsSlidePropertyRepository
+        $this->app->bind(LdsSlidePropertyRepository::class, function() {
+            return new EloquentLdsSlidePropertyRepository(new LdsSlideProperty());
+        });
+
+        // bind LdsBlacklistUnitRepository
+        $this->app->bind(LdsBlacklistUnitRepository::class, function() {
+            return new EloquentLdsBlacklistUnitRepository(new LdsBlacklistUnit());
         });
     }
 }

@@ -41,8 +41,9 @@ class EloquentPackageArchiveRepository extends EloquentBaseRepository implements
             unset($searchCriteria['startDate']);
         }
 
+
         foreach ($searchCriteria as $key => $value) {
-            if ($key != 'include') {
+            if (in_array($key, ['signOutUserId', 'packageId', 'propertyId'])) {
                 $searchCriteria[$thisModelTable. '.' . $key] = $value;
                 unset($searchCriteria[$key]);
             }

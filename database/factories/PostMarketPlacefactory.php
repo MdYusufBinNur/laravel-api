@@ -10,6 +10,7 @@ $factory->define(App\DbModels\PostMarketplace::class, function (Faker $faker) {
         'type' => $faker->randomElement(array('buy','sell')),
         'title' => $faker->title,
         'price' => $faker->numberBetween(10,100000),
+        'description' => $faker->sentence,
         'contact' => $faker->phoneNumber,
     ];
 });

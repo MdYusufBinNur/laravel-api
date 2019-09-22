@@ -36,7 +36,7 @@ class HandlePostUpdatedEvent implements ShouldQueue
                 'postId' => $post->id,
                 'createdByUserId' => $eventOptions['request']['loggedInUserId'],
                 'status' => $post->status,
-                'reason' => $eventOptions['request']['reason']
+                'reason' => $eventOptions['request']['reason'] ?? ''
             ]);
         }
 

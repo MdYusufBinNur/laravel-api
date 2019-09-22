@@ -18,7 +18,7 @@ class StoreRequest extends Request
             'postId' =>  'required|exists:posts,id',
             'statusChangedUserId' =>  'required|exists:users,id',
             'status' =>  'in:'.PostApprovalArchive::STATUS_APPROVED.','.PostApprovalArchive::STATUS_DENIED,
-            'reason' =>  'min:3|max:512',
+            'reason' =>  'reason',
         ];
     }
 }

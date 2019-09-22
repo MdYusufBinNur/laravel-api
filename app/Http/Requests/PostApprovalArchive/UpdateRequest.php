@@ -18,7 +18,7 @@ class UpdateRequest extends Request
             'postId' =>  'exists:posts,id',
             'statusChangedUserId' =>  'exists:users,id',
             'status' =>  'in:'.PostApprovalArchive::STATUS_APPROVED.','.PostApprovalArchive::STATUS_DENIED,
-            'reason' =>  'min:3|max:512',
+            'reason' =>  'reason',
         ];
     }
 }

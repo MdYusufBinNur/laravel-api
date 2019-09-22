@@ -76,4 +76,13 @@ class EloquentPostRecommendationRepository extends EloquentBaseRepository implem
 
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function findBy(array $searchCriteria = [], $withTrashed = false)
+    {
+        $searchCriteria['eagerLoad'] = ['pr.post' => 'post', 'pr.type' => 'recommendationType', 'post.property' => 'post.property', 'post.attachments' => 'post.attachments', 'post.approvalArchives' => 'post.approvalArchives'];
+        return parent::findBy($searchCriteria, $withTrashed);
+    }
+
 }

@@ -16,6 +16,9 @@ class PostApprovalArchiveResource extends Resource
             'id' => $this->id,
             'createdByUserId' =>  $this->createdByUserId,
             'postId' =>  $this->postId,
+            'post' => $this->when($this->needToInclude($request, 'paa.post'), function () {
+                return new PostResource($this->post);
+            }),
             'status' =>  $this->status,
             'reason' =>  $this->reason,
             'created_at' => $this->created_at,

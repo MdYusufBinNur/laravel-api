@@ -72,7 +72,15 @@ class EloquentPostWallRepository extends EloquentBaseRepository implements PostW
         DB::commit();
 
         return $postWall;
+    }
 
+    /**
+     * @inheritDoc
+     */
+    public function findBy(array $searchCriteria = [], $withTrashed = false)
+    {
+        $searchCriteria['eagerLoad'] = ['pw.post' => 'post', 'post.property' => 'post.property', 'post.attachments' => 'post.attachments', 'post.approvalArchives' => 'post.approvalArchives'];
+        return parent::findBy($searchCriteria, $withTrashed);
     }
 
 }

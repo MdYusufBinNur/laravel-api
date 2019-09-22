@@ -130,4 +130,13 @@ class EloquentPostPollRepository extends EloquentBaseRepository implements PostP
         return $postPoll;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function findBy(array $searchCriteria = [], $withTrashed = false)
+    {
+        $searchCriteria['eagerLoad'] = ['pp.post' => 'post', 'post.property' => 'post.property', 'post.attachments' => 'post.attachments', 'post.approvalArchives' => 'post.approvalArchives'];
+        return parent::findBy($searchCriteria, $withTrashed);
+    }
+
 }

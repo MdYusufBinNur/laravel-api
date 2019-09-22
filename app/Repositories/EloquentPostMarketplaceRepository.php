@@ -72,6 +72,5 @@ class EloquentPostMarketplaceRepository extends EloquentBaseRepository implement
         DB::commit();
 
         return $postWall;
-
     }
 }

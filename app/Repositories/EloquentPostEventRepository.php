@@ -74,4 +74,13 @@ class EloquentPostEventRepository extends EloquentBaseRepository implements Post
         return $postEvent;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function findBy(array $searchCriteria = [], $withTrashed = false)
+    {
+        $searchCriteria['eagerLoad'] = ['pe.post' => 'post', 'pe.event' => 'event', 'post.property' => 'post.property', 'post.attachments' => 'post.attachments', 'post.approvalArchives' => 'post.approvalArchives'];
+        return parent::findBy($searchCriteria, $withTrashed);
+    }
+
 }

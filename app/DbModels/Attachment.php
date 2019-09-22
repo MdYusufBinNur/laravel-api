@@ -18,6 +18,7 @@ class Attachment extends Model
     const ATTACHMENT_TYPE_PROPERTY_SLIDE = 'property-slide';
     const ATTACHMENT_TYPE_SERVICE_REQUEST = 'service-request';
     const ATTACHMENT_TYPE_POST = 'post';
+    const ATTACHMENT_TYPE_FDI = 'fdi';
 
     /**
      * The database table used by the model.
@@ -87,6 +88,9 @@ class Attachment extends Model
                 break;
             case self::ATTACHMENT_TYPE_POST:
                 $directoryName = 'posts';
+                break;
+            case self::ATTACHMENT_TYPE_FDI:
+                $directoryName = 'fdi';
                 break;
         }
 

@@ -84,7 +84,8 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
     {
         $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
 
-        $searchCriteria['eagerLoad'] = isset($searchCriteria['include']) ? ['user', 'unit', 'user.userRoles'] : [];
+        $searchCriteria['eagerLoad'] = ['resident.user' => 'user', 'resident.unit' => 'unit', 'user.roles' => 'user.userRoles', 'user.profilePic' => 'user.userProfilePic'];
+
         return parent::findBy($searchCriteria, $withTrashed);
     }
 

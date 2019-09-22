@@ -15,7 +15,7 @@ class EloquentServiceRequestMessageRepository extends EloquentBaseRepository imp
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = ['user'];
+        $searchCriteria['eagerLoad'] = ['srm.user' => 'user'];
         return parent::findBy($searchCriteria, $withTrashed);
     }
 

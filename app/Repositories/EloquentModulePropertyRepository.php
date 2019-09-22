@@ -14,7 +14,7 @@ class EloquentModulePropertyRepository extends EloquentBaseRepository implements
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = ['module'];
+        $searchCriteria['eagerLoad'] = ['mp.module' => 'module'];
         return parent::findBy($searchCriteria, $withTrashed);
     }
 

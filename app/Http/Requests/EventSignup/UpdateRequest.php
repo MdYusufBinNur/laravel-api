@@ -2,20 +2,10 @@
 
 namespace App\Http\Requests\EventSignup;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Request;
 
-class UpdateRequest extends FormRequest
+class UpdateRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,9 +14,6 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'eventId' => 'exists:events,id',
-            'userId' => 'exists:users,id',
-            'residentId' => 'numeric',
             'guests' => 'numeric',
         ];
     }

@@ -9,7 +9,6 @@ use App\Http\Requests\EventSignup\UpdateRequest;
 use App\Http\Resources\EventSignupResource;
 use App\Http\Resources\EventSignupResourceCollection;
 use App\Repositories\Contracts\EventSignupRepository;
-use Illuminate\Http\Request;
 
 class EventSignupController extends Controller
 {

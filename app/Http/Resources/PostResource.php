@@ -23,6 +23,7 @@ class PostResource extends Resource
             }),
             'deletedUserId' =>  $this->deletedUserId,
             'type' =>  $this->type,
+            //todo very expensive operation
             'details' => $this->when($this->needToInclude($request, 'post.details'), function () {
                 return $this->getResourceByType();
             }),

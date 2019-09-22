@@ -109,10 +109,11 @@ class EloquentBaseRepository implements BaseRepository
         }
 
         if (isset($searchCriteria['eagerLoad'])) {
-            $includedRelationships = $this->eagerLoadWithIncludeParam($searchCriteria['include'], $searchCriteria['eagerLoad']);
-            $queryBuilder->with($includedRelationships);
+            if(isset($searchCriteria['include'])) {
+                $includedRelationships = $this->eagerLoadWithIncludeParam($searchCriteria['include'], $searchCriteria['eagerLoad']);
+                $queryBuilder->with($includedRelationships);
+            }
         }
-
 
         if (isset($searchCriteria['rawOrder'])) {
             $queryBuilder->orderByRaw(DB::raw("FIELD(id, {$searchCriteria['id']})"));

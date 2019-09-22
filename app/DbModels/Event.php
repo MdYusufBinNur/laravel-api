@@ -14,7 +14,7 @@ class Event extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'createdUserId', 'title', 'text', 'maxGuests', 'allowedSignUp', 'alldayEvent', 'allowedLoginPage', 'hasAttachment', 'startAt', 'endAt', 'date'
+        'createdByUserId', 'propertyId', 'title', 'text', 'maxGuests', 'allowedSignUp', 'allDayEvent', 'allowedLoginPage', 'hasAttachment', 'startAt', 'endAt', 'date'
     ];
 
     /**
@@ -24,9 +24,29 @@ class Event extends Model
      */
     protected $casts = [
         'allowedSignUp' => 'boolean',
-        'alldayEvent' => 'boolean',
+        'allDayEvent' => 'boolean',
         'allowedLoginPage' => 'boolean',
         'hasAttachment' => 'boolean',
         'date' => 'datetime: Y-m-d h:i',
     ];
+
+    /**
+     * get the property
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(Property::class, 'id', 'propertyId');
+    }
+
+    /**
+     * get the attachments
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class, 'resourceId')->where('type', Attachment::ATTACHMENT_TYPE_EVENT);
+    }
 }

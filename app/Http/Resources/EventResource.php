@@ -16,14 +16,19 @@ class EventResource extends Resource
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
             'propertyId' => $this->propertyId,
-            'createdUserId' => $this->createdUserId,
+            'property' => $this->when($this->needToInclude($request, 'event.property'), function () {
+                return new PropertyResource($this->property);
+            }),
             'title' => $this->title,
             'text' => $this->text,
             'maxGuests' => $this->maxGuests,
             'allowedSignUp' => $this->allowedSignUp,
-            'alldayEvent' => $this->alldayEvent,
+            'allDayEvent' => $this->allDayEvent,
             'allowedLoginPage' => $this->allowedLoginPage,
             'hasAttachment' => $this->hasAttachment,
+            'attachments' => $this->when($this->needToInclude($request, 'event.attachments'), function () {
+                return new AttachmentResourceCollection($this->attachments);
+            }),
             'startAt' => $this->startAt,
             'endAt' => $this->endAt,
             'date' => $this->date,

@@ -9,7 +9,6 @@ use App\Http\Requests\Event\UpdateRequest;
 use App\Http\Resources\EventResource;
 use App\Http\Resources\EventResourceCollection;
 use App\Repositories\Contracts\EventRepository;
-use Illuminate\Http\Request;
 
 class EventController extends Controller
 {

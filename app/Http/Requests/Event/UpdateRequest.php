@@ -24,18 +24,16 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'propertyId' => 'exists:properties,id',
-            'createdUserId' => 'numeric',
             'title' => 'min:5|max:191',
             'text' => 'min:5|max:512',
             'maxGuests' => 'numeric',
             'allowedSignUp' => 'boolean',
-            'alldayEvent' => 'boolean',
+            'allDayEvent' => 'boolean',
             'allowedLoginPage' => 'boolean',
             'hasAttachment' => 'boolean',
-            'startAt' => 'date_format:"H:i"|before:timeEnd',
-            'endAt' => 'date_format:"H:i"|before:timeEnd',
-            'date' => 'date',
+            'startAt' => 'date_format:"H:i"',
+            'endAt' => 'date_format:"H:i"|after:startAt',
+            'date' => 'date|after_or_equal:now',
         ];
     }
 }

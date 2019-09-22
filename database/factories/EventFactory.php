@@ -12,7 +12,7 @@ $factory->define(App\DbModels\Event::class, function (Faker $faker) {
         'text' => $faker->paragraph,
         'maxGuests' => $faker->numberBetween(20,5000),
         'allowedSignUp' => $faker->boolean,
-        'alldayEvent' => $faker->boolean,
+        'allDayEvent' => $faker->boolean,
         'allowedLoginPage' => $faker->boolean,
         'hasAttachment' => $faker->boolean,
         'startAt' => $faker->time,

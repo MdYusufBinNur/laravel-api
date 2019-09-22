@@ -19,6 +19,7 @@ class Attachment extends Model
     const ATTACHMENT_TYPE_SERVICE_REQUEST = 'service-request';
     const ATTACHMENT_TYPE_POST = 'post';
     const ATTACHMENT_TYPE_FDI = 'fdi';
+    const ATTACHMENT_TYPE_EVENT = 'event';
 
     /**
      * The database table used by the model.
@@ -91,6 +92,9 @@ class Attachment extends Model
                 break;
             case self::ATTACHMENT_TYPE_FDI:
                 $directoryName = 'fdi';
+                break;
+            case self::ATTACHMENT_TYPE_EVENT:
+                $directoryName = 'events';
                 break;
         }
 

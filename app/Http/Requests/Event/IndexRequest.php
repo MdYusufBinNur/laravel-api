@@ -30,7 +30,7 @@ class IndexRequest extends FormRequest
             'text' => 'list:string',
             'maxGuests' => 'list:numeric',
             'allowedSignUp' => 'list:boolean',
-            'alldayEvent' => 'list:boolean',
+            'allDayEvent' => 'list:boolean',
             'allowedLoginPage' => 'list:boolean',
             'hasAttachment' => 'list:boolean',
             'startAt' => 'date_format:"H:i"',

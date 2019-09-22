@@ -159,7 +159,15 @@ return [
         'endDate' => 'endDate',
         'canGetKey' => 'canGetKey',
         'packageId' => 'packageId',
-        'signOutComment' => 'signOutComment'
+        'signOutComment' => 'signOutComment',
+        'maxGuests' => 'maxGuests',
+        'allowedSignUp' => 'allowedSignUp',
+        'allDayEvent' => 'allDayEvent',
+        'allowedLoginPage' => 'allowedLoginPage',
+        'hasAttachment' => 'hasAttachment',
+        'startAt' => 'startAt',
+        'endAt' => 'endAt',
+
 
         //todo
     ],

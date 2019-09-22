@@ -2,19 +2,10 @@
 
 namespace App\Http\Requests\Event;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Request;
 
-class StoreRequest extends FormRequest
+class StoreRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -25,17 +16,16 @@ class StoreRequest extends FormRequest
     {
         return [
             'propertyId' => 'required|exists:properties,id',
-            'createdUserId' => 'required|numeric',
             'title' => 'required|min:5|max:191',
             'text' => 'min:5|max:512',
             'maxGuests' => 'required|numeric',
             'allowedSignUp' => 'boolean',
-            'alldayEvent' => 'boolean',
+            'allDayEvent' => 'boolean',
             'allowedLoginPage' => 'boolean',
             'hasAttachment' => 'boolean',
-            'startAt' => 'date_format:"H:i"|required|before:timeEnd',
-            'endAt' => 'date_format:"H:i"|required|before:timeEnd',
-            'date' => 'required|date',
+            'startAt' => 'date_format:"H:i"|required_unless:allDayEvent,1',
+            'endAt' => 'date_format:"H:i"|required_unless:allDayEvent,1|after:startAt',
+            'date' => 'required|date|after_or_equal:now',
         ];
     }
 }

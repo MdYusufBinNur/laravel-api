@@ -19,4 +19,14 @@ class PostMarketplace extends Model
     protected $fillable = [
         'createdByUserId', 'postId', 'type', 'title', 'price', 'description', 'contact',
     ];
+
+    /**
+     * get the post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function post()
+    {
+        return $this->hasOne(Post::class, 'id', 'postId');
+    }
 }

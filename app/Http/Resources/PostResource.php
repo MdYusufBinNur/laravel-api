@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\DbModels\Post;
+
 class PostResource extends Resource
 {
     /**
@@ -16,14 +18,52 @@ class PostResource extends Resource
             'id' => $this->id,
             'propertyId' =>  $this->propertyId,
             'createdUserId' =>  $this->createdUserId,
+            'property' => $this->when($this->needToInclude($request, 'post.property'), function () {
+                return new PropertyResource($this->property);
+            }),
             'deletedUserId' =>  $this->deletedUserId,
             'type' =>  $this->type,
+            'details' => $this->when($this->needToInclude($request, 'post.details'), function () {
+                return $this->getResourceByType();
+            }),
+            'comments' => $this->when($this->needToInclude($request, 'post.comments'), function () {
+                return new PostCommentResourceCollection($this->comments);
+            }),
             'status' =>  $this->status,
             'likeCount' =>  $this->likeCount,
             'likeUsers' =>  $this->likeUsers,
-            'attachment' =>  $this->attachment,
+            'attachments' => $this->when($this->needToInclude($request, 'post.attachments'), function () {
+                return new AttachmentResourceCollection($this->attachments);
+            }),
+            'approvalArchives' => $this->when($this->needToInclude($request, 'post.approvalArchives'), function () {
+                return new PostApprovalArchiveResourceCollection($this->approvalArchives);
+            }),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];
+    }
+
+    private function getResourceByType()
+    {
+        $resource = null;
+        switch ($this->type) {
+            case Post::TYPE_WALL:
+                $resource = new PostWallResourceCollection($this->detailByType);
+                break;
+            case Post::TYPE_EVENT:
+                $resource = new PostEventResourceCollection($this->detailByType);
+                break;
+            case Post::TYPE_MARKETPLACE:
+                $resource = new PostMarketPlaceResourceCollection($this->detailByType);
+                break;
+            case Post::TYPE_POLL:
+                $resource = new PostPollResourceCollection($this->detailByType);
+                break;
+            case Post::TYPE_RECOMMENDATION:
+                $resource = new PostRecommendationTypeResourceCollection($this->detailByType);
+                break;
+        }
+
+        return $resource;
     }
 }

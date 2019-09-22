@@ -21,4 +21,12 @@ interface AttachmentRepository extends BaseRepository
      * @return \ArrayAccess
      */
     public function updateResourceId(Attachment $attachment, $id);
+
+    /**
+     * update all resource ids
+     *
+     * @param array $attachmentIds
+     * @param $id
+     */
+    public function updateResourceIds(array $attachmentIds, $id);
 }

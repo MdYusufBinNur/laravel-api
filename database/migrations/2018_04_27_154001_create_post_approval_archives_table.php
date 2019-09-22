@@ -17,7 +17,6 @@ class CreatePostApprovalArchivesTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('postId');
-            $table->unsignedInteger('statusChangedUserId');
             $table->string('status');
             $table->mediumText('reason')->nullable();
             $table->timestamps();
@@ -25,11 +24,6 @@ class CreatePostApprovalArchivesTable extends Migration
 
             $table->foreign('postId')
                 ->references('id')->on('posts')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
-            $table->foreign('statusChangedUserId')
-                ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

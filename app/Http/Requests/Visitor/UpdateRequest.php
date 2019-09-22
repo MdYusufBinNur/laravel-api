@@ -16,7 +16,6 @@ class UpdateRequest extends Request
     {
         return [
             'propertyId' => 'exists:properties,id',
-            'signinUserId' => 'exists:users,id',
             'unitId' => 'exists:units,id',
             'visitorTypeId' => 'exists:visitor_types,id',
             'name' => 'min:3|max:191',
@@ -26,9 +25,7 @@ class UpdateRequest extends Request
             'photo' => 'boolean',
             'permanent' => 'boolean',
             'comment' => 'min:3|max:1024',
-            'signature' => 'boolean',
-            'status' => 'in:'.Visitor::STATUS_ACTIVE.','.Visitor::STATUS_ARCHIVE,
-            'signinAt' => 'date',
+            'signature' => 'boolean'
         ];
     }
 }

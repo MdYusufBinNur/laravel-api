@@ -47,7 +47,7 @@ class FdiValidationCheck extends Command
      */
     public function handle()
     {
-        $fdis = $this->fdiRepository->getModel()->whereDate('endDate', '<=', Carbon::now())
+        $fdis = $this->fdiRepository->getModel()->whereDate('endDate', '<', Carbon::now())
             ->where('permanent', '<>', 1)
             ->where('status', Fdi::STATUS_ACTIVE)
             ->get();

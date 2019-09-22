@@ -15,7 +15,14 @@ class VisitorArchiveResource extends Resource
         return [
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
+            'propertyId' => $this->propertyId,
+            'property' => $this->when($this->needToInclude($request, 'va.property'), function () {
+                return new PropertyResource($this->property);
+            }),
             'visitorId' => $this->visitorId,
+            'visitor' => $this->when($this->needToInclude($request, 'va.visitor'), function () {
+                return new VisitorResource($this->visitor);
+            }),
             'signOutUserId' => $this->signOutUserId,
             'signature' => $this->signature,
             'signOutAt' => $this->signOutAt,

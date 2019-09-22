@@ -15,20 +15,18 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
-            'propertyId' => 'list:numeric',
-            'signinUserId' => 'list:numeric',
+            'propertyId' => 'required|numeric',
+            'signInUserId' => 'list:numeric',
             'unitId' => 'list:numeric',
             'visitorTypeId' => 'list:numeric',
-            'name' => 'list:string',
             'phone' => 'list:string',
             'email' => 'list:string',
             'company' => 'list:string',
-            'photo' => 'list:boolean',
             'permanent' => 'list:boolean',
-            'comment' => 'list:string',
             'signature' => 'list:boolean',
             'status' => 'list:string',
-            'signinAt' => 'list:date',
+            'startDate' => 'date',
+            'endDate' => 'date|after:startDate',
         ];
     }
 }

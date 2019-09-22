@@ -17,7 +17,7 @@ class Visitor extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'signinUserId', 'unitId', 'visitorTypeId', 'name', 'phone', 'email', 'company', 'photo', 'permanent', 'comment', 'signature', 'status', 'signinAt'
+        'createdByUserId', 'propertyId', 'signInUserId', 'unitId', 'visitorTypeId', 'name', 'phone', 'email', 'company', 'photo', 'permanent', 'comment', 'signature', 'status', 'signInAt'
     ];
 
     /**
@@ -29,6 +29,37 @@ class Visitor extends Model
         'photo' => 'boolean',
         'permanent' => 'boolean',
         'signature' => 'boolean',
-        'signinAt' => 'datetime:Y-m-d h:i',
+        'signInAt' => 'datetime:Y-m-d h:i',
     ];
+
+
+    /**
+     * get the property
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(Property::class, 'id', 'propertyId');
+    }
+
+    /**
+     * get the unit
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function unit()
+    {
+        return $this->hasOne(Unit::class, 'id', 'unitId');
+    }
+
+    /**
+     * get the visitor type
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function visitorType()
+    {
+        return $this->hasOne(VisitorType::class, 'id', 'visitorTypeId');
+    }
 }

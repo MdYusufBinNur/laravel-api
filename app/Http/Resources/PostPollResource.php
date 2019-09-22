@@ -16,7 +16,11 @@ class PostPollResource extends Resource
             'id' => $this->id,
             'createdByUserId' =>  $this->createdByUserId,
             'postId' =>  $this->postId,
-            'text' =>  $this->text,
+            'post' => $this->when($this->needToInclude($request, 'pp.post'), function () {
+                return new PostResource($this->post);
+            }),
+            'question' =>  $this->text['question'],
+            'answers' =>  $this->text['answers'],
             'votes' =>  $this->votes,
             'voters' =>  $this->voters,
             'created_at' => $this->created_at,

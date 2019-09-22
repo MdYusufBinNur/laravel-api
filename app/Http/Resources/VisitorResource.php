@@ -16,9 +16,18 @@ class VisitorResource extends Resource
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
             'propertyId' => $this->propertyId,
-            'signinUserId' => $this->signinUserId,
+            'property' => $this->when($this->needToInclude($request, 'visitor.property'), function () {
+                return new PropertyResource($this->property);
+            }),
+            'signInUserId' => $this->signInUserId,
             'unitId' => $this->unitId,
+            'unit' => $this->when($this->needToInclude($request, 'visitor.unit'), function () {
+                return new UnitResource($this->visitorType);
+            }),
             'visitorTypeId' => $this->visitorTypeId,
+            'visitorType' => $this->when($this->needToInclude($request, 'visitor.visitorType'), function () {
+                return new VisitorTypeResource($this->visitorType);
+            }),
             'name' => $this->name,
             'phone' => $this->phone,
             'email' => $this->email,
@@ -28,7 +37,7 @@ class VisitorResource extends Resource
             'comment' => $this->comment,
             'signature' => $this->signature,
             'status' => $this->status,
-            'signinAt' => $this->signinAt,
+            'signInAt' => $this->signInAt,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

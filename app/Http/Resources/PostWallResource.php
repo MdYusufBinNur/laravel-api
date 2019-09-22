@@ -16,6 +16,9 @@ class PostWallResource extends Resource
             'id' => $this->id,
             'createdByUserId' =>  $this->createdByUserId,
             'postId' =>  $this->postId,
+            'post' => $this->when($this->needToInclude($request, 'pw.post'), function () {
+                return new PostResource($this->post);
+            }),
             'text' =>  $this->text,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at

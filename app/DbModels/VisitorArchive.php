@@ -14,7 +14,7 @@ class VisitorArchive extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'visitorId', 'signOutUserId', 'signature', 'signOutAt'
+        'createdByUserId', 'propertyId', 'visitorId', 'signOutUserId', 'signature', 'signOutAt'
     ];
 
     /**
@@ -26,4 +26,24 @@ class VisitorArchive extends Model
         'signature' => 'boolean',
         'signOutAt' => 'datetime:Y-m-d h:i',
     ];
+
+    /**
+     * get the property
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(Property::class, 'id', 'propertyId');
+    }
+
+    /**
+     * get the visitor
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function visitor()
+    {
+        return $this->hasOne(Visitor::class, 'id', 'visitorId')->withTrashed();
+    }
 }

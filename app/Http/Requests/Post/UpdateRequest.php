@@ -15,14 +15,10 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'propertyId' =>  'exists:properties,id',
-            'createdUserId' =>  'exists:users,id',
-            'deletedUserId' =>  'exists:users,id',
-            'type' =>  'in:'. Post::TYPE_EVENT. ','. Post::TYPE_MARKETPLACE. ','. Post::TYPE_POLL, ','. Post::TYPE_RECOMMEND. ','. Post::TYPE_WALL,
             'status' =>  'in:'. Post::STATUS_PENDING. ','. Post::STATUS_DENIED. ','. Post::STATUS_APPROVED. ','. Post::STATUS_POSTED,
-            'likeCount' =>  'integer',
-            'likeUsers' =>  'min:3|max:1024',
-            'attachment' =>  'boolean',
+            'reason' => 'required_if:status,' .  Post::STATUS_PENDING. ','. Post::STATUS_DENIED,
+            'likeChanged' =>  'boolean',
+            'attachmentIds' => 'json|json_ids:attachments,id'
         ];
     }
 }

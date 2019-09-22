@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 $factory->define(App\DbModels\Visitor::class, function (Faker $faker) {
     return [
         'propertyId' => App\DbModels\Property::all()->random()->id,
-        'signinUserId' => App\DbModels\User::all()->random()->id,
+        'signInUserId' => App\DbModels\User::all()->random()->id,
         'unitId' => App\DbModels\Unit::all()->random()->id,
         'visitorTypeId' =>  App\DbModels\VisitorType::all()->random()->id,
         'name' => $faker->name,
@@ -19,6 +19,6 @@ $factory->define(App\DbModels\Visitor::class, function (Faker $faker) {
         'comment' => $faker->sentence,
         'signature' => $faker->boolean,
         'status' => $faker->sentence,
-        'signinAt' => $faker->dateTime,
+        'signInAt' => $faker->dateTime,
     ];
 });

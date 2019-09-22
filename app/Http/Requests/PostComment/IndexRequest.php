@@ -18,9 +18,7 @@ class IndexRequest extends Request
             'postId' =>  'list:numeric',
             'createdUserId' =>  'list:numeric',
             'deletedUserId' =>  'list:numeric',
-            'status' =>  'list:string',
-            'text' =>  'list:string',
-            'active' =>  'list:boolean',
+            'status' =>  'list:string'
         ];
     }
 }

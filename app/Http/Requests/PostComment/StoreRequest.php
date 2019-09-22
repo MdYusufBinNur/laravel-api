@@ -16,11 +16,7 @@ class StoreRequest extends Request
     {
         return [
             'postId' =>  'required|exists:posts,id',
-            'createdUserId' =>  'required|exists:users,id',
-            'deletedUserId' =>  'exists:users,id',
-            'status' =>  'in:'. PostComment::STATUS_POSTED. ','. PostComment::STATUS_APPROVED. ','. PostComment::STATUS_PENDING. ','. PostComment::STATUS_DENIED,
-            'text' =>  'min:3|max:1024',
-            'active' =>  'boolean',
+            'text' =>  ''
         ];
     }
 }

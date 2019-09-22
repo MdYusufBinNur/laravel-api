@@ -16,6 +16,9 @@ class PostMarketPlaceResource extends Resource
             'id' => $this->id,
             'createdByUserId' =>  $this->createdByUserId,
             'postId' =>  $this->postId,
+            'post' => $this->when($this->needToInclude($request, 'pm.post'), function () {
+                return new PostResource($this->post);
+            }),
             'type' =>  $this->type,
             'title' =>  $this->title,
             'price' =>  $this->price,

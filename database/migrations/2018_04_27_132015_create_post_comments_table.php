@@ -17,21 +17,14 @@ class CreatePostCommentsTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('postId');
-            $table->unsignedInteger('createdUserId');
             $table->unsignedInteger('deletedUserId')->nullable();
             $table->string('status');
             $table->mediumText('text');
-            $table->boolean('active')->default(1);
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('postId')
                 ->references('id')->on('posts')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
-            $table->foreign('createdUserId')
-                ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

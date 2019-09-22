@@ -17,23 +17,17 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
-            $table->unsignedInteger('createdUserId');
             $table->unsignedInteger('deletedUserId')->nullable();
             $table->string('type');
             $table->string('status');
             $table->smallInteger('likeCount')->nullable();
-            $table->text('likeUsers')->nullable();
+            $table->json('likeUsers')->nullable();
             $table->boolean('attachment')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('propertyId')
                 ->references('id')->on('properties')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
-            $table->foreign('createdUserId')
-                ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

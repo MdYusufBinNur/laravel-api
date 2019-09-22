@@ -16,6 +16,9 @@ class PostApprovalBlacklistUnitResource extends Resource
             'id' => $this->id,
             'createdByUserId' =>  $this->createdByUserId,
             'unitId' =>  $this->unitId,
+            'unit' => $this->when($this->needToInclude($request, 'pabu.unit'), function () {
+                return new UnitResource($this->unit);
+            }),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

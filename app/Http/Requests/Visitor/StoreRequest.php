@@ -16,19 +16,16 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' => 'required|exists:properties,id',
-            'signinUserId' => 'required|exists:users,id',
             'unitId' => 'required|exists:units,id',
             'visitorTypeId' => 'required|exists:visitor_types,id',
             'name' => 'required|min:3|max:191',
-            'phone' => 'required|min:5|max:20',
+            'phone' => 'min:5|max:20',
             'email' => 'email|min:3|max:100',
             'company' => 'min:3|max:191',
             'photo' => 'boolean',
             'permanent' => 'boolean',
             'comment' => 'min:3|max:1024',
-            'signature' => 'boolean',
-            'status' => 'in:'.Visitor::STATUS_ACTIVE.','.Visitor::STATUS_ARCHIVE,
-            'signinAt' => 'required|date',
+            'signature' => 'boolean'
         ];
     }
 }

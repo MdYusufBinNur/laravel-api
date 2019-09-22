@@ -65,4 +65,17 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
     {
         return parent::update($attachment, ['resourceId' => $id]);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function updateResourceIds(array $attachmentIds, $id)
+    {
+        foreach ($attachmentIds as $attachment) {
+            $attachment = $this->findOne($attachment);
+            if ($attachment instanceof Attachment) {
+                $this->updateResourceId($attachment, $id);
+            }
+        }
+    }
 }

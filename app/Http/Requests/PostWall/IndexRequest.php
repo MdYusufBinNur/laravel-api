@@ -15,8 +15,7 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
-            'postId' =>  'list:numeric',
-            'text' =>  'list:text',
+            'postId' =>  'list:numeric'
         ];
     }
 }

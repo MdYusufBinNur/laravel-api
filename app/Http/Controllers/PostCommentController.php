@@ -9,7 +9,6 @@ use App\Http\Requests\PostComment\UpdateRequest;
 use App\Http\Resources\PostCommentResource;
 use App\Http\Resources\PostCommentResourceCollection;
 use App\Repositories\Contracts\PostCommentRepository;
-use Illuminate\Http\Request;
 
 class PostCommentController extends Controller
 {

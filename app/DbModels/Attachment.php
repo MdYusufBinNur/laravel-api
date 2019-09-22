@@ -17,6 +17,7 @@ class Attachment extends Model
     const ATTACHMENT_TYPE_PROPERTY_DESIGN_CUSTOM = 'property-custom';
     const ATTACHMENT_TYPE_PROPERTY_SLIDE = 'property-slide';
     const ATTACHMENT_TYPE_SERVICE_REQUEST = 'service-request';
+    const ATTACHMENT_TYPE_POST = 'post';
     const ATTACHMENT_TYPE_FDI = 'fdi';
 
     /**
@@ -84,6 +85,9 @@ class Attachment extends Model
                 break;
             case self::ATTACHMENT_TYPE_SERVICE_REQUEST:
                 $directoryName = 'service-requests';
+                break;
+            case self::ATTACHMENT_TYPE_POST:
+                $directoryName = 'posts';
                 break;
             case self::ATTACHMENT_TYPE_FDI:
                 $directoryName = 'fdi';

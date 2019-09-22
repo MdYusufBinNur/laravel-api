@@ -16,4 +16,14 @@ class PostApprovalBlacklistUnit extends Model
     protected $fillable = [
         'createdByUserId', 'unitId'
     ];
+
+    /**
+     * get the unit
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function unit()
+    {
+        return $this->hasOne(Unit::class, 'id', 'unitId');
+    }
 }

@@ -17,7 +17,7 @@ class CreateVisitorsTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
-            $table->unsignedInteger('signinUserId');
+            $table->unsignedInteger('signInUserId');
             $table->unsignedInteger('unitId');
             $table->unsignedInteger('visitorTypeId');
             $table->string('name');
@@ -29,7 +29,7 @@ class CreateVisitorsTable extends Migration
             $table->mediumText('comment')->nullable();
             $table->boolean('signature')->default(0);
             $table->string('status');
-            $table->dateTime('signinAt');
+            $table->dateTime('signInAt');
             $table->timestamps();
             $table->softDeletes();
 
@@ -38,7 +38,7 @@ class CreateVisitorsTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->foreign('signinUserId')
+            $table->foreign('signInUserId')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

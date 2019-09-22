@@ -15,7 +15,7 @@ class ServiceRequest extends Model
     const STATUS_NEW = 'new';
     const STATUS_IN_PROGRESS = 'in_progress';
     const STATUS_ON_HOLD = 'on_hold';
-    const STATUS_CANCELLED = 'canceled';
+    const STATUS_CANCELLED = 'cancelled';
     const STATUS_RESOLVED = 'resolved';
 
     /**

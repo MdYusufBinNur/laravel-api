@@ -18,4 +18,14 @@ class LdsSlideProperty extends Pivot
     protected $fillable = [
         'createdByUserId', 'propertyId', 'slideId'
     ];
+
+    /**
+     * get slide of the property
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function slide()
+    {
+        return $this->hasOne(LdsSlide::class, 'id','slideId');
+    }
 }

@@ -48,6 +48,16 @@ class Resident extends Model
     }
 
     /**
+     * get the unit
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function unit()
+    {
+        return $this->hasOne(Unit::class, 'id', 'unitId');
+    }
+
+    /**
      * get the property related to the user's role
      *
      * @return \Illuminate\Database\Eloquent\Relations\hasOne

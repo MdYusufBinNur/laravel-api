@@ -45,7 +45,10 @@ class FdiResource extends Resource
             'updated_at' => $this->updated_at,
             'logs' => $this->when($this->needToInclude($request, 'fdi.logs'), function () {
                 return new FdiLogResourceCollection($this->logs);
-            })
+            }),
+            'images' => $this->when($this->needToInclude($request, 'fdi.images'), function () {
+                return new AttachmentResourceCollection($this->fdiImages);
+            }),
         ];
     }
 }

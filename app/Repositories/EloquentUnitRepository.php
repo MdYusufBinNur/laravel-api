@@ -12,7 +12,7 @@ class EloquentUnitRepository extends EloquentBaseRepository implements UnitRepos
     {
         $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
 
-        $searchCriteria['eagerLoad'] = ['tower'];
+        $searchCriteria['eagerLoad'] = ['unit.tower' => 'tower'];
         return parent::findBy($searchCriteria, $withTrashed);
     }
 

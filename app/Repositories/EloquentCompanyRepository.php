@@ -13,7 +13,7 @@ class EloquentCompanyRepository extends EloquentBaseRepository implements Compan
 
         $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
 
-        $searchCriteria['eagerLoad'] = ['properties','noOfEnterpriseUsers'];
+        $searchCriteria['eagerLoad'] = ['company.properties' => 'properties','company.noOfProperties' => 'noOfEnterpriseUsers'];
 
         $companies =  parent::findBy($searchCriteria, $withTrashed);
 

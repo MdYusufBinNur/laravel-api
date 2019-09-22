@@ -23,7 +23,9 @@ class ServiceRequestMessageResource extends Resource
             'readStatus' => $this->readStatus,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'user' => $this->user,
+            'user' => $this->when($this->needToInclude($request, 'srm.user'), function () {
+                return new UserResource($this->user);
+            }),
         ];
     }
 }

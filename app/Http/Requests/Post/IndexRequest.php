@@ -16,7 +16,7 @@ class IndexRequest extends Request
         return [
             'id' => 'list:numeric',
             'propertyId' =>  'list:numeric',
-            'createdUserId' =>  'list:numeric',
+            'createdByUserId' =>  'list:numeric',
             'deletedUserId' =>  'list:numeric',
             'type' =>  'list:string',
             'status' =>  'list:string',

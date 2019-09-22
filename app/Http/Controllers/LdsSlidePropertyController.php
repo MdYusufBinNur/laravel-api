@@ -7,8 +7,8 @@ use App\Http\Requests\LdsSlideProperty\IndexRequest;
 use App\Http\Requests\LdsSlideProperty\StoreRequest;
 use App\Http\Requests\LdsSlideProperty\UpdateRequest;
 use App\Http\Resources\LdsSlidePropertyResourceCollection;
+use App\Http\Resources\LdsSlidePropertyResource;
 use App\Repositories\Contracts\LdsSlidePropertyRepository;
-use Illuminate\Http\Request;
 
 class LdsSlidePropertyController extends Controller
 {
@@ -19,7 +19,7 @@ class LdsSlidePropertyController extends Controller
 
     /**
      * LdsSlidePropertyController constructor.
-     * @param LdsSlideProperty $ldsSlideProperty
+     * @param LdsSlidePropertyRepository $ldsSlidePropertyRepository
      */
     public function __construct(LdsSlidePropertyRepository $ldsSlidePropertyRepository)
     {

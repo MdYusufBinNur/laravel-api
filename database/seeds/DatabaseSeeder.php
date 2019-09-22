@@ -115,7 +115,6 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\PostWall::class, 5)->create();
         factory(App\DbModels\PostComment::class, 5)->create();
         factory(App\DbModels\PostPoll::class, 5)->create();
-        //factory(App\DbModels\PostRecommendationType::class, 5)->create();
         factory(App\DbModels\PostRecommendation::class, 5)->create();
         factory(App\DbModels\PostApprovalArchive::class, 5)->create();
         factory(App\DbModels\PostApprovalBlacklistUnit::class, 5)->create();

@@ -46,4 +46,14 @@ class VisitorArchive extends Model
     {
         return $this->hasOne(Visitor::class, 'id', 'visitorId')->withTrashed();
     }
+
+    /**
+     * get the sign out user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function signOutUser()
+    {
+        return $this->hasOne(User::class, 'id', 'signOutUserId');
+    }
 }

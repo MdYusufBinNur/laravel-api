@@ -7,7 +7,7 @@ namespace App\Repositories;
 use App\DbModels\Post;
 use App\Events\Post\PostUpdatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
-use App\Repositories\Contracts\PostApprovalArchiveRepository;
+use App\Repositories\Contracts\PostApprovalBlacklistUnitRepository;
 use App\Repositories\Contracts\PostRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -20,7 +20,12 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
     {
         DB::beginTransaction();
 
-        $data['status'] = Post::STATUS_POSTED; //todo based on property setting
+        $postApprovalBlacklistUnitRepository = app(PostApprovalBlacklistUnitRepository::class);
+        $isInBlackListUnit = $postApprovalBlacklistUnitRepository->isTheUserBlacklisted($data['propertyId']);
+
+        if ($isInBlackListUnit) {
+            $data['status'] = Post::STATUS_PENDING;
+        }
 
         $post = parent::save($data);
 
@@ -51,7 +56,6 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
             unset($data['likeChanged']);
         }
 
-
         $post = parent::update($model, $data);
 
         if (isset($data['attachmentIds'])) {
@@ -66,7 +70,6 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
         event(new PostUpdatedEvent($post, $this->generateEventOptionsForModel()));
 
         DB::commit();
-
 
         return $post;
     }

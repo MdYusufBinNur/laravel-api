@@ -39,6 +39,7 @@ class Post extends Model
     ];
 
     protected $attributes = [
+        'status' => self::STATUS_POSTED,
         'likeCount' => 0,
         'likeUsers' => "[]",
     ];

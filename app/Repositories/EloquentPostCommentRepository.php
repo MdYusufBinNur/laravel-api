@@ -34,7 +34,7 @@ class EloquentPostCommentRepository extends EloquentBaseRepository implements Po
     {
         DB::beginTransaction();
 
-        $data['deleteUserId'] = $this->getLoggedInUser()->id;
+        $data['deletedUserId'] = $this->getLoggedInUser()->id;
         $postComment = $this->update($model, $data);
         $deleted = parent::delete($postComment);
 

@@ -74,10 +74,30 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
         return $post;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
         $searchCriteria['eagerLoad'] = ['post.property' => 'property', 'post.comments' => 'comments', 'post.attachments' => 'attachments', 'post.approvalArchives' => 'approvalArchives'];
         return parent::findBy($searchCriteria, $withTrashed);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function delete(\ArrayAccess $model): bool
+    {
+        DB::beginTransaction();
+
+        $data['deletedUserId'] = $this->getLoggedInUser()->id;
+        $post = $this->update($model, $data);
+        $deleted = parent::delete($post);
+
+        DB::commit();
+
+        return $deleted;
+    }
+
 
 }

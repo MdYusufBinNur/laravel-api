@@ -40,4 +40,14 @@ class PostComment extends Model
     {
         return $this->hasOne(Post::class, 'id', 'postId');
     }
+
+    /**
+     * get the post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function deletedUser()
+    {
+        return $this->hasOne(User::class, 'id', 'deletedUserId');
+    }
 }

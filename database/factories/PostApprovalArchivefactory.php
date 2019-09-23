@@ -8,6 +8,6 @@ $factory->define(App\DbModels\PostApprovalArchive::class, function (Faker $faker
     return [
         'postId' =>  App\DbModels\Post::all()->random()->id,
         'status' => $faker->randomElement(array('approved','denied')),
-        'reason' => '',
+        'reason' => $faker->sentence,
     ];
 });

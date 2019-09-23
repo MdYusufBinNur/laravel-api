@@ -15,8 +15,9 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
-            'postId' =>  'list:numeric',
-            'eventId' =>  'list:numeric',
+            'propertyId' => 'required|numeric',
+            'postId' => 'list:numeric',
+            'eventId' => 'list:numeric',
         ];
     }
 }

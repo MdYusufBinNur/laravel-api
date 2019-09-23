@@ -15,14 +15,11 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
-            'propertyId' =>  'list:numeric',
-            'createdUserId' =>  'list:numeric',
+            'propertyId' =>  'required|numeric',
+            'createdByUserId' =>  'list:numeric',
             'deletedUserId' =>  'list:numeric',
             'type' =>  'list:string',
             'status' =>  'list:string',
-            'likeCount' =>  'list:integer',
-            'likeUsers' =>  'list:text',
-            'attachment' =>  'list:boolean',
         ];
     }
 }

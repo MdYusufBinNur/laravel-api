@@ -74,4 +74,44 @@ class EloquentPostEventRepository extends EloquentBaseRepository implements Post
         return $postEvent;
     }
 
+
+    /**
+     * @inheritdoc
+     */
+    public function findBy(array $searchCriteria = [], $withTrashed = false)
+    {
+        $thisModelTable = $this->model->getTable();
+        $post = Post::getTableName();
+
+        $queryBuilder = $this->model
+            ->select($thisModelTable . '.*')
+            ->join($post, $thisModelTable . '.postId', '=', $post . '.id');
+
+        if (isset($searchCriteria['propertyId'])) {
+            $queryBuilder = $queryBuilder->where($post . '.propertyId', $searchCriteria['propertyId']);
+            unset($searchCriteria['propertyId']);
+        }
+
+        foreach ($searchCriteria as $key => $value) {
+            if (in_array($key, ['postId', 'eventId'])) {
+                $searchCriteria[$thisModelTable . '.' . $key] = $value;
+                unset($searchCriteria[$key]);
+            }
+        }
+
+        $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
+            $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
+        });
+
+        $searchCriteria['eagerLoad'] = ['pe.post' => 'post', 'pe.event' => 'event', 'post.property' => 'post.property', 'post.attachments' => 'post.attachments', 'post.approvalArchives' => 'post.approvalArchives'];
+        $this->applyEagerLoad($queryBuilder, $searchCriteria);
+
+        $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;
+        $orderBy = !empty($searchCriteria['order_by']) ? $thisModelTable . '.' . $searchCriteria['order_by'] : $thisModelTable . '.id';
+        $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
+        $queryBuilder->orderBy($orderBy, $orderDirection);
+        return $queryBuilder->paginate($limit);
+    }
+
+
 }

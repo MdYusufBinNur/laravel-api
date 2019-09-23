@@ -17,12 +17,13 @@ class PostResource extends Resource
         return [
             'id' => $this->id,
             'propertyId' =>  $this->propertyId,
-            'createdUserId' =>  $this->createdUserId,
+            'createdByUserId' =>  $this->createdUserId,
             'property' => $this->when($this->needToInclude($request, 'post.property'), function () {
                 return new PropertyResource($this->property);
             }),
             'deletedUserId' =>  $this->deletedUserId,
             'type' =>  $this->type,
+            //todo very expensive operation
             'details' => $this->when($this->needToInclude($request, 'post.details'), function () {
                 return $this->getResourceByType();
             }),

@@ -41,8 +41,9 @@ class EloquentPackageArchiveRepository extends EloquentBaseRepository implements
             unset($searchCriteria['startDate']);
         }
 
+
         foreach ($searchCriteria as $key => $value) {
-            if ($key != 'include') {
+            if (in_array($key, ['signOutUserId', 'packageId', 'propertyId'])) {
                 $searchCriteria[$thisModelTable. '.' . $key] = $value;
                 unset($searchCriteria[$key]);
             }
@@ -55,7 +56,7 @@ class EloquentPackageArchiveRepository extends EloquentBaseRepository implements
         $queryBuilder->with(['property', 'package', 'signOutUser', 'package.property', 'package.type','package.resident','package.unit', 'package.enteredUser']);
 
         $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;
-        $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : $thisModelTable . '.id';
+        $orderBy = !empty($searchCriteria['order_by']) ? $thisModelTable . '.' . $searchCriteria['order_by'] : $thisModelTable . '.id';
         $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
         $queryBuilder->orderBy($orderBy, $orderDirection);
 

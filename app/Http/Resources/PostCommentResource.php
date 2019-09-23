@@ -19,8 +19,10 @@ class PostCommentResource extends Resource
             'post' => $this->when($this->needToInclude($request, 'pc.post'), function () {
                 return new PostResource($this->post);
             }),
-            'createdUserId' =>  $this->createdUserId,
             'deletedUserId' =>  $this->deletedUserId,
+            'deletedUser' => $this->when($this->needToInclude($request, 'pc.deletedUser'), function () {
+                return new UserResource($this->deletedUser);
+            }),
             'status' =>  $this->status,
             'text' =>  $this->text,
             'created_at' => $this->created_at,

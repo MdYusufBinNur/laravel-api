@@ -60,11 +60,10 @@ class EloquentVisitorArchiveRepository extends EloquentBaseRepository implements
         }
 
         foreach ($searchCriteria as $key => $value) {
-            if ($key != 'include') {
+            if (in_array($key, ['status', 'signature', 'permanent', 'company', 'email', 'phone', 'visitorTypeId', 'signInUserId', 'propertyId'])) {
                 $searchCriteria[$thisModelTable. '.' . $key] = $value;
                 unset($searchCriteria[$key]);
             }
-
         }
 
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
@@ -74,8 +73,9 @@ class EloquentVisitorArchiveRepository extends EloquentBaseRepository implements
 
 
         $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;
-        $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : $thisModelTable . '.id';
+        $orderBy = !empty($searchCriteria['order_by']) ? $thisModelTable . '.' . $searchCriteria['order_by'] : $thisModelTable . '.id';
         $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
+
         $queryBuilder->orderBy($orderBy, $orderDirection);
 
         return $queryBuilder->paginate($limit);

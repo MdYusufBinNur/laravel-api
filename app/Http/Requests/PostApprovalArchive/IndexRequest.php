@@ -15,10 +15,10 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
+            'propertyId' =>  'required|numeric',
             'postId' =>  'list:numeric',
             'statusChangedUserId' =>  'list:numeric',
-            'status' =>  'list:string',
-            'reason' =>  'list:string',
+            'status' =>  'list:string'
         ];
     }
 }

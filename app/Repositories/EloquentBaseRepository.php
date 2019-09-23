@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\DbModels\User;
 use App\Repositories\Contracts\BaseRepository;
-use function GuzzleHttp\Promise\all;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -13,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class EloquentBaseRepository implements BaseRepository
 {
-    use EloquentCacheTrait;
+    use EloquentCacheTrait, EloquentEagerLoadTrait;
 
     /**
      * @var Model
@@ -109,9 +108,8 @@ class EloquentBaseRepository implements BaseRepository
             $queryBuilder->withTrashed();
         }
 
-        if (isset($searchCriteria['eagerLoad'])) {
-            $queryBuilder->with($searchCriteria['eagerLoad']);
-        }
+        $queryBuilder = $this->applyEagerLoad($queryBuilder, $searchCriteria);
+
         if (isset($searchCriteria['rawOrder'])) {
             $queryBuilder->orderByRaw(DB::raw("FIELD(id, {$searchCriteria['id']})"));
         } else {
@@ -139,8 +137,10 @@ class EloquentBaseRepository implements BaseRepository
         }
 
         if (isset($searchCriteria['eagerLoad'])) {
-            $queryBuilder->with($searchCriteria['eagerLoad']);
+            $includedRelationships = $this->eagerLoadWithIncludeParam($searchCriteria['include'], $searchCriteria['eagerLoad']);
+            $queryBuilder->with($includedRelationships);
         }
+
         if (isset($searchCriteria['rawOrder'])) {
             $queryBuilder->orderByRaw(DB::raw("FIELD(id, {$searchCriteria['id']})"));
         } else {

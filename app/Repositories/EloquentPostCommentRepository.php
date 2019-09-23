@@ -27,17 +27,29 @@ class EloquentPostCommentRepository extends EloquentBaseRepository implements Po
         return $postComment;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function delete(\ArrayAccess $model): bool
     {
         DB::beginTransaction();
 
-        $data['deleteUserId'] = $this->getLoggedInUser()->id;
+        $data['deletedUserId'] = $this->getLoggedInUser()->id;
         $postComment = $this->update($model, $data);
         $deleted = parent::delete($postComment);
 
         DB::commit();
 
         return $deleted;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findBy(array $searchCriteria = [], $withTrashed = false)
+    {
+        $searchCriteria['eagerLoad'] = ['pc.post' => 'post', 'pc.deletedUser' => 'pc.deletedUser', 'post.property' => 'post.property', 'post.attachments' => 'post.attachments', 'post.approvalArchives' => 'post.approvalArchives'];
+        return parent::findBy($searchCriteria, $withTrashed);
     }
 
 

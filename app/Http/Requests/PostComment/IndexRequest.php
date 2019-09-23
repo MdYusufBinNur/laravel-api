@@ -15,8 +15,8 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
-            'postId' =>  'list:numeric',
-            'createdUserId' =>  'list:numeric',
+            'postId' =>  'required|list:numeric',
+            'createdByUserId' =>  'list:numeric',
             'deletedUserId' =>  'list:numeric',
             'status' =>  'list:string'
         ];

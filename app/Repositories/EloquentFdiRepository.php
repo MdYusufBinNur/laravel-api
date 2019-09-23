@@ -69,6 +69,7 @@ class EloquentFdiRepository extends EloquentBaseRepository implements FdiReposit
 
         if ($searchCriteria['status'] === 'future') {
             $queryBuilder = $queryBuilder->whereDate('startDate', '>', Carbon::now());
+            $queryBuilder = $queryBuilder->whereNotIn('status', [Fdi::STATUS_EXPIRED, Fdi::STATUS_DELETED, FDI::STATUS_DENIED]);
             unset($searchCriteria['status']);
         }
 

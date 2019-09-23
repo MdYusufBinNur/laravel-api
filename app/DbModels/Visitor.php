@@ -62,4 +62,14 @@ class Visitor extends Model
     {
         return $this->hasOne(VisitorType::class, 'id', 'visitorTypeId');
     }
+
+    /**
+     * get the sign in user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function signInUser()
+    {
+        return $this->hasOne(User::class, 'id', 'signInUserId');
+    }
 }

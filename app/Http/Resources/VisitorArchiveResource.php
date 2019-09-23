@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\DbModels\User;
+
 class VisitorArchiveResource extends Resource
 {
     /**
@@ -24,6 +26,9 @@ class VisitorArchiveResource extends Resource
                 return new VisitorResource($this->visitor);
             }),
             'signOutUserId' => $this->signOutUserId,
+            'signOutUser' => $this->when($this->needToInclude($request, 'va.signOutUser'), function () {
+                return new UserResource($this->signOutUser);
+            }),
             'signature' => $this->signature,
             'signOutAt' => $this->signOutAt,
             'created_at' => $this->created_at,

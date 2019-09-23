@@ -60,11 +60,10 @@ class EloquentVisitorArchiveRepository extends EloquentBaseRepository implements
         }
 
         foreach ($searchCriteria as $key => $value) {
-            if ($key != 'include') {
+            if (in_array($key, ['status', 'signature', 'permanent', 'company', 'email', 'phone', 'visitorTypeId', 'signInUserId', 'propertyId'])) {
                 $searchCriteria[$thisModelTable. '.' . $key] = $value;
                 unset($searchCriteria[$key]);
             }
-
         }
 
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {

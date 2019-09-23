@@ -60,7 +60,7 @@ class Visitor extends Model
      */
     public function visitorType()
     {
-        return $this->hasOne(Visitor::class, 'id', 'visitorTypeId');
+        return $this->hasOne(VisitorType::class, 'id', 'visitorTypeId');
     }
 
     /**

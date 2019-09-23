@@ -16,7 +16,6 @@ class UpdateRequest extends Request
     {
         return [
             'postId' =>  'exists:posts,id',
-            'statusChangedUserId' =>  'exists:users,id',
             'status' =>  'in:'.PostApprovalArchive::STATUS_APPROVED.','.PostApprovalArchive::STATUS_DENIED,
             'reason' =>  'reason',
         ];

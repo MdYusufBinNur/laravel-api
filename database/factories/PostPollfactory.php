@@ -9,6 +9,5 @@ $factory->define(App\DbModels\PostPoll::class, function (Faker $faker) {
         'postId' =>  App\DbModels\Post::all()->random()->id,
         'text' => $faker->sentence,
         'votes' => $faker->sentence,
-        'voters' => $faker->sentence,
     ];
 });

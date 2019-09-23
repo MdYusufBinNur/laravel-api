@@ -20,7 +20,6 @@ class VisitorResource extends Resource
                 return new PropertyResource($this->property);
             }),
             'signInUserId' => $this->signInUserId,
-            'signInUserId' => $this->signInUserId,
             'signInUser' => $this->when($this->needToInclude($request, 'visitor.signInUser'), function () {
                 return new UserResource($this->signInUser);
             }),

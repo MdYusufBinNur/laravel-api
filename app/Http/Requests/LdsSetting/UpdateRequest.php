@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\LdsSetting;
 
+use App\DbModels\LdsSetting;
 use App\Http\Requests\Request;
 
 class UpdateRequest extends Request
@@ -14,12 +15,12 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'propertyId' => 'exists:properties,id',
             'refreshRate' => 'integer',
             'showPackages' => 'boolean',
-            'iconSize' => 'min:1|max:1024',
-            'iconColor' => 'min:1|max:100',
-            'theme' => 'min:3|max:1024',
+            'iconSize' => 'in:' . LdsSetting::ICON_SIZE_LARGE . ',' . LdsSetting::ICON_SIZE_SMALL,
+            'iconColor' => 'in:' . LdsSetting::ICON_COLOR_COLOR . ',' . LdsSetting::ICON_COLOR_WHITE,
+            'theme' => 'in:' . LdsSetting::THEME_BLACK_TIE . ',' . LdsSetting::THEME_CLASSIC . ',' . LdsSetting::THEME_TRADITIONAL,
+
         ];
     }
 }

@@ -16,6 +16,9 @@ class LdsSettingResource extends Resource
         return [
             'id' => $this->id,
             'propertyId' => $this->propertyId,
+            'property' => $this->when($this->needToInclude($request, 'ldss.property'), function () {
+                return new PropertyResource($this->property);
+            }),
             'refreshRate' => $this->refreshRate,
             'showPackages' => $this->showPackages,
             'iconSize' => $this->iconSize,

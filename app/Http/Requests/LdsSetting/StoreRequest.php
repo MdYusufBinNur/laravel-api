@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\LdsSetting;
 
+use App\DbModels\LdsSetting;
 use App\Http\Requests\Request;
 
 class StoreRequest extends Request
@@ -15,11 +16,11 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' => 'required|exists:properties,id',
-            'refreshRate' => 'required|integer',
+            'refreshRate' => 'integer',
             'showPackages' => 'boolean',
-            'iconSize' => 'required|min:1|max:1024',
-            'iconColor' => 'required|min:1|max:100',
-            'theme' => 'required|min:3|max:1024',
+            'iconSize' => 'in:' . LdsSetting::ICON_SIZE_LARGE . ',' . LdsSetting::ICON_SIZE_SMALL,
+            'iconColor' => 'in:' . LdsSetting::ICON_COLOR_COLOR . ',' . LdsSetting::ICON_COLOR_WHITE,
+            'theme' => 'in:' . LdsSetting::THEME_BLACK_TIE . ',' . LdsSetting::THEME_CLASSIC . ',' . LdsSetting::THEME_TRADITIONAL,
         ];
     }
 }

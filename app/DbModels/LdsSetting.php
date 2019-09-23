@@ -35,4 +35,22 @@ class LdsSetting extends Model
     protected $casts = [
         'showPackages' => 'boolean',
     ];
+
+    protected $attributes = [
+        'refreshRate' => 30,
+        'iconSize' => self::ICON_SIZE_SMALL,
+        'iconColor' => self::ICON_COLOR_COLOR,
+        'theme' => self::THEME_CLASSIC
+    ];
+
+
+    /**
+     * get the property
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(Property::class, 'id', 'propertyId');
+    }
 }

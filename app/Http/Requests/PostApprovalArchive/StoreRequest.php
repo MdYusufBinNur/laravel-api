@@ -16,7 +16,6 @@ class StoreRequest extends Request
     {
         return [
             'postId' =>  'required|exists:posts,id',
-            'statusChangedUserId' =>  'required|exists:users,id',
             'status' =>  'in:'.PostApprovalArchive::STATUS_APPROVED.','.PostApprovalArchive::STATUS_DENIED,
             'reason' =>  'reason',
         ];

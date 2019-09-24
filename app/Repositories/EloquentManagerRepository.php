@@ -11,6 +11,7 @@ use App\Repositories\Contracts\ManagerRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EloquentManagerRepository extends EloquentBaseRepository implements ManagerRepository
 {
@@ -96,9 +97,15 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
 
             $data['role']['propertyId'] = $data['propertyId'] ?? $staff->propertyId;
             $data['role']['userId'] = $staff->user->id;
-            if (isset($data['role']['addNewRole'])) {
-                unset($data['role']['addNewRole']);
-                $userRoleRepository->patch($data['role'], $data['role']);
+
+            //todo need to improve role handling
+            $userRole = $userRoleRepository->model
+                ->where('userId', $data['role']['userId'])
+                ->where('propertyId', $data['propertyId'])
+                ->whereIn( 'roleId', [Role::ROLE_STAFF_PRIORITY['id'], Role::ROLE_STAFF_STANDARD['id'], Role::ROLE_STAFF_LIMITED['id']])
+                ->first();
+            if ($userRole instanceof UserRole) {
+                $userRoleRepository->update($userRole, ['roleId' => $data['role']['roleId']]);
             } else {
                 $userRoleRepository->patch($data['role'], $data['role']);
             }

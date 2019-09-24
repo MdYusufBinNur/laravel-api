@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+
 class UnitResource extends Resource
 {
     /**
@@ -19,6 +20,9 @@ class UnitResource extends Resource
                 return new TowerResource($this->tower);
             }),
             'propertyId' => $this->propertyId,
+            'property' => $this->when($this->needToInclude($request, 'unit.property'), function () {
+                return new PropertyResource($this->property);
+            }),
             'floor' => $this->floor,
             'title' => $this->title,
             'line' => $this->line,

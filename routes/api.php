@@ -157,10 +157,10 @@ Route::group(['prefix' => 'api/v1'], function () {
         /**
          * related to Lds
          */
-        Route::apiResource('lds-slide','LdsSlideController');
+        Route::apiResource('lds-slide','LdsSlideController', ['except' => ['index']]);
         Route::apiResource('lds-setting','LdsSettingController', ['except' => ['destroy']]);
-        Route::apiResource('lds-slide-property','LdsSlidePropertyController');
-        Route::apiResource('lds-blacklist-unit','LdsBlackListUnitController');
+        Route::get('lds-slide-property','LdsSlidePropertyController@index');
+        Route::apiResource('lds-blacklist-unit','LdsBlackListUnitController', ['except' => ['update']]);
 
     });
 

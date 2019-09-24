@@ -15,7 +15,13 @@ class LdsBlacklistUnitResource extends Resource
         return [
             'id' =>$this->id,
             'propertyId' =>$this->propertyId,
+            'property' => $this->when($this->needToInclude($request, 'lbu.property'), function () {
+                return new PropertyResource($this->property);
+            }),
             'unitId' =>$this->unitId,
+            'unit' => $this->when($this->needToInclude($request, 'lbu.unit'), function () {
+                return new UnitResource($this->unit);
+            }),
         ];
     }
 }

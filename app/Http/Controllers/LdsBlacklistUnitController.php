@@ -47,7 +47,7 @@ class LdsBlacklistUnitController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $ldsBlacklistUnit = $this->ldsBlacklistUnitRepository->save($request->all());
+        $ldsBlacklistUnit = $this->ldsBlacklistUnitRepository->saveBlackListUnit($request->all());
 
         return new LdsBlacklistUnitResource($ldsBlacklistUnit);
     }

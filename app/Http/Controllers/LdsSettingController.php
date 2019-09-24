@@ -47,7 +47,7 @@ class LdsSettingController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $ldsSetting = $this->ldsSettingRepository->save($request->all());
+        $ldsSetting = $this->ldsSettingRepository->saveLdsSetting($request->all());
 
         return new LdsSettingResource($ldsSetting);
     }

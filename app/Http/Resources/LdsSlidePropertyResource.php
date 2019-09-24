@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\DbModels\Property;
 
 class LdsSlidePropertyResource extends Resource
 {

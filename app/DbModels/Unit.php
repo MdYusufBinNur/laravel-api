@@ -18,6 +18,16 @@ class Unit extends Model
     ];
 
     /**
+     * Get the property
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(Property::class, 'id', 'propertyId');
+    }
+
+    /**
      * Get the tower of the unit
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

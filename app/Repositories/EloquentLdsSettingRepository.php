@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 
+use App\DbModels\Unit;
 use App\Repositories\Contracts\LdsSettingRepository;
 
 class EloquentLdsSettingRepository extends EloquentBaseRepository implements LdsSettingRepository
@@ -11,8 +12,11 @@ class EloquentLdsSettingRepository extends EloquentBaseRepository implements Lds
     /**
      * @inheritDoc
      */
-    public function save(array $data): \ArrayAccess
+    public function saveLdsSetting(array $data): \ArrayAccess
     {
+        $unitRepository = app(Unit::class);
+        $unit = $unitRepository->findOne($data['unitId']);
+        $data['propertyId'] = $unit->propertyId;
         return $this->patch(['propertyId' => $data['propertyId']], $data);
     }
 

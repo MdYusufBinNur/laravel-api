@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\DbModels\Property;
+
 class LdsSlidePropertyResource extends Resource
 {
     /**
@@ -15,7 +17,14 @@ class LdsSlidePropertyResource extends Resource
         return [
             'id' => $this->id,
             'propertyId' => $this->propertyId,
-            'slideId' => $this->slideId
+            'property' => $this->when($this->needToInclude($request, 'lsp.property'), function () {
+                return new PropertyResource($this->property);
+            }),
+            'slideId' => $this->slideId,
+            'slide' => $this->when($this->needToInclude($request, 'lsp.slide'), function () {
+                return new LdsSlideResource($this->slide);
+            }),
+
         ];
     }
 }

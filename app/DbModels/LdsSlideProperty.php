@@ -28,4 +28,14 @@ class LdsSlideProperty extends Pivot
     {
         return $this->hasOne(LdsSlide::class, 'id','slideId');
     }
+
+    /**
+     * get slide of the property
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(Property::class, 'id','propertyId');
+    }
 }

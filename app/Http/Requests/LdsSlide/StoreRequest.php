@@ -15,10 +15,11 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
+            'propertyId' => 'required',
             'title' => 'required|min:3|max:1024',
             'backgroundColor' => 'required|max:20',
-            'type' => 'in:'.LdsSlide::TYPE_CUSTOM.','.LdsSlide::TYPE_STANDARD,
-            'imageId' => 'required',
+            'type' => 'in:' . LdsSlide::TYPE_CUSTOM . ',' . LdsSlide::TYPE_STANDARD,
+            'imageId' => 'unique:lds_slides,imageId,required|exists:attachments,id',
         ];
     }
 }

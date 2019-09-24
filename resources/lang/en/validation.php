@@ -167,6 +167,7 @@ return [
         'hasAttachment' => 'hasAttachment',
         'startAt' => 'startAt',
         'endAt' => 'endAt',
+        'backgroundColor' => 'backgroundColor',
 
 
         //todo

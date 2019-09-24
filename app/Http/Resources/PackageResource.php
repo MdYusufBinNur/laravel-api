@@ -16,7 +16,7 @@ class PackageResource extends Resource
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
             'propertyId' => $this->propertyId,
-            'property' => $this->when($this->needToInclude($request, 'pa.property'), function () {
+            'property' => $this->when($this->needToInclude($request, 'package.property'), function () {
                 return new PropertyResource($this->property);
             }),
             'unitId' => $this->unitId,

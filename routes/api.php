@@ -161,7 +161,7 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('lds-setting','LdsSettingController', ['except' => ['destroy']]);
         Route::get('lds-slide-property','LdsSlidePropertyController@index');
         Route::apiResource('lds-blacklist-unit','LdsBlackListUnitController', ['except' => ['update']]);
-
+        Route::get('lds-packages','LdsController@packages');
     });
 
     //route without authentication

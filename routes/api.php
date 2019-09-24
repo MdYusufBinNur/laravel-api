@@ -163,6 +163,7 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('lds-blacklist-unit','LdsBlackListUnitController', ['except' => ['update']]);
         Route::get('lds-packages','LdsController@packages');
         Route::get('lds-announcements','LdsController@announcements');
+        Route::get('lds-events','LdsController@events');
     });
 
     //route without authentication

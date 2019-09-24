@@ -37,4 +37,16 @@ class EloquentEventRepository extends EloquentBaseRepository implements EventRep
         return $queryBuilder->paginate($limit);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getEventsForLds(array $searchCriteria)
+    {
+        $queryBuilder = $this->model
+            ->whereDate('date', '>=', Carbon::now())
+            ->where('propertyId', $searchCriteria['propertyId']);
+
+        return $queryBuilder->get();
+    }
+
 }

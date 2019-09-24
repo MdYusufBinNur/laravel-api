@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Lds\PackagesRequest;
-use App\Http\Resources\LdsSettingResourceCollection;
-use App\Http\Resources\PackageResource;
+use App\Http\Resources\AnnouncementResourceCollection;
 use App\Http\Resources\PackageResourceCollection;
+use App\Repositories\Contracts\AnnouncementRepository;
 use App\Repositories\Contracts\PackageRepository;
 
 class LdsController extends Controller
@@ -16,24 +16,42 @@ class LdsController extends Controller
     protected $packageRepository;
 
     /**
+     * @var AnnouncementRepository
+     */
+    protected $announcementRepository;
+
+    /**
      * LdsSettingController constructor.
      * @param PackageRepository $packageRepository
+     * @param AnnouncementRepository $announcementRepository
      */
-    public function __construct(PackageRepository $packageRepository)
+    public function __construct(PackageRepository $packageRepository, AnnouncementRepository $announcementRepository)
     {
         $this->packageRepository = $packageRepository;
+        $this->announcementRepository = $announcementRepository;
     }
 
     /**
      * Display a listing of the resource.
      *
      * @param PackagesRequest $request
-     * @return LdsSettingResourceCollection
+     * @return PackageResourceCollection
      */
     public function packages(PackagesRequest $request)
     {
-        $ldsPackages = $this->packageRepository->getPackagesForLds($request->all());
+        $packages = $this->packageRepository->getPackagesForLds($request->all());
+        return new PackageResourceCollection($packages);
+    }
 
-        return new PackageResourceCollection($ldsPackages);
+    /**
+     * Display a listing of the resource.
+     *
+     * @param PackagesRequest $request
+     * @return AnnouncementResourceCollection
+     */
+    public function announcements(PackagesRequest $request)
+    {
+        $announcements = $this->announcementRepository->getAnnouncementsForLds($request->all());
+        return new AnnouncementResourceCollection($announcements);
     }
 }

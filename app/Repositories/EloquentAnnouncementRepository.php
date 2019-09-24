@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\Repositories\Contracts\AnnouncementRepository;
+use Carbon\Carbon;
 
 class EloquentAnnouncementRepository extends EloquentBaseRepository implements AnnouncementRepository
 {
@@ -20,6 +21,20 @@ class EloquentAnnouncementRepository extends EloquentBaseRepository implements A
 
         return $announcements;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAnnouncementsForLds(array $searchCriteria)
+    {
+        $queryBuilder = $this->model
+            ->where('showOnLds', 1)
+            ->whereDate('expireAt', '>=', Carbon::now())
+            ->where('propertyId', $searchCriteria['propertyId']);
+
+        return $queryBuilder->get();
+    }
+
     /**
      * shorten the search based on search criteria
      *

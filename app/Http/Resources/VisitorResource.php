@@ -35,7 +35,7 @@ class VisitorResource extends Resource
             'phone' => $this->phone,
             'email' => $this->email,
             'company' => $this->company,
-            'image' => $this->when($this->needToInclude($request, 'visitor.photo'), function () {
+            'image' => $this->when($this->needToInclude($request, 'visitor.image'), function () {
                 return new AttachmentResource($this->image);
             }),
             'permanent' => $this->permanent,

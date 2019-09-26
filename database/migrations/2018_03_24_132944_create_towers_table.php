@@ -31,7 +31,7 @@ class CreateTowersTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->unique(['propertyId', 'title']);
+            $table->unique(['propertyId', 'title', 'deleted_at']);
         });
     }
 

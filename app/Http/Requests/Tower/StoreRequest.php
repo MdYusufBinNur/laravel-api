@@ -16,7 +16,7 @@ class StoreRequest extends Request
     {
         return $rules = [
             'propertyId' => 'numeric|exists:properties,id',
-            'title'     => 'required|min:3|unique:towers,title,NULL,title,deleted_at,NULL,propertyId,'. $this->propertyId
+            'title'     => 'required|min:3|unique:towers,title,NULL,id,deleted_at,NULL,propertyId,'. $this->propertyId
         ];
     }
 }

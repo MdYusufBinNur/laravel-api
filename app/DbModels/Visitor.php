@@ -80,6 +80,6 @@ class Visitor extends Model
      */
     public function image()
     {
-        return $this->hasOne(Attachment::class, 'resourceId', 'id');
+        return $this->hasOne(Attachment::class, 'resourceId', 'id')->where('type',Attachment::ATTACHMENT_TYPE_VISITOR);
     }
 }

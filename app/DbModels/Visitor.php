@@ -72,4 +72,14 @@ class Visitor extends Model
     {
         return $this->hasOne(User::class, 'id', 'signInUserId');
     }
+
+    /**
+     * get the visitor image
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function image()
+    {
+        return $this->hasOne(Attachment::class, 'resourceId', 'id');
+    }
 }

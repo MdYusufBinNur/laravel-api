@@ -53,12 +53,11 @@ class EloquentPostApprovalBlacklistUnitRepository extends EloquentBaseRepository
     /**
      * @inheritDoc
      */
-    public function isTheUserBlacklisted($propertyId, $userId = null)
+    public function isTheUserBlacklisted($propertyId, $user = null)
     {
-        $userId = $userId ?? $this->getLoggedInUser();
+        $user = $user ?? $this->getLoggedInUser();
 
-        //todo move it to model scope
-        $resident = $userId->residents()->where('propertyId', $propertyId)->first();
+        $resident = $user->scopeResidentOfTheProperty($propertyId)->first();
 
         if ($resident instanceof Resident) {
             $postApprovalBlacklistUnit = $this->findOneBy(['unitId' => $resident->unitId]);

@@ -425,9 +425,20 @@ class User extends Authenticatable
      * @param int $propertyId
      * @return true
      */
+    public function scopeResidentOfTheProperty($propertyId)
+    {
+        return $this->residents()->where('propertyId', $propertyId);
+    }
+
+    /**
+     * is the user is a resident of a specific property
+     *
+     * @param int $propertyId
+     * @return true
+     */
     public function isResidentOfTheProperty($propertyId)
     {
-        return $this->residents()->where('propertyId', $propertyId)->first() instanceof Resident;
+        return $this->scopeResidentOfTheProperty($propertyId)->first() instanceof Resident;
     }
 
 }

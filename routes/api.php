@@ -164,6 +164,14 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::get('lds-packages','LdsController@packages');
         Route::get('lds-announcements','LdsController@announcements');
         Route::get('lds-events','LdsController@events');
+
+        /**
+         * related to Message
+         */
+        Route::apiResource('message', 'MessageController');
+        Route::apiResource('message-user', 'MessageUserController');
+        Route::apiResource('message-post', 'MessagePostController');
+        Route::apiResource('message-template', 'MessageTemplateController');
     });
 
     //route without authentication

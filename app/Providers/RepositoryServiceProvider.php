@@ -18,6 +18,10 @@ use App\DbModels\LdsSlide;
 use App\DbModels\LdsSlideProperty;
 use App\DbModels\Manager;
 use App\DbModels\ManagerInvitation;
+use App\DbModels\Message;
+use App\DbModels\MessagePost;
+use App\DbModels\MessageTemplate;
+use App\DbModels\MessageUser;
 use App\DbModels\Module;
 use App\DbModels\ModuleOption;
 use App\DbModels\ModuleProperty;
@@ -88,6 +92,10 @@ use App\Repositories\Contracts\LdsSlidePropertyRepository;
 use App\Repositories\Contracts\LdsSlideRepository;
 use App\Repositories\Contracts\ManagerRepository;
 use App\Repositories\Contracts\MangerInvitationRepository;
+use App\Repositories\Contracts\MessagePostRepository;
+use App\Repositories\Contracts\MessageRepository;
+use App\Repositories\Contracts\MessageTemplateRepository;
+use App\Repositories\Contracts\MessageUserRepository;
 use App\Repositories\Contracts\ModuleOptionRepository;
 use App\Repositories\Contracts\ModuleRepository;
 use App\Repositories\Contracts\NotificationFeedRepository;
@@ -150,6 +158,10 @@ use App\Repositories\EloquentLdsSlidePropertyRepository;
 use App\Repositories\EloquentLdsSlideRepository;
 use App\Repositories\EloquentManagerRepository;
 use App\Repositories\EloquentMangerInvitationRepository;
+use App\Repositories\EloquentMessagePostRepository;
+use App\Repositories\EloquentMessageRepository;
+use App\Repositories\EloquentMessageTemplateRepository;
+use App\Repositories\EloquentMessageUserRepository;
 use App\Repositories\EloquentModuleOptionRepository;
 use App\Repositories\EloquentModuleRepository;
 use App\Repositories\Contracts\ModulePropertyRepository;
@@ -581,6 +593,26 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind LdsBlacklistUnitRepository
         $this->app->bind(LdsBlacklistUnitRepository::class, function() {
             return new EloquentLdsBlacklistUnitRepository(new LdsBlacklistUnit());
+        });
+
+        // bind MessageRepository
+        $this->app->bind(MessageRepository::class, function() {
+            return new EloquentMessageRepository(new Message());
+        });
+
+        // bind MessageUserRepository
+        $this->app->bind(MessageUserRepository::class, function() {
+            return new EloquentMessageUserRepository(new MessageUser());
+        });
+
+        // bind MessagePostRepository
+        $this->app->bind(MessagePostRepository::class, function() {
+            return new EloquentMessagePostRepository(new MessagePost());
+        });
+
+        // bind MessageTemplateRepository
+        $this->app->bind(MessageTemplateRepository::class, function() {
+            return new EloquentMessageTemplateRepository(new MessageTemplate());
         });
     }
 }

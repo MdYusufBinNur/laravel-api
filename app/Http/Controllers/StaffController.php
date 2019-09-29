@@ -85,7 +85,7 @@ class StaffController extends Controller
      */
     public function update(UpdateRequest $request, Manager $staff)
     {
-        $staff = $this->managerRepository->update($staff, $request->all());
+        $staff = $this->managerRepository->updateManager($staff, $request->all());
 
         return new StaffResource($staff);
     }

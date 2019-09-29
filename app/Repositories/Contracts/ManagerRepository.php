@@ -24,4 +24,13 @@ interface ManagerRepository extends BaseRepository
      */
     public function deleteStaff(\ArrayAccess $staff, array $data = []): bool;
 
+    /**
+     * update a manager
+     *
+     * @param \ArrayAccess $model
+     * @param array $data
+     * @return \ArrayAccess
+     */
+    public function updateManager(\ArrayAccess $model, array $data): \ArrayAccess;
+
 }

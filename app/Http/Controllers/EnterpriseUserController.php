@@ -75,7 +75,7 @@ class EnterpriseUserController extends Controller
      */
     public function update(UpdateRequest $request, EnterpriseUser $enterpriseUser)
     {
-        $enterpriseUser = $this->enterpriseUserRepository->update($enterpriseUser, $request->all());
+        $enterpriseUser = $this->enterpriseUserRepository->updateEnterpriseUser($enterpriseUser, $request->all());
 
         return new EnterpriseUserResource($enterpriseUser);
     }

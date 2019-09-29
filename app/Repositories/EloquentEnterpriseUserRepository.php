@@ -56,7 +56,7 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
         return $enterpriseUser;
     }
 
-    public function update(\ArrayAccess $model, array $data): \ArrayAccess
+    public function updateEnterpriseUser(\ArrayAccess $model, array $data): \ArrayAccess
     {
         DB::beginTransaction();
 

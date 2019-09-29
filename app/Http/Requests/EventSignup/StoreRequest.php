@@ -17,7 +17,7 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'eventId' => ['required', 'exists:events,id', new EventSignUpAllowed()],
+            'eventId' => ['bail', 'required', 'exists:events,id', new EventSignUpAllowed()],
             'guests' => ['required','numeric', new EventSignUpMaxGuest()],
         ];
     }

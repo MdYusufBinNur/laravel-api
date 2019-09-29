@@ -19,7 +19,7 @@ class StoreRequest extends Request
             'materialUsed' => 'min:3|max:191',
             'materialAmount' => 'min:3|max:191',
             'handyman' => 'min:3|max:191',
-            'outsideContactor' => 'boolean',
+            'outsideContractor' => 'boolean',
             'partsNeeded' => 'min:3|max:1024',
             'comment' => 'min:3|max:1024',
             'temporarilyRepaired' => 'boolean',

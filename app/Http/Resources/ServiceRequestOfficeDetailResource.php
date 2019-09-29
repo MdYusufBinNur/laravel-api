@@ -20,7 +20,7 @@ class ServiceRequestOfficeDetailResource extends Resource
             'materialUsed' => $this->materialUsed,
             'materialAmount' => $this->materialAmount,
             'handyman' => $this->handyman,
-            'outsideContactor' => $this->outsideContactor,
+            'outsideContractor' => $this->outsideContractor,
             'partsNeeded' => $this->partsNeeded,
             'comment' => $this->comment,
             'temporarilyRepaired' => $this->temporarilyRepaired,

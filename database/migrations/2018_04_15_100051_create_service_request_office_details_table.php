@@ -21,7 +21,7 @@ class CreateServiceRequestOfficeDetailsTable extends Migration
             $table->string('materialUsed')->nullable();
             $table->string('materialAmount')->nullable();
             $table->string('handyman')->nullable();
-            $table->boolean('outsideContactor')->default(0);
+            $table->boolean('outsideContractor')->default(0);
             $table->text('partsNeeded')->nullable();
             $table->text('comment')->nullable();
             $table->boolean('temporarilyRepaired')->default(0);

@@ -14,12 +14,11 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'serviceRequestId' => 'exists:service_requests,id',
             'assignedUserId' => 'exists:users,id',
             'materialUsed' => 'min:3|max:191',
             'materialAmount' => 'min:3|max:191',
             'handyman' => 'min:3|max:191',
-            'outsideContactor' => 'boolean',
+            'outsideContractor' => 'boolean',
             'partsNeeded' => 'min:3|max:1024',
             'comment' => 'min:3|max:1024',
             'temporarilyRepaired' => 'boolean',

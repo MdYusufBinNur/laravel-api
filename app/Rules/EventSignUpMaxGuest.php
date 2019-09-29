@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class EventSignUpMaxGuest implements Rule
@@ -19,6 +20,7 @@ class EventSignUpMaxGuest implements Rule
      */
     public function __construct()
     {
+
     }
 
     /**

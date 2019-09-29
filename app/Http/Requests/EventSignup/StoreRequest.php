@@ -3,6 +3,7 @@
 namespace App\Http\Requests\EventSignup;
 
 use App\Http\Requests\Request;
+use App\Rules\EventSignUpAllowed;
 use App\Rules\EventSignUpMaxGuest;
 
 class StoreRequest extends Request
@@ -16,7 +17,7 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'eventId' => 'required|exists:events,id',
+            'eventId' => ['required', 'exists:events,id', new EventSignUpAllowed()],
             'guests' => ['required','numeric', new EventSignUpMaxGuest()],
         ];
     }

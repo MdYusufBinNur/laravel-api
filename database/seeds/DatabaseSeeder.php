@@ -118,5 +118,7 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\PostRecommendation::class, 5)->create();
         factory(App\DbModels\PostApprovalArchive::class, 5)->create();
         factory(App\DbModels\PostApprovalBlacklistUnit::class, 5)->create();
+
+        factory(App\DbModels\UserNotification::class, 10)->create();
     }
 }

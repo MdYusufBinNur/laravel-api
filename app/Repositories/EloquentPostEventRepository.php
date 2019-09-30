@@ -103,7 +103,7 @@ class EloquentPostEventRepository extends EloquentBaseRepository implements Post
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
 
-        $searchCriteria['eagerLoad'] = ['pe.post' => 'post', 'pe.event' => 'event', 'post.property' => 'post.property', 'post.attachments' => 'post.attachments', 'post.approvalArchives' => 'post.approvalArchives'];
+        $searchCriteria['eagerLoad'] = ['pe.post' => 'post', 'pe.event' => 'event', 'post.property' => 'post.property', 'post.attachments' => 'post.attachments', 'post.approvalArchives' => 'post.approvalArchives', 'pe.createdByUser' => 'createdByUser'];
         $this->applyEagerLoad($queryBuilder, $searchCriteria);
 
         $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;

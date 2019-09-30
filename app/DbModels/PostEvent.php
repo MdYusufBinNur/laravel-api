@@ -36,4 +36,14 @@ class PostEvent extends Model
     {
         return $this->hasOne(Event::class, 'id', 'eventId');
     }
+
+    /**
+     * get the User who created the PostEvent
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function createdByUser()
+    {
+        return $this->hasOne(User::class, 'id', 'createdByUserId');
+    }
 }

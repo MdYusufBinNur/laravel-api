@@ -148,4 +148,14 @@ class Post extends Model
     {
         return $this->hasMany(PostApprovalArchive::class, 'postId');
     }
+
+    /**
+     * get the User who created the Post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function createdByUser()
+    {
+        return $this->hasOne(User::class, 'id', 'createdByUserId');
+    }
 }

@@ -49,4 +49,14 @@ class Event extends Model
     {
         return $this->hasMany(Attachment::class, 'resourceId')->where('type', Attachment::ATTACHMENT_TYPE_EVENT);
     }
+
+    /**
+     * get the User who created the Event
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function createdByUser()
+    {
+        return $this->hasOne(User::class, 'id', 'createdByUserId');
+    }
 }

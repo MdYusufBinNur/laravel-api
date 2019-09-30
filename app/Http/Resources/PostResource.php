@@ -18,6 +18,9 @@ class PostResource extends Resource
             'id' => $this->id,
             'propertyId' =>  $this->propertyId,
             'createdByUserId' =>  $this->createdUserId,
+            'createdByUser' =>  $this->when($this->needToInclude($request, 'post.createdByUser'), function () {
+                return new UserResource($this->createdByUser);
+            }),
             'property' => $this->when($this->needToInclude($request, 'post.property'), function () {
                 return new PropertyResource($this->property);
             }),

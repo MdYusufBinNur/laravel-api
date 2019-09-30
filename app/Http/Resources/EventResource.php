@@ -15,6 +15,9 @@ class EventResource extends Resource
         return [
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
+            'createdByUser' =>  $this->when($this->needToInclude($request, 'event.createdByUser'), function () {
+                return new UserResource($this->createdByUser);
+            }),
             'propertyId' => $this->propertyId,
             'property' => $this->when($this->needToInclude($request, 'event.property'), function () {
                 return new PropertyResource($this->property);

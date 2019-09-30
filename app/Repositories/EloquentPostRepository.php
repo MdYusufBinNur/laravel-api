@@ -79,7 +79,7 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = ['post.property' => 'property', 'post.comments' => 'comments', 'post.attachments' => 'attachments', 'post.approvalArchives' => 'approvalArchives'];
+        $searchCriteria['eagerLoad'] = ['post.property' => 'property', 'post.comments' => 'comments', 'post.attachments' => 'attachments', 'post.approvalArchives' => 'approvalArchives', 'post.createdByUser' => 'createdByUser'];
         return parent::findBy($searchCriteria, $withTrashed);
     }
 

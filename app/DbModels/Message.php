@@ -8,7 +8,7 @@ class Message extends Model
 {
     use CommonModelFeatures;
 
-    const GROUP_ENTIRE_COMMUNITY = 'entire_community';
+    const GROUP_ENTIRE_PROPERTY = 'entire_property';
     const GROUP_REGISTERED_USERS = 'registered_users';
     const GROUP_UNREGISTERED_USERS = 'registered_users';
     const GROUP_ALL_STAFFS = 'all_staffs';

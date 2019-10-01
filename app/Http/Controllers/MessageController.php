@@ -48,7 +48,7 @@ class MessageController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $message = $this->messageRepository->save($request->all());
+        $message = $this->messageRepository->saveMessage($request->all());
 
         return new MessageResource($message);
     }

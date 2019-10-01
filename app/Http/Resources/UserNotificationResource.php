@@ -2,9 +2,8 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserNotificationResource extends JsonResource
+class UserNotificationResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -18,9 +17,18 @@ class UserNotificationResource extends JsonResource
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
             'typeId' => $this->userNotificationTypeId,
+            'type' => $this->when($this->needToInclude($request, 'un.type'), function () {
+                return new UserNotificationTypeResource($this->type);
+            }),
             'resourceId' => $this->resourceId,
             'fromUserId' => $this->fromUserId,
+            'fromUser' => $this->when($this->needToInclude($request, 'un.fromUser'), function () {
+                return new UserResource($this->fromUser);
+            }),
             'toUserId' => $this->toUserId,
+            'toUser' => $this->when($this->needToInclude($request, 'un.toUser'), function () {
+                return new UserResource($this->toUser);
+            }),
             'message' => $this->message,
             'readStatus' => $this->readStatus,
             'created_at' => $this->created_at,

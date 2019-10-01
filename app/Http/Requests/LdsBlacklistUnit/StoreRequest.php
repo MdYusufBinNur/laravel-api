@@ -14,7 +14,8 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'unitId' => 'required|exists:units,id',
+            'unitId' => 'required|exists:units,id|unique:lds_blacklist_units,unitId',
+            'propertyId' => 'required|exists:properties,id',
         ];
     }
 }

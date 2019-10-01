@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\DbModels\UserNotificationType;
-use App\Http\Requests\Post\IndexRequest;
-use App\Http\Requests\Post\StoreRequest;
-use App\Http\Requests\Post\UpdateRequest;
+use App\Http\Requests\UserNotificationType\IndexRequest;
+use App\Http\Requests\UserNotificationType\StoreRequest;
+use App\Http\Requests\UserNotificationType\UpdateRequest;
 use App\Http\Resources\UserNotificationTypeResource;
 use App\Http\Resources\UserNotificationTypeResourceCollection;
 use App\Repositories\Contracts\UserNotificationTypeRepository;

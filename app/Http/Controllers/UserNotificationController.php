@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\DbModels\UserNotification;
-use App\Http\Requests\Request;
 use App\Http\Requests\UserNotification\IndexRequest;
 use App\Http\Requests\UserNotification\UpdateRequest;
 use App\Http\Resources\UserNotificationResource;

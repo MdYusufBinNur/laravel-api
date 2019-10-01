@@ -16,7 +16,7 @@ class EloquentUserNotificationRepository extends EloquentBaseRepository implemen
     {
         $searchCriteria['toUserId'] = $searchCriteria['userId'] ?? $this->getLoggedInUser()->id;
         unset($searchCriteria['userId']);
-
+        $searchCriteria['eagerLoad'] = ['un.toUser' => 'toUser', 'un.fromUser' => 'fromUser', 'un.type' => 'type'];
         $queryBuilder = $this->model;
 
         if (isset($searchCriteria['fromDate'])) {

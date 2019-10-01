@@ -25,4 +25,34 @@ class UserNotification extends Model
     protected $casts = [
         'readStatus' => 'boolean',
     ];
+
+    /**
+     * get the User who will received the notification
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function toUser()
+    {
+        return $this->hasOne(User::class, 'id', 'toUserId');
+    }
+
+    /**
+     * get the User who sent the notification
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function fromUser()
+    {
+        return $this->hasOne(User::class, 'id', 'fromUserId');
+    }
+
+    /**
+     * get the UserNotificationType
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function type()
+    {
+        return $this->hasOne(UserNotificationType::class, 'id', 'userNotificationTypeId');
+    }
 }

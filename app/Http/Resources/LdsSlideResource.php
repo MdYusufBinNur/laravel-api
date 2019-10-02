@@ -19,7 +19,7 @@ class LdsSlideResource extends Resource
             'backgroundColor' => $this->backgroundColor,
             'imageId' => $this->imageId,
             'image' => $this->when($this->needToInclude($request, 'ls.image'), function () {
-                return new AttachmentResource($this->imageId);
+                return new AttachmentResource($this->image);
             }),
             'type' => $this->type,
         ];

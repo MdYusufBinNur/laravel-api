@@ -20,7 +20,7 @@ class IndexRequest extends Request
             'materialUsed' => 'list:string',
             'materialAmount' => 'list:string',
             'handyman' => 'list:string',
-            'outsideContactor' => 'list:boolean',
+            'outsideContractor' => 'list:boolean',
             'partsNeeded' => 'list:text',
             'comment' => 'list:text',
             'temporarilyRepaired' => 'list:boolean',

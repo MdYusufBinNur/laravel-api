@@ -14,7 +14,7 @@ class ServiceRequestOfficeDetail extends Model
      * @var array
      */
     protected $fillable = [
-        'serviceRequestId', 'assignedUserId', 'materialUsed', 'materialAmount', 'handyman', 'outsideContactor', 'partsNeeded', 'comment', 'temporarilyRepaired', 'signature', 'createdByUserId'
+        'serviceRequestId', 'assignedUserId', 'materialUsed', 'materialAmount', 'handyman', 'outsideContractor', 'partsNeeded', 'comment', 'temporarilyRepaired', 'signature', 'createdByUserId'
     ];
 
     /**
@@ -23,7 +23,7 @@ class ServiceRequestOfficeDetail extends Model
      * @var array
      */
     protected $casts = [
-        'outsideContactor' => 'boolean',
+        'outsideContractor' => 'boolean',
         'temporarilyRepaired' => 'boolean',
         'signature' => 'boolean',
     ];

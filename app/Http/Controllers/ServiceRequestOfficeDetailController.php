@@ -47,7 +47,7 @@ class ServiceRequestOfficeDetailController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $serviceRequestOfficeDetail = $this->serviceRequestOfficeDetailRepository->save($request->all());
+        $serviceRequestOfficeDetail = $this->serviceRequestOfficeDetailRepository->setServiceRequestOfficeDetail($request->all());
 
         return new ServiceRequestOfficeDetailResource($serviceRequestOfficeDetail);
     }

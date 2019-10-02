@@ -16,7 +16,7 @@ class EloquentEventSignupRepository extends EloquentBaseRepository implements Ev
     /**
      * @inheritDoc
      */
-    public function save(array $data): \ArrayAccess
+    public function saveEventSignup(array $data): \ArrayAccess
     {
         DB::beginTransaction();
 

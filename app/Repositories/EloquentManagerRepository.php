@@ -81,7 +81,7 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
     /**
      * @inheritDoc
      */
-    public function update(\ArrayAccess $model, array $data): \ArrayAccess
+    public function updateManager(\ArrayAccess $model, array $data): \ArrayAccess
     {
         DB::beginTransaction();
 
@@ -89,7 +89,7 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
         $userRepository = app(UserRepository::class);
 
         if(isset($data['user'])) {
-            $user = $userRepository->update($staff->user, $data['user']);
+            $user = $userRepository->updateUser($staff->user, $data['user']);
         }
 
         if(isset($data['role'])) {

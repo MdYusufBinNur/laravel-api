@@ -3,6 +3,7 @@
 namespace App\Http\Requests\EventSignup;
 
 use App\Http\Requests\Request;
+use App\Rules\EventSignUpMaxGuest;
 
 class UpdateRequest extends Request
 {
@@ -14,7 +15,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'guests' => 'numeric',
+            'guests' => ['numeric', new EventSignUpMaxGuest()],
         ];
     }
 }

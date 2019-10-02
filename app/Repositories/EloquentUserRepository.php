@@ -68,7 +68,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
     /**
      * @inheritDoc
      */
-    public function update(\ArrayAccess $model, array $data): \ArrayAccess
+    public function updateUser(\ArrayAccess $model, array $data): \ArrayAccess
     {
         DB::beginTransaction();
 

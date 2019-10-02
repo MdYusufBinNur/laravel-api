@@ -16,7 +16,7 @@ class UpdateRequest extends Request
         return $rules = [
             'towerId'   => 'exists:towers,id',
             'propertyId'   => 'exists:properties,id',
-            'title'     => 'min:5|max:50',
+            'title'     => 'min:2|max:50',
             'floor'     => 'max:50',
             'line'      => 'max:50',
         ];

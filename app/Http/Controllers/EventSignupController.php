@@ -47,7 +47,7 @@ class EventSignupController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $eventSignup = $this->eventSignupRepository->save($request->all());
+        $eventSignup = $this->eventSignupRepository->saveEventSignup($request->all());
 
         return new EventSignupResource($eventSignup);
     }

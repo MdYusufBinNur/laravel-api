@@ -11,7 +11,7 @@ $factory->define(App\DbModels\ServiceRequestOfficeDetail::class, function (Faker
         'materialUsed' => $faker->sentence,
         'materialAmount' => $faker->numberBetween(1,100),
         'handyman' => $faker->name,
-        'outsideContactor' => $faker->boolean,
+        'outsideContractor' => $faker->boolean,
         'partsNeeded' => $faker->word,
         'comment' => $faker->sentence,
         'temporarilyRepaired' => $faker->boolean,

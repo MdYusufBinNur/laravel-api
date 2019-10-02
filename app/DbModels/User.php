@@ -419,4 +419,26 @@ class User extends Authenticatable
         return $this->hasOne(Attachment::class, 'resourceId')->where('type', Attachment::ATTACHMENT_TYPE_USER_PROFILE);
     }
 
+    /**
+     * is the user is a resident of a specific property
+     *
+     * @param int $propertyId
+     * @return true
+     */
+    public function scopeResidentOfTheProperty($propertyId)
+    {
+        return $this->residents()->where('propertyId', $propertyId);
+    }
+
+    /**
+     * is the user is a resident of a specific property
+     *
+     * @param int $propertyId
+     * @return true
+     */
+    public function isResidentOfTheProperty($propertyId)
+    {
+        return $this->scopeResidentOfTheProperty($propertyId)->first() instanceof Resident;
+    }
+
 }

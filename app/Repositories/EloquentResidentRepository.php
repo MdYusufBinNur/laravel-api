@@ -68,7 +68,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
             $userRepository = app(UserRepository::class);
             $user = $userRepository->findOneBy(['id' => $data['user']['id']]);
             if ($user instanceof User) {
-                $userRepository->update($user, array_merge($data['user'], ['role' => $data['role']]));
+                $userRepository->updateUser($user, array_merge($data['user'], ['role' => $data['role']]));
             } else {
                 throw new NotFoundHttpException();
             }

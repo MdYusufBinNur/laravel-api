@@ -78,13 +78,13 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  UpdateRequest  $request
-     * @param  \App\DbModels\User  $user
+     * @param  User  $user
      * @return UserResource
      * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, User $user)
     {
-        $user = $this->userRepository->update($user, $request->all());
+        $user = $this->userRepository->updateUser($user, $request->all());
 
         return new UserResource($user);
     }
@@ -92,7 +92,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\DbModels\User  $user
+     * @param  User  $user
      * @return null;
      * @throws AuthorizationException
      */

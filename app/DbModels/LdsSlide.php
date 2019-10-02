@@ -19,4 +19,14 @@ class LdsSlide extends Model
     protected $fillable = [
         'createdByUserId', 'title', 'backgroundColor', 'imageId', 'type'
     ];
+
+    /**
+     * get slide Image
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function image()
+    {
+        return $this->hasOne(Attachment::class, 'id','imageId');
+    }
 }

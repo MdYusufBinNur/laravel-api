@@ -15,8 +15,8 @@ class PostCommentResource extends Resource
         return [
             'id' => $this->id,
             'createdByUserId' =>  $this->createdByUserId,
-            'createdUser' => $this->when($this->needToInclude($request, 'pc.createdUser'), function () {
-                return new UserResource($this->createdUser);
+            'createdByUser' => $this->when($this->needToInclude($request, 'pc.createdByUser'), function () {
+                return new UserResource($this->createdByUser);
             }),
             'postId' =>  $this->postId,
             'post' => $this->when($this->needToInclude($request, 'pc.post'), function () {

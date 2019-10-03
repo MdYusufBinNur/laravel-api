@@ -19,6 +19,9 @@ class StoreRequest extends Request
             'subject' => 'required|min:3',
             'text' => 'required|string',
             'toUserIds' => 'required|string', // todo rule either userId or Message group constant
+            'towerIds'=> 'json|json_ids:towers,id', //todo rule
+            'floors' => '', //todo see postman
+            'lines' => '', //todo see postman
             'emailNotification' => 'boolean',
             'smsNotification' => 'boolean',
             'voiceNotification' => 'boolean',

@@ -50,7 +50,7 @@ class MessageController extends Controller
     {
         $message = $this->messageRepository->saveMessage($request->all());
 
-        return new MessageResource($message);
+        return $message ? new MessageResource($message) : null;
     }
 
     /**

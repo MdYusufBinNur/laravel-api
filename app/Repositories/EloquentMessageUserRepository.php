@@ -17,21 +17,24 @@ class EloquentMessageUserRepository extends EloquentBaseRepository implements Me
      */
     public function saveByMessage(Message $message)
     {
-        //DB::beginTransaction();
+        DB::beginTransaction();
 
+        // save in `sent` folder
         $this->save(['messageId' => $message->id, 'userId' => $message->fromUserId, 'isRead' => true, 'folder' => MessageUser::FOLDER_SENT]);
 
+        //save in `inbox` folder
         if ($message->isGroupMessage) {
             $toUserIds = explode(',', $message->group);
         } else {
             $toUserIds = [$message->toUserId];
         }
+
         foreach ($toUserIds as $toUserId) {
             $this->save(['messageId' => $message->id, 'userId' => $toUserId, 'folder' => MessageUser::FOLDER_INBOX]);
         }
 
 
-        //DB::commit();
+        DB::commit();
     }
 
 }

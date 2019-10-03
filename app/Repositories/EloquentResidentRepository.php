@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 
+use App\DbModels\Resident;
 use App\DbModels\ResidentAccessRequest;
 use App\DbModels\Role;
 use App\DbModels\Unit;
@@ -240,12 +241,50 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         // get all residents
         $residentBuilder = $this->model->where('propertyId', $searchCriteria['propertyId']);
 
-        $residentIds = $residentBuilder->select($thisModelTable.'.id')
+        $residentIds = $residentBuilder->select($thisModelTable . '.id')
             ->join($userModelTable, $userModelTable . '.id', '=', $thisModelTable . '.userId')
-            ->where($userModelTable.'.name', 'like', '%' . $searchCriteria['withName'] . '%')
+            ->where($userModelTable . '.name', 'like', '%' . $searchCriteria['withName'] . '%')
             ->pluck('id')->toArray();
 
         return $residentIds;
+    }
+
+    public function getUserIdsOfTheTowersResidents(array $towerIds)
+    {
+        $thisModelTable = $this->model->getTable();
+        $unitTable = Unit::getTableName();
+
+        return $this->model
+            ->select($thisModelTable . '.*')
+            ->join($unitTable, $thisModelTable . '.unitId', '=', $unitTable . '.id')
+            ->whereIn($unitTable . '.towerId', $towerIds)
+            ->pluck('userId')->toArray();
+    }
+
+    public function getUserIdsOfTheFloorsResidents(int $towerId, array $floors)
+    {
+        $thisModelTable = $this->model->getTable();
+        $unitTable = Unit::getTableName();
+
+        return $this->model
+            ->select($thisModelTable . '.userId')
+            ->join($unitTable, $thisModelTable . '.unitId', '=', $unitTable . '.id')
+            ->where($unitTable . '.towerId', $towerId)
+            ->whereIn($unitTable . '.floor', $floors)
+            ->pluck('userId')->toArray();
+    }
+
+    public function getUserIdsOfTheLinesResidents(int $towerId, array $lines)
+    {
+        $thisModelTable = $this->model->getTable();
+        $unitTable = Unit::getTableName();
+
+        return $this->model
+            ->select($thisModelTable . '.userId')
+            ->join($unitTable, $thisModelTable . '.unitId', '=', $unitTable . '.id')
+            ->where($unitTable . '.towerId', $towerId)
+            ->whereIn($unitTable . '.line', $lines)
+            ->pluck('userId')->toArray();
     }
 
 }

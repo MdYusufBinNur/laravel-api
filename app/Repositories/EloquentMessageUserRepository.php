@@ -15,7 +15,7 @@ class EloquentMessageUserRepository extends EloquentBaseRepository implements Me
     /**
      * @inheritDoc
      */
-    public function saveByMessage(Message $message)
+    public function saveByMessage(Message $message) : array
     {
         DB::beginTransaction();
 
@@ -33,8 +33,9 @@ class EloquentMessageUserRepository extends EloquentBaseRepository implements Me
             $this->save(['messageId' => $message->id, 'userId' => $toUserId, 'folder' => MessageUser::FOLDER_INBOX]);
         }
 
-
         DB::commit();
+
+        return $toUserIds;
     }
 
 }

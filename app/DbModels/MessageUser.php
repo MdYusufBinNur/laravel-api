@@ -28,4 +28,24 @@ class MessageUser extends Model
     protected $casts = [
         'isRead' => 'boolean',
     ];
+
+    /**
+     * get the property related to the user's role
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(Property::class, 'id', 'propertyId');
+    }
+
+    /**
+     * get the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'userId');
+    }
 }

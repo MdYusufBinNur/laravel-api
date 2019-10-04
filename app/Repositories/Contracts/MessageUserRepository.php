@@ -12,8 +12,8 @@ interface MessageUserRepository extends BaseRepository
      * save by Message
      *
      * @param Message $message
-     * @return void
+     * @return array
      */
-    public function saveByMessage(Message $message);
+    public function saveByMessage(Message $message) : array ;
 
 }

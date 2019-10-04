@@ -6,6 +6,7 @@ use App\Events\EnterpriseUser\EnterpriseUserCreatedEvent;
 use App\Events\Fdi\FdiCreatedEvent;
 use App\Events\Fdi\FdiUpdatedEvent;
 use App\Events\Manager\ManagerCreatedEvent;
+use App\Events\Message\MessageCreatedEvent;
 use App\Events\Package\PackageCreatedEvent;
 use App\Events\Package\PackageUpdatedEvent;
 use App\Events\PackageArchive\PackageArchivedCreatedEvent;
@@ -19,6 +20,8 @@ use App\Events\ServiceRequestMessage\ServiceRequestMessageCreatedEvent;
 use App\Events\Visitor\VisitorCreatedEvent;
 use App\Listeners\Fdi\HandleFdiCreatedEvent;
 use App\Listeners\Fdi\HandleFdiUpdatedEvent;
+use App\Listeners\Message\HandleBulkMessageUserCreatedEvent;
+use App\Listeners\Message\HandleMessageCreatedEvent;
 use App\Listeners\PackageArchive\HandlePackageArchivedCreatedEvent;
 use App\Listeners\Post\HandlePostUpdatedEvent;
 use App\Listeners\ResidentAccessRequest\HandleResidentAccessRequestCreatedEvent;
@@ -90,6 +93,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         PostUpdatedEvent::class => [
             HandlePostUpdatedEvent::class
+        ],
+        MessageCreatedEvent::class => [
+            HandleMessageCreatedEvent::class
         ],
 
     ];

@@ -39,4 +39,54 @@ class Message extends Model
         'smsNotification' => 'boolean',
         'voiceNotification' => 'boolean',
     ];
+
+    /**
+     * get the property related to the user's role
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(Property::class, 'id', 'propertyId');
+    }
+
+    /**
+     * get the message post related the message
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function messagePost()
+    {
+        return $this->hasOne(MessagePost::class, 'messageId', 'id');
+    }
+
+    /**
+     * user and messages_users relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function messageUsers()
+    {
+        return $this->hasMany(MessageUser::class, 'messageId', 'id');
+    }
+
+    /**
+     * get the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function fromUser()
+    {
+        return $this->hasOne(User::class, 'id', 'fromUserId');
+    }
+
+    /**
+     * user and to message users relationships
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function toUsers()
+    {
+        return $this->messageUsers()->where('userId', '<>', $this->createdByUserId);
+    }
 }

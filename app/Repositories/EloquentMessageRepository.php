@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\DbModels\Message;
 use App\DbModels\Role;
+use App\Events\Message\MessageCreatedEvent;
 use App\Repositories\Contracts\MessagePostRepository;
 use App\Repositories\Contracts\MessageRepository;
 use App\Repositories\Contracts\MessageUserRepository;
@@ -21,8 +22,6 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
      */
     public function saveMessage(array $data)
     {
-        DB::beginTransaction();
-
         $userIds = $this->getUsersByGroupNames($data);
 
         if ($userCount = count($userIds)) {
@@ -36,6 +35,8 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
                 $data['toUserId'] = $userIds[0];
             }
 
+            DB::beginTransaction();
+
             // save a row in messages table
             $message = parent::save($data);
 
@@ -45,11 +46,14 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
 
             // save all users
             $messageUserRepository = app(MessageUserRepository::class);
-            $messageUserRepository->saveByMessage($message);
+            $toUserIds = $messageUserRepository->saveByMessage($message);
+            DB::commit();
+
+            if ($message instanceof Message) {
+                event(new MessageCreatedEvent($message, $this->generateEventOptionsForModel()));
+            }
 
         }
-
-        DB::commit();
 
         return $message ?? null;
     }

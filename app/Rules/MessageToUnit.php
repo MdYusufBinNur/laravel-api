@@ -6,42 +6,42 @@ use App\DbModels\Message;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 
-class MessageToTower implements Rule
+class MessageToUnit implements Rule
 {
     /**
      * @var array
      */
-    protected $invalidValues;
+    private $invalidValues;
+
+    /**
+     * @var int
+     */
+    private $propertyId;
 
     /**
      * @var array
      */
-    protected $propertyId;
-
-    /**
-     * @var array
-     */
-    protected $toUserIds;
+    private $toUserIds;
 
     /**
      * Create a new rule instance.
      *
-     * @parama $propertyId
-     * @parama $toUserIds
+     * @param $propertyId
+     * @param $toUserIds
      * @return void
      */
     public function __construct($propertyId = null, $toUserIds = null)
     {
         $this->invalidValues = [];
-        $this->propertyId = $propertyId;
         $this->toUserIds = $toUserIds;
+        $this->propertyId =  $propertyId;
     }
 
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * @param string $attribute
+     * @param mixed $value
      * @return bool
      */
     public function passes($attribute, $value)
@@ -51,30 +51,28 @@ class MessageToTower implements Rule
             return false;
         }
 
-        // return false ahead if there is no value for `specif_tower` in `toUserIds` field
-        if (!in_array(Message::GROUP_SPECIFIC_TOWER, explode(',', $this->toUserIds))) {
-            $this->invalidValues[] = '`' . Message::GROUP_SPECIFIC_TOWER . '` value is required in `toUserIds fields`';
+        // return false ahead if there is no value for `specif_unit` in `toUserIds` field
+        if (!in_array(Message::GROUP_SPECIFIC_UNITS, explode(',', $this->toUserIds))) {
+            $this->invalidValues[] = '`' . Message::GROUP_SPECIFIC_UNITS . '` value is required in `toUserIds fields`';
             return false;
         }
 
-        $toTowerIds = explode(',', $value);
-        $notExistTowers = [];
-        foreach ($toTowerIds as $towerId) {
-            if (is_numeric($towerId)) {
-                $towerDoestExist = DB::table('towers')
+        $toUnitIds = explode(',', $value);
+        $notExistUnits = [];
+        foreach ($toUnitIds as $toUnitId) {
+            if (is_numeric($toUnitId)) {
+                $unitDoesNotExist = DB::table('residents')
                     ->where('propertyId', $this->propertyId)
-                    ->where('id', $towerId)
+                    ->where('unitId', $toUnitId)
                     ->doesntExist();
-                if ($towerDoestExist) {
-                    $notExistTowers[] = $towerId;
+                if ($unitDoesNotExist) {
+                    $notExistUnits[] = $toUnitId;
                 }
-            } else {
-                $notExistTowers[] = $towerId;
             }
         }
 
-        if (count($notExistTowers)) {
-            $this->invalidValues[] = implode(',', $notExistTowers) . ' tower(s) not found.';
+        if (count($notExistUnits)) {
+            $this->invalidValues[] = implode(',', $notExistUnits) . ' unit(s) not found.';
             return false;
         }
 
@@ -90,6 +88,6 @@ class MessageToTower implements Rule
     {
         return count($this->invalidValues)
             ? $this->invalidValues
-            : 'Invalid towers.';
+            : 'Invalid units.';
     }
 }

@@ -50,7 +50,9 @@ class MessageToUser implements Rule
                     Message::GROUP_SPECIFIC_FLOOR,
                     Message::GROUP_SPECIFIC_LINE,
                     Message::GROUP_ALL_TENANTS,
-                    Message::GROUP_ALL_OWNERS,])) {
+                    Message::GROUP_ALL_OWNERS,
+                    Message::GROUP_SPECIFIC_UNITS,
+                    ])) {
 
                     $this->invalidValues[] = $user;
 
@@ -68,10 +70,12 @@ class MessageToUser implements Rule
     /**
      * Get the validation error message.
      *
-     * @return string
+     * @return string|array
      */
     public function message()
     {
-        return implode(', ', $this->invalidValues) . ' is a invalid users to send a message';
+        return count($this->invalidValues)
+            ? $this->invalidValues
+            : 'Invalid units.';
     }
 }

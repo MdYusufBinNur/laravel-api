@@ -97,7 +97,7 @@ class MessageToFloor implements Rule
     /**
      * Get the validation error message.
      *
-     * @return string
+     * @return string|array
      */
     public function message()
     {

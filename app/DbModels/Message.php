@@ -15,6 +15,7 @@ class Message extends Model
     const GROUP_SPECIFIC_TOWER = 'specific_tower';
     const GROUP_SPECIFIC_FLOOR = 'specific_floor';
     const GROUP_SPECIFIC_LINE = 'specific_line';
+    const GROUP_SPECIFIC_UNITS = 'specific_unit';
     const GROUP_ALL_TENANTS = 'all_tenants';
     const GROUP_ALL_OWNERS = 'all_owners';
 

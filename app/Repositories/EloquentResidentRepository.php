@@ -295,4 +295,14 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
             ->pluck('userId')->toArray();
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getUserIdsOfTheUnitsResidents(array $unitIds)
+    {
+        return $this->model
+            ->whereIn('unitId', $unitIds)
+            ->pluck('userId')->toArray();
+    }
+
 }

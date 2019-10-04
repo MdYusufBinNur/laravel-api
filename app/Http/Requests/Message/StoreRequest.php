@@ -6,6 +6,7 @@ use App\Http\Requests\Request;
 use App\Rules\MessageToFloor;
 use App\Rules\MessageToLine;
 use App\Rules\MessageToTower;
+use App\Rules\MessageToUnit;
 use App\Rules\MessageToUser;
 
 class StoreRequest extends Request
@@ -25,6 +26,7 @@ class StoreRequest extends Request
             'towerIds'=> [new MessageToTower($this->request->get('propertyId'), $this->request->get('toUserIds'))],
             'floors' => [new MessageToFloor($this->request->get('propertyId'), $this->request->get('toUserIds'))],
             'lines' => [new MessageToLine($this->request->get('propertyId'), $this->request->get('toUserIds'))],
+            'unitIds' => [new MessageToUnit($this->request->get('propertyId'), $this->request->get('toUserIds'))],
             'emailNotification' => 'boolean',
             'smsNotification' => 'boolean',
             'voiceNotification' => 'boolean',

@@ -23,10 +23,11 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
     {
         DB::beginTransaction();
 
-        $data['fromUserId'] = $this->getLoggedInUser()->id;
         $userIds = $this->getUsersByGroupNames($data);
 
         if ($userCount = count($userIds)) {
+            $data['fromUserId'] = $this->getLoggedInUser()->id;
+
             if ($userCount > 1) {
                 $data['isGroupMessage'] = true;
                 $data['group'] = implode(',', $userIds);
@@ -49,20 +50,28 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
         }
 
         DB::commit();
+
         return $message ?? null;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getUsersByGroupNames($data)
     {
         $userIds = [];
         $groups = explode(",", $data['toUserIds']);
         $userRoleRepository = app(UserRoleRepository::class);
         $residentRepository = app(ResidentRepository::class);
+
         foreach ($groups as $group) {
+
             if (is_numeric($group)) {
+
                 //if only to a user
                 $userIds[] = $group;
             } else {
+
                 switch ($group) {
 
                     case Message::GROUP_ENTIRE_PROPERTY:
@@ -88,14 +97,13 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
                         }
                         break;
                     case Message::All_TENANTS:
-                        $userIds[] = $userRoleRepository->getUserIdsOfByRoleId($data['propertyId'], Role::ROLE_RESIDENT_TENANT['id']);
+                        $userIds[] = $userRoleRepository->getUserIdsByRoleId($data['propertyId'], Role::ROLE_RESIDENT_TENANT['id']);
                         break;
                     case Message::All_OWNERS:
-                        $userIds[] = $userRoleRepository->getUserIdsOfByRoleId($data['propertyId'], Role::ROLE_RESIDENT_OWNER['id']);
+                        $userIds[] = $userRoleRepository->getUserIdsByRoleId($data['propertyId'], Role::ROLE_RESIDENT_OWNER['id']);
                         break;
                 }
             }
-
         }
 
         return array_unique(Arr::flatten($userIds));

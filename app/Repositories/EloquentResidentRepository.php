@@ -4,7 +4,6 @@
 namespace App\Repositories;
 
 
-use App\DbModels\Resident;
 use App\DbModels\ResidentAccessRequest;
 use App\DbModels\Role;
 use App\DbModels\Unit;
@@ -192,7 +191,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         }
 
         if (isset($searchCriteria['withName'])) {
-            $searchCriteria['id'] = $this->getResidentsByName($searchCriteria);
+            $searchCriteria['id'] = $this->getResidentsIdsByName($searchCriteria);
             unset($searchCriteria['withName']);
         }
 
@@ -233,22 +232,25 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         return $residents;
     }
 
-    public function getResidentsByName(array $searchCriteria = [])
+    /**
+     * @inheritDoc
+     */
+    public function getResidentsIdsByName(array $searchCriteria = [])
     {
         $thisModelTable = $this->model->getTable();
         $userModelTable = User::getTableName();
 
-        // get all residents
-        $residentBuilder = $this->model->where('propertyId', $searchCriteria['propertyId']);
-
-        $residentIds = $residentBuilder->select($thisModelTable . '.id')
+        return $this->model->where('propertyId', $searchCriteria['propertyId'])
+            ->select($thisModelTable . '.id')
             ->join($userModelTable, $userModelTable . '.id', '=', $thisModelTable . '.userId')
             ->where($userModelTable . '.name', 'like', '%' . $searchCriteria['withName'] . '%')
             ->pluck('id')->toArray();
 
-        return $residentIds;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getUserIdsOfTheTowersResidents(array $towerIds)
     {
         $thisModelTable = $this->model->getTable();
@@ -261,6 +263,9 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
             ->pluck('userId')->toArray();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getUserIdsOfTheFloorsResidents(int $towerId, array $floors)
     {
         $thisModelTable = $this->model->getTable();
@@ -274,6 +279,9 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
             ->pluck('userId')->toArray();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getUserIdsOfTheLinesResidents(int $towerId, array $lines)
     {
         $thisModelTable = $this->model->getTable();

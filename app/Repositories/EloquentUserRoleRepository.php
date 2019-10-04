@@ -17,6 +17,9 @@ class EloquentUserRoleRepository extends EloquentBaseRepository implements UserR
         return $this->model->select(['userId'])->where(['propertyId' => $propertyId])->pluck('userId')->toArray();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getUserIdsOfThePropertyResidents(int $propertyId)
     {
         return $this->model->select(['userId'])
@@ -25,6 +28,9 @@ class EloquentUserRoleRepository extends EloquentBaseRepository implements UserR
             ->pluck('userId')->toArray();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getUserIdsOfThePropertyStaffs(int $propertyId)
     {
         return $this->model->select(['userId'])
@@ -33,7 +39,10 @@ class EloquentUserRoleRepository extends EloquentBaseRepository implements UserR
             ->pluck('userId')->toArray();
     }
 
-    public function getUserIdsOfByRoleId(int $propertyId, int $roleId)
+    /**
+     * @inheritDoc
+     */
+    public function getUserIdsByRoleId(int $propertyId, int $roleId)
     {
         return $this->model->select(['userId'])
             ->where(['propertyId' => $propertyId])

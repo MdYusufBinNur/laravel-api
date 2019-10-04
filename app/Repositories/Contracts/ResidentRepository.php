@@ -15,12 +15,12 @@ interface ResidentRepository extends BaseRepository
     public function getResidentsByUnits(array $searchCriteria = []);
 
     /**
-     * get residents by searching name from user table
+     * get residents' ids by searching name from user table
      *
      * @param array $searchCriteria
      * @return array
      */
-    public function getResidentsByName(array $searchCriteria = []);
+    public function getResidentsIdsByName(array $searchCriteria = []);
 
 
     /**
@@ -39,4 +39,32 @@ interface ResidentRepository extends BaseRepository
      * @return mixed
      */
     public function transferResidents(array $data);
+
+
+    /**
+     * get all users' ids by towers' ids
+     *
+     * @param array $towerIds
+     * @return mixed
+     */
+    public function getUserIdsOfTheTowersResidents(array $towerIds);
+
+    /**
+     * get users' ids of the specific floors' residents
+     *
+     * @param int $towerId
+     * @param array $floors
+     * @return mixed
+     */
+    public function getUserIdsOfTheFloorsResidents(int $towerId, array $floors);
+
+    /**
+     * get all users' ids of resident of specific lines
+     *
+     * @param int $towerId
+     * @param array $lines
+     * @return mixed
+     */
+    public function getUserIdsOfTheLinesResidents(int $towerId, array $lines);
+
 }

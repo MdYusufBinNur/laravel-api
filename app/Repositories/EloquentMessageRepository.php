@@ -96,10 +96,10 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
                             $userIds[] = $residentRepository->getUserIdsOfTheLinesResidents($line['towerId'], $line['names']);
                         }
                         break;
-                    case Message::All_TENANTS:
+                    case Message::GROUP_ALL_TENANTS:
                         $userIds[] = $userRoleRepository->getUserIdsByRoleId($data['propertyId'], Role::ROLE_RESIDENT_TENANT['id']);
                         break;
-                    case Message::All_OWNERS:
+                    case Message::GROUP_ALL_OWNERS:
                         $userIds[] = $userRoleRepository->getUserIdsByRoleId($data['propertyId'], Role::ROLE_RESIDENT_OWNER['id']);
                         break;
                 }

@@ -85,7 +85,7 @@ class Message extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function toUsers()
+    public function toMessageUsers()
     {
         return $this->messageUsers()->where('userId', '<>', $this->createdByUserId);
     }

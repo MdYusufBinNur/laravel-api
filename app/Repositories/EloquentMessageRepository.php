@@ -20,6 +20,15 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
     /**
      * @inheritDoc
      */
+    public function findBy(array $searchCriteria = [], $withTrashed = false)
+    {
+        $searchCriteria['eagerLoad'] = ['message.property' => 'property', 'message.fromUser' => 'fromUser'];
+        return parent::findBy($searchCriteria, $withTrashed);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function saveMessage(array $data)
     {
         $userIds = $this->getUsersByGroupNames($data);

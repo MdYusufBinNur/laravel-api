@@ -27,6 +27,7 @@ class StoreRequest extends Request
                 . ',' . Attachment::ATTACHMENT_TYPE_POST
                 . ',' . Attachment::ATTACHMENT_TYPE_FDI
                 . ',' . Attachment::ATTACHMENT_TYPE_VISITOR
+                . ',' . Attachment::ATTACHMENT_TYPE_MESSAGE
                 . ',' . Attachment::ATTACHMENT_TYPE_EVENT
                 . ',' . Attachment::ATTACHMENT_TYPE_LDS_SLIDE,
             'fileSource'   => 'required|file|max:2048',

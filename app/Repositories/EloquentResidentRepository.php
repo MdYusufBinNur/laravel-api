@@ -191,7 +191,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         }
 
         if (isset($searchCriteria['withName'])) {
-            $searchCriteria['id'] = $this->getResidentsByName($searchCriteria);
+            $searchCriteria['id'] = $this->getResidentsIdsByName($searchCriteria);
             unset($searchCriteria['withName']);
         }
 
@@ -232,20 +232,77 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         return $residents;
     }
 
-    public function getResidentsByName(array $searchCriteria = [])
+    /**
+     * @inheritDoc
+     */
+    public function getResidentsIdsByName(array $searchCriteria = [])
     {
         $thisModelTable = $this->model->getTable();
         $userModelTable = User::getTableName();
 
-        // get all residents
-        $residentBuilder = $this->model->where('propertyId', $searchCriteria['propertyId']);
-
-        $residentIds = $residentBuilder->select($thisModelTable.'.id')
+        return $this->model->where('propertyId', $searchCriteria['propertyId'])
+            ->select($thisModelTable . '.id')
             ->join($userModelTable, $userModelTable . '.id', '=', $thisModelTable . '.userId')
-            ->where($userModelTable.'.name', 'like', '%' . $searchCriteria['withName'] . '%')
+            ->where($userModelTable . '.name', 'like', '%' . $searchCriteria['withName'] . '%')
             ->pluck('id')->toArray();
 
-        return $residentIds;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUserIdsOfTheTowersResidents(array $towerIds)
+    {
+        $thisModelTable = $this->model->getTable();
+        $unitTable = Unit::getTableName();
+
+        return $this->model
+            ->select($thisModelTable . '.*')
+            ->join($unitTable, $thisModelTable . '.unitId', '=', $unitTable . '.id')
+            ->whereIn($unitTable . '.towerId', $towerIds)
+            ->pluck('userId')->toArray();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUserIdsOfTheFloorsResidents(int $towerId, array $floors)
+    {
+        $thisModelTable = $this->model->getTable();
+        $unitTable = Unit::getTableName();
+
+        return $this->model
+            ->select($thisModelTable . '.userId')
+            ->join($unitTable, $thisModelTable . '.unitId', '=', $unitTable . '.id')
+            ->where($unitTable . '.towerId', $towerId)
+            ->whereIn($unitTable . '.floor', $floors)
+            ->pluck('userId')->toArray();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUserIdsOfTheLinesResidents(int $towerId, array $lines)
+    {
+        $thisModelTable = $this->model->getTable();
+        $unitTable = Unit::getTableName();
+
+        return $this->model
+            ->select($thisModelTable . '.userId')
+            ->join($unitTable, $thisModelTable . '.unitId', '=', $unitTable . '.id')
+            ->where($unitTable . '.towerId', $towerId)
+            ->whereIn($unitTable . '.line', $lines)
+            ->pluck('userId')->toArray();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUserIdsOfTheUnitsResidents(array $unitIds)
+    {
+        return $this->model
+            ->whereIn('unitId', $unitIds)
+            ->pluck('userId')->toArray();
     }
 
 }

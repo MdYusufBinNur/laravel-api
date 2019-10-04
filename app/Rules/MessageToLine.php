@@ -6,7 +6,7 @@ use App\DbModels\Message;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 
-class MessageToFloor implements Rule
+class MessageToLine implements Rule
 {
     /**
      * @var array
@@ -54,36 +54,36 @@ class MessageToFloor implements Rule
 
         // return false ahead,
         // if there is no value for `specific_floor` in `toUserIds` field
-        if (!in_array(Message::GROUP_SPECIFIC_FLOOR, explode(',', $this->toUserIds))) {
-            $this->invalidValues[] = '`' . Message::GROUP_SPECIFIC_FLOOR . '` value is required in `toUserIds fields`';
+        if (!in_array(Message::GROUP_SPECIFIC_LINE, explode(',', $this->toUserIds))) {
+            $this->invalidValues[] = '`' . Message::GROUP_SPECIFIC_LINE . '` value is required in `toUserIds fields`';
             return false;
         }
 
         if (!is_array($value)) {
             return false;
         }
-        foreach ($value as $floor) {
-            if (!is_array($floor) || empty($floor['names']) || empty($floor['towerId'])) {
+
+        foreach ($value as $line) {
+            if (!is_array($line) || empty($line['names']) || empty($line['towerId'])) {
                 return false;
             }
 
-            if (!is_array($floor['names'])) {
+            if (!is_array($line['names'])) {
                 return false;
             }
 
-            if (!is_numeric($floor['towerId'])) {
+            if (!is_numeric($line['towerId'])) {
                 return false;
             }
 
-            $floorDoesNotExist = DB::table('units')
+            $lineDoesNotExist = DB::table('units')
                 ->where('propertyId', $this->propertyId)
-                ->where('towerId', $floor['towerId'])
-                ->whereIn('floor', $floor['names'])
+                ->where('towerId', $line['towerId'])
+                ->whereIn('line', $line['names'])
                 ->doesntExist();
 
-            if ($floorDoesNotExist) {
-                $this->invalidValues[] = 'Tower: ' . $floor['towerId'] . ' and lines: ' . implode("," , $floor['names']) . ' - does not exist for the property';
-
+            if ($lineDoesNotExist) {
+                $this->invalidValues[] = 'Tower: ' . $line['towerId'] . ' and lines: ' . implode("," , $line['names']) . ' - does not exist for the property';
             }
         }
 
@@ -103,6 +103,6 @@ class MessageToFloor implements Rule
     {
         return count($this->invalidValues)
             ? $this->invalidValues
-            : 'Invalid floors.';
+            : 'Invalid lines.';
     }
 }

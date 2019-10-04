@@ -4,6 +4,7 @@ namespace App\Http\Requests\Message;
 
 use App\Http\Requests\Request;
 use App\Rules\MessageToFloor;
+use App\Rules\MessageToLine;
 use App\Rules\MessageToTower;
 use App\Rules\MessageToUser;
 
@@ -23,7 +24,7 @@ class StoreRequest extends Request
             'toUserIds' => ['required', new MessageToUser()],
             'towerIds'=> [new MessageToTower($this->request->get('propertyId'), $this->request->get('toUserIds'))],
             'floors' => [new MessageToFloor($this->request->get('propertyId'), $this->request->get('toUserIds'))],
-            'lines' => '', //todo see postman
+            'lines' => [new MessageToLine($this->request->get('propertyId'), $this->request->get('toUserIds'))],
             'emailNotification' => 'boolean',
             'smsNotification' => 'boolean',
             'voiceNotification' => 'boolean',

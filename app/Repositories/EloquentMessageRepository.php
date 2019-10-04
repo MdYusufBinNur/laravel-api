@@ -84,7 +84,7 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
                         $userIds[] = $userRoleRepository->getUserIdsOfThePropertyStaffs($data['propertyId']);
                         break;
                     case Message::GROUP_SPECIFIC_TOWER:
-                        $userIds[] = $residentRepository->getUserIdsOfTheTowersResidents(json_decode($data['towerIds']));
+                        $userIds[] = $residentRepository->getUserIdsOfTheTowersResidents(explode(',', $data['towerIds']));
                         break;
                     case Message::GROUP_SPECIFIC_FLOOR:
                         foreach ($data['floors'] as $floor) {

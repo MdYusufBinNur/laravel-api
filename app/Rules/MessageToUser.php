@@ -16,10 +16,9 @@ class MessageToUser implements Rule
     /**
      * Create a new rule instance.
      *
-     * @param array $requestData
      * @return void
      */
-    public function __construct(array $requestData)
+    public function __construct()
     {
         $this->invalidValues = [];
     }

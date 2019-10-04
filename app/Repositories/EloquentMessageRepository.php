@@ -4,9 +4,11 @@
 namespace App\Repositories;
 
 
+use App\DbModels\Attachment;
 use App\DbModels\Message;
 use App\DbModels\Role;
 use App\Events\Message\MessageCreatedEvent;
+use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\MessagePostRepository;
 use App\Repositories\Contracts\MessageRepository;
 use App\Repositories\Contracts\MessageUserRepository;
@@ -22,8 +24,33 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = ['message.property' => 'property', 'message.fromUser' => 'fromUser'];
+        $searchCriteria['eagerLoad'] = ['message.property' => 'property', 'message.fromUser' => 'fromUser', 'message.attachments' => 'attachments'];
         return parent::findBy($searchCriteria, $withTrashed);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function save(array $data): \ArrayAccess
+    {
+        $message = parent::save($data);
+
+
+        if (isset($data['attachmentIds'])) {
+            $attachmentIds = json_decode($data['attachmentIds']);
+            $attachmentRepository = app(AttachmentRepository::class);
+
+            foreach ($attachmentIds as $attachment) {
+                $attachment = $attachmentRepository->findOne($attachment);
+                if ($attachment instanceof Attachment) {
+                    $attachmentRepository->updateResourceId($attachment, $message->id);
+                }
+            }
+
+            unset($data['attachmentId']);
+        }
+
+        return $message;
     }
 
     /**
@@ -47,7 +74,7 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
             DB::beginTransaction();
 
             // save a row in messages table
-            $message = parent::save($data);
+            $message = $this->save($data);
 
             //save a message post
             $messagePostRepository = app(MessagePostRepository::class);

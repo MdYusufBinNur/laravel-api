@@ -22,6 +22,7 @@ class Attachment extends Model
     const ATTACHMENT_TYPE_EVENT = 'event';
     const ATTACHMENT_TYPE_LDS_SLIDE = 'lds-slide';
     const ATTACHMENT_TYPE_VISITOR = 'visitor';
+    const ATTACHMENT_TYPE_MESSAGE = 'message';
 
     /**
      * The database table used by the model.
@@ -103,6 +104,9 @@ class Attachment extends Model
                 break;
             case self::ATTACHMENT_TYPE_VISITOR:
                 $directoryName = 'visitor';
+                break;
+            case self::ATTACHMENT_TYPE_MESSAGE:
+                $directoryName = 'messages';
                 break;
         }
 

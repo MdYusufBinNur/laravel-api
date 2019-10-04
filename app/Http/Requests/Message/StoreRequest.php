@@ -28,7 +28,8 @@ class StoreRequest extends Request
             'lines' => [new MessageToLine($this->request->get('propertyId'), $this->request->get('toUserIds'))],
             'unitIds' => [new MessageToUnit($this->request->get('propertyId'), $this->request->get('toUserIds'))],
             'emailNotification' => 'boolean',
-            'smsNotification' => 'boolean'
+            'smsNotification' => 'boolean',
+            'attachmentIds' => 'json|json_ids:attachments,id',
         ];
     }
 }

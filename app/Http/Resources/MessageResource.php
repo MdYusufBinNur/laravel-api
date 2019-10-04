@@ -29,7 +29,10 @@ class MessageResource extends Resource
             'group' => $this->group,
             'groupNames' => $this->groupNames,
             'emailNotification' => $this->emailNotification,
-            'smsNotification' => $this->smsNotification
+            'smsNotification' => $this->smsNotification,
+            'attachments' => $this->when($this->needToInclude($request, 'message.attachments'), function () {
+                return new AttachmentResourceCollection($this->attachments);
+            }),
         ];
     }
 }

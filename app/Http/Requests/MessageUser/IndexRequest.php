@@ -15,8 +15,8 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
+            'userId' => 'required|numeric',
             'messageId' => 'list:numeric',
-            'userId' => 'list:numeric',
             'folder' => 'string',
             'isRead' => 'boolean',
         ];

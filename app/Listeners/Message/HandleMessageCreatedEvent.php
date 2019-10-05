@@ -26,8 +26,7 @@ class HandleMessageCreatedEvent implements ShouldQueue
         if ($message->emailNotification) {
             $property = $message->property;
             $fromUser = $message->fromUser;
-            $messageText = $message->messagePost->text;
-
+            $messageText = $message->scopeLastMessagePostOfTheUser($fromUser->id)->first()->text;
             foreach ($message->toMessageUsers as $messageUser) {
                 $toUser = $messageUser->user;
                 Mail::to($toUser->email)->send(new SendMessageNotification($message, $property, $fromUser, $toUser, $messageText));

@@ -24,7 +24,7 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = ['message.property' => 'property', 'message.fromUser' => 'fromUser', 'message.attachments' => 'attachments'];
+        $searchCriteria['eagerLoad'] = ['message.property' => 'property', 'message.fromUser' => 'fromUser', 'message.posts' => 'messagePosts', 'message.attachments' => 'attachments'];
         return parent::findBy($searchCriteria, $withTrashed);
     }
 

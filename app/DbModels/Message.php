@@ -53,11 +53,21 @@ class Message extends Model
     /**
      * get the message post related the message
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function messagePost()
+    public function messagePosts()
     {
-        return $this->hasOne(MessagePost::class, 'messageId', 'id');
+        return $this->hasMany(MessagePost::class, 'messageId', 'id');
+    }
+
+    /**
+     * get the message post related the message
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function scopeLastMessagePostOfTheUser($userId)
+    {
+        return $this->messagesPost()->where('fromUserId', $userId)->orderBy('created_at', 'desc');
     }
 
     /**

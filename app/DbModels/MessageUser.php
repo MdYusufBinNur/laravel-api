@@ -44,6 +44,16 @@ class MessageUser extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\hasOne
      */
+    public function message()
+    {
+        return $this->hasOne(Message::class, 'id', 'messageId');
+    }
+
+    /**
+     * get the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'userId');

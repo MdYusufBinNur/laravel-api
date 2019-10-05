@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\DB;
 
 class EloquentMessageUserRepository extends EloquentBaseRepository implements MessageUserRepository
 {
+    /**
+     * @inheritDoc
+     */
+    public function findBy(array $searchCriteria = [], $withTrashed = false)
+    {
+        $searchCriteria['eagerLoad'] = ['mu.message' => 'message', 'mu.user' => 'user', 'message.property' => 'message.property', 'message.fromUser' => 'message.fromUser', 'message.posts' => 'message.messagePosts', 'message.attachments' => 'message.attachments'];
+        return parent::findBy($searchCriteria, $withTrashed);
+    }
 
     /**
      * @inheritDoc

@@ -2,6 +2,7 @@
 
 namespace App\DbModels;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
@@ -420,10 +421,10 @@ class User extends Authenticatable
     }
 
     /**
-     * is the user is a resident of a specific property
+     * resident of a specific property query builder
      *
      * @param int $propertyId
-     * @return true
+     * @return HasMany
      */
     public function scopeResidentOfTheProperty($propertyId)
     {

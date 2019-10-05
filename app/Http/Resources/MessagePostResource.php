@@ -16,7 +16,13 @@ class MessagePostResource extends Resource
         return [
             'id' => $this->id,
             'messageId' => $this->messageId,
+            'message' => $this->when($this->needToInclude($request, 'mp.message'), function () {
+                return new MessageResource($this->message);
+            }),
             'fromUserId' => $this->fromUserId,
+            'fromUser' => $this->when($this->needToInclude($request, 'mp.fromUser'), function () {
+                return new UserResource($this->fromUser);
+            }),
             'text' => $this->text,
         ];
     }

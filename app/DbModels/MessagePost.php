@@ -16,4 +16,24 @@ class MessagePost extends Model
     protected $fillable = [
         'createdByUserId', 'messageId', 'fromUserId', 'text'
     ];
+
+    /**
+     * get the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function fromUser()
+    {
+        return $this->hasOne(User::class, 'id', 'fromUserId');
+    }
+
+    /**
+     * get the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function message()
+    {
+        return $this->hasOne(Message::class, 'id', 'messageId');
+    }
 }

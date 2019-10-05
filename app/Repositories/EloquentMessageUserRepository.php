@@ -46,4 +46,15 @@ class EloquentMessageUserRepository extends EloquentBaseRepository implements Me
         return $toUserIds;
     }
 
+    /**
+     * bulk update read status of messages by a user
+     *
+     * @param array $data
+     * @return \IteratorAggregate
+     */
+    public function bulkUpdateReadStatus(array $data) : \IteratorAggregate
+    {
+        return parent::updateIn('id', $data['messageUserIds'], ['isRead' => $data['isRead']]);
+    }
+
 }

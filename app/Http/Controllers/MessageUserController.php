@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DbModels\MessageUser;
+use App\Http\Requests\MessageUser\BulkUpdateReadStatusRequest;
 use App\Http\Requests\MessageUser\IndexRequest;
 use App\Http\Requests\MessageUser\StoreRequest;
 use App\Http\Requests\MessageUser\UpdateRequest;
@@ -76,6 +77,19 @@ class MessageUserController extends Controller
         $messageUser = $this->messageUserRepository->update($messageUser, $request->all());
 
         return new MessageUserResource($messageUser);
+    }
+
+    /**
+     * Bulk update the specified resource in storage.
+     *
+     * @param BulkUpdateReadStatusRequest $request
+     * @return MessageUserResource
+     */
+    public function bulkUpdate(BulkUpdateReadStatusRequest $request)
+    {
+        $messageUsers = $this->messageUserRepository->bulkUpdateReadStatus($request->all());
+
+        return  new MessageUserResourceCollection($messageUsers);
     }
 
     /**

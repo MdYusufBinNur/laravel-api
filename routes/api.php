@@ -169,7 +169,8 @@ Route::group(['prefix' => 'api/v1'], function () {
          * related to Message
          */
         Route::apiResource('message', 'MessageController', ['except' => ['update']]);
-        Route::apiResource('message-user', 'MessageUserController', ['except' => ['store', 'update', 'destroy']]);
+        Route::apiResource('message-user', 'MessageUserController', ['except' => ['store', 'destroy']]);
+        Route::put('message-user-bulk-update-status', 'MessageUserController@bulkUpdate');
         Route::apiResource('message-post', 'MessagePostController');
         Route::apiResource('message-template', 'MessageTemplateController');
     });

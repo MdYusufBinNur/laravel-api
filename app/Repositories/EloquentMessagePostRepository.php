@@ -29,6 +29,7 @@ class EloquentMessagePostRepository extends EloquentBaseRepository implements Me
             }
             unset($data['attachmentId']);
         }
+
         return $messagePost;
     }
 }

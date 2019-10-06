@@ -168,6 +168,8 @@ return [
         'startAt' => 'startAt',
         'endAt' => 'endAt',
         'backgroundColor' => 'backgroundColor',
+        'fromUserId' => 'fromUserId',
+        'messageId' => 'messageId',
 
 
         //todo

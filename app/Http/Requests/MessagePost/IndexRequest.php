@@ -15,9 +15,8 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
-            'messageId' => 'list:numeric',
-            'fromUserId' => 'list:numeric',
-            'text' => 'string',
+            'messageId' => 'required|numeric',
+            'fromUserId' => 'numeric',
         ];
     }
 }

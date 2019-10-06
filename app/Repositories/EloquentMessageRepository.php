@@ -4,11 +4,9 @@
 namespace App\Repositories;
 
 
-use App\DbModels\Attachment;
 use App\DbModels\Message;
 use App\DbModels\Role;
 use App\Events\Message\MessageCreatedEvent;
-use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\MessagePostRepository;
 use App\Repositories\Contracts\MessageRepository;
 use App\Repositories\Contracts\MessageUserRepository;

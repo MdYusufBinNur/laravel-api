@@ -91,7 +91,7 @@ class ListOfIds implements Rule
             return false;
         } else {
             // modify the value to array
-            request()->merge([ $attribute => $ids ]);
+            request()->merge([ $attribute => array_unique($ids) ]);
         }
 
         return true;

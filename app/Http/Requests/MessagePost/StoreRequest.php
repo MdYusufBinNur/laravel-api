@@ -3,6 +3,7 @@
 namespace App\Http\Requests\MessagePost;
 
 use App\Http\Requests\Request;
+use App\Rules\ListOfIds;
 
 class StoreRequest extends Request
 {
@@ -15,8 +16,8 @@ class StoreRequest extends Request
     {
         return [
             'messageId' => 'required|exists:messages,id',
-            'fromUserId' => 'required|exists:users,id',
             'text' => 'required|min:3|max:2048',
+            'attachmentIds' => [new ListOfIds('attachments', 'id')],
         ];
     }
 }

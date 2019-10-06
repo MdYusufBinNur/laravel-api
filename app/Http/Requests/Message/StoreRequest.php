@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Message;
 
 use App\Http\Requests\Request;
+use App\Rules\ListOfIds;
 use App\Rules\MessageToFloor;
 use App\Rules\MessageToLine;
 use App\Rules\MessageToTower;
@@ -29,7 +30,8 @@ class StoreRequest extends Request
             'unitIds' => [new MessageToUnit($this->request->get('propertyId'), $this->request->get('toUserIds'))],
             'emailNotification' => 'boolean',
             'smsNotification' => 'boolean',
-            'attachmentIds' => 'json|json_ids:attachments,id',
+            'attachmentIds' => [new ListOfIds('attachments', 'id')],
+
         ];
     }
 }

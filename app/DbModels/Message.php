@@ -67,7 +67,7 @@ class Message extends Model
      */
     public function scopeLastMessagePostOfTheUser($userId)
     {
-        return $this->messagesPost()->where('fromUserId', $userId)->orderBy('created_at', 'desc');
+        return $this->messagePostS()->where('fromUserId', $userId)->orderBy('created_at', 'desc');
     }
 
     /**

@@ -35,21 +35,6 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
     {
         $message = parent::save($data);
 
-
-        if (isset($data['attachmentIds'])) {
-            $attachmentIds = json_decode($data['attachmentIds']);
-            $attachmentRepository = app(AttachmentRepository::class);
-
-            foreach ($attachmentIds as $attachment) {
-                $attachment = $attachmentRepository->findOne($attachment);
-                if ($attachment instanceof Attachment) {
-                    $attachmentRepository->updateResourceId($attachment, $message->id);
-                }
-            }
-
-            unset($data['attachmentId']);
-        }
-
         return $message;
     }
 
@@ -78,7 +63,11 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
 
             //save a message post
             $messagePostRepository = app(MessagePostRepository::class);
-            $messagePostRepository->save(['messageId' => $message->id, 'fromUserId' => $message->fromUserId, 'text' => $data['text']]);
+            $messagePostData = ['messageId' => $message->id, 'fromUserId' => $message->fromUserId, 'text' => $data['text']];
+            if ($data['attachmentIds']) {
+                $messagePostData['attachmentIds'] = $data['attachmentIds'];
+            }
+            $messagePostRepository->save($messagePostData);
 
             // save all users
             $messageUserRepository = app(MessageUserRepository::class);

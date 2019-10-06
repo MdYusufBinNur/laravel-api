@@ -30,13 +30,15 @@ class InsertModulesAndOptions extends Migration
             ['id' => 14, 'key' => 'EL', 'title' => 'Entry Log'],
             ['id' => 15, 'key' => 'ETC', 'title' => 'Employee Time Clock'],
             ['id' => 16, 'key' => 'PROFANITY', 'title' => 'Filter Content for Profanity'],
+            ['id' => 17, 'key' => 'AR', 'title' => 'Amenity Reservation'],
+            ['id' => 18, 'key' => 'KL', 'title' => 'Key Log'],
+
         ]);
 
         DB::table('module_options')->insert([
 
             ['moduleId' => 2, 'key' => 'defaultView', 'title' => 'Default View'],
             ['moduleId' => 2, 'key' => 'requireSignature', 'title' => 'Require a signature for releasing a package.'],
-
 
             ['moduleId' => 7, 'key' => 'moduleName', 'title' => 'Module name of the SR'],
             ['moduleId' => 7, 'key' => 'residentsLeaveFeedback', 'title' => 'Allow residents to leave feedback on service requests'],
@@ -65,6 +67,20 @@ class InsertModulesAndOptions extends Migration
             ['moduleId' => 15, 'key' => 'requireTimeclockPassword', 'title' => 'Require staff user\'s password when clocking in/out'],
             ['moduleId' => 15, 'key' => 'requireTimeclockSignature', 'title' => 'Require a signature when clocking in/out'],
             ['moduleId' => 15, 'key' => 'requireTimeclockPhoto', 'title' => 'Require a webcam photo when clocking in/out'],
+
+            ['moduleId' => 9, 'key' => 'paymentGatewayId', 'title' => 'By which Payment Gateway '],
+            ['moduleId' => 9, 'key' => 'managerId', 'title' => 'Manager of the property'],
+            ['moduleId' => 9, 'key' => 'propertyId', 'title' => 'For which Property'],
+            ['moduleId' => 9, 'key' => 'apiKey', 'title' => 'Api key'],
+
+            ['moduleId' => 17, 'key' => 'approveReservation', 'title' => 'Require Managers to approve reservations made by resident'],
+
+            ['moduleId' => 18, 'key' => 'requireSignature', 'title' => 'Require a signature for releasing a keys'],
+            
+            ['moduleId' => 9, 'key' => 'propertyId', 'title' => 'For which Property'],
+            ['moduleId' => 9, 'key' => 'apiKey', 'title' => 'Api key'],
+
+
 
         ]);
     }

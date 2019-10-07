@@ -32,6 +32,7 @@ class InsertModulesAndOptions extends Migration
             ['id' => 16, 'key' => 'PROFANITY', 'title' => 'Filter Content for Profanity'],
             ['id' => 17, 'key' => 'AR', 'title' => 'Amenity Reservation'],
             ['id' => 18, 'key' => 'KL', 'title' => 'Key Log'],
+            ['id' => 19, 'key' => 'PP', 'title' => 'Parking Passes'],
 
         ]);
 
@@ -44,6 +45,11 @@ class InsertModulesAndOptions extends Migration
             ['moduleId' => 7, 'key' => 'residentsLeaveFeedback', 'title' => 'Allow residents to leave feedback on service requests'],
             ['moduleId' => 7, 'key' => 'permissionToEnterOptions', 'title' => 'Allow "permission to enter" options'],
             ['moduleId' => 7, 'key' => 'allowOwnersToSubmitRequests', 'title' => 'Allow only owners to submit service requests'],
+
+            ['moduleId' => 9, 'key' => 'paymentGatewayId', 'title' => 'By which Payment Gateway '],
+            ['moduleId' => 9, 'key' => 'managerId', 'title' => 'Manager of the property'],
+            ['moduleId' => 9, 'key' => 'propertyId', 'title' => 'For which Property'],
+            ['moduleId' => 9, 'key' => 'apiKey', 'title' => 'Api key'],
 
             ['moduleId' => 12, 'key' => 'mailHolds', 'title' => 'Enable Mail Holds'],
             ['moduleId' => 12, 'key' => 'generalInstructions', 'title' => 'Enable General Instructions'],
@@ -68,19 +74,17 @@ class InsertModulesAndOptions extends Migration
             ['moduleId' => 15, 'key' => 'requireTimeclockSignature', 'title' => 'Require a signature when clocking in/out'],
             ['moduleId' => 15, 'key' => 'requireTimeclockPhoto', 'title' => 'Require a webcam photo when clocking in/out'],
 
-            ['moduleId' => 9, 'key' => 'paymentGatewayId', 'title' => 'By which Payment Gateway '],
-            ['moduleId' => 9, 'key' => 'managerId', 'title' => 'Manager of the property'],
-            ['moduleId' => 9, 'key' => 'propertyId', 'title' => 'For which Property'],
-            ['moduleId' => 9, 'key' => 'apiKey', 'title' => 'Api key'],
-
             ['moduleId' => 17, 'key' => 'approveReservation', 'title' => 'Require Managers to approve reservations made by resident'],
 
             ['moduleId' => 18, 'key' => 'requireSignature', 'title' => 'Require a signature for releasing a keys'],
-            
-            ['moduleId' => 9, 'key' => 'propertyId', 'title' => 'For which Property'],
-            ['moduleId' => 9, 'key' => 'apiKey', 'title' => 'Api key'],
 
-
+            ['moduleId' => 19, 'key' => 'startTime', 'title' => 'Parking Passes valid time from'],
+            ['moduleId' => 19, 'key' => 'endTime', 'title' => 'Parking Passes valid time till'],
+            ['moduleId' => 19, 'key' => 'customMessage', 'title' => 'Add a custom message to the bottom of the each Printed parking pass'],
+            ['moduleId' => 19, 'key' => 'issueParkingPass', 'title' => 'Resident can issue parking passes'],
+            ['moduleId' => 19, 'key' => 'unitLimit', 'title' => 'Parking passes limit per Unit'],
+            ['moduleId' => 19, 'key' => 'timeLimit', 'title' => 'Parking passes time limit'],
+            ['moduleId' => 19, 'key' => 'messageInIssueParkingPass', 'title' => 'Add this message to the Issue Parking Passes from'],
 
         ]);
     }

@@ -36,6 +36,8 @@ class MessageResource extends Resource
             'attachments' => $this->when($this->needToInclude($request, 'message.attachments'), function () {
                 return new AttachmentResourceCollection($this->attachments);
             }),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

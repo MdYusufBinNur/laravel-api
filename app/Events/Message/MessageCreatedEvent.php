@@ -38,11 +38,23 @@ class MessageCreatedEvent implements ShouldBroadcast
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return \Illuminate\Broadcasting\Channel
+     * @return \Illuminate\Broadcasting\Channel|\Illuminate\Broadcasting\Channel[]
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('App.User.1');
+        if ($this->message->isGroupMessage) {
+            $toUserIds = explode(',', $this->message->group);
+        } else {
+            $toUserIds = [$this->message->toUserId];
+        }
+
+        $channels = [];
+        foreach ($toUserIds as $toUserId) {
+            $channels[] = new PrivateChannel('PMS.USER.' . $toUserId);
+        }
+
+        return $channels;
+
     }
 
     /**
@@ -52,7 +64,7 @@ class MessageCreatedEvent implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return ['messageCreated'];
+        return ['newMessage'];
     }
 
     /**
@@ -62,7 +74,15 @@ class MessageCreatedEvent implements ShouldBroadcast
      */
     public function broadcastWith()
     {
-        return ['message' => $this->message, 'text' => $this->options["request"]["text"]];
+        $fromUser = $this->message->fromUser;
+        return [
+            'subject' => $this->message->subject,
+            'fromUser' => ['name' => $fromUser->name, 'email' => $fromUser->email],
+            'text' => $this->options["request"]["text"],
+            'created_at' => $this->message->created_at,
+            'updated_at' => $this->message->updated_at,
+
+        ];
     }
 
 }

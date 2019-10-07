@@ -8,6 +8,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
@@ -72,6 +73,11 @@ class Handler extends ExceptionHandler
             // log it in bugsnag
             Bugsnag::notifyException($exception);
             return response()->json((['status' => 404, 'message' => 'The requested resource was not found.']), 404);
+        }
+
+        if ($exception instanceof AccessDeniedHttpException) {
+            return response()->json((['status' => 403, 'message' => "Access Denied."]),
+                403);
         }
 
         return parent::render($request, $exception);

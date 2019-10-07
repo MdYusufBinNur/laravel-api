@@ -11,8 +11,8 @@
 |
 */
 
-Broadcast::channel('App.User.{id}', function ($user) {
-    return true;
+Broadcast::channel('PMS.USER.{userId}', function ($user, $userId) {
+    return $user->id == $userId;
 });
 
 

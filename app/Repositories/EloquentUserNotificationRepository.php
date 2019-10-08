@@ -4,7 +4,7 @@
 namespace App\Repositories;
 
 
-use App\Events\UserNotification\UserNotificationCreated;
+use App\Events\UserNotification\UserNotificationCreatedEvent;
 use App\Repositories\Contracts\UserNotificationRepository;
 use Carbon\Carbon;
 
@@ -17,7 +17,7 @@ class EloquentUserNotificationRepository extends EloquentBaseRepository implemen
     {
         $userNotification = parent::save($data);
 
-        event(new UserNotificationCreated($userNotification, $this->generateEventOptionsForModel()));
+        event(new UserNotificationCreatedEvent($userNotification, $this->generateEventOptionsForModel()));
 
         return $userNotification;
     }

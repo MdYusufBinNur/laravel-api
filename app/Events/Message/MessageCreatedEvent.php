@@ -50,7 +50,7 @@ class MessageCreatedEvent implements ShouldBroadcast
 
         $channels = [];
         foreach ($toUserIds as $toUserId) {
-            $channels[] = new PrivateChannel('PMS.USER.' . $toUserId);
+            $channels[] = new PrivateChannel('USER.' . $toUserId);
         }
 
         return $channels;

@@ -11,8 +11,12 @@
 |
 */
 
-Broadcast::channel('PMS.USER.{userId}', function ($user, $userId) {
+Broadcast::channel('USER.{userId}', function ($user, $userId) {
     return $user->id == $userId;
+});
+
+Broadcast::channel('PROPERTY.{propertyId}', function ($user, $propertyId) {
+    return $user->userOfTheProperty($propertyId);
 });
 
 

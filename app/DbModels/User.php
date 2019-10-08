@@ -442,4 +442,14 @@ class User extends Authenticatable
         return $this->scopeResidentOfTheProperty($propertyId)->first() instanceof Resident;
     }
 
+    /**
+     * is the user in a specific property
+     *
+     * @param int $propertyId
+     * @return true
+     */
+    public function userOfTheProperty($propertyId)
+    {
+        return $this->userRoles()->where('propertyId', $propertyId)->first() instanceof UserRole;
+    }
 }

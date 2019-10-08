@@ -12,7 +12,7 @@
 */
 
 Broadcast::channel('USER.{userId}', function ($user, $userId) {
-    return $user->id == $userId;
+    return $user->id == (int) $userId;
 });
 
 Broadcast::channel('PROPERTY.{propertyId}', function ($user, $propertyId) {

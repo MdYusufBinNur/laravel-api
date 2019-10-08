@@ -4,11 +4,24 @@
 namespace App\Repositories;
 
 
+use App\Events\UserNotification\UserNotificationCreated;
 use App\Repositories\Contracts\UserNotificationRepository;
 use Carbon\Carbon;
 
 class EloquentUserNotificationRepository extends EloquentBaseRepository implements UserNotificationRepository
 {
+    /**
+     * @inheritDoc
+     */
+    public function save(array $data): \ArrayAccess
+    {
+        $userNotification = parent::save($data);
+
+        event(new UserNotificationCreated($userNotification, $this->generateEventOptionsForModel()));
+
+        return $userNotification;
+    }
+
     /**
      * @inheritDoc
      */
@@ -50,5 +63,4 @@ class EloquentUserNotificationRepository extends EloquentBaseRepository implemen
 
         return $this->model->whereIn('id', $userNotificationIds)->update(['readStatus' => $data['readStatus']]);
     }
-
 }

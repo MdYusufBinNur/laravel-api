@@ -30,7 +30,7 @@ class CreateUserNotificationTypesTable extends Migration
 
 
         DB::table('user_notification_types')->insert([
-            ['id' => 1, 'type' => 'all'],
+            ['id' => 1, 'type' => 'generic'],
             ['id' => 2, 'type' => 'daily_digest'],
             ['id' => 3, 'type' => 'key_log'],
             ['id' => 4, 'type' => 'left_notes'],
@@ -39,6 +39,7 @@ class CreateUserNotificationTypesTable extends Migration
             ['id' => 7, 'type' => 'fdi'],
             ['id' => 8, 'type' => 'amenity'],
             ['id' => 9, 'type' => 'residentAllowedToContact'],
+            ['id' => 10, 'type' => 'message'],
         ]);
     }
 

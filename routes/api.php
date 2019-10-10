@@ -171,6 +171,7 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('message', 'MessageController', ['except' => ['update']]);
         Route::apiResource('message-user', 'MessageUserController', ['except' => ['store', 'destroy']]);
         Route::put('message-user-bulk-update-status', 'MessageUserController@bulkUpdate');
+        Route::delete('message-user-bulk-delete', 'MessageUserController@bulkDelete');
         Route::apiResource('message-post', 'MessagePostController');
         Route::apiResource('message-template', 'MessageTemplateController');
     });

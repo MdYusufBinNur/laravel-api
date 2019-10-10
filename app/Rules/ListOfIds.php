@@ -78,7 +78,7 @@ class ListOfIds implements Rule
                 return false;
             }
             $table = DB::table($this->tableName);
-            $doesntExist = $table->where($this->columnName, $id)->doesntExist();
+            $doesntExist = $table->where($this->columnName, $id)->whereNull('deleted_at')->doesntExist();
 
             if ($doesntExist) {
                 $notFoundRows[] = $id;

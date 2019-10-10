@@ -57,4 +57,15 @@ class EloquentMessageUserRepository extends EloquentBaseRepository implements Me
         return parent::updateIn('id', $data['messageUserIds'], ['isRead' => $data['isRead']]);
     }
 
+    /**
+     * bulk delete of messages by a user
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function bulkDelete(array $data)
+    {
+        return $this->model->whereIn('id', $data['messageUserIds'])->delete();
+    }
+
 }

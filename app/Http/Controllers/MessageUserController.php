@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DbModels\MessageUser;
+use App\Http\Requests\MessageUser\BulkDeleteRequest;
 use App\Http\Requests\MessageUser\BulkUpdateReadStatusRequest;
 use App\Http\Requests\MessageUser\IndexRequest;
 use App\Http\Requests\MessageUser\StoreRequest;
@@ -101,6 +102,19 @@ class MessageUserController extends Controller
     public function destroy(MessageUser $messageUser)
     {
         $this->messageUserRepository->delete($messageUser);
+
+        return response()->json(null, 204);
+    }
+
+    /**
+     * Bulk delete the specified resource in storage.
+     *
+     * @param BulkDeleteRequest $request
+     * @return MessageUserResource
+     */
+    public function bulkDelete(BulkDeleteRequest $request)
+    {
+        $this->messageUserRepository->bulkDelete($request->all());
 
         return response()->json(null, 204);
     }

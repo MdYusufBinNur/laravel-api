@@ -12,4 +12,20 @@ interface UserRepository extends BaseRepository
      * @return \ArrayAccess
      */
     public function updateUser(\ArrayAccess $model, array $data): \ArrayAccess;
+
+    /**
+     * find staffs
+     *
+     * @param array $searchCriteria
+     * @return mixed
+     */
+    public function findStaffs(array $searchCriteria = []);
+
+    /**
+     * get user lists auto-complete
+     *
+     * @param array $searchCriteria
+     * @return mixed
+     */
+    public function usersListAutoComplete(array $searchCriteria = []);
 }

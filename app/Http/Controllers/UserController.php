@@ -6,6 +6,8 @@ use App\DbModels\User;
 use App\Http\Requests\User\IndexRequest;
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Requests\User\UpdateRequest;
+use App\Http\Requests\User\UserListAutoCompleteRequest;
+use App\Http\Resources\UserListAutoCompleteResourceCollection;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserResourceCollection;
 use App\Repositories\Contracts\UserRepository;
@@ -100,5 +102,17 @@ class UserController extends Controller
     {
         $this->userRepository->delete($user);
         return response()->json(null, 204);
+    }
+
+    /**
+     * get auto-complete list of users
+     *
+     * @param UserListAutoCompleteRequest $request
+     * @return UserListAutoCompleteResourceCollection
+     */
+    public function usersListAutoComplete(UserListAutoCompleteRequest $request)
+    {
+        $users = $this->userRepository->usersListAutoComplete($request->all());
+        return new UserListAutoCompleteResourceCollection(collect($users));
     }
 }

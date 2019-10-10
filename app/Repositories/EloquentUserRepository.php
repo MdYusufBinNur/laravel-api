@@ -2,7 +2,10 @@
 
 namespace App\Repositories;
 
+use App\DbModels\Manager;
+use App\DbModels\Resident;
 use App\DbModels\Role;
+use App\DbModels\Unit;
 use App\DbModels\UserRole;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
@@ -26,7 +29,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
 
         $searchCriteria['eagerLoad'] = ['user.roles' => 'userRoles', 'user.profilePic' => 'userProfilePic'];
 
-        $users =  parent::findBy($searchCriteria, $withTrashed);
+        $users = parent::findBy($searchCriteria, $withTrashed);
 
         $this->setCacheByKey($cacheKey, $users);
 
@@ -76,7 +79,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
 
         $user = parent::update($model, $data);
 
-        if(array_key_exists('role', $data)) {
+        if (array_key_exists('role', $data)) {
 
             if (isset($data['role']['oldRoleId'])) {
                 $userRole = $userRoleRepository->findOneBy(['userId' => $user->id, 'roleId' => $data['role']['oldRoleId']]);
@@ -105,8 +108,8 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
     private function applyFilterInUserSearch($searchCriteria)
     {
         if (isset($searchCriteria['query'])) {
-            $searchCriteria['id'] = $this->model->where('email', 'like', '%'.$searchCriteria['query'].'%')
-                ->orWhere('name', 'like', '%'.$searchCriteria['query'].'%')
+            $searchCriteria['id'] = $this->model->where('email', 'like', '%' . $searchCriteria['query'] . '%')
+                ->orWhere('name', 'like', '%' . $searchCriteria['query'] . '%')
                 ->pluck('id')->toArray();
             unset($searchCriteria['query']);
         }
@@ -140,10 +143,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
     }
 
     /**
-     * find staffs
-     *
-     * @param array $searchCriteria
-     * @return mixed
+     * @inheritDoc
      */
     public function findStaffs(array $searchCriteria = [])
     {
@@ -152,5 +152,46 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
         }
 
         return $this->findBy($searchCriteria);
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function usersListAutoComplete(array $searchCriteria = [])
+    {
+        $thisModelTable = $this->model->getTable();
+        $residentTable = Resident::getTableName();
+        $unitTable = Unit::getTableName();
+        $managerTable = Manager::getTableName();
+
+        $staffs = $this->model
+            ->select($thisModelTable . '.id',
+                $thisModelTable . '.name',
+                $thisModelTable . '.email',
+                $managerTable . '.id as managerId',
+                $managerTable . '.title as managerTitle',
+                $managerTable . '.level as managerLevel'
+            )
+            ->join($managerTable, $thisModelTable . '.id', '=', $managerTable . '.userId')
+            ->where($managerTable . '.propertyId', $searchCriteria['propertyId'])
+            ->where($thisModelTable . '.name', 'like', '%' . $searchCriteria['query'] . '%')
+            ->get();
+
+        $residents = $this->model
+            ->select($thisModelTable . '.id',
+                $thisModelTable . '.name',
+                $thisModelTable . '.email',
+                $residentTable . '.id as residentId',
+                $residentTable . '.type as residentTitle',
+                $unitTable . '.title as unit'
+            )
+            ->join($residentTable, $thisModelTable . '.id', '=', $residentTable . '.userId')
+            ->join($unitTable, $unitTable . '.id', '=', $residentTable . '.unitId')
+            ->where($residentTable . '.propertyId', $searchCriteria['propertyId'])
+            ->where($thisModelTable . '.name', 'like', '%' . $searchCriteria['query'] . '%')
+            ->get();
+
+        return $staffs->merge($residents);
     }
 }

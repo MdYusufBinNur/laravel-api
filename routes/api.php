@@ -24,6 +24,7 @@ Route::group(['prefix' => 'api/v1'], function () {
          * related to user features
          */
         Route::apiResource('user', 'UserController');
+        Route::get('users-list-auto-complete', 'UserController@usersListAutoComplete');
         Route::apiResource('role', 'RoleController');
         Route::apiResource('user-role', 'UserRoleController');
         Route::apiResource('user-profile', 'UserProfileController');
@@ -33,6 +34,7 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('staff', 'StaffController');
         Route::post('password-reset', 'PasswordResetController@store');
         Route::get('password-reset/{token}', 'PasswordResetController@show');
+
 
 
         /**

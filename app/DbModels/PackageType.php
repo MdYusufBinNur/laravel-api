@@ -14,6 +14,6 @@ class PackageType extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'title', 'icon'
+        'createdByUserId', 'title', 'icon', 'propertyId'
     ];
 }

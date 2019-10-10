@@ -15,6 +15,9 @@ class PostPollResource extends Resource
         return [
             'id' => $this->id,
             'createdByUserId' =>  $this->createdByUserId,
+            'createdByUser' =>  $this->when($this->needToInclude($request, 'pp.createdByUser'), function () {
+                return new UserResource($this->createdByUser);
+            }),
             'postId' =>  $this->postId,
             'post' => $this->when($this->needToInclude($request, 'pp.post'), function () {
                 return new PostResource($this->post);

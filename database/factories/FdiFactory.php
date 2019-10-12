@@ -19,6 +19,7 @@ $factory->define(App\DbModels\Fdi::class, function (Faker $faker) {
         'comment' => $faker->sentence,
         'canGetKey' => $faker->boolean,
         'signature' => $faker->boolean,
+        'createdByUserId' => 1,
         'status' => $faker->randomElement(array('active','deleted','pendingApproval')),
     ];
 });

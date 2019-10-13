@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateParkingPassesTable extends Migration
+class CreateParkingSpacesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,17 @@ class CreateParkingPassesTable extends Migration
      */
     public function up()
     {
-        Schema::create('parking_passes', function (Blueprint $table) {
+        Schema::create('parking_spaces', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->unsignedInteger('unitId');
-            $table->string('make', 100)->nullable();
-            $table->string('model', 100)->nullable();
-            $table->string('licensePlate', 100)->nullable();
-            $table->dateTime('startAt');
-            $table->dateTime('endAt');
-            $table->dateTime('voidedAt');
+            $table->unsignedInteger('propertyId');
+            $table->string('parkingNumber');
+            $table->string('ownedBy');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('unitId')
-                ->references('id')->on('units')
+            $table->foreign('propertyId')
+                ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
@@ -45,6 +41,6 @@ class CreateParkingPassesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('parking_passes');
+        Schema::dropIfExists('parking_spaces');
     }
 }

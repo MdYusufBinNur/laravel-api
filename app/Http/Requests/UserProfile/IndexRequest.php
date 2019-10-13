@@ -15,7 +15,6 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
-            'userId' => 'list:numeric',
             'gender' => 'list:string',
             'occupation' => 'list:string',
             'homeTown' => 'list:string',

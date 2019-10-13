@@ -4,6 +4,7 @@ namespace App\Http\Requests\UserProfile;
 
 use App\DbModels\UserProfile;
 use App\Http\Requests\Request;
+use App\Rules\CSVString;
 
 class UpdateRequest extends Request
 {
@@ -15,7 +16,6 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'userId' => 'exists:users,id',
             'gender' => 'in:'.UserProfile::GENDER_FEMALE.','.UserProfile::GENDER_MALE,
             'occupation' => 'min:3|max:191',
             'homeTown' => 'min:3|max:191',
@@ -25,6 +25,7 @@ class UpdateRequest extends Request
             'facebookUsername' => 'min:3|max:100',
             'twitterUsername' => 'min:3|max:100',
             'aboutMe' => 'min:3|max:1024',
+            'interests' => [new CSVString()],
         ];
     }
 }

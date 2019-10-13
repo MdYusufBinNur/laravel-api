@@ -26,6 +26,7 @@ class CreateUserProfilesTable extends Migration
             $table->string('facebookUsername', 100)->nullable();
             $table->string('twitterUsername', 100)->nullable();
             $table->mediumText('aboutMe')->nullable();
+            $table->mediumText('interests')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

@@ -17,7 +17,7 @@ class UserProfile extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'userId', 'gender', 'occupation', 'homeTown', 'birthDate', 'language', 'website', 'facebookUsername', 'twitterUsername', 'aboutMe'
+        'createdByUserId', 'userId', 'gender', 'occupation', 'homeTown', 'birthDate', 'language', 'website', 'facebookUsername', 'twitterUsername', 'aboutMe', 'interests'
     ];
 
     /**
@@ -27,5 +27,6 @@ class UserProfile extends Model
      */
     protected $casts = [
         'birthDate' => 'datetime:h:i',
+        'interests' => 'json'
     ];
 }

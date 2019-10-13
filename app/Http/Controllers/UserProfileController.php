@@ -47,7 +47,7 @@ class UserProfileController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $userProfile = $this->userProfileRepository->save($request->all());
+        $userProfile = $this->userProfileRepository->setUserProfile($request->all());
         
         return new UserProfileResource($userProfile);
     }

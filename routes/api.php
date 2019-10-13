@@ -176,6 +176,12 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::delete('message-user-bulk-delete', 'MessageUserController@bulkDelete');
         Route::apiResource('message-post', 'MessagePostController');
         Route::apiResource('message-template', 'MessageTemplateController');
+
+        /**
+         * related to property link
+         */
+        Route::apiResource('property-link-category', 'PropertyLinkCategoryController');
+        Route::apiResource('property-link', 'PropertyLinkController');
     });
 
     //route without authentication

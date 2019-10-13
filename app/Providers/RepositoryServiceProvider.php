@@ -49,6 +49,8 @@ use App\DbModels\Property;
 use App\DbModels\PropertyDesignSetting;
 use App\DbModels\PropertyGeneralInfo;
 use App\DbModels\PropertyImage;
+use App\DbModels\PropertyLink;
+use App\DbModels\PropertyLinkCategory;
 use App\DbModels\PropertySocialMedia;
 use App\DbModels\Resident;
 use App\DbModels\ResidentAccessRequest;
@@ -120,6 +122,8 @@ use App\Repositories\Contracts\PostWallRepository;
 use App\Repositories\Contracts\PropertyDesignSettingRepository;
 use App\Repositories\Contracts\PropertyGeneralInfoRepository;
 use App\Repositories\Contracts\PropertyImageRepository;
+use App\Repositories\Contracts\PropertyLinkCategoryRepository;
+use App\Repositories\Contracts\PropertyLinkRepository;
 use App\Repositories\Contracts\PropertySocialMediaRepository;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use App\Repositories\Contracts\ResidentArchiveRepository;
@@ -190,6 +194,8 @@ use App\Repositories\EloquentPostWallRepository;
 use App\Repositories\EloquentPropertyDesignSettingRepository;
 use App\Repositories\EloquentPropertyGeneralInfoRepository;
 use App\Repositories\EloquentPropertyImageRepository;
+use App\Repositories\EloquentPropertyLinkCategoryRepository;
+use App\Repositories\EloquentPropertyLinkRepository;
 use App\Repositories\EloquentPropertySocialMediaRepository;
 use App\Repositories\EloquentResidentAccessRequestRepository;
 use App\Repositories\EloquentResidentArchiveRepository;
@@ -613,6 +619,16 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind MessageTemplateRepository
         $this->app->bind(MessageTemplateRepository::class, function() {
             return new EloquentMessageTemplateRepository(new MessageTemplate());
+        });
+
+        // bind PropertyLinkRepository
+        $this->app->bind(PropertyLinkRepository::class, function() {
+            return new EloquentPropertyLinkRepository(new PropertyLink());
+        });
+
+        // bind PropertyLinkCategoryRepository
+        $this->app->bind(PropertyLinkCategoryRepository::class, function() {
+            return new EloquentPropertyLinkCategoryRepository(new PropertyLinkCategory());
         });
     }
 }

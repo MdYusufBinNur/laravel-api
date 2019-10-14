@@ -138,7 +138,9 @@ Route::group(['prefix' => 'api/v1'], function () {
         /**
          * related to parking features
          */
+        Route::apiResource('parking-space', 'ParkingSpaceController');
         Route::apiResource('parking-pass', 'ParkingPassController');
+        Route::apiResource('parking-pass-log', 'ParkingPassLogController', ['except' => ['put']]);
 
         Route::apiResource('manager-invitation','ManagerInvitationController');
 

@@ -34,6 +34,8 @@ use App\DbModels\Package;
 use App\DbModels\PackageArchive;
 use App\DbModels\PackageType;
 use App\DbModels\ParkingPass;
+use App\DbModels\ParkingPassLog;
+use App\DbModels\ParkingSpace;
 use App\DbModels\PasswordReset;
 use App\DbModels\Post;
 use App\DbModels\PostApprovalArchive;
@@ -107,7 +109,9 @@ use App\Repositories\Contracts\NotificationTemplateTypeRepository;
 use App\Repositories\Contracts\PackageArchiveRepository;
 use App\Repositories\Contracts\PackageRepository;
 use App\Repositories\Contracts\PackageTypeRepository;
+use App\Repositories\Contracts\ParkingPassLogRepository;
 use App\Repositories\Contracts\ParkingPassRepository;
+use App\Repositories\Contracts\ParkingSpaceRepository;
 use App\Repositories\Contracts\PasswordResetRepository;
 use App\Repositories\Contracts\PostApprovalArchiveRepository;
 use App\Repositories\Contracts\PostApprovalBlacklistUnitRepository;
@@ -179,7 +183,9 @@ use App\Repositories\EloquentNotificationTemplateTypeRepository;
 use App\Repositories\EloquentPackageArchiveRepository;
 use App\Repositories\EloquentPackageRepository;
 use App\Repositories\EloquentPackageTypeRepository;
+use App\Repositories\EloquentParkingPassLogRepository;
 use App\Repositories\EloquentParkingPassRepository;
+use App\Repositories\EloquentParkingSpaceRepository;
 use App\Repositories\EloquentPasswordResetRepository;
 use App\Repositories\EloquentPostApprovalArchiveRepository;
 use App\Repositories\EloquentPostApprovalBlacklistUnitRepository;
@@ -629,6 +635,16 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind PropertyLinkCategoryRepository
         $this->app->bind(PropertyLinkCategoryRepository::class, function() {
             return new EloquentPropertyLinkCategoryRepository(new PropertyLinkCategory());
+        });
+
+        // bind ParkingSpaceRepository
+        $this->app->bind(ParkingSpaceRepository::class, function() {
+            return new EloquentParkingSpaceRepository(new ParkingSpace());
+        });
+
+        // bind ParkingPassLogRepository
+        $this->app->bind(ParkingPassLogRepository::class, function() {
+            return new EloquentParkingPassLogRepository(new ParkingPassLog());
         });
     }
 }

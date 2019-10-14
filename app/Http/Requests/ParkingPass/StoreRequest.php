@@ -15,17 +15,10 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'propertyId' => 'required|exists:properties,id',
             'unitId' => 'required|exists:units,id',
-            'submittedUserId' => 'required|exists:users,id',
-            'voidedUserId' => 'required|exists:users,id',
-            'number' => 'required|max:20',
-            'type' => 'in:'. ParkingPass::TYPE_OFFICE . ',' . ParkingPass::TYPE_UNIT,
-            'status' => 'in:'. ParkingPass::STATUS_ACTIVE. ','. ParkingPass::STATUS_VOIDED,
-            'vehicleMake' => 'min:3|max:100',
-            'vehicleModel' => 'min:3|max:100',
-            'vehicleLicensePlate' => 'min:3|max:100',
-            'otherDetail' => 'min:3|max:191',
+            'make' => 'min:3|max:100',
+            'model' => 'min:3|max:100',
+            'licensePlate' => 'min:3|max:100',
             'startAt' => 'required|date',
             'endAt' => 'required|date',
             'voidedAt' => 'required|date',

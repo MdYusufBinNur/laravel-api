@@ -76,6 +76,8 @@ use App\DbModels\UserProfile;
 use App\DbModels\UserProfileChild;
 use App\DbModels\UserProfileLink;
 use App\DbModels\UserProfilePost;
+use App\DbModels\UserPropertyManager;
+use App\DbModels\UserPropertyResident;
 use App\DbModels\UserRole;
 use App\DbModels\Visitor;
 use App\DbModels\VisitorArchive;
@@ -146,6 +148,8 @@ use App\Repositories\Contracts\UserProfileChildRepository;
 use App\Repositories\Contracts\UserProfileLinkRepository;
 use App\Repositories\Contracts\UserProfilePostRepository;
 use App\Repositories\Contracts\UserProfileRepository;
+use App\Repositories\Contracts\UserPropertyManagerRepository;
+use App\Repositories\Contracts\UserPropertyResidentRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
 use App\Repositories\Contracts\VisitorArchiveRepository;
@@ -231,6 +235,8 @@ use App\Repositories\EloquentUserProfileChildRepository;
 use App\Repositories\EloquentUserProfileLinkRepository;
 use App\Repositories\EloquentUserProfilePostRepository;
 use App\Repositories\EloquentUserProfileRepository;
+use App\Repositories\EloquentUserPropertyManagerRepository;
+use App\Repositories\EloquentUserPropertyResidentRepository;
 use App\Repositories\EloquentUserRepository;
 use App\Repositories\EloquentUserRoleRepository;
 use App\Repositories\EloquentVisitorArchiveRepository;
@@ -645,6 +651,16 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind ParkingPassLogRepository
         $this->app->bind(ParkingPassLogRepository::class, function() {
             return new EloquentParkingPassLogRepository(new ParkingPassLog());
+        });
+
+        // bind UserPropertyResidentRepository
+        $this->app->bind(UserPropertyResidentRepository::class, function() {
+            return new EloquentUserPropertyResidentRepository(new UserPropertyResident());
+        });
+
+        // bind UserPropertyManagerRepository
+        $this->app->bind(UserPropertyManagerRepository::class, function() {
+            return new EloquentUserPropertyManagerRepository(new UserPropertyManager());
         });
     }
 }

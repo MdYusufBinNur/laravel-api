@@ -184,6 +184,12 @@ Route::group(['prefix' => 'api/v1'], function () {
          */
         Route::apiResource('property-link-category', 'PropertyLinkCategoryController');
         Route::apiResource('property-link', 'PropertyLinkController');
+
+        /**
+         * related to user property
+         */
+        Route::apiResource('user-property-resident', 'UserPropertyResidentController');
+        Route::apiResource('user-property-manager', 'UserPropertyManagerController');
     });
 
     //route without authentication

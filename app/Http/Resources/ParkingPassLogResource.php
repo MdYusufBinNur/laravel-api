@@ -2,7 +2,8 @@
 
 namespace App\Http\Resources;
 
-class ParkingPassResource extends Resource
+
+class ParkingPassLogResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -15,13 +16,13 @@ class ParkingPassResource extends Resource
         return [
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
-            'unitId' => $this->unitId,
+            'propertyId' => $this->propertyId,
+            'spaceId' => $this->spaceId,
             'make' => $this->make,
             'model' => $this->model,
             'licensePlate' => $this->licensePlate,
             'startAt' => $this->startAt,
             'endAt' => $this->endAt,
-            'voidedAt' => $this->voidedAt,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

@@ -63,7 +63,6 @@ class EloquentPostApprovalBlacklistUnitRepository extends EloquentBaseRepository
             $postApprovalBlacklistUnit = $this->findOneBy(['unitId' => $resident->unitId]);
 
             return $postApprovalBlacklistUnit instanceof PostApprovalBlacklistUnit;
-
         }
 
         return false;

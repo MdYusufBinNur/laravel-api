@@ -138,7 +138,9 @@ Route::group(['prefix' => 'api/v1'], function () {
         /**
          * related to parking features
          */
+        Route::apiResource('parking-space', 'ParkingSpaceController');
         Route::apiResource('parking-pass', 'ParkingPassController');
+        Route::apiResource('parking-pass-log', 'ParkingPassLogController', ['except' => ['put']]);
 
         Route::apiResource('manager-invitation','ManagerInvitationController');
 
@@ -176,6 +178,18 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::delete('message-user-bulk-delete', 'MessageUserController@bulkDelete');
         Route::apiResource('message-post', 'MessagePostController');
         Route::apiResource('message-template', 'MessageTemplateController');
+
+        /**
+         * related to property link
+         */
+        Route::apiResource('property-link-category', 'PropertyLinkCategoryController');
+        Route::apiResource('property-link', 'PropertyLinkController');
+
+        /**
+         * related to user property
+         */
+        Route::apiResource('user-property-resident', 'UserPropertyResidentController');
+        Route::apiResource('user-property-manager', 'UserPropertyManagerController');
     });
 
     //route without authentication

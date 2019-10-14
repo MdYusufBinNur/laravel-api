@@ -34,6 +34,8 @@ use App\DbModels\Package;
 use App\DbModels\PackageArchive;
 use App\DbModels\PackageType;
 use App\DbModels\ParkingPass;
+use App\DbModels\ParkingPassLog;
+use App\DbModels\ParkingSpace;
 use App\DbModels\PasswordReset;
 use App\DbModels\Post;
 use App\DbModels\PostApprovalArchive;
@@ -49,6 +51,8 @@ use App\DbModels\Property;
 use App\DbModels\PropertyDesignSetting;
 use App\DbModels\PropertyGeneralInfo;
 use App\DbModels\PropertyImage;
+use App\DbModels\PropertyLink;
+use App\DbModels\PropertyLinkCategory;
 use App\DbModels\PropertySocialMedia;
 use App\DbModels\Resident;
 use App\DbModels\ResidentAccessRequest;
@@ -72,6 +76,8 @@ use App\DbModels\UserProfile;
 use App\DbModels\UserProfileChild;
 use App\DbModels\UserProfileLink;
 use App\DbModels\UserProfilePost;
+use App\DbModels\UserPropertyManager;
+use App\DbModels\UserPropertyResident;
 use App\DbModels\UserRole;
 use App\DbModels\Visitor;
 use App\DbModels\VisitorArchive;
@@ -105,7 +111,9 @@ use App\Repositories\Contracts\NotificationTemplateTypeRepository;
 use App\Repositories\Contracts\PackageArchiveRepository;
 use App\Repositories\Contracts\PackageRepository;
 use App\Repositories\Contracts\PackageTypeRepository;
+use App\Repositories\Contracts\ParkingPassLogRepository;
 use App\Repositories\Contracts\ParkingPassRepository;
+use App\Repositories\Contracts\ParkingSpaceRepository;
 use App\Repositories\Contracts\PasswordResetRepository;
 use App\Repositories\Contracts\PostApprovalArchiveRepository;
 use App\Repositories\Contracts\PostApprovalBlacklistUnitRepository;
@@ -120,6 +128,8 @@ use App\Repositories\Contracts\PostWallRepository;
 use App\Repositories\Contracts\PropertyDesignSettingRepository;
 use App\Repositories\Contracts\PropertyGeneralInfoRepository;
 use App\Repositories\Contracts\PropertyImageRepository;
+use App\Repositories\Contracts\PropertyLinkCategoryRepository;
+use App\Repositories\Contracts\PropertyLinkRepository;
 use App\Repositories\Contracts\PropertySocialMediaRepository;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use App\Repositories\Contracts\ResidentArchiveRepository;
@@ -138,6 +148,8 @@ use App\Repositories\Contracts\UserProfileChildRepository;
 use App\Repositories\Contracts\UserProfileLinkRepository;
 use App\Repositories\Contracts\UserProfilePostRepository;
 use App\Repositories\Contracts\UserProfileRepository;
+use App\Repositories\Contracts\UserPropertyManagerRepository;
+use App\Repositories\Contracts\UserPropertyResidentRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
 use App\Repositories\Contracts\VisitorArchiveRepository;
@@ -175,7 +187,9 @@ use App\Repositories\EloquentNotificationTemplateTypeRepository;
 use App\Repositories\EloquentPackageArchiveRepository;
 use App\Repositories\EloquentPackageRepository;
 use App\Repositories\EloquentPackageTypeRepository;
+use App\Repositories\EloquentParkingPassLogRepository;
 use App\Repositories\EloquentParkingPassRepository;
+use App\Repositories\EloquentParkingSpaceRepository;
 use App\Repositories\EloquentPasswordResetRepository;
 use App\Repositories\EloquentPostApprovalArchiveRepository;
 use App\Repositories\EloquentPostApprovalBlacklistUnitRepository;
@@ -190,6 +204,8 @@ use App\Repositories\EloquentPostWallRepository;
 use App\Repositories\EloquentPropertyDesignSettingRepository;
 use App\Repositories\EloquentPropertyGeneralInfoRepository;
 use App\Repositories\EloquentPropertyImageRepository;
+use App\Repositories\EloquentPropertyLinkCategoryRepository;
+use App\Repositories\EloquentPropertyLinkRepository;
 use App\Repositories\EloquentPropertySocialMediaRepository;
 use App\Repositories\EloquentResidentAccessRequestRepository;
 use App\Repositories\EloquentResidentArchiveRepository;
@@ -219,6 +235,8 @@ use App\Repositories\EloquentUserProfileChildRepository;
 use App\Repositories\EloquentUserProfileLinkRepository;
 use App\Repositories\EloquentUserProfilePostRepository;
 use App\Repositories\EloquentUserProfileRepository;
+use App\Repositories\EloquentUserPropertyManagerRepository;
+use App\Repositories\EloquentUserPropertyResidentRepository;
 use App\Repositories\EloquentUserRepository;
 use App\Repositories\EloquentUserRoleRepository;
 use App\Repositories\EloquentVisitorArchiveRepository;
@@ -613,6 +631,36 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind MessageTemplateRepository
         $this->app->bind(MessageTemplateRepository::class, function() {
             return new EloquentMessageTemplateRepository(new MessageTemplate());
+        });
+
+        // bind PropertyLinkRepository
+        $this->app->bind(PropertyLinkRepository::class, function() {
+            return new EloquentPropertyLinkRepository(new PropertyLink());
+        });
+
+        // bind PropertyLinkCategoryRepository
+        $this->app->bind(PropertyLinkCategoryRepository::class, function() {
+            return new EloquentPropertyLinkCategoryRepository(new PropertyLinkCategory());
+        });
+
+        // bind ParkingSpaceRepository
+        $this->app->bind(ParkingSpaceRepository::class, function() {
+            return new EloquentParkingSpaceRepository(new ParkingSpace());
+        });
+
+        // bind ParkingPassLogRepository
+        $this->app->bind(ParkingPassLogRepository::class, function() {
+            return new EloquentParkingPassLogRepository(new ParkingPassLog());
+        });
+
+        // bind UserPropertyResidentRepository
+        $this->app->bind(UserPropertyResidentRepository::class, function() {
+            return new EloquentUserPropertyResidentRepository(new UserPropertyResident());
+        });
+
+        // bind UserPropertyManagerRepository
+        $this->app->bind(UserPropertyManagerRepository::class, function() {
+            return new EloquentUserPropertyManagerRepository(new UserPropertyManager());
         });
     }
 }

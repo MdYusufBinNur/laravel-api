@@ -39,7 +39,13 @@ class DatabaseSeeder extends Seeder
 
         factory(App\DbModels\PropertyDesignSetting::class, 5)->create();
         factory(App\DbModels\PropertyImage::class, 5)->create();
-        factory(App\DbModels\PropertySocialMedia::class, 3)->create();
+
+        repeat:
+            try {
+                factory(App\DbModels\PropertySocialMedia::class, 3)->create();
+            } catch (\Illuminate\Database\QueryException $e) {
+                goto repeat;
+            }
 
         factory(App\DbModels\Tower::class, 30)->create();
 
@@ -108,6 +114,8 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\PackageArchive::class, 5)->create();
 
         factory(App\DbModels\ParkingPass::class, 5)->create();
+        factory(App\DbModels\ParkingSpace::class, 5)->create();
+        factory(App\DbModels\ParkingPassLog::class, 5)->create();
 
         factory(App\DbModels\Post::class, 5)->create();
         factory(App\DbModels\PostEvent::class, 5)->create();
@@ -120,5 +128,10 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\PostApprovalBlacklistUnit::class, 5)->create();
 
         factory(App\DbModels\UserNotification::class, 10)->create();
+
+        factory(App\DbModels\PropertyLink::class, 10)->create();
+
+        factory(App\DbModels\UserPropertyResident::class, 10)->create();
+        factory(App\DbModels\UserPropertyManager::class, 10)->create();
     }
 }

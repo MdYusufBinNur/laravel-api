@@ -130,5 +130,8 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\UserNotification::class, 10)->create();
 
         factory(App\DbModels\PropertyLink::class, 10)->create();
+
+        factory(App\DbModels\UserPropertyResident::class, 10)->create();
+        factory(App\DbModels\UserPropertyManager::class, 10)->create();
     }
 }

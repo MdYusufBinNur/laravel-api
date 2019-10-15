@@ -14,9 +14,6 @@ class EloquentLdsSettingRepository extends EloquentBaseRepository implements Lds
      */
     public function saveLdsSetting(array $data): \ArrayAccess
     {
-        $unitRepository = app(Unit::class);
-        $unit = $unitRepository->findOne($data['unitId']);
-        $data['propertyId'] = $unit->propertyId;
         return $this->patch(['propertyId' => $data['propertyId']], $data);
     }
 

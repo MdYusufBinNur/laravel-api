@@ -4,17 +4,15 @@ namespace App\DbModels;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ParkingPass extends Model
+class ParkingPassLog extends Model
 {
-    use CommonModelFeatures;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'unitId', 'make', 'model', 'licensePlate', 'startAt', 'endAt', 'voidedAt'
+        'createdByUserId', 'propertyId', 'spaceId', 'make', 'model', 'licensePlate', 'startAt', 'endAt', 'voidedAt'
     ];
 
     /**

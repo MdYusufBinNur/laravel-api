@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\ParkingPass;
+namespace App\Http\Requests\ParkingPassLog;
 
 use App\Http\Requests\Request;
 
@@ -15,13 +15,13 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
-            'unitId' => 'list:numeric',
+            'propertyId' => 'list:numeric',
+            'spaceId' => 'list:numeric',
             'make' => 'list:string',
             'model' => 'list:string',
             'licensePlate' => 'list:string',
             'startAt' => 'list:date',
             'endAt' => 'list:date',
-            'voidedAt' => 'list:date',
         ];
     }
 }

@@ -114,6 +114,8 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\PackageArchive::class, 5)->create();
 
         factory(App\DbModels\ParkingPass::class, 5)->create();
+        factory(App\DbModels\ParkingSpace::class, 5)->create();
+        factory(App\DbModels\ParkingPassLog::class, 5)->create();
 
         factory(App\DbModels\Post::class, 5)->create();
         factory(App\DbModels\PostEvent::class, 5)->create();
@@ -128,5 +130,8 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\UserNotification::class, 10)->create();
 
         factory(App\DbModels\PropertyLink::class, 10)->create();
+
+        factory(App\DbModels\UserPropertyResident::class, 10)->create();
+        factory(App\DbModels\UserPropertyManager::class, 10)->create();
     }
 }

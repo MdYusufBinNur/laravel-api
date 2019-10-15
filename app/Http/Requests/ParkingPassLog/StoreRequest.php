@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\ParkingPass;
+namespace App\Http\Requests\ParkingPassLog;
 
-use App\DbModels\ParkingPass;
 use App\Http\Requests\Request;
 
-class UpdateRequest extends Request
+class StoreRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -15,13 +14,14 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'unitId' => 'exists:units,id',
+            'propertyId' => 'required|exists:properties,id',
+            'unitId' => 'required|exists:units,id',
+            'spaceId' => 'required|exists:parking_spaces,id',
             'make' => 'min:3|max:100',
             'model' => 'min:3|max:100',
             'licensePlate' => 'min:3|max:100',
-            'startAt' => 'date',
-            'endAt' => 'date',
-            'voidedAt' => 'date',
+            'startAt' => 'required|date',
+            'endAt' => 'required|date',
         ];
     }
 }

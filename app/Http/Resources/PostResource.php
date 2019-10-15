@@ -64,7 +64,7 @@ class PostResource extends Resource
                 $resource = new PostPollResourceCollection($this->detailByType);
                 break;
             case Post::TYPE_RECOMMENDATION:
-                $resource = new PostRecommendationTypeResourceCollection($this->detailByType);
+                $resource = new PostRecommendationResourceCollection($this->detailByType);
                 break;
         }
 

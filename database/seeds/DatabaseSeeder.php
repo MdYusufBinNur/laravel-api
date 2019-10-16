@@ -113,8 +113,8 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\Package::class, 5)->create();
         factory(App\DbModels\PackageArchive::class, 5)->create();
 
-        factory(App\DbModels\ParkingPass::class, 5)->create();
         factory(App\DbModels\ParkingSpace::class, 5)->create();
+        factory(App\DbModels\ParkingPass::class, 5)->create();
         factory(App\DbModels\ParkingPassLog::class, 5)->create();
 
         factory(App\DbModels\Post::class, 5)->create();

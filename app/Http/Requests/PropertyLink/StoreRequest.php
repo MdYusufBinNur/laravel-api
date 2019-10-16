@@ -16,8 +16,8 @@ class StoreRequest extends Request
         return [
             'propertyId' => 'required|exists:properties,id',
             'title' => 'required|min:2',
-            'description' => 'required|min:5',
-            'url' => 'min:10',
+            'description' => 'min:5',
+            'url' => 'required|max:1000',
             'linkCategoryId' => 'required|exists:property_link_categories,id',
             'isFeatured' => 'boolean',
         ];

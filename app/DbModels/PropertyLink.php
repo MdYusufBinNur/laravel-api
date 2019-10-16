@@ -17,6 +17,15 @@ class PropertyLink extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'isFeatured' => 'boolean',
+    ];
+
+    /**
      * get the category
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -26,13 +35,6 @@ class PropertyLink extends Model
         return $this->hasOne(PropertyLinkCategory::class, 'id', 'linkCategoryId');
     }
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'isFeatured' => 'boolean',
-    ];
+
 
 }

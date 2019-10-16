@@ -17,6 +17,7 @@ class CreateParkingPassLogsTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
+            $table->unsignedInteger('passId');
             $table->unsignedInteger('spaceId');
             $table->string('make', 100)->nullable();
             $table->string('model', 100)->nullable();
@@ -28,6 +29,11 @@ class CreateParkingPassLogsTable extends Migration
 
             $table->foreign('propertyId')
                 ->references('id')->on('properties')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('passId')
+                ->references('id')->on('parking_passes')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

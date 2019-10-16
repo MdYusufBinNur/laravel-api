@@ -12,6 +12,6 @@ $factory->define(App\DbModels\ParkingPass::class, function (Faker $faker) {
         'licensePlate' => $faker->phoneNumber,
         'startAt' => $faker->dateTime,
         'endAt' => $faker->dateTime,
-        'voidedAt' => $faker->dateTime,
+        'releasedAt' => $faker->dateTime,
     ];
 });

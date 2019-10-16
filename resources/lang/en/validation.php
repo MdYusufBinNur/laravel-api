@@ -170,6 +170,7 @@ return [
         'backgroundColor' => 'backgroundColor',
         'fromUserId' => 'fromUserId',
         'messageId' => 'messageId',
+        'spaceId' => 'spaceId',
 
 
         //todo

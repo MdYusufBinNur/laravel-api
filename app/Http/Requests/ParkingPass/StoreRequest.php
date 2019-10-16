@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\ParkingPass;
 
-use App\DbModels\ParkingPass;
 use App\Http\Requests\Request;
+use App\Rules\ParkingPassAllowed;
 
 class StoreRequest extends Request
 {
@@ -15,13 +15,13 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
+            'spaceId' => ['required', 'exists:parking_spaces,id', new ParkingPassAllowed()],
             'unitId' => 'required|exists:units,id',
-            'make' => 'min:3|max:100',
-            'model' => 'min:3|max:100',
+            'make' => 'max:100',
+            'model' => 'max:100',
             'licensePlate' => 'min:3|max:100',
             'startAt' => 'required|date',
-            'endAt' => 'required|date',
-            'voidedAt' => 'required|date',
+            'endAt' => 'required|date|after:startAt',
         ];
     }
 }

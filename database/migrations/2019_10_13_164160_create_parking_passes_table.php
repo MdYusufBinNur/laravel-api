@@ -14,17 +14,31 @@ class CreateParkingPassesTable extends Migration
     public function up()
     {
         Schema::create('parking_passes', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
+            $table->unsignedInteger('propertyId');
+            $table->unsignedInteger('spaceId');
             $table->unsignedInteger('unitId');
             $table->string('make', 100)->nullable();
             $table->string('model', 100)->nullable();
             $table->string('licensePlate', 100)->nullable();
             $table->dateTime('startAt');
-            $table->dateTime('endAt');
-            $table->dateTime('voidedAt');
+            $table->dateTime('endAt')->nullable();
+            $table->dateTime('releasedAt')->nullable();
+            $table->integer('releasedByUserId')->unsigned()->nullable();
+
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('propertyId')
+                ->references('id')->on('properties')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('spaceId')
+                ->references('id')->on('parking_spaces')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
 
             $table->foreign('unitId')
                 ->references('id')->on('units')
@@ -32,6 +46,11 @@ class CreateParkingPassesTable extends Migration
                 ->onDelete('cascade');
 
             $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('releasedByUserId')
                 ->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

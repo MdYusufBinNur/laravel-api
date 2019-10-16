@@ -14,10 +14,10 @@ class CreateParkingPassLogsTable extends Migration
     public function up()
     {
         Schema::create('parking_pass_logs', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
-            $table->unsignedInteger('passId');
+            $table->unsignedBigInteger('passId');
             $table->unsignedInteger('spaceId');
             $table->string('make', 100)->nullable();
             $table->string('model', 100)->nullable();

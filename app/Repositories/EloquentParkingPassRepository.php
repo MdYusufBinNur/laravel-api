@@ -5,6 +5,8 @@ namespace App\Repositories;
 
 
 use App\DbModels\ParkingSpace;
+use App\Events\ParkingPass\ParkingPassCreatedEvent;
+use App\Events\ParkingPass\ParkingPassUpdatedEvent;
 use App\Repositories\Contracts\ParkingPassRepository;
 use App\Repositories\Contracts\ParkingSpaceRepository;
 use Carbon\Carbon;
@@ -66,7 +68,12 @@ class EloquentParkingPassRepository extends EloquentBaseRepository implements Pa
             $data['propertyId'] = $parkingSpace->propertyId;
         }
 
-        return parent::save($data);
+        $parkingPass = parent::save($data);
+
+        event(new ParkingPassCreatedEvent($parkingPass, $this->generateEventOptionsForModel()));
+
+
+        return $parkingPass;
     }
 
     /**
@@ -88,6 +95,10 @@ class EloquentParkingPassRepository extends EloquentBaseRepository implements Pa
 
         }
 
-        return parent::update($model, $data);
+        $parkingPass = parent::update($model, $data);
+
+        event(new ParkingPassUpdatedEvent($parkingPass, $this->generateEventOptionsForModel()));
+
+        return $parkingPass;
     }
 }

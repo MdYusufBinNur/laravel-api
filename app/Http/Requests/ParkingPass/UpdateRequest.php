@@ -15,7 +15,6 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'spaceId' => ['exists:parking_spaces,id', new ParkingPassAllowed()],
             'unitId' => 'exists:units,id',
             'make' => 'max:100',
             'model' => 'max:100',

@@ -185,15 +185,25 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
     private function applyFilterInUserSearch($searchCriteria)
     {
         if (isset($searchCriteria['query'])) {
-            $searchCriteria['id'] = $this->model->where('contactEmail', 'like', '%' . $searchCriteria['query'] . '%')
+            $searchCriteria['residentId'] = $this->model->where('contactEmail', 'like', '%' . $searchCriteria['query'] . '%')
                 ->pluck('id')->toArray();
             unset($searchCriteria['query']);
         }
 
         if (isset($searchCriteria['withName'])) {
-            $searchCriteria['id'] = $this->getResidentsIdsByName($searchCriteria);
+            $searchCriteria['userId'] = $this->getResidentsIdsByName($searchCriteria);
             unset($searchCriteria['withName']);
         }
+
+        if(isset($searchCriteria['residentId']) && isset($searchCriteria['userId'])) {
+            $searchCriteria['id'] = array_merge($searchCriteria['residentId'], $searchCriteria['userId']);
+        } else if (isset($searchCriteria['residentId'])){
+            $searchCriteria['id'] = $searchCriteria['residentId'];
+        } else if(isset($searchCriteria['userId'] )){
+            $searchCriteria['id'] = $searchCriteria['userId'];
+        }
+        unset($searchCriteria['residentId']);
+        unset($searchCriteria['userId']);
 
         if (isset($searchCriteria['id'])) {
             $searchCriteria['id'] = implode(",", array_unique($searchCriteria['id']));

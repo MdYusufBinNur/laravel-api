@@ -14,4 +14,12 @@ interface EnterpriseUserRepository extends BaseRepository
      * @return \ArrayAccess
      */
     public function updateEnterpriseUser(\ArrayAccess $model, array $data): \ArrayAccess;
+
+    /**
+     * get enterprise user' ids by searching name from user table
+     *
+     * @param array $searchCriteria
+     * @return array
+     */
+    public function getEnterpriseUserIdsByName(array $searchCriteria = []);
 }

@@ -16,11 +16,14 @@ use Illuminate\Support\Facades\DB;
 
 class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements EnterpriseUserRepository
 {
+    /**
+     * @inheritDoc
+     */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
         $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
 
-        $searchCriteria['eagerLoad'] = ['resident.user' => 'user', 'resident.unit' => 'unit', 'user.roles' => 'user.userRoles', 'user.profilePic' => 'user.userProfilePic'];
+        $searchCriteria['eagerLoad'] = ['eu.user' => 'eu.user','eu.properties' => 'eu.properties'];
 
         return parent::findBy($searchCriteria, $withTrashed);
     }
@@ -33,7 +36,6 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
         DB::beginTransaction();
 
         if(array_key_exists('users', $data)) {
-
             //create user
             $userRepository = app(UserRepository::class);
             $user = $userRepository->save(array_merge($data['users']));
@@ -155,6 +157,5 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
             ->join($userModelTable, $userModelTable . '.id', '=', $thisModelTable . '.userId')
             ->where($userModelTable . '.name', 'like', '%' . $searchCriteria['withName'] . '%')
             ->pluck('id')->toArray();
-
     }
 }

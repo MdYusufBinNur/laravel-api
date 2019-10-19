@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Requests\EnterpriseUser;
+namespace App\Http\Requests\Admin;
 
-use App\DbModels\EnterpriseUser;
+use App\DbModels\Admin;
 use App\Http\Requests\Request;
 
 class StoreRequest extends Request
 {
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -16,12 +17,7 @@ class StoreRequest extends Request
     {
         return [
             'userId' =>  'required_without:users|exists:users,id',
-            'companyId' =>  'required|exists:companies,id',
-            'contactEmail' =>  'email',
-            'phone' =>  'min:12|max:20',
-            'title' =>  'min:3|max:512',
-            'propertyId' => 'nullable|exists:properties,id',
-            'level' =>  'in:'.EnterpriseUser::LEVEL_ADMIN.','.EnterpriseUser::LEVEL_STANDARD,
+            'level' =>  'in:'.Admin::LEVEL_ADMIN.','.Admin::LEVEL_LIMITED.','.Admin::LEVEL_STANDARD,
             'users' => 'required_without:userId',
             'users.name' => 'required_without:userId|min:3|max:100',
             'users.email' => 'required_without:userId|email|unique:users',

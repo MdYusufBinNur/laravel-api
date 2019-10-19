@@ -2,9 +2,8 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class AdminResource extends JsonResource
+class AdminResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +13,15 @@ class AdminResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'userId' => $this->userId,
+            'user' => $this->when($this->needToInclude($request, 'admin.user'), function () {
+                return new UserResource($this->user);
+            }),
+            'level' => $this->level,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
+        ];
     }
 }

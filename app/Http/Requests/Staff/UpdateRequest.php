@@ -24,7 +24,7 @@ class UpdateRequest extends Request
             'propertyId' => 'exists:properties,id|required_with:role.addNewRole',
             'phone' => 'max:100',
             'title' => 'min:5',
-            'level' => '',
+            'level' => 'in:' . Role::ROLE_STAFF_PRIORITY['title'] . ',' . Role::ROLE_STAFF_STANDARD['title'] . ',' . Role::ROLE_STAFF_LIMITED['title'],
             'displayInCorner' => 'boolean',
             'displayPublicProfile' => '',
 
@@ -33,10 +33,6 @@ class UpdateRequest extends Request
             'user.name' => 'max:100',
             'user.password' => 'min:5',
             'user.locale' => '',
-            'user.isActive' => 'boolean',
-
-            'role' => '',
-            'role.roleId' => 'in:' . Role::ROLE_STAFF_PRIORITY['id'] . ',' . Role::ROLE_STAFF_STANDARD['id'] . ',' . Role::ROLE_STAFF_LIMITED['id'],
         ];
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Staff;
+namespace App\Http\Requests\EnterpriseUser;
 
 use App\DbModels\Role;
 use App\Http\Requests\Request;

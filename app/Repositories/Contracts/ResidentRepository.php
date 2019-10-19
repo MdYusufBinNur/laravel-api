@@ -67,4 +67,13 @@ interface ResidentRepository extends BaseRepository
      */
     public function getUserIdsOfTheLinesResidents(int $towerId, array $lines);
 
+    /**
+     * delete a resident
+     *
+     * @param \ArrayAccess $resident
+     * @param array $data
+     * @return bool
+     */
+    public function deleteResident(\ArrayAccess $resident, array $data = []): bool;
+
 }

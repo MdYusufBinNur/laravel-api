@@ -31,7 +31,7 @@ class EnterpriseUser extends Model
     }
 
     /**
-     * get the user
+     * get the user role
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

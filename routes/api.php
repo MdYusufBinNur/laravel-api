@@ -24,7 +24,6 @@ Route::group(['prefix' => 'api/v1'], function () {
          * related to user features
          */
         Route::apiResource('user', 'UserController');
-        Route::get('users-list-auto-complete', 'UserController@usersListAutoComplete');
         Route::apiResource('role', 'RoleController');
         Route::apiResource('user-role', 'UserRoleController');
         Route::apiResource('user-profile', 'UserProfileController');
@@ -81,7 +80,6 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('resident-archive', 'ResidentArchiveController');
         Route::apiResource('resident-emergency', 'ResidentEmergencyController');
         Route::apiResource('resident-vehicle', 'ResidentVehicleController');
-        Route::get('residents-by-units', 'ResidentByUnitController@index');
 
 
         /**
@@ -190,6 +188,16 @@ Route::group(['prefix' => 'api/v1'], function () {
          */
         Route::apiResource('user-property-resident', 'UserPropertyResidentController');
         Route::apiResource('user-property-manager', 'UserPropertyManagerController');
+
+        /**
+         * Related to auto-completes
+         */
+        Route::get('residents-by-units', 'ResidentByUnitController@index');
+        Route::get('users-list-auto-complete', 'UserController@usersListAutoComplete');
+        Route::get('floor-list-auto-complete', 'UnitController@floorListAutoComplete');
+        Route::get('line-list-auto-complete', 'UnitController@lineListAutoComplete');
+
+
     });
 
     //route without authentication

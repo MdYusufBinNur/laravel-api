@@ -37,4 +37,65 @@ class EloquentUnitRepository extends EloquentBaseRepository implements UnitRepos
         return $searchCriteria;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function floorListAutoComplete(array $searchCriteria = [])
+    {
+        $queryBuilder = $this->model
+            ->select('id', 'towerId', 'line', 'floor')
+            ->where('propertyId', $searchCriteria['propertyId']);
+
+        if (isset($searchCriteria['towerId'])) {
+            $queryBuilder->where('towerId', $searchCriteria['towerId']);
+        }
+
+        if (isset($searchCriteria['query'])) {
+            $queryBuilder->where('floor', 'like', '%' . $searchCriteria['query'] . '%');
+        }
+
+        $units= $queryBuilder->get()->toArray();
+
+        $uniqueFloors = [];
+        foreach ($units as $unit) {
+
+            //only insert unique floor
+            if (!in_array($unit['floor'], array_column($uniqueFloors, 'floor'))) {
+                $uniqueFloors[] = $unit;
+            }
+        }
+
+        return $uniqueFloors;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function lineListAutoComplete(array $searchCriteria = [])
+    {
+        $queryBuilder = $this->model
+            ->select('id', 'towerId', 'line', 'floor')
+            ->where('propertyId', $searchCriteria['propertyId']);
+
+        if (isset($searchCriteria['towerId'])) {
+            $queryBuilder->where('towerId', $searchCriteria['towerId']);
+        }
+
+        if (isset($searchCriteria['query'])) {
+            $queryBuilder->where('line', 'like', '%' . $searchCriteria['query'] . '%');
+        }
+
+        $units= $queryBuilder->get()->toArray();
+
+        $uniqueLines = [];
+        foreach ($units as $unit) {
+            //only insert unique floor
+            if (!in_array($unit['line'], array_column($uniqueLines, 'line'))) {
+                $uniqueLines[] = $unit;
+            }
+        }
+
+        return $uniqueLines;
+    }
+
 }

@@ -21,6 +21,8 @@ class IndexRequest extends Request
             'phone' =>  'list:string',
             'title' =>  'list:string',
             'level' =>  'list:string',
+            'query' => '',
+            'withName' => ''
         ];
     }
 }

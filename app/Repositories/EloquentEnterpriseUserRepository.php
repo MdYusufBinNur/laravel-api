@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\DbModels\Role;
+use App\DbModels\User;
 use App\Events\EnterpriseUser\EnterpriseUserCreatedEvent;
 use App\Repositories\Contracts\EnterpriseUserPropertyRepository;
 use App\Repositories\Contracts\EnterpriseUserRepository;
@@ -13,6 +14,15 @@ use Illuminate\Support\Facades\DB;
 
 class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements EnterpriseUserRepository
 {
+    public function findBy(array $searchCriteria = [], $withTrashed = false)
+    {
+        $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
+
+        $searchCriteria['eagerLoad'] = ['resident.user' => 'user', 'resident.unit' => 'unit', 'user.roles' => 'user.userRoles', 'user.profilePic' => 'user.userProfilePic'];
+
+        return parent::findBy($searchCriteria, $withTrashed);
+    }
+
     /**
      * @inheritDoc
      */
@@ -79,5 +89,58 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
         DB::commit();
 
         return $enterpriseUser;
+    }
+
+    /**
+     * shorten the search based on search criteria
+     *
+     * @param $searchCriteria
+     * @return mixed
+     */
+    private function applyFilterInUserSearch($searchCriteria)
+    {
+        if (isset($searchCriteria['query'])) {
+            $searchCriteria['enterpriseUserId'] = $this->model->where('contactEmail', 'like', '%' . $searchCriteria['query'] . '%')
+                ->orWhere('title', 'like', '%' . $searchCriteria['query'] . '%')
+                ->pluck('id')->toArray();
+            unset($searchCriteria['query']);
+        }
+
+        if (isset($searchCriteria['withName'])) {
+            $searchCriteria['userId'] = $this->getEnterpriseUserIdsByName($searchCriteria);
+            unset($searchCriteria['withName']);
+        }
+
+        if(isset($searchCriteria['enterpriseUserId']) && isset($searchCriteria['userId'])) {
+            $searchCriteria['id'] = array_merge($searchCriteria['enterpriseUserId'], $searchCriteria['userId']);
+        } else if (isset($searchCriteria['enterpriseUserId'])){
+            $searchCriteria['id'] = $searchCriteria['enterpriseUserId'];
+        } else if(isset($searchCriteria['userId'] )){
+            $searchCriteria['id'] = $searchCriteria['userId'];
+        }
+        unset($searchCriteria['enterpriseUserId']);
+        unset($searchCriteria['userId']);
+
+        if (isset($searchCriteria['id'])) {
+            $searchCriteria['id'] = implode(",", array_unique($searchCriteria['id']));
+        }
+
+        return $searchCriteria;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getEnterpriseUserIdsByName(array $searchCriteria = [])
+    {
+        $thisModelTable = $this->model->getTable();
+        $userModelTable = User::getTableName();
+
+        return $this->model
+            ->select($thisModelTable . '.id')
+            ->join($userModelTable, $userModelTable . '.id', '=', $thisModelTable . '.userId')
+            ->where($userModelTable . '.name', 'like', '%' . $searchCriteria['withName'] . '%')
+            ->pluck('id')->toArray();
+
     }
 }

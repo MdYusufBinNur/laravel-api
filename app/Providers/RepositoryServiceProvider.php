@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\DbModels\Admin;
 use App\DbModels\Announcement;
 use App\DbModels\Attachment;
 use App\DbModels\Company;
@@ -82,6 +83,7 @@ use App\DbModels\UserRole;
 use App\DbModels\Visitor;
 use App\DbModels\VisitorArchive;
 use App\DbModels\VisitorType;
+use App\Repositories\Contracts\AdminRepository;
 use App\Repositories\Contracts\AnnouncementRepository;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\CompanyRepository;
@@ -155,6 +157,7 @@ use App\Repositories\Contracts\UserRoleRepository;
 use App\Repositories\Contracts\VisitorArchiveRepository;
 use App\Repositories\Contracts\VisitorRepository;
 use App\Repositories\Contracts\VisitorTypeRepository;
+use App\Repositories\EloquentAdminRepository;
 use App\Repositories\EloquentAnnouncementRepository;
 use App\Repositories\EloquentAttachmentRepository;
 use App\Repositories\EloquentEnterpriseUserPropertyRepository;
@@ -661,6 +664,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind UserPropertyManagerRepository
         $this->app->bind(UserPropertyManagerRepository::class, function() {
             return new EloquentUserPropertyManagerRepository(new UserPropertyManager());
+        });
+
+        // bind AdminRepository
+        $this->app->bind(AdminRepository::class, function() {
+            return new EloquentAdminRepository(new Admin());
         });
     }
 }

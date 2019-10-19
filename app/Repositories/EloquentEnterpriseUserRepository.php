@@ -94,4 +94,34 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
 
         return $enterpriseUser;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function deleteEnterpriseUser(\ArrayAccess $enterpriseUser, array $data = []): bool
+    {
+        DB::beginTransaction();
+
+        $userRoleRepository = app(UserRoleRepository::class);
+        $userRoleRepository->delete($enterpriseUser->userRole);
+
+        if (isset($data['completeDeletion'])) {
+
+            //remove all roles
+            $userRoles = $userRoleRepository->model->where(['userId' => $enterpriseUser->user->id])->get();
+            foreach ($userRoles as $userRole) {
+                $userRoleRepository->delete($userRole);
+            }
+
+            //remove all users
+            $userRepository = app(UserRepository::class);
+            $userRepository->delete($enterpriseUser->user);
+        }
+
+        parent::delete($enterpriseUser);
+
+        DB::commit();
+
+        return true;
+    }
 }

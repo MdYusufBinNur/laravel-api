@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Http\Requests\EnterpriseUser;
+
+use App\DbModels\Role;
+use App\Http\Requests\Request;
+
+class DestroyRequest extends Request
+{
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return $rules = [
+            'completeDeletion' => 'boolean',
+        ];
+    }
+
+}

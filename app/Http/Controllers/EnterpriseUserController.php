@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DbModels\EnterpriseUser;
+use App\Http\Requests\EnterpriseUser\DestroyRequest;
 use App\Http\Requests\EnterpriseUser\IndexRequest;
 use App\Http\Requests\EnterpriseUser\StoreRequest;
 use App\Http\Requests\EnterpriseUser\UpdateRequest;
@@ -83,12 +84,13 @@ class EnterpriseUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param DestroyRequest $request
      * @param EnterpriseUser $enterpriseUser
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EnterpriseUser $enterpriseUser)
+    public function destroy(DestroyRequest $request, EnterpriseUser $enterpriseUser)
     {
-        $this->enterpriseUserRepository->delete($enterpriseUser);
+        $this->enterpriseUserRepository->deleteEnterpriseUser($enterpriseUser,$request->all());
 
         return response()->json(null, 204);
     }

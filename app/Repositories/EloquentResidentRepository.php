@@ -107,7 +107,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
     /**
      * @inheritDoc
      */
-    public function delete(\ArrayAccess $resident): bool
+    public function deleteResident(\ArrayAccess $resident, array $data = []): bool
     {
         DB::beginTransaction();
         $userRoleRepository = app(UserRoleRepository::class);
@@ -118,6 +118,19 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
 
         //2nd remove the user's role
         $userRoleRepository->delete($resident->userRole);
+
+        if (isset($data['completeDeletion'])) {
+
+            //remove all roles
+            $userRoles = $userRoleRepository->model->where(['userId' => $resident->user->id])->get();
+            foreach ($userRoles as $userRole) {
+                $userRoleRepository->delete($userRole);
+            }
+
+            //remove all users
+            $userRepository = app(UserRepository::class);
+            $userRepository->delete($resident->user);
+        }
 
         parent::delete($resident);
 

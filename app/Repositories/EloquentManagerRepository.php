@@ -119,16 +119,18 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
         DB::beginTransaction();
 
         $userRoleRepository = app(UserRoleRepository::class);
-        $userRepository = app(UserRepository::class);
-
         $userRoleRepository->delete($staff->userRole);
 
         if (isset($data['completeDeletion'])) {
+
+            //remove all roles
             $userRoles = $userRoleRepository->model->where(['userId' => $staff->user->id])->get();
             foreach ($userRoles as $userRole) {
                 $userRoleRepository->delete($userRole);
             }
 
+            //remove all users
+            $userRepository = app(UserRepository::class);
             $userRepository->delete($staff->user);
         }
 

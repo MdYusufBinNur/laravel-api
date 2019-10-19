@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DbModels\Resident;
+use App\Http\Requests\Resident\DestroyRequest;
 use App\Http\Requests\Resident\IndexRequest;
 use App\Http\Requests\Resident\StoreRequest;
 use App\Http\Requests\Resident\TransferResidentRequest;
@@ -81,12 +82,13 @@ class ResidentController extends Controller
     /**
      * Remove the specified Resident resource from storage.
      *
+     * @param DestroyRequest $request
      * @param Resident $resident
      * @return null
      */
-    public function destroy(Resident $resident)
+    public function destroy(DestroyRequest $request, Resident $resident)
     {
-        $this->residentRepository->delete($resident);
+        $this->residentRepository->deleteResident($resident, $request->all());
 
         return response()->json(null, 204);
     }

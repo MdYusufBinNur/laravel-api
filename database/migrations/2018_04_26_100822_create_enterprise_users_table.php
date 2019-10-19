@@ -17,6 +17,7 @@ class CreateEnterpriseUsersTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('userId');
+            $table->unsignedInteger('userRoleId');
             $table->unsignedInteger('companyId');
             $table->string('contactEmail')->nullable();
             $table->string('phone', 20)->nullable();
@@ -27,6 +28,11 @@ class CreateEnterpriseUsersTable extends Migration
 
             $table->foreign('userId')
                 ->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('userRoleId')
+                ->references('id')->on('user_roles')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

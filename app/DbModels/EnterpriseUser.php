@@ -8,8 +8,8 @@ class EnterpriseUser extends Model
 {
     use CommonModelFeatures;
 
-    const LEVEL_ADMIN = 'admin';
-    const LEVEL_STANDARD = 'standard';
+    const LEVEL_ADMIN = 'enterprise_admin';
+    const LEVEL_STANDARD = 'enterprise_standard';
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +17,7 @@ class EnterpriseUser extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'userId', 'companyId', 'contactEmail', 'phone', 'title', 'level'
+        'createdByUserId', 'userId', 'userRoleId', 'companyId', 'contactEmail', 'phone', 'title', 'level'
     ];
 
     /**
@@ -28,6 +28,16 @@ class EnterpriseUser extends Model
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'userId');
+    }
+
+    /**
+     * get the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function userRole()
+    {
+        return $this->hasOne(UserRole::class, 'id', 'userRoleId');
     }
 
     /**

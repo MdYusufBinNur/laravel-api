@@ -6,9 +6,11 @@ namespace App\Repositories;
 
 use App\DbModels\Role;
 use App\Events\EnterpriseUser\EnterpriseUserCreatedEvent;
+use App\Helpers\RoleHelper;
 use App\Repositories\Contracts\EnterpriseUserPropertyRepository;
 use App\Repositories\Contracts\EnterpriseUserRepository;
 use App\Repositories\Contracts\UserRepository;
+use App\Repositories\Contracts\UserRoleRepository;
 use Illuminate\Support\Facades\DB;
 
 class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements EnterpriseUserRepository
@@ -22,24 +24,26 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
 
         if(array_key_exists('users', $data)) {
 
-            if(array_key_exists('propertyId', $data)) {
-                $data['roles']['propertyId'] = $data['propertyId'];
-            }
-
-            if(array_key_exists('roleId', $data['users'])) {
-                $roleId = $data['users']['roleId'];
-            }
-            else {
-                $roleId = Role::ROLE_ENTERPRISE_STANDARD['id'];
-            }
-            $data['roles']['roleId'] = $roleId;
-
+            //create user
             $userRepository = app(UserRepository::class);
-            $user = $userRepository->save(array_merge($data['users'], ['roles' => $data['roles']]));
-
+            $user = $userRepository->save(array_merge($data['users']));
             $data['userId'] = $user->id;
         }
 
+        if(array_key_exists('level', $data)) {
+            $roleId = RoleHelper::getRoleIdByTitle($data['level']);
+        } else {
+            $roleId = Role::ROLE_ENTERPRISE_STANDARD['id'];
+        }
+
+        //create user role
+        $userRoleRepository = app(UserRoleRepository::class);
+        $userRole = $userRoleRepository->save(['roleId' => $roleId, 'userId' => $data['userId']]);
+
+        $data['userRoleId'] = $userRole->id;
+        $data['level'] = RoleHelper::getRoleTitleById($roleId);
+
+        // create enterprise user
         $enterpriseUser = parent::save($data);
 
         //to save propertyId in EnterpriseUserProperty table if property is exists for the enterprise user
@@ -56,6 +60,9 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
         return $enterpriseUser;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function updateEnterpriseUser(\ArrayAccess $model, array $data): \ArrayAccess
     {
         DB::beginTransaction();
@@ -73,7 +80,14 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
             } else {
                 $enterpriseUserPropertyRepository->patch($enterpriseUserPropertyDataToCheck, $enterpriseUserPropertyDataToSave);
             }
+        }
 
+        if(array_key_exists('level', $data)) {
+            $roleId = RoleHelper::getRoleIdByTitle($data['level']);
+
+            // update user role
+            $userRoleRepository = app(UserRoleRepository::class);
+            $userRoleRepository->update($enterpriseUser->userRole, ['roleId' => $roleId]);
         }
 
         DB::commit();

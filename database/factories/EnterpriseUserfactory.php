@@ -11,6 +11,6 @@ $factory->define(App\DbModels\EnterpriseUser::class, function (Faker $faker) {
         'contactEmail' => $faker->unique()->email,
         'phone' =>  substr($faker->phoneNumber,0,20),
         'title' => $faker->title,
-        'level' => $faker->randomElement(array('admin','standard')),
+        'level' => $faker->randomElement(array('enterprise_admin','enterprise_standard')),
     ];
 });

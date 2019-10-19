@@ -16,7 +16,11 @@ class StoreRequest extends Request
         return [
             'propertyId' => 'required|exists:properties,id',
             'parkingNumber' => 'required|min:1',
-            'ownedBy' => 'min:2',
+            'ownerUserId' => 'required_without:ownedBy|exists:users,id',
+            'ownedBy' => 'required_without:ownerUserId',
+            'address' => 'required_without:ownerUserId',
+            'email' => 'required_without:ownerUserId|email',
+            'phone' => 'required_without:ownerUserId',
         ];
     }
 }

@@ -14,7 +14,7 @@ class ParkingPass extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'unitId', 'make', 'model', 'licensePlate', 'startAt', 'endAt', 'voidedAt'
+        'createdByUserId', 'propertyId', 'spaceId', 'unitId', 'make', 'model', 'licensePlate', 'startAt', 'endAt', 'releasedAt', 'releasedByUserId'
     ];
 
     /**
@@ -25,6 +25,49 @@ class ParkingPass extends Model
     protected $casts = [
         'startAt' => 'datetime:Y-m-d h:i',
         'endAt' => 'datetime:Y-m-d h:i',
-        'voidedAt' => 'datetime:Y-m-d h:i',
+        'releasedAt' => 'datetime:Y-m-d h:i',
     ];
+
+    /**
+     * get the property
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(User::class, 'id', 'propertyId');
+    }
+
+    /**
+     * get the released by user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function releasedByUser()
+    {
+        return $this->hasOne(User::class, 'id', 'releasedByUserId');
+    }
+
+    /**
+     * get the parking space
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function parkingSpace()
+    {
+        return $this->hasOne(ParkingSpace::class, 'id', 'spaceId');
+    }
+
+
+    /**
+     * get the unit
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function unit()
+    {
+        return $this->hasOne(Unit::class, 'id', 'unitId');
+    }
+
+
 }

@@ -23,7 +23,10 @@ trait CommonListenerFeatures
             return !is_array($element);
         });
 
-        return array_diff_assoc($newData, $oldData);
+
+        $changedData = array_diff_assoc($newData, $oldData);
+        unset($changedData['updated_at']);
+        return $changedData;
     }
 
 

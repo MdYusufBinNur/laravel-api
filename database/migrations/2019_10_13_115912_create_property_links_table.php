@@ -17,8 +17,8 @@ class CreatePropertyLinksTable extends Migration
             $table->increments('id');
             $table->integer('propertyId')->unsigned();
             $table->string('title');
-            $table->text('description');
-            $table->string('url');
+            $table->text('description')->nullable();
+            $table->string('url', 1000);
             $table->integer('linkCategoryId')->unsigned();
             $table->boolean('isFeatured')->default(0);
             $table->integer('createdByUserId')->unsigned()->nullable();

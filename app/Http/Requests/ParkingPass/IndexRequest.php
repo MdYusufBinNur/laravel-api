@@ -15,13 +15,15 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
+            'propertyId' => 'required',
             'unitId' => 'list:numeric',
             'make' => 'list:string',
             'model' => 'list:string',
             'licensePlate' => 'list:string',
-            'startAt' => 'list:date',
-            'endAt' => 'list:date',
-            'voidedAt' => 'list:date',
+            'startDate' => 'date',
+            'endDate' => 'date',
+            'releasedStartDate' => 'date',
+            'releasedEndDate' => 'date',
         ];
     }
 }

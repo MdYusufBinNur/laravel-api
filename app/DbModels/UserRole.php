@@ -20,7 +20,7 @@ class UserRole extends Model
      * @var array
      */
     protected $fillable = [
-        'roleId', 'userId', 'propertyId'
+        'roleId', 'userId', 'propertyId', 'createdByUserId'
     ];
 
     /**

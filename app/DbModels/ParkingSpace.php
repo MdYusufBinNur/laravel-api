@@ -12,6 +12,26 @@ class ParkingSpace extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'parkingNumber', 'ownedBy'
+        'createdByUserId', 'propertyId', 'parkingNumber', 'ownerUserId', 'ownedBy', 'address', 'email', 'phone'
     ];
+
+    /**
+     * get the owner user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function ownerUser()
+    {
+        return $this->hasOne(User::class, 'id', 'ownerUserId');
+    }
+
+    /**
+     * get the property
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(User::class, 'id', 'propertyId');
+    }
 }

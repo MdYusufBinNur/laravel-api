@@ -14,20 +14,28 @@ class CreateParkingPassLogsTable extends Migration
     public function up()
     {
         Schema::create('parking_pass_logs', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
+            $table->unsignedBigInteger('passId');
             $table->unsignedInteger('spaceId');
             $table->string('make', 100)->nullable();
             $table->string('model', 100)->nullable();
             $table->string('licensePlate', 100)->nullable();
-            $table->dateTime('startAt');
-            $table->dateTime('endAt');
+            $table->dateTime('startAt')->nullable();
+            $table->dateTime('endAt')->nullable();
+            $table->dateTime('releasedAt')->nullable();
+            $table->string('event', 50)->nullable();
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('propertyId')
                 ->references('id')->on('properties')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('passId')
+                ->references('id')->on('parking_passes')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

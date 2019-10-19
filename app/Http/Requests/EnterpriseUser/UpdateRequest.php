@@ -16,6 +16,7 @@ class UpdateRequest extends Request
      */
     public function rules()
     {
+        // todo convert to a Rule
         $enterpriseUserId = $this->segment(4);
         $enterpriseUserPropertyId = null;
         $enterpriseUserProperty = DB::table('enterprise_user_properties')

@@ -18,7 +18,11 @@ class CreateParkingSpacesTable extends Migration
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
             $table->string('parkingNumber');
-            $table->string('ownedBy');
+            $table->integer('ownerUserId')->unsigned()->nullable();
+            $table->string('ownedBy')->nullable();
+            $table->string('address')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
@@ -27,10 +31,16 @@ class CreateParkingSpacesTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
+            $table->foreign('ownerUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
             $table->foreign('createdByUserId')
                 ->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
         });
     }
 

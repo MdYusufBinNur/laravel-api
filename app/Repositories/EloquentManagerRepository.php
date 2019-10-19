@@ -7,6 +7,7 @@ namespace App\Repositories;
 use App\DbModels\Role;
 use App\DbModels\UserRole;
 use App\Events\Manager\ManagerCreatedEvent;
+use App\Helpers\RoleHelper;
 use App\Repositories\Contracts\ManagerRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
@@ -54,18 +55,23 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
         DB::beginTransaction();
 
         $userRepository = app(UserRepository::class);
-        $userRoleRepository = app(UserRoleRepository::class);
-        if (isset($data['userId'])) {
-            $user = $userRepository->findOne($data['userId']);
-        } else {
+        if (isset($data['user'])) {
             $user = $userRepository->save($data['user']);
+            $data['userId'] = $user->id;
         }
 
-        $data['role']['userId'] = $user->id;
-        $data['role']['propertyId'] = $data['propertyId'];
-        $userRoleRepository->save($data['role']);
+        if(array_key_exists('level', $data)) {
+            $roleId = RoleHelper::getRoleIdByTitle($data['level']);
+        } else {
+            $roleId = Role::ROLE_STAFF_STANDARD['id'];
+        }
 
-        $data['userId'] = $user->id;
+        //create user role
+        $userRoleRepository = app(UserRoleRepository::class);
+        $userRole = $userRoleRepository->save(['roleId' => $roleId, 'propertyId' => $data['propertyId'], 'userId' => $data['userId']]);
+
+        $data['userRoleId'] = $userRole->id;
+        $data['level'] = RoleHelper::getRoleTitleById($roleId);
         $manager = parent::save($data);
 
         // fire ManagerCreatedEvent
@@ -81,34 +87,23 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
     /**
      * @inheritDoc
      */
-    public function updateManager(\ArrayAccess $model, array $data): \ArrayAccess
+    public function updateManager(\ArrayAccess $manager, array $data): \ArrayAccess
     {
         DB::beginTransaction();
 
-        $staff = parent::update($model, $data);
+        $staff = parent::update($manager, $data);
         $userRepository = app(UserRepository::class);
 
         if(isset($data['user'])) {
-            $user = $userRepository->updateUser($staff->user, $data['user']);
+            $userRepository->updateUser($staff->user, $data['user']);
         }
 
-        if(isset($data['role'])) {
+        if(array_key_exists('level', $data)) {
+            $roleId = RoleHelper::getRoleIdByTitle($data['level']);
+
+            // update user role
             $userRoleRepository = app(UserRoleRepository::class);
-
-            $data['role']['propertyId'] = $data['propertyId'] ?? $staff->propertyId;
-            $data['role']['userId'] = $staff->user->id;
-
-            //todo need to improve role handling
-            $userRole = $userRoleRepository->model
-                ->where('userId', $data['role']['userId'])
-                ->where('propertyId', $data['propertyId'])
-                ->whereIn( 'roleId', [Role::ROLE_STAFF_PRIORITY['id'], Role::ROLE_STAFF_STANDARD['id'], Role::ROLE_STAFF_LIMITED['id']])
-                ->first();
-            if ($userRole instanceof UserRole) {
-                $userRoleRepository->update($userRole, ['roleId' => $data['role']['roleId']]);
-            } else {
-                $userRoleRepository->patch($data['role'], $data['role']);
-            }
+            $userRoleRepository->update($manager->userRole, ['roleId' => $roleId]);
         }
 
         DB::commit();
@@ -122,15 +117,11 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
     public function deleteStaff(\ArrayAccess $staff, array $data = []): bool
     {
         DB::beginTransaction();
+
         $userRoleRepository = app(UserRoleRepository::class);
         $userRepository = app(UserRepository::class);
 
-        if (isset($data['role'])) {
-            $userRoles = $userRoleRepository->model->where($data['role'])->get();
-            foreach ($userRoles as $userRole) {
-                $userRoleRepository->delete($userRole);
-            }
-        }
+        $userRoleRepository->delete($staff->userRole);
 
         if (isset($data['completeDeletion'])) {
             $userRoles = $userRoleRepository->model->where(['userId' => $staff->user->id])->get();
@@ -144,7 +135,6 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
         parent::delete($staff);
 
         DB::commit();
-
 
         return true;
     }

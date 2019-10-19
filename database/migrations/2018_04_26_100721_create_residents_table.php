@@ -18,6 +18,7 @@ class CreateResidentsTable extends Migration
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
             $table->unsignedInteger('userId');
+            $table->unsignedInteger('userRoleId');
             $table->unsignedInteger('unitId');
             $table->string('contactEmail')->nullable();
             $table->string('type')->nullable();
@@ -49,6 +50,11 @@ class CreateResidentsTable extends Migration
 
             $table->foreign('userId')
                 ->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('userRoleId')
+                ->references('id')->on('user_roles')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

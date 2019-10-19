@@ -10,6 +10,7 @@ use App\DbModels\Unit;
 use App\DbModels\User;
 use App\DbModels\UserRole;
 use App\Events\Resident\ResidentCreatedEvent;
+use App\Helpers\RoleHelper;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use App\Repositories\Contracts\ResidentArchiveRepository;
 use App\Repositories\Contracts\ResidentRepository;
@@ -31,22 +32,30 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         if (array_key_exists('user', $data)) {
             $data['role']['propertyId'] = $data['propertyId'];
 
-            if (array_key_exists('roleId', $data['user'])) {
-                $data['role']['roleId'] = $data['user']['roleId'];
-            } else {
-                $data['role']['roleId'] = Role::ROLE_RESIDENT_TENANT['id'];
-            }
-
             $userRepository = app(UserRepository::class);
-            $user = $userRepository->save(array_merge($data['user'], ['role' => $data['role']]));
+            $user = $userRepository->save($data['user']);
             $data['userId'] = $user->id;
         }
+
+        if(array_key_exists('type', $data)) {
+            $roleId = RoleHelper::getRoleIdByTitle($data['type']);
+        } else {
+            $roleId = Role::ROLE_RESIDENT_TENANT['id'];
+        }
+
+        //create user role
+        $userRoleRepository = app(UserRoleRepository::class);
+        $userRole = $userRoleRepository->save(['roleId' => $roleId, 'propertyId' => $data['propertyId'], 'userId' => $data['userId']]);
+
+        $data['userRoleId'] = $userRole->id;
+        $data['type'] = RoleHelper::getRoleTitleById($roleId);
 
         if (!isset($data['joiningDate'])) {
             $data['joiningDate'] = Carbon::now()->toDateString();
         }
 
         $resident = parent::save($data);
+
         DB::commit();
 
         // fire resident created event
@@ -60,21 +69,27 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
      */
     public function update(\ArrayAccess $model, array $data): \ArrayAccess
     {
+        DB::beginTransaction();
+
+        //update the user
         if (array_key_exists('user', $data)) {
-
-            $data['role']['propertyId'] = $data['propertyId'];
-            $data['role']['roleId'] = $data['user']['roleId'];
-
             $userRepository = app(UserRepository::class);
-            $user = $userRepository->findOneBy(['id' => $data['user']['id']]);
-            if ($user instanceof User) {
-                $userRepository->updateUser($user, array_merge($data['user'], ['role' => $data['role']]));
-            } else {
-                throw new NotFoundHttpException();
-            }
+            $userRepository->updateUser($model->user, $data['user']);
         }
 
-        return parent::update($model, $data);
+        // update user's role
+        if(array_key_exists('type', $data)) {
+            $roleId = RoleHelper::getRoleIdByTitle($data['type']);
+
+            $userRoleRepository = app(UserRoleRepository::class);
+            $userRoleRepository->update($model->userRole, ['roleId' => $roleId]);
+        }
+
+        $resident = parent::update($model, $data);
+
+        DB::commit();
+
+        return $resident;
     }
 
     /**
@@ -102,13 +117,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         $residentArchiveRepository->saveByResident($resident);
 
         //2nd remove the user's role
-        $userRole = $userRoleRepository->model
-            ->where(['userId' => $resident->user->id, 'propertyId' => $resident->propertyId])
-            ->whereIn('roleId', [Role::ROLE_RESIDENT_OWNER['id'], Role::ROLE_RESIDENT_TENANT['id'], Role::ROLE_RESIDENT_SHOP['id'], Role::ROLE_RESIDENT_STUDENT['id']])
-            ->first();
-        if ($userRole instanceof UserRole) {
-            $userRoleRepository->delete($userRole);
-        }
+        $userRoleRepository->delete($resident->userRole);
 
         parent::delete($resident);
 

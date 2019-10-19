@@ -20,7 +20,7 @@ class StoreRequest extends Request
             'propertyId' => 'required|exists:properties,id',
             'phone' => 'max:100',
             'title' => 'min:5',
-            'level' => '',
+            'level' => 'in:' . Role::ROLE_STAFF_PRIORITY['title'] . ',' . Role::ROLE_STAFF_STANDARD['title'] . ',' . Role::ROLE_STAFF_LIMITED['title'],
             'displayInCorner' => 'boolean',
             'displayPublicProfile' => '',
 
@@ -30,10 +30,6 @@ class StoreRequest extends Request
             'user.name' => 'required_with:user|max:100',
             'user.password' => 'required_with:user|min:5',
             'user.locale' => '',
-            'user.isActive' => 'boolean',
-
-            'role' => '',
-            'role.roleId' => 'required|in:' . Role::ROLE_STAFF_PRIORITY['id'] . ',' . Role::ROLE_STAFF_STANDARD['id'] . ',' . Role::ROLE_STAFF_LIMITED['id']
         ];
     }
 

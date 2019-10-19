@@ -27,10 +27,10 @@ interface ManagerRepository extends BaseRepository
     /**
      * update a manager
      *
-     * @param \ArrayAccess $model
+     * @param \ArrayAccess $manager
      * @param array $data
      * @return \ArrayAccess
      */
-    public function updateManager(\ArrayAccess $model, array $data): \ArrayAccess;
+    public function updateManager(\ArrayAccess $manager, array $data): \ArrayAccess;
 
 }

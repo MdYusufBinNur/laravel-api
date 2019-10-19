@@ -78,4 +78,6 @@ class RoleHelper
         $role = self::getRoleByTitle($title);
         return $role['id'];
     }
+
+
 }

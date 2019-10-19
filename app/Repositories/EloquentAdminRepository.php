@@ -9,6 +9,7 @@ use App\DbModels\User;
 use App\Repositories\Contracts\AdminRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
+use Illuminate\Support\Facades\DB;
 
 class EloquentAdminRepository extends EloquentBaseRepository implements AdminRepository
 {
@@ -19,7 +20,7 @@ class EloquentAdminRepository extends EloquentBaseRepository implements AdminRep
     {
         $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
 
-        $searchCriteria['eagerLoad'] = ['admin.user' => 'admin.user'];
+        $searchCriteria['eagerLoad'] = ['admin.user' => 'user'];
 
         return parent::findBy($searchCriteria, $withTrashed);
     }

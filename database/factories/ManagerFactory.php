@@ -8,6 +8,7 @@ $factory->define(App\DbModels\Manager::class, function (Faker $faker) {
 
     return [
         'userId' =>  App\DbModels\User::all()->random()->id,
+        'userRoleId' => App\DbModels\UserRole::all()->random()->id,
         'contactEmail' => $faker->email,
         'phone' => substr($faker->phoneNumber,0,20),
         'title' => $faker->title,

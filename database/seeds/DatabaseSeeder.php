@@ -1,7 +1,5 @@
 <?php
 
-use App\DbModels\User;
-use App\DbModels\UserRole;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -64,7 +62,10 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\UserProfileLink::class, 20)->create();
         factory(App\DbModels\UserProfilePost::class, 20)->create();
 
-        factory(App\DbModels\VisitorType::class, 5)->create();
+        factory(App\DbModels\VisitorType::class)->create(['title' => 'doctor']);
+        factory(App\DbModels\VisitorType::class)->create(['title' => 'generic']);
+        factory(App\DbModels\VisitorType::class)->create(['title' => 'engineer']);
+        factory(App\DbModels\VisitorType::class)->create(['title' => 'electrician']);
         factory(App\DbModels\Visitor::class, 20)->create();
         factory(App\DbModels\VisitorArchive::class, 5)->create();
 

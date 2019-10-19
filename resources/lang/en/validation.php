@@ -167,13 +167,15 @@ return [
         'hasAttachment' => 'hasAttachment',
         'startAt' => 'startAt',
         'endAt' => 'endAt',
+        'event.startAt' => 'event.startAt',
+        'event.endAt' => 'event.endAt',
         'backgroundColor' => 'backgroundColor',
         'fromUserId' => 'fromUserId',
         'messageId' => 'messageId',
-        'spaceId' => 'spaceId',
 
 
         //todo
+        'spaceId' => 'spaceId',
     ],
 
 ];

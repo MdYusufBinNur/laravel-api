@@ -14,11 +14,25 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'eventId' =>  'required|exists:events,id',
+            'eventId' => 'required_without:event|exists:events,id',
 
             'post' => '',
             'post.propertyId' => 'required_with:post|exists:properties,id',
             'post.attachmentIds' => 'json|json_ids:attachments,id',
+
+            'event' => 'required_without:eventId',
+            'event.propertyId' => 'required_with:event|exists:properties,id',
+            'event.title' => 'required|min:5|max:191',
+            'event.text' => 'min:5|max:512',
+            'event.maxGuests' => 'required|numeric',
+            'event.allowedSignUp' => 'boolean',
+            'event.allDayEvent' => 'boolean',
+            'event.allowedLoginPage' => 'boolean',
+            'event.hasAttachment' => 'boolean',
+            'event.startAt' => 'date_format:"H:i"|required_unless:allDayEvent,1',
+            'event.endAt' => 'date_format:"H:i"|required_unless:allDayEvent,1|after:event.startAt',
+            'event.date' => 'required|date|after_or_equal:now',
+
         ];
     }
 }

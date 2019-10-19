@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\DbModels\Post;
+use App\Repositories\Contracts\EventRepository;
 use App\Repositories\Contracts\PostEventRepository;
 use App\Repositories\Contracts\PostRepository;
 use Illuminate\Support\Facades\DB;
@@ -23,6 +24,12 @@ class EloquentPostEventRepository extends EloquentBaseRepository implements Post
             $data['post']['type'] = Post::TYPE_EVENT;
             $post = $postRepository->save($data['post']);
             $data['postId'] = $post->id;
+        }
+
+        if (isset($data['event'])) {
+            $eventRepository = app(EventRepository::class);
+            $event = $eventRepository->save($data['event']);
+            $data['eventId'] = $event->id;
         }
 
         $postEvent = parent::save($data);

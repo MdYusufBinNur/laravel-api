@@ -1,7 +1,5 @@
 <?php
 
-use App\DbModels\User;
-use App\DbModels\UserRole;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

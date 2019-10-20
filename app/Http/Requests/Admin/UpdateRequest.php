@@ -18,7 +18,7 @@ class UpdateRequest extends Request
             'level' =>  'in:'.Admin::LEVEL_ADMIN.','.Admin::LEVEL_LIMITED.','.Admin::LEVEL_STANDARD,
             'users' => '',
             'users.name' => 'min:3|max:100',
-            'users.password' => 'userId|min:5',
+            'users.isActive' => 'boolean',
         ];
     }
 }

@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\DbModels\Admin;
 use App\DbModels\User;
+use App\Helpers\RoleHelper;
 use App\Repositories\Contracts\AdminRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
@@ -38,22 +39,41 @@ class EloquentAdminRepository extends EloquentBaseRepository implements AdminRep
             $user = $userRepository->save(array_merge($data['users']));
             $data['userId'] = $user->id;
         }
-
-        if(array_key_exists('roleId', $data['users'])) {
-            $roleId = $data['users']['roleId'];
-        } else {
-            $roleId = Admin::LEVEL_STANDARD['id'];
-        }
-
-        //create user role
-        $userRoleRepository = app(UserRoleRepository::class);
-        $userRoleRepository->save(['roleId' => $roleId, 'userId' => $data['userId']]);
+//
+//        if(array_key_exists('roleId', $data['users'])) {
+//            $roleId = $data['users']['roleId'];
+//        } else {
+//            $roleId = Admin::LEVEL_STANDARD['id'];
+//        }
+//
+//        //create user role
+//        $userRoleRepository = app(UserRoleRepository::class);
+//        $userRoleRepository->save(['roleId' => $roleId, 'userId' => $data['userId']]);
 
         // create enterprise user
         $adminUser = parent::save($data);
         DB::commit();
 
         return $adminUser;
+    }
+
+    /**
+     *@inherit Doc
+     */
+    public function update(\ArrayAccess $model, array $data): \ArrayAccess
+    {
+        DB::beginTransaction();
+        $admin = parent::update($model, $data);
+
+        $userRepository = app(UserRepository::class);
+
+        if(isset($data['users'])) {
+            $userRepository->updateUser($admin->user, $data['users']);
+        }
+
+        DB::commit();
+
+        return $admin;
     }
 
     /**

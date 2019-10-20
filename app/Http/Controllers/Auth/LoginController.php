@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\DbModels\User;
+use App\Events\User\UserLoggedInEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Resources\UserResource;
@@ -47,6 +48,8 @@ class LoginController extends Controller
                     return response(['message' => __("auth.inactive_user")], 422);
                 }
                 $token = $user->createToken('Password Grant Client');
+
+                event(new UserLoggedInEvent($user, []));
 
                 return response(['accessToken' => $token->accessToken, 'user' => new UserResource($user)], 200);
             } else {

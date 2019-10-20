@@ -19,4 +19,8 @@ Broadcast::channel('PROPERTY.{propertyId}', function ($user, $propertyId) {
     return $user->userOfTheProperty($propertyId);
 });
 
+Broadcast::channel('ADMIN.{userId}', function ($user, $userId) {
+    return $user->isAdmin();
+});
+
 

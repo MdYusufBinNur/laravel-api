@@ -29,6 +29,7 @@ class StoreRequest extends Request
             'event.allDayEvent' => 'boolean',
             'event.allowedLoginPage' => 'boolean',
             'event.hasAttachment' => 'boolean',
+            // todo startAt & endAt is not required when eventId is present
             'event.startAt' => 'date_format:"H:i"|required_unless:event.allDayEvent,1',
             'event.endAt' => 'date_format:"H:i"|required_unless:event.allDayEvent,1|after:event.startAt',
             'event.date' => 'required_with:event|date|after_or_equal:now',

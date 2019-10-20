@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\DbModels\Post;
+use App\Events\Post\PostCreatedEvent;
 use App\Repositories\Contracts\PostRepository;
 use App\Repositories\Contracts\PostWallRepository;
 use Illuminate\Support\Facades\DB;
@@ -28,6 +29,9 @@ class EloquentPostWallRepository extends EloquentBaseRepository implements PostW
         $postWall = parent::save($data);
 
         DB::commit();
+
+        event(new PostCreatedEvent($postWall->post, $this->generateEventOptionsForModel()));
+
 
         return $postWall;
     }

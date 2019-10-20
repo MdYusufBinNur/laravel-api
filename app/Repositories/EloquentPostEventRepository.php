@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\DbModels\Post;
+use App\Events\Post\PostCreatedEvent;
 use App\Repositories\Contracts\EventRepository;
 use App\Repositories\Contracts\PostEventRepository;
 use App\Repositories\Contracts\PostRepository;
@@ -33,7 +34,10 @@ class EloquentPostEventRepository extends EloquentBaseRepository implements Post
         }
 
         $postEvent = parent::save($data);
+
         DB::commit();
+
+        event(new PostCreatedEvent($postEvent->post, $this->generateEventOptionsForModel()));
 
         return $postEvent;
     }

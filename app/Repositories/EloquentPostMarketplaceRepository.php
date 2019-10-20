@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\DbModels\Post;
+use App\Events\Post\PostCreatedEvent;
 use App\Repositories\Contracts\PostMarketplaceRepository;
 use App\Repositories\Contracts\PostRepository;
 use Illuminate\Support\Facades\DB;
@@ -27,6 +28,8 @@ class EloquentPostMarketplaceRepository extends EloquentBaseRepository implement
 
         $postMarketplace = parent::save($data);
         DB::commit();
+
+        event(new PostCreatedEvent($postMarketplace->post, $this->generateEventOptionsForModel()));
 
         return $postMarketplace;
     }

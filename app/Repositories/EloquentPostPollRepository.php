@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\DbModels\Post;
+use App\Events\Post\PostCreatedEvent;
 use App\Repositories\Contracts\PostPollRepository;
 use App\Repositories\Contracts\PostRepository;
 use Illuminate\Support\Facades\DB;
@@ -31,6 +32,8 @@ class EloquentPostPollRepository extends EloquentBaseRepository implements PostP
         $postPoll = parent::save($data);
 
         DB::commit();
+
+        event(new PostCreatedEvent($postPoll->post, $this->generateEventOptionsForModel()));
 
         return $postPoll;
     }

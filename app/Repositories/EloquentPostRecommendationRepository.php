@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\DbModels\Post;
+use App\Events\Post\PostCreatedEvent;
 use App\Repositories\Contracts\PostRecommendationRepository;
 use App\Repositories\Contracts\PostRepository;
 use Illuminate\Support\Facades\DB;
@@ -26,10 +27,13 @@ class EloquentPostRecommendationRepository extends EloquentBaseRepository implem
             $data['postId'] = $post->id;
         }
 
-        $postMarketplace = parent::save($data);
+        $postRecommendation = parent::save($data);
         DB::commit();
 
-        return $postMarketplace;
+        event(new PostCreatedEvent($postRecommendation->post, $this->generateEventOptionsForModel()));
+
+
+        return $postRecommendation;
     }
 
     /**

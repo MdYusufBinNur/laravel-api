@@ -23,7 +23,7 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
     {
         $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
 
-        $searchCriteria['eagerLoad'] = ['eu.user' => 'eu.user','eu.properties' => 'eu.properties'];
+        $searchCriteria['eagerLoad'] = ['eu.user' => 'user','eu.properties' => 'properties'];
 
         return parent::findBy($searchCriteria, $withTrashed);
     }

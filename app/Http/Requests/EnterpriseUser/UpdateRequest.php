@@ -17,17 +17,6 @@ class UpdateRequest extends Request
      */
     public function rules()
     {
-        // todo convert to a Rule
-        $enterpriseUserId = $this->segment(4);
-        $enterpriseUserPropertyId = null;
-        $enterpriseUserProperty = DB::table('enterprise_user_properties')
-            ->where('enterpriseUserId', '=', $enterpriseUserId)
-            ->where('propertyId', '=', $this->request->get('propertyId'))
-            ->pluck('id')->toArray();
-        if (!empty($enterpriseUserProperty)) {
-            $enterpriseUserPropertyId = $enterpriseUserProperty[0];
-        }
-
         return [
             'userId' => 'exists:users,id',
             'companyId' => 'exists:companies,id',

@@ -20,4 +20,14 @@ class Admin extends Model
     protected $fillable = [
         'createdByUserId', 'userId', 'level',
     ];
+
+    /**
+     * get the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'userId');
+    }
 }

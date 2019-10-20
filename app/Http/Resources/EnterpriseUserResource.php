@@ -15,6 +15,9 @@ class EnterpriseUserResource extends Resource
         return [
             'id' => $this->id,
             'userId' => $this->userId,
+            'user' => $this->when($this->needToInclude($request, 'eu.user'), function () {
+                return new UserResource($this->user);
+            }),
             'companyId' => $this->companyId,
             'contactEmail' => $this->contactEmail,
             'phone' => $this->phone,

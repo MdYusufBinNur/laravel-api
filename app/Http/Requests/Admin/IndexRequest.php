@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\EnterpriseUser;
+namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\Request;
 
@@ -16,10 +16,6 @@ class IndexRequest extends Request
         return [
             'id' => 'list:numeric',
             'userId' =>  'list:numeric',
-            'companyId' =>  'list:numeric',
-            'contactEmail' =>  'list:string',
-            'phone' =>  'list:string',
-            'title' =>  'list:string',
             'level' =>  'list:string',
             'query' => '',
             'withName' => ''

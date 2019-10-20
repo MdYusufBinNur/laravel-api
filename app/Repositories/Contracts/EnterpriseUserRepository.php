@@ -16,7 +16,14 @@ interface EnterpriseUserRepository extends BaseRepository
     public function updateEnterpriseUser(\ArrayAccess $model, array $data): \ArrayAccess;
 
     /**
-     * delete enterprise user
+     * get enterprise user' ids by searching name from user table
+     *
+     * @param array $searchCriteria
+     * @return array
+     */
+    public function getEnterpriseUserIdsByName(array $searchCriteria = []);
+
+     /* delete enterprise user
      *
      * @param \ArrayAccess $enterpriseUser
      * @param array $data

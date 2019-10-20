@@ -30,16 +30,17 @@ class HostsHelper
      */
     public static function getSearchCriteriaForAHost(string $host): array
     {
-        if (strpos($host, 'localhost') !== false ) {
-            return ['subdomain' => 'test'];
-        } else {
+        $domain = self::getHostFromString($host);
 
-            $domain = self::getHostFromString($host);
-            if (strpos($domain, env('BRAND_SITE')) !== false) {
-                return ['subdomain' => substr($domain, 0, strpos($domain, '.'))];
-            }
-            return ['domain' => $domain];
+        if ($domain == 'localhost') {
+            return ['subdomain' => 'test'];
         }
+
+        if (strpos($domain, env('BRAND_SITE')) !== false) {
+            return ['subdomain' => substr($domain, 0, strpos($domain, '.'))];
+        }
+
+        return ['domain' => $domain];
 
 
     }

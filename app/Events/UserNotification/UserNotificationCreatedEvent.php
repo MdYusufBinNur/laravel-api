@@ -4,6 +4,7 @@ namespace App\Events\UserNotification;
 
 use App\DbModels\Message;
 use App\DbModels\UserNotification;
+use App\Http\Resources\UserNotificationResource;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
@@ -64,7 +65,7 @@ class UserNotificationCreatedEvent implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            'userNotification' => $this->userNotification
+            'userNotification' => new UserNotificationResource($this->userNotification)
         ];
     }
 

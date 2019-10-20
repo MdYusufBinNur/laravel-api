@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\DbModels\Unit;
+use App\Http\Requests\Unit\FloorListAutoCompleteRequest;
 use App\Http\Requests\Unit\IndexRequest;
+use App\Http\Requests\Unit\LineListAutoCompleteRequest;
 use App\Http\Requests\Unit\StoreRequest;
 use App\Http\Requests\Unit\UpdateRequest;
+use App\Http\Resources\FloorListAutoCompleteResourceCollection;
+use App\Http\Resources\LineListAutoCompleteResourceCollection;
 use App\Http\Resources\UnitResource;
 use App\Http\Resources\UnitResourceCollection;
 use App\Repositories\Contracts\UnitRepository;
-use Illuminate\Http\Request;
 
 class UnitController extends Controller
 {
@@ -89,5 +92,29 @@ class UnitController extends Controller
         $this->unitRepository->delete($unit);
 
         return response()->json(null, 204);
+    }
+
+    /**
+     * get auto-complete list of lines
+     *
+     * @param FloorListAutoCompleteRequest $request
+     * @return FloorListAutoCompleteResourceCollection
+     */
+    public function floorListAutoComplete(FloorListAutoCompleteRequest $request)
+    {
+        $units = $this->unitRepository->floorListAutoComplete($request->all());
+        return new FloorListAutoCompleteResourceCollection(collect($units));
+    }
+
+    /**
+     * get auto-complete list of lines
+     *
+     * @param LineListAutoCompleteRequest $request
+     * @return LineListAutoCompleteResourceCollection
+     */
+    public function lineListAutoComplete(LineListAutoCompleteRequest $request)
+    {
+        $units = $this->unitRepository->lineListAutoComplete($request->all());
+        return new LineListAutoCompleteResourceCollection(collect($units));
     }
 }

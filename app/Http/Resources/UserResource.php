@@ -21,6 +21,15 @@ class UserResource extends Resource
             'roles' => $this->when($this->needToInclude($request, 'user.roles'), function () {
                 return new UserRoleResourceCollection($this->userRoles);
             }),
+            'residents' => $this->when($this->needToInclude($request, 'user.residents'), function () {
+                return new ResidentResourceCollection($this->residents);
+            }),
+            'staffs' => $this->when($this->needToInclude($request, 'user.staffs'), function () {
+                return new StaffResourceCollection($this->managers);
+            }),
+            'enterpriseUser' => $this->when($this->needToInclude($request, 'user.enterpriseUser'), function () {
+                return new EnterpriseUserResource($this->enterpriseUser);
+            }),
             'profilePic' => $this->when($this->needToInclude($request, 'user.profilePic'), function () {
                 return new AttachmentResource($this->userProfilePic);
             }),

@@ -22,7 +22,7 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
     {
         DB::beginTransaction();
 
-        if(array_key_exists('users', $data)) {
+        if (array_key_exists('users', $data)) {
 
             //create user
             $userRepository = app(UserRepository::class);
@@ -30,7 +30,7 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
             $data['userId'] = $user->id;
         }
 
-        if(array_key_exists('level', $data)) {
+        if (array_key_exists('level', $data)) {
             $roleId = RoleHelper::getRoleIdByTitle($data['level']);
         } else {
             $roleId = Role::ROLE_ENTERPRISE_STANDARD['id'];
@@ -47,9 +47,11 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
         $enterpriseUser = parent::save($data);
 
         //to save propertyId in EnterpriseUserProperty table if property is exists for the enterprise user
-        if(array_key_exists('propertyId', $data)) {
+        if (array_key_exists('propertyIds', $data)) {
             $enterpriseUserPropertyRepository = app(EnterpriseUserPropertyRepository::class);
-            $enterpriseUserPropertyRepository->save(['enterpriseUserId' => $enterpriseUser->id, 'propertyId'=>$data['propertyId']]);
+            foreach ($data['propertyIds'] as $property) {
+                $enterpriseUserPropertyRepository->save(['enterpriseUserId' => $enterpriseUser->id, 'propertyId' => $property]);
+            }
         }
 
         // fire EnterpriseUserCreatedEvent
@@ -65,24 +67,22 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
      */
     public function updateEnterpriseUser(\ArrayAccess $model, array $data): \ArrayAccess
     {
+
         DB::beginTransaction();
 
         $enterpriseUser = parent::update($model, $data);
 
-        if(array_key_exists('propertyId', $data)) {
+        if (array_key_exists('propertyIds', $data)) {
             $enterpriseUserPropertyRepository = app(EnterpriseUserPropertyRepository::class);
-            $enterpriseUserPropertyDataToCheck = ['enterpriseUserId' => $enterpriseUser->id, 'propertyId'=> $data['propertyId']];
-            $enterpriseUserPropertyDataToSave = ['enterpriseUserId' => $enterpriseUser->id, 'propertyId'=> $data['propertyId']];
 
-            if (isset($data['oldPropertyId'])) {
-                $enterpriseUserPropertyDataToCheck['propertyId'] = $data['oldPropertyId'];
-                $enterpriseUserPropertyRepository->patch($enterpriseUserPropertyDataToCheck, $enterpriseUserPropertyDataToSave);
-            } else {
-                $enterpriseUserPropertyRepository->patch($enterpriseUserPropertyDataToCheck, $enterpriseUserPropertyDataToSave);
+            $enterpriseUserPropertyRepository->model->where(['enterpriseUserId' => $enterpriseUser->id])->delete();
+            foreach ($data['propertyIds'] as $propertyId) {
+                $enterpriseUserPropertyData = ['enterpriseUserId' => $enterpriseUser->id, 'propertyId' => $propertyId];
+                $enterpriseUserPropertyRepository->patch($enterpriseUserPropertyData, $enterpriseUserPropertyData);
             }
         }
 
-        if(array_key_exists('level', $data)) {
+        if (array_key_exists('level', $data)) {
             $roleId = RoleHelper::getRoleIdByTitle($data['level']);
 
             // update user role

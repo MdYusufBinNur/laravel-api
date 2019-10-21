@@ -60,6 +60,8 @@ class LoginController extends Controller
 
                 event(new UserLoggedInEvent($user, []));
 
+                //$request->merge(['include' => 'ul.roles,userRole.role']);
+
                 return response(['accessToken' => $token->accessToken, 'user' => new UserLoginResource($user)], 200);
             } else {
                 return response(['message' => __('auth.password_mismatch')], 422);

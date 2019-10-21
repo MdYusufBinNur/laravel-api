@@ -26,3 +26,4 @@ class UserRoleResource extends Resource
         ];
     }
 }
+

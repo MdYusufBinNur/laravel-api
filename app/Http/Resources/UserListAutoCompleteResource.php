@@ -18,7 +18,7 @@ class UserListAutoCompleteResource extends Resource
             'userId' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'profilePic' => $this->userProfilePic,
+            'profilePic' => new AttachmentResource($this->userProfilePic),
             $this->mergeWhen(isset($this->managerLevel), [
                 'managerId' => $this->managerId,
                 'managerLevel' => $this->managerLevel,

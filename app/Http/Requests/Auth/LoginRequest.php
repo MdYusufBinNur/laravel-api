@@ -16,6 +16,7 @@ class LoginRequest extends Request
         return [
             'email' => 'required|email',
             'password' => 'required',
+            'propertyId' => '',
         ];
     }
 }

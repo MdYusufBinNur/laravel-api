@@ -18,5 +18,6 @@ return [
     'inactive_user' => 'Your account has not been verified yet. Please check your email\'s inbox for confirmation email or contact with support team.',
     'password_mismatch' => 'Your password mismatched.',
     'no_user' => 'No user exists with this email.',
+    'invalid_property_login' => 'You have no access to the property',
 
 ];

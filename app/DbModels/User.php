@@ -88,6 +88,16 @@ class User extends Authenticatable
     }
 
     /**
+     * user and admin user relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function admin()
+    {
+        return $this->hasOne(Admin::class, 'userId');
+    }
+
+    /**
      * is a active user
      *
      * @return bool
@@ -450,6 +460,6 @@ class User extends Authenticatable
      */
     public function userOfTheProperty($propertyId)
     {
-        return $this->userRoles()->where('propertyId', $propertyId)->first() instanceof UserRole;
+        return $this->isAdmin() || $this->isAnEnterpriseUserOfTheProperty($propertyId) || $this->userRoles()->where('propertyId', $propertyId)->first() instanceof UserRole;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Requests\PostRecommendation;
 
 use App\DbModels\Post;
 use App\Http\Requests\Request;
+use App\Rules\ListOfIds;
 
 class UpdateRequest extends Request
 {
@@ -24,7 +25,7 @@ class UpdateRequest extends Request
             'post' => '',
             'post.status' => 'in:' . Post::STATUS_PENDING . ',' . Post::STATUS_DENIED . ',' . Post::STATUS_APPROVED . ',' . Post::STATUS_POSTED,
             'post.likeChanged' => 'boolean',
-            'post.attachmentIds' => 'json|json_ids:attachments,id',
+            'post.attachmentIds' => [new ListOfIds('attachments', 'id')]
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\PostWall;
 
 use App\Http\Requests\Request;
+use App\Rules\ListOfIds;
 
 class StoreRequest extends Request
 {
@@ -18,7 +19,7 @@ class StoreRequest extends Request
             'text' => 'required|string',
             'post' => '',
             'post.propertyId' => 'required_with:post|exists:properties,id',
-            'post.attachmentIds' => 'json|json_ids:attachments,id',
+            'post.attachmentIds' => [new ListOfIds('attachments', 'id')]
         ];
     }
 }

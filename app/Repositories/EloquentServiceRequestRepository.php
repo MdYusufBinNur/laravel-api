@@ -26,10 +26,9 @@ class EloquentServiceRequestRepository extends EloquentBaseRepository implements
         $serviceRequest = parent::save($data);
 
         if (isset($data['attachmentIds'])) {
-            $attachmentIds = json_decode($data['attachmentIds']);
             $attachmentRepository = app(AttachmentRepository::class);
 
-            foreach ($attachmentIds as $attachment) {
+            foreach ($data['attachmentIds'] as $attachment) {
                 $attachment = $attachmentRepository->findOne($attachment);
                 if ($attachment instanceof Attachment) {
                     $attachmentRepository->updateResourceId($attachment, $serviceRequest->id);

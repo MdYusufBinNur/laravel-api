@@ -4,6 +4,7 @@ namespace App\Http\Requests\ServiceRequest;
 
 use App\DbModels\ServiceRequest;
 use App\Http\Requests\Request;
+use App\Rules\ListOfIds;
 
 class StoreRequest extends Request
 {
@@ -25,7 +26,7 @@ class StoreRequest extends Request
             'preferredStartTime' => 'date',
             'preferredEndTime' => 'date',
             'photo' => 'boolean',
-            'attachmentIds' => 'json|json_ids:attachments,id'
+            'attachmentIds' => [new ListOfIds('attachments', 'id')]
         ];
     }
 }

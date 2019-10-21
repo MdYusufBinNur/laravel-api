@@ -59,8 +59,7 @@ class EloquentUserNotificationRepository extends EloquentBaseRepository implemen
      */
     public function setUserNotificationReadStatus(array $data)
     {
-        $userNotificationIds = json_decode($data['notificationIds']);
 
-        return $this->model->whereIn('id', $userNotificationIds)->update(['readStatus' => $data['readStatus']]);
+        return $this->model->whereIn('id', $data['notificationIds'])->update(['readStatus' => $data['readStatus']]);
     }
 }

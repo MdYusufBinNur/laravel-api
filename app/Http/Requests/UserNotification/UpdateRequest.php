@@ -3,6 +3,7 @@
 namespace App\Http\Requests\UserNotification;
 
 use App\Http\Requests\Request;
+use App\Rules\ListOfIds;
 
 class UpdateRequest extends Request
 {
@@ -14,7 +15,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'notificationIds' => 'required|json|json_ids:user_notifications,id',
+            'notificationIds' => ['required', new ListOfIds('user_notifications', 'id')],
             'readStatus' => 'required|boolean'
         ];
     }

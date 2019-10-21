@@ -4,6 +4,7 @@ namespace App\Http\Requests\Resident;
 
 use App\DbModels\Role;
 use App\Http\Requests\Request;
+use App\Rules\ListOfIds;
 use Illuminate\Validation\Rule;
 
 class TransferResidentRequest extends Request
@@ -16,7 +17,7 @@ class TransferResidentRequest extends Request
     public function rules()
     {
         return $rules = [
-            'residentIds' => 'required|json|json_ids:residents,id',
+            'residentIds' => ['required', new ListOfIds('residents', 'id')],
             'unitId' => 'exists:units,id',
             'propertyId' => 'exists:properties,id'
         ];

@@ -4,6 +4,7 @@ namespace App\Http\Requests\Post;
 
 use App\DbModels\Post;
 use App\Http\Requests\Request;
+use App\Rules\ListOfIds;
 
 class UpdateRequest extends Request
 {
@@ -18,7 +19,7 @@ class UpdateRequest extends Request
             'status' =>  'in:'. Post::STATUS_PENDING. ','. Post::STATUS_DENIED. ','. Post::STATUS_APPROVED. ','. Post::STATUS_POSTED,
             'reason' => 'string',
             'likeChanged' =>  'boolean',
-            'attachmentIds' => 'json|json_ids:attachments,id'
+            'attachmentIds' => [new ListOfIds('attachments', 'id')]
         ];
     }
 }

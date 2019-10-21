@@ -31,7 +31,6 @@ class EloquentResidentArchiveRepository extends EloquentBaseRepository implement
      */
     public function saveMultipleResidents(array $data)
     {
-        $data['residentIds'] = json_decode($data['residentIds']);
         $residentRepository = app(ResidentRepository::class);
         $hasDeleted = $residentRepository->moveOutResidents($data['residentIds']);
 

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\ResidentArchive;
 
 use App\Http\Requests\Request;
+use App\Rules\ListOfIds;
 
 class StoreRequest extends Request
 {
@@ -14,7 +15,7 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'residentIds' => 'required|json|json_ids:residents,id',
+            'residentIds' => ['required', new ListOfIds('attachments', 'id')],
         ];
     }
 }

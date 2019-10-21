@@ -255,7 +255,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
      */
     public function transferResidents(array $data)
     {
-        $residents = $this->model->whereIn('id', json_decode($data['residentIds']))->get();
+        $residents = $this->model->whereIn('id', $data['residentIds'])->get();
         unset($data['residentIds']);
         foreach ($residents as $resident) {
             $residents[] = $this->update($resident, $data);

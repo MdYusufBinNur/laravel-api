@@ -30,10 +30,9 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
         $post = parent::save($data);
 
         if (isset($data['attachmentIds'])) {
-            $attachmentIds = json_decode($data['attachmentIds']);
 
             $attachmentRepository = app(AttachmentRepository::class);
-            $attachmentRepository->updateResourceIds($attachmentIds, $post->id);
+            $attachmentRepository->updateResourceIds($data['attachmentIds'], $post->id);
 
             unset($data['attachmentId']);
         }
@@ -60,9 +59,8 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
 
         if (isset($data['attachmentIds'])) {
 
-            $attachmentIds = json_decode($data['attachmentIds']);
             $attachmentRepository = app(AttachmentRepository::class);
-            $attachmentRepository->updateResourceIds($attachmentIds, $post->id);
+            $attachmentRepository->updateResourceIds($data['attachmentIds'], $post->id);
 
             unset($data['attachmentId']);
         }

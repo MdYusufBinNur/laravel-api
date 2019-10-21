@@ -215,5 +215,7 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::post('resident', 'ResidentController@store');
 
     Route::post('login', 'Auth\\LoginController@index');
+    Route::post('admin-login', 'Auth\\LoginController@adminLogin');
+    Route::post('enterprise-login', 'Auth\\LoginController@enterpriseLogin');
     Route::get('logout', 'Auth\\LoginController@logout');
 });

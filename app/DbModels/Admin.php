@@ -8,9 +8,10 @@ class Admin extends Model
 {
     use CommonModelFeatures;
 
-    const LEVEL_ADMIN = 'admin';
-    const LEVEL_STANDARD = 'standard';
-    const LEVEL_LIMITED = 'limited';
+    //FYI, it has to be matched with its corresponding user role
+    const LEVEL_SUPER = 'super_admin';
+    const LEVEL_STANDARD = 'standard_admin';
+    const LEVEL_LIMITED = 'limited_admin';
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +19,7 @@ class Admin extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'userId', 'level',
+        'createdByUserId', 'userId', 'userRoleId', 'level'
     ];
 
     /**
@@ -29,5 +30,15 @@ class Admin extends Model
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'userId');
+    }
+
+    /**
+     * get the user role
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function userRole()
+    {
+        return $this->hasOne(UserRole::class, 'id', 'userRoleId');
     }
 }

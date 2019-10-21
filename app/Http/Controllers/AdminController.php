@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DbModels\Admin;
+use App\Http\Requests\Admin\DestroyRequest;
 use App\Http\Requests\Admin\IndexRequest;
 use App\Http\Requests\Admin\StoreRequest;
 use App\Http\Requests\Admin\UpdateRequest;
@@ -76,12 +77,13 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param DestroyRequest $request
      * @param Admin $admin
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $admin)
+    public function destroy(Admin $admin, DestroyRequest $request)
     {
-        $this->adminRepository->delete($admin);
+        $this->adminRepository->deleteAdminUser($admin, $request->all());
 
         return response()->json(null, 204);
     }

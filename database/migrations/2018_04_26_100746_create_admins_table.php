@@ -17,12 +17,18 @@ class CreateAdminsTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('userId');
+            $table->unsignedInteger('userRoleId');
             $table->string('level');
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('userId')
                 ->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('userRoleId')
+                ->references('id')->on('user_roles')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

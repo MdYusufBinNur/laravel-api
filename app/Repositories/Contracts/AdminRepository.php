@@ -13,4 +13,13 @@ interface AdminRepository extends BaseRepository
      * @return array
      */
     public function getAdminUserIdsByName(array $searchCriteria = []);
+
+    /**
+     * delete an admin user
+     *
+     * @param \ArrayAccess $adminUser
+     * @param array $data
+     * @return bool
+     */
+    public function deleteAdminUser(\ArrayAccess $adminUser, array $data = []): bool;
 }

@@ -15,7 +15,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'level' =>  'in:'.Admin::LEVEL_ADMIN.','.Admin::LEVEL_LIMITED.','.Admin::LEVEL_STANDARD,
+            'level' => 'in:' . Admin::LEVEL_SUPER . ',' . Admin::LEVEL_LIMITED . ',' . Admin::LEVEL_STANDARD,
             'users' => '',
             'users.name' => 'min:3|max:100',
             'users.isActive' => 'boolean',

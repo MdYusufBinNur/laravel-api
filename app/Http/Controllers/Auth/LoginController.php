@@ -61,6 +61,34 @@ class LoginController extends Controller
     }
 
     /**
+     * Login using email and password
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function adminLogin(LoginRequest $request)
+    {
+        $user = $this->userRepository->findOneBy(['email' => $request->get('email')]);
+
+        if ($user instanceof User) {
+            if (Hash::check($request->get('password'), $user->password)) {
+                if (!$user->isActive) {
+                    return response(['message' => __("auth.inactive_user")], 422);
+                }
+                $token = $user->createToken('Password Grant Client');
+
+                event(new UserLoggedInEvent($user, []));
+
+                return response(['accessToken' => $token->accessToken, 'user' => new UserResource($user)], 200);
+            } else {
+                return response(['message' => __('auth.password_mismatch')], 422);
+            }
+        } else {
+            return response(['message' => __('auth.no_user')], 422);
+        }
+    }
+
+    /**
      * Logout a user
      *
      * @param Request $request

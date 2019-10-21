@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\DbModels\Admin;
+use App\DbModels\Role;
 use App\DbModels\User;
 use App\Helpers\RoleHelper;
 use App\Repositories\Contracts\AdminRepository;
@@ -39,18 +40,21 @@ class EloquentAdminRepository extends EloquentBaseRepository implements AdminRep
             $user = $userRepository->save(array_merge($data['users']));
             $data['userId'] = $user->id;
         }
-//
-//        if(array_key_exists('roleId', $data['users'])) {
-//            $roleId = $data['users']['roleId'];
-//        } else {
-//            $roleId = Admin::LEVEL_STANDARD['id'];
-//        }
-//
-//        //create user role
-//        $userRoleRepository = app(UserRoleRepository::class);
-//        $userRoleRepository->save(['roleId' => $roleId, 'userId' => $data['userId']]);
 
-        // create enterprise user
+        if (array_key_exists('level', $data)) {
+            $roleId = RoleHelper::getRoleIdByTitle($data['level']);
+        } else {
+            $roleId = Role::ROLE_ADMIN_STANDARD['id'];
+        }
+
+        //create an user role
+        $userRoleRepository = app(UserRoleRepository::class);
+        $userRole = $userRoleRepository->save(['roleId' => $roleId, 'userId' => $data['userId']]);
+
+        $data['level'] = Role::ROLE_ADMIN_STANDARD['title'];
+        $data['userRoleId'] = $userRole->id;
+
+        // create an admin user
         $adminUser = parent::save($data);
         DB::commit();
 
@@ -63,6 +67,7 @@ class EloquentAdminRepository extends EloquentBaseRepository implements AdminRep
     public function update(\ArrayAccess $model, array $data): \ArrayAccess
     {
         DB::beginTransaction();
+
         $admin = parent::update($model, $data);
 
         $userRepository = app(UserRepository::class);
@@ -71,9 +76,47 @@ class EloquentAdminRepository extends EloquentBaseRepository implements AdminRep
             $userRepository->updateUser($admin->user, $data['users']);
         }
 
+        if (array_key_exists('level', $data)) {
+            $roleId = RoleHelper::getRoleIdByTitle($data['level']);
+
+            // update user role
+            $userRoleRepository = app(UserRoleRepository::class);
+            $userRoleRepository->update($admin->userRole, ['roleId' => $roleId]);
+        }
+
         DB::commit();
 
         return $admin;
+    }
+
+    /*
+     * @inheritDoc
+     */
+    public function deleteAdminUser(\ArrayAccess $adminUser, array $data = []): bool
+    {
+        DB::beginTransaction();
+
+        $userRoleRepository = app(UserRoleRepository::class);
+        $userRoleRepository->delete($adminUser->userRole);
+
+        if (isset($data['completeDeletion'])) {
+
+            //remove all roles
+            $userRoles = $userRoleRepository->model->where(['userId' => $adminUser->user->id])->get();
+            foreach ($userRoles as $userRole) {
+                $userRoleRepository->delete($userRole);
+            }
+
+            //remove all users
+            $userRepository = app(UserRepository::class);
+            $userRepository->delete($adminUser->user);
+        }
+
+        parent::delete($adminUser);
+
+        DB::commit();
+
+        return true;
     }
 
     /**

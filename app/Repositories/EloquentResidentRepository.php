@@ -10,7 +10,7 @@ use App\DbModels\Unit;
 use App\DbModels\User;
 use App\DbModels\UserRole;
 use App\Events\Resident\ResidentCreatedEvent;
-use App\Helpers\RoleHelper;
+use App\Services\RoleHelper;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use App\Repositories\Contracts\ResidentArchiveRepository;
 use App\Repositories\Contracts\ResidentRepository;

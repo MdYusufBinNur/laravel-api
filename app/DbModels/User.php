@@ -35,7 +35,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $casts = [
+    protected $castsROle = [
         'lastLoginAt' => 'datetime:Y-m-d h:i',
     ];
 
@@ -464,5 +464,15 @@ class User extends Authenticatable
             || $this->isAnEnterpriseUserOfTheProperty($propertyId)
             || $this->isAStaffOfTheProperty($propertyId)
             || $this->userRoles()->where('propertyId', $propertyId)->first() instanceof UserRole;
+    }
+
+
+    public function roles()
+    {
+        $roles = [];
+        foreach ($this->userRoles as $userRole) {
+            $roles[] = $userRole->role->title;
+        }
+        return $roles;
     }
 }

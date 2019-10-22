@@ -7,7 +7,6 @@ use App\Events\User\UserLoggedInEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Resources\UserLoginResource;
-use App\Http\Resources\UserResource;
 use App\Repositories\Contracts\UserRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -56,7 +55,7 @@ class LoginController extends Controller
                     }
                 }
 
-                $token = $user->createToken('Password Grant Client');
+                $token = $user->createToken('Password Grant Client', $user->roles());
 
                 event(new UserLoggedInEvent($user, []));
 

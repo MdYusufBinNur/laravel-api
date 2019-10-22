@@ -7,7 +7,7 @@ namespace App\Repositories;
 use App\DbModels\Admin;
 use App\DbModels\Role;
 use App\DbModels\User;
-use App\Helpers\RoleHelper;
+use App\Services\RoleHelper;
 use App\Repositories\Contracts\AdminRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;

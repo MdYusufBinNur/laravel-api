@@ -18,7 +18,7 @@ class CreateEventSignupsTable extends Migration
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('eventId');
             $table->unsignedInteger('userId');
-            $table->unsignedInteger('residentId');
+            $table->unsignedInteger('residentId')->nullable();
             $table->unsignedMediumInteger('guests');
             $table->timestamps();
             $table->softDeletes();

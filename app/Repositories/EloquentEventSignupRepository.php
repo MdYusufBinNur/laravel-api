@@ -36,7 +36,7 @@ class EloquentEventSignupRepository extends EloquentBaseRepository implements Ev
 
         //todo in policy need to check if the user has permission to signup in this property
         $eventSignup = $this->patch(
-            ['eventId' => $data['eventId'], 'residentId' => $data['residentId']],
+            ['eventId' => $data['eventId'], 'userId' => $data['userId']],
             $data
         );
 

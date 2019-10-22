@@ -29,7 +29,7 @@ class EventSignUpAllowed implements Rule
     {
         $event = DB::table('events')->select('propertyId')->where('id', $value)->first();
         if ($event && auth()->user() instanceof User) {
-            return auth()->user()->isResidentOfTheProperty($event->propertyId);
+            return auth()->user()->userOfTheProperty($event->propertyId);
         }
 
         return false;

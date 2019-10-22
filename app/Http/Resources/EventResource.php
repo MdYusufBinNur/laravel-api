@@ -29,6 +29,9 @@ class EventResource extends Resource
             'allDayEvent' => $this->allDayEvent,
             'allowedLoginPage' => $this->allowedLoginPage,
             'hasAttachment' => $this->hasAttachment,
+            'signups' => $this->when($this->needToInclude($request, 'event.signups'), function () {
+                return new EventSignupResourceCollection($this->eventSignups);
+            }),
             'attachments' => $this->when($this->needToInclude($request, 'event.attachments'), function () {
                 return new AttachmentResourceCollection($this->attachments);
             }),

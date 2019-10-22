@@ -25,7 +25,7 @@ class EloquentEventRepository extends EloquentBaseRepository implements EventRep
             $queryBuilder = $queryBuilder->whereDate('date', '>=', Carbon::parse($searchCriteria['startDate']));
             unset($searchCriteria['startDate']);
         }
-        $searchCriteria['eagerLoad'] = ['event.createdByUser' => 'createdByUser', 'event.property' => 'property', 'event.attachments' => 'attachments'];
+        $searchCriteria['eagerLoad'] = ['event.createdByUser' => 'createdByUser', 'event.property' => 'property', 'event.attachments' => 'attachments', 'event.signups' => 'eventSignups'];
 
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);

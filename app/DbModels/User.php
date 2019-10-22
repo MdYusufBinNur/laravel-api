@@ -460,6 +460,9 @@ class User extends Authenticatable
      */
     public function userOfTheProperty($propertyId)
     {
-        return $this->isAdmin() || $this->isAnEnterpriseUserOfTheProperty($propertyId) || $this->userRoles()->where('propertyId', $propertyId)->first() instanceof UserRole;
+        return $this->isAdmin()
+            || $this->isAnEnterpriseUserOfTheProperty($propertyId)
+            || $this->isAStaffOfTheProperty($propertyId)
+            || $this->userRoles()->where('propertyId', $propertyId)->first() instanceof UserRole;
     }
 }

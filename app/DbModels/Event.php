@@ -59,4 +59,14 @@ class Event extends Model
     {
         return $this->hasOne(User::class, 'id', 'createdByUserId');
     }
+
+    /**
+     * get the signups of this event
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function eventSignups()
+    {
+        return $this->hasMany(EventSignup::class, 'eventId');
+    }
 }

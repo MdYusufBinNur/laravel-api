@@ -18,7 +18,7 @@ class StoreRequest extends Request
             'companyId'  => 'nullable|exists:companies,id',
             'type'       => 'required|max:50',
             'title'      => 'required|min:3',
-            'domain'     => 'domain',
+            'domain'     => 'nullable|domain',
             'subdomain'  => 'required|regex:/^[0-9A-Za-z.\-_]+$/|unique:properties,subdomain',
             'address'    => 'required|min:3',
             'city'       => '',

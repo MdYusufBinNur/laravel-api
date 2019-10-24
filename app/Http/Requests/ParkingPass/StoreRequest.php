@@ -16,7 +16,7 @@ class StoreRequest extends Request
     {
         return [
             'spaceId' => ['required', 'exists:parking_spaces,id', new ParkingPassAllowed()],
-            'unitId' => 'required|exists:units,id',
+            'unitId' => 'exists:units,id',
             'make' => 'max:100',
             'model' => 'max:100',
             'licensePlate' => 'min:3|max:100',

@@ -3,7 +3,6 @@
 namespace App\Http\Requests\ParkingPass;
 
 use App\Http\Requests\Request;
-use App\Rules\ParkingPassAllowed;
 
 class UpdateRequest extends Request
 {

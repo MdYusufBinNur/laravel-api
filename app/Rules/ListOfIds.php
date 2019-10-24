@@ -24,15 +24,23 @@ class ListOfIds implements Rule
     private $columnName;
 
     /**
+     * @var array
+     */
+    private $additionalAcceptedValues;
+
+    /**
      * Create a new rule instance.
      *
-     * @return void
+     * @param null $tableName
+     * @param null $columnName
+     * @param array $additionalAcceptedValues
      */
-    public function __construct($tableName = null, $columnName = null)
+    public function __construct($tableName = null, $columnName = null, array $additionalAcceptedValues = [])
     {
         $this->messages = [];
         $this->tableName = $tableName;
         $this->columnName = $columnName;
+        $this->additionalAcceptedValues = $additionalAcceptedValues;
     }
 
     /**
@@ -75,6 +83,10 @@ class ListOfIds implements Rule
 
         $notFoundRows = [];
         foreach ($ids as $id) {
+
+            if (in_array($id, $this->additionalAcceptedValues)) {
+                continue;
+            }
 
             if (is_array($id)) {
                 return false;

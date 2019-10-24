@@ -59,7 +59,11 @@ class EloquentUserNotificationRepository extends EloquentBaseRepository implemen
      */
     public function setUserNotificationReadStatus(array $data)
     {
+        if (in_array('all', $data['notificationIds'])) {
+            return $this->model->where('toUserId', $this->getLoggedInUser()->id)->update(['readStatus' => $data['readStatus']]);
+        } else {
+            return $this->model->whereIn('id', $data['notificationIds'])->update(['readStatus' => $data['readStatus']]);
 
-        return $this->model->whereIn('id', $data['notificationIds'])->update(['readStatus' => $data['readStatus']]);
+        }
     }
 }

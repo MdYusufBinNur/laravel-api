@@ -15,7 +15,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'notificationIds' => ['required', new ListOfIds('user_notifications', 'id')],
+            'notificationIds' => ['required', new ListOfIds('user_notifications', 'id', ['all'])],
             'readStatus' => 'required|boolean'
         ];
     }

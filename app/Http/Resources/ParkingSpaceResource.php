@@ -23,6 +23,9 @@ class ParkingSpaceResource extends Resource
             'ownerUser' =>$this->when($this->needToInclude($request, 'ps.ownerUser'), function () {
                 return  new UserResource($this->ownerUser);
             }),
+            'currentlyAssignedPass' =>$this->when($this->needToInclude($request, 'ps.currentlyAssignedPass'), function () {
+                return  new ParkingPassResource($this->currentlyAssignedPass);
+            }),
             'ownedBy' => $this->ownedBy ?? $this->ownerUser->name,
             'address' => $this->address ,
             'email' => $this->email ?? $this->ownerUser instanceof User ? $this->ownerUser->email : null,

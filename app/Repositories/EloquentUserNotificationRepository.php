@@ -66,4 +66,14 @@ class EloquentUserNotificationRepository extends EloquentBaseRepository implemen
 
         }
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function countUnreadNotificationOfTheCurrentUser()
+    {
+        return $this->model->where('toUserId', $this->getLoggedInUser()->id)
+            ->where('readStatus', 0)
+            ->count();
+    }
 }

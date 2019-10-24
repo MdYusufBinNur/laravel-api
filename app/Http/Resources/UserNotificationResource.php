@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 
+use App\Repositories\Contracts\UserNotificationRepository;
+
 class UserNotificationResource extends Resource
 {
     /**

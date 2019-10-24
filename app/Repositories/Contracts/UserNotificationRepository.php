@@ -14,4 +14,11 @@ interface UserNotificationRepository extends BaseRepository
      */
     public function setUserNotificationReadStatus(array $data);
 
+    /**
+     * count unread notification of a user
+     *
+     * @return mixed
+     */
+    public function countUnreadNotificationOfTheCurrentUser();
+
 }

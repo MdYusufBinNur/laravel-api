@@ -17,8 +17,8 @@ class StoreRequest extends Request
         return [
             'userId' => 'required|exists:users,id',
             'type' => 'in:'.UserProfileLink::TYPE_COMPANY.','.UserProfileLink::TYPE_FACEBOOK.','.UserProfileLink::TYPE_LINKEDIN.','.UserProfileLink::TYPE_MYSPACE.''.UserProfileLink::TYPE_OTHER.','.UserProfileLink::TYPE_WEBSITE,
-            'title' => 'required|min:5|max:191',
-            'url' => 'required|min:5|max:191',
+            'title' => 'required|max:191',
+            'url' => 'required|max:191',
         ];
     }
 }

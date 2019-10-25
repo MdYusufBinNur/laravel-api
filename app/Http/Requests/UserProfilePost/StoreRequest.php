@@ -17,7 +17,7 @@ class StoreRequest extends Request
             'propertyId' =>  'required|exists:properties,id',
             'byUserId' => 'required|exists:users,id',
             'toUserId' => 'required|exists:users,id',
-            'text' =>  'required|min:5|max:1024',
+            'text' =>  'required|max:1024',
             'active' =>  'boolean',
         ];
     }

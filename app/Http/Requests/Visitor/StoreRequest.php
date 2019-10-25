@@ -18,13 +18,13 @@ class StoreRequest extends Request
             'propertyId' => 'required|exists:properties,id',
             'unitId' => 'required|exists:units,id',
             'visitorTypeId' => 'required|exists:visitor_types,id',
-            'name' => 'required|min:3|max:191',
-            'phone' => 'min:5|max:20',
-            'email' => 'email|min:3|max:100',
-            'company' => 'min:3|max:191',
+            'name' => 'required|max:191',
+            'phone' => 'max:20',
+            'email' => 'email|max:100',
+            'company' => 'max:191',
             'photo' => 'boolean',
             'permanent' => 'boolean',
-            'comment' => 'min:3|max:1024',
+            'comment' => 'max:1024',
             'signature' => 'boolean'
         ];
     }

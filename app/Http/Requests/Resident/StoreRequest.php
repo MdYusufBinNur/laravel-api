@@ -21,7 +21,7 @@ class StoreRequest extends Request
             'unitId'                => 'required|exists:units,id',
             'contactEmail'          => 'required|email',
             'type'                  => 'in:' . implode(',', [Role::ROLE_RESIDENT_OWNER['title'], Role::ROLE_RESIDENT_TENANT['title'], Role::ROLE_RESIDENT_STUDENT['title'], Role::ROLE_RESIDENT_SHOP['title']]),
-            'group'                 => 'min:5|max:100',
+            'group'                 => 'max:100',
             'boardMember'           => 'numeric',
             'sendEmailPermission'   => 'numeric',
             'displayUnit'           => 'numeric',
@@ -31,8 +31,8 @@ class StoreRequest extends Request
             'defaultDial'           => 'max:20',
             'homePhone'             => 'max:20',
             'cellPhone'             => 'max:20',
-            'employerName'          => 'min:5|max:40',
-            'employerAddress'       => 'min:5|max:100',
+            'employerName'          => 'max:40',
+            'employerAddress'       => 'max:100',
             'businessPhone'         => 'max:20',
             'businessEmail'         => '',
             'secondaryAddress'      => '',
@@ -41,9 +41,9 @@ class StoreRequest extends Request
             'joiningDate'           => 'date',
 
             'user'                 => 'required_without:userId',
-            'user.name'            => 'required_without:userId|min:3|max:100',
+            'user.name'            => 'required_without:userId|max:100',
             'user.email'           => 'required_without:userId|email|unique:users,email',
-            'user.password'        => 'required_without:userId|min:5',
+            'user.password'        => 'required_without:userId',
         ];
     }
 }

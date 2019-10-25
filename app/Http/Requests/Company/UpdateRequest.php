@@ -14,8 +14,8 @@ class UpdateRequest extends Request
     public function rules()
     {
         return $rules = [
-            'title'     => 'min:3',
-            'address'   => 'min:3',
+            'title'     => '',
+            'address'   => '',
             'city'      => '',
             'state'     => '',
             'postCode' => '',

@@ -25,9 +25,9 @@ class StoreRequest extends FormRequest
     {
         return [
             'propertyId' => 'required|exists:properties,id',
-            'title' => 'required|min:5|max:191',
-            'content' => 'required|min:5|max:256',
-            'link' => 'required|min:5|max:190',
+            'title' => 'required|max:191',
+            'content' => 'required|max:256',
+            'link' => 'required|max:190',
             'linkinNewWindows' => 'boolean',
             'showOnWebsite' => 'boolean',
             'showOnLds' => 'boolean',

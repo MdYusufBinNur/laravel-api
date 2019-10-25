@@ -15,7 +15,7 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' => 'required|exists:properties,id',
-            'parkingNumber' => 'required|min:1',
+            'parkingNumber' => 'required',
             'ownerUserId' => 'required_without:ownedBy|exists:users,id',
             'ownedBy' => 'required_without:ownerUserId',
             'address' => 'required_without:ownerUserId',

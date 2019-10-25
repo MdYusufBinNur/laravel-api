@@ -19,8 +19,8 @@ class StoreRequest extends Request
             'typeId' => 'required|exists:post_recommendation_types,id',
             'name' => 'required|max:191',
             'description' => 'string',
-            'contact' => 'min:3|max:191',
-            'website' => 'min:3|max:191',
+            'contact' => 'max:191',
+            'website' => 'max:191',
 
             'post' => '',
             'post.propertyId' => 'required_with:post|exists:properties,id',

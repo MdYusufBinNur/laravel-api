@@ -15,8 +15,8 @@ class UpdateRequest extends Request
     {
         return [
             'propertyId' => 'exists:properties,id',
-            'title' => 'min:3|max:512',
-            'text' => 'min:3|max:2048',
+            'title' => 'max:512',
+            'text' => 'max:2048',
         ];
     }
 }

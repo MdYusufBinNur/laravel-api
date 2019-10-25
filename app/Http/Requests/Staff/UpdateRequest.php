@@ -23,7 +23,7 @@ class UpdateRequest extends Request
             'contactEmail' => 'email',
             'propertyId' => 'exists:properties,id|required_with:role.addNewRole',
             'phone' => 'max:100',
-            'title' => 'min:5',
+            'title' => '',
             'level' => 'in:' . Role::ROLE_STAFF_PRIORITY['title'] . ',' . Role::ROLE_STAFF_STANDARD['title'] . ',' . Role::ROLE_STAFF_LIMITED['title'],
             'displayInCorner' => 'boolean',
             'displayPublicProfile' => '',

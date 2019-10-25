@@ -19,13 +19,13 @@ class UpdateRequest extends Request
         return [
             'propertyId' => 'exists:properties,id',
             'unitId' => 'exists:units,id',
-            'name' => 'min:3|max:191',
+            'name' => 'max:191',
             'email' => 'email|unique:resident_access_requests,email,' . $residentAccessRequestId,
             'type' => 'in:' . implode(',', [Role::ROLE_RESIDENT_OWNER['title'], Role::ROLE_RESIDENT_TENANT['title'], Role::ROLE_RESIDENT_STUDENT['title'], Role::ROLE_RESIDENT_SHOP['title']]),
-            'groups' => 'min:3|max:191', //todo
+            'groups' => 'max:191', //todo
             'status' => 'in:' . ResidentAccessRequest::STATUS_APPROVED . ',' . ResidentAccessRequest::STATUS_DENIED . ','. ResidentAccessRequest::STATUS_COMPLETED . ',' . ResidentAccessRequest::STATUS_PENDING,
             'active' => 'boolean',
-            'comment' => 'min:3|max:1024',
+            'comment' => 'max:1024',
             'moderatedUserId' => 'integer',
             'moderatedAt' => 'date',
             'movedInDate' => 'date',

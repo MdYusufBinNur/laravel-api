@@ -25,9 +25,9 @@ class UpdateRequest extends FormRequest
     {
         return [
             'propertyId' => 'exists:properties,id',
-            'title' => 'min:5|max:191',
-            'content' => 'min:5|max:256',
-            'link' => 'min:5|max:190',
+            'title' => 'max:191',
+            'content' => 'max:256',
+            'link' => 'max:190',
             'linkinNewWindows' => 'boolean',
             'showOnWebsite' => 'boolean',
             'showOnLds' => 'boolean',

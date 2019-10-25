@@ -20,7 +20,7 @@ class StoreRequest extends Request
             'unitId' => 'required|exists:units,id',
             'type' => 'required|in:' . Fdi::TYPE_GENERAL . ',' . Fdi::TYPE_GUEST . ',' . Fdi::TYPE_MAIL,
             'guestTypeId' => 'exists:fdi_guest_types,id|required_if:type,=,' . Fdi::TYPE_GUEST,
-            'name' => 'required_if:type,==,' . Fdi::TYPE_GUEST . 'min:3|max:100',
+            'name' => 'required_if:type,==,' . Fdi::TYPE_GUEST . '|max:100',
             'startDate' => 'date',
             'endDate' => 'date|after_or_equal:startDate',
             'permanent' => 'boolean',

@@ -16,8 +16,8 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' => 'required|exists:properties,id',
-            'title' => 'required|min:5|max:191',
-            'text' => 'min:5|max:512',
+            'title' => 'required|max:191',
+            'text' => 'max:512',
             'maxGuests' => 'required|numeric',
             'allowedSignUp' => 'boolean',
             'allDayEvent' => 'boolean',

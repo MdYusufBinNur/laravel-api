@@ -17,7 +17,7 @@ class UpdateRequest extends Request
         return [
             'userId' => 'required|exists:users,id',
             'gender' => 'in:'.UserProfileChild::GENDER_MALE.','.UserProfileChild::GENDER_FEMALE,
-            'name' => 'required|min:3|max:191',
+            'name' => 'required|max:191',
             'age' => 'integer',
         ];
     }

@@ -19,7 +19,7 @@ class StoreRequest extends Request
             'serviceRequestId' => 'required|exists:service_requests,id',
             'userId' => 'required|exists:users,id',
             'unitId' => 'required|exists:units,id',
-            'text' => 'required|min:10|max:2048',
+            'text' => 'required|max:2048',
             'type' => 'required|in:' . ServiceRequestMessage::TYPE_COMMENT . ',' . ServiceRequestMessage::TYPE_FEEDBACK,
             'readStatus' => 'boolean',
         ];

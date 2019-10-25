@@ -19,7 +19,7 @@ class StoreRequest extends Request
             'unitId' => 'exists:units,id',
             'make' => 'max:100',
             'model' => 'max:100',
-            'licensePlate' => 'min:3|max:100',
+            'licensePlate' => 'max:100',
             'startAt' => 'required|date',
             'endAt' => 'required|date|after:startAt',
         ];

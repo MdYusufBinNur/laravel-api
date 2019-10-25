@@ -17,10 +17,10 @@ class StoreRequest extends Request
         return $rules = [
             'companyId'  => 'nullable|exists:companies,id',
             'type'       => 'required|max:50',
-            'title'      => 'required|min:3',
+            'title'      => 'required',
             'domain'     => 'nullable|domain',
             'subdomain'  => 'required|regex:/^[0-9A-Za-z.\-_]+$/|unique:properties,subdomain',
-            'address'    => 'required|min:3',
+            'address'    => 'required',
             'city'       => '',
             'state'      => '',
             'postCode'   => 'max:10',

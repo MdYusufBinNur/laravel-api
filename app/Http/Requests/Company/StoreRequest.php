@@ -15,8 +15,8 @@ class StoreRequest extends Request
     public function rules()
     {
         return $rules = [
-            'title'     => 'required|unique:companies,title|min:3',
-            'address'   => 'required|min:3',
+            'title'     => 'required|unique:companies,title',
+            'address'   => 'required',
             'city'      => '',
             'state'     => '',
             'postCode' => '',

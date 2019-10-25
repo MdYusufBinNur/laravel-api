@@ -22,7 +22,7 @@ class UpdateRequest extends Request
             'unitId'                => 'exists:units,id',
             'contactEmail'          => 'email',
             'type'                  => 'in:' . implode(',', [Role::ROLE_RESIDENT_OWNER['title'], Role::ROLE_RESIDENT_TENANT['title'], Role::ROLE_RESIDENT_STUDENT['title'], Role::ROLE_RESIDENT_SHOP['title']]),
-            'group'                 => 'min:5|max:100',
+            'group'                 => 'max:100',
             'boardMember'           => 'numeric',
             'sendEmailPermission'   => 'numeric',
             'displayUnit'           => 'numeric',
@@ -32,8 +32,8 @@ class UpdateRequest extends Request
             'defaultDial'           => 'max:20',
             'homePhone'             => 'max:20',
             'cellPhone'             => 'max:20',
-            'employerName'          => 'min:5|max:40',
-            'employerAddress'       => 'min:5|max:100',
+            'employerName'          => 'max:40',
+            'employerAddress'       => 'max:100',
             'businessPhone'         => 'max:20',
             'businessEmail'         => '',
             'secondaryAddress'      => '',
@@ -42,9 +42,9 @@ class UpdateRequest extends Request
             'joiningDate'           => 'date',
 
             'user'                 => '',
-            'user.name'            => 'min:3|max:100',
+            'user.name'            => 'max:100',
             'email'                => Rule::unique('users')->ignore($userId, 'id'),
-            'user.password'        => 'min:5',
+            'user.password'        => '',
         ];
     }
 

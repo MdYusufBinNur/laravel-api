@@ -14,7 +14,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'url' => 'min:10|max:191',
+            'url' => 'max:191',
         ];
     }
 }

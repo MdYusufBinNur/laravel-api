@@ -17,7 +17,7 @@ class UpdateRequest extends Request
         return [
             'fdiId' => 'exists:fdis,id',
             'userId' => 'exists:users,id',
-            'text' => 'min:3|max:1024',
+            'text' => 'max:1024',
             'type' => 'in:'.FdiLog::TYPE_ADD.','.FdiLog::TYPE_EDIT.','.FdiLog::TYPE_EXPIRED.','.FdiLog::TYPE_APPROVED.','.FdiLog::TYPE_DENIED,
         ];
     }

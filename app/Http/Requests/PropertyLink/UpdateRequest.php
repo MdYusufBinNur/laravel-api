@@ -14,8 +14,8 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'title' => 'required|min:2',
-            'description' => 'min:5',
+            'title' => 'required',
+            'description' => '',
             'url' => 'required|max:1000',
             'linkCategoryId' => 'required|exists:property_link_categories,id',
             'isFeatured' => 'boolean',

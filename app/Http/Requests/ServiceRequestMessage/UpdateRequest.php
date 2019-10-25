@@ -14,7 +14,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'text' => 'min:10|max:2048',
+            'text' => 'max:2048',
             'readStatus' => 'boolean',
         ];
     }

@@ -19,7 +19,7 @@ class StoreRequest extends Request
             'contactEmail' => 'email|required',
             'propertyId' => 'required|exists:properties,id',
             'phone' => 'max:100',
-            'title' => 'min:5',
+            'title' => '',
             'level' => 'in:' . Role::ROLE_STAFF_PRIORITY['title'] . ',' . Role::ROLE_STAFF_STANDARD['title'] . ',' . Role::ROLE_STAFF_LIMITED['title'],
             'displayInCorner' => 'boolean',
             'displayPublicProfile' => '',
@@ -28,7 +28,7 @@ class StoreRequest extends Request
             'user' => 'required_without:userId',
             'user.email' => 'required_with:user|email|unique:users,email',
             'user.name' => 'required_with:user|max:100',
-            'user.password' => 'required_with:user|min:5',
+            'user.password' => 'required_with:user',
             'user.locale' => '',
         ];
     }

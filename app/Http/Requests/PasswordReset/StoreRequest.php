@@ -15,7 +15,7 @@ class StoreRequest extends Request
     {
         return [
             'email' => 'required|email',
-            'token' => 'required|min:3|max:256',
+            'token' => 'required|max:256',
         ];
     }
 }

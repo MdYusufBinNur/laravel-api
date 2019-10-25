@@ -18,10 +18,10 @@ class UpdateRequest extends Request
     {
         return [
             'type' =>  'in:'.PostMarketplace::TYPE_BUY. ','. PostMarketplace::TYPE_SELL,
-            'title' =>  'min:3|max:191',
-            'price' =>  'min:3|max:191',
+            'title' =>  'max:191',
+            'price' =>  'max:191',
             'description' => 'string',
-            'contact' => 'min:3|max:191',
+            'contact' => 'max:191',
 
             'post' => '',
             'post.status' => 'in:' . Post::STATUS_PENDING . ',' . Post::STATUS_DENIED . ',' . Post::STATUS_APPROVED . ',' . Post::STATUS_POSTED,

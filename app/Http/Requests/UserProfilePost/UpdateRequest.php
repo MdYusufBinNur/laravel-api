@@ -17,7 +17,7 @@ class UpdateRequest extends Request
             'propertyId' =>  'exists:properties,id',
             'byUserId' => 'exists:users,id',
             'toUserId' => 'exists:users,id',
-            'text' =>  'min:5|max:1024',
+            'text' =>  'max:1024',
             'active' =>  'boolean',
         ];
     }

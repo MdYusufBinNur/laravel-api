@@ -21,7 +21,7 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' => 'required|exists:properties,id',
-            'subject' => 'required|min:3',
+            'subject' => 'required',
             'text' => 'required|string',
             'toUserIds' => ['required', new MessageToUser()],
             'towerIds'=> [new MessageToTower($this->request->get('propertyId'), $this->request->get('toUserIds'))],

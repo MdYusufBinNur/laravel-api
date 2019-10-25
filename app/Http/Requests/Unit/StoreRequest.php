@@ -17,7 +17,7 @@ class StoreRequest extends Request
         return $rules = [
             'towerId'      => 'exists:towers,id',
             'propertyId'   => 'required|exists:properties,id',
-            'title'        => 'required|min:2|max:50',
+            'title'        => 'required|max:50',
             'floor'        => 'max:50',
             'line'         => 'max:50',
         ];

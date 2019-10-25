@@ -18,7 +18,7 @@ class StoreRequest extends Request
         return [
             'propertyId' => 'required|exists:properties,id',
             'parentId' => 'exists:service_request_categories,id',
-            'title' => 'required|min:3|max:191',
+            'title' => 'required|max:191',
             'type' => 'in:'. ServiceRequestCategory::TYPE_UNIT. ','. ServiceRequestCategory::TYPE_COMMON,
             'active' => 'boolean',
         ];

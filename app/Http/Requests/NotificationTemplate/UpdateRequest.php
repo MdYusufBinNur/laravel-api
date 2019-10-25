@@ -15,8 +15,8 @@ class UpdateRequest extends Request
     {
         return [
             'typeId' => 'exists:notification_template_types,id',
-            'title' => 'min:5|max:512',
-            'text' => 'min:10|max:1024',
+            'title' => 'max:512',
+            'text' => 'max:1024',
             'editable' => 'boolean',
         ];
     }

@@ -15,11 +15,11 @@ class UpdateRequest extends Request
     {
         return [
             'residentId' => 'exists:residents,id',
-            'name' => 'min:3|max:191',
-            'relationship' => 'min:3|max:191',
-            'address' => 'min:3|max:191',
-            'homePhone' => 'min:3|max:20',
-            'cellPhone' => 'min:3|max:20',
+            'name' => 'max:191',
+            'relationship' => 'max:191',
+            'address' => 'max:191',
+            'homePhone' => 'max:20',
+            'cellPhone' => 'max:20',
             'email' => 'unique:resident_emergencies,email|email',
         ];
     }

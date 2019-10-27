@@ -85,6 +85,7 @@ class EloquentParkingPassRepository extends EloquentBaseRepository implements Pa
             if ($data['released']) {
                 $data['releasedAt'] = Carbon::now();
                 $data['releasedByUserId'] = $this->getLoggedInUser()->id;
+                $data['deleted_at'] = Carbon::now();
             } else {
                 $data['releasedAt'] = null;
                 $data['releasedByUserId'] = null;
@@ -97,8 +98,25 @@ class EloquentParkingPassRepository extends EloquentBaseRepository implements Pa
 
         $parkingPass = parent::update($model, $data);
 
+        if (isset($data['deleted_at'])) {
+            parent::delete($parkingPass); // also delete the parking pass
+        }
+
         event(new ParkingPassUpdatedEvent($parkingPass, $this->generateEventOptionsForModel()));
 
         return $parkingPass;
+    }
+
+    /**
+     * delete a parking pass
+     *
+     * @param \ArrayAccess $model
+     * @return bool
+     */
+    public function delete(\ArrayAccess $model): bool
+    {
+        $this->update($model, ['released' => true]);
+
+        return true;
     }
 }

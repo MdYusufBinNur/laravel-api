@@ -34,9 +34,7 @@ class Kernel extends ConsoleKernel
         // parking-pass-validation
         $schedule->command('pms:parking-pass-validation')
             ->everyMinute()
-            ->name("Scheduled Job - Parking Pass Validation!")
-            ->emailOutputTo('dev@reformedtech.org')
-            ->emailOutputOnFailure('dev@reformedtech.org');
+            ->name("Scheduled Job - Parking Pass Validation!");
 
     }
 

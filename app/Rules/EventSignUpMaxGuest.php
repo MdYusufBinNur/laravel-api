@@ -32,13 +32,17 @@ class EventSignUpMaxGuest implements Rule
      */
     public function passes($attribute, $value)
     {
-        $eventId = request()->has('eventId') ? request()->get('eventId') : request()->segment(4);
-
+        if (request()->has('eventId')) {
+            $eventId = request()->get('eventId');
+        } else {
+            $eventSignupId = request()->segment(4);
+            $eventId = DB::table('event_signups')->select('eventId')->where('id', $eventSignupId)->pluck('eventId')->first();
+        }
         if (!empty($eventId)) {
             $event = DB::table('events')->select('maxGuests')->where('id', $eventId)->first();
             if (isset($event)) {
                 $this->maxGuestsAllowed = $event->maxGuests;
-                return $value <= $event->maxGuests;
+                return $value < $event->maxGuests;
             }
         }
 

@@ -24,6 +24,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        //delete telscope data daily
+        $schedule->command('telescope:prune')->daily();
+
         // fdi-validation scheduled job
         $schedule->command('pms:fdi-validation')
             ->daily()

@@ -50,8 +50,7 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
 
         if ($userCount = count($userIds)) {
             $data['fromUserId'] = $this->getLoggedInUser()->id;
-
-            if ($userCount > 1) {
+            if (!empty($groupNames) || $userCount > 1) {
                 $data['isGroupMessage'] = true;
                 $data['group'] = implode(',', $userIds);
                 $data['groupNames'] = implode(',', $groupNames);
@@ -165,7 +164,6 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
                 }
             }
         }
-
         return [
             'userIds' => array_unique(Arr::flatten($userIds)),
             'groupNames' => array_unique(Arr::flatten($groupNames)),

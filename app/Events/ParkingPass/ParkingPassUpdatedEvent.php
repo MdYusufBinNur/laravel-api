@@ -3,9 +3,12 @@
 namespace App\Events\ParkingPass;
 
 use App\DbModels\ParkingPass;
+use App\Http\Resources\ParkingPassResource;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 
-class ParkingPassUpdatedEvent
+class ParkingPassUpdatedEvent implements ShouldBroadcast
 {
     use SerializesModels;
 
@@ -30,5 +33,40 @@ class ParkingPassUpdatedEvent
     {
         $this->parkingPass = $parkingPass;
         $this->options = $options;
+    }
+
+    /**
+     * Get the channels the event should broadcast on.
+     *
+     * @return \Illuminate\Broadcasting\Channel|\Illuminate\Broadcasting\Channel[]
+     */
+    public function broadcastOn()
+    {
+        $channels[] = new PrivateChannel('PROPERTY.STAFF.' . $this->parkingPass->propertyId);
+
+        return $channels;
+
+    }
+
+    /**
+     * Get the data to broadcast.
+     *
+     * @return array
+     */
+    public function broadcastAs()
+    {
+        return ['parkingPassUpdated'];
+    }
+
+    /**
+     * Get the data to broadcast.
+     *
+     * @return array
+     */
+    public function broadcastWith()
+    {
+        return [
+            'parkingPass' => new ParkingPassResource($this->parkingPass)
+        ];
     }
 }

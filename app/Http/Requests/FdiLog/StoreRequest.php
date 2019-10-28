@@ -17,7 +17,11 @@ class StoreRequest extends Request
         return [
             'fdiId' => 'required|exists:fdis,id',
             'userId' => 'required|exists:users,id',
+<<<<<<< HEAD
             'text' => 'required|min:3|max:16777215',
+=======
+            'text' => 'required|max:1024',
+>>>>>>> eae7f62ab2e16e3e4807cfd8a0b3bd72a3d4525d
             'type' => 'required|in:'.FdiLog::TYPE_ADD.','.FdiLog::TYPE_EDIT.','.FdiLog::TYPE_EXPIRED.','.FdiLog::TYPE_APPROVED.','.FdiLog::TYPE_DENIED,
         ];
     }

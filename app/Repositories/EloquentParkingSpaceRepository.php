@@ -14,7 +14,7 @@ class EloquentParkingSpaceRepository extends EloquentBaseRepository implements P
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
         $searchCriteria['include'] = 'ps.ownerUser';
-        $searchCriteria['eagerLoad'] = ['ps.ownerUser' => 'ownerUser'];
+        $searchCriteria['eagerLoad'] = ['ps.ownerUser' => 'ownerUser', 'ps.currentlyAssignedPass' => 'currentlyAssignedPass'];
         return parent::findBy($searchCriteria, $withTrashed);
     }
 

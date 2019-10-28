@@ -18,7 +18,7 @@ class CreateParkingPassesTable extends Migration
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
             $table->unsignedInteger('spaceId');
-            $table->unsignedInteger('unitId');
+            $table->unsignedInteger('unitId')->nullable();
             $table->string('make', 100)->nullable();
             $table->string('model', 100)->nullable();
             $table->string('licensePlate', 100)->nullable();

@@ -17,9 +17,9 @@ class UpdateRequest extends Request
             'propertyId' => 'exists:properties,id',
             'unitId' => 'exists:units,id',
             'spaceId' => 'exists:parking_spaces,id',
-            'make' => 'min:3|max:100',
-            'model' => 'min:3|max:100',
-            'licensePlate' => 'min:3|max:100',
+            'make' => 'max:100',
+            'model' => 'max:100',
+            'licensePlate' => 'max:100',
             'startAt' => 'date',
             'endAt' => 'date',
         ];

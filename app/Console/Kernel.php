@@ -24,12 +24,18 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        // fdi-validation scheduled job
         $schedule->command('pms:fdi-validation')
             ->daily()
             ->name("Scheduled Job - FDI Validation!")
             ->emailOutputTo('dev@reformedtech.org')
             ->emailOutputOnFailure('dev@reformedtech.org');
-        ;
+
+        // parking-pass-validation
+        $schedule->command('pms:parking-pass-validation')
+            ->everyMinute()
+            ->name("Scheduled Job - Parking Pass Validation!");
+
     }
 
     /**

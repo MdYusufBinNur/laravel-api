@@ -18,9 +18,15 @@ class StoreRequest extends Request
         return [
             'userId' =>  'required_without:users|exists:users,id',
             'companyId' =>  'required|exists:companies,id',
+<<<<<<< HEAD
             'contactEmail' =>  'email|max:255',
             'phone' =>  'min:12|max:20',
             'title' =>  'min:3|max:255',
+=======
+            'contactEmail' =>  'email',
+            'phone' =>  'max:20',
+            'title' =>  'max:512',
+>>>>>>> eae7f62ab2e16e3e4807cfd8a0b3bd72a3d4525d
             'propertyIds' => [new ListOfIds('properties', 'id')],
             'level' =>  'in:'.EnterpriseUser::LEVEL_ADMIN.','.EnterpriseUser::LEVEL_STANDARD,
             'users' => 'required_without:userId',

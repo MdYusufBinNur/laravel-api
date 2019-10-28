@@ -25,8 +25,13 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
+<<<<<<< HEAD
             'key'       => 'required|min:5|max:255',
             'title'     => 'required|min:5|max:255',
+=======
+            'key'       => 'required|max:191',
+            'title'     => 'required|max:191',
+>>>>>>> eae7f62ab2e16e3e4807cfd8a0b3bd72a3d4525d
         ];
     }
 }

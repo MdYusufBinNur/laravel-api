@@ -34,4 +34,14 @@ class ParkingSpace extends Model
     {
         return $this->hasOne(User::class, 'id', 'propertyId');
     }
+
+    /**
+     * get the currently assigned pass
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function currentlyAssignedPass()
+    {
+        return $this->hasOne(ParkingPass::class, 'spaceId', 'id')->whereNull('releasedAt');
+    }
 }

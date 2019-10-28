@@ -3,7 +3,6 @@
 namespace App\Http\Requests\ParkingPass;
 
 use App\Http\Requests\Request;
-use App\Rules\ParkingPassAllowed;
 
 class UpdateRequest extends Request
 {
@@ -19,8 +18,8 @@ class UpdateRequest extends Request
             'make' => 'max:100',
             'model' => 'max:100',
             'licensePlate' => 'max:100',
-            'startAt' => 'date',
-            'endAt' => 'date|after:startAt',
+            'startAt' => 'date_format:Y-m-d H:i',
+            'endAt' => 'date_format:Y-m-d H:i|after:startAt',
             'released' => 'boolean'
         ];
     }

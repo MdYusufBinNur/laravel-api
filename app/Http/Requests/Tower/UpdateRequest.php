@@ -15,7 +15,7 @@ class UpdateRequest extends Request
     {
         return $rules = [
             'propertyId' => 'numeric|exists:properties,id',
-            'title'     => 'min:3||max:255|unique:towers,title,NULL,id,deleted_at,NULL,propertyId,'. $this->propertyId
+            'title'     => 'min:3|max:255|unique:towers,title,NULL,id,deleted_at,NULL,propertyId,'. $this->propertyId
         ];
     }
 

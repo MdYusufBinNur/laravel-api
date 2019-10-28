@@ -11,9 +11,12 @@ use App\Repositories\Contracts\MessagePostRepository;
 use App\Repositories\Contracts\MessageRepository;
 use App\Repositories\Contracts\MessageUserRepository;
 use App\Repositories\Contracts\ResidentRepository;
+use App\Repositories\Contracts\TowerRepository;
+use App\Repositories\Contracts\UnitRepository;
 use App\Repositories\Contracts\UserRoleRepository;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class EloquentMessageRepository extends EloquentBaseRepository implements MessageRepository
 {
@@ -41,7 +44,9 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
      */
     public function saveMessage(array $data)
     {
-        $userIds = $this->getUsersByGroupNames($data);
+        $messageDetails = $this->getUsersByGroupNames($data);
+        $userIds = $messageDetails['userIds'];
+        $groupNames = $messageDetails['groupNames'];
 
         if ($userCount = count($userIds)) {
             $data['fromUserId'] = $this->getLoggedInUser()->id;
@@ -49,7 +54,7 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
             if ($userCount > 1) {
                 $data['isGroupMessage'] = true;
                 $data['group'] = implode(',', $userIds);
-                $data['groupNames'] = $data['toUserIds']; //todo make it verbose
+                $data['groupNames'] = implode(',', $groupNames);
             } else {
                 $data['toUserId'] = $userIds[0];
             }
@@ -87,9 +92,12 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
     public function getUsersByGroupNames($data)
     {
         $userIds = [];
+        $groupNames = [];
         $groups = explode(",", $data['toUserIds']);
         $userRoleRepository = app(UserRoleRepository::class);
         $residentRepository = app(ResidentRepository::class);
+        $unitRepository = app(UnitRepository::class);
+        $towerRepository = app(TowerRepository::class);
 
         foreach ($groups as $group) {
 
@@ -98,44 +106,69 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
                 //if only to a user
                 $userIds[] = $group;
             } else {
-
                 switch ($group) {
 
                     case Message::GROUP_ENTIRE_PROPERTY:
                         $userIds[] = $userRoleRepository->getUserIdsOfEntireProperty($data['propertyId']);
+                        $groupNames[] = Str::title(str_replace('_', ' ', Message::GROUP_ENTIRE_PROPERTY));
                         break;
                     case Message::GROUP_ALL_RESIDENTS:
                         $userIds[] = $userRoleRepository->getUserIdsOfThePropertyResidents($data['propertyId']);
+                        $groupNames[] = Str::title(str_replace('_', ' ', Message::GROUP_ALL_RESIDENTS));
                         break;
                     case Message::GROUP_ALL_STAFFS:
                         $userIds[] = $userRoleRepository->getUserIdsOfThePropertyStaffs($data['propertyId']);
+                        $groupNames[] = Str::title(str_replace('_', ' ', Message::GROUP_ALL_STAFFS));
                         break;
                     case Message::GROUP_SPECIFIC_TOWER:
-                        $userIds[] = $residentRepository->getUserIdsOfTheTowersResidents(explode(',', $data['towerIds']));
+                        $towerIds = explode(',', $data['towerIds']);
+                        $userIds[] = $residentRepository->getUserIdsOfTheTowersResidents($towerIds);
+
+                        foreach ($towerIds as $towerId) {
+                            $tower = $towerRepository->findOne($towerId);
+                            $groupNames[] = preg_filter('/^/', 'Tower ', $tower->title);
+                        }
                         break;
                     case Message::GROUP_SPECIFIC_FLOOR:
                         foreach ($data['floors'] as $floor) {
                             $userIds[] = $residentRepository->getUserIdsOfTheFloorsResidents($floor['towerId'], $floor['names']);
+
+                            $tower = $towerRepository->findOne($floor['towerId']);
+                            $groupNames[] = preg_filter('/^/', 'Tower ' . $tower->title . ' & Floor ', $floor['names']);
                         }
                         break;
                     case Message::GROUP_SPECIFIC_UNITS:
-                        $userIds[] = $residentRepository->getUserIdsOfTheUnitsResidents(explode(',', $data['unitIds']));
+                        $unitIds = explode(',', $data['unitIds']);
+                        $userIds[] = $residentRepository->getUserIdsOfTheUnitsResidents($unitIds);
+
+                        foreach ($unitIds as $unitId) {
+                            $unit = $unitRepository->findOne($unitId);
+                            $groupNames[] = preg_filter('/^/', 'Unit ', $unit->title);
+                        }
                         break;
                     case Message::GROUP_SPECIFIC_LINE:
                         foreach ($data['lines'] as $line) {
                             $userIds[] = $residentRepository->getUserIdsOfTheLinesResidents($line['towerId'], $line['names']);
+
+                            $tower = $towerRepository->findOne($line['towerId']);
+                            $groupNames[] = preg_filter('/^/', 'Tower ' . $tower->title . ' & Line ', $line['names']);
                         }
                         break;
                     case Message::GROUP_ALL_TENANTS:
                         $userIds[] = $userRoleRepository->getUserIdsByRoleId($data['propertyId'], Role::ROLE_RESIDENT_TENANT['id']);
+                        $groupNames[] = Str::title(str_replace('_', ' ', Message::GROUP_ALL_TENANTS));
                         break;
                     case Message::GROUP_ALL_OWNERS:
                         $userIds[] = $userRoleRepository->getUserIdsByRoleId($data['propertyId'], Role::ROLE_RESIDENT_OWNER['id']);
+                        $groupNames[] = Str::title(str_replace('_', ' ', Message::GROUP_ALL_OWNERS));
                         break;
                 }
             }
         }
 
-        return array_unique(Arr::flatten($userIds));
+        return [
+            'userIds' => array_unique(Arr::flatten($userIds)),
+            'groupNames' => array_unique(Arr::flatten($groupNames)),
+        ];
     }
 }

@@ -14,8 +14,13 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
+<<<<<<< HEAD
             'title' => 'min:5|max:255',
             'text' => 'min:5|max:16777215',
+=======
+            'title' => 'max:191',
+            'text' => 'max:512',
+>>>>>>> eae7f62ab2e16e3e4807cfd8a0b3bd72a3d4525d
             'maxGuests' => 'numeric',
             'allowedSignUp' => 'boolean',
             'allDayEvent' => 'boolean',

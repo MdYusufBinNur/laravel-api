@@ -18,7 +18,11 @@ class UpdateRequest extends Request
             'propertyId' => 'exists:properties,id',
             'unitId' => 'exists:units,id',
             'type' => 'in:' . Fdi::TYPE_GENERAL . ',' . Fdi::TYPE_GUEST . ',' . Fdi::TYPE_MAIL,
+<<<<<<< HEAD
             'name' => 'required_if:type,==,' . Fdi::TYPE_GUEST . 'min:3|max:255',
+=======
+            'name' => 'required_if:type,==,' . Fdi::TYPE_GUEST . '|max:100',
+>>>>>>> eae7f62ab2e16e3e4807cfd8a0b3bd72a3d4525d
             'guestTypeId' => 'exists:fdi_guest_types,id',
             'startDate' => 'date',
             'endDate' => 'date|after_or_equal:startDate',

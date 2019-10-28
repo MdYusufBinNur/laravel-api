@@ -15,12 +15,20 @@ Broadcast::channel('USER.{userId}', function ($user, $userId) {
     return $user->id == (int) $userId;
 });
 
+Broadcast::channel('ADMIN.{userId}', function ($user, $userId) {
+    return $user->isAdmin();
+});
+
 Broadcast::channel('PROPERTY.{propertyId}', function ($user, $propertyId) {
     return $user->userOfTheProperty($propertyId);
 });
 
-Broadcast::channel('ADMIN.{userId}', function ($user, $userId) {
-    return $user->isAdmin();
+Broadcast::channel('PROPERTY.STAFF.{propertyId}', function ($user, $propertyId) {
+    return $user->isAStaffOfTheProperty($propertyId);
 });
+
+
+
+
 
 

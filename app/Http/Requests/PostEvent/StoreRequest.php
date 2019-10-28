@@ -23,8 +23,13 @@ class StoreRequest extends Request
 
             'event' => 'required_without:eventId',
             'event.propertyId' => 'required_with:event|exists:properties,id',
+<<<<<<< HEAD
             'event.title' => 'required_with:event|min:5|max:255',
             'event.text' => 'min:5|max:16777215',
+=======
+            'event.title' => 'required_with:event|max:191',
+            'event.text' => 'max:512',
+>>>>>>> eae7f62ab2e16e3e4807cfd8a0b3bd72a3d4525d
             'event.maxGuests' => 'required_with:event|numeric',
             'event.allowedSignUp' => 'boolean',
             'event.allDayEvent' => 'boolean',

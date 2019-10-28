@@ -17,9 +17,9 @@ class StoreRequest extends Request
             'propertyId' => 'required|exists:properties,id',
             'unitId' => 'required|exists:units,id',
             'spaceId' => 'required|exists:parking_spaces,id',
-            'make' => 'min:3|max:100',
-            'model' => 'min:3|max:100',
-            'licensePlate' => 'min:3|max:100',
+            'make' => 'max:100',
+            'model' => 'max:100',
+            'licensePlate' => 'max:100',
             'startAt' => 'required|date',
             'endAt' => 'required|date',
         ];

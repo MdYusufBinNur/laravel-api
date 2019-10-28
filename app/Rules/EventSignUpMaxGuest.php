@@ -42,7 +42,7 @@ class EventSignUpMaxGuest implements Rule
             $event = DB::table('events')->select('maxGuests')->where('id', $eventId)->first();
             if (isset($event)) {
                 $this->maxGuestsAllowed = $event->maxGuests;
-                return $value < $event->maxGuests;
+                return $value <= $event->maxGuests;
             }
         }
 

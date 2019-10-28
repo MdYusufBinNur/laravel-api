@@ -14,7 +14,7 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'title' => 'required|min:2'
+            'title' => 'required|min:2|max:255'
         ];
     }
 }

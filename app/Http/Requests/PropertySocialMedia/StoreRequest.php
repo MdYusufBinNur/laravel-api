@@ -17,7 +17,7 @@ class StoreRequest extends Request
             'propertyId' => 'required|exists:properties,id',
             'propertySocialMedia' => 'required',
             'propertySocialMedia.*.type' => 'required|in:twitter,facebook,youtube,instagram,other',
-            'propertySocialMedia.*.url' => 'required|min:10|max:191',
+            'propertySocialMedia.*.url' => 'required|min:10|max:255',
         ];
     }
 }

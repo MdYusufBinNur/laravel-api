@@ -17,7 +17,7 @@ class UpdateRequest extends Request
         return [
             'propertyId' => 'exists:properties,id',
             'parentId' => 'exists:service_request_categories,id',
-            'title' => 'min:3|max:191',
+            'title' => 'min:3|max:255',
             'type' => 'in:'. ServiceRequestCategory::TYPE_UNIT. ','. ServiceRequestCategory::TYPE_COMMON,
             'active' => 'boolean',
         ];

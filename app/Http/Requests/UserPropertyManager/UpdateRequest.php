@@ -16,8 +16,8 @@ class UpdateRequest extends Request
         return [
             'userId' => 'exists:users,id',
             'propertyId' => 'exists:properties,id',
-            'role' => 'min:2',
-            'title' => 'min:2',
+            'role' => 'min:2|max:100',
+            'title' => 'min:2|max:100',
             'phone' => 'min:10|max:20',
             'displayInCorner' => 'boolean',
             'displayPublicProfile' => 'boolean',

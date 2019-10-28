@@ -18,13 +18,13 @@ class StoreRequest extends Request
         return [
             'propertyId' => 'required|exists:properties,id',
             'unitId' => 'required|exists:units,id',
-            'name' => 'required|min:3|max:191',
-            'email' => 'required|email|unique:resident_access_requests,email',
+            'name' => 'required|min:3|max:255',
+            'email' => 'required|email|unique:resident_access_requests,email|max:255',
             'type' => 'in:' . implode(',', [Role::ROLE_RESIDENT_OWNER['title'], Role::ROLE_RESIDENT_TENANT['title'], Role::ROLE_RESIDENT_STUDENT['title'], Role::ROLE_RESIDENT_SHOP['title']]),
-            'groups' => 'min:3|max:191', //todo
+            'groups' => 'min:3|max:255', //todo
             'status' => 'in:' . ResidentAccessRequest::STATUS_APPROVED . ',' . ResidentAccessRequest::STATUS_DENIED . ','. ResidentAccessRequest::STATUS_COMPLETED . ',' . ResidentAccessRequest::STATUS_PENDING,
             'active' => 'boolean',
-            'comment' => 'min:3|max:1024',
+            'comment' => 'min:3|max:16777215',
             'moderatedUserId' => 'integer',
             'moderatedAt' => 'date',
             'movedInDate' => 'date',

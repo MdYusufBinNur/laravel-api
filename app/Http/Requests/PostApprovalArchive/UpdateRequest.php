@@ -17,7 +17,7 @@ class UpdateRequest extends Request
         return [
             'postId' =>  'exists:posts,id',
             'status' =>  'in:'.PostApprovalArchive::STATUS_APPROVED.','.PostApprovalArchive::STATUS_DENIED,
-            'reason' =>  'reason',
+            'reason' =>  'reason|max:16777215',
         ];
     }
 }

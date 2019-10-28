@@ -2,20 +2,10 @@
 
 namespace App\Http\Requests\Announcement;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Request;
 
-class StoreRequest extends FormRequest
+class StoreRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -25,9 +15,9 @@ class StoreRequest extends FormRequest
     {
         return [
             'propertyId' => 'required|exists:properties,id',
-            'title' => 'required|min:5|max:191',
-            'content' => 'required|min:5|max:256',
-            'link' => 'required|min:5|max:190',
+            'title' => 'required|min:5|max:255',
+            'content' => 'required|min:5|max:16777215',
+            'link' => 'required|min:5|max:255',
             'linkinNewWindows' => 'boolean',
             'showOnWebsite' => 'boolean',
             'showOnLds' => 'boolean',

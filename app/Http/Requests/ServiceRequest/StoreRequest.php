@@ -21,7 +21,7 @@ class StoreRequest extends Request
             'unitId' => 'required|exists:units,id',
             'categoryId' => 'required|exists:service_request_categories,id',
             'phone' => 'min:11|max:20',
-            'description' => 'required|min:10|max:1024',
+            'description' => 'required|min:10|max:65535',
             'permissionToEnter' => 'boolean',
             'preferredStartTime' => 'date',
             'preferredEndTime' => 'date',

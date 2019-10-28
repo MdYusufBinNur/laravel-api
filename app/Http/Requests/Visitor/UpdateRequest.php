@@ -18,13 +18,13 @@ class UpdateRequest extends Request
             'propertyId' => 'exists:properties,id',
             'unitId' => 'exists:units,id',
             'visitorTypeId' => 'exists:visitor_types,id',
-            'name' => 'min:3|max:191',
+            'name' => 'min:3|max:255',
             'phone' => 'min:5|max:20',
             'email' => 'email|min:3|max:100',
-            'company' => 'min:3|max:191',
+            'company' => 'min:3|max:200',
             'photo' => 'boolean',
             'permanent' => 'boolean',
-            'comment' => 'min:3|max:1024',
+            'comment' => 'min:3|max:16777215',
             'signature' => 'boolean'
         ];
     }

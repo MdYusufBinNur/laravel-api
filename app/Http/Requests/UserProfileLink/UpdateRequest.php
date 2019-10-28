@@ -17,8 +17,8 @@ class UpdateRequest extends Request
         return [
             'userId' => 'exists:users,id',
             'type' => 'in:'.UserProfileLink::TYPE_COMPANY.','.UserProfileLink::TYPE_FACEBOOK.','.UserProfileLink::TYPE_LINKEDIN.','.UserProfileLink::TYPE_MYSPACE.''.UserProfileLink::TYPE_OTHER.','.UserProfileLink::TYPE_WEBSITE,
-            'title' => 'min:5|max:191',
-            'url' => 'min:5|max:191',
+            'title' => 'min:5|max:255',
+            'url' => 'min:5|max:255',
         ];
     }
 }

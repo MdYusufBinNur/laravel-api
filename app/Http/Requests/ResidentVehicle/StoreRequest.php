@@ -15,10 +15,10 @@ class StoreRequest extends Request
     {
         return [
             'residentId' => 'required|exists:residents,id',
-            'make' => 'min:3|max:191',
-            'model' => 'min:3|max:191',
-            'color' => 'min:3|max:191',
-            'licensePlate' => 'required|min:3|max:191',
+            'make' => 'min:3|max:255',
+            'model' => 'min:3|max:255',
+            'color' => 'min:3|max:255',
+            'licensePlate' => 'required|min:3|max:255',
         ];
     }
 }

@@ -19,9 +19,9 @@ class UpdateRequest extends Request
             'propertyId' => 'exists:properties,id|unique:property_general_infos,propertyId',
             'officeHours' => 'min:7|max:20',
             'phone' => 'min:11|max:20',
-            'emergenceContact' => 'min:5|max:1024',
+            'emergenceContact' => 'min:5|max:255',
             'email' => Rule::unique('property_general_infos')->ignore($id, 'id'),
-            'additionalInfo' => 'min:3:max:1024',
+            'additionalInfo' => 'min:3:max:65535',
         ];
     }
 }

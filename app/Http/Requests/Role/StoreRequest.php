@@ -15,8 +15,8 @@ class StoreRequest extends Request
     public function rules()
     {
         return $rules = [
-            'title'             => 'required|unique:roles,title|min:3',
-            'type'             => 'required|min:3|max:20',
+            'title'             => 'required|unique:roles,title|min:3|max:255',
+            'type'             => 'required|min:3|max:255',
         ];
     }
 }

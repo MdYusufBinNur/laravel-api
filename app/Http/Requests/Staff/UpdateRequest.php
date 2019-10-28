@@ -20,18 +20,18 @@ class UpdateRequest extends Request
         $userId = DB::table('managers')->where('id', '=', $staffId)->pluck('userId')->toArray()[0];
 
         return $rules = [
-            'contactEmail' => 'email',
+            'contactEmail' => 'email||max:255',
             'propertyId' => 'exists:properties,id|required_with:role.addNewRole',
-            'phone' => 'max:100',
-            'title' => 'min:5',
+            'phone' => 'max:20',
+            'title' => 'min:5||max:255',
             'level' => 'in:' . Role::ROLE_STAFF_PRIORITY['title'] . ',' . Role::ROLE_STAFF_STANDARD['title'] . ',' . Role::ROLE_STAFF_LIMITED['title'],
             'displayInCorner' => 'boolean',
             'displayPublicProfile' => '',
 
             'user' => '',
-            'user.email' => 'email|unique:users,email,' . $userId . ',id',
-            'user.name' => 'max:100',
-            'user.password' => 'min:5',
+            'user.email' => '|max:255|email|unique:users,email,' . $userId . ',id',
+            'user.name' => 'max:255',
+            'user.password' => 'min:5|max:255',
             'user.locale' => '',
         ];
     }

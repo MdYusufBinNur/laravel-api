@@ -14,8 +14,8 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'email' => 'required|email',
-            'token' => 'required|min:3|max:256',
+            'email' => 'required|email|max:255',
+            'token' => 'required|min:3|max:255',
         ];
     }
 }

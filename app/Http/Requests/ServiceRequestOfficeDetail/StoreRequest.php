@@ -16,12 +16,12 @@ class StoreRequest extends Request
         return [
             'serviceRequestId' => 'required|exists:service_requests,id',
             'assignedUserId' => 'required|exists:users,id',
-            'materialUsed' => 'min:3|max:191',
-            'materialAmount' => 'min:3|max:191',
-            'handyman' => 'min:3|max:191',
+            'materialUsed' => 'min:3|max:255',
+            'materialAmount' => 'min:3|max:255',
+            'handyman' => 'min:3|max:255',
             'outsideContractor' => 'boolean',
-            'partsNeeded' => 'min:3|max:1024',
-            'comment' => 'min:3|max:1024',
+            'partsNeeded' => 'min:3|max:65535',
+            'comment' => 'min:3|max:65535',
             'temporarilyRepaired' => 'boolean',
             'signature' => 'boolean',
         ];

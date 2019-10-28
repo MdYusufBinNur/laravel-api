@@ -15,8 +15,8 @@ class StoreRequest extends Request
     {
         return [
             'moduleId'      => 'numeric|exists:modules,id',
-            'key'           => 'required|min:5|max:191',
-            'title'         => 'required|min:5|max:191',
+            'key'           => 'required|min:5|max:255',
+            'title'         => 'required|min:5|max:255',
         ];
     }
 }

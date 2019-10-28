@@ -17,10 +17,10 @@ class UpdateRequest extends Request
     {
         return [
             'typeId' => 'exists:post_recommendation_types,id',
-            'name' => 'min:3|max:191',
-            'description' => 'string',
-            'contact' => 'min:3|max:191',
-            'website' => 'min:3|max:191',
+            'name' => 'min:3|max:255',
+            'description' => 'string|max:16777215',
+            'contact' => 'min:3|max:255',
+            'website' => 'min:3|max:255',
 
             'post' => '',
             'post.status' => 'in:' . Post::STATUS_PENDING . ',' . Post::STATUS_DENIED . ',' . Post::STATUS_APPROVED . ',' . Post::STATUS_POSTED,

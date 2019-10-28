@@ -16,7 +16,7 @@ class StoreRequest extends Request
     {
         return [
             'postId' =>  'required|exists:posts,id',
-            'text' =>  ''
+            'text' =>  'max:16777215'
         ];
     }
 }

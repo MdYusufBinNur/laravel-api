@@ -16,7 +16,7 @@ class UpdateRequest extends Request
         return [
             'messageId' => 'exists:messages,id',
             'fromUserId' => 'exists:users,id',
-            'text' => 'min:3|max:2048',
+            'text' => 'min:3|max:16777215',
         ];
     }
 }

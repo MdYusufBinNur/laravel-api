@@ -17,14 +17,14 @@ class UpdateRequest extends Request
     {
         return [
             'gender' => 'in:'.UserProfile::GENDER_FEMALE.','.UserProfile::GENDER_MALE,
-            'occupation' => 'min:3|max:191',
-            'homeTown' => 'min:3|max:191',
+            'occupation' => 'min:3|max:255',
+            'homeTown' => 'min:3|max:255',
             'birthDate' => 'date',
-            'language' => 'min:3|max:191',
-            'website' => 'min:3|max:191',
+            'language' => 'min:3|max:255',
+            'website' => 'min:3|max:255',
             'facebookUsername' => 'min:3|max:100',
             'twitterUsername' => 'min:3|max:100',
-            'aboutMe' => 'min:3|max:1024',
+            'aboutMe' => 'min:3|max:16777215',
             'interests' => [new CSVString()],
         ];
     }

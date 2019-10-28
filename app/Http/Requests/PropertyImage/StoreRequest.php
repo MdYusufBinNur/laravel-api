@@ -20,7 +20,7 @@ class StoreRequest extends Request
                 . PropertyImage::TYPE_BANNER . ','
                 . PropertyImage::TYPE_LOGO . ','
                 . PropertyImage::TYPE_GALLERY,
-            'title' =>  'min:3|max:191',
+            'title' =>  'min:3|max:255',
             'imageId' =>  'required|exists:attachments,id',
         ];
     }

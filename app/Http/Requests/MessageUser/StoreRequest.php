@@ -16,7 +16,7 @@ class StoreRequest extends Request
         return [
             'messageId' => 'required|exists:messages,id',
             'userId' => 'required|exists:users,id',
-            'folder' => 'required|min:1',
+            'folder' => 'required|min:1|max:255',
             'isRead' => 'boolean',
         ];
     }

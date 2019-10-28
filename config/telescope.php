@@ -77,7 +77,7 @@ return [
 
     'middleware' => [
         'web',
-        Authorize::class,
+        \App\Http\Middleware\HorizonAuthBasic::class,
     ],
 
     /*

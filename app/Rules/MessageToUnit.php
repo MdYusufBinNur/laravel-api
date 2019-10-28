@@ -61,9 +61,9 @@ class MessageToUnit implements Rule
         $notExistUnits = [];
         foreach ($toUnitIds as $toUnitId) {
             if (is_numeric($toUnitId)) {
-                $unitDoesNotExist = DB::table('residents')
+                $unitDoesNotExist = DB::table('units')
                     ->where('propertyId', $this->propertyId)
-                    ->where('unitId', $toUnitId)
+                    ->where('id', $toUnitId)
                     ->doesntExist();
                 if ($unitDoesNotExist) {
                     $notExistUnits[] = $toUnitId;

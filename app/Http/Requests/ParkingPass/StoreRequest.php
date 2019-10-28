@@ -20,8 +20,8 @@ class StoreRequest extends Request
             'make' => 'max:100',
             'model' => 'max:100',
             'licensePlate' => 'max:100',
-            'startAt' => 'required|date',
-            'endAt' => 'required|date|after:startAt',
+            'startAt' => 'required|date_format:Y-m-d H:i',
+            'endAt' => 'required|date_format:Y-m-d H:i|after:startAt',
         ];
     }
 }

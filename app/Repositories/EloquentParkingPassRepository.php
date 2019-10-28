@@ -58,9 +58,16 @@ class EloquentParkingPassRepository extends EloquentBaseRepository implements Pa
      */
     public function save(array $data): \ArrayAccess
     {
-        if (!isset($data['startDate'])) {
+        if (isset($data['startAt'])) {
+            $data['startAt'] = Carbon::parse($data['startAt']);
+        } else {
             $data['startDate'] = Carbon::now();
         }
+
+        if (isset($data['endAt'])) {
+            $data['endAt'] = Carbon::parse($data['endAt']);
+        }
+
 
         $parkingSpaceRepository = app(ParkingSpaceRepository::class);
         $parkingSpace = $parkingSpaceRepository->findOne($data['spaceId']);
@@ -94,6 +101,14 @@ class EloquentParkingPassRepository extends EloquentBaseRepository implements Pa
             unset($data['released']);
             // todo log
 
+        }
+
+        if (isset($data['startAt'])) {
+            $data['startAt'] = Carbon::parse($data['startAt']);
+        }
+
+        if (isset($data['endAt'])) {
+            $data['endAt'] = Carbon::parse($data['endAt']);
         }
 
         $parkingPass = parent::update($model, $data);

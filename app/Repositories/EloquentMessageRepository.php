@@ -121,8 +121,13 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
                         $groupNames[] = Str::title(str_replace('_', ' ', Message::GROUP_ALL_STAFFS));
                         break;
                     case Message::GROUP_SPECIFIC_TOWER:
-                        $userIds[] = $residentRepository->getUserIdsOfTheTowersResidents(explode(',', $data['towerIds']));
-                        $groupNames[] = preg_filter('/^/', 'Tower ', explode(',', $data['towerIds']));
+                        $towerIds = explode(',', $data['towerIds']);
+                        $userIds[] = $residentRepository->getUserIdsOfTheTowersResidents($towerIds);
+
+                        foreach ($towerIds as $towerId) {
+                            $tower = $towerRepository->findOne($towerId);
+                            $groupNames[] = preg_filter('/^/', 'Tower ', $tower->title);
+                        }
                         break;
                     case Message::GROUP_SPECIFIC_FLOOR:
                         foreach ($data['floors'] as $floor) {

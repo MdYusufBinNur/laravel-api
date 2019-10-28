@@ -28,8 +28,8 @@ class ParkingSpaceResource extends Resource
             }),
             'ownedBy' => $this->ownedBy ?? $this->ownerUser->name,
             'address' => $this->address ,
-            'email' => $this->email ?? $this->ownerUser instanceof User ? $this->ownerUser->email : null,
-            'phone' => $this->phone ?? $this->ownerUser instanceof User ? $this->ownerUser->phone : null,
+            'email' => $this->email ?? ($this->ownerUser instanceof User ? $this->ownerUser->email : null),
+            'phone' => $this->phone ?? ($this->ownerUser instanceof User ? $this->ownerUser->phone : null),
         ];
     }
 }

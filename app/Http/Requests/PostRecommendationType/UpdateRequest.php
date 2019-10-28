@@ -14,11 +14,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-<<<<<<< HEAD
             'title' =>  'min:5|max:255',
-=======
-            'title' =>  'max:191',
->>>>>>> eae7f62ab2e16e3e4807cfd8a0b3bd72a3d4525d
         ];
     }
 }

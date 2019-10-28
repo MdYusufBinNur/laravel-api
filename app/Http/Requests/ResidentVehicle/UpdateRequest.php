@@ -15,17 +15,10 @@ class UpdateRequest extends Request
     {
         return [
             'residentId' => 'exists:residents,id',
-<<<<<<< HEAD
             'make' => 'min:3|max:255',
             'model' => 'min:3|max:255',
             'color' => 'min:3|max:255',
             'licensePlate' => 'min:3|max:255',
-=======
-            'make' => 'max:191',
-            'model' => 'max:191',
-            'color' => 'max:191',
-            'licensePlate' => 'max:191',
->>>>>>> eae7f62ab2e16e3e4807cfd8a0b3bd72a3d4525d
         ];
     }
 }

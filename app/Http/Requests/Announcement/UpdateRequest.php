@@ -15,15 +15,9 @@ class UpdateRequest extends Request
     {
         return [
             'propertyId' => 'exists:properties,id',
-<<<<<<< HEAD
             'title' => 'min:5|max:255',
             'content' => 'min:5|max:16777215',
             'link' => 'min:5|max:255',
-=======
-            'title' => 'max:191',
-            'content' => 'max:256',
-            'link' => 'max:190',
->>>>>>> eae7f62ab2e16e3e4807cfd8a0b3bd72a3d4525d
             'linkinNewWindows' => 'boolean',
             'showOnWebsite' => 'boolean',
             'showOnLds' => 'boolean',

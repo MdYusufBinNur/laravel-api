@@ -17,11 +17,7 @@ class StoreRequest extends Request
             'packageId' => 'required|unique:package_archives,packageId|exists:packages,id',
             'propertyId' => 'required|exists:properties,id',
             'signOutUserId' => 'required|exists:users,id',
-<<<<<<< HEAD
             'signOutComment' => 'min:3|max:255',
-=======
-            'signOutComment' => 'max:512',
->>>>>>> eae7f62ab2e16e3e4807cfd8a0b3bd72a3d4525d
             'signature' => 'boolean'
         ];
     }

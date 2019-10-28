@@ -24,13 +24,8 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-<<<<<<< HEAD
             'key'       => 'min:5|max:255',
             'title'     => 'min:5|max:255',
-=======
-            'key'       => 'max:191',
-            'title'     => 'max:191',
->>>>>>> eae7f62ab2e16e3e4807cfd8a0b3bd72a3d4525d
         ];
     }
 }

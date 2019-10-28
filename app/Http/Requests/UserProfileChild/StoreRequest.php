@@ -17,11 +17,7 @@ class StoreRequest extends Request
         return [
             'userId' => 'required|exists:users,id',
             'gender' => 'in:'.UserProfileChild::GENDER_MALE.','.UserProfileChild::GENDER_FEMALE,
-<<<<<<< HEAD
             'name' => 'required|min:3|max:255',
-=======
-            'name' => 'required|max:191',
->>>>>>> eae7f62ab2e16e3e4807cfd8a0b3bd72a3d4525d
             'age' => 'integer',
         ];
     }

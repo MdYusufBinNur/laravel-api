@@ -18,7 +18,6 @@ class StoreRequest extends Request
         return [
             'propertyId' => 'required|exists:properties,id',
             'unitId' => 'required|exists:units,id',
-<<<<<<< HEAD
             'name' => 'required|min:3|max:255',
             'email' => 'required|email|unique:resident_access_requests,email|max:255',
             'type' => 'in:' . implode(',', [Role::ROLE_RESIDENT_OWNER['title'], Role::ROLE_RESIDENT_TENANT['title'], Role::ROLE_RESIDENT_STUDENT['title'], Role::ROLE_RESIDENT_SHOP['title']]),
@@ -26,15 +25,6 @@ class StoreRequest extends Request
             'status' => 'in:' . ResidentAccessRequest::STATUS_APPROVED . ',' . ResidentAccessRequest::STATUS_DENIED . ','. ResidentAccessRequest::STATUS_COMPLETED . ',' . ResidentAccessRequest::STATUS_PENDING,
             'active' => 'boolean',
             'comment' => 'min:3|max:16777215',
-=======
-            'name' => 'required|max:191',
-            'email' => 'required|email|unique:resident_access_requests,email',
-            'type' => 'in:' . implode(',', [Role::ROLE_RESIDENT_OWNER['title'], Role::ROLE_RESIDENT_TENANT['title'], Role::ROLE_RESIDENT_STUDENT['title'], Role::ROLE_RESIDENT_SHOP['title']]),
-            'groups' => 'max:191', //todo
-            'status' => 'in:' . ResidentAccessRequest::STATUS_APPROVED . ',' . ResidentAccessRequest::STATUS_DENIED . ','. ResidentAccessRequest::STATUS_COMPLETED . ',' . ResidentAccessRequest::STATUS_PENDING,
-            'active' => 'boolean',
-            'comment' => 'max:1024',
->>>>>>> eae7f62ab2e16e3e4807cfd8a0b3bd72a3d4525d
             'moderatedUserId' => 'integer',
             'moderatedAt' => 'date',
             'movedInDate' => 'date',

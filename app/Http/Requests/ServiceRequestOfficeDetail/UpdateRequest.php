@@ -15,21 +15,12 @@ class UpdateRequest extends Request
     {
         return [
             'assignedUserId' => 'exists:users,id',
-<<<<<<< HEAD
             'materialUsed' => 'min:3|max:255',
             'materialAmount' => 'min:3|max:255',
             'handyman' => 'min:3|max:255',
             'outsideContractor' => 'boolean',
             'partsNeeded' => 'min:3|max:65535',
             'comment' => 'min:3|max:65535',
-=======
-            'materialUsed' => 'max:191',
-            'materialAmount' => 'max:191',
-            'handyman' => 'max:191',
-            'outsideContractor' => 'boolean',
-            'partsNeeded' => 'max:1024',
-            'comment' => 'max:1024',
->>>>>>> eae7f62ab2e16e3e4807cfd8a0b3bd72a3d4525d
             'temporarilyRepaired' => 'boolean',
             'signature' => 'boolean',
         ];

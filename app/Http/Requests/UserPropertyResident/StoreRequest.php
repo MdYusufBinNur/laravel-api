@@ -17,13 +17,8 @@ class StoreRequest extends Request
             'userId' => 'required|exists:users,id',
             'propertyId' => 'required|exists:properties,id',
             'unitId' => 'required|exists:units,id',
-<<<<<<< HEAD
             'role' => 'required|min:2|max:100',
             'groups' => 'required|min:2|max:100',
-=======
-            'role' => 'required',
-            'groups' => 'required',
->>>>>>> eae7f62ab2e16e3e4807cfd8a0b3bd72a3d4525d
             'displayUnit' => 'boolean',
             'displayPublicProfile' => 'boolean',
             'allowPostNote' => 'boolean',

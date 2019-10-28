@@ -20,13 +20,8 @@ class StoreRequest extends Request
             'userId' => 'required|exists:users,id',
             'unitId' => 'required|exists:units,id',
             'categoryId' => 'required|exists:service_request_categories,id',
-<<<<<<< HEAD
             'phone' => 'min:11|max:20',
             'description' => 'required|min:10|max:65535',
-=======
-            'phone' => 'max:20',
-            'description' => 'required|max:1024',
->>>>>>> eae7f62ab2e16e3e4807cfd8a0b3bd72a3d4525d
             'permissionToEnter' => 'boolean',
             'preferredStartTime' => 'date',
             'preferredEndTime' => 'date',

@@ -17,7 +17,7 @@ class UpdateRequest extends Request
         return [
             'level' => 'in:' . Admin::LEVEL_SUPER . ',' . Admin::LEVEL_LIMITED . ',' . Admin::LEVEL_STANDARD,
             'users' => '',
-            'users.name' => 'min:3|max:100',
+            'users.name' => 'min:3|max:255',
             'users.isActive' => 'boolean',
         ];
     }

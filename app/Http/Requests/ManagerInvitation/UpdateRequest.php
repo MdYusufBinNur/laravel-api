@@ -16,9 +16,9 @@ class UpdateRequest extends Request
     {
         return [
             'propertyId'        => 'exists:properties,id',
-            'email'             => 'unique:manager_invitations,email',
-            'name'              => 'max:100',
-            'title'             => 'max:512',
+            'email'             => 'unique:manager_invitations,email|max:255',
+            'name'              => 'min:3|max:255',
+            'title'             => 'min:3|max:255',
             'level'             => 'in:'.ManagerInvitation::LEVEL_ADMIN.','.ManagerInvitation::LEVEL_STANDARD.','.ManagerInvitation::LEVEL_LIMITED.','.ManagerInvitation::LEVEL_RESTRICTED,
             'status'            => 'in:'.ManagerInvitation::STATUS_ACTIVE.','.ManagerInvitation::STATUS_CANCELLED.','.ManagerInvitation::STATUS_COMPLETED,
             'invitedAt'          => 'date',

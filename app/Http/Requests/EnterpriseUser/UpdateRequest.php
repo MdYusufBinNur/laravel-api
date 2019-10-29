@@ -20,9 +20,9 @@ class UpdateRequest extends Request
         return [
             'userId' => 'exists:users,id',
             'companyId' => 'exists:companies,id',
-            'contactEmail' => 'email',
-            'phone' => 'min:7|max:20',
-            'title' => 'max:512',
+            'contactEmail' => 'email|max:255',
+            'phone' => 'min:12|max:20',
+            'title' => 'min:3|max:255',
             'propertyIds' => [new ListOfIds('properties', 'id')],
             'level' => 'in:' . EnterpriseUser::LEVEL_ADMIN . ',' . EnterpriseUser::LEVEL_STANDARD,
         ];

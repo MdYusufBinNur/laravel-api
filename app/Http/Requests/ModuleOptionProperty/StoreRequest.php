@@ -18,7 +18,7 @@ class StoreRequest extends FormRequest
 
             'moduleOptionProperty' => 'required',
             'moduleOptionProperty.*.moduleOptionId' => 'required|numeric|exists:module_options,id',
-            'moduleOptionProperty.*.value' => 'required|max:50',
+            'moduleOptionProperty.*.value' => 'required|max:16777215',
         ];
     }
 }

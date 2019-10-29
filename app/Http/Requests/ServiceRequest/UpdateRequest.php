@@ -17,8 +17,8 @@ class UpdateRequest extends Request
         return [
             'userId' => 'exists:users,id',
             'status' => 'in:' . ServiceRequest::STATUS_NEW . ',' . ServiceRequest::STATUS_IN_PROGRESS . ',' . ServiceRequest::STATUS_ON_HOLD . ',' . ServiceRequest::STATUS_CANCELLED . ',' . ServiceRequest::STATUS_RESOLVED,
-            'phone' => 'max:20',
-            'description' => 'max:1024',
+            'phone' => 'min:11|max:20',
+            'description' => 'min:10|max:65535',
             'permissionToEnter' => 'boolean',
             'preferredStartTime' => 'date',
             'preferredEndTime' => 'date',

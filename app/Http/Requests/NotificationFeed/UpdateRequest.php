@@ -16,8 +16,8 @@ class UpdateRequest extends Request
         return [
             'propertyId' => 'exists:properties,id',
             'userId' => 'exists:users,id',
-            'name' => 'string|max:100',
-            'content' => 'string|max:512',
+            'name' => 'string|min:3|max:255',
+            'content' => 'string|min:5|max:16777215',
             'isRead' => 'boolean',
             'isViewed' => 'boolean',
         ];

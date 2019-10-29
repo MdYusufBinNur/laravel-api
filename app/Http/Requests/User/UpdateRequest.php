@@ -17,11 +17,11 @@ class UpdateRequest extends Request
     {
         $userId = $this->segment(4);
         return $rules = [
-            'password' => 'min:5|required_with:current_password',
-            'current_password' => 'required_with:password',
+            'password' => 'min:5|required_with:current_password|max:255',
+            'current_password' => 'required_with:password|max:255',
             'email' => Rule::unique('users')->ignore($userId, 'id'),
-            'name' => '',
-            'locale' => '',
+            'name' => 'max:255',
+            'locale' => 'max:255',
             'isActive' => 'boolean',
             'role' => '',
             'role.id' => 'exists:user_roles,id', //todo what if, addNewRole is not given & roles.id is not given too.

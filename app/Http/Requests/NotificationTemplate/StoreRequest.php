@@ -15,8 +15,8 @@ class StoreRequest extends Request
     {
         return [
             'typeId' => 'required|exists:notification_template_types,id',
-            'title' => 'required|max:512',
-            'text' => 'required|max:1024',
+            'title' => 'required|min:5|max:255',
+            'text' => 'required|min:10|max:16777215',
             'editable' => 'boolean',
         ];
     }

@@ -19,9 +19,9 @@ class StoreRequest extends Request
             'unitId' => 'required_without:residentId|exists:units,id',
             'residentId' => 'required_without:unitId|exists:residents,id',
             'typeId' => 'required|exists:package_types,id',
-            'trackingNumber' => 'max:191',
-            'description' => 'max:1024',
-            'comment' => 'max:1024',
+            'trackingNumber' => 'min:3|max:255',
+            'description' => 'min:3|max:65535',
+            'comment' => 'min:3|max:255',
         ];
     }
 }

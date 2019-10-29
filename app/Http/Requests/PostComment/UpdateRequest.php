@@ -16,7 +16,7 @@ class UpdateRequest extends Request
     {
         return [
             'status' =>  'in:'. PostComment::STATUS_POSTED. ','. PostComment::STATUS_APPROVED. ','. PostComment::STATUS_PENDING. ','. PostComment::STATUS_DENIED,
-            'text' =>  'max:1024',
+            'text' =>  'min:3|max:16777215',
         ];
     }
 }

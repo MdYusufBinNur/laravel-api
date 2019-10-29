@@ -14,8 +14,8 @@ class UpdateRequest extends Request
     public function rules()
     {
         return $rules = [
-            'title'             => '',
-            'type'             => 'max:20',
+            'title'             => 'min:3|max:255',
+            'type'             => 'min:3|max:255',
         ];
     }
 

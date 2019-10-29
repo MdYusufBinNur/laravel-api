@@ -14,7 +14,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'value' => 'required'
+            'value' => 'required|max:16777215'
         ];
     }
 }

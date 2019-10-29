@@ -14,7 +14,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'title' =>  'max:191',
+            'title' =>  'min:3|max:255',
             'imageId' =>  'exists:attachments,id',
         ];
     }

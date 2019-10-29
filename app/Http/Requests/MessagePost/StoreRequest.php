@@ -16,7 +16,7 @@ class StoreRequest extends Request
     {
         return [
             'messageId' => 'required|exists:messages,id',
-            'text' => 'required|max:2048',
+            'text' => 'required|min:3|max:16777215',
             'attachmentIds' => [new ListOfIds('attachments', 'id')],
         ];
     }

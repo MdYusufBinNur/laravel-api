@@ -14,12 +14,12 @@ class UpdateRequest extends Request
     public function rules()
     {
         return $rules = [
-            'title'     => '',
-            'address'   => '',
-            'city'      => '',
-            'state'     => '',
-            'postCode' => '',
-            'country'   => '',
+            'title'     => 'min:3|max:255',
+            'address'   => 'min:3|max:255',
+            'city'      => 'max:255',
+            'state'     => 'max:255',
+            'postCode' => 'max:10',
+            'country'   => 'max:10',
             'active'    => '',
         ];
     }

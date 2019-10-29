@@ -16,8 +16,8 @@ class StoreRequest extends Request
         return [
             'propertyId' => 'required|exists:properties,id',
             'themeId' => 'integer',
-            'selectedBackground' => 'max:6',
-            'selectedHeadline' => 'max:6',
+            'selectedBackground' => 'max:10',
+            'selectedHeadline' => 'max:10',
             'customImageAttachmentId' => 'exists:attachments,id',
             'tileUploadedImage' => 'boolean',
         ];

@@ -15,7 +15,7 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' => 'required|exists:properties,id',
-            'title' => 'required|max:191',
+            'title' => 'required|min:3|max:255',
             'icon' => 'required|integer',
         ];
     }

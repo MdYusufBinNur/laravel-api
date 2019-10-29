@@ -15,8 +15,8 @@ class UpdateRequest extends Request
     {
         return [
             'moduleId'      => 'numeric|exists:modules,id',
-            'key'           => 'max:191',
-            'title'         => 'max:191',
+            'key'           => 'min:5|max:255',
+            'title'         => 'min:5|max:255',
         ];
     }
 }

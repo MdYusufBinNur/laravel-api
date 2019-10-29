@@ -136,7 +136,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
         }
 
         if (isset($searchCriteria['id'])) {
-            $searchCriteria['id'] = implode(",", array_unique($searchCriteria['id']));
+            $searchCriteria['id'] = is_array($searchCriteria['id']) ? implode(",", array_unique($searchCriteria['id'])) : $searchCriteria['id'];
         }
 
         return $searchCriteria;

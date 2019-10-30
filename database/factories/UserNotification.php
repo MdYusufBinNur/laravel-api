@@ -9,7 +9,7 @@ $factory->define(App\DbModels\UserNotification::class, function (Faker $faker) {
         'toUserId' =>  1,
         'fromUserId' =>  App\DbModels\User::all()->random()->id,
         'userNotificationTypeId' =>  App\DbModels\UserNotificationType::all()->random()->id,
-        'resourceId' => null,
+        'resourceId' => 1,
         'message' => $faker->sentence,
     ];
 });

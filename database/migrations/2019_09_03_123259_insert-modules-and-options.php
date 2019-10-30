@@ -85,6 +85,7 @@ class InsertModulesAndOptions extends Migration
             ['moduleId' => 19, 'key' => 'unitLimit', 'title' => 'Parking passes limit per Unit'],
             ['moduleId' => 19, 'key' => 'timeLimit', 'title' => 'Parking passes time limit'],
             ['moduleId' => 19, 'key' => 'messageInIssueParkingPass', 'title' => 'Add this message to the Issue Parking Passes from'],
+            ['moduleId' => 19, 'key' => 'validateHours: 2', 'title' => 'How long a parking passes will valid?'],
 
         ]);
     }

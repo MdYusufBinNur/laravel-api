@@ -17,10 +17,12 @@ class ModuleOptionPropertyResource extends Resource
             'createdByUserId' => $this->createdByUserId,
             'propertyId' => $this->propertyId,
             'value' => $this->value,
-            'updated_at' => $this->updated_at,
+            'moduleOptionId' => $this->moduleOptionId,
             'moduleOption' => $this->when($this->needToInclude($request, 'mop.moduleOption'), function () {
                 return new ModuleOptionResource($this->moduleOption);
             }),
+            'updated_at' => $this->updated_at,
+
         ];
     }
 }

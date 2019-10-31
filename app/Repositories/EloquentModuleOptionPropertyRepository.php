@@ -16,9 +16,6 @@ class EloquentModuleOptionPropertyRepository extends EloquentBaseRepository impl
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $thisModelTable = $this->model->getTable();
-        $moduleOptionTable = ModuleOption::getTableName();
-
         if (!empty($searchCriteria['moduleOptionKey'])) {
             $keys = explode(',', $searchCriteria['moduleOptionKey']);
             $moduleOptionRepository = app(ModuleOptionRepository::class);

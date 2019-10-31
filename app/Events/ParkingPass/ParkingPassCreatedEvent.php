@@ -65,6 +65,7 @@ class ParkingPassCreatedEvent implements ShouldBroadcast
      */
     public function broadcastWith()
     {
+        request()->merge(['include' => 'pp.space', 'pp.unit', 'pp.createdByUser', 'pp.releasedByUser']);
         return [
             'parkingPass' => new ParkingPassResource($this->parkingPass)
         ];

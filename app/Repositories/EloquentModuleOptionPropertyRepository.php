@@ -4,6 +4,8 @@
 namespace App\Repositories;
 
 
+use App\DbModels\ModuleOption;
+use App\DbModels\User;
 use App\Repositories\Contracts\ModuleOptionPropertyRepository;
 
 class EloquentModuleOptionPropertyRepository extends EloquentBaseRepository implements ModuleOptionPropertyRepository
@@ -13,6 +15,21 @@ class EloquentModuleOptionPropertyRepository extends EloquentBaseRepository impl
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
+        $thisModelTable = $this->model->getTable();
+        $moduleOptionTable = ModuleOption::getTableName();
+
+        if (!empty($searchCriteria['key'])) {
+            $keys = explode(',', $searchCriteria['key']);
+            $moduleOptionIds = $this->model
+                ->select($thisModelTable . '.*')
+                ->join($moduleOptionTable, $moduleOptionTable . '.id', '=', $thisModelTable . '.moduleOptionId')
+                ->whereIn($moduleOptionTable . '.key', $keys)
+                ->pluck('id')->toArray();
+
+            $searchCriteria['moduleOptionId'] = implode(',', $moduleOptionIds);
+            unset($searchCriteria['key']);
+        }
+
         $searchCriteria['eagerLoad'] = ['mop.moduleOption' => 'moduleOption', 'mo.module' => 'ModuleOption.module'];
         return parent::findBy($searchCriteria, $withTrashed);
     }

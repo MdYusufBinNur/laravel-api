@@ -18,7 +18,8 @@ class IndexRequest extends Request
             'id'                => 'list:numeric',
             'propertyId'        => 'required|list:numeric',
             'moduleOptionId'    => 'list:numeric',
-            'key'    => 'list:string'
+            'moduleOptionKey'    => 'list:string',
+            'moduleKey'    => 'list:string',
         ];
     }
 }

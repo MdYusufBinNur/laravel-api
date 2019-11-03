@@ -21,7 +21,7 @@ class UpdateRequest extends Request
             'title' =>  'min:3|max:255',
             'price' =>  'min:3|max:255',
             'description' => 'string|max:16777215',
-            'contact' => 'min:3|max:255',
+            'contact' => 'max:255',
 
             'post' => '',
             'post.status' => 'in:' . Post::STATUS_PENDING . ',' . Post::STATUS_DENIED . ',' . Post::STATUS_APPROVED . ',' . Post::STATUS_POSTED,

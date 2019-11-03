@@ -21,7 +21,7 @@ class StoreRequest extends Request
             'title' =>  'required|min:3|max:255',
             'price' =>  'required|min:3|max:255',
             'description' => 'required|max:16777215',
-            'contact' => 'min:3|max:255',
+            'contact' => 'max:255',
 
             'post' => '',
             'post.propertyId' => 'required_with:post|exists:properties,id',

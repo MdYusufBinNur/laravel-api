@@ -13,6 +13,9 @@ use App\DbModels\EventSignup;
 use App\DbModels\Fdi;
 use App\DbModels\FdiGuestType;
 use App\DbModels\FdiLog;
+use App\DbModels\InventoryCategory;
+use App\DbModels\InventoryItem;
+use App\DbModels\InventoryItemLog;
 use App\DbModels\LdsBlacklistUnit;
 use App\DbModels\LdsSetting;
 use App\DbModels\LdsSlide;
@@ -94,6 +97,9 @@ use App\Repositories\Contracts\EventSignupRepository;
 use App\Repositories\Contracts\FdiGuestTypeRepository;
 use App\Repositories\Contracts\FdiLogRepository;
 use App\Repositories\Contracts\FdiRepository;
+use App\Repositories\Contracts\InventoryCategoryRepository;
+use App\Repositories\Contracts\InventoryItemLogRepository;
+use App\Repositories\Contracts\InventoryItemRepository;
 use App\Repositories\Contracts\LdsBlacklistUnitRepository;
 use App\Repositories\Contracts\LdsSettingRepository;
 use App\Repositories\Contracts\LdsSlidePropertyRepository;
@@ -167,6 +173,9 @@ use App\Repositories\EloquentEventSignupRepository;
 use App\Repositories\EloquentFdiGuestTypeRepository;
 use App\Repositories\EloquentFdiLogRepository;
 use App\Repositories\EloquentFdiRepository;
+use App\Repositories\EloquentInventoryCategoryRepository;
+use App\Repositories\EloquentInventoryItemLogRepository;
+use App\Repositories\EloquentInventoryItemRepository;
 use App\Repositories\EloquentLdsBlacklistUnitRepository;
 use App\Repositories\EloquentLdsSettingRepository;
 use App\Repositories\EloquentLdsSlidePropertyRepository;
@@ -669,6 +678,21 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind AdminRepository
         $this->app->bind(AdminRepository::class, function() {
             return new EloquentAdminRepository(new Admin());
+        });
+
+        // bind InventoryCategoryRepository
+        $this->app->bind(InventoryCategoryRepository::class, function() {
+            return new EloquentInventoryCategoryRepository(new InventoryCategory());
+        });
+
+        // bind InventoryItemRepository
+        $this->app->bind(InventoryItemRepository::class, function() {
+            return new EloquentInventoryItemRepository(new InventoryItem());
+        });
+
+        // bind InventoryCategoryRepository
+        $this->app->bind(InventoryItemLogRepository::class, function() {
+            return new EloquentInventoryItemLogRepository(new InventoryItemLog());
         });
     }
 }

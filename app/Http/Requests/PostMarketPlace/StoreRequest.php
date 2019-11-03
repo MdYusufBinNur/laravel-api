@@ -18,8 +18,8 @@ class StoreRequest extends Request
         return [
             'postId' =>  'required_without|exists:posts,id',
             'type' =>  'in:'.PostMarketplace::TYPE_BUY. ','. PostMarketplace::TYPE_SELL,
-            'title' =>  'required|min:3|max:255',
-            'price' =>  'required|min:3|max:255',
+            'title' =>  'required|max:255',
+            'price' =>  'required|max:255',
             'description' => 'required|max:16777215',
             'contact' => 'max:255',
 

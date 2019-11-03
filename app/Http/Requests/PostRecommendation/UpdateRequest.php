@@ -17,7 +17,7 @@ class UpdateRequest extends Request
     {
         return [
             'typeId' => 'exists:post_recommendation_types,id',
-            'name' => 'min:3|max:255',
+            'name' => 'max:255',
             'description' => 'string|max:16777215',
             'contact' => 'max:255',
             'website' => 'max:255',

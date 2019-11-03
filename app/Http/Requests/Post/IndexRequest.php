@@ -20,6 +20,7 @@ class IndexRequest extends Request
             'deletedUserId' =>  'list:numeric',
             'type' =>  'list:string',
             'status' =>  'list:string',
+            'forStaffCenter' => 'boolean'
         ];
     }
 }

@@ -8,6 +8,7 @@ use App\DbModels\Attachment;
 use App\DbModels\Company;
 use App\DbModels\EnterpriseUser;
 use App\DbModels\EnterpriseUserProperty;
+use App\DbModels\Equipment;
 use App\DbModels\Event;
 use App\DbModels\EventSignup;
 use App\DbModels\Fdi;
@@ -92,6 +93,7 @@ use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\CompanyRepository;
 use App\Repositories\Contracts\EnterpriseUserPropertyRepository;
 use App\Repositories\Contracts\EnterpriseUserRepository;
+use App\Repositories\Contracts\EquipmentRepository;
 use App\Repositories\Contracts\EventRepository;
 use App\Repositories\Contracts\EventSignupRepository;
 use App\Repositories\Contracts\FdiGuestTypeRepository;
@@ -168,6 +170,7 @@ use App\Repositories\EloquentAnnouncementRepository;
 use App\Repositories\EloquentAttachmentRepository;
 use App\Repositories\EloquentEnterpriseUserPropertyRepository;
 use App\Repositories\EloquentEnterpriseUserRepository;
+use App\Repositories\EloquentEquipmentRepository;
 use App\Repositories\EloquentEventRepository;
 use App\Repositories\EloquentEventSignupRepository;
 use App\Repositories\EloquentFdiGuestTypeRepository;
@@ -693,6 +696,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind InventoryCategoryRepository
         $this->app->bind(InventoryItemLogRepository::class, function() {
             return new EloquentInventoryItemLogRepository(new InventoryItemLog());
+        });
+
+        // bind EquipmentRepository
+        $this->app->bind(EquipmentRepository::class, function() {
+            return new EloquentEquipmentRepository(new Equipment());
         });
     }
 }

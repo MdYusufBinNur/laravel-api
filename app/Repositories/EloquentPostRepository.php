@@ -5,10 +5,12 @@ namespace App\Repositories;
 
 
 use App\DbModels\Post;
+use App\DbModels\UserRole;
 use App\Events\Post\PostUpdatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\PostApprovalBlacklistUnitRepository;
 use App\Repositories\Contracts\PostRepository;
+use App\Services\RoleHelper;
 use Illuminate\Support\Facades\DB;
 
 class EloquentPostRepository extends EloquentBaseRepository implements PostRepository
@@ -73,12 +75,35 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
     }
 
     /**
-     * @inheritDoc
+     * @inheritdoc
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
+        $thisModelTable = $this->model->getTable();
+        $userRoleModelTable = UserRole::getTableName();
+
+        $queryBuilder = $this->model;
+        if (isset($searchCriteria['forStaffCenter'])) {
+            unset($searchCriteria['forStaffCenter']);
+            $queryBuilder = $queryBuilder->select($thisModelTable . '.*')
+                ->join($userRoleModelTable, $thisModelTable . '.createdByUserId', '=', $userRoleModelTable . '.userId')
+                ->whereIn($userRoleModelTable . '.roleId', RoleHelper::getAllRoleIdsByTypes(['staff', 'enterprise']))
+                ->where($userRoleModelTable . '.propertyId', $searchCriteria['propertyId']);
+
+            $searchCriteria[$thisModelTable . '.propertyId'] = $searchCriteria['propertyId'];
+            unset($searchCriteria['propertyId']);
+        }
+
         $searchCriteria['eagerLoad'] = ['post.property' => 'property', 'post.comments' => 'comments', 'post.attachments' => 'attachments', 'post.approvalArchives' => 'approvalArchives', 'post.createdByUser' => 'createdByUser'];
-        return parent::findBy($searchCriteria, $withTrashed);
+        $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
+            $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
+        });
+
+        $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;
+        $orderBy = !empty($searchCriteria['order_by']) ? $thisModelTable . '.' . $searchCriteria['order_by'] : $thisModelTable . '.id';
+        $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
+        $queryBuilder->orderBy($orderBy, $orderDirection);
+        return $queryBuilder->paginate($limit);
     }
 
     /**

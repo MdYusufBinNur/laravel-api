@@ -79,5 +79,40 @@ class RoleHelper
         return $role['id'];
     }
 
+    /**
+     * get all roles by types
+     *
+     * @param array $types
+     * @return mixed
+     * @throws \ReflectionException
+     */
+    public static function getAllRolesByTypes(array $types)
+    {
+        $roles = self::allRoles();
+
+        $rolesTypeTypes = [];
+        foreach ($roles as $role) {
+            if (in_array($role['type'], $types)) {
+                $rolesTypeTypes[] = $role;
+            }
+        }
+
+        return $rolesTypeTypes;
+    }
+
+    /**
+     * get all roles' ids by types
+     *
+     * @param array $types
+     * @return mixed
+     * @throws \ReflectionException
+     */
+    public static function getAllRoleIdsByTypes(array $types)
+    {
+        $roles = self::getAllRolesByTypes($types);
+
+        return array_column($roles, 'id');
+    }
+
 
 }

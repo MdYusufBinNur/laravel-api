@@ -198,6 +198,12 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::get('floor-list-auto-complete', 'UnitController@floorListAutoComplete');
         Route::get('line-list-auto-complete', 'UnitController@lineListAutoComplete');
 
+        /**
+         * Related to inventory
+         */
+        Route::apiResource('inventory-category', 'InventoryCategoryController');
+        Route::apiResource('inventory-item', 'InventoryItemController');
+        Route::apiResource('inventory-item-log', 'InventoryItemLogController');
 
     });
 

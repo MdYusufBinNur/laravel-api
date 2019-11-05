@@ -34,7 +34,11 @@ class StoreRequest extends Request
             'fileName'     => '',
             'descriptions' => '',
             'fileType'     => '',
-            'fileSize'     => ''
+            'fileSize'     => '',
+
+            'resizeImage'  => 'boolean',
+            'width'  => 'required_with:resizeImage',
+            'height'  => 'required_with:resizeImage',
         ];
     }
 }

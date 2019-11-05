@@ -180,6 +180,7 @@ return [
         \App\Providers\RepositoryServiceProvider::class,
         \App\Providers\ValidatorServiceProvider::class,
         Felixkiss\UniqueWithValidator\ServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class
 
     ],
 
@@ -233,6 +234,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
+        'Image' => Intervention\Image\Facades\Image::class
 
     ],
 

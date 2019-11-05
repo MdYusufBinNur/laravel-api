@@ -16,10 +16,22 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
     public function save(array $data): \ArrayAccess
     {
         if ($data['fileSource'] instanceof UploadedFile) {
+
+            $filePath = $data['fileSource']->getPathname();
+
             if (strpos($data['fileSource']->getMimeType(), 'image') !== false) {
-                ImageOptimizer::optimize($data['fileSource']->getPathname());
+
+                //resize image
+                if (!empty($data['resizeImage'])) {
+                    $resizedImagePath = '/tmp/' . Str::random(10);
+                    \Image::make($data['fileSource']->getPathname())->resize($data['width'], $data['height'])->save($resizedImagePath);
+                    $filePath = $resizedImagePath;
+                }
+
+                //optimize image
+                ImageOptimizer::optimize($filePath);
             }
-            $image = file_get_contents($data['fileSource']);
+            $image = file_get_contents($filePath);
         }
 
         $directoryName = $this->model->getDirectoryName($data['type']);

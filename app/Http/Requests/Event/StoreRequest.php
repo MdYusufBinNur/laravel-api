@@ -28,7 +28,7 @@ class StoreRequest extends Request
             'startAt' => 'date_format:"H:i"',
             'endAt' => 'date_format:"H:i"|after:startAt',
             'date' => 'required|date|after_or_equal:today',
-            'endDate' => 'required|date|after_or_equal:date',
+            'endDate' => 'date|after_or_equal:date',
             'attachmentIds' => [new ListOfIds('attachments', 'id')],
         ];
     }

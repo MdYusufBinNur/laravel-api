@@ -25,4 +25,14 @@ class ParkingPassLog extends Model
         'endAt' => 'datetime:Y-m-d h:i',
         'releasedAt' => 'datetime:Y-m-d h:i',
     ];
+
+    /**
+     * get the parking space
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function parkingSpace()
+    {
+        return $this->hasOne(ParkingSpace::class, 'id', 'spaceId');
+    }
 }

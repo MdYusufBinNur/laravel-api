@@ -7,6 +7,7 @@ namespace App\Repositories;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\EventRepository;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class EloquentEventRepository extends EloquentBaseRepository implements EventRepository
 {
@@ -44,6 +45,8 @@ class EloquentEventRepository extends EloquentBaseRepository implements EventRep
      */
     public function save(array $data): \ArrayAccess
     {
+        DB::beginTransaction();
+
         $event = parent::save($data);
 
         if (isset($data['attachmentIds'])) {
@@ -56,9 +59,31 @@ class EloquentEventRepository extends EloquentBaseRepository implements EventRep
             $event = $this->update($event, $data);
         }
 
+        DB::commit();
 
         return $event;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function update(\ArrayAccess $model, array $data): \ArrayAccess
+    {
+        $event = parent::update($model, $data);
+
+        if (isset($data['attachmentIds'])) {
+
+            $attachmentRepository = app(AttachmentRepository::class);
+            $attachmentRepository->updateResourceIds($data['attachmentIds'], $event->id);
+            $data['hasAttachment'] = true;
+            unset($data['attachmentId']);
+
+            $event = $this->update($event, $data);
+        }
+
+        return $event;
+    }
+
 
     /**
      * @inheritDoc

@@ -69,17 +69,16 @@ class EloquentEventRepository extends EloquentBaseRepository implements EventRep
      */
     public function update(\ArrayAccess $model, array $data): \ArrayAccess
     {
-        $event = parent::update($model, $data);
 
         if (isset($data['attachmentIds'])) {
 
             $attachmentRepository = app(AttachmentRepository::class);
-            $attachmentRepository->updateResourceIds($data['attachmentIds'], $event->id);
+            $attachmentRepository->updateResourceIds($data['attachmentIds'], $model->id);
             $data['hasAttachment'] = true;
             unset($data['attachmentId']);
-
-            $event = $this->update($event, $data);
         }
+
+        $event = parent::update($model, $data);
 
         return $event;
     }

@@ -6,6 +6,7 @@ use App\DbModels\Attachment;
 use App\Repositories\Contracts\AttachmentRepository;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
+use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 class EloquentAttachmentRepository extends EloquentBaseRepository implements AttachmentRepository
 {
@@ -15,8 +16,12 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
     public function save(array $data): \ArrayAccess
     {
         if ($data['fileSource'] instanceof UploadedFile) {
+            if (strpos($data['fileSource']->getMimeType(), 'image') !== false) {
+                ImageOptimizer::optimize($data['fileSource']->getPathname());
+            }
             $image = file_get_contents($data['fileSource']);
         }
+
         $directoryName = $this->model->getDirectoryName($data['type']);
         $data['fileName'] = Str::random(20) . '_'.$data['resourceId'].'_'. $data['fileSource']->getClientOriginalName();
         \Storage::put($directoryName . '/' . $data['fileName'], $image, 'public');

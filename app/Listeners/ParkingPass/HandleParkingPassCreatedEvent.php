@@ -28,6 +28,7 @@ class HandleParkingPassCreatedEvent implements ShouldQueue
             'propertyId' => $parkingPass->propertyId,
             'passId' => $parkingPass->id,
             'spaceId' => $parkingPass->spaceId,
+            'unitId' => $parkingPass->unitId,
             'make' => $parkingPass->make,
             'model' => $parkingPass->model,
             'licensePlate' => $parkingPass->licensePlate,

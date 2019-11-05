@@ -12,7 +12,7 @@ class ParkingPassLog extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'passId', 'spaceId', 'make', 'model', 'licensePlate', 'startAt', 'endAt', 'releasedAt', 'event',
+        'createdByUserId', 'propertyId', 'passId', 'spaceId', 'unitId', 'make', 'model', 'licensePlate', 'startAt', 'endAt', 'releasedAt', 'event',
     ];
 
     /**

@@ -18,6 +18,9 @@ class ParkingPassLogResource extends Resource
             'createdByUserId' => $this->createdByUserId,
             'propertyId' => $this->propertyId,
             'spaceId' => $this->spaceId,
+            'space' =>  $this->when($this->needToInclude($request, 'ppl.space'), function () {
+                return new ParkingSpaceResource($this->parkingSpace);
+            }),
             'make' => $this->make,
             'model' => $this->model,
             'licensePlate' => $this->licensePlate,

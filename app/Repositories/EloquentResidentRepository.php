@@ -214,7 +214,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
 
         if (isset($searchCriteria['withName'])) {
             $residentIds = $this->getResidentsIdsByName($searchCriteria);
-            $searchCriteria['id'] = isset($residentIds) ? array_merge($searchCriteria['residentId'], $searchCriteria['userId']) : $residentIds;
+            $searchCriteria['id'] =  isset($searchCriteria['id']) ? array_merge($searchCriteria['id'], $residentIds) : $residentIds;
             unset($searchCriteria['withName']);
         }
 

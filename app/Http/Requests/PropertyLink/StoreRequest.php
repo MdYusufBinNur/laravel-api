@@ -20,6 +20,7 @@ class StoreRequest extends Request
             'url' => 'required|max:1000',
             'linkCategoryId' => 'required|exists:property_link_categories,id',
             'isFeatured' => 'boolean',
+            'iconName' => 'string',
         ];
     }
 }

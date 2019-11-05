@@ -21,6 +21,7 @@ class CreatePropertyLinksTable extends Migration
             $table->string('url', 1000);
             $table->integer('linkCategoryId')->unsigned();
             $table->boolean('isFeatured')->default(0);
+            $table->string('iconName')->nullable();
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();

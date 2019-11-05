@@ -13,7 +13,7 @@ class PropertyLink extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'title', 'url', 'description', 'isFeatured', 'linkCategoryId'
+        'createdByUserId', 'propertyId', 'title', 'url', 'description', 'iconName', 'isFeatured', 'linkCategoryId'
     ];
 
     /**

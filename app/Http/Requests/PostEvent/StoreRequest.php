@@ -33,7 +33,7 @@ class StoreRequest extends Request
             'event.hasAttachment' => 'boolean',
             'event.startAt' => 'date_format:"H:i"',
             'event.endAt' => 'date_format:"H:i"|after:event.startAt',
-            'event.date' => 'required_with:event|date|after_or_equal:now',
+            'event.date' => 'required_with:event|date|after_or_equal:today',
             'event.endDate' => 'required_with:event|date|after_or_equal:event.date',
             'event.attachmentIds' => [new ListOfIds('attachments', 'id')]
 

@@ -25,7 +25,7 @@ class UpdateRequest extends Request
             'hasAttachment' => 'boolean',
             'startAt' => 'date_format:"H:i"',
             'endAt' => 'date_format:"H:i"|after:startAt',
-            'date' => 'date|after_or_equal:now',
+            'date' => 'date|after_or_equal:today',
             'endDate' => 'date|after_or_equal:date',
             'attachmentIds' => [new ListOfIds('attachments', 'id')]
         ];

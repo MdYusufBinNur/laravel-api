@@ -14,10 +14,11 @@ class IndexRequest extends Request
     public function rules()
     {
         return [
+            'id' => 'numeric',
             'propertyId' => 'required|numeric',
             'title' => 'string',
             'allowedSignUp' => 'boolean',
-            'allDayEvent' => 'boolean',
+            'multipleDaysEvent' => 'boolean',
             'allowedLoginPage' => 'boolean',
             'startDate' => 'date',
             'endDate' => 'date',

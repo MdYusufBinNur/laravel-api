@@ -18,13 +18,15 @@ class CreateEventsTable extends Migration
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
             $table->string('title');
+            $table->string('location');
             $table->mediumText('text')->nullable();
             $table->unsignedMediumInteger('maxGuests');
             $table->boolean('allowedSignUp')->default(0);
-            $table->boolean('allDayEvent')->default(0);
+            $table->boolean('multipleDaysEvent')->default(0);
             $table->boolean('allowedLoginPage')->default(0);
             $table->boolean('hasAttachment')->default(0);
             $table->date('date');
+            $table->date('endDate')->nullable();
             $table->time('startAt')->nullable();
             $table->time('endAt')->nullable();
             $table->timestamps();

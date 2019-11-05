@@ -14,16 +14,18 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'title' => 'min:5|max:255',
-            'text' => 'min:5|max:16777215',
+            'title' => 'max:255',
+            'text' => 'max:16777215',
+            'location' => 'max:255',
             'maxGuests' => 'numeric',
             'allowedSignUp' => 'boolean',
-            'allDayEvent' => 'boolean',
+            'multipleDaysEvent' => 'boolean',
             'allowedLoginPage' => 'boolean',
             'hasAttachment' => 'boolean',
             'startAt' => 'date_format:"H:i"',
             'endAt' => 'date_format:"H:i"|after:startAt',
             'date' => 'date|after_or_equal:now',
+            'endDate' => 'date|after_or_equal:date',
         ];
     }
 }

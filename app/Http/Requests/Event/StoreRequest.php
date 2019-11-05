@@ -18,14 +18,16 @@ class StoreRequest extends Request
             'propertyId' => 'required|exists:properties,id',
             'title' => 'required|max:255',
             'text' => 'max:16777215',
+            'location' => 'required|max:255',
             'maxGuests' => 'required|numeric',
             'allowedSignUp' => 'boolean',
-            'allDayEvent' => 'boolean',
+            'multipleDaysEvent' => 'boolean',
             'allowedLoginPage' => 'boolean',
             'hasAttachment' => 'boolean',
-            'startAt' => 'date_format:"H:i"|required_unless:allDayEvent,1',
-            'endAt' => 'date_format:"H:i"|required_unless:allDayEvent,1|after:startAt',
+            'startAt' => 'date_format:"H:i"',
+            'endAt' => 'date_format:"H:i"|after:startAt',
             'date' => 'required|date|after_or_equal:now',
+            'endDate' => 'required|date|after_or_equal:date',
         ];
     }
 }

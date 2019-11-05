@@ -24,9 +24,10 @@ class EventResource extends Resource
             }),
             'title' => $this->title,
             'text' => $this->text,
+            'location' => $this->location,
             'maxGuests' => $this->maxGuests,
             'allowedSignUp' => $this->allowedSignUp,
-            'allDayEvent' => $this->allDayEvent,
+            'multipleDaysEvent' => $this->multipleDaysEvent,
             'allowedLoginPage' => $this->allowedLoginPage,
             'hasAttachment' => $this->hasAttachment,
             'signups' => $this->when($this->needToInclude($request, 'event.signups'), function () {
@@ -38,6 +39,7 @@ class EventResource extends Resource
             'startAt' => $this->startAt,
             'endAt' => $this->endAt,
             'date' => $this->date,
+            'endDate' => $this->endDate,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

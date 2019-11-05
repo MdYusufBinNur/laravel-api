@@ -162,7 +162,7 @@ return [
         'signOutComment' => 'signOutComment',
         'maxGuests' => 'maxGuests',
         'allowedSignUp' => 'allowedSignUp',
-        'allDayEvent' => 'allDayEvent',
+        'multipleDaysEvent' => 'multipleDaysEvent',
         'allowedLoginPage' => 'allowedLoginPage',
         'hasAttachment' => 'hasAttachment',
         'startAt' => 'startAt',

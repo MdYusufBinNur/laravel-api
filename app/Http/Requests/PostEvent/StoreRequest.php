@@ -25,15 +25,16 @@ class StoreRequest extends Request
             'event.propertyId' => 'required_with:event|exists:properties,id',
             'event.title' => 'required_with:event|max:255',
             'event.text' => 'max:16777215',
+            'event.location' => 'max:255',
             'event.maxGuests' => 'required_with:event|numeric',
             'event.allowedSignUp' => 'boolean',
-            'event.allDayEvent' => 'boolean',
+            'event.multipleDaysEvent' => 'boolean',
             'event.allowedLoginPage' => 'boolean',
             'event.hasAttachment' => 'boolean',
-            // todo startAt & endAt is not required when eventId is present
-            'event.startAt' => 'date_format:"H:i"|required_unless:event.allDayEvent,1',
-            'event.endAt' => 'date_format:"H:i"|required_unless:event.allDayEvent,1|after:event.startAt',
+            'event.startAt' => 'date_format:"H:i"',
+            'event.endAt' => 'date_format:"H:i"|after:event.startAt',
             'event.date' => 'required_with:event|date|after_or_equal:now',
+            'event.endDate' => 'required_with:event|date|after_or_equal:event.date',
 
         ];
     }

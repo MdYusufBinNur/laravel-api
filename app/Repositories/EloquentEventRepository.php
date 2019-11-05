@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 
+use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\EventRepository;
 use Carbon\Carbon;
 
@@ -36,6 +37,27 @@ class EloquentEventRepository extends EloquentBaseRepository implements EventRep
         $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
         $queryBuilder->orderBy($orderBy, $orderDirection);
         return $queryBuilder->paginate($limit);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function save(array $data): \ArrayAccess
+    {
+        $event = parent::save($data);
+
+        if (isset($data['attachmentIds'])) {
+
+            $attachmentRepository = app(AttachmentRepository::class);
+            $attachmentRepository->updateResourceIds($data['attachmentIds'], $event->id);
+            $data['hasAttachment'] = true;
+            unset($data['attachmentId']);
+
+            $event = $this->update($event, $data);
+        }
+
+
+        return $event;
     }
 
     /**

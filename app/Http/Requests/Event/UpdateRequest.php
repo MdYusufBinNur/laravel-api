@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Event;
 
 use App\Http\Requests\Request;
+use App\Rules\ListOfIds;
 
 class UpdateRequest extends Request
 {
@@ -26,6 +27,7 @@ class UpdateRequest extends Request
             'endAt' => 'date_format:"H:i"|after:startAt',
             'date' => 'date|after_or_equal:now',
             'endDate' => 'date|after_or_equal:date',
+            'attachmentIds' => [new ListOfIds('attachments', 'id')]
         ];
     }
 }

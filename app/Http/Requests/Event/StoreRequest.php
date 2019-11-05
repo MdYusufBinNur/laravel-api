@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Event;
 
 use App\Http\Requests\Request;
+use App\Rules\ListOfIds;
 
 class StoreRequest extends Request
 {
@@ -28,6 +29,7 @@ class StoreRequest extends Request
             'endAt' => 'date_format:"H:i"|after:startAt',
             'date' => 'required|date|after_or_equal:now',
             'endDate' => 'required|date|after_or_equal:date',
+            'attachmentIds' => [new ListOfIds('attachments', 'id')],
         ];
     }
 }

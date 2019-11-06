@@ -13,8 +13,8 @@ class EloquentUserProfileRepository extends EloquentBaseRepository implements Us
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['userId'] = $this->getLoggedInUser()->id;
-        
+        $searchCriteria['userId'] = isset($searchCriteria['userId']) ?  $searchCriteria['userId'] : $this->getLoggedInUser()->id;
+        $searchCriteria['eagerLoad'] = ['userProfile.userProfileLinks' => 'userProfileLinks', 'userProfile.userProfileChildren' => 'userProfileChildren'];
         return parent::findBy($searchCriteria, $withTrashed);
     }
 

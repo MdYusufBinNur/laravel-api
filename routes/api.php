@@ -213,8 +213,8 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::get('property-by-host', 'PropertyController@propertyByHost');
     Route::get('unit', 'UnitController@index');
 
-    Route::get('login-page-events', 'EventController@index');
-    Route::get('login-page-announcements', 'AnnouncementController@index');
+    Route::get('property-login-page-events', 'EventController@index');
+    Route::get('property-login-page-announcements', 'AnnouncementController@index');
 
 
     Route::apiResource('attachment', 'AttachmentController', ['except' => ['update']]);

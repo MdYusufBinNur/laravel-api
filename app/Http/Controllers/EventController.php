@@ -34,7 +34,7 @@ class EventController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        if (strpos($request->getPathInfo(), 'login-page-events') !== false) {
+        if (strpos($request->getPathInfo(), 'property-login-page-events') !== false) {
             $request->merge(['allowedLoginPage' => 1]);
         }
 

@@ -34,7 +34,7 @@ class AnnouncementController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        if (strpos($request->getPathInfo(), 'login-page-announcements') !== false) {
+        if (strpos($request->getPathInfo(), 'property-login-page-announcements') !== false) {
             $request->merge(['showOnWebsite' => 1]);
         }
 

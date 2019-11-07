@@ -34,6 +34,10 @@ class EventController extends Controller
      */
     public function index(IndexRequest $request)
     {
+        if (strpos($request->getPathInfo(), 'login-page-events') !== false) {
+            $request->merge(['allowedLoginPage' => 1]);
+        }
+
         $events = $this->eventRepository->findBy($request->all());
 
         return new EventResourceCollection($events);

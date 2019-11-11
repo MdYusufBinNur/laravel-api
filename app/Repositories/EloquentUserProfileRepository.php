@@ -23,7 +23,7 @@ class EloquentUserProfileRepository extends EloquentBaseRepository implements Us
      */
     public function setUserProfile(array $data): \ArrayAccess
     {
-        $data['userId'] = $this->getLoggedInUser()->id;
+        $data['userId'] = isset($data['userId']) ? $data['userId'] : $this->getLoggedInUser()->id;
         return $this->patch(['userId' => $data['userId']], $data);
     }
 }

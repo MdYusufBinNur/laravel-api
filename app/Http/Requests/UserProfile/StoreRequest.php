@@ -16,6 +16,7 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
+            'userId' => 'exists:users,id',
             'gender' => 'in:'.UserProfile::GENDER_FEMALE.','.UserProfile::GENDER_MALE,
             'occupation' => 'min:3|max:255',
             'homeTown' => 'min:3|max:255',

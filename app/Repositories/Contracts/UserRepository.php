@@ -28,4 +28,12 @@ interface UserRepository extends BaseRepository
      * @return mixed
      */
     public function usersListAutoComplete(array $searchCriteria = []);
+
+    /**
+     * find user by email or phone
+     *
+     * @param mixed $emailOrPhone
+     * @return mixed
+     */
+    public function findUserByEmailPhone($emailOrPhone);
 }

@@ -20,6 +20,7 @@ class UpdateRequest extends Request
             'password' => 'min:5|required_with:current_password|max:255',
             'current_password' => 'required_with:password|max:255',
             'email' => Rule::unique('users')->ignore($userId, 'id'),
+            'phone' => Rule::unique('users')->ignore($userId, 'id'),
             'name' => 'max:255',
             'locale' => 'max:255',
             'isActive' => 'boolean',

@@ -15,7 +15,8 @@ class StoreRequest extends Request
     public function rules()
     {
         return $rules = [
-            'email' => 'email|required|unique:users|max:255',
+            'email' => 'email|required_without:phone|unique:users|max:255',
+            'phone' => 'required_without:email|unique:users|max:20',
             'name' => 'max:255',
             'password' => 'required|min:5|max:255',
             'locale' => 'max:255',

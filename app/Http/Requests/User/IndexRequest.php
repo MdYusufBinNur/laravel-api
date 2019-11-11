@@ -17,6 +17,7 @@ class IndexRequest extends Request
         return $rules = [
             'id' => 'list:numeric',
             'email' => 'list:email',
+            'phone' => 'list:string',
             'name' => 'list:string',
             'locale' => 'list:string',
             'query' => 'string',

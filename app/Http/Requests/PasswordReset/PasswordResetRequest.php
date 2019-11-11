@@ -4,7 +4,7 @@ namespace App\Http\Requests\PasswordReset;
 
 use App\Http\Requests\Request;
 
-class StoreRequest extends Request
+class PasswordResetRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,8 +14,8 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'email' => 'required|email|max:255',
-            'token' => 'required|min:3|max:255',
+            'token' => 'required|exists:password_resets,token',
+            'password' => 'required|min:5|max:255',
         ];
     }
 }

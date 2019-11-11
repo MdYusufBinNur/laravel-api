@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\DbModels\PasswordReset;
-use App\Http\Requests\PasswordReset\StoreRequest;
+use App\Http\Requests\PasswordReset\GenerateTokenRequest;
+use App\Http\Requests\PasswordReset\PasswordResetRequest;
+use App\Http\Requests\Request;
 use App\Http\Resources\PasswordResetResource;
 use App\Repositories\Contracts\PasswordResetRepository;
 
@@ -25,10 +26,10 @@ class PasswordResetController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreRequest  $request
+     * @param  GenerateTokenRequest  $request
      * @return PasswordResetResource
      */
-    public function store(StoreRequest $request)
+    public function generateResetToken(GenerateTokenRequest $request)
     {
         $passwordReset = $this->passwordResetRepository->save($request->all());
 
@@ -38,17 +39,14 @@ class PasswordResetController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @param $token
      * @return PasswordResetResource
      */
-    public function show($token)
+    public function resetPassword(PasswordResetRequest $request)
     {
-        $passwordReset = $this->passwordResetRepository->findOneBy(['token' => $token]);
+        $this->passwordResetRepository->resetPassword($request->all());
 
-        if (!$passwordReset instanceof PasswordReset) {
-            return response()->json(['status' => 404, 'message' => 'Resource not found with the specific id.'], 404);
-        }
-
-        return new PasswordResetResource($passwordReset);
+        return response()->json(['status' => 201, 'message' => 'Password has been reset'], 201);
     }
 }

@@ -16,6 +16,7 @@ class UserResource extends Resource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'phone' => $this->phone,
             'locale' => $this->locale,
             'isActive' => $this->isActive,
             'roles' => $this->when($this->needToInclude($request, 'user.roles'), function () {

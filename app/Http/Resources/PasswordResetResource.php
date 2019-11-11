@@ -14,7 +14,7 @@ class PasswordResetResource extends Resource
     {
         return [
             'email' => $this->email,
-            'token' => $this->token,
+            'phone' => $this->phone
         ];
     }
 }

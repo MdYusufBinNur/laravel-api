@@ -29,4 +29,25 @@ class UserProfile extends Model
         'birthDate' => 'datetime:h:i',
         'interests' => 'json'
     ];
+
+
+    /**
+     * get user's profile profile links
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function userProfileLinks()
+    {
+        return $this->hasMany(UserProfileLink::class, 'userId', 'userId');
+    }
+
+    /**
+     * get user's profile profile child info
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function userProfileChildren()
+    {
+        return $this->hasMany(UserProfileChild::class, 'userId', 'userId');
+    }
 }

@@ -13,8 +13,8 @@ class EloquentUserProfileRepository extends EloquentBaseRepository implements Us
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['userId'] = $this->getLoggedInUser()->id;
-        
+        $searchCriteria['userId'] = isset($searchCriteria['userId']) ?  $searchCriteria['userId'] : $this->getLoggedInUser()->id;
+        $searchCriteria['eagerLoad'] = ['userProfile.userProfileLinks' => 'userProfileLinks', 'userProfile.userProfileChildren' => 'userProfileChildren'];
         return parent::findBy($searchCriteria, $withTrashed);
     }
 
@@ -23,7 +23,7 @@ class EloquentUserProfileRepository extends EloquentBaseRepository implements Us
      */
     public function setUserProfile(array $data): \ArrayAccess
     {
-        $data['userId'] = $this->getLoggedInUser()->id;
+        $data['userId'] = isset($data['userId']) ? $data['userId'] : $this->getLoggedInUser()->id;
         return $this->patch(['userId' => $data['userId']], $data);
     }
 }

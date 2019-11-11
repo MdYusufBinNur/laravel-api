@@ -34,6 +34,9 @@ class UserResource extends Resource
             'profilePic' => $this->when($this->needToInclude($request, 'user.profilePic'), function () {
                 return new AttachmentResource($this->userProfilePic);
             }),
+            'userProfile' => $this->when($this->needToInclude($request, 'user.userProfile'), function () {
+                return new UserProfileResource($this->userProfile);
+            }),
             'lastLoginAt' => $this->lastLoginAt,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at

@@ -26,6 +26,12 @@ class UserProfileResource extends Resource
             'twitterUsername' => $this->twitterUsername,
             'aboutMe' => $this->aboutMe,
             'interests' => $this->interests,
+            'userProfileLinks' => $this->when($this->needToInclude($request, 'userProfile.userProfileLinks'), function () {
+                return new UserProfileLinkResourceCollection($this->userProfileLinks);
+            }),
+            'userProfileChildren' => $this->when($this->needToInclude($request, 'userProfile.userProfileChildren'), function () {
+                return new UserProfileChildResourceCollection($this->userProfileChildren);
+            }),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

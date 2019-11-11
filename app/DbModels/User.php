@@ -431,6 +431,16 @@ class User extends Authenticatable
     }
 
     /**
+     * get user's profile profile info
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function userProfile()
+    {
+        return $this->hasOne(UserProfile::class, 'userId', 'id');
+    }
+
+    /**
      * resident of a specific property query builder
      *
      * @param int $propertyId

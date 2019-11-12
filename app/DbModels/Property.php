@@ -16,7 +16,7 @@ class Property extends Model
     protected $fillable = [
         'companyId', 'type', 'title', 'domain', 'subdomain', 'address', 'city',
         'state', 'postCode', 'country', 'language', 'timezone', 'unregisteredResidentNotifications', 'active',
-        'createdByUserId',
+        'latitude', 'longitude', 'point', 'createdByUserId',
     ];
 
     protected $casts = [

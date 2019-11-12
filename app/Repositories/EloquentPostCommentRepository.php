@@ -5,6 +5,9 @@ namespace App\Repositories;
 
 
 use App\DbModels\PostComment;
+use App\Events\PostComment\PostCommentCreatedEvent;
+use App\Events\PostComment\PostCommentDeletedEvent;
+use App\Events\PostComment\PostCommentUpdatedEvent;
 use App\Repositories\Contracts\PostCommentRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -24,6 +27,9 @@ class EloquentPostCommentRepository extends EloquentBaseRepository implements Po
 
         DB::commit();
 
+        event(new PostCommentCreatedEvent($postComment, $this->generateEventOptionsForModel()));
+
+
         return $postComment;
     }
 
@@ -40,7 +46,21 @@ class EloquentPostCommentRepository extends EloquentBaseRepository implements Po
 
         DB::commit();
 
+        event(new PostCommentDeletedEvent($postComment, $this->generateEventOptionsForModel()));
+
         return $deleted;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function update(\ArrayAccess $model, array $data): \ArrayAccess
+    {
+        $postComment = parent::update($model, $data);
+
+        event(new PostCommentUpdatedEvent($postComment, $this->generateEventOptionsForModel()));
+
+        return $postComment;
     }
 
     /**

@@ -65,7 +65,7 @@ class PostCreatedEvent implements ShouldBroadcast
      */
     public function broadcastWith()
     {
-        request()->merge(['include' => 'post.createdByUser,post.details,post.attachments']);
+        request()->merge(['include' => 'post.createdByUser,post.details,post.attachments,post.commentsCount']);
         return [
             'post' => new PostResource($this->post)
         ];

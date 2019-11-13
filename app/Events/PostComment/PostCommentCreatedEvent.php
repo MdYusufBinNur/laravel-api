@@ -65,6 +65,8 @@ class PostCommentCreatedEvent implements ShouldBroadcast
      */
     public function broadcastWith()
     {
+        request()->merge(['include' => 'pc.createdByUser']);
+
         return [
             'comment' => new PostCommentResource($this->postComment)
         ];

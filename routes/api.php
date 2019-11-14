@@ -202,6 +202,11 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('inventory-item-log', 'InventoryItemLogController');
         Route::apiResource('equipment', 'EquipmentController');
 
+        /**
+         * Related to stats
+         */
+        Route::get('staff-reminders', 'Stats\\StaffReminderController@index');
+
     });
 
     //route without authentication

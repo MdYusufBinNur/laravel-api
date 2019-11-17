@@ -10,6 +10,13 @@ class Equipment extends Model
 
     protected $table = 'equipments';
 
+    const NOTIFY_DURATION_DAY = 'day';
+    const NOTIFY_DURATION_WEEK = 'week';
+    const NOTIFY_DURATION_MONTH = 'month';
+    const NOTIFY_DURATION_MONTH_THREE = 'three_months';
+    const NOTIFY_DURATION_MONTH_SIX = 'six_months';
+    const NOTIFY_DURATION_YEAR = 'year';
+
     /**
      * The attributes that are mass assignable.
      *

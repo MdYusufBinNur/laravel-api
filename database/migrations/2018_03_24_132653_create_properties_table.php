@@ -28,6 +28,9 @@ class CreatePropertiesTable extends Migration
             $table->string('country', 10)->default('BD');
             $table->string('language', 10)->default('en');
             $table->string('timezone', 50)->default('Asia/Dhaka');
+            $table->decimal('latitude', 10,8)->nullable();
+            $table->decimal('longitude', 11,8)->nullable();
+            $table->point('point')->nullable();
             $table->boolean('unregisteredResidentNotifications')->default(0);
             $table->boolean('active')->default(1);
             $table->timestamps();

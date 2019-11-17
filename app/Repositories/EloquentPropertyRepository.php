@@ -4,9 +4,33 @@ namespace App\Repositories;
 use App\DbModels\EnterpriseUser;
 use App\Repositories\Contracts\PropertyRepository;
 use App\Services\HostsHelper;
+use Illuminate\Support\Facades\DB;
+use Intervention\Image\Point;
 
 class EloquentPropertyRepository extends EloquentBaseRepository implements PropertyRepository
 {
+    /**
+     * @inheritdoc
+     */
+    public function save(array $data): \ArrayAccess
+    {
+        if(isset($data['latitude']) && isset($data['longitude'])){
+            $data['point'] = DB::raw("(GeomFromText('POINT(" . $data['latitude']. ' ' .$data['longitude'] .")'))");
+        }
+        return parent::save($data);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function update(\ArrayAccess $model, array $data): \ArrayAccess
+    {
+        if(isset($data['latitude']) && isset($data['longitude'])){
+            $point = (string) "(GeomFromText('POINT(" . $data['latitude']. ' ' .$data['longitude'] .")'))" ;
+            $data['point'] = DB::raw($point);
+        }
+        return parent::update($model, $data);
+    }
 
     /**
      * @inheritdoc

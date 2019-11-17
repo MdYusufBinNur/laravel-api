@@ -27,6 +27,8 @@ class StoreRequest extends Request
             'country'    => 'max:10',
             'language'   => 'max:10',
             'timezone'   => 'max:50',
+            'latitude'   => 'max:255',
+            'longitude'   => 'max:255',
             'active'     => 'numeric',
         ];
     }

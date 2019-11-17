@@ -85,33 +85,4 @@ class Property extends Model
     {
         return $this->hasOne(PropertyDesignSetting::class, 'propertyId', 'id');
     }
-
-    /**
-     * @param string $value
-     * @return Point
-     */
-    public function getPointAttribute($value)
-    {
-        // cleanup the database response into a Point
-        $response = explode(
-            ' ',
-            str_replace(
-                [
-                    "GeomFromText('",
-                    "'",
-                    'POINT(',
-                    ')'
-                ],
-                '',
-                $value
-            )
-        );
-        return new Point($response[0], $response[1]);
-    }
-
-    public function newQuery($excludeDeleted = true)
-    {
-        $raw = ' astext(point) as point ';
-        return parent::newQuery($excludeDeleted)->addSelect('*', \DB::raw($raw));
-    }
 }

@@ -40,7 +40,7 @@ class NotifyEquipmentMaintenance extends Command
     /**
      * @var array
      */
-    private $propertyEmails;
+    private $propertyStaffsEmails;
 
     /**
      * Create a new command instance.
@@ -53,7 +53,7 @@ class NotifyEquipmentMaintenance extends Command
     {
         $this->equipmentRepository = $equipmentRepository;
         $this->userRoleRepository = $userRoleRepository;
-        $this->propertyEmails = null;
+        $this->propertyStaffsEmails = [];
         parent::__construct();
     }
 
@@ -72,7 +72,7 @@ class NotifyEquipmentMaintenance extends Command
         });
 
         $affectedEmails = [];
-        foreach ($this->propertyEmails as $propertyId => $propertiesEmails) {
+        foreach ($this->propertyStaffsEmails as $propertyId => $propertiesEmails) {
             foreach ($propertiesEmails as $index => $propertyEmail) {
                 $affectedEmails[$index]['propertyId'] = $propertyId;
                 $affectedEmails[$index]['email'] = $propertyEmail;
@@ -110,12 +110,12 @@ class NotifyEquipmentMaintenance extends Command
      */
     private function getStuffsEmailsByProperty(int $propertyId)
     {
-        if (!isset($this->propertyEmails[$propertyId])) {
-            $this->propertyEmails[$propertyId] = $this->userRoleRepository->getEmailsOfThePropertyStaffs($propertyId);
+        if (!isset($this->propertyStaffsEmails[$propertyId])) {
+            $this->propertyStaffsEmails[$propertyId] = $this->userRoleRepository->getEmailsOfThePropertyStaffs($propertyId);
         }
 
 
-        return $this->propertyEmails[$propertyId];
+        return $this->propertyStaffsEmails[$propertyId];
     }
 
     /**

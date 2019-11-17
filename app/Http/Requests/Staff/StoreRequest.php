@@ -23,7 +23,7 @@ class StoreRequest extends Request
             'level' => 'in:' . Role::ROLE_STAFF_PRIORITY['title'] . ',' . Role::ROLE_STAFF_STANDARD['title'] . ',' . Role::ROLE_STAFF_LIMITED['title'],
             'displayInCorner' => 'boolean',
             'displayPublicProfile' => '',
-            'userId' => 'required_without:user|exists:users,id|unique_with:user_roles,userId,propertyId,role.roleId=roleId',
+            'userId' => 'required_without:user|exists:users,id', //'|unique_with:user_roles,userId,propertyId,role.roleId=roleId', //todo create a rule for checking unique role
             'user' => 'required_without:userId',
             'user.email' => 'required_with:user|email|unique:users,email|max:255',
             'user.name' => 'required_with:user|max:255',

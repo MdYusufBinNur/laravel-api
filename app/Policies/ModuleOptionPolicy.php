@@ -2,20 +2,84 @@
 
 namespace App\Policies;
 
+use App\DbModels\ModuleOption;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use PhpParser\Node\Expr\AssignOp\Mod;
 
 class ModuleOptionPolicy
 {
     use HandlesAuthorization;
 
     /**
-     * Create a new policy instance.
+     * Intercept checks
      *
-     * @return void
+     * @param User $currentUser
+     * @return bool
      */
-    public function __construct()
+    public function before(User $currentUser)
     {
-        //
+        if ($currentUser->isAdmin()) {
+            return true;
+        }
+    }
+
+    /**
+     * Determine if a given user has permission to list
+     *
+     * @param User $currentUser
+     * @return bool
+     */
+    public function list(User $currentUser)
+    {
+        return false;
+    }
+
+    /**
+     * Determine if a given user has permission to store
+     *
+     * @param User $currentUser
+     * @param User $user
+     * @return bool
+     */
+    public function store(User $currentUser)
+    {
+        return true;
+    }
+
+    /**
+     * Determine if a given user has permission to show
+     *
+     * @param User $currentUser
+     * @param ModuleOption $moduleOption
+     * @return bool
+     */
+    public function show(User $currentUser,  ModuleOption $moduleOption)
+    {
+        return $currentUser->id === $user->id;
+    }
+
+    /**
+     * Determine if a given user can update
+     *
+     * @param User $currentUser
+     * @param ModuleOption $moduleOption
+     * @return bool
+     */
+    public function update(User $currentUser, ModuleOption $moduleOption)
+    {
+        return $currentUser->id === $user->id;
+    }
+
+    /**
+     * Determine if a given user can delete
+     *
+     * @param User $currentUser
+     * @param ModuleOption $moduleOption
+     * @return bool
+     */
+    public function destroy(User $currentUser, ModuleOption $moduleOption)
+    {
+        return false;
     }
 }

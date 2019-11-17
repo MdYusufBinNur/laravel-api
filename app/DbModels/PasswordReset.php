@@ -6,6 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class PasswordReset extends Model
 {
+    use CommonModelFeatures;
+
+    /**
+     * primaryKey
+     *
+     * @var string
+     * @access protected
+     */
+    protected $primaryKey = 'token';
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
     /**
      * The attributes that are mass assignable.
      *

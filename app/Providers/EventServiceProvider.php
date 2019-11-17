@@ -12,7 +12,11 @@ use App\Events\Package\PackageUpdatedEvent;
 use App\Events\PackageArchive\PackageArchivedCreatedEvent;
 use App\Events\ParkingPass\ParkingPassCreatedEvent;
 use App\Events\ParkingPass\ParkingPassUpdatedEvent;
+use App\Events\PasswordReset\PasswordResetEvent;
 use App\Events\Post\PostUpdatedEvent;
+use App\Events\PostComment\PostCommentCreatedEvent;
+use App\Events\PostComment\PostCommentDeletedEvent;
+use App\Events\PostComment\PostCommentUpdatedEvent;
 use App\Events\ResidentAccessRequest\ResidentAccessRequestCreatedEvent;
 use App\Events\ResidentAccessRequest\ResidentAccessRequestUpdatedEvent;
 use App\Events\Resident\ResidentCreatedEvent;
@@ -27,7 +31,11 @@ use App\Listeners\Message\HandleMessageCreatedEvent;
 use App\Listeners\PackageArchive\HandlePackageArchivedCreatedEvent;
 use App\Listeners\ParkingPass\HandleParkingPassCreatedEvent;
 use App\Listeners\ParkingPass\HandleParkingPassUpdatedEvent;
+use App\Listeners\PasswordReset\HandlePasswordResetEvent;
+use App\Listeners\Post\HandlePostCommentUpdatedEvent;
 use App\Listeners\Post\HandlePostUpdatedEvent;
+use App\Listeners\PostComment\HandlePostCommentCreatedEvent;
+use App\Listeners\PostComment\HandlePostCommentDeletedEvent;
 use App\Listeners\ResidentAccessRequest\HandleResidentAccessRequestCreatedEvent;
 use App\Listeners\ResidentAccessRequest\HandleResidentAccessRequestUpdatedEvent;
 use App\Listeners\Resident\HandleResidentCreatedEvent;
@@ -110,6 +118,18 @@ class EventServiceProvider extends ServiceProvider
         ],
         UserLoggedInEvent::class => [
             HandleUserLoggedInEvent::class
+        ],
+        PasswordResetEvent::class => [
+            HandlePasswordResetEvent::class
+        ],
+        PostCommentCreatedEvent::class => [
+            HandlePostCommentCreatedEvent::class
+        ],
+        PostCommentUpdatedEvent::class => [
+            HandlePostCommentUpdatedEvent::class
+        ],
+        PostCommentDeletedEvent::class => [
+            HandlePostCommentDeletedEvent::class
         ],
 
     ];

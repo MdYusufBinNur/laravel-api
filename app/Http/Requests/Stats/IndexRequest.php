@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\PasswordReset;
+namespace App\Http\Requests\Stats;
 
 use App\Http\Requests\Request;
 
-class StoreRequest extends Request
+class IndexRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,8 +14,6 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'email' => 'required|email|max:255',
-            'token' => 'required|min:3|max:255',
         ];
     }
 }

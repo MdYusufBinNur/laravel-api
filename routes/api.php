@@ -32,10 +32,6 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('user-profile-post', 'UserProfilePostController');
         Route::apiResource('staff', 'StaffController');
         Route::apiResource('admin', 'AdminController');
-        Route::post('password-reset', 'PasswordResetController@store');
-        Route::get('password-reset/{token}', 'PasswordResetController@show');
-
-
 
         /**
          * related to company features
@@ -206,6 +202,11 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('inventory-item-log', 'InventoryItemLogController');
         Route::apiResource('equipment', 'EquipmentController');
 
+        /**
+         * Related to stats
+         */
+        Route::get('staff-reminders', 'Stats\\StaffReminderController@index');
+
     });
 
     //route without authentication
@@ -213,7 +214,8 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::get('property-by-host', 'PropertyController@propertyByHost');
     Route::get('unit', 'UnitController@index');
 
-    Route::get('property-events', 'EventController@index');
+    Route::get('property-login-page-events', 'EventController@index');
+    Route::get('property-login-page-announcements', 'AnnouncementController@index');
 
 
     Route::apiResource('attachment', 'AttachmentController', ['except' => ['update']]);
@@ -225,4 +227,8 @@ Route::group(['prefix' => 'api/v1'], function () {
 
     Route::post('login', 'Auth\\LoginController@index');
     Route::get('logout', 'Auth\\LoginController@logout');
+
+    Route::post('reset-token', 'PasswordResetController@generateResetToken');
+    Route::post('password-reset', 'PasswordResetController@resetPassword');
 });
+

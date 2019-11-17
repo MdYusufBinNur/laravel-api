@@ -53,7 +53,7 @@ class PostPoll extends Model
         foreach ($currentVoters as $key => $currentVoter) {
             if ($currentVoter['userId'] == $voteInfo['userId']) {
                 $currentVoters[$key]['voteOn'] = $voteInfo['voteOn'];
-                if ($currentVotes[$currentVoter['voteOn']] != 0) {
+                if (isset($currentVotes[$currentVoter['voteOn']]) &&  $currentVotes[$currentVoter['voteOn']] != 0) {
                     $currentVotes[$currentVoter['voteOn']]--;
                 }
 

@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Events\Post;
+namespace App\Events\PostComment;
 
-use App\DbModels\Post;
-use App\Http\Resources\PostResource;
+use App\DbModels\PostComment;
+use App\Http\Resources\PostCommentResource;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 
-class PostCreatedEvent implements ShouldBroadcast
+class PostCommentCreatedEvent implements ShouldBroadcast
 {
     use SerializesModels;
 
     /**
-     * @var Post
+     * @var PostComment
      */
-    public $post;
+    public $postComment;
 
     /**
      * @var array
@@ -25,13 +25,13 @@ class PostCreatedEvent implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
-     * @param Post $post
+     * @param PostComment $postComment
      * @param array $options
      * @return void
      */
-    public function __construct(Post $post, array $options = [])
+    public function __construct(PostComment $postComment, array $options = [])
     {
-        $this->post = $post;
+        $this->postComment = $postComment;
         $this->options = $options;
     }
 
@@ -42,7 +42,7 @@ class PostCreatedEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        $channels[] = new PrivateChannel('PROPERTY.' . $this->post->propertyId);
+        $channels[] = new PrivateChannel('PROPERTY.' . $this->postComment->post->propertyId);
 
         return $channels;
 
@@ -55,7 +55,7 @@ class PostCreatedEvent implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return ['newPost'];
+        return ['newComment'];
     }
 
     /**
@@ -65,9 +65,10 @@ class PostCreatedEvent implements ShouldBroadcast
      */
     public function broadcastWith()
     {
-        request()->merge(['include' => 'post.createdByUser,post.details,post.attachments,post.commentsCount']);
+        request()->merge(['include' => 'pc.createdByUser']);
+
         return [
-            'post' => new PostResource($this->post)
+            'comment' => new PostCommentResource($this->postComment)
         ];
     }
 }

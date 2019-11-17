@@ -197,4 +197,14 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
 
         return $staffs->merge($residents);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function findUserByEmailPhone($emailOrPhone)
+    {
+        return $this->model->where(['email' => $emailOrPhone])
+            ->orWhere(['phone' => $emailOrPhone])
+            ->first();
+    }
 }

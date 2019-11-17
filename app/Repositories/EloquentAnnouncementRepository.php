@@ -61,7 +61,7 @@ class EloquentAnnouncementRepository extends EloquentBaseRepository implements A
             unset($searchCriteria['expireAt']);
         }
 
-        if (isset($searchCriteria['id'])) {
+        if (isset($searchCriteria['id']) && is_array($searchCriteria['id'])) {
             $searchCriteria['id'] = implode(",", array_unique($searchCriteria['id']));
         }
 

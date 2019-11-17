@@ -29,7 +29,6 @@ class StoreRequest extends Request
             'timezone'   => 'max:50',
             'latitude'   => 'max:255',
             'longitude'   => 'max:255',
-            'point'   => 'max:255',
             'active'     => 'numeric',
         ];
     }

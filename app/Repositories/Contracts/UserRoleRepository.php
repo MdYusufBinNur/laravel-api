@@ -38,4 +38,12 @@ interface UserRoleRepository extends BaseRepository
      * @return mixed
      */
     public function getUserIdsByRoleId(int $propertyId, int $roleId);
+
+    /**
+     * get all emails of staffs of a property
+     *
+     * @param int $propertyId
+     * @return mixed
+     */
+    public function getEmailsOfThePropertyStaffs(int $propertyId);
 }

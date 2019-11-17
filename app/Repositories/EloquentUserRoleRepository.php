@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\DbModels\Role;
+use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
 
 class EloquentUserRoleRepository extends EloquentBaseRepository implements UserRoleRepository
@@ -48,6 +49,17 @@ class EloquentUserRoleRepository extends EloquentBaseRepository implements UserR
             ->where(['propertyId' => $propertyId])
             ->where(['roleId' => $roleId])
             ->pluck('userId')->toArray();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getEmailsOfThePropertyStaffs(int $propertyId)
+    {
+        $userRepository = app(UserRepository::class);
+        return $userRepository->model
+            ->whereIn('id', $this->getUserIdsOfThePropertyStaffs($propertyId))
+            ->pluck('email')->toArray();
     }
 
 }

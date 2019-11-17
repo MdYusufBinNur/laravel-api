@@ -39,6 +39,13 @@ class Kernel extends ConsoleKernel
             ->everyMinute()
             ->name("Scheduled Job - Parking Pass Validation!");
 
+        // equipment-maintenance-notification
+        $schedule->command('pms:equipment-maintenance-notification')
+            ->daily()
+            ->name("Scheduled Job - Reminder for Equipment Maintenance!")
+            ->emailOutputTo('dev@reformedtech.org')
+            ->emailOutputOnFailure('dev@reformedtech.org');
+
     }
 
     /**

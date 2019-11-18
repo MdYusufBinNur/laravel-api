@@ -23,11 +23,11 @@ class UpdateRequest extends Request
             'areaServices' => 'max:255',
             'manufacturer' => 'max:255',
             'expireDate' => 'date',
-            'modelNumber' => 'min:3|max:255',
-            'requiredService' => 'min:3|max:255',
+            'modelNumber' => 'max:255',
+            'requiredService' => 'max:255',
             'nextMaintenanceDate' => 'date',
             'notifyDuration' => 'in:' . implode(',', Equipment::getConstantsByPrefix('NOTIFY_')),
-            'restockNote' => 'min:3|max:255',
+            'restockNote' => 'max:255',
         ];
     }
 }

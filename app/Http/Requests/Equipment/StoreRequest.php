@@ -16,18 +16,18 @@ class StoreRequest extends Request
     {
         return [
             'name' => 'required|min:3|max:255',
-            'sku'  => 'required|min:3|max:255',
             'propertyId'  => 'required|exists:properties,id',
-            'description'  => 'required|min:3|max:65535',
-            'location' => 'required|min:3|max:255',
-            'areaServices' => 'required|min:3|max:255',
-            'manufacturer' => 'required|min:3|max:255',
-            'expireDate' => 'required|date',
-            'modelNumber' => 'required|min:3|max:255' ,
-            'requiredService' => 'required|min:3|max:255',
-            'nextMaintenanceDate' => 'required|date',
+            'sku'  => 'max:255',
+            'description'  => 'rmax:65535',
+            'location' => 'max:255',
+            'areaServices' => 'max:255',
+            'manufacturer' => 'max:255',
+            'expireDate' => 'date',
+            'modelNumber' => 'max:255' ,
+            'requiredService' => 'max:255',
+            'nextMaintenanceDate' => 'date',
             'notifyDuration' => 'required|in:' . implode(',', Equipment::getConstantsByPrefix('NOTIFY_')),
-            'restockNote'  => 'required|min:3|max:255',
+            'restockNote'  => 'min:3|max:255',
         ];
     }
 }

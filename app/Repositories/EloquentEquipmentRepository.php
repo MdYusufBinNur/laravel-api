@@ -48,6 +48,8 @@ class EloquentEquipmentRepository extends EloquentBaseRepository implements Equi
             unset($data['attachmentIds']);
         }
 
+        DB::commit();
+
         return $equipment;
     }
 

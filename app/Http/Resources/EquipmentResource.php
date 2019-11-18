@@ -24,7 +24,7 @@ class EquipmentResource extends Resource
             'manufacturer' => $this->manufacturer,
             'expireDate' => $this->expireDate,
             'modelNumber' => $this->modelNumber ,
-            'requiredService' => $this->requiredServices,
+            'requiredService' => $this->requiredService,
             'nextMaintenanceDate' => $this->nextMaintenanceDate,
             'notifyDuration' => $this->notifyDuration,
             'restockNote'  => $this->restockNote,

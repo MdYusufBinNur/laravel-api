@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Equipment;
 
+use App\DbModels\Equipment;
 use App\Http\Requests\Request;
 
 class StoreRequest extends Request
@@ -25,7 +26,7 @@ class StoreRequest extends Request
             'modelNumber' => 'required|min:3|max:255' ,
             'requiredService' => 'required|min:3|max:255',
             'nextMaintenanceDate' => 'required|date',
-            'notifyDuration' => 'required|min:3|max:255',
+            'notifyDuration' => 'required|in:' . implode(',', Equipment::getConstantsByPrefix('NOTIFY_')),
             'restockNote'  => 'required|min:3|max:255',
         ];
     }

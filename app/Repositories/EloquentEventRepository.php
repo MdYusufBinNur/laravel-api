@@ -54,7 +54,7 @@ class EloquentEventRepository extends EloquentBaseRepository implements EventRep
             $attachmentRepository = app(AttachmentRepository::class);
             $attachmentRepository->updateResourceIds($data['attachmentIds'], $event->id);
             $data['hasAttachment'] = true;
-            unset($data['attachmentId']);
+            unset($data['attachmentIds']);
 
             $event = $this->update($event, $data);
         }

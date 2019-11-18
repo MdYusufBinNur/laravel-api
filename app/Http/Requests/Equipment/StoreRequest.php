@@ -4,6 +4,7 @@ namespace App\Http\Requests\Equipment;
 
 use App\DbModels\Equipment;
 use App\Http\Requests\Request;
+use App\Rules\ListOfIds;
 
 class StoreRequest extends Request
 {
@@ -18,7 +19,7 @@ class StoreRequest extends Request
             'name' => 'required|min:3|max:255',
             'propertyId'  => 'required|exists:properties,id',
             'sku'  => 'max:255',
-            'description'  => 'rmax:65535',
+            'description'  => 'max:65535',
             'location' => 'max:255',
             'areaServices' => 'max:255',
             'manufacturer' => 'max:255',
@@ -28,6 +29,8 @@ class StoreRequest extends Request
             'nextMaintenanceDate' => 'date',
             'notifyDuration' => 'required|in:' . implode(',', Equipment::getConstantsByPrefix('NOTIFY_')),
             'restockNote'  => 'min:3|max:255',
+            'attachmentIds' => [new ListOfIds('attachments', 'id')],
+
         ];
     }
 }

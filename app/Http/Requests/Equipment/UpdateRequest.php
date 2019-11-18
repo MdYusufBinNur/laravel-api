@@ -4,6 +4,7 @@ namespace App\Http\Requests\Equipment;
 
 use App\DbModels\Equipment;
 use App\Http\Requests\Request;
+use App\Rules\ListOfIds;
 
 class UpdateRequest extends Request
 {
@@ -28,6 +29,8 @@ class UpdateRequest extends Request
             'nextMaintenanceDate' => 'date',
             'notifyDuration' => 'in:' . implode(',', Equipment::getConstantsByPrefix('NOTIFY_')),
             'restockNote' => 'max:255',
+            //'attachmentIds' => [new ListOfIds('attachments', 'id')],
+
         ];
     }
 }

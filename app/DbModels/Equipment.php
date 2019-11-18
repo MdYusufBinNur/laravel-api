@@ -58,4 +58,14 @@ class Equipment extends Model
     {
         return $this->hasOne(Property::class, 'id', 'propertyId');
     }
+
+    /**
+     * get the attachments
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class, 'resourceId')->where('type', Attachment::ATTACHMENT_TYPE_EQUIPMENT);
+    }
 }

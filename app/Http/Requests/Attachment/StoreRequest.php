@@ -28,7 +28,8 @@ class StoreRequest extends Request
                 . ',' . Attachment::ATTACHMENT_TYPE_VISITOR
                 . ',' . Attachment::ATTACHMENT_TYPE_MESSAGE
                 . ',' . Attachment::ATTACHMENT_TYPE_EVENT
-                . ',' . Attachment::ATTACHMENT_TYPE_LDS_SLIDE,
+                . ',' . Attachment::ATTACHMENT_TYPE_LDS_SLIDE
+                . ',' . Attachment::ATTACHMENT_TYPE_EQUIPMENT,
             'fileSource'   => 'required|file|max:2048',
             'resourceId'   => 'required',
             'fileName'     => '',

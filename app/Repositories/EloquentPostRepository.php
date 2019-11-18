@@ -36,7 +36,7 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
             $attachmentRepository = app(AttachmentRepository::class);
             $attachmentRepository->updateResourceIds($data['attachmentIds'], $post->id);
 
-            unset($data['attachmentId']);
+            unset($data['attachmentIds']);
         }
 
         DB::commit();
@@ -64,7 +64,7 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
             $attachmentRepository = app(AttachmentRepository::class);
             $attachmentRepository->updateResourceIds($data['attachmentIds'], $post->id);
 
-            unset($data['attachmentId']);
+            unset($data['attachmentIds']);
         }
 
         event(new PostUpdatedEvent($post, $this->generateEventOptionsForModel()));

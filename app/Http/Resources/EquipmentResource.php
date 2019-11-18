@@ -28,6 +28,9 @@ class EquipmentResource extends Resource
             'nextMaintenanceDate' => $this->nextMaintenanceDate,
             'notifyDuration' => $this->notifyDuration,
             'restockNote'  => $this->restockNote,
+            'attachments' => $this->when($this->needToInclude($request, 'eq.attachments'), function () {
+                return new AttachmentResourceCollection($this->attachments);
+            }),
         ];
     }
 }

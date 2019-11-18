@@ -27,7 +27,7 @@ class EloquentMessagePostRepository extends EloquentBaseRepository implements Me
                     $attachmentRepository->updateResourceId($attachment, $messagePost->id);
                 }
             }
-            unset($data['attachmentId']);
+            unset($data['attachmentIds']);
         }
 
         return $messagePost;

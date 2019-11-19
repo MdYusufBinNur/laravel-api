@@ -20,7 +20,7 @@ class UpdateRequest extends Request
             'gender' => 'in:'.UserProfile::GENDER_FEMALE.','.UserProfile::GENDER_MALE,
             'occupation' => 'min:3|max:255',
             'homeTown' => 'min:3|max:255',
-            'birthDate' => 'date',
+            'birthDate' => 'date_format:Y-m-d',
             'language' => 'min:3|max:255',
             'website' => 'min:3|max:255',
             'facebookUsername' => 'min:3|max:100',

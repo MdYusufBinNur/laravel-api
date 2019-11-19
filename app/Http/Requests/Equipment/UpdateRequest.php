@@ -23,7 +23,7 @@ class UpdateRequest extends Request
             'location' => 'max:255',
             'areaServices' => 'max:255',
             'manufacturer' => 'max:255',
-            'expireDate' => 'date',
+            'expireDate' => 'date_format:Y-m-d',
             'modelNumber' => 'max:255',
             'requiredService' => 'max:255',
             'nextMaintenanceDate' => 'date',

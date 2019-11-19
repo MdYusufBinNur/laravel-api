@@ -31,7 +31,7 @@ class IndexRequest extends FormRequest
             'linkinNewWindows' => 'list:boolean',
             'showOnWebsite' => 'list:boolean',
             'showOnLds' => 'list:boolean',
-            'expireAt' => 'date',
+            'expireAt' => 'date_format:Y-m-d',
             'isExpired' => 'boolean',
             'query' => 'string',
         ];

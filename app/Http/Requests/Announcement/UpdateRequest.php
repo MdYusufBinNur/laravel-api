@@ -21,7 +21,7 @@ class UpdateRequest extends Request
             'linkinNewWindows' => 'boolean',
             'showOnWebsite' => 'boolean',
             'showOnLds' => 'boolean',
-            'expireAt' => 'date',
+            'expireAt' => 'date_format:Y-m-d',
         ];
     }
 }

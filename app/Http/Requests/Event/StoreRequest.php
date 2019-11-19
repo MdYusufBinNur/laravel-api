@@ -27,8 +27,8 @@ class StoreRequest extends Request
             'hasAttachment' => 'boolean',
             'startAt' => 'date_format:"H:i"',
             'endAt' => 'date_format:"H:i"|after:startAt',
-            'date' => 'required|date|after_or_equal:today',
-            'endDate' => 'date|after_or_equal:date',
+            'date' => 'required|date_format:Y-m-d|after_or_equal:today',
+            'endDate' => 'date_format:Y-m-d|after_or_equal:date',
             'attachmentIds' => [new ListOfIds('attachments', 'id')],
         ];
     }

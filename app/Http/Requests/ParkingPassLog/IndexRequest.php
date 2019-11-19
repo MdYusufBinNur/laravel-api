@@ -20,8 +20,8 @@ class IndexRequest extends Request
             'make' => 'list:string',
             'model' => 'list:string',
             'licensePlate' => 'list:string',
-            'startAt' => 'list:date',
-            'endAt' => 'list:date',
+            'startAt' => 'list:date_format:Y-m-d',
+            'endAt' => 'list:date_format:Y-m-d',
         ];
     }
 }

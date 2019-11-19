@@ -20,8 +20,8 @@ class UpdateRequest extends Request
             'make' => 'max:100',
             'model' => 'max:100',
             'licensePlate' => 'max:100',
-            'startAt' => 'date',
-            'endAt' => 'date',
+            'startAt' => 'date_format:Y-m-d',
+            'endAt' => 'date_format:Y-m-d',
         ];
     }
 }

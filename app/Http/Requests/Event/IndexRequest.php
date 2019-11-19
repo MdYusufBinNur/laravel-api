@@ -20,8 +20,8 @@ class IndexRequest extends Request
             'allowedSignUp' => 'boolean',
             'multipleDaysEvent' => 'boolean',
             'allowedLoginPage' => 'boolean',
-            'startDate' => 'date',
-            'endDate' => 'date',
+            'startDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d',
         ];
     }
 }

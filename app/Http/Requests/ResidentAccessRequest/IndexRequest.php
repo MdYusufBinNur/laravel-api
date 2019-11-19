@@ -24,8 +24,8 @@ class IndexRequest extends Request
             'active' => 'list:boolean',
             'moderatedUserId' => 'list:integer',
             'moderatedAt' => 'list:dateTime',
-            'movedInDate' => 'list:date',
-            'birthDate' => 'list:date',
+            'movedInDate' => 'list:date_format:Y-m-d',
+            'birthDate' => 'list:date_format:Y-m-d',
             'query' => 'string',
         ];
     }

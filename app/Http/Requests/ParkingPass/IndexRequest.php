@@ -20,10 +20,10 @@ class IndexRequest extends Request
             'make' => 'list:string',
             'model' => 'list:string',
             'licensePlate' => 'list:string',
-            'startDate' => 'date',
-            'endDate' => 'date',
-            'releasedStartDate' => 'date',
-            'releasedEndDate' => 'date',
+            'startDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d',
+            'releasedStartDate' => 'date_format:Y-m-d',
+            'releasedEndDate' => 'date_format:Y-m-d',
         ];
     }
 }

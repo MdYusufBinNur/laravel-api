@@ -21,8 +21,8 @@ class IndexRequest extends Request
             'typeId' => 'list:numeric',
             'enteredUserId' => 'list:numeric',
             'trackingNumber' => 'list:string',
-            'startDate' => '',
-            'endDate' => '',
+            'startDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d',
         ];
     }
 }

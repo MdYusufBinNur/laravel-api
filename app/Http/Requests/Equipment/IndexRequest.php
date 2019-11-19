@@ -21,7 +21,7 @@ class IndexRequest extends Request
             'location' => 'string',
             'areaServices' => 'string',
             'manufacturer' => 'string',
-            'expireDate' => 'date',
+            'expireDate' => 'date_format:Y-m-d',
             'modelNumber' => 'string',
             'notifyDuration' => 'string',
             'nextMaintenanceDate' => 'date',

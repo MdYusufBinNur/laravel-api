@@ -19,8 +19,8 @@ class IndexRequest extends Request
             'readStatus' => 'boolean',
             'userId' => 'required|numeric',
             'fromUserId' => 'numeric',
-            'fromDate' => 'date',
-            'toDate' => 'date'
+            'fromDate' => 'date_format:Y-m-d',
+            'toDate' => 'date_format:Y-m-d'
         ];
     }
 }

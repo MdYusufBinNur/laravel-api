@@ -20,8 +20,8 @@ class IndexRequest extends Request
             'userId' => 'list:numeric',
             'residentId' => 'list:numeric',
             'guests' => 'numeric',
-            'startDate' => 'date',
-            'endDate' => 'date',
+            'startDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d',
         ];
     }
 }

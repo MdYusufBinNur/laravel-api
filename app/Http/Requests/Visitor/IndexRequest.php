@@ -25,8 +25,8 @@ class IndexRequest extends Request
             'permanent' => 'list:boolean',
             'signature' => 'list:boolean',
             'status' => 'list:string',
-            'startDate' => 'date',
-            'endDate' => 'date|after:startDate',
+            'startDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d|after:startDate',
         ];
     }
 }

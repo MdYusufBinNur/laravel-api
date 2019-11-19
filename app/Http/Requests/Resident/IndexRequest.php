@@ -38,7 +38,7 @@ class IndexRequest extends Request
             'secondaryAddress'      => 'list:string',
             'secondaryPhone'        => 'list:string',
             'secondaryEmail'        => 'list:string',
-            'joiningDate'           => 'list:date',
+            'joiningDate'           => 'list:date_format:Y-m-d',
             'query'                 => 'string',
             'withName'              => 'string',
         ];

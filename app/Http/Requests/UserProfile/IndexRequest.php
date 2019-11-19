@@ -19,7 +19,7 @@ class IndexRequest extends Request
             'gender' => 'list:string',
             'occupation' => 'list:string',
             'homeTown' => 'list:string',
-            'birthDate' => 'list:date',
+            'birthDate' => 'list:date_format:Y-m-d',
             'language' => 'list:string',
             'website' => 'list:string',
             'facebookUsername' => 'list:string',

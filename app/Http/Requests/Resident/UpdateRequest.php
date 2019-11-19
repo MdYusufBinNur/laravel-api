@@ -39,7 +39,7 @@ class UpdateRequest extends Request
             'secondaryAddress'      => 'max:255',
             'secondaryPhone'        => 'max:20',
             'secondaryEmail'        => 'email|max:255',
-            'joiningDate'           => 'date',
+            'joiningDate'           => 'date_format:Y-m-d',
 
             'user'                 => '',
             'user.name'            => 'min:3|max:255',

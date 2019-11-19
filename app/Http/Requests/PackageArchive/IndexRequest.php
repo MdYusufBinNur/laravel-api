@@ -18,8 +18,8 @@ class IndexRequest extends Request
             'propertyId' => 'required|list:numeric',
             'packageId' => 'list:numeric',
             'signOutUserId' => 'list:numeric',
-            'startDate' => 'date',
-            'endDate' => 'date',
+            'startDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d',
             'unitId' => '',
         ];
     }

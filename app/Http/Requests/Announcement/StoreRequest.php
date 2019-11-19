@@ -21,7 +21,7 @@ class StoreRequest extends Request
             'linkinNewWindows' => 'boolean',
             'showOnWebsite' => 'boolean',
             'showOnLds' => 'boolean',
-            'expireAt' => 'required|date',
+            'expireAt' => 'required|date_format:Y-m-d',
         ];
     }
 }

@@ -26,9 +26,9 @@ class StoreRequest extends Request
             'active' => 'boolean',
             'comment' => 'min:3|max:16777215',
             'moderatedUserId' => 'integer',
-            'moderatedAt' => 'date',
-            'movedInDate' => 'date',
-            'birthDate' => 'date',
+            'moderatedAt' => 'date_format:Y-m-d',
+            'movedInDate' => 'date_format:Y-m-d',
+            'birthDate' => 'date_format:Y-m-d',
             'accessInPast' => 'boolean'
         ];
     }

@@ -38,7 +38,7 @@ class StoreRequest extends Request
             'secondaryAddress'      => 'max:255',
             'secondaryPhone'        => 'max:20',
             'secondaryEmail'        => 'email|max:255',
-            'joiningDate'           => 'date',
+            'joiningDate'           => 'date_format:Y-m-d',
 
             'user'                 => 'required_without:userId',
             'user.name'            => 'required_without:userId|max:100',

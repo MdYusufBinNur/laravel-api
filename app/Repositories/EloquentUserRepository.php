@@ -177,7 +177,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
             ->join($managerTable, $thisModelTable . '.id', '=', $managerTable . '.userId')
             ->where($managerTable . '.propertyId', $searchCriteria['propertyId'])
             ->where($thisModelTable . '.name', 'like', '%' . $searchCriteria['query'] . '%')
-            ->with('userProfilePic')
+            ->with('userProfilePics')
             ->get();
 
         $residents = $this->model
@@ -192,7 +192,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
             ->join($unitTable, $unitTable . '.id', '=', $residentTable . '.unitId')
             ->where($residentTable . '.propertyId', $searchCriteria['propertyId'])
             ->where($thisModelTable . '.name', 'like', '%' . $searchCriteria['query'] . '%')
-            ->with('userProfilePic')
+            ->with('userProfilePics')
             ->get();
 
         return $staffs->merge($residents);

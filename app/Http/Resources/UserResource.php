@@ -32,7 +32,7 @@ class UserResource extends Resource
                 return new EnterpriseUserResource($this->enterpriseUser);
             }),
             'profilePic' => $this->when($this->needToInclude($request, 'user.profilePic'), function () {
-                return new AttachmentResource($this->userProfilePic);
+                return new AttachmentResource($this->userProfilePics->last());
             }),
             'userProfile' => $this->when($this->needToInclude($request, 'user.userProfile'), function () {
                 return new UserProfileResource($this->userProfile);

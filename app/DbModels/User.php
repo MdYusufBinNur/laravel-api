@@ -423,11 +423,11 @@ class User extends Authenticatable
     /**
      * get user's profile picture
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function userProfilePic()
+    public function userProfilePics()
     {
-        return $this->hasOne(Attachment::class, 'resourceId')->where('type', Attachment::ATTACHMENT_TYPE_USER_PROFILE);
+        return $this->hasMany(Attachment::class, 'resourceId')->where('type', Attachment::ATTACHMENT_TYPE_EQUIPMENT);
     }
 
     /**

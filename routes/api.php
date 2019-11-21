@@ -207,6 +207,15 @@ Route::group(['prefix' => 'api/v1'], function () {
          */
         Route::get('staff-reminders', 'Stats\\StaffReminderController@index');
 
+
+        /**
+         * Related to income and expense
+         */
+        Route::apiResource('income-category', 'IncomeCategoryController');
+        Route::apiResource('income', 'IncomeController');
+        Route::apiResource('expense-category', 'ExpenseCategoryController');
+        Route::apiResource('expense', 'ExpenseController');
+
     });
 
     //route without authentication

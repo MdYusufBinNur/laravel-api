@@ -11,9 +11,13 @@ use App\DbModels\EnterpriseUserProperty;
 use App\DbModels\Equipment;
 use App\DbModels\Event;
 use App\DbModels\EventSignup;
+use App\DbModels\Expense;
+use App\DbModels\ExpenseCategory;
 use App\DbModels\Fdi;
 use App\DbModels\FdiGuestType;
 use App\DbModels\FdiLog;
+use App\DbModels\Income;
+use App\DbModels\IncomeCategory;
 use App\DbModels\InventoryCategory;
 use App\DbModels\InventoryItem;
 use App\DbModels\InventoryItemLog;
@@ -96,9 +100,13 @@ use App\Repositories\Contracts\EnterpriseUserRepository;
 use App\Repositories\Contracts\EquipmentRepository;
 use App\Repositories\Contracts\EventRepository;
 use App\Repositories\Contracts\EventSignupRepository;
+use App\Repositories\Contracts\ExpenseCategoryRepository;
+use App\Repositories\Contracts\ExpenseRepository;
 use App\Repositories\Contracts\FdiGuestTypeRepository;
 use App\Repositories\Contracts\FdiLogRepository;
 use App\Repositories\Contracts\FdiRepository;
+use App\Repositories\Contracts\IncomeCategoryRepository;
+use App\Repositories\Contracts\IncomeRepository;
 use App\Repositories\Contracts\InventoryCategoryRepository;
 use App\Repositories\Contracts\InventoryItemLogRepository;
 use App\Repositories\Contracts\InventoryItemRepository;
@@ -173,9 +181,13 @@ use App\Repositories\EloquentEnterpriseUserRepository;
 use App\Repositories\EloquentEquipmentRepository;
 use App\Repositories\EloquentEventRepository;
 use App\Repositories\EloquentEventSignupRepository;
+use App\Repositories\EloquentExpenseCategoryRepository;
+use App\Repositories\EloquentExpenseRepository;
 use App\Repositories\EloquentFdiGuestTypeRepository;
 use App\Repositories\EloquentFdiLogRepository;
 use App\Repositories\EloquentFdiRepository;
+use App\Repositories\EloquentIncomeCategoryRepository;
+use App\Repositories\EloquentIncomeRepository;
 use App\Repositories\EloquentInventoryCategoryRepository;
 use App\Repositories\EloquentInventoryItemLogRepository;
 use App\Repositories\EloquentInventoryItemRepository;
@@ -701,6 +713,26 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind EquipmentRepository
         $this->app->bind(EquipmentRepository::class, function() {
             return new EloquentEquipmentRepository(new Equipment());
+        });
+
+        // bind IncomeCategoryRepository
+        $this->app->bind(IncomeCategoryRepository::class, function() {
+            return new EloquentIncomeCategoryRepository(new IncomeCategory());
+        });
+
+        // bind IncomeRepository
+        $this->app->bind(IncomeRepository::class, function() {
+            return new EloquentIncomeRepository(new Income());
+        });
+
+        // bind ExpenseCategoryRepository
+        $this->app->bind(ExpenseCategoryRepository::class, function() {
+            return new EloquentExpenseCategoryRepository(new ExpenseCategory());
+        });
+
+        // bind ExpenseRepository
+        $this->app->bind(ExpenseRepository::class, function() {
+            return new EloquentExpenseRepository(new Expense());
         });
     }
 }

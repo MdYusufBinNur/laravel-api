@@ -40,7 +40,7 @@ class LoginController extends Controller
      */
     public function index(LoginRequest $request)
     {
-        $user = $this->userRepository->findOneBy(['email' => $request->get('email')]);
+        $user = $this->userRepository->findUserByEmailPhone($request->get('email'));
 
         if ($user instanceof User) {
             if (Hash::check($request->get('password'), $user->password)) {

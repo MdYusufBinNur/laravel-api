@@ -25,4 +25,14 @@ class InventoryItem extends Model
         'restockNote',
         'notifyCount'
     ];
+
+    /**
+     * get the property
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(Property::class, 'id', 'propertyId');
+    }
 }

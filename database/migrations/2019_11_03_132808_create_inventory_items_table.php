@@ -16,15 +16,16 @@ class CreateInventoryItemsTable extends Migration
         Schema::create('inventory_items', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('propertyId');
-            $table->unsignedInteger('categoryId');
-            $table->string('sku');
+            $table->unsignedInteger('categoryId')->nullable();
+            $table->string('sku')->nullable();
             $table->string('name');
-            $table->mediumText('description');
-            $table->string('location');
-            $table->string('quantity');
-            $table->string('comment');
-            $table->string('manufacturer');
+            $table->mediumText('description')->nullable();
+            $table->string('location')->nullable();
+            $table->string('quantity')->nullable();
+            $table->string('comment')->nullable();
+            $table->string('manufacturer')->nullable();
             $table->integer('notifyCount');
+            $table->string('restockNote');
             $table->timestamps();
             $table->softDeletes();
 

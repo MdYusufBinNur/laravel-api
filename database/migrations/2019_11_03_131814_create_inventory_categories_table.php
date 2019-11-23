@@ -19,6 +19,11 @@ class CreateInventoryCategoriesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        DB::table('inventory_categories')->insert([
+            ['id' => 1, 'title' => 'General'],
+            ['id' => 2, 'title' => 'Utilities']
+        ]);
     }
 
     /**

@@ -24,8 +24,8 @@ class CreateInventoryItemsTable extends Migration
             $table->string('quantity')->nullable();
             $table->string('comment')->nullable();
             $table->string('manufacturer')->nullable();
-            $table->integer('notifyCount');
-            $table->string('restockNote');
+            $table->string('restockNote')->nullable();
+            $table->integer('notifyCount')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

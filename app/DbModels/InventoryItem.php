@@ -22,6 +22,7 @@ class InventoryItem extends Model
         'quantity',
         'comment',
         'manufacturer',
+        'restockNote',
         'notifyCount'
     ];
 }

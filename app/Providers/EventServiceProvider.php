@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Events\EnterpriseUser\EnterpriseUserCreatedEvent;
 use App\Events\Fdi\FdiCreatedEvent;
 use App\Events\Fdi\FdiUpdatedEvent;
+use App\Events\InventoryItem\InventoryItemCreatedEvent;
+use App\Events\InventoryItem\InventoryItemUpdatedEvent;
 use App\Events\Manager\ManagerCreatedEvent;
 use App\Events\Message\MessageCreatedEvent;
 use App\Events\Package\PackageCreatedEvent;
@@ -27,6 +29,8 @@ use App\Events\User\UserLoggedInEvent;
 use App\Events\Visitor\VisitorCreatedEvent;
 use App\Listeners\Fdi\HandleFdiCreatedEvent;
 use App\Listeners\Fdi\HandleFdiUpdatedEvent;
+use App\Listeners\InventoryItem\HandleInventoryItemCreatedEvent;
+use App\Listeners\InventoryItem\HandleInventoryItemUpdatedEvent;
 use App\Listeners\Message\HandleMessageCreatedEvent;
 use App\Listeners\PackageArchive\HandlePackageArchivedCreatedEvent;
 use App\Listeners\ParkingPass\HandleParkingPassCreatedEvent;
@@ -130,6 +134,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         PostCommentDeletedEvent::class => [
             HandlePostCommentDeletedEvent::class
+        ],
+        InventoryItemCreatedEvent::class => [
+            HandleInventoryItemCreatedEvent::class
+        ],
+        InventoryItemUpdatedEvent::class => [
+            HandleInventoryItemUpdatedEvent::class
         ],
 
     ];

@@ -21,7 +21,7 @@ class CreateInventoryItemsTable extends Migration
             $table->string('name');
             $table->mediumText('description')->nullable();
             $table->string('location')->nullable();
-            $table->string('quantity')->nullable();
+            $table->double('quantity')->nullable();
             $table->string('comment')->nullable();
             $table->string('manufacturer')->nullable();
             $table->string('restockNote')->nullable();

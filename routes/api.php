@@ -195,11 +195,11 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::get('line-list-auto-complete', 'UnitController@lineListAutoComplete');
 
         /**
-         * Related to inventory
+         * Related to inventory & maintenance
          */
         Route::apiResource('inventory-category', 'InventoryCategoryController');
         Route::apiResource('inventory-item', 'InventoryItemController');
-        Route::apiResource('inventory-item-log', 'InventoryItemLogController');
+        Route::apiResource('inventory-item-log', 'InventoryItemLogController', ['except' => ['store', 'update', 'destroy']]);
         Route::apiResource('equipment', 'EquipmentController');
 
         /**

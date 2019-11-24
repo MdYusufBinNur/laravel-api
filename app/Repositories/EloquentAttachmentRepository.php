@@ -34,9 +34,12 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
             }
             $image = file_get_contents($filePath);
         }
+        if (!isset($data['resourceId'])) {
+            $data['resourceId'] = '';
+        }
 
         $directoryName = $this->model->getDirectoryName($data['type']);
-        $data['fileName'] = Str::random(20) . '_'.$data['resourceId'].'_'. $data['fileSource']->getClientOriginalName();
+        $data['fileName'] = Str::random(20) . '_' . $data['resourceId'] . '_' . $data['fileSource']->getClientOriginalName();
         \Storage::put($directoryName . '/' . $data['fileName'], $image, 'public');
         return parent::save($data);
     }
@@ -48,8 +51,8 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
     {
         $image = file_get_contents($data['fileSource']);
         $directoryName = $this->model->getDirectoryName($data['type']);
-        $data['fileName'] = Str::random(20) . '_'.$data['resourceId'].'_'. $data['fileSource']->getClientOriginalName();
-        \Storage::delete($directoryName.'/'.$model->fileName);
+        $data['fileName'] = Str::random(20) . '_' . $data['resourceId'] . '_' . $data['fileSource']->getClientOriginalName();
+        \Storage::delete($directoryName . '/' . $model->fileName);
         \Storage::put($directoryName . '/' . $data['fileName'], $image, 'public');
         return parent::update($model, $data);
     }
@@ -60,7 +63,7 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
     public function delete(\ArrayAccess $model): bool
     {
         $directoryName = $this->model->getDirectoryName($model->type);
-        \Storage::delete($directoryName.'/'.$model->fileName);
+        \Storage::delete($directoryName . '/' . $model->fileName);
         return parent::delete($model);
     }
 
@@ -82,7 +85,8 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
     public function updateResourceId(Attachment $attachment, $id)
     {
         // check if the resourceId is already assigned
-        if (isset($attachment->resourceId)) {
+        // todo move it to rules
+        if (empty($attachment->resourceId)) {
             throw ValidationException::withMessages([
                 'resourceId' => ['Resource Id is already assigned.']
             ]);

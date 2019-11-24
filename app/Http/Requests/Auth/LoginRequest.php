@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Auth;
 
 use App\Http\Requests\Request;
+use App\Rules\UserEmailOrPhoneExists;
 
 class LoginRequest extends Request
 {
@@ -14,7 +15,7 @@ class LoginRequest extends Request
     public function rules()
     {
         return [
-            'email' => 'required|email',
+            'email' => ['required', 'max:255', new UserEmailOrPhoneExists()],
             'password' => 'required',
             'propertyId' => '',
         ];

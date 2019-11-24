@@ -17,11 +17,11 @@ class IndexRequest extends Request
             'id' => 'list:numeric',
             'propertyId' => 'list:numeric',
             'categoryId' => 'list:numeric',
-            'sku' => 'string',
-            'name' => 'string',
-            'location' => 'string',
-            'quantity' => 'string',
-            'manufacturer' => 'string',
+            'sku' => 'list:string',
+            'name' => 'list:string',
+            'location' => 'list:string',
+            'quantity' => 'list:numeric',
+            'manufacturer' => 'list:string',
             'notifyCount' => 'list:numeric',
         ];
     }

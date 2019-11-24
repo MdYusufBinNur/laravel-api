@@ -16,14 +16,15 @@ class StoreRequest extends Request
         return [
             'propertyId' => 'required|exists:properties,id',
             'categoryId' => 'required|exists:inventory_categories,id',
-            'sku' => 'required|min:2|max:255',
-            'name' => 'required|min:2|max:255',
-            'description' => 'required|min:2|max:65535',
-            'location' => 'required|min:2|max:255',
-            'quantity' => 'required|min:1|max:255',
-            'comment' => 'required|min:2|max:255',
-            'manufacturer' => 'required|min:2|max:255',
-            'notifyCount' => 'required|numeric',
+            'sku' => 'max:255',
+            'name' => 'required|max:255',
+            'description' => 'max:65535',
+            'location' => 'max:255',
+            'quantity' => 'max:255',
+            'comment' => 'max:255',
+            'manufacturer' => 'max:255',
+            'restockNote' => 'max:255',
+            'notifyCount' => 'numeric',
         ];
     }
 }

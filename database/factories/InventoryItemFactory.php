@@ -8,13 +8,14 @@ $factory->define(\App\DbModels\InventoryItem::class, function (Faker $faker) {
     return [
         'propertyId' =>  App\DbModels\Property::all()->random()->id,
         'categoryId' =>  App\DbModels\InventoryCategory::all()->random()->id,
-        'sku' => $faker->sentence,
+        'sku' => $faker->uuid,
         'name' => $faker->name,
         'description' => $faker->sentence,
         'location' => $faker->address,
         'comment' => $faker->sentence,
         'manufacturer' => $faker->name,
-        'notifyCount' => 1,
-        'quantity' => 1,
+        'notifyCount' => $faker->numberBetween(1,20),
+        'quantity' => $faker->randomDigit,
+        'restockNote' => $faker->sentence,
     ];
 });

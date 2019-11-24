@@ -21,7 +21,7 @@ class StoreRequest extends Request
             'users' => 'required_without:userId',
             'users.name' => 'required_without:userId|min:3|max:255',
             'users.email' => 'required_without:userId|email|unique:users|max:255',
-            'users.isActive' => 'userId|boolean',
+            'users.isActive' => 'required_without:userId|boolean',
             'users.password' => 'required_without:userId|min:5|max:255',
         ];
     }

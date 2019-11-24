@@ -86,7 +86,7 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
     {
         // check if the resourceId is already assigned
         // todo move it to rules
-        if (empty($attachment->resourceId)) {
+        if (!empty($attachment->resourceId)) {
             throw ValidationException::withMessages([
                 'resourceId' => ['Resource Id is already assigned.']
             ]);

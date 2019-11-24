@@ -6,6 +6,7 @@ use App\DbModels\Attachment;
 use App\Repositories\Contracts\AttachmentRepository;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 class EloquentAttachmentRepository extends EloquentBaseRepository implements AttachmentRepository
@@ -80,6 +81,13 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
      */
     public function updateResourceId(Attachment $attachment, $id)
     {
+        // check if the resourceId is already assigned
+        if (isset($attachment->resourceId)) {
+            throw ValidationException::withMessages([
+                'resourceId' => ['Resource Id is already assigned.']
+            ]);
+        }
+
         return parent::update($attachment, ['resourceId' => $id]);
     }
 

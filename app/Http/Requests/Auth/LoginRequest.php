@@ -17,7 +17,7 @@ class LoginRequest extends Request
         return [
             'email' => ['required', 'max:255', new UserEmailOrPhoneExists()],
             'password' => 'required',
-            'propertyId' => '',
+            'propertyId' => 'integer',
         ];
     }
 }

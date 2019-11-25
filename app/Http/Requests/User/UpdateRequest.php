@@ -22,7 +22,7 @@ class UpdateRequest extends Request
             'email' => Rule::unique('users')->ignore($userId, 'id'),
             'phone' => Rule::unique('users')->ignore($userId, 'id'),
             'name' => 'max:255',
-            'locale' => 'max:255',
+            'locale' => 'in:en,bn',
             'isActive' => 'boolean',
             'role' => '',
             'role.id' => 'exists:user_roles,id', //todo what if, addNewRole is not given & roles.id is not given too.

@@ -32,7 +32,7 @@ class UpdateRequest extends Request
             'user.email' => 'max:255|email|unique:users,email,' . $userId . ',id',
             'user.name' => 'max:255',
             'user.password' => 'min:5|max:255',
-            'user.locale' => '',
+            'user.locale' => 'in:en,bn',
         ];
     }
 

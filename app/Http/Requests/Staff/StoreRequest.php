@@ -28,7 +28,7 @@ class StoreRequest extends Request
             'user.email' => 'required_with:user|email|unique:users,email|max:255',
             'user.name' => 'required_with:user|max:255',
             'user.password' => 'required_with:user|min:5|max:255',
-            'user.locale' => '',
+            'user.locale' => 'in:en,bn',
         ];
     }
 

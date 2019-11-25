@@ -38,4 +38,15 @@ class InventoryItemLog extends Model
     {
         return $this->hasOne(Property::class, 'id', 'propertyId');
     }
+
+    /**
+     * get the updated by user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function updatedByUser()
+    {
+        return $this->hasOne(User::class, 'id', 'updatedByUserId');
+    }
+
 }

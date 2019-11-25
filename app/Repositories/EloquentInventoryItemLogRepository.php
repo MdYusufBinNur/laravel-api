@@ -13,7 +13,7 @@ class EloquentInventoryItemLogRepository extends EloquentBaseRepository implemen
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = ['iil.inventoryItem' => 'inventoryItem'];
+        $searchCriteria['eagerLoad'] = ['iil.inventoryItem' => 'inventoryItem', 'iil.updatedByUser' => 'updatedByUser'];
         return parent::findBy($searchCriteria, $withTrashed);
     }
 

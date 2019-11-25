@@ -15,6 +15,9 @@ class InventoryItemLogResource extends Resource
         return [
             'id' => $this->id,
             'inventoryItemId' => $this->inventoryItemId,
+            'inventoryItem' =>$this->when($this->needToInclude($request, 'iil.inventoryItem'), function () {
+                return  new InventoryItemResource($this->inventoryItem);
+            }),
             'propertyId' => $this->propertyId,
             'updatedByUserId' => $this->updatedByUserId,
             'QuantityChange' => $this->QuantityChange,

@@ -16,6 +16,7 @@ class InventoryCategoryResource extends Resource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'propertyId' => $this->propertyId,
         ];
     }
 }

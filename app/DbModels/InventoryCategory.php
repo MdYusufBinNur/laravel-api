@@ -13,6 +13,6 @@ class InventoryCategory extends Model
      * @var array
      */
     protected $fillable = [
-        'title'
+        'title', 'propertyId'
     ];
 }

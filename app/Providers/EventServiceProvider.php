@@ -19,6 +19,7 @@ use App\Events\Post\PostUpdatedEvent;
 use App\Events\PostComment\PostCommentCreatedEvent;
 use App\Events\PostComment\PostCommentDeletedEvent;
 use App\Events\PostComment\PostCommentUpdatedEvent;
+use App\Events\Attachment\AttachmentCreatedEvent;
 use App\Events\ResidentAccessRequest\ResidentAccessRequestCreatedEvent;
 use App\Events\ResidentAccessRequest\ResidentAccessRequestUpdatedEvent;
 use App\Events\Resident\ResidentCreatedEvent;
@@ -40,6 +41,7 @@ use App\Listeners\Post\HandlePostCommentUpdatedEvent;
 use App\Listeners\Post\HandlePostUpdatedEvent;
 use App\Listeners\PostComment\HandlePostCommentCreatedEvent;
 use App\Listeners\PostComment\HandlePostCommentDeletedEvent;
+use App\Listeners\Attachment\HandleAttachmentCreatedEvent;
 use App\Listeners\ResidentAccessRequest\HandleResidentAccessRequestCreatedEvent;
 use App\Listeners\ResidentAccessRequest\HandleResidentAccessRequestUpdatedEvent;
 use App\Listeners\Resident\HandleResidentCreatedEvent;
@@ -140,6 +142,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         InventoryItemUpdatedEvent::class => [
             HandleInventoryItemUpdatedEvent::class
+        ],
+        AttachmentCreatedEvent::class => [
+            HandleAttachmentCreatedEvent::class
         ],
 
     ];

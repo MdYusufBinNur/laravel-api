@@ -116,4 +116,58 @@ class Attachment extends Model
 
         return $directoryName;
     }
+
+    /**
+     * get image width and height by image type title
+     *
+     * @param $title
+     * @return array
+     */
+    public function getImageSizeByTypeTitle($title)
+    {
+        $sizes = ['width' => 150, 'height'=> 150];
+        switch (strtolower($title)) {
+            case 'thumbnail':
+                $sizes = ['width' => 150, 'height'=> 150];
+                break;
+            case 'medium':
+                $sizes = ['width' => 300, 'height'=> 300];
+                break;
+            case 'large':
+                $sizes = ['width' => 1024, 'height'=> 1024];
+                break;
+
+        }
+
+        return $sizes;
+    }
+
+    /**
+     * get attachment file path by type-title(thumbnail, medium, large etc.)
+     *
+     * @param string $typeTitle
+     * @return string
+     */
+    public function getAttachmentDirectoryPathByTypeTitle($typeTitle = '')
+    {
+        switch (strtolower($typeTitle)) {
+            case 'thumbnail':
+                $path = $typeTitle . '/' . $this->fileName;
+                break;
+            case 'medium':
+                $path = $typeTitle . '/' . $this->fileName;
+                break;
+            case 'large':
+                $path = $typeTitle . '/' . $this->fileName;
+                break;
+            default:
+                $path = $this->fileName;
+
+        }
+
+        $directoryName = $this->getDirectoryName($this->type);
+
+        return $directoryName . '/' . $path;
+
+    }
 }

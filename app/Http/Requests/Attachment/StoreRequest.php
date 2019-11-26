@@ -4,6 +4,7 @@ namespace App\Http\Requests\Attachment;
 
 use App\DbModels\Attachment;
 use App\Http\Requests\Request;
+use App\Rules\CSVString;
 
 class StoreRequest extends Request
 {
@@ -40,6 +41,8 @@ class StoreRequest extends Request
             'resizeImage'  => 'boolean',
             'width'  => 'required_with:resizeImage',
             'height'  => 'required_with:resizeImage',
+
+            'multipleTypes'  => [new CSVString(['thumbnail', 'medium', 'large'])] //'in:thumbnail,medium,large',
         ];
     }
 }

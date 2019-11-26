@@ -25,11 +25,6 @@ class CreateInventoryCategoriesTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
-
-        DB::table('inventory_categories')->insert([
-            ['id' => 1, 'title' => 'General', 'propertyId' => 1],
-            ['id' => 2, 'title' => 'Utilities', 'propertyId' => 1]
-        ]);
     }
 
     /**

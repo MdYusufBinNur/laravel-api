@@ -2,7 +2,6 @@
 
 namespace App\DbModels;
 
-use App\Services\Point;
 use Illuminate\Database\Eloquent\Model;
 
 class Property extends Model

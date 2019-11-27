@@ -14,7 +14,6 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'propertyId' => 'exists:properties,id',
             'categoryId' => 'exists:income_categories,id',
             'sourceOfIncome' => 'max: 255',
             'amount' => '',

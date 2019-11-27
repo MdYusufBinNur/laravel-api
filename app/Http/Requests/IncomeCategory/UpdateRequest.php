@@ -16,7 +16,6 @@ class UpdateRequest extends Request
         return [
             'title' => 'max:255',
             'propertyId' => 'exists:properties,id'
-
         ];
     }
 }

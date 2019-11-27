@@ -125,16 +125,19 @@ class Attachment extends Model
      */
     public function getImageSizeByTypeTitle($title)
     {
-        $sizes = ['width' => 150, 'height'=> 150];
+        $sizes = ['width' => 150, 'height' => 150];
         switch (strtolower($title)) {
+            case 'avatar':
+                $sizes = ['width' => 40, 'height' => 40];
+                break;
             case 'thumbnail':
-                $sizes = ['width' => 150, 'height'=> 150];
+                $sizes = ['width' => 150, 'height' => 150];
                 break;
             case 'medium':
-                $sizes = ['width' => 300, 'height'=> 300];
+                $sizes = ['width' => 300, 'height' => 300];
                 break;
             case 'large':
-                $sizes = ['width' => 1024, 'height'=> 1024];
+                $sizes = ['width' => 1024, 'height' => 1024];
                 break;
 
         }
@@ -151,6 +154,9 @@ class Attachment extends Model
     public function getAttachmentDirectoryPathByTypeTitle($typeTitle = '')
     {
         switch (strtolower($typeTitle)) {
+            case 'avatar':
+                $path = $typeTitle . '/' . $this->fileName;
+                break;
             case 'thumbnail':
                 $path = $typeTitle . '/' . $this->fileName;
                 break;

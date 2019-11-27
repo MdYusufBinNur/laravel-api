@@ -27,6 +27,9 @@ class AttachmentResource extends Resource
             'fileType'     => $this->fileType,
             'fileSize'     => $this->fileSize,
             'fileUrl'      => \Storage::temporaryUrl($this->getAttachmentDirectoryPathByTypeTitle(), Carbon::now()->addMinutes(10)),
+            'avatar' => $this->when($this->needToInclude($request, 'image.avatar'), function () {
+                return \Storage::temporaryUrl($this->getAttachmentDirectoryPathByTypeTitle('avatar'), Carbon::now()->addMinutes(10));
+            }),
             'thumbnail' => $this->when($this->needToInclude($request, 'image.thumbnail'), function () {
                 return \Storage::temporaryUrl($this->getAttachmentDirectoryPathByTypeTitle('thumbnail'), Carbon::now()->addMinutes(10));
             }),

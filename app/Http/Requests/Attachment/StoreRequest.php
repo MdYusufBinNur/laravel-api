@@ -42,7 +42,7 @@ class StoreRequest extends Request
             'width'  => 'required_with:resizeImage',
             'height'  => 'required_with:resizeImage',
 
-            'multipleTypes'  => [new CSVString(['thumbnail', 'medium', 'large'])] //'in:thumbnail,medium,large',
+            'multipleTypes'  => [new CSVString(['thumbnail', 'medium', 'large', 'avatar'])],
         ];
     }
 }

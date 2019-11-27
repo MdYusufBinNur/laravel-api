@@ -2,29 +2,24 @@
 
 namespace App\Listeners\MessageUser;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\MessageUser\MessageUserUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleMessageUserUpdatedEvent
+class HandleMessageUserUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  MessageUserUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(MessageUserUpdatedEvent $event)
     {
-        //
+        $messageUser = $event->messageUser;
+        $eventOptions = $event->options;
+        $oldMessageUser = $eventOptions['oldModel'];
     }
 }

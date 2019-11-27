@@ -2,29 +2,23 @@
 
 namespace App\Listeners\NotificationFeed;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\NotificationFeed\NotificationFeedCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleNotificationFeedCreatedEvent
+class HandleNotificationFeedCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  NotificationFeedCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(NotificationFeedCreatedEvent $event)
     {
-        //
+        $notificationFeed = $event->notificationFeed;
+        $eventOptions = $event->options;
     }
 }

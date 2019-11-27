@@ -2,29 +2,24 @@
 
 namespace App\Listeners\Company;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\Company\CompanyUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleCompanyUpdatedEvent
+class HandleCompanyUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  CompanyUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(CompanyUpdatedEvent $event)
     {
-        //
+        $company = $event->company;
+        $eventOptions = $event->options;
+        $oldCompany = $eventOptions['oldModel'];
     }
 }

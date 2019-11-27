@@ -2,29 +2,23 @@
 
 namespace App\Listeners\PropertyLinkCategory;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\PropertyLinkCategory\PropertyLinkCategoryCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandlePropertyLinkCategoryCreatedEvent
+class HandlePropertyLinkCategoryCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  PropertyLinkCategoryCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(PropertyLinkCategoryCreatedEvent $event)
     {
-        //
+        $propertyLinkCategory = $event->propertyLinkCategory;
+        $eventOptions = $event->options;
     }
 }

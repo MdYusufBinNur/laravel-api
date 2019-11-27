@@ -2,29 +2,23 @@
 
 namespace App\Listeners\PostRecommendation;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\PostRecommendation\PostRecommendationCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandlePostRecommendationCreatedEvent
+class HandlePostRecommendationCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  PostRecommendationCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(PostRecommendationCreatedEvent $event)
     {
-        //
+        $postRecommendation = $event->postRecommendation;
+        $eventOptions = $event->options;
     }
 }

@@ -2,29 +2,24 @@
 
 namespace App\Listeners\PostApprovalArchive;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\PostApprovalArchive\PostApprovalArchiveUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandlePostApprovalArchiveUpdatedEvent
+class HandlePostApprovalArchiveUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  PostApprovalArchiveUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(PostApprovalArchiveUpdatedEvent $event)
     {
-        //
+        $postApprovalArchive = $event->postApprovalArchive;
+        $eventOptions = $event->options;
+        $oldPostApprovalArchive = $eventOptions['oldModel'];
     }
 }

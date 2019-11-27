@@ -2,29 +2,24 @@
 
 namespace App\Listeners\NotificationFeed;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\NotificationFeed\NotificationFeedUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleNotificationFeedUpdatedEvent
+class HandleNotificationFeedUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  NotificationFeedUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(NotificationFeedUpdatedEvent $event)
     {
-        //
+        $notificationFeed = $event->notificationFeed;
+        $eventOptions = $event->options;
+        $oldNotificationFeed = $eventOptions['oldModel'];
     }
 }

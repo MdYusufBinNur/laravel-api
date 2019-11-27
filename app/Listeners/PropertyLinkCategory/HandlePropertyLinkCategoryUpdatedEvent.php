@@ -2,29 +2,24 @@
 
 namespace App\Listeners\PropertyLinkCategory;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\PropertyLinkCategory\PropertyLinkCategoryUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandlePropertyLinkCategoryUpdatedEvent
+class HandlePropertyLinkCategoryUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  PropertyLinkCategoryUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(PropertyLinkCategoryUpdatedEvent $event)
     {
-        //
+        $propertyLinkCategory = $event->propertyLinkCategory;
+        $eventOptions = $event->options;
+        $oldPropertyLinkCategory = $eventOptions['oldModel'];
     }
 }

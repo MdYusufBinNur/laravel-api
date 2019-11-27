@@ -2,29 +2,24 @@
 
 namespace App\Listeners\EnterpriseUserProperty;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\EnterpriseUserProperty\EnterpriseUserPropertyUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleEnterpriseUserPropertyUpdatedEvent
+class HandleEnterpriseUserPropertyUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  EnterpriseUserPropertyUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(EnterpriseUserPropertyUpdatedEvent $event)
     {
-        //
+        $enterpriseUserProperty = $event->enterpriseUserProperty;
+        $eventOptions = $event->options;
+        $oldEnterpriseUserProperty = $eventOptions['oldModel'];
     }
 }

@@ -2,29 +2,23 @@
 
 namespace App\Listeners\MessagePost;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\MessagePost\MessagePostCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleMessagePostCreatedEvent
+class HandleMessagePostCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  MessagePostCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(MessagePostCreatedEvent $event)
     {
-        //
+        $messagePost = $event->messagePost;
+        $eventOptions = $event->options;
     }
 }

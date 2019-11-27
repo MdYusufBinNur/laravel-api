@@ -2,29 +2,24 @@
 
 namespace App\Listeners\PostPoll;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\PostPoll\PostPollUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandlePostPollUpdatedEvent
+class HandlePostPollUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  PostPollUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(PostPollUpdatedEvent $event)
     {
-        //
+        $postPoll = $event->postPoll;
+        $eventOptions = $event->options;
+        $oldPostPoll = $eventOptions['oldModel'];
     }
 }

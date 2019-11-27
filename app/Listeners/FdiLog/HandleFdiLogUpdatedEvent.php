@@ -2,29 +2,24 @@
 
 namespace App\Listeners\FdiLog;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\FdiLog\FdiLogUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleFdiLogUpdatedEvent
+class HandleFdiLogUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  FdiLogUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(FdiLogUpdatedEvent $event)
     {
-        //
+        $fdiLog = $event->fdiLog;
+        $eventOptions = $event->options;
+        $oldFdiLog = $eventOptions['oldModel'];
     }
 }

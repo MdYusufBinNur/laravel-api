@@ -2,29 +2,24 @@
 
 namespace App\Listeners\FdiGuestType;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\FdiGuestType\FdiGuestTypeUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleFdiGuestTypeUpdatedEvent
+class HandleFdiGuestTypeUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  FdiGuestTypeUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(FdiGuestTypeUpdatedEvent $event)
     {
-        //
+        $fdiGuestType = $event->fdiGuestType;
+        $eventOptions = $event->options;
+        $oldFdiGuestType = $eventOptions['oldModel'];
     }
 }

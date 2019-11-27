@@ -2,29 +2,24 @@
 
 namespace App\Listeners\PropertyGeneralInfo;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\PropertyGeneralInfo\PropertyGeneralInfoUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandlePropertyGenralInfoUpdatedEvent
+class HandlePropertyGenralInfoUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  PropertyGeneralInfoUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(PropertyGeneralInfoUpdatedEvent $event)
     {
-        //
+        $propertyGeneralInfo = $event->propertyGeneralInfo;
+        $eventOptions = $event->options;
+        $oldPropertyGeneralInfo = $eventOptions['oldModel'];
     }
 }

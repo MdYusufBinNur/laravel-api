@@ -2,29 +2,24 @@
 
 namespace App\Listeners\NotificationTemplateType;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\NotificationTemplateType\NotificationTemplateTypeUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleNotificationTemplateTypeUpdatedEvent
+class HandleNotificationTemplateTypeUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  NotificationTemplateTypeUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(NotificationTemplateTypeUpdatedEvent $event)
     {
-        //
+        $notificationTemplateType = $event->notificationTemplateType;
+        $eventOptions = $event->options;
+        $oldNotificationTemplateType = $eventOptions['oldModel'];
     }
 }

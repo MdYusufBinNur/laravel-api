@@ -2,29 +2,24 @@
 
 namespace App\Listeners\ParkingPassLog;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\ParkingPassLog\ParkingPassLogUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleParkingPassLogUpdatedEvent
+class HandleParkingPassLogUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  ParkingPassLogUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(ParkingPassLogUpdatedEvent $event)
     {
-        //
+        $parkingPassLog = $event->parkingPassLog;
+        $eventOptions = $event->options;
+        $oldParkingPassLog = $eventOptions['oldModel'];
     }
 }

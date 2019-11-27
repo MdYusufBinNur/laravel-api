@@ -2,29 +2,24 @@
 
 namespace App\Listeners\MessageTemplate;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\MessageTemplate\MessageTemplateUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleMessageTemplateUpdatedEvent
+class HandleMessageTemplateUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  MessageTemplateUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(MessageTemplateUpdatedEvent $event)
     {
-        //
+        $messageTemplate = $event->messageTemplate;
+        $eventOptions = $event->options;
+        $oldMessageTemplate = $eventOptions['oldModel'];
     }
 }

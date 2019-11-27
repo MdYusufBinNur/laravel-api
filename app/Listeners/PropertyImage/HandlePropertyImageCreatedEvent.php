@@ -2,29 +2,23 @@
 
 namespace App\Listeners\PropertyImage;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\PropertyImage\PropertyImageCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandlePropertyImageCreatedEvent
+class HandlePropertyImageCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  PropertyImageCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(PropertyImageCreatedEvent $event)
     {
-        //
+        $propertyImage = $event->propertyImage;
+        $eventOptions = $event->options;
     }
 }

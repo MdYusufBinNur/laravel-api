@@ -2,29 +2,23 @@
 
 namespace App\Listeners\EnterpriseUserProperty;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\EnterpriseUserProperty\EnterpriseUserPropertyCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleEnterpriseUserPropertyCreatedEvent
+class HandleEnterpriseUserPropertyCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  EnterpriseUserPropertyCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(EnterpriseUserPropertyCreatedEvent $event)
     {
-        //
+        $enterpriseUserProperty = $event->enterpriseUserProperty;
+        $eventOptions = $event->options;
     }
 }

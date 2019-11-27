@@ -2,29 +2,24 @@
 
 namespace App\Listeners\LdsBlacklistUnit;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\LdsBlacklistUnit\LdsBlacklistUnitCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleLdsBlacklistUnitUpdatedEvent
+class HandleLdsBlacklistUnitUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  LdsBlacklistUnitCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(LdsBlacklistUnitCreatedEvent $event)
     {
-        //
+        $ldsBlacklistUnit = $event->ldsBlacklistUnit;
+        $eventOptions = $event->options;
+        $oldLdsBlacklistUnit = $eventOptions['oldModel'];
     }
 }

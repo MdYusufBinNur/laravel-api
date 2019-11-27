@@ -2,29 +2,24 @@
 
 namespace App\Listeners\FdiLog;
 
+use App\Events\FdiLog\FdiLogCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleFdiLogCreatedEvent
+class HandleFdiLogCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  FdiLogCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(FdiLogCreatedEvent $event)
     {
-        //
+        $fdiLog = $event->fdiLog;
+        $eventOptions = $event->options;
     }
 }

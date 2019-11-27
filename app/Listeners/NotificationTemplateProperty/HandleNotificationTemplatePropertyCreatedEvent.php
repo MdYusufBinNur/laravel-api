@@ -2,29 +2,23 @@
 
 namespace App\Listeners\NotificationTemplateProperty;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\NotificationTemplateProperty\NotificationTemplatePropertyCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleNotificationTemplatePropertyCreatedEvent
+class HandleNotificationTemplatePropertyCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  NotificationTemplatePropertyCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(NotificationTemplatePropertyCreatedEvent $event)
     {
-        //
+        $notificationTemplateProperty = $event->notificationTemplateProperty;
+        $eventOptions = $event->options;
     }
 }

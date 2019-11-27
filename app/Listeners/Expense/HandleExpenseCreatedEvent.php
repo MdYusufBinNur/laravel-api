@@ -2,29 +2,24 @@
 
 namespace App\Listeners\Expense;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\Expense\ExpenseCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleExpenseCreatedEvent
+class HandleExpenseCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  ExpenseCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(ExpenseCreatedEvent $event)
     {
-        //
+        $expense = $event->expense;
+        $eventOptions = $event->options;
+        $oldExpense = $eventOptions['oldModel'];
     }
 }

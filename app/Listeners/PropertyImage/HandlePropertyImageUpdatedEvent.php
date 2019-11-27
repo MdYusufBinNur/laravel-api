@@ -2,29 +2,24 @@
 
 namespace App\Listeners\PropertyImage;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\PropertyImage\PropertyImageUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandlePropertyImageUpdatedEvent
+class HandlePropertyImageUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  PropertyImageUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(PropertyImageUpdatedEvent $event)
     {
-        //
+        $propertyImage = $event->propertyImage;
+        $eventOptions = $event->options;
+        $oldPropertyImage = $eventOptions['oldModel'];
     }
 }

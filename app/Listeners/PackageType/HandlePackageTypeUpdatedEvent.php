@@ -2,29 +2,24 @@
 
 namespace App\Listeners\PackageType;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\PackageType\PackageTypeUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandlePackageTypeUpdatedEvent
+class HandlePackageTypeUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  PackageTypeUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(PackageTypeUpdatedEvent $event)
     {
-        //
+        $packageType = $event->packageType;
+        $eventOptions = $event->options;
+        $oldPackageType = $eventOptions['oldModel'];
     }
 }

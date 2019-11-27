@@ -2,29 +2,24 @@
 
 namespace App\Listeners\Equipment;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\Equipment\EquipmentUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleEquipmentUpdatedEvent
+class HandleEquipmentUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  EquipmentUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(EquipmentUpdatedEvent $event)
     {
-        //
+        $equipment = $event->equipment;
+        $eventOptions = $event->options;
+        $oldEquipment = $eventOptions['oldModel'];
     }
 }

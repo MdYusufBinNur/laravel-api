@@ -2,29 +2,23 @@
 
 namespace App\Listeners\PostEvent;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\PostEvent\PostEventCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandlePostEventCreatedEvent
+class HandlePostEventCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  PostEventCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(PostEventCreatedEvent $event)
     {
-        //
+        $postEvent = $event->postEvent;
+        $eventOptions = $event->options;
     }
 }

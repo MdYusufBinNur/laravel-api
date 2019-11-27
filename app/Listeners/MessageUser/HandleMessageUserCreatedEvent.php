@@ -2,29 +2,23 @@
 
 namespace App\Listeners\MessageUser;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\MessageUser\MessageUserCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleMessageUserCreatedEvent
+class HandleMessageUserCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  MessageUserCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(MessageUserCreatedEvent $event)
     {
-        //
+        $messageUser = $event->messageUser;
+        $eventOptions = $event->options;
     }
 }

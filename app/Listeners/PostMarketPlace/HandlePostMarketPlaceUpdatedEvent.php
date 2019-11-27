@@ -2,29 +2,24 @@
 
 namespace App\Listeners\PostMarketPlace;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\PostMarketPlace\PostMarketPlaceUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandlePostMarketPlaceUpdatedEvent
+class HandlePostMarketPlaceUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  PostMarketPlaceUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(PostMarketPlaceUpdatedEvent $event)
     {
-        //
+        $postMarketplace = $event->postMarketplace;
+        $eventOptions = $event->options;
+        $oldPostMarketplace = $eventOptions['oldModel'];
     }
 }

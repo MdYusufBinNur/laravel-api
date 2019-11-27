@@ -20,5 +20,6 @@ class HandleAdminUpdatedEvent implements ShouldQueue
     {
         $admin = $event->admin;
         $eventOptions = $event->options;
+        $oldAdmin = $eventOptions['oldModel'];
     }
 }

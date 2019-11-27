@@ -2,29 +2,24 @@
 
 namespace App\Listeners\PostApprovalBlacklistUnit;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\PostApprovalBlacklistUnit\PostApprovalBlacklistUnitUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandlePostApprovalBlacklistUnitUpdatedEvent
+class HandlePostApprovalBlacklistUnitUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  PostApprovalBlacklistUnitUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(PostApprovalBlacklistUnitUpdatedEvent $event)
     {
-        //
+        $postApprovalBlacklistUnit = $event->postApprovalBlacklistUnit;
+        $eventOptions = $event->options;
+        $oldPostApprovalBlacklistUnit = $eventOptions['oldModel'];
     }
 }

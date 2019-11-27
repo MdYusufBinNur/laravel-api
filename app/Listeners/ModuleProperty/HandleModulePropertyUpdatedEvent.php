@@ -2,29 +2,24 @@
 
 namespace App\Listeners\ModuleProperty;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\ModuleProperty\ModulePropertyUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleModulePropertyUpdatedEvent
+class HandleModulePropertyUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  ModulePropertyUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(ModulePropertyUpdatedEvent $event)
     {
-        //
+        $moduleProperty = $event->moduleProperty;
+        $eventOptions = $event->options;
+        $oldModuleProperty = $eventOptions['oldModel'];
     }
 }

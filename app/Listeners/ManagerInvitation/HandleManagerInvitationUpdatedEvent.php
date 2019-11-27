@@ -2,29 +2,24 @@
 
 namespace App\Listeners\ManagerInvitation;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\ManagerInvitation\ManagerInvitationUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleManagerInvitationUpdatedEvent
+class HandleManagerInvitationUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  ManagerInvitationUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(ManagerInvitationUpdatedEvent $event)
     {
-        //
+        $managerInvitation = $event->managerInvitation;
+        $eventOptions = $event->options;
+        $oldManagerInvitation = $eventOptions['oldModel'];
     }
 }

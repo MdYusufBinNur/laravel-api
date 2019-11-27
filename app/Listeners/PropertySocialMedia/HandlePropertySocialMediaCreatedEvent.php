@@ -2,29 +2,23 @@
 
 namespace App\Listeners\PropertySocialMedia;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\PropertySocialMedia\PropertySocialMediaCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandlePropertySocialMediaCreatedEvent
+class HandlePropertySocialMediaCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  PropertySocialMediaCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(PropertySocialMediaCreatedEvent $event)
     {
-        //
+        $propertySocialMedia = $event->propertySocialMedia;
+        $eventOptions = $event->options;
     }
 }

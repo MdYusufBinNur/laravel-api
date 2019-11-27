@@ -2,29 +2,23 @@
 
 namespace App\Listeners\InventoryCategory;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\InventoryCategory\InventoryCategoryUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleInventoryCategoryCreatedEvent
+class HandleInventoryCategoryCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  InventoryCategoryUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(InventoryCategoryUpdatedEvent $event)
     {
-        //
+        $inventoryCategory = $event->inventoryCategory;
+        $eventOptions = $event->options;
     }
 }

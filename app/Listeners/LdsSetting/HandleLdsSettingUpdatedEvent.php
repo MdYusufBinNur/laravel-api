@@ -2,29 +2,24 @@
 
 namespace App\Listeners\LdsSetting;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\LdsSetting\LdsSettingUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleLdsSettingUpdatedEvent
+class HandleLdsSettingUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  LdsSettingUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(LdsSettingUpdatedEvent $event)
     {
-        //
+        $ldsSetting = $event->ldsSetting;
+        $eventOptions = $event->options;
+        $oldLdsSetting = $eventOptions['oldModel'];
     }
 }

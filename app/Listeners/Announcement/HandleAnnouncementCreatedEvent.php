@@ -2,29 +2,23 @@
 
 namespace App\Listeners\Announcement;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\Announcement\AnnouncementCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleAnnouncementCreatedEvent
+class HandleAnnouncementCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  AnnouncementCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(AnnouncementCreatedEvent $event)
     {
-        //
+        $announcement = $event->announcement;
+        $eventOptions = $event->options;
     }
 }

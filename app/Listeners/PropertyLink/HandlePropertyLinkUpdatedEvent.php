@@ -2,29 +2,24 @@
 
 namespace App\Listeners\PropertyLink;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\PropertyLink\PropertyLinkUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandlePropertyLinkUpdatedEvent
+class HandlePropertyLinkUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  PropertyLinkUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(PropertyLinkUpdatedEvent $event)
     {
-        //
+        $propertyLink = $event->propertyLink;
+        $eventOptions = $event->options;
+        $oldPropertyLink = $eventOptions['oldModel'];
     }
 }

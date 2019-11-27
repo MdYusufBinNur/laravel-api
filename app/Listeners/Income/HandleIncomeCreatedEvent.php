@@ -2,29 +2,23 @@
 
 namespace App\Listeners\Income;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\Income\IncomeCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleIncomeCreatedEvent
+class HandleIncomeCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  IncomeCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(IncomeCreatedEvent $event)
     {
-        //
+        $income = $event->income;
+        $eventOptions = $event->options;
     }
 }

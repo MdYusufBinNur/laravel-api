@@ -2,29 +2,23 @@
 
 namespace App\Listeners\PropertyDesignSetting;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\PropertyDesignSetting\PropertyDesignSettingCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandlePropertyDesignSettingCreatedEvent
+class HandlePropertyDesignSettingCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  PropertyDesignSettingCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(PropertyDesignSettingCreatedEvent $event)
     {
-        //
+        $propertyDesignSetting = $event->propertyDesignSetting;
+        $eventOptions = $event->options;
     }
 }

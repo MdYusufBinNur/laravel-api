@@ -2,29 +2,24 @@
 
 namespace App\Listeners\ParkingSpace;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\ParkingSpace\ParkingSpaceUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleParkingSpaceUpdatedEvent
+class HandleParkingSpaceUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  ParkingSpaceUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(ParkingSpaceUpdatedEvent $event)
     {
-        //
+        $parkingSpace = $event->parkingSpace;
+        $eventOptions = $event->options;
+        $oldParkingSpace = $eventOptions['oldModel'];
     }
 }

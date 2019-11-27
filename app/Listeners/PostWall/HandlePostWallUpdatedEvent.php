@@ -2,29 +2,24 @@
 
 namespace App\Listeners\PostWall;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\PostWall\PostWallUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandlePostWallUpdatedEvent
+class HandlePostWallUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  PostWallUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(PostWallUpdatedEvent $event)
     {
-        //
+        $postWall = $event->postWall;
+        $eventOptions = $event->options;
+        $oldPostWall = $eventOptions['oldModel'];
     }
 }

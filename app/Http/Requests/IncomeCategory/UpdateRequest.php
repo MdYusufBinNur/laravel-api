@@ -14,7 +14,9 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'title' => 'max:255'
+            'title' => 'max:255',
+            'propertyId' => 'exists:properties,id'
+
         ];
     }
 }

@@ -15,9 +15,21 @@ class CreateIncomeCategoriesTable extends Migration
     {
         Schema::create('income_categories', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->string('title');
+            $table->unsignedInteger('propertyId');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('propertyId')
+                ->references('id')->on('properties')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
         });
     }

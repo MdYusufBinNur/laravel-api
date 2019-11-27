@@ -14,6 +14,7 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
+            'propertyId' => 'required|exists:properties,id',
             'categoryId' => 'required|exists:income_categories,id',
             'sourceOfIncome' => 'required|max: 255',
             'amount' => 'required',

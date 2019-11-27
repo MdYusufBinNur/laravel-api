@@ -20,7 +20,7 @@ class HandleAttachmentCreatedEvent implements ShouldQueue
         $attachment = $event->attachment;
         $eventOptions = $event->options;
 
-        if(isset($eventOptions['multipleTypes'])) {
+        if(!empty($eventOptions['multipleTypes'])) {
             $directoryName = $attachment->getDirectoryName($attachment->type);
             $imageUrl = \Storage::temporaryUrl($directoryName . '/' . $attachment->fileName, Carbon::now()->addMinutes(10));
 

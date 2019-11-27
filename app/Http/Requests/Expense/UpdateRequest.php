@@ -14,6 +14,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
+            'propertyId' => 'exists:properties,id',
             'categoryId' => 'exists:expense_categories,id',
             'expenseReason' => 'max: 255',
             'amount' => 'required',

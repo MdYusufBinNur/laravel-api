@@ -15,7 +15,9 @@ class CreateIncomesTable extends Migration
     {
         Schema::create('incomes', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->integer('categoryId')->unsigned();
+            $table->unsignedInteger('propertyId');
             $table->string('sourceOfIncome');
             $table->float('amount');
             $table->text('notes')->nullable();
@@ -23,12 +25,20 @@ class CreateIncomesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-
-
             $table->foreign('categoryId')
                 ->references('id')->on('income_categories')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('propertyId')
+                ->references('id')->on('properties')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

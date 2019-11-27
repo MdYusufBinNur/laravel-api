@@ -14,7 +14,7 @@ class Expense extends Model
      * @var array
      */
     protected $fillable = [
-        'categoryId','expenseReason', 'amount', 'notes', 'expenseDate'
+        'categoryId','expenseReason', 'amount', 'notes', 'expenseDate', 'propertyId'
     ];
 
     /**

@@ -2,35 +2,32 @@
 
 namespace App\Events\LdsBlacklistUnit;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\LdsBlacklistUnit;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class LdsBlacklistUnitUpdatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var LdsBlacklistUnit
+     */
+    public $ldsBlacklistUnit;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param LdsBlacklistUnit $ldsBlacklistUnit
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(LdsBlacklistUnit $ldsBlacklistUnit, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->ldsBlacklistUnit = $ldsBlacklistUnit;
+        $this->options = $options;
     }
 }

@@ -2,35 +2,32 @@
 
 namespace App\Events\PackageType;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\PackageType;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class PackageTypeUpdatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var PackageType
+     */
+    public $packageType;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param PackageType $packageType
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(PackageType $packageType, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->packageType = $packageType;
+        $this->options = $options;
     }
 }

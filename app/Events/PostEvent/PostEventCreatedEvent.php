@@ -2,26 +2,34 @@
 
 namespace App\Events\PostEvent;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\PostEvent;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class PostEventCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var PostEvent
+     */
+    public $postEvent;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param PostEvent $postEvent
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(PostEvent $postEvent, array $options = [])
     {
-        //
+        $this->postEvent = $postEvent;
+        $this->options = $options;
     }
 
     /**

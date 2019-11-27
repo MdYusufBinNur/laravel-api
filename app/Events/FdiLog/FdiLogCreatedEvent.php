@@ -2,35 +2,32 @@
 
 namespace App\Events\FdiLog;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\FdiLog;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class FdiLogCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var FdiLog
+     */
+    public $fdiLog;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param FdiLog $fdiLog
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(FdiLog $fdiLog, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->fdiLog = $fdiLog;
+        $this->options = $options;
     }
 }

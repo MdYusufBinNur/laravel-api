@@ -2,35 +2,31 @@
 
 namespace App\Events\Expense;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\Expense;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class ExpenseCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+    /**
+     * @var Expense
+     */
+    public $expense;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Expense $expense
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(Expense $expense, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->expense = $expense;
+        $this->options = $options;
     }
 }

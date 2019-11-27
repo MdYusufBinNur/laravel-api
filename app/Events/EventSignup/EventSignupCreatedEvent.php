@@ -2,35 +2,32 @@
 
 namespace App\Events\EventSignup;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\EventSignup;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class EventSignupCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var EventSignup
+     */
+    public $eventSignup;
+
+    /**
+     * @var array
+     */
+    public $options;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param EventSignup $eventSignup
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(EventSignup $eventSignup, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->eventSignup = $eventSignup;
+        $this->options = $options;
     }
 }

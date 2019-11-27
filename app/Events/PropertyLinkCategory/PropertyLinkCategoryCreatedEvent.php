@@ -2,35 +2,32 @@
 
 namespace App\Events\PropertyLinkCategory;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\PropertyLinkCategory;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class PropertyLinkCategoryCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var PropertyLinkCategory
+     */
+    public $propertyLinkCategory;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param PropertyLinkCategory $propertyLinkCategory
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(PropertyLinkCategory $propertyLinkCategory, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->propertyLinkCategory = $propertyLinkCategory;
+        $this->options = $options;
     }
 }

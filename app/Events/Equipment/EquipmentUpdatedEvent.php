@@ -2,35 +2,32 @@
 
 namespace App\Events\Equipment;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\Equipment;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class EquipmentUpdatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var Equipment
+     */
+    public $equipment;
+
+    /**
+     * @var array
+     */
+    public $options;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Equipment $equipment
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(Equipment $equipment, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->equipment = $equipment;
+        $this->options = $options;
     }
 }

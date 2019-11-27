@@ -106,8 +106,8 @@ use App\Events\Property\PropertyCreatedEvent;
 use App\Events\Property\PropertyUpdatedEvent;
 use App\Events\PropertyDesignSetting\PropertyDesignSettingCreatedEvent;
 use App\Events\PropertyDesignSetting\PropertyDesignSettingUpdatedEvent;
-use App\Events\PropertyGeneralInfo\PropertyGenralInfoCreatedEvent;
-use App\Events\PropertyGeneralInfo\PropertyGenralInfoUpdatedEvent;
+use App\Events\PropertyGeneralInfo\PropertyGeneralInfoCreatedEvent;
+use App\Events\PropertyGeneralInfo\PropertyGeneralInfoUpdatedEvent;
 use App\Events\PropertyImage\PropertyImageCreatedEvent;
 use App\Events\PropertyImage\PropertyImageUpdatedEvent;
 use App\Events\PropertyLink\PropertyLinkCreatedEvent;
@@ -169,6 +169,7 @@ use App\Events\VisitorArchive\VisitorArchiveCreatedEvent;
 use App\Events\VisitorArchive\VisitorArchiveUpdatedEvent;
 use App\Events\VisitorType\VisitorTypeCreatedEvent;
 use App\Events\VisitorType\VisitorTypeUpdatedEvent;
+use App\Listeners\Admin\HandleAdminCreatedEvent;
 use App\Listeners\Admin\HandleAdminUpdatedEvent;
 use App\Listeners\Announcement\HandleAnnouncementCreatedEvent;
 use App\Listeners\Announcement\HandleAnnouncementUpdatedEvent;
@@ -678,10 +679,10 @@ class EventServiceProvider extends ServiceProvider
         PropertyDesignSettingUpdatedEvent::class => [
             HandlePropertyDesignSettingUpdatedEvent::class
         ],
-        PropertyGenralInfoCreatedEvent::class => [
+        PropertyGeneralInfoCreatedEvent::class => [
             HandlePropertyGenralInfoCreatedEvent::class
         ],
-        PropertyGenralInfoUpdatedEvent::class => [
+        PropertyGeneralInfoUpdatedEvent::class => [
             HandlePropertyGenralInfoUpdatedEvent::class
         ],
         PropertyImageCreatedEvent::class => [

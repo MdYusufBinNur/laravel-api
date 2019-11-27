@@ -2,35 +2,32 @@
 
 namespace App\Events\ParkingPassLog;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\ParkingPassLog;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class ParkingPassLogUpdatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var ParkingPassLog
+     */
+    public $parkingPassLog;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param ParkingPassLog $parkingPassLog
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(ParkingPassLog $parkingPassLog, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->parkingPassLog = $parkingPassLog;
+        $this->options = $options;
     }
 }

@@ -2,26 +2,34 @@
 
 namespace App\Events\NotificationFeed;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\NotificationFeed;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class NotificationFeedUpdatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var NotificationFeed
+     */
+    public $notificationFeed;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param NotificationFeed $notificationFeed
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(NotificationFeed $notificationFeed, array $options = [])
     {
-        //
+        $this->notificationFeed = $notificationFeed;
+        $this->options = $options;
     }
 
     /**

@@ -2,35 +2,32 @@
 
 namespace App\Events\Tower;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\Tower;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class TowerCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var Tower
+     */
+    public $tower;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Tower $tower
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(Tower $tower, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->tower = $tower;
+        $this->options = $options;
     }
 }

@@ -2,26 +2,34 @@
 
 namespace App\Events\PostMarketPlace;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\PostMarketplace;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class PostMarketPlaceCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var PostMarketplace
+     */
+    public $postMarketplace;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param PostMarketplace $postMarketplace
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(PostMarketplace $postMarketplace, array $options = [])
     {
-        //
+        $this->postMarketplace = $postMarketplace;
+        $this->options = $options;
     }
 
     /**

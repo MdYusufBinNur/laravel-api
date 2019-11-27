@@ -2,35 +2,32 @@
 
 namespace App\Events\Staff;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\Manager;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class StaffCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var Manager
+     */
+    public $manager;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Manager $manager
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(Manager $manager, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->manager = $manager;
+        $this->options = $options;
     }
 }

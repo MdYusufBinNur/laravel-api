@@ -2,35 +2,32 @@
 
 namespace App\Events\UserNotificationType;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\UserNotificationType;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class UserNotificationTypeUpdatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var UserNotificationType
+     */
+    public $userNotificationType;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param UserNotificationType $userNotificationType
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(UserNotificationType $userNotificationType, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->userNotificationType = $userNotificationType;
+        $this->options = $options;
     }
 }

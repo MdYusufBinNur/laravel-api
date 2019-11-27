@@ -2,35 +2,32 @@
 
 namespace App\Events\ServiceRequestCategory;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\ServiceRequestCategory;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class ServiceRequestCategoryCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var ServiceRequestCategory
+     */
+    public $serviceRequestCategory;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param ServiceRequestCategory $serviceRequestCategory
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(ServiceRequestCategory $serviceRequestCategory, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->serviceRequestCategory = $serviceRequestCategory;
+        $this->options = $options;
     }
 }

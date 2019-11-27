@@ -2,35 +2,32 @@
 
 namespace App\Events\PropertyImage;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\PropertyImage;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class PropertyImageUpdatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var PropertyImage
+     */
+    public $propertyImage;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param PropertyImage $propertyImage
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(PropertyImage $propertyImage, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->propertyImage = $propertyImage;
+        $this->options = $options;
     }
 }

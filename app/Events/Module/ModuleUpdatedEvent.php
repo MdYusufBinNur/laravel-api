@@ -2,35 +2,32 @@
 
 namespace App\Events\Module;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\Module;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class ModuleUpdatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var Module
+     */
+    public $module;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Module $module
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(Module $module, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->module = $module;
+        $this->options = $options;
     }
 }

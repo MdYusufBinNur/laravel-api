@@ -2,35 +2,32 @@
 
 namespace App\Events\Role;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\Role;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class RoleUpdatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var Role
+     */
+    public $role;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Role $role
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(Role $role, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->role = $role;
+        $this->options = $options;
     }
 }

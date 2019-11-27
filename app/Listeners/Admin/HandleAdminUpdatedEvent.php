@@ -2,29 +2,23 @@
 
 namespace App\Listeners\Admin;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\Admin\AdminUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleAdminUpdatedEvent
+class HandleAdminUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  AdminUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(AdminUpdatedEvent $event)
     {
-        //
+        $admin = $event->admin;
+        $eventOptions = $event->options;
     }
 }

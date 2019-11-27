@@ -2,35 +2,32 @@
 
 namespace App\Events\NotificationTemplateProperty;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\NotificationTemplateProperty;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class NotificationTemplatePropertyCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var NotificationTemplateProperty
+     */
+    public $notificationTemplateProperty;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param NotificationTemplateProperty $notificationTemplateProperty
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(NotificationTemplateProperty $notificationTemplateProperty, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->notificationTemplateProperty = $notificationTemplateProperty;
+        $this->options = $options;
     }
 }

@@ -2,26 +2,34 @@
 
 namespace App\Events\PostRecommendation;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\PostRecommendation;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class PostRecommendationCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var PostRecommendation
+     */
+    public $postRecommendation;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param PostRecommendation $postRecommendation
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(PostRecommendation $postRecommendation, array $options = [])
     {
-        //
+        $this->postRecommendation = $postRecommendation;
+        $this->options = $options;
     }
 
     /**

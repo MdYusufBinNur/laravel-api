@@ -2,35 +2,32 @@
 
 namespace App\Events\UserPropertyManager;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\UserPropertyManager;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class UserPropertyManagerUpdatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var UserPropertyManager
+     */
+    public $userPropertyManager;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param UserPropertyManager $userPropertyManager
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(UserPropertyManager $userPropertyManager, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->userPropertyManager = $userPropertyManager;
+        $this->options = $options;
     }
 }

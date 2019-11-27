@@ -2,26 +2,35 @@
 
 namespace App\Events\PostWall;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\PostRecommendationType;
+use App\DbModels\PostWall;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class PostWallCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var PostWall
+     */
+    public $postWall;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param PostWall $postWall
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(PostWall $postWall, array $options = [])
     {
-        //
+        $this->postWall = $postWall;
+        $this->options = $options;
     }
 
     /**

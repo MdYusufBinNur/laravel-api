@@ -2,26 +2,34 @@
 
 namespace App\Events\LdsSlide;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\LdsSlide;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class LdsSlideCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var LdsSlide
+     */
+    public $ldsSlide;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param LdsSlide $ldsSlide
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(LdsSlide $ldsSlide, array $options = [])
     {
-        //
+        $this->ldsSlide = $ldsSlide;
+        $this->options = $options;
     }
 
     /**

@@ -2,35 +2,32 @@
 
 namespace App\Events\Property;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\Property;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class PropertyCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var Property
+     */
+    public $property;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Property $property
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(Property $property, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->property = $property;
+        $this->options = $options;
     }
 }

@@ -2,35 +2,33 @@
 
 namespace App\Events\Admin;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\Admin;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class AdminCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var Admin
+     */
+    public $admin;
+
+    /**
+     * @var array
+     */
+    public $options;
 
     /**
      * Create a new event instance.
      *
+     * @param Admin $admin
+     * @param array $options
      * @return void
      */
-    public function __construct()
+    public function __construct(Admin $admin, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->admin = $admin;
+        $this->options = $options;
     }
 }

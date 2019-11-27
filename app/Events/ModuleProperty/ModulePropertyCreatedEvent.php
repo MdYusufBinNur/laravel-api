@@ -2,26 +2,34 @@
 
 namespace App\Events\ModuleProperty;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\ModuleProperty;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class ModulePropertyCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var ModuleProperty
+     */
+    public $moduleProperty;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param ModuleProperty $moduleProperty
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(ModuleProperty $moduleProperty, array $options = [])
     {
-        //
+        $this->moduleProperty = $moduleProperty;
+        $this->options = $options;
     }
 
     /**

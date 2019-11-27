@@ -2,35 +2,32 @@
 
 namespace App\Events\Unit;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\Unit;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class UnitUpdatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var Unit
+     */
+    public $unit;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Unit $unit
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(Unit $unit, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->unit = $unit;
+        $this->options = $options;
     }
 }

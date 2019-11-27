@@ -2,6 +2,7 @@
 
 namespace App\Events\NotificationFeed;
 
+use App\DbModels\NotificationFeed;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -12,16 +13,28 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class NotificationFeedCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var NotificationFeed
+     */
+    public $notificationFeed;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param NotificationFeed $notificationFeed
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(NotificationFeed $notificationFeed, array $options = [])
     {
-        //
+        $this->notificationFeed = $notificationFeed;
+        $this->options = $options;
     }
 
     /**

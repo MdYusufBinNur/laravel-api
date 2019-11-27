@@ -2,35 +2,32 @@
 
 namespace App\Events\ServiceRequestLog;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\ServiceRequestLog;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class ServiceRequestLogCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var ServiceRequestLog
+     */
+    public $serviceRequestLog;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param ServiceRequestLog $serviceRequestLog
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(ServiceRequestLog $serviceRequestLog, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->serviceRequestLog = $serviceRequestLog;
+        $this->options = $options;
     }
 }

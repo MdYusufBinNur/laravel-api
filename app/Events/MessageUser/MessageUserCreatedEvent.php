@@ -2,26 +2,34 @@
 
 namespace App\Events\MessageUser;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\MessageUser;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class MessageUserCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var MessageUser
+     */
+    public $messageUser;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param MessageUser $messageUser
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(MessageUser $messageUser, array $options = [])
     {
-        //
+        $this->messageUser = $messageUser;
+        $this->options = $options;
     }
 
     /**

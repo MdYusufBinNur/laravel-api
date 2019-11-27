@@ -2,35 +2,32 @@
 
 namespace App\Events\Visitor;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\Visitor;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class VisitorUpdatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var Visitor
+     */
+    public $visitor;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Visitor $visitor
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(Visitor $visitor, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->visitor = $visitor;
+        $this->options = $options;
     }
 }

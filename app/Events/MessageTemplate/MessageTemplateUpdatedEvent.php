@@ -2,35 +2,32 @@
 
 namespace App\Events\MessageTemplate;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\MessageTemplate;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class MessageTemplateUpdatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var MessageTemplate
+     */
+    public $messageTemplate;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param MessageTemplate $messageTemplate
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(MessageTemplate $messageTemplate, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->messageTemplate = $messageTemplate;
+        $this->options = $options;
     }
 }

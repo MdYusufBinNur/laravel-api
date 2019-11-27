@@ -2,35 +2,32 @@
 
 namespace App\Events\FdiGuestType;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\FdiGuestType;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class FdiGuestTypeUpdatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var FdiGuestType
+     */
+    public $fdiGuestType;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param FdiGuestType $fdiGuestType
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(FdiGuestType $fdiGuestType, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->fdiGuestType = $fdiGuestType;
+        $this->options = $options;
     }
 }

@@ -2,26 +2,34 @@
 
 namespace App\Events\PostPoll;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\PostPoll;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class PostPollCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var PostPoll
+     */
+    public $postPoll;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param PostPoll $postPoll
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(PostPoll $postPoll, array $options = [])
     {
-        //
+        $this->postPoll = $postPoll;
+        $this->options = $options;
     }
 
     /**

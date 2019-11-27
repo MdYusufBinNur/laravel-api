@@ -2,35 +2,32 @@
 
 namespace App\Events\PropertySocialMedia;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\PropertySocialMedia;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class PropertySocialMediaUpdatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var PropertySocialMedia
+     */
+    public $propertySocialMedia;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param PropertySocialMedia $propertySocialMedia
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(PropertySocialMedia $propertySocialMedia, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->propertySocialMedia = $propertySocialMedia;
+        $this->options = $options;
     }
 }

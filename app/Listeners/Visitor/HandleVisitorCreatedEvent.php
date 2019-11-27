@@ -2,30 +2,29 @@
 
 namespace App\Listeners\Visitor;
 
-use App\Events\Package\PackageCreatedEvent;
-use App\Events\Visitor\VisitorCreatedEvent;
-use App\Listeners\CommonListenerFeatures;
-use App\Mail\Visitor\VisitorArrived;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Mail;
 
-class HandleVisitorCreatedEvent implements ShouldQueue
+class HandleVisitorCreatedEvent
 {
-    use CommonListenerFeatures;
+    /**
+     * Create the event listener.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
 
     /**
      * Handle the event.
      *
-     * @param VisitorCreatedEvent $event
+     * @param  object  $event
      * @return void
      */
-    public function handle(VisitorCreatedEvent $event)
+    public function handle($event)
     {
-        $visitor = $event->visitor;
-        $eventOptions = $event->options;
-
-        foreach ($visitor->unit->residents as $resident) {
-            Mail::to($resident->user->email)->send(new VisitorArrived($visitor));
-        }
+        //
     }
 }

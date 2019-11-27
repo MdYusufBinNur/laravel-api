@@ -2,35 +2,32 @@
 
 namespace App\Events\ResidentEmergency;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\ResidentEmergency;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class ResidentEmergencyUpdatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var ResidentEmergency
+     */
+    public $residentEmergency;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param ResidentEmergency $residentEmergency
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(ResidentEmergency $residentEmergency, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->residentEmergency = $residentEmergency;
+        $this->options = $options;
     }
 }

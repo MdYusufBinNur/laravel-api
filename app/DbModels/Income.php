@@ -14,7 +14,7 @@ class Income extends Model
      * @var array
      */
     protected $fillable = [
-        'categoryId','sourceOfIncome', 'amount', 'notes', 'incomeDate', 'propertyId'
+        'createdByUserId','categoryId','sourceOfIncome', 'amount', 'notes', 'incomeDate', 'propertyId'
     ];
 
     /**
@@ -31,7 +31,7 @@ class Income extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function type()
+    public function category()
     {
         return $this->hasOne(IncomeCategory::class, 'id', 'categoryId');
     }

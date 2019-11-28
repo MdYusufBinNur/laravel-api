@@ -15,10 +15,14 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
+            'createdByUserId' => 'list:numeric',
+            'propertyId' => 'required|numeric',
             'categoryId' => 'list:numeric',
             'sourceOfIncome' => 'string',
             'amount' => '',
-            'incomeDate' => 'date_format:Y-m-d'
+            'incomeDate' => 'date_format:Y-m-d',
+            'startDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d|after:startDate',
         ];
     }
 }

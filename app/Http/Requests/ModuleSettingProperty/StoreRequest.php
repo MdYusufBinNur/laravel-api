@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Module;
+namespace App\Http\Requests\ModuleSettingProperty;
 
-use App\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends Request
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UpdateRequest extends Request
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,8 +24,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'key'       => 'min:2|max:255',
-            'title'     => 'min:3|max:255',
+            //
         ];
     }
 }

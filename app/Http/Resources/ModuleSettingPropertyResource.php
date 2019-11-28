@@ -2,9 +2,8 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class ModuleSettingPropertyResource extends JsonResource
+class ModuleSettingPropertyResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +13,20 @@ class ModuleSettingPropertyResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'createdByUserId' => $this->createdByUserId,
+            'propertyId' => $this->propertyId,
+            'property' => $this->when($this->needToInclude($request, 'msp.property'), function () {
+                return new PropertyResource($this->property);
+            }),
+            'modulePropertyId' => $this->modulePropertyId,
+            'moduleProperty' => $this->when($this->needToInclude($request, 'msp.moduleProperty'), function () {
+                return new ModulePropertyResource($this->moduleProperty);
+            }),
+            'isActive' => $this->isActive,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
     }
 }

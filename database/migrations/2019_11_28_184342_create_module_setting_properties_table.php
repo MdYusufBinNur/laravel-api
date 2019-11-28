@@ -14,8 +14,29 @@ class CreateModuleSettingPropertiesTable extends Migration
     public function up()
     {
         Schema::create('module_setting_properties', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->integer('createdByUserId')->unsigned();
+            $table->integer('modulePropertyId')->unsigned();
+            $table->integer('propertyId')->unsigned();
+            $table->boolean('isActive')->default(false);
             $table->timestamps();
+            $table->softDeletes();
+
+
+            $table->foreign('modulePropertyId')
+                ->references('id')->on('module_properties')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('propertyId')
+                ->references('id')->on('properties')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

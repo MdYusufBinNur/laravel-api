@@ -2,26 +2,34 @@
 
 namespace App\Events\ModuleSettingProperty;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\ModuleSettingProperty;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class ModuleSettingPropertyUpdatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var ModuleSettingProperty
+     */
+    public $moduleSettingProperty;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param ModuleSettingProperty $moduleSettingProperty
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(ModuleSettingProperty $moduleSettingProperty, array $options = [])
     {
-        //
+        $this->moduleSettingProperty = $moduleSettingProperty;
+        $this->options = $options;
     }
 
     /**
@@ -33,4 +41,5 @@ class ModuleSettingPropertyUpdatedEvent
     {
         return new PrivateChannel('channel-name');
     }
+
 }

@@ -14,7 +14,7 @@ class Expense extends Model
      * @var array
      */
     protected $fillable = [
-        'categoryId','expenseReason', 'amount', 'notes', 'expenseDate', 'propertyId'
+        'createdByUserId','categoryId','expenseReason', 'amount', 'notes', 'expenseDate', 'propertyId'
     ];
 
     /**
@@ -31,7 +31,7 @@ class Expense extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function type()
+    public function category()
     {
         return $this->hasOne(ExpenseCategory::class, 'id', 'categoryId');
     }

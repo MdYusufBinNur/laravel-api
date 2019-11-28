@@ -16,6 +16,9 @@ class ModuleSettingPropertyResource extends Resource
         return [
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
+            'cratedByUser' => $this->when($this->needToInclude($request, 'msp.createdByUser'), function () {
+                return new UserResource($this->createdByUser);
+            }),
             'propertyId' => $this->propertyId,
             'property' => $this->when($this->needToInclude($request, 'msp.property'), function () {
                 return new PropertyResource($this->property);

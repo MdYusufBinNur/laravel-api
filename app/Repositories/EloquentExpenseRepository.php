@@ -29,7 +29,7 @@ class EloquentExpenseRepository extends EloquentBaseRepository implements Expens
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
-        $queryBuilder->with(['category']);
+        $queryBuilder->with(['category','createdByUser']);
 
         $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;
         $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';

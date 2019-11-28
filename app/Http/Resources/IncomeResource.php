@@ -19,6 +19,10 @@ class IncomeResource extends Resource
                 return new IncomeCategoryResource($this->category);
             }),
             'propertyId' => $this->propertyId,
+            'createdByUserId' => $this->createdByUserId,
+            'createdByUser' => $this->when($this->needToInclude($request, 'income.createdByUser'), function () {
+                return new UserResource($this->createdByUser);
+            }),
             'amount' => $this->amount,
             'sourceOfIncome' => $this->sourceOfIncome,
             'notes' => $this->notes,

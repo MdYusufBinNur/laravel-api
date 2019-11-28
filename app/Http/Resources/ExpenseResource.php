@@ -19,6 +19,10 @@ class ExpenseResource extends Resource
                 return new ExpenseCategoryResource($this->category);
             }),
             'propertyId' => $this->propertyId,
+            'createdByUserId' => $this->createdByUserId,
+            'createdByUser' => $this->when($this->needToInclude($request, 'income.createdByUser'), function () {
+                return new UserResource($this->createdByUser);
+            }),
             'amount' => $this->amount,
             'expenseReason' => $this->expenseReason,
             'notes' => $this->notes,

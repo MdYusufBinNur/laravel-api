@@ -20,7 +20,6 @@ class IndexRequest extends Request
             'categoryId' => 'list:numeric',
             'sourceOfIncome' => 'string',
             'amount' => '',
-            'expenseDate' => 'date_format:Y-m-d',
             'startDate' => 'date_format:Y-m-d',
             'endDate' => 'date_format:Y-m-d|after:startDate'
         ];

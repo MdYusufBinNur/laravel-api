@@ -15,6 +15,7 @@ class ExpenseResource extends Resource
         return [
             'id' => $this->id,
             'categoryId' =>$this->categoryId,
+            'propertyId' => $this->propertyId,
             'amount' => $this->amount,
             'expenseReason' => $this->expenseReason,
             'notes' => $this->notes,

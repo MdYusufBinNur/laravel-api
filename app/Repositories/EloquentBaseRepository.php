@@ -359,14 +359,26 @@ class EloquentBaseRepository implements BaseRepository
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 
-    public function generateEventOptionsForModel($additionalData = [])
+    /**
+     * generate event options for model
+     *
+     * @param array $additionalData
+     * @param bool $addRequest
+     * @return array
+     */
+    public function generateEventOptionsForModel($additionalData = [], $addRequest = true)
     {
-        $request = request();
-        $options['request'] = $request->toArray();
+        $options['request'] = [];
+        if ($addRequest) {
+            $request = request();
+            $options['request'] = $request->toArray();
+        }
+
         $options['request']['loggedInUserId'] = $this->getLoggedInUser()->id;
         if ($this->oldModel instanceof \ArrayAccess) {
             $options['oldModel'] = $this->oldModel;
         }
+        
         return array_merge($options, $additionalData);
     }
 }

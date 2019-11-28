@@ -15,8 +15,6 @@ class AttachmentResource extends Resource
      */
     public function toArray($request)
     {
-        $directoryName = $this->getDirectoryName($this->type);
-
         return [
             'id'           => $this->id,
             'fileName'     => $this->fileName,
@@ -28,7 +26,19 @@ class AttachmentResource extends Resource
             'resourceId'   => $this->resourceId,
             'fileType'     => $this->fileType,
             'fileSize'     => $this->fileSize,
-            'fileUrl'      => \Storage::temporaryUrl($directoryName . '/' . $this->fileName, Carbon::now()->addMinutes(10)),
+            'fileUrl'      => \Storage::temporaryUrl($this->getAttachmentDirectoryPathByTypeTitle(), Carbon::now()->addMinutes(10)),
+            'avatar' => $this->when($this->needToInclude($request, 'image.avatar'), function () {
+                return \Storage::temporaryUrl($this->getAttachmentDirectoryPathByTypeTitle('avatar'), Carbon::now()->addMinutes(10));
+            }),
+            'thumbnail' => $this->when($this->needToInclude($request, 'image.thumbnail'), function () {
+                return \Storage::temporaryUrl($this->getAttachmentDirectoryPathByTypeTitle('thumbnail'), Carbon::now()->addMinutes(10));
+            }),
+            'medium' => $this->when($this->needToInclude($request, 'image.medium'), function () {
+                return \Storage::temporaryUrl($this->getAttachmentDirectoryPathByTypeTitle('medium'), Carbon::now()->addMinutes(10));
+            }),
+            'large' => $this->when($this->needToInclude($request, 'image.medium'), function () {
+                return \Storage::temporaryUrl($this->getAttachmentDirectoryPathByTypeTitle('large'), Carbon::now()->addMinutes(10));
+            }),
         ];
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Services\StatsHelper;
+namespace App\Services\Helpers\StatsHelper;
 
 
 use App\DbModels\ResidentAccessRequest;

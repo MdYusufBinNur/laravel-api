@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\DbModels\Attachment;
+use App\Events\Attachment\AttachmentCreatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
@@ -25,7 +26,7 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
                 //resize image
                 if (!empty($data['resizeImage'])) {
                     $resizedImagePath = '/tmp/' . Str::random(10);
-                    \Image::make($data['fileSource']->getPathname())->resize($data['width'], $data['height'])->save($resizedImagePath);
+                    \Image::make($data['fileSource']->getPathname())->resize($data['width'], $data['height']);
                     $filePath = $resizedImagePath;
                 }
 
@@ -41,7 +42,11 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
         $directoryName = $this->model->getDirectoryName($data['type']);
         $data['fileName'] = Str::random(20) . '_' . $data['resourceId'] . '_' . $data['fileSource']->getClientOriginalName();
         \Storage::put($directoryName . '/' . $data['fileName'], $image, 'public');
-        return parent::save($data);
+        $attachment = parent::save($data);
+
+        event(new AttachmentCreatedEvent($attachment, $this->generateEventOptionsForModel(['multipleTypes' => $data['multipleTypes'] ?? []], false)));
+
+        return $attachment;
     }
 
     /**

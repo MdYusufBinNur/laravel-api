@@ -174,7 +174,7 @@ use App\Policies\UserRolePolicy;
 use App\Policies\VisitorArchivePolicy;
 use App\Policies\VisitorPolicy;
 use App\Policies\VisitorTypePolicy;
-use App\Services\ScopesHelper;
+use App\Services\Helpers\ScopesHelper;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;

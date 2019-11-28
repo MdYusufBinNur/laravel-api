@@ -90,6 +90,7 @@ use App\Events\PostApprovalBlacklistUnit\PostApprovalBlacklistUnitUpdatedEvent;
 use App\Events\PostComment\PostCommentCreatedEvent;
 use App\Events\PostComment\PostCommentDeletedEvent;
 use App\Events\PostComment\PostCommentUpdatedEvent;
+use App\Events\Attachment\AttachmentCreatedEvent;
 use App\Events\PostEvent\PostEventCreatedEvent;
 use App\Events\PostEvent\PostEventUpdatedEvent;
 use App\Events\PostMarketPlace\PostMarketPlaceCreatedEvent;
@@ -252,6 +253,7 @@ use App\Listeners\PostApprovalBlacklistUnit\HandlePostApprovalBlacklistUnitCreat
 use App\Listeners\PostApprovalBlacklistUnit\HandlePostApprovalBlacklistUnitUpdatedEvent;
 use App\Listeners\PostComment\HandlePostCommentCreatedEvent;
 use App\Listeners\PostComment\HandlePostCommentDeletedEvent;
+use App\Listeners\Attachment\HandleAttachmentCreatedEvent;
 use App\Listeners\PostEvent\HandlePostEventCreatedEvent;
 use App\Listeners\PostEvent\HandlePostEventUpdatedEvent;
 use App\Listeners\PostMarketPlace\HandlePostMarketPlaceCreatedEvent;
@@ -349,6 +351,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         AdminUpdatedEvent::class => [
             HandleAdminUpdatedEvent::class
+        ],
+      
+        AttachmentCreatedEvent::class => [
+            HandleAttachmentCreatedEvent::class
         ],
 
         AnnouncementCreatedEvent::class => [
@@ -879,7 +885,6 @@ class EventServiceProvider extends ServiceProvider
         VisitorTypeUpdatedEvent::class => [
             HandleVisitorTypeUpdatedEvent::class
         ]
-
     ];
 
     /**

@@ -3,9 +3,8 @@ namespace App\Repositories;
 
 use App\DbModels\EnterpriseUser;
 use App\Repositories\Contracts\PropertyRepository;
-use App\Services\HostsHelper;
+use App\Services\Helpers\HostsHelper;
 use Illuminate\Support\Facades\DB;
-use Intervention\Image\Point;
 
 class EloquentPropertyRepository extends EloquentBaseRepository implements PropertyRepository
 {

@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\DbModels\Role;
 use App\DbModels\User;
+use App\Services\Helpers\RoleHelper;
 use App\Events\Admin\AdminCreatedEvent;
 use App\Services\RoleHelper;
 use App\Repositories\Contracts\AdminRepository;

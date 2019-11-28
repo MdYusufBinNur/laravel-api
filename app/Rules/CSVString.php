@@ -13,13 +13,20 @@ class CSVString implements Rule
     private $messages;
 
     /**
+     * @var array
+     */
+    private $allowedValues;
+
+    /**
      * Create a new rule instance.
      *
+     * @param array $allowedValues
      * @return void
      */
-    public function __construct()
+    public function __construct($allowedValues = [])
     {
         $this->messages = [];
+        $this->allowedValues = $allowedValues;
     }
 
     /**
@@ -48,8 +55,18 @@ class CSVString implements Rule
         } else if (is_array($value)) {
             $ids = $value;
         } else {
-            $this->messages[] = 'Invalid list of strings';
+            $this->messages[] = 'Invalid list of strings.';
             return false;
+        }
+
+        //if only allowed fields
+        if (!empty($this->allowedValues)) {
+            foreach ($ids as $id) {
+                if (!in_array($id, $this->allowedValues)) {
+                    $this->messages[] = 'Invalid allowable fields.';
+                    return false;
+                }
+            }
         }
 
         request()->merge([ $attribute => array_unique($ids) ]);

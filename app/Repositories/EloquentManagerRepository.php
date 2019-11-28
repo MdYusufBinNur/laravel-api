@@ -7,7 +7,7 @@ namespace App\Repositories;
 use App\DbModels\Role;
 use App\DbModels\UserRole;
 use App\Events\Manager\ManagerCreatedEvent;
-use App\Services\RoleHelper;
+use App\Services\Helpers\RoleHelper;
 use App\Repositories\Contracts\ManagerRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;

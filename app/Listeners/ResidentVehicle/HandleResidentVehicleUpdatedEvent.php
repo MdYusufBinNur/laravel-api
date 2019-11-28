@@ -2,29 +2,24 @@
 
 namespace App\Listeners\ResidentVehicle;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\ResidentVehicle\ResidentVehicleUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleResidentVehicleUpdatedEvent
+class HandleResidentVehicleUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  ResidentVehicleUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(ResidentVehicleUpdatedEvent $event)
     {
-        //
+        $residentVehicle = $event->residentVehicle;
+        $eventOptions = $event->options;
+        $oldResidentVehicle = $eventOptions['oldModel'];
     }
 }

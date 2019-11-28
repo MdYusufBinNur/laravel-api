@@ -2,29 +2,23 @@
 
 namespace App\Listeners\UserPropertyResident;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\UserPropertyResident\UserPropertyResidentCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleUserPropertyResidentCreatedEvent
+class HandleUserPropertyResidentCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  UserPropertyResidentCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(UserPropertyResidentCreatedEvent $event)
     {
-        //
+        $userPropertyResident = $event->userPropertyResident;
+        $eventOptions = $event->options;
     }
 }

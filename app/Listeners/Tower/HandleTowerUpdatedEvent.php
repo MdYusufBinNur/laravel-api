@@ -2,29 +2,24 @@
 
 namespace App\Listeners\Tower;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\Tower\TowerUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleTowerUpdatedEvent
+class HandleTowerUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  TowerUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(TowerUpdatedEvent $event)
     {
-        //
+        $tower = $event->tower;
+        $eventOptions = $event->options;
+        $oldTower = $eventOptions['oldModel'];
     }
 }

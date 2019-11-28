@@ -2,29 +2,24 @@
 
 namespace App\Listeners\ServiceRequestCategory;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\ServiceRequestCategory\ServiceRequestCategoryUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleServiceRequestCategoryUpdatedEvent
+class HandleServiceRequestCategoryUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  ServiceRequestCategoryUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(ServiceRequestCategoryUpdatedEvent $event)
     {
-        //
+        $serviceRequestCategory = $event->serviceRequestCategory;
+        $eventOptions = $event->options;
+        $oldServiceRequestCategory = $eventOptions['oldModel'];
     }
 }

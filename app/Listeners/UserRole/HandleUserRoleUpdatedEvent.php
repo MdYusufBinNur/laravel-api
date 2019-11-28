@@ -2,29 +2,24 @@
 
 namespace App\Listeners\UserRole;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\UserRole\UserRoleUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleUserRoleUpdatedEvent
+class HandleUserRoleUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  UserRoleUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(UserRoleUpdatedEvent $event)
     {
-        //
+        $userRole = $event->userRole;
+        $eventOptions = $event->options;
+        $oldUserRole = $eventOptions['oldModel'];
     }
 }

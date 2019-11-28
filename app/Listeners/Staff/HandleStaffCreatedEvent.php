@@ -2,29 +2,23 @@
 
 namespace App\Listeners\Staff;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\Staff\StaffCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleStaffCreatedEvent
+class HandleStaffCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  StaffCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(StaffCreatedEvent $event)
     {
-        //
+        $manager = $event->manager;
+        $eventOptions = $event->options;
     }
 }

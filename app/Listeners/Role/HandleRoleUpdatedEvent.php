@@ -2,29 +2,24 @@
 
 namespace App\Listeners\Role;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\Role\RoleUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleRoleUpdatedEvent
+class HandleRoleUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  RoleUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(RoleUpdatedEvent $event)
     {
-        //
+        $role = $event->role;
+        $eventOptions = $event->options;
+        $oldRole = $eventOptions['oldModel'];
     }
 }

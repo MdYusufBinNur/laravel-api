@@ -2,29 +2,23 @@
 
 namespace App\Listeners\UserNotificationType;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\UserNotificationType\UserNotificationTypeCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleUserNotificationTypeCreatedEvent
+class HandleUserNotificationTypeCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  UserNotificationTypeCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(UserNotificationTypeCreatedEvent $event)
     {
-        //
+        $userNotificationType = $event->userNotificationType;
+        $eventOptions = $event->options;
     }
 }

@@ -2,29 +2,24 @@
 
 namespace App\Listeners\UserProfile;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\UserProfile\UserProfileUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleUserProfileUpdatedEvent
+class HandleUserProfileUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  UserProfileUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(UserProfileUpdatedEvent $event)
     {
-        //
+        $userProfile = $event->userProfile;
+        $eventOptions = $event->options;
+        $oldUserProfile = $eventOptions['oldModel'];
     }
 }

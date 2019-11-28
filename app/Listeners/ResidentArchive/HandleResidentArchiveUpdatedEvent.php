@@ -2,29 +2,24 @@
 
 namespace App\Listeners\ResidentArchive;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\ResidentArchive\ResidentArchiveUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleResidentArchiveUpdatedEvent
+class HandleResidentArchiveUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  ResidentArchiveUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(ResidentArchiveUpdatedEvent $event)
     {
-        //
+        $residentArchive = $event->residentArchive;
+        $eventOptions = $event->options;
+        $oldResidentArchive = $eventOptions['oldModel'];
     }
 }

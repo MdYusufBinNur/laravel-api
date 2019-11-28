@@ -2,29 +2,23 @@
 
 namespace App\Listeners\ServiceRequestOfficeDetail;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\ServiceRequestOfficeDetail\ServiceRequestOfficeDetailCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleServiceRequestOfficeDetailCreatedEvent
+class HandleServiceRequestOfficeDetailCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  ServiceRequestOfficeDetailCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(ServiceRequestOfficeDetailCreatedEvent $event)
     {
-        //
+        $serviceRequestOfficeDetail = $event->serviceRequestOfficeDetail;
+        $eventOptions = $event->options;
     }
 }

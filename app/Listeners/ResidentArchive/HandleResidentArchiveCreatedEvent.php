@@ -2,29 +2,23 @@
 
 namespace App\Listeners\ResidentArchive;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\ResidentArchive\ResidentArchiveCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleResidentArchiveCreatedEvent
+class HandleResidentArchiveCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  ResidentArchiveCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(ResidentArchiveCreatedEvent $event)
     {
-        //
+        $residentArchive = $event->residentArchive;
+        $eventOptions = $event->options;
     }
 }

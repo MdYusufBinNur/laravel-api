@@ -2,29 +2,23 @@
 
 namespace App\Listeners\UserProfilePost;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\UserProfilePost\UserProfilePostCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleUserProfilePostCreatedEvent
+class HandleUserProfilePostCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  UserProfilePostCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(UserProfilePostCreatedEvent $event)
     {
-        //
+        $userProfilePost = $event->userProfilePost;
+        $eventOptions = $event->options;
     }
 }

@@ -2,29 +2,23 @@
 
 namespace App\Listeners\ServiceRequestLog;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\ServiceRequestLog\ServiceRequestLogCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleServiceRequestLogCreatedEvent
+class HandleServiceRequestLogCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  ServiceRequestLogCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(ServiceRequestLogCreatedEvent $event)
     {
-        //
+        $serviceRequestLog = $event->serviceRequestLog;
+        $eventOptions = $event->options;
     }
 }

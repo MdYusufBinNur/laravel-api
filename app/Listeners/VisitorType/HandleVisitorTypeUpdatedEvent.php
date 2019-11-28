@@ -2,29 +2,24 @@
 
 namespace App\Listeners\VisitorType;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\VisitorType\VisitorTypeUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleVisitorTypeUpdatedEvent
+class HandleVisitorTypeUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  VisitorTypeUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(VisitorTypeUpdatedEvent $event)
     {
-        //
+        $visitorType = $event->visitorType;
+        $eventOptions = $event->options;
+        $oldVisitorType= $eventOptions['oldModel'];
     }
 }

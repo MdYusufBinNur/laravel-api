@@ -2,29 +2,24 @@
 
 namespace App\Listeners\UserProfileLink;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\UserProfileLink\UserProfileLinkUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleUserProfileLinkUpdatedEvent
+class HandleUserProfileLinkUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  UserProfileLinkUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(UserProfileLinkUpdatedEvent $event)
     {
-        //
+        $userProfileLink = $event->userProfileLink;
+        $eventOptions = $event->options;
+        $oldUserProfileLink = $eventOptions['oldModel'];
     }
 }

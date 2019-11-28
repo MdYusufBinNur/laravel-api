@@ -2,29 +2,23 @@
 
 namespace App\Listeners\UserProfileLink;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\UserProfileLink\UserProfileLinkCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleUserProfileLinkCreatedEvent
+class HandleUserProfileLinkCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  UserProfileLinkCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(UserProfileLinkCreatedEvent $event)
     {
-        //
+        $userProfileLink = $event->userProfileLink;
+        $eventOptions = $event->options;
     }
 }

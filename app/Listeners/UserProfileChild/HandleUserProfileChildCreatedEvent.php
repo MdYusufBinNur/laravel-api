@@ -2,29 +2,23 @@
 
 namespace App\Listeners\UserProfileChild;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\UserProfileChild\UserProfileChildCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleUserProfileChildCreatedEvent
+class HandleUserProfileChildCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  UserProfileChildCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(UserProfileChildCreatedEvent $event)
     {
-        //
+        $userProfileChild = $event->userProfileChild;
+        $eventOptions = $event->options;
     }
 }

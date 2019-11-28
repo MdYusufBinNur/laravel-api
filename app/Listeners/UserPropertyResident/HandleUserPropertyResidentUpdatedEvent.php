@@ -2,29 +2,24 @@
 
 namespace App\Listeners\UserPropertyResident;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\UserPropertyResident\UserPropertyResidentUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleUserPropertyResidentUpdatedEvent
+class HandleUserPropertyResidentUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  UserPropertyResidentUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(UserPropertyResidentUpdatedEvent $event)
     {
-        //
+        $userPropertyResident = $event->userPropertyResident;
+        $eventOptions = $event->options;
+        $oldUserPropertyResident = $eventOptions['oldModel'];
     }
 }

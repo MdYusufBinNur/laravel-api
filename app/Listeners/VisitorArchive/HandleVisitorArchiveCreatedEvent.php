@@ -2,29 +2,23 @@
 
 namespace App\Listeners\VisitorArchive;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\VisitorArchive\VisitorArchiveCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleVisitorArchiveCreatedEvent
+class HandleVisitorArchiveCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  VisitorArchiveCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(VisitorArchiveCreatedEvent $event)
     {
-        //
+        $visitorArchive = $event->visitorArchive;
+        $eventOptions = $event->options;
     }
 }

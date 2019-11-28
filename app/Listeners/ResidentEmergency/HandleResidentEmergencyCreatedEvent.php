@@ -2,29 +2,23 @@
 
 namespace App\Listeners\ResidentEmergency;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\ResidentEmergency\ResidentEmergencyCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleResidentEmergencyCreatedEvent
+class HandleResidentEmergencyCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  ResidentEmergencyCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(ResidentEmergencyCreatedEvent $event)
     {
-        //
+        $residentEmergency = $event->residentEmergency;
+        $eventOptions = $event->options;
     }
 }

@@ -2,29 +2,23 @@
 
 namespace App\Listeners\User;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\User\UserCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleUserCreatedEvent
+class HandleUserCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  UserCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(UserCreatedEvent $event)
     {
-        //
+        $user = $event->user;
+        $eventOptions = $event->options;
     }
 }

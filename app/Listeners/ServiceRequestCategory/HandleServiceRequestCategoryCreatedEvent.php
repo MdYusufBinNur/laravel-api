@@ -2,29 +2,23 @@
 
 namespace App\Listeners\ServiceRequestCategory;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\ServiceRequestCategory\ServiceRequestCategoryCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleServiceRequestCategoryCreatedEvent
+class HandleServiceRequestCategoryCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  ServiceRequestCategoryCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(ServiceRequestCategoryCreatedEvent $event)
     {
-        //
+        $serviceRequestCategory = $event->serviceRequestCategory;
+        $eventOptions = $event->options;
     }
 }

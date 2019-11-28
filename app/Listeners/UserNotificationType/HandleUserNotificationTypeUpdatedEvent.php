@@ -2,29 +2,24 @@
 
 namespace App\Listeners\UserNotificationType;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\UserNotificationType\UserNotificationTypeUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleUserNotificationTypeUpdatedEvent
+class HandleUserNotificationTypeUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  UserNotificationTypeUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(UserNotificationTypeUpdatedEvent $event)
     {
-        //
+        $userNotificationType = $event->userNotificationType;
+        $eventOptions = $event->options;
+        $oldUserNotificationType = $eventOptions['oldModel'];
     }
 }

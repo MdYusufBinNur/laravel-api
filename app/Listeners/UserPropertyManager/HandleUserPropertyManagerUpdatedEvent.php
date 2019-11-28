@@ -2,29 +2,24 @@
 
 namespace App\Listeners\UserPropertyManager;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\UserPropertyManager\UserPropertyManagerUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandleUserPropertyManagerUpdatedEvent
+class HandleUserPropertyManagerUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  UserPropertyManagerUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(UserPropertyManagerUpdatedEvent $event)
     {
-        //
+        $userPropertyManager = $event->userPropertyManager;
+        $eventOptions = $event->options;
+        $oldUserPropertyManager = $eventOptions['oldModel'];
     }
 }

@@ -20,7 +20,7 @@ class ExpenseResource extends Resource
             }),
             'propertyId' => $this->propertyId,
             'createdByUserId' => $this->createdByUserId,
-            'createdByUser' => $this->when($this->needToInclude($request, 'income.createdByUser'), function () {
+            'createdByUser' => $this->when($this->needToInclude($request, 'expense.createdByUser'), function () {
                 return new UserResource($this->createdByUser);
             }),
             'amount' => $this->amount,

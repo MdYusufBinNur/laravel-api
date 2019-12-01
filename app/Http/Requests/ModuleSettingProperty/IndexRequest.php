@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Requests\IncomeCategory;
+namespace App\Http\Requests\ModuleSettingProperty;
 
 use App\Http\Requests\Request;
 
 class IndexRequest extends Request
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -16,8 +15,10 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
-            'title' => 'string',
+            'createdByUserId' => 'list:numeric',
             'propertyId' => 'required|numeric',
+            'modulePropertyId' => 'list:numeric',
+            'isActive' => 'boolean',
         ];
     }
 }

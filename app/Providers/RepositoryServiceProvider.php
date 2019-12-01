@@ -35,6 +35,7 @@ use App\DbModels\Module;
 use App\DbModels\ModuleOption;
 use App\DbModels\ModuleProperty;
 use App\DbModels\ModuleOptionProperty;
+use App\DbModels\ModuleSettingProperty;
 use App\DbModels\NotificationFeed;
 use App\DbModels\NotificationTemplate;
 use App\DbModels\NotificationTemplateProperty;
@@ -122,6 +123,7 @@ use App\Repositories\Contracts\MessageTemplateRepository;
 use App\Repositories\Contracts\MessageUserRepository;
 use App\Repositories\Contracts\ModuleOptionRepository;
 use App\Repositories\Contracts\ModuleRepository;
+use App\Repositories\Contracts\ModuleSettingPropertyRepository;
 use App\Repositories\Contracts\NotificationFeedRepository;
 use App\Repositories\Contracts\NotificationTemplatePropertyRepository;
 use App\Repositories\Contracts\NotificationTemplateRepository;
@@ -207,6 +209,7 @@ use App\Repositories\Contracts\ModulePropertyRepository;
 use App\Repositories\EloquentModulePropertyRepository;
 use App\Repositories\Contracts\ModuleOptionPropertyRepository;
 use App\Repositories\EloquentModuleOptionPropertyRepository;
+use App\Repositories\EloquentModuleSettingPropertyRepository;
 use App\Repositories\EloquentNotificationFeedRepository;
 use App\Repositories\EloquentNotificationTemplatePropertyRepository;
 use App\Repositories\EloquentNotificationTemplateRepository;
@@ -733,6 +736,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind ExpenseRepository
         $this->app->bind(ExpenseRepository::class, function() {
             return new EloquentExpenseRepository(new Expense());
+        });
+
+        // bind ModuleSettingPropertyRepository
+        $this->app->bind(ModuleSettingPropertyRepository::class, function() {
+            return new EloquentModuleSettingPropertyRepository(new ModuleSettingProperty());
         });
     }
 }

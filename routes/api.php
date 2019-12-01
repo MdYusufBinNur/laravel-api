@@ -57,6 +57,7 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('module-option', 'ModuleOptionController');
         Route::apiResource('module-property', 'ModulePropertyController');
         Route::apiResource('module-option-property', 'ModuleOptionPropertyController');
+        Route::apiResource('module-setting-property', 'ModuleSettingPropertyController');
 
 
         /**

@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\DbModels\Attachment;
 use App\Events\Attachment\AttachmentCreatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
+use Carbon\Carbon;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -112,5 +113,28 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
                 $this->updateResourceId($attachment, $id);
             }
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAttachmentByTypeAndResourceId($type, $resourceId)
+    {
+        $profileAttachment = $this->findOneBy(['resourceId' => $resourceId, 'type' => $type]);
+
+        return $profileAttachment;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getProfilePicByResourceId($resourceId, $size = 'medium')
+    {
+        $profileAttachment = $this->getAttachmentByTypeAndResourceId(Attachment::ATTACHMENT_TYPE_USER_PROFILE, $resourceId);
+        if ($profileAttachment instanceof Attachment) {
+            return \Storage::temporaryUrl($profileAttachment->getAttachmentDirectoryPathByTypeTitle($size), Carbon::now()->addDays(6));
+        }
+
+        return null;
     }
 }

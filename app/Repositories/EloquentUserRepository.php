@@ -221,11 +221,8 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
     public function getProfilePicByUserId($userId)
     {
         $attachmentRepository = app(AttachmentRepository::class);
-        $profileAttachment = $attachmentRepository->model
-            ->where('resourceId', 1)
-            ->where('type', Attachment::ATTACHMENT_TYPE_USER_PROFILE)->first();
-        $avatar = \Storage::temporaryUrl($profileAttachment->getAttachmentDirectoryPathByTypeTitle('avatar'), Carbon::now()->addMinutes(1000));
+        $profileAttachment = $attachmentRepository->getProfilePicByResourceId(1);
 
-        return $avatar;
+        return $profileAttachment;
     }
 }

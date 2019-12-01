@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\Repositories\Contracts\ModuleSettingPropertyRepository;
+use Illuminate\Support\Arr;
 
 class EloquentModuleSettingPropertyRepository extends EloquentBaseRepository implements ModuleSettingPropertyRepository
 {
@@ -17,6 +18,15 @@ class EloquentModuleSettingPropertyRepository extends EloquentBaseRepository imp
 
         return parent::findBy($searchCriteria, $withTrashed);
 
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setModuleSettingProperty(array $data): \ArrayAccess
+    {
+        $searchCriteria = Arr::only($data, ['propertyId', 'modulePropertyId']);
+        return $this->patch($searchCriteria, $data);
     }
 
 }

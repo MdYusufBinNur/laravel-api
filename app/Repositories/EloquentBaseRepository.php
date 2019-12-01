@@ -88,7 +88,6 @@ class EloquentBaseRepository implements BaseRepository
 
         $this->setCacheByKey($cacheKey, $item);
 
-
         return $item;
     }
 

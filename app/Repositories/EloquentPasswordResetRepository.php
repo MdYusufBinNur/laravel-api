@@ -8,6 +8,7 @@ use App\DbModels\PasswordReset;
 use App\Events\PasswordReset\PasswordResetEvent;
 use App\Repositories\Contracts\PasswordResetRepository;
 use App\Repositories\Contracts\UserRepository;
+use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;
 
 class EloquentPasswordResetRepository extends EloquentBaseRepository implements PasswordResetRepository
@@ -37,21 +38,23 @@ class EloquentPasswordResetRepository extends EloquentBaseRepository implements 
     /**
      * @inheritDoc
      */
-    public function resetPassword(array $data)
+    public function resetPassword(PasswordReset $passwordReset, array $data)
     {
+        DB::beginTransaction();
+
         $passwordReset = $this->findOne($data['token']);
 
-        if ($passwordReset instanceof PasswordReset) {
-            $userRepository = app(UserRepository::class);
-            $emailOrPhone = $passwordReset->email ?? $passwordReset->phone;
-            $user = $userRepository->findUserByEmailPhone($emailOrPhone);
+        $userRepository = app(UserRepository::class);
+        $emailOrPhone = $passwordReset->email ?? $passwordReset->phone;
+        $user = $userRepository->findUserByEmailPhone($emailOrPhone);
 
-            $userRepository->updateUser($user, ['password' => $data['password']]);
+        $userRepository->updateUser($user, ['password' => $data['password']]);
 
-            return $passwordReset->delete();
-        }
+        $passwordReset->delete();
 
-        return false;
+        DB::commit();
+
+        return $user;
     }
 
 }

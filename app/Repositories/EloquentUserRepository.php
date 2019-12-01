@@ -2,13 +2,17 @@
 
 namespace App\Repositories;
 
+use App\DbModels\Attachment;
 use App\DbModels\Manager;
 use App\DbModels\Resident;
 use App\DbModels\Role;
 use App\DbModels\Unit;
 use App\DbModels\UserRole;
+use App\Events\User\UserCreatedEvent;
+use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -27,7 +31,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
 
         $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
 
-        $searchCriteria['eagerLoad'] = ['user.roles' => 'userRoles', 'user.profilePic' => 'userProfilePics', 'user.userProfile' => 'userProfile','user.residents' => 'residents', 'user.staffs' => 'managers', 'user.enterpriseUser' => 'enterpriseUser', 'userRole.role' => 'userRoles.role', 'userRole.property' => 'userRoles.property', 'eu.properties' => 'enterpriseUser.enterpriseUserProperties'];
+        $searchCriteria['eagerLoad'] = ['user.roles' => 'userRoles', 'user.profilePic' => 'userProfilePics', 'user.userProfile' => 'userProfile', 'user.residents' => 'residents', 'user.staffs' => 'managers', 'user.enterpriseUser' => 'enterpriseUser', 'userRole.role' => 'userRoles.role', 'userRole.property' => 'userRoles.property', 'eu.properties' => 'enterpriseUser.enterpriseUserProperties'];
 
         $users = parent::findBy($searchCriteria, $withTrashed);
 
@@ -62,6 +66,8 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
             $userRoleRepository = app(UserRoleRepository::class);
             $userRoleRepository->save($data['role']);
         }
+
+        event(new UserCreatedEvent($user, $this->generateEventOptionsForModel()));
 
         DB::commit();
 
@@ -206,5 +212,20 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
         return $this->model->where(['email' => $emailOrPhone])
             ->orWhere(['phone' => $emailOrPhone])
             ->first();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getProfilePicByUserId($userId)
+    {
+        $attachmentRepository = app(AttachmentRepository::class);
+        $profileAttachment = $attachmentRepository->model
+            ->where('resourceId', 1)
+            ->where('type', Attachment::ATTACHMENT_TYPE_USER_PROFILE)->first();
+        $avatar = \Storage::temporaryUrl($profileAttachment->getAttachmentDirectoryPathByTypeTitle('avatar'), Carbon::now()->addMinutes(1000));
+
+        return $avatar;
     }
 }

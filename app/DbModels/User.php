@@ -427,7 +427,7 @@ class User extends Authenticatable
      */
     public function userProfilePics()
     {
-        return $this->hasMany(Attachment::class, 'resourceId')->where('type', Attachment::ATTACHMENT_TYPE_EQUIPMENT);
+        return $this->hasMany(Attachment::class, 'resourceId')->where('type', Attachment::ATTACHMENT_TYPE_USER_PROFILE);
     }
 
     /**

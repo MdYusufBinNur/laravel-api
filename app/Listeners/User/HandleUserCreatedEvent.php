@@ -4,7 +4,10 @@ namespace App\Listeners\User;
 
 use App\Events\User\UserCreatedEvent;
 use App\Listeners\CommonListenerFeatures;
+use App\Mail\User\ResetUserPassword;
+use App\Repositories\Contracts\PasswordResetRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Mail;
 
 class HandleUserCreatedEvent implements ShouldQueue
 {
@@ -20,5 +23,9 @@ class HandleUserCreatedEvent implements ShouldQueue
     {
         $user = $event->user;
         $eventOptions = $event->options;
+
+        // send reset password email
+        $passwordResetRepository = app(PasswordResetRepository::class);
+        $passwordResetRepository->save(['emailOrPhone' => $user->email ?? $user->phone]);
     }
 }

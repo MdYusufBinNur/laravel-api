@@ -171,37 +171,59 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
         $unitTable = Unit::getTableName();
         $managerTable = Manager::getTableName();
 
-        $staffs = $this->model
-            ->select($thisModelTable . '.id',
-                $thisModelTable . '.name',
-                $thisModelTable . '.email',
-                $thisModelTable . '.email',
-                $managerTable . '.id as managerId',
-                $managerTable . '.title as managerTitle',
-                $managerTable . '.level as managerLevel'
-            )
-            ->join($managerTable, $thisModelTable . '.id', '=', $managerTable . '.userId')
-            ->where($managerTable . '.propertyId', $searchCriteria['propertyId'])
-            ->where($thisModelTable . '.name', 'like', '%' . $searchCriteria['query'] . '%')
-            ->with('userProfilePics')
-            ->get();
+        // don't return staffs if it asks for residents-only
+        if (empty($searchCriteria['residentsOnly'])) {
+            $staffsQueryBuilder = $this->model
+                ->select($thisModelTable . '.id',
+                    $thisModelTable . '.name',
+                    $thisModelTable . '.email',
+                    $thisModelTable . '.email',
+                    $managerTable . '.id as managerId',
+                    $managerTable . '.title as managerTitle',
+                    $managerTable . '.level as managerLevel'
+                )
+                ->join($managerTable, $thisModelTable . '.id', '=', $managerTable . '.userId')
+                ->where($managerTable . '.propertyId', $searchCriteria['propertyId']);
 
-        $residents = $this->model
-            ->select($thisModelTable . '.id',
-                $thisModelTable . '.name',
-                $thisModelTable . '.email',
-                $residentTable . '.id as residentId',
-                $residentTable . '.type as residentTitle',
-                $unitTable . '.title as unit'
-            )
-            ->join($residentTable, $thisModelTable . '.id', '=', $residentTable . '.userId')
-            ->join($unitTable, $unitTable . '.id', '=', $residentTable . '.unitId')
-            ->where($residentTable . '.propertyId', $searchCriteria['propertyId'])
-            ->where($thisModelTable . '.name', 'like', '%' . $searchCriteria['query'] . '%')
-            ->with('userProfilePics')
-            ->get();
+            if (isset($searchCriteria['query'])) {
+                $staffsQueryBuilder->where($thisModelTable . '.name', 'like', '%' . $searchCriteria['query'] . '%');
+            }
 
-        return $staffs->merge($residents);
+            $users = $staffsQueryBuilder
+                ->with('userProfilePics')
+                ->get();
+        }
+
+        // don't return residents if it asks for staffs-only
+        if (empty($searchCriteria['staffsOnly'])) {
+            $residentQueryBuilder = $this->model
+                ->select($thisModelTable . '.id',
+                    $thisModelTable . '.name',
+                    $thisModelTable . '.email',
+                    $residentTable . '.id as residentId',
+                    $residentTable . '.type as residentTitle',
+                    $unitTable . '.title as unit'
+                )
+                ->join($residentTable, $thisModelTable . '.id', '=', $residentTable . '.userId')
+                ->join($unitTable, $unitTable . '.id', '=', $residentTable . '.unitId')
+                ->where($residentTable . '.propertyId', $searchCriteria['propertyId']);
+            if (isset($searchCriteria['query'])) {
+                $residentQueryBuilder->where($thisModelTable . '.name', 'like', '%' . $searchCriteria['query'] . '%');
+            }
+
+            $residents = $residentQueryBuilder
+                ->with('userProfilePics')
+                ->get();
+
+            if (isset($users)) {
+                $users = $users->merge($residents);
+            } else {
+                $users = $residents;
+            }
+        }
+
+
+        return $users;
     }
 
     /**
@@ -221,7 +243,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
     public function getProfilePicByUserId($userId)
     {
         $attachmentRepository = app(AttachmentRepository::class);
-        $profileAttachment = $attachmentRepository->getProfilePicByResourceId(1);
+        $profileAttachment = $attachmentRepository->getProfilePicByResourceId($userId);
 
         return $profileAttachment;
     }

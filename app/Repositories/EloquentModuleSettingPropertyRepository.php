@@ -14,7 +14,7 @@ class EloquentModuleSettingPropertyRepository extends EloquentBaseRepository imp
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = ['msp.property' => 'property','msp.createdByUser' => 'createdByUser', 'msp.moduleProperty' => 'moduleProperty'];
+        $searchCriteria['eagerLoad'] = ['msp.property' => 'property','msp.createdByUser' => 'createdByUser', 'msp.module' => 'module'];
 
         return parent::findBy($searchCriteria, $withTrashed);
 

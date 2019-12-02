@@ -23,9 +23,9 @@ class ModuleSettingPropertyResource extends Resource
             'property' => $this->when($this->needToInclude($request, 'msp.property'), function () {
                 return new PropertyResource($this->property);
             }),
-            'modulePropertyId' => $this->modulePropertyId,
-            'moduleProperty' => $this->when($this->needToInclude($request, 'msp.moduleProperty'), function () {
-                return new ModulePropertyResource($this->moduleProperty);
+            'moduleId' => $this->moduleId,
+            'module' => $this->when($this->needToInclude($request, 'msp.module'), function () {
+                return new ModuleResource($this->module);
             }),
             'isActive' => $this->isActive,
             'created_at' => $this->created_at,

@@ -15,7 +15,7 @@ class UpdateRequest extends Request
     {
         return [
             'propertyId' => 'exists:properties,id',
-            'modulePropertyId' => 'exists:module_properties,id',
+            'moduleId' => 'exists:modules,id',
             'isActive' => 'boolean',
         ];
     }

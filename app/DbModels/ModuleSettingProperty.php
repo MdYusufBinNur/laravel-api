@@ -16,7 +16,7 @@ class ModuleSettingProperty extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'modulePropertyId', 'isActive'
+        'createdByUserId', 'propertyId', 'moduleId', 'isActive'
     ];
 
     /**
@@ -33,9 +33,9 @@ class ModuleSettingProperty extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function moduleProperty()
+    public function module()
     {
-        return $this->hasOne(Module::class, 'id', 'modulePropertyId');
+        return $this->hasOne(Module::class, 'id', 'moduleId');
     }
 
     /**

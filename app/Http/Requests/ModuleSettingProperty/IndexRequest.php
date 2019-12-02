@@ -17,7 +17,7 @@ class IndexRequest extends Request
             'id' => 'list:numeric',
             'createdByUserId' => 'list:numeric',
             'propertyId' => 'required|numeric',
-            'modulePropertyId' => 'list:numeric',
+            'moduleId' => 'list:numeric',
             'isActive' => 'boolean',
         ];
     }

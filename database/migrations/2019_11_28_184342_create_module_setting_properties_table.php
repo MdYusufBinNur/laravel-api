@@ -16,15 +16,15 @@ class CreateModuleSettingPropertiesTable extends Migration
         Schema::create('module_setting_properties', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned();
-            $table->integer('modulePropertyId')->unsigned();
+            $table->integer('moduleId')->unsigned();
             $table->integer('propertyId')->unsigned();
             $table->boolean('isActive')->default(false);
             $table->timestamps();
             $table->softDeletes();
 
 
-            $table->foreign('modulePropertyId')
-                ->references('id')->on('module_properties')
+            $table->foreign('moduleId')
+                ->references('id')->on('modules')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

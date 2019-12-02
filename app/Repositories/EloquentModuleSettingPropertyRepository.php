@@ -25,7 +25,7 @@ class EloquentModuleSettingPropertyRepository extends EloquentBaseRepository imp
      */
     public function setModuleSettingProperty(array $data): \ArrayAccess
     {
-        $searchCriteria = Arr::only($data, ['propertyId', 'modulePropertyId']);
+        $searchCriteria = Arr::only($data, ['propertyId', 'moduleId']);
         return $this->patch($searchCriteria, $data);
     }
 

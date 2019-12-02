@@ -15,7 +15,7 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' => 'required|exists:properties,id',
-            'modulePropertyId' => 'required|exists:module_properties,id',
+            'moduleId' => 'required|exists:modules,id',
             'isActive' => 'boolean',
         ];
     }

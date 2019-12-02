@@ -23,6 +23,17 @@ class EloquentModuleSettingPropertyRepository extends EloquentBaseRepository imp
     /**
      * @inheritDoc
      */
+    public function getActiveModuleIdsByPropertyId(int $propertyId)
+    {
+        return $this->model
+            ->where('propertyId', $propertyId)
+            ->where('isActive', 1)
+            ->pluck('moduleId')->toArray();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function setModuleSettingProperty(array $data): \ArrayAccess
     {
         $searchCriteria = Arr::only($data, ['propertyId', 'moduleId']);

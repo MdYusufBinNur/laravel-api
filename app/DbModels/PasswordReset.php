@@ -29,7 +29,7 @@ class PasswordReset extends Model
      * @var array
      */
     protected $fillable = [
-      'email', 'token'
+        'email', 'phone', 'token'
     ];
 
     /**
@@ -38,4 +38,16 @@ class PasswordReset extends Model
      * @var bool
      */
     const UPDATED_AT = null;
+
+    /**
+     * get the user
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return User::where(['email' => $this->email])
+            ->orWhere(['phone' => $this->phone])
+            ->first();
+    }
 }

@@ -42,7 +42,6 @@ trait EloquentCacheTrait {
         if (env('APP_ENV') == 'local') {
             return null;
         }
-
         return Cache::tags($this->getCacheTag($tag))->get($this->getCacheKey($key));
 
     }
@@ -55,9 +54,9 @@ trait EloquentCacheTrait {
      * @param string $tag
      * @param bool $withCacheKeyGenertor
      */
-    public function setCacheByKey($key, $value, $tag = null , $withCacheKeyGenerator = true)
+    public function setCacheByKey($key, $value, $tag = null , $minutes = 100)
     {
-        Cache::tags($this->getCacheTag($tag))->put($this->getCacheKey($key), $value);
+        Cache::tags($this->getCacheTag($tag))->put($this->getCacheKey($key), $value, $minutes);
     }
 
     /**

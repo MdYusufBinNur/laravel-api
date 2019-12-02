@@ -29,4 +29,22 @@ interface AttachmentRepository extends BaseRepository
      * @param $id
      */
     public function updateResourceIds(array $attachmentIds, $id);
+
+    /**
+     * get attachment by resource-type and resource Id
+     *
+     * @param string $type
+     * @param int $resourceId
+     * @return mixed
+     */
+    public function getAttachmentByTypeAndResourceId($type, $resourceId);
+
+    /**
+     * get profile pic by resource Id
+     *
+     * @param int $resourceId
+     * @param string $size
+     * @return mixed
+     */
+    public function getProfilePicByResourceId($resourceId, $size = 'medium');
 }

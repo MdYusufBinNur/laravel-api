@@ -145,6 +145,8 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
      */
     public function getResidentsByUnits(array $searchCriteria = [])
     {
+        $userRepository = app(UserRepository::class);
+
         $thisModelTable = $this->model->getTable();
         $userModelTable = User::getTableName();
         $residentAccessRequestModelTable = ResidentAccessRequest::getTableName();
@@ -190,6 +192,11 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         // group by units
         $residentsByUnits = [];
         foreach ($residents as $index => $resident) {
+
+            //todo too many DB calls
+            if (isset($resident['userId'])) {
+                $resident['profilePic'] = $userRepository->getProfilePicByUserId($resident['userId']);
+            }
             $residentsByUnits[$resident['title']][$index] = $resident;
         }
 

@@ -36,4 +36,12 @@ interface UserRepository extends BaseRepository
      * @return mixed
      */
     public function findUserByEmailPhone($emailOrPhone);
+
+    /**
+     * get profile pic of a user
+     *
+     * @param int $userId
+     * @return mixed
+     */
+    public function getProfilePicByUserId($userId);
 }

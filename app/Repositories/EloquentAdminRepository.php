@@ -8,7 +8,6 @@ use App\DbModels\Role;
 use App\DbModels\User;
 use App\Services\Helpers\RoleHelper;
 use App\Events\Admin\AdminCreatedEvent;
-use App\Services\RoleHelper;
 use App\Repositories\Contracts\AdminRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;

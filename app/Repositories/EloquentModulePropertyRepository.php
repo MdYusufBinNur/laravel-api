@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\Repositories\Contracts\ModulePropertyRepository;
+use App\Repositories\Contracts\ModuleSettingPropertyRepository;
 use Illuminate\Support\Arr;
 
 class EloquentModulePropertyRepository extends EloquentBaseRepository implements ModulePropertyRepository
@@ -15,6 +16,12 @@ class EloquentModulePropertyRepository extends EloquentBaseRepository implements
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
         $searchCriteria['eagerLoad'] = ['mp.module' => 'module'];
+
+        if (isset($searchCriteria['propertyId'])) {
+            $moduleSettingPropertyRepository = app(ModuleSettingPropertyRepository::class);
+            $moduleIds = $moduleSettingPropertyRepository->getActiveModuleIdsByPropertyId($searchCriteria['propertyId']);
+            $searchCriteria['moduleId'] = implode(",", $moduleIds);
+        }
         return parent::findBy($searchCriteria, $withTrashed);
     }
 

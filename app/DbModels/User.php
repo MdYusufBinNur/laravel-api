@@ -324,7 +324,6 @@ class User extends Authenticatable
         return false;
     }
 
-
     /**
      * is a owner type resident
      *
@@ -349,36 +348,6 @@ class User extends Authenticatable
     {
         foreach ($this->userRoles as $userRole) {
             if ($userRole->isTenantResidentUserRole()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * is a shop type resident
-     *
-     * @return bool
-     */
-    public function isShopResident()
-    {
-        foreach ($this->userRoles as $userRoles) {
-            if ($userRoles->isShopResidentUserRole()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * is a student type resident
-     *
-     * @return bool
-     */
-    public function isStudentResident()
-    {
-        foreach ($this->userRoles as $userRoles) {
-            if ($userRoles->isStudentResidentUserRole()) {
                 return true;
             }
         }
@@ -476,8 +445,27 @@ class User extends Authenticatable
             || $this->userRoles()->where('propertyId', $propertyId)->first() instanceof UserRole;
     }
 
+    public function getPropertyIds()
+    {
+        $propertyIds = [];
+        foreach ($this->userRoles as $userRole) {
+            if (isset($userRole->propertyId)) {
+                $propertyIds[] = $userRole->propertyId;
+            }
+        }
 
-    public function roles()
+        return array_unique($propertyIds);
+    }
+
+    public function getCompanyId()
+    {
+        $enterPriseUser = $this->enterpriseUser;
+
+        return $enterPriseUser instanceof EnterpriseUser ? $enterPriseUser->companyId : null;
+    }
+
+
+    public function getRolesTitles()
     {
         $roles = [];
         foreach ($this->userRoles as $userRole) {

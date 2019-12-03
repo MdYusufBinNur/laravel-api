@@ -5,6 +5,13 @@ namespace App\Policies;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
+/**
+ * - admin can do everything
+ * - same user can show/edit
+ * - admin enterprise user can edit other enterprise user of the same company
+ *
+ */
+
 class UserPolicy
 {
     use HandlesAuthorization;
@@ -54,7 +61,11 @@ class UserPolicy
      */
     public function show(User $currentUser,  User $user)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->id === $user->id) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

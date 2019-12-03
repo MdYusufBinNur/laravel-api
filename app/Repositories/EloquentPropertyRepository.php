@@ -76,8 +76,7 @@ class EloquentPropertyRepository extends EloquentBaseRepository implements Prope
                 $searchCriteria['id'] = [];
             }
         }
-        dd($searchCriteria);
-
+        
         if (array_key_exists('host', $searchCriteria)) {
             $hostSearchCriteria = HostsHelper::getSearchCriteriaForAHost($searchCriteria['host']);
             $searchCriteria = array_merge($searchCriteria, $hostSearchCriteria);

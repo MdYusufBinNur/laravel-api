@@ -20,6 +20,7 @@ class CreateResidentAccessRequestsTable extends Migration
             $table->unsignedInteger('unitId');
             $table->string('name');
             $table->string('email');
+            $table->string('phone')->nullable();
             $table->string('pin')->unique();
             $table->string('type')->nullable();
             $table->string('groups')->nullable(); //todo

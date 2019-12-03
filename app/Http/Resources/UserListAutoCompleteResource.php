@@ -18,6 +18,7 @@ class UserListAutoCompleteResource extends Resource
             'userId' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'phone' => $this->phone,
             'profilePic' => $this->when($this->needToInclude($request, 'ula.profilePic'), function () {
                 return new AttachmentResource($this->userProfilePics->last());
             }),

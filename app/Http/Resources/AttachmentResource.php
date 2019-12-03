@@ -36,7 +36,7 @@ class AttachmentResource extends Resource
             'medium' => $this->when($this->needToInclude($request, 'image.medium'), function () {
                 return \Storage::temporaryUrl($this->getAttachmentDirectoryPathByTypeTitle('medium'), Carbon::now()->addMinutes(10));
             }),
-            'large' => $this->when($this->needToInclude($request, 'image.medium'), function () {
+            'large' => $this->when($this->needToInclude($request, 'image.large'), function () {
                 return \Storage::temporaryUrl($this->getAttachmentDirectoryPathByTypeTitle('large'), Carbon::now()->addMinutes(10));
             }),
         ];

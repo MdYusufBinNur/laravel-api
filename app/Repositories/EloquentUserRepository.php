@@ -177,7 +177,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
                 ->select($thisModelTable . '.id',
                     $thisModelTable . '.name',
                     $thisModelTable . '.email',
-                    $thisModelTable . '.email',
+                    $thisModelTable . '.phone',
                     $managerTable . '.id as managerId',
                     $managerTable . '.title as managerTitle',
                     $managerTable . '.level as managerLevel'
@@ -200,6 +200,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
                 ->select($thisModelTable . '.id',
                     $thisModelTable . '.name',
                     $thisModelTable . '.email',
+                    $thisModelTable . '.phone',
                     $residentTable . '.id as residentId',
                     $residentTable . '.type as residentTitle',
                     $unitTable . '.title as unit'

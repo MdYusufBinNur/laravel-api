@@ -70,13 +70,13 @@ class EloquentPropertyRepository extends EloquentBaseRepository implements Prope
             if ($loggedInUser->isEnterpriseUser()) {
                 $enterpriseUser = $loggedInUser->enterpriseUser;
                 if ($enterpriseUser instanceof EnterpriseUser) {
-                    $searchCriteria['id'] = $enterpriseUser->enterPriseUserProperties()->pluck('id')->toArray();
+                    $searchCriteria['id'] = $enterpriseUser->enterPriseUserProperties()->pluck('propertyId')->toArray();
                 }
             } else {
                 $searchCriteria['id'] = [];
             }
         }
-
+        dd($searchCriteria);
 
         if (array_key_exists('host', $searchCriteria)) {
             $hostSearchCriteria = HostsHelper::getSearchCriteriaForAHost($searchCriteria['host']);

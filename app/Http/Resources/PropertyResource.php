@@ -14,7 +14,10 @@ class PropertyResource extends Resource
     {
         return [
             'id' => $this->id,
-            'company' => $this->companyId,
+            'companyId' => $this->companyId,
+            'company' => $this->when($this->needToInclude($request, 'property.company'), function () {
+                return new CompanyResource($this->company);
+            }),
             'type' => $this->type,
             'title' => $this->title,
             'domain' => $this->domain,

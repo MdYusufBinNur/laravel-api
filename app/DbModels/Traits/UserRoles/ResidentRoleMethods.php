@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\DbModels\Traits;
+namespace App\DbModels\Traits\UserRoles;
 
 
 trait ResidentRoleMethods

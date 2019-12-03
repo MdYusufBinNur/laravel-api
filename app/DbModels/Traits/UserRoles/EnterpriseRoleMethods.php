@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\DbModels\Traits;
+namespace App\DbModels\Traits\UserRoles;
 
 
 trait EnterpriseRoleMethods
@@ -70,7 +70,6 @@ trait EnterpriseRoleMethods
                 return $enterpriseUser->companyId == $companyId;
             }
         }
-
         return false;
     }
 

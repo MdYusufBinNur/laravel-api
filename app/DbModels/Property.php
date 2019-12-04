@@ -84,4 +84,18 @@ class Property extends Model
     {
         return $this->hasOne(PropertyDesignSetting::class, 'propertyId', 'id');
     }
+
+    /**
+     * get the login link
+     *
+     * @return mixed|string
+     */
+    public function getLoginLink()
+    {
+        if (!empty($this->domain)) {
+            return $this->domain;
+        } else {
+            return $this->subdomain . '.' . env('BRAND_SITE');
+        }
+    }
 }

@@ -241,10 +241,10 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
     /**
      * @inheritDoc
      */
-    public function getProfilePicByUserId($userId)
+    public function getProfilePicByUserId($userId, $size = 'medium')
     {
         $attachmentRepository = app(AttachmentRepository::class);
-        $profileAttachment = $attachmentRepository->getProfilePicByResourceId($userId);
+        $profileAttachment = $attachmentRepository->getProfilePicByResourceId($userId, $size);
 
         return $profileAttachment;
     }

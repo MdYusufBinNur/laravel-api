@@ -195,7 +195,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
 
             //todo too many DB calls
             if (isset($resident['userId'])) {
-                $resident['profilePic'] = $userRepository->getProfilePicByUserId($resident['userId']);
+                $resident['profilePic'] = $userRepository->getProfilePicByUserId($resident['userId'], 'avatar');
             }
             $residentsByUnits[$resident['title']][$index] = $resident;
         }

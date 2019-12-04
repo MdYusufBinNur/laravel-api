@@ -158,6 +158,11 @@ class User extends Authenticatable
             || $this->userRoles()->where('propertyId', $propertyId)->first() instanceof UserRole;
     }
 
+    /**
+     * get property ids of the enterprise-users
+     *
+     * @return array
+     */
     public function getPropertyIds()
     {
         $propertyIds = [];

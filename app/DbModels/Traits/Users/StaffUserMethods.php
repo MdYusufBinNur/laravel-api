@@ -4,6 +4,8 @@
 namespace App\DbModels\Traits\Users;
 
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 trait StaffUserMethods
 {
     /**
@@ -81,5 +83,16 @@ trait StaffUserMethods
             }
         }
         return false;
+    }
+
+    /**
+     * resident of a specific property query builder
+     *
+     * @param int $propertyId
+     * @return HasMany
+     */
+    public function scopeStaffOfTheProperty($propertyId)
+    {
+        return $this->managers()->where('propertyId', $propertyId);
     }
 }

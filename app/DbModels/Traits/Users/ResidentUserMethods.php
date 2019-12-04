@@ -84,15 +84,4 @@ trait ResidentUserMethods
     {
         return $this->residents()->where('propertyId', $propertyId);
     }
-
-    /**
-     * is the user is a resident of a specific property
-     *
-     * @param int $propertyId
-     * @return true
-     */
-    public function isResidentOfTheProperty($propertyId)
-    {
-        return $this->scopeResidentOfTheProperty($propertyId)->first() instanceof Resident;
-    }
 }

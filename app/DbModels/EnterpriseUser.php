@@ -3,6 +3,7 @@
 namespace App\DbModels;
 
 use Illuminate\Database\Eloquent\Collection;
+use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
 
 class EnterpriseUser extends Model

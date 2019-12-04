@@ -2,6 +2,7 @@
 
 namespace App\DbModels;
 
+use App\DbModels\Traits\CommonModelFeatures;
 use App\DbModels\Traits\Users\EnterpriseUserMethods;
 use App\DbModels\Traits\Users\AdminUserMethods;
 use App\DbModels\Traits\Users\ResidentUserMethods;

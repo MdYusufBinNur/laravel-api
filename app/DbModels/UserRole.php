@@ -6,6 +6,7 @@ use App\DbModels\Traits\UserRoles\AdminRoleMethods;
 use App\DbModels\Traits\UserRoles\EnterpriseRoleMethods;
 use App\DbModels\Traits\UserRoles\ResidentRoleMethods;
 use App\DbModels\Traits\UserRoles\StaffRoleMethods;
+use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
 
 class UserRole extends Model

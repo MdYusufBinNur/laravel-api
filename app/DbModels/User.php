@@ -167,6 +167,8 @@ class User extends Authenticatable
             }
         }
 
+        $propertyIds = array_merge($propertyIds, $this->getEnterpriseUserPropertyIds());
+
         return array_unique($propertyIds);
     }
 

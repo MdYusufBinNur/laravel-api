@@ -5,6 +5,7 @@ namespace App\Http\Requests\EnterpriseUser;
 use App\DbModels\EnterpriseUser;
 use App\Http\Requests\Request;
 use App\Rules\ListOfIds;
+use App\Rules\PropertyForCompanyAllowed;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
@@ -19,11 +20,11 @@ class UpdateRequest extends Request
     {
         return [
             'userId' => 'exists:users,id',
-            'companyId' => 'exists:companies,id',
+            'companyId' => 'required_with:propertyIds|exists:companies,id',
             'contactEmail' => 'email|max:255',
             'phone' => 'min:12|max:20',
             'title' => 'min:3|max:255',
-            'propertyIds' => [new ListOfIds('properties', 'id')],
+            'propertyIds' => [new PropertyForCompanyAllowed($this->get('companyId'))],
             'level' => 'in:' . EnterpriseUser::LEVEL_ADMIN . ',' . EnterpriseUser::LEVEL_STANDARD,
         ];
     }

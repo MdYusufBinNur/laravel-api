@@ -4,7 +4,9 @@
 namespace App\DbModels\Traits\Users;
 
 
+use App\DbModels\Company;
 use App\DbModels\EnterpriseUser;
+use Illuminate\Support\Arr;
 
 trait EnterpriseUserMethods
 {
@@ -94,5 +96,28 @@ trait EnterpriseUserMethods
     {
         $enterPriseUser = $this->enterpriseUser;
         return $enterPriseUser instanceof EnterpriseUser ? $enterPriseUser->company : null;
+    }
+
+    /**
+     * get property ids of the enterprise users
+     *
+     * @param int $propertyId
+     * @return array
+     */
+    public function getEnterpriseUserPropertyIds()
+    {
+        $propertyIds = [];
+        if ($this->isAdminEnterpriseUser()) {
+            $company = $this->getCompany();
+            if ($company instanceof Company) {
+                $propertyIds[] = $company->properties()->pluck('id')->toArray();
+            }
+        }
+
+        if ($this->isStandardEnterpriseUser()) {
+            $propertyIds[] = $this->enterpriseUser->enterPriseUserProperties->pluck('propertyId')->toArray();
+        }
+
+        return Arr::flatten(array_unique($propertyIds));
     }
 }

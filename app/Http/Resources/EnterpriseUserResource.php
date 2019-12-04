@@ -29,8 +29,8 @@ class EnterpriseUserResource extends Resource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'properties' => $this->when($this->needToInclude($request, 'eu.properties'), function () {
-                return new EnterpriseUserPropertyResourceCollection($this->enterpriseUserProperties);
-            })
+                return new PropertyResourceCollection($this->getAssignedProperties());
+            }),
         ];
     }
 }

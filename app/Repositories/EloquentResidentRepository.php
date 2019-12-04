@@ -158,7 +158,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         if (isset($searchCriteria['unitId'])) {
             $residentBuilder->where($thisModelTable . '.unitId', $searchCriteria['unitId']);
         }
-        $residentBuilder = $residentBuilder->select($thisModelTable . '.id', 'units.title', $thisModelTable . '.unitId', 'users.id as userId', 'users.name', 'users.email')
+        $residentBuilder = $residentBuilder->select($thisModelTable . '.id', 'units.title', $thisModelTable . '.unitId', 'users.id as userId', 'users.name', 'users.email', 'users.phone')
             ->join($userModelTable, $userModelTable . '.id', '=', $thisModelTable . '.userId')
             ->join($unitModelTable, $unitModelTable . '.id', '=', $thisModelTable . '.unitId');
 
@@ -181,7 +181,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
             }
 
             $residentAccessRequests = $residentAccessRequestsQueryBuilder->where($residentAccessRequestModelTable . '.propertyId', $searchCriteria['propertyId'])
-                ->select($residentAccessRequestModelTable . '.id as residentAccessRequestId', $unitModelTable . '.title', $residentAccessRequestModelTable . '.unitId', $residentAccessRequestModelTable . '.name', $residentAccessRequestModelTable . '.email')
+                ->select($residentAccessRequestModelTable . '.id as residentAccessRequestId', $unitModelTable . '.title', $residentAccessRequestModelTable . '.unitId', $residentAccessRequestModelTable . '.name', $residentAccessRequestModelTable . '.email', $residentAccessRequestModelTable . '.phone')
                 ->join($unitModelTable, $residentAccessRequestModelTable . '.unitId', '=', $unitModelTable . '.id')
                 ->get()->toArray();
 
@@ -195,7 +195,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
 
             //todo too many DB calls
             if (isset($resident['userId'])) {
-                $resident['profilePic'] = $userRepository->getProfilePicByUserId($resident['userId']);
+                $resident['profilePic'] = $userRepository->getProfilePicByUserId($resident['userId'], 'avatar');
             }
             $residentsByUnits[$resident['title']][$index] = $resident;
         }

@@ -22,6 +22,7 @@ class ResidentAccessRequestResource extends Resource
             }),
             'name' => $this->name,
             'email' => $this->email,
+            'phone' => $this->phone,
             'type' => $this->type,
             'groups' => $this->groups,
             'status' => $this->status,

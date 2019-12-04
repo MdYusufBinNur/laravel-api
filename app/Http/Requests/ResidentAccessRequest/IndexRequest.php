@@ -19,6 +19,7 @@ class IndexRequest extends Request
             'unitId' => 'list:numeric',
             'name' => 'list:string',
             'email' => 'list:string',
+            'phone' => 'list:string',
             'type' => 'list:string',
             'status' => 'list:string',
             'active' => 'list:boolean',

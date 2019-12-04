@@ -51,7 +51,7 @@ class EloquentPropertyRepository extends EloquentBaseRepository implements Prope
     {
         $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
 
-        $searchCriteria['eagerLoad'] = ['property.designSettings' => 'propertyDesignSetting', 'property.images' => 'propertyImages'];
+        $searchCriteria['eagerLoad'] = ['property.designSettings' => 'propertyDesignSetting', 'property.images' => 'propertyImages','property.company' => 'company' ];
 
         return parent::findBy($searchCriteria, $withTrashed);
     }
@@ -70,14 +70,13 @@ class EloquentPropertyRepository extends EloquentBaseRepository implements Prope
             if ($loggedInUser->isEnterpriseUser()) {
                 $enterpriseUser = $loggedInUser->enterpriseUser;
                 if ($enterpriseUser instanceof EnterpriseUser) {
-                    $searchCriteria['id'] = $enterpriseUser->enterPriseUserProperties()->pluck('id')->toArray();
+                    $searchCriteria['id'] = $enterpriseUser->enterPriseUserProperties()->pluck('propertyId')->toArray();
                 }
             } else {
                 $searchCriteria['id'] = [];
             }
         }
-
-
+        
         if (array_key_exists('host', $searchCriteria)) {
             $hostSearchCriteria = HostsHelper::getSearchCriteriaForAHost($searchCriteria['host']);
             $searchCriteria = array_merge($searchCriteria, $hostSearchCriteria);

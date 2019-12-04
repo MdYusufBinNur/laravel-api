@@ -43,5 +43,5 @@ interface UserRepository extends BaseRepository
      * @param int $userId
      * @return mixed
      */
-    public function getProfilePicByUserId($userId);
+    public function getProfilePicByUserId($userId, $size = 'medium');
 }

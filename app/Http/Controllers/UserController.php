@@ -70,7 +70,7 @@ class UserController extends Controller
         if (!$user instanceof User) {
             return response()->json(['status' => 404, 'message' => 'Resource not found with the specific id.'], 404);
         }
-        
+
         $this->authorize('show', $user);
 
         return new UserResource($user);

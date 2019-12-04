@@ -34,6 +34,7 @@ trait AdminUserMethods
                 return true;
             }
         }
+
         return false;
     }
 
@@ -49,6 +50,7 @@ trait AdminUserMethods
                 return true;
             }
         }
+
         return false;
     }
 
@@ -64,6 +66,7 @@ trait AdminUserMethods
                 return true;
             }
         }
+
         return false;
     }
 }

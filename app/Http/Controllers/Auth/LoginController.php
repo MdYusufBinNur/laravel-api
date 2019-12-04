@@ -55,7 +55,7 @@ class LoginController extends Controller
                     }
                 }
 
-                $token = $user->createToken('Password Grant Client', $user->roles());
+                $token = $user->createToken('Password Grant Client', $user->getRolesTitles());
 
                 event(new UserLoggedInEvent($user, []));
 

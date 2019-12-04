@@ -21,7 +21,7 @@ class UpdateRequest extends Request
             'userId'                => 'exists:users,id',
             'unitId'                => 'exists:units,id',
             'contactEmail'          => 'email|max:255',
-            'type'                  => 'in:' . implode(',', [Role::ROLE_RESIDENT_OWNER['title'], Role::ROLE_RESIDENT_TENANT['title'], Role::ROLE_RESIDENT_STUDENT['title'], Role::ROLE_RESIDENT_SHOP['title']]),
+            'type'                  => 'in:' . implode(',', [Role::ROLE_RESIDENT_OWNER['title'], Role::ROLE_RESIDENT_TENANT['title']]),
             'group'                 => 'min:5|max:255',
             'boardMember'           => 'boolean',
             'sendEmailPermission'   => 'boolean',

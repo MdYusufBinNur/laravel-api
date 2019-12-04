@@ -1,7 +1,8 @@
 <?php
 
-namespace App\DbModels;
+namespace App\DbModels\Traits;
 
+use App\DbModels\User;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

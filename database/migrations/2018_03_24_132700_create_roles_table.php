@@ -41,9 +41,7 @@ class CreateRolesTable extends Migration
             ['id' => 8, 'type' => 'staff', 'title' => 'limited_staff'],
 
             ['id' => 9, 'type' => 'resident', 'title' => 'resident_owner'],
-            ['id' => 10, 'type' => 'resident', 'title' => 'resident_tenant'],
-            ['id' => 11, 'type' => 'resident', 'title' => 'resident_shop'],
-            ['id' => 12, 'type' => 'resident', 'title' => 'resident_student']
+            ['id' => 10, 'type' => 'resident', 'title' => 'resident_tenant']
         ]);
     }
 

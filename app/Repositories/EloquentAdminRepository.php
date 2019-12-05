@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 
+use App\DbModels\Admin;
 use App\DbModels\Role;
 use App\DbModels\User;
 use App\Services\Helpers\RoleHelper;
@@ -130,6 +131,10 @@ class EloquentAdminRepository extends EloquentBaseRepository implements AdminRep
      */
     private function applyFilterInUserSearch($searchCriteria)
     {
+        if (!$this->getLoggedInUser()->isSuperAdmin()) {
+            $searchCriteria['level'] = Admin::LEVEL_LIMITED;
+        }
+
         if (isset($searchCriteria['withName'])) {
             $searchCriteria['id'] = $this->getAdminUserIdsByName($searchCriteria);
             unset($searchCriteria['withName']);

@@ -43,6 +43,7 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
         $directoryName = $this->model->getDirectoryName($data['type']);
         $data['fileName'] = Str::random(20) . '_' . $data['resourceId'] . '_' . $data['fileSource']->getClientOriginalName();
         \Storage::put($directoryName . '/' . $data['fileName'], $image, 'public');
+        $data['fileType'] = $data['fileSource']->getMimeType();
         $attachment = parent::save($data);
 
         event(new AttachmentCreatedEvent($attachment, $this->generateEventOptionsForModel(['multipleTypes' => $data['multipleTypes'] ?? []], false)));

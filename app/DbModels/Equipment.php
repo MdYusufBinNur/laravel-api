@@ -4,6 +4,8 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Equipment extends Model
 {
@@ -53,7 +55,7 @@ class Equipment extends Model
     /**
      * get the property
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function property()
     {
@@ -63,7 +65,7 @@ class Equipment extends Model
     /**
      * get the attachments
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function attachments()
     {

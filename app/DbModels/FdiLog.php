@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class FdiLog extends Model
 {
@@ -28,7 +29,7 @@ class FdiLog extends Model
     /**
      * get the user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function user()
     {

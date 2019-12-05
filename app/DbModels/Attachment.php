@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Attachment extends Model
@@ -51,7 +52,7 @@ class Attachment extends Model
     /**
      * Get the user who created the attachment
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {

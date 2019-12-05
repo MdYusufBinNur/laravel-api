@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PostPoll extends Model
 {
@@ -75,7 +76,7 @@ class PostPoll extends Model
     /**
      * get the post
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function post()
     {

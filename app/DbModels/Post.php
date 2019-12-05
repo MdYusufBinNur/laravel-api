@@ -4,6 +4,8 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Post extends Model
 {
@@ -70,7 +72,7 @@ class Post extends Model
     /**
      * get the property
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function property()
     {
@@ -80,7 +82,7 @@ class Post extends Model
     /**
      * get the details based on type
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function detailByType()
     {
@@ -123,7 +125,7 @@ class Post extends Model
     /**
      * get the attachments
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function attachments()
     {
@@ -133,7 +135,7 @@ class Post extends Model
     /**
      * get the comments
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function comments()
     {
@@ -143,7 +145,7 @@ class Post extends Model
     /**
      * get the post approval archive
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function approvalArchives()
     {
@@ -153,7 +155,7 @@ class Post extends Model
     /**
      * get the User who created the Post
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function createdByUser()
     {

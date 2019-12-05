@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Visitor extends Model
 {
@@ -37,7 +38,7 @@ class Visitor extends Model
     /**
      * get the property
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return hasOne
      */
     public function property()
     {
@@ -47,7 +48,7 @@ class Visitor extends Model
     /**
      * get the unit
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return hasOne
      */
     public function unit()
     {
@@ -57,7 +58,7 @@ class Visitor extends Model
     /**
      * get the visitor type
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return hasOne
      */
     public function visitorType()
     {
@@ -67,7 +68,7 @@ class Visitor extends Model
     /**
      * get the sign in user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return hasOne
      */
     public function signInUser()
     {
@@ -77,7 +78,7 @@ class Visitor extends Model
     /**
      * get the visitor image
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return hasOne
      */
     public function image()
     {

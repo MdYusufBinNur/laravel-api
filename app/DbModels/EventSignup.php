@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class EventSignup extends Model
 {
@@ -21,7 +22,7 @@ class EventSignup extends Model
     /**
      * get the event
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function event()
     {
@@ -31,7 +32,7 @@ class EventSignup extends Model
     /**
      * get the user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function user()
     {
@@ -41,7 +42,7 @@ class EventSignup extends Model
     /**
      * get the resident
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function resident()
     {

@@ -4,6 +4,8 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Manager extends Model
 {
@@ -36,7 +38,7 @@ class Manager extends Model
     /**
      * get the user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function user()
     {
@@ -46,7 +48,7 @@ class Manager extends Model
     /**
      * get the user's role
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function userRole()
     {
@@ -56,7 +58,7 @@ class Manager extends Model
     /**
      * get the user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function property()
     {
@@ -66,7 +68,7 @@ class Manager extends Model
     /**
      * get the user roles
      *
-     * @return \Illuminate\Database\Eloquent\Relations\Hasmany
+     * @return Hasmany
      */
     public function userRoles()
     {

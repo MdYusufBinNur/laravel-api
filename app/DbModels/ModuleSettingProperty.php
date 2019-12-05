@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ModuleSettingProperty extends Model
 {
@@ -32,7 +33,7 @@ class ModuleSettingProperty extends Model
     /**
      * get the module
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function module()
     {
@@ -42,7 +43,7 @@ class ModuleSettingProperty extends Model
     /**
      * get the property
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function property()
     {

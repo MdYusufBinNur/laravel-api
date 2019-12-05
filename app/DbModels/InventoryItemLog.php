@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class InventoryItemLog extends Model
 {
@@ -23,7 +24,7 @@ class InventoryItemLog extends Model
     /**
      * get the inventory item
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function inventoryItem()
     {
@@ -33,7 +34,7 @@ class InventoryItemLog extends Model
     /**
      * get the property
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function property()
     {
@@ -43,7 +44,7 @@ class InventoryItemLog extends Model
     /**
      * get the updated by user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function updatedByUser()
     {

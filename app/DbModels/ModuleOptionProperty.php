@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ModuleOptionProperty extends Model
 {
@@ -23,7 +24,7 @@ class ModuleOptionProperty extends Model
     /**
      * get the module
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function moduleOption()
     {
@@ -33,7 +34,7 @@ class ModuleOptionProperty extends Model
     /**
      * get the property
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function property()
     {

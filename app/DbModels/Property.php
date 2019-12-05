@@ -4,6 +4,10 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Property extends Model
 {
@@ -29,7 +33,7 @@ class Property extends Model
     /**
      * Get the towers for the property.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function towers()
     {
@@ -39,7 +43,7 @@ class Property extends Model
     /**
      * Get all of the units for the property.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasManyThrough
+     * @return hasManyThrough
      */
     public function units()
     {
@@ -49,7 +53,7 @@ class Property extends Model
     /**
      * Get the company of the property
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function company()
     {
@@ -59,7 +63,7 @@ class Property extends Model
     /**
      * Get the users for the property.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function users()
     {
@@ -69,7 +73,7 @@ class Property extends Model
     /**
      * get images
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function propertyImages()
     {
@@ -79,7 +83,7 @@ class Property extends Model
     /**
      * get images
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function propertyDesignSetting()
     {

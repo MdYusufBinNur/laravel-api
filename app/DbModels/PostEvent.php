@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PostEvent extends Model
 {
@@ -21,7 +22,7 @@ class PostEvent extends Model
     /**
      * get the post
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function post()
     {
@@ -31,7 +32,7 @@ class PostEvent extends Model
     /**
      * get the event
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function event()
     {
@@ -41,7 +42,7 @@ class PostEvent extends Model
     /**
      * get the User who created the PostEvent
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function createdByUser()
     {

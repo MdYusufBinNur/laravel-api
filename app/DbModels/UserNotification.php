@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class UserNotification extends Model
 {
@@ -30,7 +31,7 @@ class UserNotification extends Model
     /**
      * get the User who will received the notification
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function toUser()
     {
@@ -40,7 +41,7 @@ class UserNotification extends Model
     /**
      * get the User who sent the notification
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function fromUser()
     {
@@ -50,7 +51,7 @@ class UserNotification extends Model
     /**
      * get the UserNotificationType
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function type()
     {

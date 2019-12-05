@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PackageArchive extends Model
 {
@@ -31,7 +32,7 @@ class PackageArchive extends Model
     /**
      * get the package
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function package()
     {
@@ -41,7 +42,7 @@ class PackageArchive extends Model
     /**
      * get the property
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return hasOne
      */
     public function property()
     {
@@ -51,7 +52,7 @@ class PackageArchive extends Model
     /**
      * get the signOutUser
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return hasOne
      */
     public function signOutUser()
     {

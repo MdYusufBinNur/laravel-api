@@ -27,10 +27,15 @@ class ResidentPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -38,10 +43,9 @@ class ResidentPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(?User $currentUser)
     {
         return true;
     }
@@ -55,7 +59,11 @@ class ResidentPolicy
      */
     public function show(User $currentUser,  Resident $resident)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isUserOfTheProperty($resident->propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -67,7 +75,25 @@ class ResidentPolicy
      */
     public function update(User $currentUser, Resident $resident)
     {
-        return $currentUser->id === $user->id;
+        $propertyId = $resident->propertyId;
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($resident->user instanceof User) {
+            return $currentUser->id === $resident->user->id;
+        }
+
+        return false;
     }
 
     /**
@@ -79,6 +105,44 @@ class ResidentPolicy
      */
     public function destroy(User $currentUser, Resident $resident)
     {
+        $propertyId = $resident->propertyId;
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Determine if a given user has permission to transfer residents
+     *
+     * @param User $currentUser
+     * @param int $propertyId
+     * @return bool
+     */
+    public function residentTransfer(User $currentUser, int $propertyId)
+    {
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 }

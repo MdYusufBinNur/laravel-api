@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class MessageUser extends Model
 {
@@ -33,7 +34,7 @@ class MessageUser extends Model
     /**
      * get the property related to the user's role
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return hasOne
      */
     public function property()
     {
@@ -43,7 +44,7 @@ class MessageUser extends Model
     /**
      * get the user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return hasOne
      */
     public function message()
     {
@@ -53,7 +54,7 @@ class MessageUser extends Model
     /**
      * get the user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return hasOne
      */
     public function user()
     {

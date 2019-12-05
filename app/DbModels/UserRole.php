@@ -8,6 +8,8 @@ use App\DbModels\Traits\UserRoles\ResidentRoleMethods;
 use App\DbModels\Traits\UserRoles\StaffRoleMethods;
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class UserRole extends Model
 {
@@ -31,7 +33,7 @@ class UserRole extends Model
     /**
      * get the user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function user()
     {
@@ -41,7 +43,7 @@ class UserRole extends Model
     /**
      * get the role of the user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function role()
     {
@@ -51,7 +53,7 @@ class UserRole extends Model
     /**
      * get the property related to the user's role
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return hasOne
      */
     public function property()
     {
@@ -61,7 +63,7 @@ class UserRole extends Model
     /**
      * user and enterprise_users relationship
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function enterpriseUsers()
     {

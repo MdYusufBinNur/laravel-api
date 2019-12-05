@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PropertyLink extends Model
 {
@@ -29,13 +30,10 @@ class PropertyLink extends Model
     /**
      * get the category
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function linkCategory()
     {
         return $this->hasOne(PropertyLinkCategory::class, 'id', 'linkCategoryId');
     }
-
-
-
 }

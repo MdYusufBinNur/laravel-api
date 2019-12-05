@@ -4,6 +4,8 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Company extends Model
 {
@@ -39,7 +41,7 @@ class Company extends Model
     /**
      * Get the properties for the company.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function properties()
     {
@@ -49,7 +51,7 @@ class Company extends Model
     /**
      * Get the no of enterprise users of the company..
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasManyThrough
+     * @return hasManyThrough
      */
     public function noOfEnterpriseUsers()
     {

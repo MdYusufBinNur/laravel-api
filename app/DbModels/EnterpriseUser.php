@@ -5,6 +5,8 @@ namespace App\DbModels;
 use Illuminate\Database\Eloquent\Collection;
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class EnterpriseUser extends Model
 {
@@ -25,7 +27,7 @@ class EnterpriseUser extends Model
     /**
      * get the user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function user()
     {
@@ -35,7 +37,7 @@ class EnterpriseUser extends Model
     /**
      * get the user role
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function userRole()
     {
@@ -45,7 +47,7 @@ class EnterpriseUser extends Model
     /**
      * get the company related to the enterprise user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return hasOne
      */
     public function company()
     {
@@ -75,7 +77,7 @@ class EnterpriseUser extends Model
     /**
      * enterprise_user and enterprise_users_properties relationship
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function enterPriseUserProperties()
     {

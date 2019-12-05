@@ -4,6 +4,8 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Fdi extends Model
 {
@@ -54,7 +56,7 @@ class Fdi extends Model
     /**
      * get the unit
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function unit()
     {
@@ -64,7 +66,7 @@ class Fdi extends Model
     /**
      * get the property
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function property()
     {
@@ -74,7 +76,7 @@ class Fdi extends Model
     /**
      * get the guest type
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function guestType()
     {
@@ -84,7 +86,7 @@ class Fdi extends Model
     /**
      * service request and its log relationship
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function logs()
     {
@@ -94,7 +96,7 @@ class Fdi extends Model
     /**
      * get service request photos
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function fdiImages()
     {

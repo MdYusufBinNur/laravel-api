@@ -4,6 +4,8 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Message extends Model
 {
@@ -44,7 +46,7 @@ class Message extends Model
     /**
      * get the property related to the user's role
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return hasOne
      */
     public function property()
     {
@@ -54,7 +56,7 @@ class Message extends Model
     /**
      * get the message post related the message
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function messagePosts()
     {
@@ -64,7 +66,7 @@ class Message extends Model
     /**
      * get the message post related the message
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function scopeLastMessagePostOfTheUser($userId)
     {
@@ -74,7 +76,7 @@ class Message extends Model
     /**
      * user and messages_users relationship
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function messageUsers()
     {
@@ -84,7 +86,7 @@ class Message extends Model
     /**
      * get the user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function fromUser()
     {
@@ -94,7 +96,7 @@ class Message extends Model
     /**
      * user and to message users relationships
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function toMessageUsers()
     {
@@ -104,7 +106,7 @@ class Message extends Model
     /**
      * get the attachments
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function attachments()
     {

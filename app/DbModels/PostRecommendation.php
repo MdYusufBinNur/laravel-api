@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PostRecommendation extends Model
 {
@@ -21,7 +22,7 @@ class PostRecommendation extends Model
     /**
      * get the post
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function post()
     {
@@ -31,7 +32,7 @@ class PostRecommendation extends Model
     /**
      * get the recommendation's type
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function recommendationType()
     {

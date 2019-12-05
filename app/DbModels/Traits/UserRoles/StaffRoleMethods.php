@@ -13,7 +13,7 @@ trait StaffRoleMethods
      */
     public function isPriorityStaffUserRole()
     {
-        return $this->role->isSuperStaffRole();
+        return $this->role->isPriorityStaffRole();
     }
 
     /**
@@ -44,6 +44,42 @@ trait StaffRoleMethods
     public function hasStaffUserRole()
     {
         return $this->role->hasStaffRole();
+    }
+
+    /**
+     * does the priority staff have access to the property
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function doesPriorityStaffHaveAccessToTheProperty(int $propertyId)
+    {
+        return $this->isPriorityStaffUserRole()
+            && $this->hasThePropertyAssigned($propertyId);
+    }
+
+    /**
+     * does the standard staff have access to the property
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function doesStandardStaffHaveAccessToTheProperty(int $propertyId)
+    {
+        return $this->isStandardStaffUserRole()
+            && $this->hasThePropertyAssigned($propertyId);
+    }
+
+    /**
+     * does the limited staff have access to the property
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function doesLimitedStaffHaveAccessToTheProperty(int $propertyId)
+    {
+        return $this->isStandardStaffUserRole()
+            && $this->hasThePropertyAssigned($propertyId);
     }
 
     /**

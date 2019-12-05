@@ -20,7 +20,7 @@ Broadcast::channel('ADMIN.{userId}', function ($user, $userId) {
 });
 
 Broadcast::channel('PROPERTY.{propertyId}', function ($user, $propertyId) {
-    return $user->userOfTheProperty($propertyId);
+    return $user->isUserOfTheProperty($propertyId);
 });
 
 Broadcast::channel('PROPERTY.STAFF.{propertyId}', function ($user, $propertyId) {

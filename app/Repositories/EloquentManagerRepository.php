@@ -35,8 +35,8 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
             $queryBuilder->where($thisTable . '.propertyId', $searchCriteria['propertyId']);
         }
         if (isset($searchCriteria['query'])) {
-            $queryBuilder->where($thisTable . '.contactEmail', 'like', '%'. $searchCriteria['query'] . '%')
-            ->orWhere($thisTable . '.title', 'like', '%'. $searchCriteria['query'] . '%');
+            $queryBuilder->where($thisTable . '.contactEmail', 'like', '%' . $searchCriteria['query'] . '%')
+                ->orWhere($thisTable . '.title', 'like', '%' . $searchCriteria['query'] . '%');
         }
 
         if (isset($searchCriteria['roleId'])) {
@@ -64,8 +64,12 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
             $data['userId'] = $user->id;
         }
 
-        if(array_key_exists('level', $data)) {
-            $roleId = RoleHelper::getRoleIdByTitle($data['level']);
+        if (array_key_exists('level', $data)) {
+            if ($this->getLoggedInUser()->isStandardStaff($data['propertyId'])) {
+                $roleId = Role::ROLE_STAFF_LIMITED['id'];
+            } else {
+                $roleId = RoleHelper::getRoleIdByTitle($data['level']);
+            }
         } else {
             $roleId = Role::ROLE_STAFF_STANDARD['id'];
         }
@@ -98,12 +102,17 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
         $staff = parent::update($manager, $data);
         $userRepository = app(UserRepository::class);
 
-        if(isset($data['user'])) {
+        if (isset($data['user'])) {
             $userRepository->updateUser($staff->user, $data['user']);
         }
 
-        if(array_key_exists('level', $data)) {
-            $roleId = RoleHelper::getRoleIdByTitle($data['level']);
+        if (array_key_exists('level', $data)) {
+
+            if ($this->getLoggedInUser()->isStandardStaff($data['propertyId'])) {
+                $roleId = Role::ROLE_STAFF_LIMITED['id'];
+            } else {
+                $roleId = RoleHelper::getRoleIdByTitle($data['level']);
+            }
 
             // update user role
             $userRoleRepository = app(UserRoleRepository::class);

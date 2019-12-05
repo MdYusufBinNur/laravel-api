@@ -16,7 +16,7 @@ trait StaffUserMethods
     public function isPriorityStaff()
     {
         foreach ($this->userRoles as $userRole) {
-            if ($userRole->isPririorityStaffUserRole()) {
+            if ($userRole->isPriorityStaffUserRole()) {
                 return true;
             }
         }
@@ -63,6 +63,54 @@ trait StaffUserMethods
     {
         foreach ($this->userRoles as $userRole) {
             if ($userRole->hasStaffUserRole()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * is a priority staff of the property
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function isAPriorityStaffOfTheProperty(int $propertyId)
+    {
+        foreach ($this->userRoles as $userRole) {
+            if ($userRole->doesPriorityStaffHaveAccessToTheProperty($propertyId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * is a priority staff of the property
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function isAStandardStaffOfTheProperty(int $propertyId)
+    {
+        foreach ($this->userRoles as $userRole) {
+            if ($userRole->doesStandardStaffHaveAccessToTheProperty($propertyId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * is a priority staff of the property
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function isALimitedStaffOfTheProperty(int $propertyId)
+    {
+        foreach ($this->userRoles as $userRole) {
+            if ($userRole->doesLimitedStaffHaveAccessToTheProperty($propertyId)) {
                 return true;
             }
         }

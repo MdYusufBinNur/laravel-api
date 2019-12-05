@@ -3,8 +3,10 @@
 
 namespace App\Repositories;
 
+use App\DbModels\Attachment;
 use App\DbModels\Visitor;
 use App\Events\Visitor\VisitorCreatedEvent;
+use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\VisitorRepository;
 use Carbon\Carbon;
 
@@ -18,8 +20,17 @@ class EloquentVisitorRepository extends EloquentBaseRepository implements Visito
         $data['status'] = $data['status'] ?? Visitor::STATUS_ACTIVE;
         $data['signInUserId'] = $this->getLoggedInUser()->id;
         $data['signInAt'] = Carbon::now();
-
         $visitor = parent::save($data);
+
+        if (isset($data['attachmentId'])) {
+            $attachmentRepository = app(AttachmentRepository::class);
+            $attachment = $attachmentRepository->findOne($data['attachmentId']);
+            if ($attachment instanceof Attachment) {
+                $attachmentRepository->updateResourceId($attachment, $visitor->id);
+            }
+            unset($data['attachmentId']);
+        }
+
 
         event(new VisitorCreatedEvent($visitor, $this->generateEventOptionsForModel()));
 

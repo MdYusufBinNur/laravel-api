@@ -25,7 +25,8 @@ class StoreRequest extends Request
             'photo' => 'boolean',
             'permanent' => 'boolean',
             'comment' => 'min:3|max:16777215',
-            'signature' => 'boolean'
+            'signature' => 'boolean',
+            'attachmentId' => 'exists:attachments,id'
         ];
     }
 }

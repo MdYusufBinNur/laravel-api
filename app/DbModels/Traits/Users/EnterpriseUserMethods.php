@@ -109,6 +109,6 @@ trait EnterpriseUserMethods
      */
     public function isAnEnterpriseUserOfTheProperty(int $propertyId)
     {
-        return in_array($propertyId, $this->getPropertyIds());
+        return in_array($propertyId, $this->getEnterpriseUserPropertyIds());
     }
 }

@@ -61,7 +61,7 @@ trait ResidentUserMethods
      * @param int $propertyId
      * @return bool
      */
-    public function hasResidentAccessToTheProperty(int $propertyId)
+    public function isResidentOfTheProperty(int $propertyId)
     {
         if ($this->isResident()) {
             foreach ($this->residents as $resident) {

@@ -5,13 +5,6 @@ namespace App\Policies;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-/**
- * - admin can do everything
- * - same user can show/edit
- * - admin enterprise user can edit other enterprise user of the same company
- *
- */
-
 class UserPolicy
 {
     use HandlesAuthorization;
@@ -49,7 +42,7 @@ class UserPolicy
      */
     public function store(User $currentUser)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -89,6 +82,22 @@ class UserPolicy
      */
     public function destroy(User $currentUser, User $user)
     {
+        return false;
+    }
+
+    /**
+     * Determine if a given user has permission to list
+     *
+     * @param User $currentUser
+     * @param int $propertyId
+     * @return bool
+     */
+    public function usersListAutoComplete(User $currentUser, int $propertyId)
+    {
+        if ($currentUser->isAStaffOfTheProperty($propertyId) || $currentUser->isAnEnterpriseUserOfTheProperty($propertyId) || $currentUser->isResidentOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 

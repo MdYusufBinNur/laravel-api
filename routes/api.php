@@ -220,7 +220,7 @@ Route::group(['prefix' => 'api/v1'], function () {
     });
 
     //route without authentication
-    Route::get('property/{property}', 'PropertyController@show');
+    //Route::get('property/{property}', 'PropertyController@show');
     Route::get('property-by-host', 'PropertyController@propertyByHost');
     Route::get('unit', 'UnitController@index');
     Route::get('property-social-media', 'PropertySocialMediaController@index');

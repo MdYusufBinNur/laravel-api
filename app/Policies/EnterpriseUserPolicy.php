@@ -27,10 +27,15 @@ class EnterpriseUserPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $companyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $companyId)
     {
+        if ($currentUser->isAnAdminEnterpriseUserOfTheCompany($companyId)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -38,12 +43,16 @@ class EnterpriseUserPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $companyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $companyId)
     {
-        return true;
+        if ($currentUser->isAnAdminEnterpriseUserOfTheCompany(6)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +64,15 @@ class EnterpriseUserPolicy
      */
     public function show(User $currentUser,  EnterpriseUser $enterpriseUser)
     {
-        return $currentUser->id === $user->id;
+        $propertyIds = $enterpriseUser->enterPriseUserProperties()->pluck('propertyId')->toArray();
+
+        foreach ($propertyIds as $propertyId) {
+            if ($currentUser->isUserOfTheProperty($propertyId)) {
+                return true;
+            }
+        }
+
+        return $currentUser->id === $enterpriseUser->userId;
     }
 
     /**
@@ -67,7 +84,11 @@ class EnterpriseUserPolicy
      */
     public function update(User $currentUser, EnterpriseUser $enterpriseUser)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isAnAdminEnterpriseUserOfTheCompany($enterpriseUser->companyId)) {
+            return true;
+        }
+
+        return $currentUser->id === $enterpriseUser->userId;
     }
 
     /**
@@ -79,6 +100,10 @@ class EnterpriseUserPolicy
      */
     public function destroy(User $currentUser, EnterpriseUser $enterpriseUser)
     {
+        if ($currentUser->isAnAdminEnterpriseUserOfTheCompany($enterpriseUser->companyId)) {
+            return true;
+        }
+
         return false;
     }
 }

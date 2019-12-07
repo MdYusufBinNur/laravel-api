@@ -10,7 +10,6 @@ use App\Http\Requests\EnterpriseUser\UpdateRequest;
 use App\Http\Resources\EnterpriseUserResource;
 use App\Http\Resources\EnterpriseUserResourceCollection;
 use App\Repositories\Contracts\EnterpriseUserRepository;
-use Illuminate\Http\Request;
 
 class EnterpriseUserController extends Controller
 {
@@ -38,6 +37,8 @@ class EnterpriseUserController extends Controller
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [EnterpriseUser::class, $request->get('companyId')]);
+
         $enterpriseUsers = $this->enterpriseUserRepository->findBy($request->all());
 
         return new EnterpriseUserResourceCollection($enterpriseUsers);
@@ -51,6 +52,8 @@ class EnterpriseUserController extends Controller
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [EnterpriseUser::class, $request->get('companyId')]);
+
         $enterpriseUser = $this->enterpriseUserRepository->save($request->all());
 
         return new EnterpriseUserResource($enterpriseUser);
@@ -64,6 +67,8 @@ class EnterpriseUserController extends Controller
      */
     public function show(EnterpriseUser $enterpriseUser)
     {
+        $this->authorize('show', $enterpriseUser);
+
         return new EnterpriseUserResource($enterpriseUser);
     }
 
@@ -76,6 +81,8 @@ class EnterpriseUserController extends Controller
      */
     public function update(UpdateRequest $request, EnterpriseUser $enterpriseUser)
     {
+        $this->authorize('update', $enterpriseUser);
+
         $enterpriseUser = $this->enterpriseUserRepository->updateEnterpriseUser($enterpriseUser, $request->all());
 
         return new EnterpriseUserResource($enterpriseUser);
@@ -90,6 +97,8 @@ class EnterpriseUserController extends Controller
      */
     public function destroy(DestroyRequest $request, EnterpriseUser $enterpriseUser)
     {
+        $this->authorize('destroy', $enterpriseUser);
+
         $this->enterpriseUserRepository->deleteEnterpriseUser($enterpriseUser,$request->all());
 
         return response()->json(null, 204);

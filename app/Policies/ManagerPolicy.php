@@ -68,6 +68,7 @@ class ManagerPolicy
             return true;
         }
 
+        return false;
     }
 
     /**

@@ -32,7 +32,7 @@ class EnterpriseUserPolicy
      */
     public function list(User $currentUser, int $companyId)
     {
-        if ($currentUser->isAnAdminEnterpriseUserOfTheCompany($companyId)) {
+        if ($currentUser->isAnEnterpriseUserOfTheCompany($companyId)) {
             return true;
         }
 
@@ -48,7 +48,7 @@ class EnterpriseUserPolicy
      */
     public function store(User $currentUser, int $companyId)
     {
-        if ($currentUser->isAnAdminEnterpriseUserOfTheCompany(6)) {
+        if ($currentUser->isAnAdminEnterpriseUserOfTheCompany($companyId)) {
             return true;
         }
 

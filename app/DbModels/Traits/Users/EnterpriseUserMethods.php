@@ -94,11 +94,28 @@ trait EnterpriseUserMethods
      * @param int $companyId
      * @return bool
      */
-    public function isAnAdminEnterpriseUserOfTheCompany(int $companyId)
+    public function isAnEnterpriseUserOfTheCompany(int $companyId)
     {
         $company = $this->getCompany();
 
         return $company instanceof Company && $companyId == $company->id;
+    }
+
+    /**
+     * is a enterprise user of the company
+     *
+     * @param int $companyId
+     * @return bool
+     */
+    public function isAnAdminEnterpriseUserOfTheCompany(int $companyId)
+    {
+        if ($this->isAdminEnterpriseUser()) {
+            $company = $this->getCompany();
+
+            return $company instanceof Company && $companyId == $company->id;
+        }
+
+        return false;
     }
 
     /**

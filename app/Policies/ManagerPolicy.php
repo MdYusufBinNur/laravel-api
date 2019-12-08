@@ -116,8 +116,8 @@ class ManagerPolicy
             }
 
             return $currentUser->id === $user->id;
-
         }
+
         return false;
     }
 

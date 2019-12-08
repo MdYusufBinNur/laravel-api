@@ -9,6 +9,7 @@ use App\Http\Requests\Announcement\UpdateRequest;
 use App\Http\Resources\AnnouncementResource;
 use App\Http\Resources\AnnouncementResourceCollection;
 use App\Repositories\Contracts\AnnouncementRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class AnnouncementController extends Controller
 {
@@ -31,9 +32,12 @@ class AnnouncementController extends Controller
      *
      * @param IndexRequest $request
      * @return AnnouncementResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', $request->get('propertyId'));
+
         if (strpos($request->getPathInfo(), 'property-login-page-announcements') !== false) {
             $request->merge(['showOnWebsite' => 1]);
         }
@@ -48,9 +52,12 @@ class AnnouncementController extends Controller
      *
      * @param  StoreRequest  $request
      * @return AnnouncementResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', $request->get('propertyId'));
+
         $announcement = $this->announcementRepository->save($request->all());
 
         return new AnnouncementResource($announcement);
@@ -61,9 +68,12 @@ class AnnouncementController extends Controller
      *
      * @param Announcement $announcement
      * @return AnnouncementResource
+     * @throws AuthorizationException
      */
     public function show(Announcement $announcement)
     {
+        $this->authorize('show', $announcement);
+
         return new AnnouncementResource($announcement);
     }
 
@@ -73,9 +83,12 @@ class AnnouncementController extends Controller
      * @param UpdateRequest $request
      * @param Announcement $announcement
      * @return AnnouncementResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, Announcement $announcement)
     {
+        $this->authorize('update', $announcement);
+
         $announcement = $this->announcementRepository->update($announcement, $request->all());
 
         return new AnnouncementResource($announcement);
@@ -86,9 +99,12 @@ class AnnouncementController extends Controller
      *
      * @param Announcement $announcement
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(Announcement $announcement)
     {
+        $this->authorize('destroy', $announcement);
+
         $this->announcementRepository->delete($announcement);
 
         return response()->json(null, 204);

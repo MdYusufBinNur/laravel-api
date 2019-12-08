@@ -17,7 +17,7 @@ class StoreRequest extends Request
     {
         return [
             'userId' => 'required_without:users|exists:users,id',
-            'level' => 'in:' . Admin::LEVEL_SUPER . ',' . Admin::LEVEL_LIMITED . ',' . Admin::LEVEL_STANDARD,
+            'level' => 'in:' . /*Admin::LEVEL_SUPER . ',' .*/ Admin::LEVEL_LIMITED . ',' . Admin::LEVEL_STANDARD,
             'users' => 'required_without:userId',
             'users.name' => 'required_without:userId|min:3|max:255',
             'users.email' => 'required_without:userId|email|unique:users|max:255',

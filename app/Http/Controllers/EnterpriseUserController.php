@@ -10,6 +10,7 @@ use App\Http\Requests\EnterpriseUser\UpdateRequest;
 use App\Http\Resources\EnterpriseUserResource;
 use App\Http\Resources\EnterpriseUserResourceCollection;
 use App\Repositories\Contracts\EnterpriseUserRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class EnterpriseUserController extends Controller
 {
@@ -34,6 +35,7 @@ class EnterpriseUserController extends Controller
      *
      * @param IndexRequest $request
      * @return EnterpriseUserResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
@@ -49,6 +51,7 @@ class EnterpriseUserController extends Controller
      *
      * @param  StoreRequest  $request
      * @return EnterpriseUserResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
@@ -64,6 +67,7 @@ class EnterpriseUserController extends Controller
      *
      * @param EnterpriseUser $enterpriseUser
      * @return EnterpriseUserResource
+     * @throws AuthorizationException
      */
     public function show(EnterpriseUser $enterpriseUser)
     {
@@ -78,6 +82,7 @@ class EnterpriseUserController extends Controller
      * @param UpdateRequest $request
      * @param EnterpriseUser $enterpriseUser
      * @return EnterpriseUserResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, EnterpriseUser $enterpriseUser)
     {
@@ -94,6 +99,7 @@ class EnterpriseUserController extends Controller
      * @param DestroyRequest $request
      * @param EnterpriseUser $enterpriseUser
      * @return \Illuminate\Http\Response
+     * @throws AuthorizationException
      */
     public function destroy(DestroyRequest $request, EnterpriseUser $enterpriseUser)
     {

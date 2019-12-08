@@ -102,7 +102,7 @@ trait EnterpriseUserMethods
     }
 
     /**
-     * is a enterprise user of the company
+     * is a admin enterprise user of the company
      *
      * @param int $companyId
      * @return bool
@@ -127,5 +127,16 @@ trait EnterpriseUserMethods
     public function isAnEnterpriseUserOfTheProperty(int $propertyId)
     {
         return in_array($propertyId, $this->getEnterpriseUserPropertyIds());
+    }
+
+    /**
+     * is an admin enterprise user of the property
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function isAnAdminEnterpriseUserOfTheProperty(int $propertyId)
+    {
+        return $this->isAdminEnterpriseUser() && $this->isAnEnterpriseUserOfTheProperty($propertyId);
     }
 }

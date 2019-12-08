@@ -33,7 +33,7 @@ class AdminController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('show', Admin::class);
+        $this->authorize('list', Admin::class);
 
         $admins = $this->adminRepository->findBy($request->all());
 

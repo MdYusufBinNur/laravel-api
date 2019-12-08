@@ -49,4 +49,14 @@ class Unit extends Model
     {
         return $this->hasMany(Resident::class, 'unitId', 'id')->where('propertyId', $this->propertyId);
     }
+
+    /**
+     * get residents users' ids
+     *
+     * @return array
+     */
+    public function getResidentsUserIds()
+    {
+        return $this->residents()->pluck('userId')->toArray();
+    }
 }

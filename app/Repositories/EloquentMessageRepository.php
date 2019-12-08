@@ -74,6 +74,7 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
             // save all users
             $messageUserRepository = app(MessageUserRepository::class);
             $toUserIds = $messageUserRepository->saveByMessage($message);
+
             DB::commit();
 
             if ($message instanceof Message) {

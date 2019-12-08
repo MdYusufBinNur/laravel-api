@@ -112,4 +112,15 @@ class Message extends Model
     {
         return $this->hasMany(Attachment::class, 'resourceId')->where('type', Attachment::ATTACHMENT_TYPE_MESSAGE);
     }
+
+    /**
+     * message can be accessed by the user
+     *
+     * @param int $userId
+     * @return bool
+     */
+    public function messageCanBeAccessedByTheUser(int $userId)
+    {
+        return in_array($userId, $this->messageUsers()->pluck('userId')->toArray());
+    }
 }

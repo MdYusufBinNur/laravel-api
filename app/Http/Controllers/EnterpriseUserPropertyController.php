@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DbModels\EnterpriseUser;
 use App\DbModels\EnterpriseUserProperty;
 use App\Http\Requests\EnterpriseUserProperty\IndexRequest;
 use App\Http\Requests\EnterpriseUserProperty\StoreRequest;
@@ -35,22 +36,11 @@ class EnterpriseUserPropertyController extends Controller
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', EnterpriseUser::class);
+
         $enterpriseUserProperties = $this->enterpriseUserPropertyRepository->findBy($request->all());
 
         return new EnterpriseUserPropertyResourceCollection($enterpriseUserProperties);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  StoreRequest $request
-     * @return EnterpriseUserPropertyResource
-     */
-    public function store(StoreRequest $request)
-    {
-        $enterpriseUserProperty = $this->enterpriseUserPropertyRepository->save($request->all());
-
-        return new EnterpriseUserPropertyResource($enterpriseUserProperty);
     }
 
     /**
@@ -61,33 +51,8 @@ class EnterpriseUserPropertyController extends Controller
      */
     public function show(EnterpriseUserProperty $enterpriseUserProperty)
     {
-        return new EnterpriseUserPropertyResource($enterpriseUserProperty);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param UpdateRequest $request
-     * @param EnterpriseUserProperty $enterpriseUserProperty
-     * @return EnterpriseUserPropertyResource
-     */
-    public function update(UpdateRequest $request, EnterpriseUserProperty $enterpriseUserProperty)
-    {
-        $enterpriseUserProperty = $this->enterpriseUserPropertyRepository->update($enterpriseUserProperty, $request->all());
+        $this->authorize('show', $enterpriseUserProperty);
 
         return new EnterpriseUserPropertyResource($enterpriseUserProperty);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param EnterpriseUserProperty $enterpriseUserProperty
-     * @return null
-     */
-    public function destroy(EnterpriseUserProperty $enterpriseUserProperty)
-    {
-        $this->enterpriseUserPropertyRepository->delete($enterpriseUserProperty);
-
-        return response()->json(null,204);
     }
 }

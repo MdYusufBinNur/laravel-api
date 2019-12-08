@@ -38,7 +38,7 @@ Route::group(['prefix' => 'api/v1'], function () {
          */
         Route::apiResource('company', 'CompanyController');
         Route::apiResource('enterprise-user', 'EnterpriseUserController');
-        Route::apiResource('enterprise-user-property', 'EnterpriseUserPropertyController');
+        Route::apiResource('enterprise-user-property', 'EnterpriseUserPropertyController', ['except' => ['store', 'put', 'delete']]);
 
 
         /**

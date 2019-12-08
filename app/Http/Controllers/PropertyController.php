@@ -101,7 +101,7 @@ class PropertyController extends Controller
     public function destroy(Property $property)
     {
         $this->authorize('destroy', $property);
-        
+
         $this->propertyRepository->delete($property);
 
         return response()->json(null, 204);

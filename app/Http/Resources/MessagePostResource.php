@@ -24,6 +24,9 @@ class MessagePostResource extends Resource
                 return new UserResource($this->fromUser);
             }),
             'text' => $this->text,
+            'attachments' => $this->when($this->needToInclude($request, 'mp.attachments'), function () {
+                return new AttachmentResourceCollection($this->attachments);
+            }),
         ];
     }
 }

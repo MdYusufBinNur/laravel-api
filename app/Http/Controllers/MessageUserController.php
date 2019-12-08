@@ -53,7 +53,7 @@ class MessageUserController extends Controller
      */
     public function show(MessageUser $messageUser)
     {
-        $this->author;ize('show', $messageUser);
+        $this->authorize('show', $messageUser);
 
         return new MessageUserResource($messageUser);
     }

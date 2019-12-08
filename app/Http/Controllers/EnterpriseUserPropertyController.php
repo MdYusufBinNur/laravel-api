@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\DbModels\EnterpriseUser;
 use App\DbModels\EnterpriseUserProperty;
 use App\Http\Requests\EnterpriseUserProperty\IndexRequest;
-use App\Http\Requests\EnterpriseUserProperty\StoreRequest;
-use App\Http\Requests\EnterpriseUserProperty\UpdateRequest;
 use App\Http\Resources\EnterpriseUserPropertyResource;
 use App\Http\Resources\EnterpriseUserPropertyResourceCollection;
 use App\Repositories\Contracts\EnterpriseUserPropertyRepository;

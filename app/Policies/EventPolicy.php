@@ -81,4 +81,21 @@ class EventPolicy
     {
         return false;
     }
+
+    /**
+     * Determine if a given user has permission to see events for lds
+     *
+     * @param User $currentUser
+     * @param int $propertyId
+     * @return bool
+     */
+    public function eventsForLds(User $currentUser, int $propertyId)
+    {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

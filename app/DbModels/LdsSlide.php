@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class LdsSlide extends Model
@@ -30,5 +31,15 @@ class LdsSlide extends Model
     public function image()
     {
         return $this->hasOne(Attachment::class, 'id','imageId');
+    }
+
+    /**
+     * Get the properties of the slides
+     *
+     * @return HasMany
+     */
+    public function ldsSlidesProperties()
+    {
+        return $this->hasMany(LdsSlideProperty::class,'slideId', 'id');
     }
 }

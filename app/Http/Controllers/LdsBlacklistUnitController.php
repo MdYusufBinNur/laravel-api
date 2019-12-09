@@ -9,6 +9,8 @@ use App\Http\Requests\LdsBlacklistUnit\UpdateRequest;
 use App\Http\Resources\LdsBlacklistUnitResource;
 use App\Http\Resources\LdsBlacklistUnitResourceCollection;
 use App\Repositories\Contracts\LdsBlacklistUnitRepository;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Response;
 
 class LdsBlacklistUnitController extends Controller
 {
@@ -31,9 +33,12 @@ class LdsBlacklistUnitController extends Controller
      *
      * @param IndexRequest $request
      * @return LdsBlacklistUnitResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [LdsBlacklistUnit::class, $request->get('propertyId')]);
+
         $ldsBlackListUnits = $this->ldsBlacklistUnitRepository->findBy($request->all());
 
         return new LdsBlacklistUnitResourceCollection($ldsBlackListUnits);
@@ -42,11 +47,14 @@ class LdsBlacklistUnitController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreRequest $request
      * @return LdsBlacklistUnitResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [LdsBlacklistUnit::class, $request->get('propertyId')]);
+
         $ldsBlacklistUnit = $this->ldsBlacklistUnitRepository->saveBlackListUnit($request->all());
 
         return new LdsBlacklistUnitResource($ldsBlacklistUnit);
@@ -57,9 +65,12 @@ class LdsBlacklistUnitController extends Controller
      *
      * @param LdsBlacklistUnit $ldsBlacklistUnit
      * @return LdsBlacklistUnitResource
+     * @throws AuthorizationException
      */
     public function show(LdsBlacklistUnit $ldsBlacklistUnit)
     {
+        $this->authorize('show', $ldsBlacklistUnit);
+
         return new LdsBlacklistUnitResource($ldsBlacklistUnit);
     }
 
@@ -69,9 +80,12 @@ class LdsBlacklistUnitController extends Controller
      * @param UpdateRequest $request
      * @param LdsBlacklistUnit $ldsBlacklistUnit
      * @return LdsBlacklistUnitResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, LdsBlacklistUnit $ldsBlacklistUnit)
     {
+        $this->authorize('update', $ldsBlacklistUnit);
+
         $ldsBlacklistUnit = $this->ldsBlacklistUnitRepository->update($ldsBlacklistUnit, $request->all());
 
         return new LdsBlacklistUnitResource($ldsBlacklistUnit);
@@ -82,10 +96,13 @@ class LdsBlacklistUnitController extends Controller
      * Remove the specified resource from storage.
      *
      * @param LdsBlacklistUnit $ldsBlacklistUnit
-     * @return \Illuminate\Http\Response
+     * @return Response
+     * @throws AuthorizationException
      */
     public function destroy(LdsBlacklistUnit $ldsBlacklistUnit)
     {
+        $this->authorize('destroy', $ldsBlacklistUnit);
+
         $this->ldsBlacklistUnitRepository->delete($ldsBlacklistUnit);
 
         return response()->json(null,204);

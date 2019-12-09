@@ -9,6 +9,7 @@ use App\Http\Requests\LdsSlide\UpdateRequest;
 use App\Http\Resources\LdsSlideResource;
 use App\Http\Resources\LdsSlideResourceCollection;
 use App\Repositories\Contracts\LdsSlideRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class LdsSlideController extends Controller
 {
@@ -31,9 +32,12 @@ class LdsSlideController extends Controller
      *
      * @param IndexRequest $request
      * @return LdsSlideResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', LdsSlide::class);
+
         $ldsSlides = $this->ldsSlideRepository->findBy($request->all());
 
         return new LdsSlideResourceCollection($ldsSlides);
@@ -42,11 +46,14 @@ class LdsSlideController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreRequest  $request
      * @return LdsSlideResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', LdsSlide::class);
+
         $ldsSlide = $this->ldsSlideRepository->save($request->all());
 
         return new LdsSlideResource($ldsSlide);
@@ -57,9 +64,12 @@ class LdsSlideController extends Controller
      *
      * @param LdsSlide $ldsSlide
      * @return LdsSlideResource
+     * @throws AuthorizationException
      */
     public function show(LdsSlide $ldsSlide)
     {
+        $this->authorize('show', $ldsSlide);
+
         return new LdsSlideResource($ldsSlide);
     }
 
@@ -69,9 +79,12 @@ class LdsSlideController extends Controller
      * @param UpdateRequest $request
      * @param LdsSlide $ldsSlide
      * @return LdsSlideResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, LdsSlide $ldsSlide)
     {
+        $this->authorize('update', $ldsSlide);
+
         $ldsSlide = $this->ldsSlideRepository->update($ldsSlide, $request->all());
 
         return new LdsSlideResource($ldsSlide);
@@ -83,9 +96,12 @@ class LdsSlideController extends Controller
      *
      * @param LdsSlide $ldsSlide
      * @return \Illuminate\Http\Response
+     * @throws AuthorizationException
      */
     public function destroy(LdsSlide $ldsSlide)
     {
+        $this->authorize('destroy', $ldsSlide);
+
         $this->ldsSlideRepository->delete($ldsSlide);
 
         return response()->json(null, 204);

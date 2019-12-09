@@ -146,4 +146,20 @@ class PackagePolicy
 
         return false;
     }
+
+    /**
+     * Determine if a given user has permission to see lds package list
+     *
+     * @param User $currentUser
+     * @param int $propertyId
+     * @return bool
+     */
+    public function packagesForLds(User $currentUser, int $propertyId)
+    {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
+    }
 }

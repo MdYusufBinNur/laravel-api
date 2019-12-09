@@ -82,4 +82,20 @@ class AnnouncementPolicy
     {
         return $currentUser->isAStaffOfTheProperty($announcement->propertyId);
     }
+
+    /**
+     * Determine if a given user has permission to see announcement for lds
+     *
+     * @param User $currentUser
+     * @param int $propertyId
+     * @return bool
+     */
+    public function announcementsForLds(User $currentUser, int $propertyId)
+    {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
+    }
 }

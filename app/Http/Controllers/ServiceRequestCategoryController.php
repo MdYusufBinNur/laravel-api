@@ -9,6 +9,7 @@ use App\Http\Requests\ServiceRequestCategory\UpdateRequest;
 use App\Http\Resources\ServiceRequestCategoryResource;
 use App\Http\Resources\ServiceRequestCategoryResourceCollection;
 use App\Repositories\Contracts\ServiceRequestCategoryRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class ServiceRequestCategoryController extends Controller
 {
@@ -32,9 +33,12 @@ class ServiceRequestCategoryController extends Controller
      *
      * @param IndexRequest $request
      * @return ServiceRequestCategoryResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [ServiceRequestCategory::class, $request->get('propertyId')]);
+
         $serviceRequestCategories = $this->serviceRequestCategoryRepository->findBy($request->all());
 
         return new ServiceRequestCategoryResourceCollection($serviceRequestCategories);
@@ -45,9 +49,12 @@ class ServiceRequestCategoryController extends Controller
      *
      * @param  StoreRequest  $request
      * @return ServiceRequestCategoryResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [ServiceRequestCategory::class, $request->get('propertyId')]);
+
         $serviceRequestCategory = $this->serviceRequestCategoryRepository->save($request->all());
 
         return new ServiceRequestCategoryResource($serviceRequestCategory);
@@ -58,9 +65,12 @@ class ServiceRequestCategoryController extends Controller
      *
      * @param ServiceRequestCategory $serviceRequestCategory
      * @return ServiceRequestCategoryResource
+     * @throws AuthorizationException
      */
     public function show(ServiceRequestCategory $serviceRequestCategory)
     {
+        $this->authorize('show', $serviceRequestCategory);
+
         return new ServiceRequestCategoryResource($serviceRequestCategory);
     }
 
@@ -70,9 +80,12 @@ class ServiceRequestCategoryController extends Controller
      * @param UpdateRequest $request
      * @param ServiceRequestCategory $serviceRequestCategory
      * @return ServiceRequestCategoryResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, ServiceRequestCategory $serviceRequestCategory)
     {
+        $this->authorize('update', $serviceRequestCategory);
+
         $serviceRequestCategory = $this->serviceRequestCategoryRepository->update($serviceRequestCategory,$request->all());
 
         return new ServiceRequestCategoryResource($serviceRequestCategory);
@@ -83,9 +96,12 @@ class ServiceRequestCategoryController extends Controller
      *
      * @param ServiceRequestCategory $serviceRequestCategory
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(ServiceRequestCategory $serviceRequestCategory)
     {
+        $this->authorize('destroy', $serviceRequestCategory);
+
         $this->serviceRequestCategoryRepository->delete($serviceRequestCategory);
     }
 }

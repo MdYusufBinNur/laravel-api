@@ -53,7 +53,7 @@ class FdiController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [Fdi::class, $request->get('propertyId'), $request->get('unitId')]);
+        $this->authorize('store', [Fdi::class, $request->get('propertyId'), $request->get('unitId', null)]);
 
         $fdi = $this->fdiRepository->save($request->all());
 

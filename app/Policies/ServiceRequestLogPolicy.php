@@ -27,10 +27,19 @@ class ServiceRequestLogPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -43,7 +52,7 @@ class ServiceRequestLogPolicy
      */
     public function store(User $currentUser)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -55,7 +64,16 @@ class ServiceRequestLogPolicy
      */
     public function show(User $currentUser,  ServiceRequestLog $serviceRequestLog)
     {
-        return $currentUser->id === $user->id;
+        $propertyId = $serviceRequestLog->propertyId;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -67,7 +85,7 @@ class ServiceRequestLogPolicy
      */
     public function update(User $currentUser, ServiceRequestLog $serviceRequestLog)
     {
-        return $currentUser->id === $user->id;
+        return false;
     }
 
     /**

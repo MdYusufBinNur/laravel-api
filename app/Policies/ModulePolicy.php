@@ -44,7 +44,7 @@ class ModulePolicy
      */
     public function store(User $currentUser)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -56,7 +56,7 @@ class ModulePolicy
      */
     public function show(User $currentUser,  Module $module)
     {
-        return $currentUser->id === $user->id;
+        return false;
     }
 
     /**
@@ -68,7 +68,7 @@ class ModulePolicy
      */
     public function update(User $currentUser, Module $module)
     {
-        return $currentUser->id === $user->id;
+        return false;
     }
 
     /**

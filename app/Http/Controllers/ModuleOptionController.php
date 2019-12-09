@@ -8,6 +8,7 @@ use App\Http\Requests\ModuleOption\StoreRequest;
 use App\Http\Requests\ModuleOption\UpdateRequest;
 use App\Http\Resources\ModuleOptionResource;
 use App\Http\Resources\ModuleOptionResourceCollection;
+use App\Policies\ModulePolicy;
 use App\Repositories\Contracts\ModuleOptionRepository;
 use http\Env\Response;
 use Illuminate\Http\Request;
@@ -36,6 +37,8 @@ class ModuleOptionController extends Controller
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', ModulePolicy::class);
+
         $moduleOptions = $this->moduleOptionRepository->findBy($request->all());
 
         return new ModuleOptionResourceCollection($moduleOptions);
@@ -49,6 +52,8 @@ class ModuleOptionController extends Controller
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', ModulePolicy::class);
+
         $moduleOption = $this->moduleOptionRepository->save($request->all());
 
         return new ModuleOptionResource($moduleOption);
@@ -62,6 +67,8 @@ class ModuleOptionController extends Controller
      */
     public function show(ModuleOption $moduleOption)
     {
+        $this->authorize('show', $moduleOption);
+
         return new ModuleOptionResource($moduleOption);
     }
 
@@ -74,6 +81,8 @@ class ModuleOptionController extends Controller
      */
     public function update(UpdateRequest $request, ModuleOption $moduleOption)
     {
+        $this->authorize('update', $moduleOption);
+
         $moduleOption = $this->moduleOptionRepository->update($moduleOption, $request->all());
 
         return new ModuleOptionResource($moduleOption);
@@ -87,6 +96,8 @@ class ModuleOptionController extends Controller
      */
     public function destroy(ModuleOption $moduleOption)
     {
+        $this->authorize('destroy', $moduleOption);
+
         $this->moduleOptionRepository->delete($moduleOption);
 
         return response()->json(null, 204);

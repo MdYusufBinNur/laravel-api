@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DbModels\Fdi;
 use App\DbModels\Package;
 use App\Http\Requests\Package\IndexRequest;
 use App\Http\Requests\Package\StoreRequest;
@@ -35,6 +36,8 @@ class PackageController extends Controller
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [Package::class, $request->get('propertyId'), $request->get('unitId', null)]);
+
         $packages = $this->packageRepository->findBy($request->all());
 
         return new PackageResourceCollection($packages);
@@ -48,6 +51,8 @@ class PackageController extends Controller
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [Package::class, $request->get('propertyId'), $request->get('unitId', null)]);
+
         $package = $this->packageRepository->save($request->all());
 
         return new PackageResource($package);
@@ -60,6 +65,8 @@ class PackageController extends Controller
      */
     public function show(Package $package)
     {
+        $this->authorize('show', $package);
+
         return new PackageResource($package);
     }
 
@@ -72,6 +79,8 @@ class PackageController extends Controller
      */
     public function update(UpdateRequest $request, Package $package)
     {
+        $this->authorize('update', $package);
+
         $package = $this->packageRepository->update($package, $request->all());
 
         return new PackageResource($package);
@@ -85,6 +94,8 @@ class PackageController extends Controller
      */
     public function destroy(Package $package)
     {
+        $this->authorize('destroy', $package);
+
         $this->packageRepository->delete($package);
 
         return response()->json(null, 204);

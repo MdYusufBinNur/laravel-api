@@ -112,7 +112,7 @@ class ResidentController extends Controller
 
     /**
      * @param TransferResidentRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return ResidentResourceCollection
      * @throws AuthorizationException
      */
     public function residentTransfer(TransferResidentRequest $request)

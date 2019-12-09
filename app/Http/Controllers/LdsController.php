@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DbModels\Announcement;
+use App\DbModels\Event;
 use App\DbModels\Package;
 use App\Http\Requests\Lds\AnnouncementsRequest;
 use App\Http\Requests\Lds\EventsRequest;
@@ -83,7 +84,7 @@ class LdsController extends Controller
      */
     public function events(EventsRequest $request)
     {
-        $this->authorize('eventsForLds', Package::class);
+        $this->authorize('eventsForLds', Event::class);
 
         $events = $this->eventRepository->getEventsForLds($request->all());
         return new EventResourceCollection($events);

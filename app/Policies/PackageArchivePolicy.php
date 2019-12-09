@@ -27,10 +27,31 @@ class PackageArchivePolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
+     * @param int $unitId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId, ?int $unitId)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+
+            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
+
+            return in_array($unitId, $unitIds);
+        }
+
         return false;
     }
 
@@ -38,12 +59,32 @@ class PackageArchivePolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
+     * @param int $unitId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId, ?int $unitId)
     {
-        return true;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+
+            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
+
+            return in_array($unitId, $unitIds);
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +96,15 @@ class PackageArchivePolicy
      */
     public function show(User $currentUser,  PackageArchive $packageArchive)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($packageArchive->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($packageArchive->propertyId)) {
+            return true;
+        }
+
+        return in_array($currentUser->id, $packageArchive->property->unit->getResidentsUserIds());
     }
 
     /**
@@ -67,7 +116,15 @@ class PackageArchivePolicy
      */
     public function update(User $currentUser, PackageArchive $packageArchive)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($packageArchive->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($packageArchive->propertyId)) {
+            return true;
+        }
+
+        return in_array($currentUser->id, $packageArchive->property->unit->getResidentsUserIds());
     }
 
     /**
@@ -79,6 +136,14 @@ class PackageArchivePolicy
      */
     public function destroy(User $currentUser, PackageArchive $packageArchive)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($packageArchive->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($packageArchive->propertyId)) {
+            return true;
+        }
+
         return false;
     }
 }

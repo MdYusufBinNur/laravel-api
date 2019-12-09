@@ -9,7 +9,7 @@ use App\Http\Requests\PackageArchive\UpdateRequest;
 use App\Http\Resources\PackageArchiveResource;
 use App\Http\Resources\PackageArchiveResourceCollection;
 use App\Repositories\Contracts\PackageArchiveRepository;
-use Illuminate\Http\Request;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class PackageArchiveController extends Controller
 {
@@ -32,9 +32,12 @@ class PackageArchiveController extends Controller
      *
      * @param IndexRequest $request
      * @return PackageArchiveResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [PackageArchive::class, $request->get('propertyId'), $request->get('unitId', null)]);
+
         $packageArchives = $this->packageArchiveRepository->findBy($request->all());
 
         return new PackageArchiveResourceCollection($packageArchives);
@@ -45,9 +48,12 @@ class PackageArchiveController extends Controller
      *
      * @param StoreRequest  $request
      * @return PackageArchiveResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [PackageArchive::class, $request->get('propertyId'), $request->get('unitId', null)]);
+
         $packageArchive = $this->packageArchiveRepository->save($request->all());
 
         return new PackageArchiveResource($packageArchive);
@@ -58,9 +64,12 @@ class PackageArchiveController extends Controller
      *
      * @param PackageArchive $packageArchive
      * @return PackageArchiveResource
+     * @throws AuthorizationException
      */
     public function show(PackageArchive $packageArchive)
     {
+        $this->authorize('show', $packageArchive);
+
         return new PackageArchiveResource($packageArchive);
     }
 
@@ -70,9 +79,12 @@ class PackageArchiveController extends Controller
      * @param UpdateRequest $request
      * @param PackageArchive $packageArchive
      * @return PackageArchiveResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, PackageArchive $packageArchive)
     {
+        $this->authorize('update', $packageArchive);
+
         $packageArchive = $this->packageArchiveRepository->update($packageArchive, $request->all());
 
         return new PackageArchiveResource($packageArchive);
@@ -83,9 +95,12 @@ class PackageArchiveController extends Controller
      *
      * @param PackageArchive $packageArchive
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(PackageArchive $packageArchive)
     {
+        $this->authorize('destroy', $packageArchive);
+
         $this->packageArchiveRepository->delete($packageArchive);
 
         return response()->json(null, 204);

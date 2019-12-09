@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\DbModels\Fdi;
 use App\DbModels\Package;
 use App\Http\Requests\Package\IndexRequest;
 use App\Http\Requests\Package\StoreRequest;
@@ -10,7 +9,7 @@ use App\Http\Requests\Package\UpdateRequest;
 use App\Http\Resources\PackageResource;
 use App\Http\Resources\PackageResourceCollection;
 use App\Repositories\Contracts\PackageRepository;
-use Illuminate\Http\Request;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class PackageController extends Controller
 {
@@ -33,6 +32,7 @@ class PackageController extends Controller
      *
      * @param IndexRequest $request
      * @return PackageResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
@@ -48,6 +48,7 @@ class PackageController extends Controller
      *
      * @param  StoreRequest  $request
      * @return PackageResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
@@ -62,6 +63,7 @@ class PackageController extends Controller
      * Display the specified Package resource.
      * @param Package $package
      * @return PackageResource
+     * @throws AuthorizationException
      */
     public function show(Package $package)
     {
@@ -76,6 +78,7 @@ class PackageController extends Controller
      * @param UpdateRequest $request
      * @param Package $package
      * @return PackageResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, Package $package)
     {
@@ -91,6 +94,7 @@ class PackageController extends Controller
      *
      * @param Package $package
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(Package $package)
     {

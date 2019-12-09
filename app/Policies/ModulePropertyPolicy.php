@@ -39,20 +39,20 @@ class ModulePropertyPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId)
     {
-        if ($currentUser->isEnterpriseUser()) {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
         }
 
-        if ($currentUser->isPriorityStaff()) {
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
             return true;
         }
 
-        if ($currentUser->isStandardStaff()) {
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -68,7 +68,7 @@ class ModulePropertyPolicy
      */
     public function show(User $currentUser,  ModuleProperty $moduleProperty)
     {
-        return true;
+        return $currentUser->isUserOfTheProperty($moduleProperty->propertyId);
     }
 
     /**
@@ -80,15 +80,17 @@ class ModulePropertyPolicy
      */
     public function update(User $currentUser, ModuleProperty $moduleProperty)
     {
-        if ($currentUser->isEnterpriseUser()) {
+        $propertyId = $moduleProperty->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
         }
 
-        if ($currentUser->isPriorityStaff()) {
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
             return true;
         }
 
-        if ($currentUser->isStandardStaff()) {
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 

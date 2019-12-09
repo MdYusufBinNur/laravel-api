@@ -37,7 +37,7 @@ class ModulePropertyController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', ModuleProperty::clearBootedModels());
+        $this->authorize('list', [ModuleProperty::class, $request->get('propertyId')]);
 
         $moduleProperties = $this->modulePropertyRepository->findBy($request->all());
 
@@ -53,7 +53,7 @@ class ModulePropertyController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', ModuleProperty::clearBootedModels());
+        $this->authorize('list', [ModuleProperty::class, $request->get('propertyId')]);
 
         $moduleProperty = $this->modulePropertyRepository->setModuleProperty($request->all());
 

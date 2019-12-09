@@ -103,7 +103,7 @@ Route::group(['prefix' => 'api/v1'], function () {
          * related to post features
          */
         Route::apiResource('post', 'PostController');
-        Route::apiResource('post-approval-archive', 'PostApprovalArchiveController');
+        Route::apiResource('post-approval-archive', 'PostApprovalArchiveController', ['only' => ['index', 'show']]);
         Route::apiResource('post-approval-blacklist-unit', 'PostApprovalBlacklistUnitController');
         Route::apiResource('post-comment', 'PostCommentController');
         Route::apiResource('post-event', 'PostEventController');

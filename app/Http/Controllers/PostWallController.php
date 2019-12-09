@@ -9,6 +9,7 @@ use App\Http\Requests\PostWall\UpdateRequest;
 use App\Http\Resources\PostWallResource;
 use App\Http\Resources\PostWallResourceCollection;
 use App\Repositories\Contracts\PostWallRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class PostWallController extends Controller
 {
@@ -31,9 +32,12 @@ class PostWallController extends Controller
      *
      * @param IndexRequest $request
      * @return PostWallResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [PostWall::class, $request->get('propertyId')]);
+
         $postWalls = $this->postWallRepository->findBy($request->all());
 
         return new PostWallResourceCollection($postWalls);
@@ -44,9 +48,12 @@ class PostWallController extends Controller
      *
      * @param  StoreRequest $request
      * @return PostWallResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [PostWall::class, $request->get('propertyId')]);
+
         $postWall = $this->postWallRepository->save($request->all());
 
         return new PostWallResource($postWall);
@@ -57,9 +64,12 @@ class PostWallController extends Controller
      *
      * @param PostWall $postWall
      * @return PostWallResource
+     * @throws AuthorizationException
      */
     public function show(PostWall $postWall)
     {
+        $this->authorize('show', $postWall);
+
         return new PostWallResource($postWall);
     }
 
@@ -69,9 +79,12 @@ class PostWallController extends Controller
      * @param UpdateRequest $request
      * @param PostWall $postWall
      * @return PostWallResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, PostWall $postWall)
     {
+        $this->authorize('update', $postWall);
+
         $postWall = $this->postWallRepository->update($postWall,$request->all());
 
         return new PostWallResource($postWall);
@@ -82,9 +95,12 @@ class PostWallController extends Controller
      *
      * @param PostWall $postWall
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(PostWall $postWall)
     {
+        $this->authorize('destroy', $postWall);
+
         $this->postWallRepository->delete($postWall);
 
         return response()->json(null,204);

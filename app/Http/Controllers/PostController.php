@@ -9,6 +9,7 @@ use App\Http\Requests\Post\UpdateRequest;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\PostResourceCollection;
 use App\Repositories\Contracts\PostRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class PostController extends Controller
 {
@@ -31,9 +32,12 @@ class PostController extends Controller
      *
      * @param IndexRequest $request
      * @return PostResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [Post::class, $request->get('propertyId')]);
+
         $posts = $this->postRepository->findBy($request->all());
 
         return new PostResourceCollection($posts);
@@ -44,9 +48,12 @@ class PostController extends Controller
      *
      * @param StoreRequest  $request
      * @return PostResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [Post::class, $request->get('propertyId')]);
+
         $post = $this->postRepository->save($request->all());
 
         return new PostResource($post);
@@ -57,9 +64,12 @@ class PostController extends Controller
      *
      * @param Post $post
      * @return PostResource
+     * @throws AuthorizationException
      */
     public function show(Post $post)
     {
+        $this->authorize('show', $post);
+
         return new PostResource($post);
     }
 
@@ -69,9 +79,12 @@ class PostController extends Controller
      * @param UpdateRequest $request
      * @param Post $post
      * @return PostResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, Post $post)
     {
+        $this->authorize('update', $post);
+
         $post = $this->postRepository->update($post, $request->all());
 
         return new PostResource($post);
@@ -82,9 +95,12 @@ class PostController extends Controller
      *
      * @param Post $post
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(Post $post)
     {
+        $this->authorize('destroy', $post);
+
         $this->postRepository->delete($post);
 
         return response()->json(null,204);

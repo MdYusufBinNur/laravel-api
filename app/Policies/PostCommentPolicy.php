@@ -27,10 +27,15 @@ class PostCommentPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -38,12 +43,16 @@ class PostCommentPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId)
     {
-        return true;
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +64,11 @@ class PostCommentPolicy
      */
     public function show(User $currentUser,  PostComment $postComment)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isUserOfTheProperty($postComment->post->propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -67,7 +80,7 @@ class PostCommentPolicy
      */
     public function update(User $currentUser, PostComment $postComment)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->id === $postComment->createdByUserId;
     }
 
     /**
@@ -79,6 +92,18 @@ class PostCommentPolicy
      */
     public function destroy(User $currentUser, PostComment $postComment)
     {
-        return false;
+        $post = $postComment->post->propertyId;
+        $propertyId = $post->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return $currentUser->id === $postComment->createdByUserId
+            || $currentUser->id === $post->createdByUserId;
     }
 }

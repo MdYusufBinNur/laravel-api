@@ -143,7 +143,7 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
         unset($searchCriteria['enterpriseUserId']);
         unset($searchCriteria['userId']);
 
-        if (isset($searchCriteria['id'])) {
+        if (isset($searchCriteria['id']) && is_array($searchCriteria['id'])) {
             $searchCriteria['id'] = implode(",", array_unique($searchCriteria['id']));
         }
 

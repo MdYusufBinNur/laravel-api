@@ -10,8 +10,7 @@ use App\Http\Resources\ModuleOptionResource;
 use App\Http\Resources\ModuleOptionResourceCollection;
 use App\Policies\ModulePolicy;
 use App\Repositories\Contracts\ModuleOptionRepository;
-use http\Env\Response;
-use Illuminate\Http\Request;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class ModuleOptionController extends Controller
 {
@@ -34,6 +33,7 @@ class ModuleOptionController extends Controller
      *
      * @param IndexRequest $request
      * @return ModuleOptionResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
@@ -49,6 +49,7 @@ class ModuleOptionController extends Controller
      *
      * @param StoreRequest  $request
      * @return ModuleOptionResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
@@ -64,6 +65,7 @@ class ModuleOptionController extends Controller
      *
      * @param ModuleOption $moduleOption
      * @return ModuleOptionResource
+     * @throws AuthorizationException
      */
     public function show(ModuleOption $moduleOption)
     {
@@ -78,6 +80,7 @@ class ModuleOptionController extends Controller
      * @param UpdateRequest $request
      * @param ModuleOption $moduleOption
      * @return ModuleOptionResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, ModuleOption $moduleOption)
     {
@@ -93,6 +96,7 @@ class ModuleOptionController extends Controller
      *
      * @param ModuleOption $moduleOption
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(ModuleOption $moduleOption)
     {

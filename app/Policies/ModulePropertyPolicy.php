@@ -27,11 +27,12 @@ class ModulePropertyPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
-        return false;
+        return true;
     }
 
     /**
@@ -43,7 +44,19 @@ class ModulePropertyPolicy
      */
     public function store(User $currentUser)
     {
-        return true;
+        if ($currentUser->isEnterpriseUser()) {
+            return true;
+        }
+
+        if ($currentUser->isPriorityStaff()) {
+            return true;
+        }
+
+        if ($currentUser->isStandardStaff()) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +68,7 @@ class ModulePropertyPolicy
      */
     public function show(User $currentUser,  ModuleProperty $moduleProperty)
     {
-        return $currentUser->id === $user->id;
+        return true;
     }
 
     /**
@@ -67,7 +80,19 @@ class ModulePropertyPolicy
      */
     public function update(User $currentUser, ModuleProperty $moduleProperty)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isEnterpriseUser()) {
+            return true;
+        }
+
+        if ($currentUser->isPriorityStaff()) {
+            return true;
+        }
+
+        if ($currentUser->isStandardStaff()) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

@@ -36,7 +36,7 @@ class TowerPolicy
             return true;
         }
 
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
             return true;
         }
 

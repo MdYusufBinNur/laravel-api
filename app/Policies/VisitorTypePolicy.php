@@ -27,10 +27,19 @@ class VisitorTypePolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -38,12 +47,20 @@ class VisitorTypePolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId)
     {
-        return true;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +72,17 @@ class VisitorTypePolicy
      */
     public function show(User $currentUser,  VisitorType $visitorType)
     {
-        return $currentUser->id === $user->id;
+        $propertyId = $visitorType->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

@@ -79,6 +79,7 @@ class PackagePolicy
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
 
+            //todo create a method for resident of a unit in user model
             $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
 
             return in_array($unitId, $unitIds);

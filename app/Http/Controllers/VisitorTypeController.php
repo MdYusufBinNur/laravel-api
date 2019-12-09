@@ -9,6 +9,7 @@ use App\Http\Requests\VisitorType\UpdateRequest;
 use App\Http\Resources\VisitorTypeResource;
 use App\Http\Resources\VisitorTypeResourceCollection;
 use App\Repositories\Contracts\VisitorTypeRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 class VisitorTypeController extends Controller
@@ -32,9 +33,12 @@ class VisitorTypeController extends Controller
      *
      * @param IndexRequest $request
      * @return VisitorTypeResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [VisitorType::class, $request->get('propertyId')]);
+
         $visitorTypes = $this->visitorTypeRepository->findBy($request->all());
 
         return new VisitorTypeResourceCollection($visitorTypes);
@@ -45,9 +49,12 @@ class VisitorTypeController extends Controller
      *
      * @param  StoreRequest $request
      * @return VisitorTypeResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [VisitorType::class, $request->get('propertyId')]);
+
         $visitorType = $this->visitorTypeRepository->save($request->all());
 
         return new VisitorTypeResource($visitorType);
@@ -58,9 +65,12 @@ class VisitorTypeController extends Controller
      *
      * @param VisitorType $visitorType
      * @return VisitorTypeResource
+     * @throws AuthorizationException
      */
     public function show(VisitorType $visitorType)
     {
+        $this->authorize('show', $visitorType);
+
         return new VisitorTypeResource($visitorType);
     }
 
@@ -70,9 +80,12 @@ class VisitorTypeController extends Controller
      * @param UpdateRequest $request
      * @param VisitorType $visitorType
      * @return VisitorTypeResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, VisitorType $visitorType)
     {
+        $this->authorize('update', $visitorType);
+
         $visitorType = $this->visitorTypeRepository->update($visitorType,$request->all());
 
         return new VisitorTypeResource($visitorType);
@@ -83,9 +96,12 @@ class VisitorTypeController extends Controller
      *
      * @param VisitorType $visitorType
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(VisitorType $visitorType)
     {
+        $this->authorize('destroy', $visitorType);
+
         $this->visitorTypeRepository->delete($visitorType);
 
         return response()->json(null,204);

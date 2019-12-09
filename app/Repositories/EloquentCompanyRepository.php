@@ -34,7 +34,7 @@ class EloquentCompanyRepository extends EloquentBaseRepository implements Compan
             unset($searchCriteria['query']);
         }
 
-        if (isset($searchCriteria['id'])) {
+        if (isset($searchCriteria['id']) && is_array($searchCriteria['id'])) {
             $searchCriteria['id'] = implode(",", array_unique($searchCriteria['id']));
         }
 

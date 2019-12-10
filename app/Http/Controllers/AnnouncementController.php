@@ -36,10 +36,11 @@ class AnnouncementController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [Announcement::class, $request->get('propertyId')]);
 
         if (strpos($request->getPathInfo(), 'property-login-page-announcements') !== false) {
             $request->merge(['showOnWebsite' => 1]);
+        } else {
+            $this->authorize('list', [Announcement::class, $request->get('propertyId')]);
         }
 
         $announcements = $this->announcementRepository->findBy($request->all());

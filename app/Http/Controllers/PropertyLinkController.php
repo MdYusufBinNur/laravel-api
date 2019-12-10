@@ -9,6 +9,7 @@ use App\Http\Requests\PropertyLink\UpdateRequest;
 use App\Http\Resources\PropertyLinkResource;
 use App\Http\Resources\PropertyLinkResourceCollection;
 use App\Repositories\Contracts\PropertyLinkRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class PropertyLinkController extends Controller
 {
@@ -30,9 +31,12 @@ class PropertyLinkController extends Controller
      *
      * @param IndexRequest $request
      * @return PropertyLinkResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [PropertyLink::class, $request->get('propertyId')]);
+
         $propertyLinks = $this->propertyLinkRepository->findBy($request->all());
 
         return new PropertyLinkResourceCollection($propertyLinks);
@@ -43,9 +47,12 @@ class PropertyLinkController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return PropertyLinkResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [PropertyLink::class, $request->get('propertyId')]);
+
         $propertyLink = $this->propertyLinkRepository->save($request->all());
 
         return new PropertyLinkResource($propertyLink);
@@ -56,9 +63,12 @@ class PropertyLinkController extends Controller
      *
      * @param PropertyLink $propertyLink
      * @return PropertyLinkResource
+     * @throws AuthorizationException
      */
     public function show(PropertyLink $propertyLink)
     {
+        $this->authorize('show', $propertyLink);
+
         return new PropertyLinkResource($propertyLink);
     }
 
@@ -68,9 +78,12 @@ class PropertyLinkController extends Controller
      * @param UpdateRequest $request
      * @param PropertyLink $propertyLink
      * @return PropertyLinkResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, PropertyLink $propertyLink)
     {
+        $this->authorize('update', $propertyLink);
+
         $propertyLink = $this->propertyLinkRepository->update($propertyLink,$request->all());
 
         return new PropertyLinkResource($propertyLink);
@@ -81,9 +94,12 @@ class PropertyLinkController extends Controller
      *
      * @param PropertyLink $propertyLink
      * @return \Illuminate\Http\Response
+     * @throws AuthorizationException
      */
     public function destroy(PropertyLink $propertyLink)
     {
+        $this->authorize('destroy', $propertyLink);
+
         $this->propertyLinkRepository->delete($propertyLink);
 
         return response()->json(null, 204);

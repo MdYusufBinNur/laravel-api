@@ -27,10 +27,24 @@ class PropertyLinkCategoryPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+
         return false;
     }
 
@@ -38,12 +52,24 @@ class PropertyLinkCategoryPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId)
     {
-        return true;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +81,21 @@ class PropertyLinkCategoryPolicy
      */
     public function show(User $currentUser,  PropertyLinkCategory $propertyLinkCategory)
     {
-        return $currentUser->id === $user->id;
+        $propertyId = $propertyLinkCategory->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty()) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -67,7 +107,21 @@ class PropertyLinkCategoryPolicy
      */
     public function update(User $currentUser, PropertyLinkCategory $propertyLinkCategory)
     {
-        return $currentUser->id === $user->id;
+        $propertyId = $propertyLinkCategory->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -79,6 +133,20 @@ class PropertyLinkCategoryPolicy
      */
     public function destroy(User $currentUser, PropertyLinkCategory $propertyLinkCategory)
     {
+        $propertyId = $propertyLinkCategory->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 }

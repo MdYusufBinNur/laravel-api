@@ -37,7 +37,7 @@ class ModuleOptionController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', ModulePolicy::class);
+        $this->authorize('list', ModuleOption::class);
 
         $moduleOptions = $this->moduleOptionRepository->findBy($request->all());
 
@@ -53,7 +53,7 @@ class ModuleOptionController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', ModulePolicy::class);
+        $this->authorize('store', ModuleOption::class);
 
         $moduleOption = $this->moduleOptionRepository->save($request->all());
 

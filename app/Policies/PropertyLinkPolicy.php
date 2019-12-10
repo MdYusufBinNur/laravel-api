@@ -27,10 +27,15 @@ class PropertyLinkPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -38,12 +43,24 @@ class PropertyLinkPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId)
     {
-        return true;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -53,9 +70,13 @@ class PropertyLinkPolicy
      * @param PropertyLink $propertyLink
      * @return bool
      */
-    public function show(User $currentUser,  PropertyLink $propertyLink)
+    public function show(User $currentUser, PropertyLink $propertyLink)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isUserOfTheProperty($propertyLink->propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -67,7 +88,21 @@ class PropertyLinkPolicy
      */
     public function update(User $currentUser, PropertyLink $propertyLink)
     {
-        return $currentUser->id === $user->id;
+        $propertyId = $propertyLink->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -79,6 +114,18 @@ class PropertyLinkPolicy
      */
     public function destroy(User $currentUser, PropertyLink $propertyLink)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyLink->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyLink->propertyId)) {
+            return true;
+        }
+
         return false;
     }
 }

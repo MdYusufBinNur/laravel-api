@@ -71,7 +71,7 @@ class Role extends Model
      */
     public function hasAdminRole()
     {
-        return in_array($this->title, [self::ROLE_ADMIN_SUPER['title'], self::ROLE_ADMIN_SUPER['title'], self::ROLE_ADMIN_LIMITED['title']]);
+        return in_array($this->title, [self::ROLE_ADMIN_SUPER['title'], self::ROLE_ADMIN_STANDARD['title'], self::ROLE_ADMIN_LIMITED['title']]);
     }
 
     /**

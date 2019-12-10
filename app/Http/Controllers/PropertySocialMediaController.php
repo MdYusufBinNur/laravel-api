@@ -9,6 +9,7 @@ use App\Http\Requests\PropertySocialMedia\UpdateRequest;
 use App\Http\Resources\PropertySocialMediaResource;
 use App\Http\Resources\PropertySocialMediaResourceCollection;
 use App\Repositories\Contracts\PropertySocialMediaRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class PropertySocialMediaController extends Controller
 {
@@ -31,9 +32,12 @@ class PropertySocialMediaController extends Controller
      *
      * @param IndexRequest $request
      * @return PropertySocialMediaResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', PropertySocialMedia::class);
+
         $propertySocialMedias = $this->propertySocialMediaRepository->findBy($request->all());
 
         return new PropertySocialMediaResourceCollection($propertySocialMedias);
@@ -44,9 +48,12 @@ class PropertySocialMediaController extends Controller
      *
      * @param StoreRequest  $request
      * @return PropertySocialMediaResourceCollection
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [PropertySocialMedia::class, $request->get('propertyId')]);
+
         $propertySocialMedia = $this->propertySocialMediaRepository->savePropertySocialMedia($request->all());
 
         return new PropertySocialMediaResourceCollection($propertySocialMedia);
@@ -57,10 +64,13 @@ class PropertySocialMediaController extends Controller
      *
      * @param $id
      * @return PropertySocialMediaResource
+     * @throws AuthorizationException
      */
     public function show($id)
     {
         $propertySocialMedia = $this->propertySocialMediaRepository->findOne($id) ?? abort(404);
+
+        $this->authorize('show', $propertySocialMedia);
 
         return new PropertySocialMediaResource($propertySocialMedia);
     }
@@ -71,12 +81,16 @@ class PropertySocialMediaController extends Controller
      * @param UpdateRequest $request
      * @param $id
      * @return PropertySocialMediaResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, $id)
     {
-        $getPropertySocialMedia = $this->propertySocialMediaRepository->findOne($id) ?? abort(404);
+        $propertySocialMedia = $this->propertySocialMediaRepository->findOne($id) ?? abort(404);
 
-        $propertySocialMedia = $this->propertySocialMediaRepository->update($getPropertySocialMedia, $request->all());
+        $this->authorize('update', $propertySocialMedia);
+
+
+        $propertySocialMedia = $this->propertySocialMediaRepository->update($propertySocialMedia, $request->all());
 
         return new PropertySocialMediaResource($propertySocialMedia);
     }
@@ -86,12 +100,15 @@ class PropertySocialMediaController extends Controller
      *
      * @param $id
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy($id)
     {
-        $getPropertySocialMedia = $this->propertySocialMediaRepository->findOne($id) ?? abort(404);
+        $propertySocialMedia = $this->propertySocialMediaRepository->findOne($id) ?? abort(404);
 
-        $this->propertySocialMediaRepository->delete($getPropertySocialMedia);
+        $this->authorize('destroy', $propertySocialMedia);
+
+        $this->propertySocialMediaRepository->delete($propertySocialMedia);
 
         return response()->json(null, 204);
     }

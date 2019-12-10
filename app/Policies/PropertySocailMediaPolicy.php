@@ -31,19 +31,27 @@ class PropertySocailMediaPolicy
      */
     public function list(User $currentUser)
     {
-        return false;
+        return true;
     }
 
     /**
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId)
     {
-        return true;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +63,7 @@ class PropertySocailMediaPolicy
      */
     public function show(User $currentUser,  PropertySocialMedia $propertySocialMedia)
     {
-        return $currentUser->id === $user->id;
+        return true;
     }
 
     /**
@@ -67,7 +75,15 @@ class PropertySocailMediaPolicy
      */
     public function update(User $currentUser, PropertySocialMedia $propertySocialMedia)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertySocialMedia->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertySocialMedia->propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -79,6 +95,14 @@ class PropertySocailMediaPolicy
      */
     public function destroy(User $currentUser, PropertySocialMedia $propertySocialMedia)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertySocialMedia->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertySocialMedia->propertyId)) {
+            return true;
+        }
+
         return false;
     }
 }

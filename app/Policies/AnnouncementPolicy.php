@@ -32,7 +32,7 @@ class AnnouncementPolicy
      */
     public function list(User $currentUser, int $propertyId)
     {
-        return $currentUser->isAStaffOfTheProperty($propertyId);
+        return $currentUser->isUserOfTheProperty($propertyId);
     }
 
     /**
@@ -56,7 +56,7 @@ class AnnouncementPolicy
      */
     public function show(User $currentUser,  Announcement $announcement)
     {
-        return $currentUser->isAStaffOfTheProperty($announcement->propertyId);
+        return $currentUser->isUserOfTheProperty($announcement->propertyId);
     }
 
     /**

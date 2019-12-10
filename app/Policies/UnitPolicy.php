@@ -32,11 +32,7 @@ class UnitPolicy
      */
     public function list(User $currentUser, int $propertyId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -74,16 +70,11 @@ class UnitPolicy
     {
         $propertyId = $unit->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
             return true;
         }
 
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        return in_array($currentUser->id, $unit->getResidentsUserIds());
-
+        return false;
     }
 
     /**

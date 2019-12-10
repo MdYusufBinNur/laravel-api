@@ -17,7 +17,7 @@ class IndexRequest extends Request
         return $rules = [
             'id'           => 'list:numeric',
             'towerId'      => 'list:numeric',
-            'propertyId'   => 'list:numeric',
+            'propertyId'   => 'required|numeric',
             'title'        => 'list:string',
             'floor'        => 'list:string',
             'line'         => 'list:string',

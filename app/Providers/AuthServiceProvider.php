@@ -190,7 +190,6 @@ class AuthServiceProvider extends ServiceProvider
         Admin::class => AdminPolicy::class,
         Announcement::class => AnnouncementPolicy::class,
         Attachment::class => AttachementPolicy::class,
-        CommonModelFeatures::class => CommonModelFeaturesPolicy::class,
         Company::class => CompanyPolicy::class,
         EnterpriseUser::class => EnterpriseUserPolicy::class,
         EnterpriseUserProperty::class => EnterpriseUserPropertyPolicy::class,

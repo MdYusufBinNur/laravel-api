@@ -30,7 +30,7 @@ class TowerPolicy
      * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser, int $propertyId, int $unitId)
+    public function list(User $currentUser, int $propertyId)
     {
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;

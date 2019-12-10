@@ -36,6 +36,7 @@ class InsertModulesAndOptions extends Migration
             ['id' => 20, 'key' => 'EQUIPMENT', 'title' => 'Equipments'],
             ['id' => 21, 'key' => 'MAINTENANCE', 'title' => 'Maintenance'],
             ['id' => 22, 'key' => 'IE', 'title' => 'Income and Expense'],
+            ['id' => 23, 'key' => 'CA', 'title' => 'Community Activities'],
         ]);
 
         DB::table('module_options')->insert([

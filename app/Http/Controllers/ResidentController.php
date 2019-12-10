@@ -54,7 +54,7 @@ class ResidentController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', Resident::class);
+        //$this->authorize('store', Resident::class);
 
         $resident = $this->residentRepository->save($request->all());
 

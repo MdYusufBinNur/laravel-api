@@ -2,13 +2,29 @@
 
 namespace App\Policies;
 
+use App\DbModels\Resident;
 use App\DbModels\ResidentVehicle;
 use App\DbModels\User;
+use App\Repositories\Contracts\ResidentRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ResidentVehiclePolicy
 {
     use HandlesAuthorization;
+
+    /**
+     * @var ResidentRepository
+     */
+    private $residentRepository;
+
+    /**
+     * MessagePostPolicy constructor.
+     * @param ResidentRepository $residentRepository
+     */
+    public function __construct(ResidentRepository $residentRepository)
+    {
+        $this->residentRepository = $residentRepository;
+    }
 
     /**
      * Intercept checks
@@ -27,10 +43,29 @@ class ResidentVehiclePolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $residentId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $residentId)
     {
+        $resident = $this->residentRepository->findOne($residentId);
+
+        if ($resident instanceof Resident) {
+            if ($currentUser->isAnEnterpriseUserOfTheProperty($resident->propertyId)) {
+                return true;
+            }
+
+            if ($currentUser->isAPriorityStaffOfTheProperty($resident->propertyId)) {
+                return true;
+            }
+
+            if ($currentUser->isAStandardStaffOfTheProperty($resident->propertyId)) {
+                return true;
+            }
+
+            return $currentUser->id === $resident->userId;
+        }
+
         return false;
     }
 
@@ -38,12 +73,31 @@ class ResidentVehiclePolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $residentId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $residentId)
     {
-        return true;
+        $resident = $this->residentRepository->findOne($residentId);
+
+        if ($resident instanceof Resident) {
+            if ($currentUser->isAnEnterpriseUserOfTheProperty($resident->propertyId)) {
+                return true;
+            }
+
+            if ($currentUser->isAPriorityStaffOfTheProperty($resident->propertyId)) {
+                return true;
+            }
+
+            if ($currentUser->isAStandardStaffOfTheProperty($resident->propertyId)) {
+                return true;
+            }
+
+            return $currentUser->id === $resident->userId;
+        }
+
+        return false;
+
     }
 
     /**
@@ -55,7 +109,22 @@ class ResidentVehiclePolicy
      */
     public function show(User $currentUser,  ResidentVehicle $residentVehicle)
     {
-        return $currentUser->id === $user->id;
+        $resident= $residentVehicle->resident;
+        $propertyId = $resident->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($resident->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($resident->propertyId)) {
+            return true;
+        }
+
+        return $currentUser->id === $resident->userId;
     }
 
     /**
@@ -67,7 +136,22 @@ class ResidentVehiclePolicy
      */
     public function update(User $currentUser, ResidentVehicle $residentVehicle)
     {
-        return $currentUser->id === $user->id;
+        $resident= $residentVehicle->resident;
+        $propertyId = $resident->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($resident->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($resident->propertyId)) {
+            return true;
+        }
+
+        return $currentUser->id === $resident->userId;
     }
 
     /**

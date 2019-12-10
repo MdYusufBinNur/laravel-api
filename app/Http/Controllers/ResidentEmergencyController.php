@@ -9,6 +9,7 @@ use App\Http\Requests\ResidentEmergency\UpdateRequest;
 use App\Http\Resources\ResidentEmergencyResource;
 use App\Http\Resources\ResidentEmergencyResourceCollection;
 use App\Repositories\Contracts\ResidentEmergencyRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 class ResidentEmergencyController extends Controller
@@ -32,9 +33,12 @@ class ResidentEmergencyController extends Controller
      *
      * @param IndexRequest $request
      * @return ResidentEmergencyResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [ResidentEmergency::class, $request->get('residentId')]);
+
         $residentEmergencies = $this->residentEmergencyRepository->findBy($request->all());
 
         return new ResidentEmergencyResourceCollection($residentEmergencies);
@@ -45,9 +49,12 @@ class ResidentEmergencyController extends Controller
      *
      * @param  StoreRequest $request
      * @return ResidentEmergencyResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [ResidentEmergency::class, $request->get('residentId')]);
+
         $residentEmergency = $this->residentEmergencyRepository->save($request->all());
 
         return new ResidentEmergencyResource($residentEmergency);
@@ -58,9 +65,12 @@ class ResidentEmergencyController extends Controller
      *
      * @param ResidentEmergency $residentEmergency
      * @return ResidentEmergencyResource
+     * @throws AuthorizationException
      */
     public function show(ResidentEmergency $residentEmergency)
     {
+        $this->authorize('show', $residentEmergency);
+
         return new ResidentEmergencyResource($residentEmergency);
     }
 
@@ -70,9 +80,12 @@ class ResidentEmergencyController extends Controller
      * @param UpdateRequest $request
      * @param ResidentEmergency $residentEmergency
      * @return ResidentEmergencyResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, ResidentEmergency $residentEmergency)
     {
+        $this->authorize('update', $residentEmergency);
+
         $residentEmergency = $this->residentEmergencyRepository->update($residentEmergency, $request->all());
 
         return new ResidentEmergencyResource($residentEmergency);
@@ -83,9 +96,12 @@ class ResidentEmergencyController extends Controller
      *
      * @param ResidentEmergency $residentEmergency
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(ResidentEmergency $residentEmergency)
     {
+        $this->authorize('destroy', $residentEmergency);
+
         $this->residentEmergencyRepository->delete($residentEmergency);
 
         return response()->json(null, 204);

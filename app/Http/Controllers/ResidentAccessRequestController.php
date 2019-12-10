@@ -10,6 +10,7 @@ use App\Http\Requests\ResidentAccessRequest\UpdateRequest;
 use App\Http\Resources\ResidentAccessRequestResource;
 use App\Http\Resources\ResidentAccessRequestResourceCollection;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 class ResidentAccessRequestController extends Controller
@@ -33,9 +34,12 @@ class ResidentAccessRequestController extends Controller
      *
      * @param IndexRequest $request
      * @return ResidentAccessRequestResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [ResidentAccessRequest::class, $request->get('propertyId')]);
+
         $residentAccessRequests = $this->residentAccessRequestRepository->findBy($request->all());
 
         return new ResidentAccessRequestResourceCollection($residentAccessRequests);
@@ -59,9 +63,12 @@ class ResidentAccessRequestController extends Controller
      *
      * @param ResidentAccessRequest $residentAccessRequest
      * @return ResidentAccessRequestResource
+     * @throws AuthorizationException
      */
     public function show(ResidentAccessRequest $residentAccessRequest)
     {
+        $this->authorize('show', $residentAccessRequest);
+
         return new ResidentAccessRequestResource($residentAccessRequest);
     }
 
@@ -71,9 +78,12 @@ class ResidentAccessRequestController extends Controller
      * @param UpdateRequest $request
      * @param ResidentAccessRequest $residentAccessRequest
      * @return ResidentAccessRequestResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, ResidentAccessRequest $residentAccessRequest)
     {
+        $this->authorize('update', $residentAccessRequest);
+
         $residentAccessRequest = $this->residentAccessRequestRepository->update($residentAccessRequest, $request->all());
 
         return new ResidentAccessRequestResource($residentAccessRequest);
@@ -84,9 +94,12 @@ class ResidentAccessRequestController extends Controller
      *
      * @param ResidentAccessRequest $residentAccessRequest
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(ResidentAccessRequest $residentAccessRequest)
     {
+        $this->authorize('destroy', $residentAccessRequest);
+
         $this->residentAccessRequestRepository->delete($residentAccessRequest);
     }
 

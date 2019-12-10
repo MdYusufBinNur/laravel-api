@@ -25,6 +25,7 @@ class MessageUserPolicy
     {
         $this->messageUserRepository = $messageRepository;
     }
+
     /**
      * Intercept checks
      *

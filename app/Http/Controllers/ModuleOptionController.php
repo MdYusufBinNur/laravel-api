@@ -8,7 +8,6 @@ use App\Http\Requests\ModuleOption\StoreRequest;
 use App\Http\Requests\ModuleOption\UpdateRequest;
 use App\Http\Resources\ModuleOptionResource;
 use App\Http\Resources\ModuleOptionResourceCollection;
-use App\Policies\ModulePolicy;
 use App\Repositories\Contracts\ModuleOptionRepository;
 use Illuminate\Auth\Access\AuthorizationException;
 

@@ -145,4 +145,20 @@ class ResidentPolicy
 
         return false;
     }
+
+    /**
+     * Determine if a given user has permission to list
+     *
+     * @param User $currentUser
+     * @param int $propertyId
+     * @return bool
+     */
+    public function residentByUnitController(User $currentUser, int $propertyId)
+    {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
+    }
 }

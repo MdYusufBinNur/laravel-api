@@ -33,7 +33,6 @@ class PostUpdatedEvent implements ShouldBroadcast
     {
         $this->post = $post;
         $this->options = $options;
-        dd($options);
     }
 
     /**

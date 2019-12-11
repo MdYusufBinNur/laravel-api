@@ -36,13 +36,20 @@ class EloquentMessagePostRepository extends EloquentBaseRepository implements Me
         }
 
         if (!isset($data['isFirstTime'])) {
-            $messageUser = $messagePost->messageUsers()
-                ->where('userId', '<>', $this->getLoggedInUser()->id)
-                ->whereIn('folder', ['sent', 'inbox-sent'])->first();
-            if ($messageUser instanceof MessageUser) {
-                $messageUserData = ['folder' => 'inbox-sent', 'isRead' => false];
+            $messageUsers = $messagePost->messageUsers()->get();
 
-                $messageUserRepository = app(MessageUserRepository::class);
+            $messageUserRepository = app(MessageUserRepository::class);
+
+            foreach ($messageUsers as $messageUser) {
+                $messageUserData = [];
+
+                if ($messageUser->userId != $this->getLoggedInUser()->id) {
+                    $messageUserData['isRead'] = false;
+                    if ($messageUser->folder == MessageUser::FOLDER_SENT) {
+                        $messageUserData['folder'] = MessageUser::FOLDER_INBOX_SENT;
+                    }
+                }
+                
                 $messageUserRepository->update($messageUser, $messageUserData);
             }
         }

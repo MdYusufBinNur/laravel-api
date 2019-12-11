@@ -64,6 +64,10 @@ class PostComment extends Model
         return $this->hasMany(User::class, 'id', 'createdByUserId');
     }
 
+    /**
+     * get all the user ids of post comments
+     *
+     */
     public function getPostCommentUserIds()
     {
         return $this->postCommentUsers()->pluck('id')->toArray();

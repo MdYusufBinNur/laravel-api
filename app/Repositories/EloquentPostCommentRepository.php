@@ -68,7 +68,7 @@ class EloquentPostCommentRepository extends EloquentBaseRepository implements Po
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = ['pc.post' => 'post', 'pc.deletedUser' => 'pc.deletedUser', 'post.property' => 'post.property', 'post.attachments' => 'post.attachments', 'post.approvalArchives' => 'post.approvalArchives'];
+        $searchCriteria['eagerLoad'] = ['pc.post' => 'post', 'pc.commentOnPostUserIds' => 'commentOnPostUserIds', 'pc.deletedUser' => 'pc.deletedUser', 'post.property' => 'post.property', 'post.attachments' => 'post.attachments', 'post.approvalArchives' => 'post.approvalArchives'];
         return parent::findBy($searchCriteria, $withTrashed);
     }
 

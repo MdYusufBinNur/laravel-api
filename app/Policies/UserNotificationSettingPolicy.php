@@ -29,9 +29,13 @@ class UserNotificationSettingPolicy
      * @param User $currentUser
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, ?int $userId)
     {
-        return false;
+        if (isset($userId)) {
+            return $currentUser->id == $userId;
+        }
+        // handling in findBy() method
+        return true;
     }
 
     /**
@@ -41,9 +45,11 @@ class UserNotificationSettingPolicy
      * @param User $user
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, array $requestData)
     {
-        return true;
+        $userIds = array_unique(array_column($requestData['userNotificationSettings'], 'userId'));
+
+        return count($userIds) === 1 && $userIds[0] == $currentUser->id;
     }
 
     /**
@@ -55,7 +61,7 @@ class UserNotificationSettingPolicy
      */
     public function show(User $currentUser,  UserNotificationSetting $userNotificationSetting)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->id === $userNotificationSetting->userId;
     }
 
     /**
@@ -67,7 +73,7 @@ class UserNotificationSettingPolicy
      */
     public function update(User $currentUser, UserNotificationSetting $userNotificationSetting)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->id === $userNotificationSetting->userId;
     }
 
     /**

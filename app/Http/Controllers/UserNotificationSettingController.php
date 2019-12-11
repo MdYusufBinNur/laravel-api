@@ -9,6 +9,7 @@ use App\Http\Requests\UserNotificationSetting\UpdateRequest;
 use App\Http\Resources\UserNotificationSettingResource;
 use App\Http\Resources\UserNotificationSettingResourceCollection;
 use App\Repositories\Contracts\UserNotificationSettingRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class UserNotificationSettingController extends Controller
 {
@@ -31,9 +32,12 @@ class UserNotificationSettingController extends Controller
      *
      * @param IndexRequest $request
      * @return UserNotificationSettingResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [UserNotificationSetting::class, $request->get('userId', null)]);
+
         $userNotificationSettings = $this->userNotificationSettingRepository->findBy($request->all());
 
         return new UserNotificationSettingResourceCollection($userNotificationSettings);
@@ -42,11 +46,14 @@ class UserNotificationSettingController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreRequest  $request
+     * @param  StoreRequest $request
      * @return UserNotificationSettingResourceCollection
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [UserNotificationSetting::class, $request->all()]);
+
         $userNotificationSettings = $this->userNotificationSettingRepository->saveUserNotificationSettings($request->all());
 
         return new UserNotificationSettingResourceCollection(collect($userNotificationSettings));
@@ -57,9 +64,12 @@ class UserNotificationSettingController extends Controller
      *
      * @param UserNotificationSetting $userNotificationSetting
      * @return UserNotificationSettingResource
+     * @throws AuthorizationException
      */
     public function show(UserNotificationSetting $userNotificationSetting)
     {
+        $this->authorize('store', $userNotificationSetting);
+
         return new UserNotificationSettingResource($userNotificationSetting);
     }
 
@@ -69,9 +79,12 @@ class UserNotificationSettingController extends Controller
      * @param UpdateRequest $request
      * @param UserNotificationSetting $userNotificationSetting
      * @return UserNotificationSettingResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, UserNotificationSetting $userNotificationSetting)
     {
+        $this->authorize('update', $userNotificationSetting);
+
         $userNotificationSetting = $this->userNotificationSettingRepository->update($userNotificationSetting,$request->all());
 
         return new UserNotificationSettingResource($userNotificationSetting);
@@ -82,9 +95,12 @@ class UserNotificationSettingController extends Controller
      *
      * @param UserNotificationSetting $userNotificationSetting
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(UserNotificationSetting $userNotificationSetting)
     {
+        $this->authorize('destroy', $userNotificationSetting);
+
         $this->userNotificationSettingRepository->delete($userNotificationSetting);
 
         return response()->json(null,204);

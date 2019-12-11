@@ -25,7 +25,7 @@ class Attachment extends Model
     const ATTACHMENT_TYPE_LDS_SLIDE = 'lds-slide';
     const ATTACHMENT_TYPE_VISITOR = 'visitor';
     const ATTACHMENT_TYPE_MESSAGE = 'message';
-    const ATTACHMENT_TYPE_MESSAGE_POST = 'message_post';
+    const ATTACHMENT_TYPE_MESSAGE_POST = 'message-post';
     const ATTACHMENT_TYPE_EQUIPMENT = 'equipment';
 
     /**
@@ -113,7 +113,7 @@ class Attachment extends Model
                 $directoryName = 'messages';
                 break;
             case self::ATTACHMENT_TYPE_MESSAGE_POST:
-                $directoryName = 'message_posts';
+                $directoryName = 'message-posts';
                 break;
             case self::ATTACHMENT_TYPE_EQUIPMENT:
                 $directoryName = 'equipments';

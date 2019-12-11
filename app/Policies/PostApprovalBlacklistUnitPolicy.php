@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\DbModels\PostApprovalBlacklistUnit;
 use App\DbModels\Unit;
 use App\DbModels\User;
-use App\Repositories\Contracts\PostRepository;
 use App\Repositories\Contracts\UnitRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 

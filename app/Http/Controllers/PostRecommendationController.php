@@ -52,7 +52,7 @@ class PostRecommendationController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [PostRecommendation::class, $request->get('propertyId')]);
+        $this->authorize('store', [PostRecommendation::class, $request->get('post')['propertyId']]);
 
         $postRecommendation = $this->postRecommendationRepository->save($request->all());
 

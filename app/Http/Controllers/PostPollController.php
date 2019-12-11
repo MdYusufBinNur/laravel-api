@@ -52,7 +52,7 @@ class PostPollController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [PostPoll::class, $request->get('propertyId')]);
+        $this->authorize('store', [PostPoll::class, $request->get('post')['propertyId']]);
 
         $postPoll = $this->postPollRepository->save($request->all());
 

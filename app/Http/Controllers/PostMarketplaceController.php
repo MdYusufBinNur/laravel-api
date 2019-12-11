@@ -52,7 +52,7 @@ class PostMarketplaceController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [PostMarketplace::class, $request->get('propertyId')]);
+        $this->authorize('store', [PostMarketplace::class, $request->get('post')['propertyId']]);
 
         $postMarketplace = $this->postMarketplaceRepository->save($request->all());
 

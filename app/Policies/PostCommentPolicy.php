@@ -2,13 +2,29 @@
 
 namespace App\Policies;
 
+use App\DbModels\Post;
 use App\DbModels\PostComment;
 use App\DbModels\User;
+use App\Repositories\Contracts\PostRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PostCommentPolicy
 {
     use HandlesAuthorization;
+
+    /**
+     * @var PostRepository
+     */
+    private $postRepository;
+
+    /**
+     * MessagePostPolicy constructor.
+     * @param PostRepository $postRepository
+     */
+    public function __construct(PostRepository $postRepository)
+    {
+        $this->postRepository = $postRepository;
+    }
 
     /**
      * Intercept checks
@@ -27,13 +43,18 @@ class PostCommentPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
-     * @param int $propertyId
+     * @param int $postId
      * @return bool
      */
-    public function list(User $currentUser, int $propertyId)
+    public function list(User $currentUser, int $postId)
     {
-        if ($currentUser->isUserOfTheProperty($propertyId)) {
-            return true;
+        $post = $this->postRepository->findOne($postId);
+
+        if ($post instanceof Post) {
+
+            if ($currentUser->isUserOfTheProperty($post->propertyId)) {
+                return true;
+            }
         }
 
         return false;
@@ -43,13 +64,18 @@ class PostCommentPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param int $propertyId
+     * @param int $postId
      * @return bool
      */
-    public function store(User $currentUser, int $propertyId)
+    public function store(User $currentUser, int $postId)
     {
-        if ($currentUser->isUserOfTheProperty($propertyId)) {
-            return true;
+        $post = $this->postRepository->findOne($postId);
+
+        if ($post instanceof Post) {
+
+            if ($currentUser->isUserOfTheProperty($post->propertyId)) {
+                return true;
+            }
         }
 
         return false;

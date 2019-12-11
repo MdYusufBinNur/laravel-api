@@ -36,7 +36,7 @@ class PostCommentController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [PostComment::class, $request->get('propertyId')]);
+        $this->authorize('list', [PostComment::class, $request->get('postId')]);
 
         $postComments = $this->postCommentRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class PostCommentController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [PostComment::class, $request->get('propertyId')]);
+        $this->authorize('store', [PostComment::class, $request->get('postId')]);
 
         $postComment = $this->postCommentRepository->save($request->all());
 

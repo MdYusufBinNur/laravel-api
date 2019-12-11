@@ -3,13 +3,29 @@
 namespace App\Policies;
 
 use App\DbModels\PostApprovalBlacklistUnit;
+use App\DbModels\Unit;
 use App\DbModels\User;
+use App\Repositories\Contracts\PostRepository;
+use App\Repositories\Contracts\UnitRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PostApprovalBlacklistUnitPolicy
 {
     use HandlesAuthorization;
 
+    /**
+     * @var UnitRepository
+     */
+    private $unitRepository;
+
+    /**
+     * MessagePostPolicy constructor.
+     * @param UnitRepository $unitRepository
+     */
+    public function __construct(UnitRepository $unitRepository)
+    {
+        $this->unitRepository = $unitRepository;
+    }
     /**
      * Intercept checks
      *
@@ -27,22 +43,28 @@ class PostApprovalBlacklistUnitPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
-     * @param int $propertyId
+     * @param int $unitId
      * @return bool
      */
-    public function list(User $currentUser, int $propertyId)
+    public function list(User $currentUser, int $unitId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
+        $unit = $this->unitRepository->findOne($unitId);
+        if ($unit instanceof Unit) {
+            $propertyId = $unit->propertyId;
+
+            if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+                return true;
+            }
+
+            if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+                return true;
+            }
+
+            if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+                return true;
+            }
         }
 
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
-            return true;
-        }
 
         return false;
     }
@@ -51,21 +73,26 @@ class PostApprovalBlacklistUnitPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param int $propertyId
+     * @param int $unitId
      * @return bool
      */
-    public function store(User $currentUser, int $propertyId)
+    public function store(User $currentUser, int $unitId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
+        $unit = $this->unitRepository->findOne($unitId);
+        if ($unit instanceof Unit) {
+            $propertyId = $unit->propertyId;
 
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            return true;
-        }
+            if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+                return true;
+            }
 
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
-            return true;
+            if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+                return true;
+            }
+
+            if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+                return true;
+            }
         }
 
         return false;

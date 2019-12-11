@@ -3,15 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\DbModels\PostApprovalArchive;
-use App\DbModels\PostApprovalBlacklistUnit;
 use App\Http\Requests\PostApprovalArchive\IndexRequest;
-use App\Http\Requests\PostApprovalArchive\StoreRequest;
-use App\Http\Requests\PostApprovalArchive\UpdateRequest;
 use App\Http\Resources\PostApprovalArchiveResource;
 use App\Http\Resources\PostApprovalArchiveResourceCollection;
 use App\Repositories\Contracts\PostApprovalArchiveRepository;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Http\Request;
 
 class PostApprovalArchiveController extends Controller
 {

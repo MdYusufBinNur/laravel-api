@@ -53,7 +53,7 @@ class PostEventController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [PostEvent::class, $request->get('propertyId')]);
+        $this->authorize('store', [PostEvent::class, $request->get('post')['propertyId']]);
 
         $postEvent = $this->postEventRepository->save($request->all());
 

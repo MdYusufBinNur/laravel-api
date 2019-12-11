@@ -52,7 +52,7 @@ class PostWallController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [PostWall::class, $request->get('propertyId')['propertyId']]);
+        $this->authorize('store', [PostWall::class, $request->get('post')['propertyId']]);
 
         $postWall = $this->postWallRepository->save($request->all());
 

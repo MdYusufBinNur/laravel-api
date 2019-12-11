@@ -41,6 +41,14 @@ class MessagePost extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function messageUsers()
+    {
+        return $this->hasMany(MessageUser::class, 'messageId', 'messageId');
+    }
+
+    /**
      * get the attachments
      *
      * @return HasMany

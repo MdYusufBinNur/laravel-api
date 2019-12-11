@@ -65,7 +65,7 @@ class EloquentMessageRepository extends EloquentBaseRepository implements Messag
 
             //save a message post
             $messagePostRepository = app(MessagePostRepository::class);
-            $messagePostData = ['messageId' => $message->id, 'fromUserId' => $message->fromUserId, 'text' => $data['text']];
+            $messagePostData = ['messageId' => $message->id, 'fromUserId' => $message->fromUserId, 'text' => $data['text'], 'isFirstTime' => true];
             if (isset($data['attachmentIds'])) {
                 $messagePostData['attachmentIds'] = $data['attachmentIds'];
             }

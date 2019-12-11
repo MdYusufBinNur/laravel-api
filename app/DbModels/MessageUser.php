@@ -12,6 +12,7 @@ class MessageUser extends Model
 
     const FOLDER_INBOX = 'inbox';
     const FOLDER_SENT = 'sent';
+    const FOLDER_INBOX_SENT = 'inbox-sent';
 
     /**
      * The attributes that are mass assignable.

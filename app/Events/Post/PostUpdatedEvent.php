@@ -67,7 +67,8 @@ class PostUpdatedEvent implements ShouldBroadcast
     {
         request()->merge(['include' => 'post.details,post.attachments,post.commentsCount']);
         return [
-            'post' => new PostResource($this->post)
+            'post' => new PostResource($this->post),
+            'options' => $this->options['request']
         ];
     }
 }

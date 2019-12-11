@@ -80,7 +80,11 @@ class PostPolicy
      */
     public function update(User $currentUser, Post $post)
     {
-        return $currentUser->id === $post->createdByUserId;
+        if ($currentUser->isUserOfTheProperty($post->propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

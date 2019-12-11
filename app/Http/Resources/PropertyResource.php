@@ -46,6 +46,9 @@ class PropertyResource extends Resource
             'designSettings' => $this->when($this->needToInclude($request, 'property.designSettings'), function () {
                 return new PropertyDesignSettingResource($this->propertyDesignSetting);
             }),
+            'modules' => $this->when($this->needToInclude($request, 'property.modules'), function () {
+                return new ModulePropertyResourceCollection($this->moduleProperties);
+            }),
             'loginLink' => $this->getLoginLink(),
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,

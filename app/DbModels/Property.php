@@ -83,6 +83,16 @@ class Property extends Model
     /**
      * get images
      *
+     * @return HasMany
+     */
+    public function moduleProperties()
+    {
+        return $this->hasMany(ModuleProperty::class, 'propertyId', 'id')->where('value', 1);
+    }
+
+    /**
+     * get images
+     *
      * @return HasOne
      */
     public function propertyDesignSetting()

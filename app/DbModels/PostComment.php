@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PostComment extends Model
@@ -52,4 +53,20 @@ class PostComment extends Model
     {
         return $this->hasOne(User::class, 'id', 'deletedUserId');
     }
+
+    /**
+     * get the post comment users
+     *
+     * @return HasMany
+     */
+    public function postCommentUsers()
+    {
+        return $this->hasMany(User::class, 'id', 'createdByUserId');
+    }
+
+    public function getPostCommentUserIds()
+    {
+        return $this->postCommentUsers()->pluck('id')->toArray();
+    }
+
 }

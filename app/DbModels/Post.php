@@ -161,4 +161,13 @@ class Post extends Model
     {
         return $this->hasOne(User::class, 'id', 'createdByUserId');
     }
+
+    /**
+     * get the post comment users
+     *
+     */
+    public function postCommentUsers()
+    {
+        return $this->comments()->pluck('createdByUserId')->toArray();
+    }
 }

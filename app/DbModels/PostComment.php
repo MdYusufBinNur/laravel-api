@@ -55,22 +55,12 @@ class PostComment extends Model
     }
 
     /**
-     * get the post comment users
-     *
-     * @return HasMany
-     */
-    public function postCommentUsers()
-    {
-        return $this->hasMany(User::class, 'id', 'createdByUserId');
-    }
-
-    /**
      * get all the user ids of post comments
      *
      */
     public function getPostCommentUserIds()
     {
-        return $this->postCommentUsers()->pluck('id')->toArray();
+        return $this->post->postCommentUsers();
     }
 
 }

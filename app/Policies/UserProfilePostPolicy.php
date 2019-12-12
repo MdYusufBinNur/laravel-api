@@ -27,10 +27,15 @@ class UserProfilePostPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -38,12 +43,16 @@ class UserProfilePostPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId)
     {
-        return true;
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +64,11 @@ class UserProfilePostPolicy
      */
     public function show(User $currentUser,  UserProfilePost $userProfilePost)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isUserOfTheProperty($userProfilePost->propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -67,7 +80,7 @@ class UserProfilePostPolicy
      */
     public function update(User $currentUser, UserProfilePost $userProfilePost)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->userId === $userProfilePost->createdByUserId;
     }
 
     /**
@@ -79,6 +92,8 @@ class UserProfilePostPolicy
      */
     public function destroy(User $currentUser, UserProfilePost $userProfilePost)
     {
-        return false;
+        return $currentUser->userId === $userProfilePost->createdByUserId
+            || $currentUser->userId === $userProfilePost->toUserId;
+
     }
 }

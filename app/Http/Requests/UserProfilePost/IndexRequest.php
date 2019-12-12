@@ -15,7 +15,7 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
-            'propertyId' =>  'list:numeric',
+            'propertyId' =>  'required|numeric',
             'byUserId' => 'list:numeric',
             'toUserId' => 'list:numeric',
             'text' =>  'list:text',

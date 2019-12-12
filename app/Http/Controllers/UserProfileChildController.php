@@ -9,7 +9,7 @@ use App\Http\Requests\UserProfileChild\UpdateRequest;
 use App\Http\Resources\UserProfileChildResource;
 use App\Http\Resources\UserProfileChildResourceCollection;
 use App\Repositories\Contracts\UserProfileChildRepository;
-use Illuminate\Http\Request;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class UserProfileChildController extends Controller
 {
@@ -32,9 +32,12 @@ class UserProfileChildController extends Controller
      *
      * @param IndexRequest $request
      * @return UserProfileChildResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [UserProfileChild::class, $request->get('userId')]);
+
         $userProfileChildren = $this->userProfileChildRepository->findBy($request->all());
 
         return new UserProfileChildResourceCollection($userProfileChildren);
@@ -45,9 +48,12 @@ class UserProfileChildController extends Controller
      *
      * @param  StoreRequest  $request
      * @return UserProfileChildResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [UserProfileChild::class, $request->get('userId')]);
+
         $userProfileChild = $this->userProfileChildRepository->save($request->all());
 
         return new UserProfileChildResource($userProfileChild);
@@ -58,9 +64,12 @@ class UserProfileChildController extends Controller
      *
      * @param UserProfileChild $userProfileChild
      * @return UserProfileChildResource
+     * @throws AuthorizationException
      */
     public function show(UserProfileChild $userProfileChild)
     {
+        $this->authorize('show', $userProfileChild);
+
         return new UserProfileChildResource($userProfileChild);
     }
 
@@ -70,9 +79,12 @@ class UserProfileChildController extends Controller
      * @param UpdateRequest $request
      * @param UserProfileChild $userProfileChild
      * @return UserProfileChildResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, UserProfileChild $userProfileChild)
     {
+        $this->authorize('update', $userProfileChild);
+
         $userProfileChild = $this->userProfileChildRepository->update($userProfileChild,$request->all());
 
         return new UserProfileChildResource($userProfileChild);
@@ -83,9 +95,12 @@ class UserProfileChildController extends Controller
      *
      * @param UserProfileChild $userProfileChild
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(UserProfileChild $userProfileChild)
     {
+        $this->authorize('destroy', $userProfileChild);
+
         $this->userProfileChildRepository->delete($userProfileChild);
 
         return response()->json(null,204);

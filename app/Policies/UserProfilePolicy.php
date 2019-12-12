@@ -54,7 +54,7 @@ class UserProfilePolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $userId
      * @return bool
      */
     public function store(User $currentUser, ?int $userId)

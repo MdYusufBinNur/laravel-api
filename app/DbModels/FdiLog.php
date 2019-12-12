@@ -35,5 +35,15 @@ class FdiLog extends Model
     {
         return $this->hasOne(User::class, 'id', 'userId');
     }
+
+    /**
+     * get the fdi
+     *
+     * @return HasOne
+     */
+    public function fdi()
+    {
+        return $this->hasOne(Fdi::class, 'id', 'fdiId');
+    }
 }
 

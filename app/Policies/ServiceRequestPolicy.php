@@ -33,6 +33,7 @@ class ServiceRequestPolicy
      */
     public function list(User $currentUser, int $propertyId, ?int $unitId)
     {
+        dd($currentUser->isAnEnterpriseUserOfTheProperty($propertyId));
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
         }

@@ -4,12 +4,26 @@ namespace App\Policies;
 
 use App\DbModels\FdiLog;
 use App\DbModels\User;
+use App\Repositories\Contracts\FdiRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class FdiLogPolicy
 {
     use HandlesAuthorization;
 
+    /**
+     * @var FdiRepository
+     */
+    private $fdiRepository;
+
+    /**
+     * UserProfilePolicy constructor.
+     * @param FdiRepository $fdiRepository
+     */
+    public function __construct(FdiRepository $fdiRepository)
+    {
+        $this->fdiRepository = $fdiRepository;
+    }
     /**
      * Intercept checks
      *
@@ -27,23 +41,20 @@ class FdiLogPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
-        return false;
-    }
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
 
-    /**
-     * Determine if a given user has permission to store
-     *
-     * @param User $currentUser
-     * @param User $user
-     * @return bool
-     */
-    public function store(User $currentUser)
-    {
-        return true;
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +66,17 @@ class FdiLogPolicy
      */
     public function show(User $currentUser,  FdiLog $fdiLog)
     {
-        return $currentUser->id === $user->id;
+        $propertyId = $fdiLog->fdi->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -67,7 +88,17 @@ class FdiLogPolicy
      */
     public function update(User $currentUser, FdiLog $fdiLog)
     {
-        return $currentUser->id === $user->id;
+        $propertyId = $fdiLog->fdi->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

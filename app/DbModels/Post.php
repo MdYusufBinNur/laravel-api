@@ -168,6 +168,7 @@ class Post extends Model
      */
     public function postCommentUsers()
     {
-        return $this->comments()->pluck('createdByUserId')->toArray();
+        $ids = $this->comments()->pluck('createdByUserId')->toArray();
+        return array_unique($ids);
     }
 }

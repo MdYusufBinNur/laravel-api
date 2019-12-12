@@ -46,4 +46,11 @@ class StoreRequest extends Request
             'multipleTypes'  => [new CSVString(['thumbnail', 'medium', 'large', 'avatar'])],
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'upload.max' => "Maximum file size to upload is 15MB. If you are uploading a photo, try to reduce its resolution to make it under 15 MB"
+        ];
+    }
 }

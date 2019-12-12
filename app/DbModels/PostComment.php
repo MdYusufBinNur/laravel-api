@@ -63,4 +63,13 @@ class PostComment extends Model
         return $this->post->postCommentUsers();
     }
 
+    /**
+     * get createdByUserId of a post
+     *
+     */
+    public function getPostCreatorUserId()
+    {
+        return $this->post()->pluck('createdByUserId')->toArray();
+    }
+
 }

@@ -32,7 +32,7 @@ class StoreRequest extends Request
                 . ',' . Attachment::ATTACHMENT_TYPE_EVENT
                 . ',' . Attachment::ATTACHMENT_TYPE_LDS_SLIDE
                 . ',' . Attachment::ATTACHMENT_TYPE_EQUIPMENT,
-            'fileSource'   => 'required|file|max:2048',
+            'fileSource'   => 'required|file|max:15360',
             'resourceId'   => '',
             'fileName'     => '',
             'descriptions' => '',

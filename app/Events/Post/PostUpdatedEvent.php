@@ -4,9 +4,11 @@ namespace App\Events\Post;
 
 use App\DbModels\Post;
 use App\Http\Resources\PostResource;
+use App\Http\Resources\UserResource;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Auth;
 
 class PostUpdatedEvent implements ShouldBroadcast
 {
@@ -65,10 +67,11 @@ class PostUpdatedEvent implements ShouldBroadcast
      */
     public function broadcastWith()
     {
-        request()->merge(['include' => 'post.details,post.attachments,post.commentsCount']);
+        request()->merge(['include' => 'post.details,post.attachments,post.commentsCount,user.profilePic,image.avatar']);
         return [
             'post' => new PostResource($this->post),
-            'options' => $this->options['request']
+            'options' => $this->options['request'],
+            'loggedInUser' => new UserResource(\auth()->user())
         ];
     }
 }

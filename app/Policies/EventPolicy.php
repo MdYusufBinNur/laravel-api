@@ -27,10 +27,15 @@ class EventPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -38,24 +43,32 @@ class EventPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId)
     {
-        return true;
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
      * Determine if a given user has permission to show
      *
      * @param User $currentUser
-     * @param Admin $admin
+     * @param Event $event
      * @return bool
      */
     public function show(User $currentUser,  Event $event)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isUserOfTheProperty($event->propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -67,7 +80,17 @@ class EventPolicy
      */
     public function update(User $currentUser, Event $event)
     {
-        return $currentUser->id === $user->id;
+        $propertyId = $event->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return $currentUser->id === $event->createdByUserId;
     }
 
     /**
@@ -79,7 +102,17 @@ class EventPolicy
      */
     public function destroy(User $currentUser, Event $event)
     {
-        return false;
+        $propertyId = $event->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return $currentUser->id === $event->createdByUserId;
     }
 
     /**

@@ -9,6 +9,7 @@ use App\Http\Requests\Event\UpdateRequest;
 use App\Http\Resources\EventResource;
 use App\Http\Resources\EventResourceCollection;
 use App\Repositories\Contracts\EventRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class EventController extends Controller
 {
@@ -31,11 +32,14 @@ class EventController extends Controller
      *
      * @param IndexRequest $request
      * @return EventResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
         if (strpos($request->getPathInfo(), 'property-login-page-events') !== false) {
             $request->merge(['allowedLoginPage' => 1]);
+        } else {
+            $this->authorize('list', [Event::class, $request->get('propertyId')]);
         }
 
         $events = $this->eventRepository->findBy($request->all());
@@ -48,9 +52,12 @@ class EventController extends Controller
      *
      * @param  StoreRequest  $request
      * @return EventResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [Event::class, $request->get('propertyId')]);
+
         $event = $this->eventRepository->save($request->all());
 
         return new EventResource($event);
@@ -61,9 +68,12 @@ class EventController extends Controller
      *
      * @param Event $event
      * @return EventResource
+     * @throws AuthorizationException
      */
     public function show(Event $event)
     {
+        $this->authorize('show', $event);
+
         return new EventResource($event);
     }
 
@@ -73,9 +83,12 @@ class EventController extends Controller
      * @param UpdateRequest $request
      * @param Event $event
      * @return EventResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, Event $event)
     {
+        $this->authorize('update', $event);
+
         $event = $this->eventRepository->update($event, $request->all());
 
         return new EventResource($event);
@@ -86,9 +99,12 @@ class EventController extends Controller
      *
      * @param Event $event
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(Event $event)
     {
+        $this->authorize('destroy', $event);
+
         $this->eventRepository->delete($event);
 
         return response()->json(null, 204);

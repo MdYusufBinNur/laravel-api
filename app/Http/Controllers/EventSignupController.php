@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DbModels\Event;
 use App\DbModels\EventSignup;
 use App\Http\Requests\EventSignup\IndexRequest;
 use App\Http\Requests\EventSignup\StoreRequest;
@@ -9,6 +10,7 @@ use App\Http\Requests\EventSignup\UpdateRequest;
 use App\Http\Resources\EventSignupResource;
 use App\Http\Resources\EventSignupResourceCollection;
 use App\Repositories\Contracts\EventSignupRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class EventSignupController extends Controller
 {
@@ -31,9 +33,12 @@ class EventSignupController extends Controller
      *
      * @param IndexRequest $request
      * @return EventSignupResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [Event::class, $request->get('propertyId')]);
+
         $eventSignups= $this->eventSignupRepository->findBy($request->all());
 
         return new EventSignupResourceCollection($eventSignups);
@@ -44,9 +49,12 @@ class EventSignupController extends Controller
      *
      * @param StoreRequest  $request
      * @return EventSignupResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [Event::class, $request->get('eventId')]);
+
         $eventSignup = $this->eventSignupRepository->saveEventSignup($request->all());
 
         return new EventSignupResource($eventSignup);
@@ -57,9 +65,12 @@ class EventSignupController extends Controller
      *
      * @param EventSignup $eventSignup
      * @return EventSignupResource
+     * @throws AuthorizationException
      */
     public function show(EventSignup $eventSignup)
     {
+        $this->authorize('show', $eventSignup);
+
         return new EventSignupResource($eventSignup);
     }
 
@@ -69,9 +80,12 @@ class EventSignupController extends Controller
      * @param UpdateRequest $request
      * @param EventSignup $eventSignup
      * @return EventSignupResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, EventSignup $eventSignup)
     {
+        $this->authorize('update', $eventSignup);
+
         $eventSignup = $this->eventSignupRepository->update($eventSignup, $request->all());
 
         return new EventSignupResource($eventSignup);
@@ -82,9 +96,12 @@ class EventSignupController extends Controller
      *
      * @param EventSignup $eventSignup
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(EventSignup $eventSignup)
     {
+        $this->authorize('destroy', $eventSignup);
+
         $this->eventSignupRepository->delete($eventSignup);
 
         return response()->json(null, 204);

@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\DbModels\Role;
-use App\DbModels\Tower;
 use App\Http\Requests\Role\IndexRequest;
 use App\Http\Requests\Role\StoreRequest;
 use App\Http\Requests\Role\UpdateRequest;
 use App\Http\Resources\RoleResource;
 use App\Http\Resources\RoleResourceCollection;
 use App\Repositories\Contracts\RoleRepository;
-use Illuminate\Http\Request;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class RoleController extends Controller
 {
@@ -33,9 +32,12 @@ class RoleController extends Controller
      *
      * @param IndexRequest $request
      * @return RoleResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [Role::class]);
+
         $roles = $this->roleRepository->findBy($request->all());
 
         return new RoleResourceCollection($roles);
@@ -46,9 +48,12 @@ class RoleController extends Controller
      *
      * @param  StoreRequest $request
      * @return RoleResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [Role::class]);
+
         $role = $this->roleRepository->save($request->all());
 
         return new RoleResource($role);
@@ -57,12 +62,15 @@ class RoleController extends Controller
     /**
      * Display the specified Role resource.
      *
-     * @param Tower $tower
+     * @param Role $role
      * @return RoleResource
+     * @throws AuthorizationException
      */
-    public function show(Tower $tower)
+    public function show(Role $role)
     {
-        return new RoleResource($tower);
+        $this->authorize('show', $role);
+
+        return new RoleResource($role);
     }
 
     /**
@@ -71,9 +79,12 @@ class RoleController extends Controller
      * @param UpdateRequest $request
      * @param Role $role
      * @return RoleResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, Role $role)
     {
+        $this->authorize('update', $role);
+
         $role = $this->roleRepository->update($role, $request->all());
 
         return new RoleResource($role);
@@ -84,9 +95,12 @@ class RoleController extends Controller
      *
      * @param Role $role
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(Role $role)
     {
+        $this->authorize('destroy', $role);
+
         $this->roleRepository->delete($role);
 
         return response()->json(null, 204);

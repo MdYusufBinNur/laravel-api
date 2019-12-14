@@ -94,7 +94,17 @@ class VisitorTypePolicy
      */
     public function update(User $currentUser, VisitorType $visitorType)
     {
-        return $currentUser->id === $user->id;
+        $propertyId = $visitorType->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

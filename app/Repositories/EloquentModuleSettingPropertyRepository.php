@@ -4,8 +4,10 @@
 namespace App\Repositories;
 
 
+use App\Repositories\Contracts\ModulePropertyRepository;
 use App\Repositories\Contracts\ModuleSettingPropertyRepository;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class EloquentModuleSettingPropertyRepository extends EloquentBaseRepository implements ModuleSettingPropertyRepository
 {
@@ -36,8 +38,18 @@ class EloquentModuleSettingPropertyRepository extends EloquentBaseRepository imp
      */
     public function setModuleSettingProperty(array $data): \ArrayAccess
     {
+        DB::beginTransaction();
+
         $searchCriteria = Arr::only($data, ['propertyId', 'moduleId']);
-        return $this->patch($searchCriteria, $data);
+        $moduleSetting = $this->patch($searchCriteria, $data);
+
+        $modulePropertyRepository = app(ModulePropertyRepository::class);
+
+        $modulePropertyRepository->setModuleProperty($data);
+
+        DB::commit();
+
+        return $moduleSetting;
     }
 
 }

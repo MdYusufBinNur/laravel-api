@@ -22,6 +22,7 @@ class EloquentModulePropertyRepository extends EloquentBaseRepository implements
             $moduleIds = $moduleSettingPropertyRepository->getActiveModuleIdsByPropertyId($searchCriteria['propertyId']);
             $searchCriteria['moduleId'] = implode(",", $moduleIds);
         }
+
         return parent::findBy($searchCriteria, $withTrashed);
     }
 

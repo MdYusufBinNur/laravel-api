@@ -15,6 +15,7 @@ class UserListAutoCompleteRequest extends Request
     {
         return $rules = [
             'propertyId' => 'required',
+            'userId' => 'list:numeric',
             'query' => 'string',
             'staffsOnly' => 'boolean',
             'residentsOnly' => 'boolean'

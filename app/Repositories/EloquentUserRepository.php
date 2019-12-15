@@ -185,6 +185,11 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
                 ->join($managerTable, $thisModelTable . '.id', '=', $managerTable . '.userId')
                 ->where($managerTable . '.propertyId', $searchCriteria['propertyId']);
 
+            if (isset($searchCriteria['userId'])) {
+                $searchCriteria['userId'] = explode(',', $searchCriteria['userId']);
+                $staffsQueryBuilder->whereIn($thisModelTable . '.id', $searchCriteria['userId']);
+            }
+
             if (isset($searchCriteria['query'])) {
                 $staffsQueryBuilder->where($thisModelTable . '.name', 'like', '%' . $searchCriteria['query'] . '%');
             }
@@ -208,6 +213,16 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
                 ->join($residentTable, $thisModelTable . '.id', '=', $residentTable . '.userId')
                 ->join($unitTable, $unitTable . '.id', '=', $residentTable . '.unitId')
                 ->where($residentTable . '.propertyId', $searchCriteria['propertyId']);
+
+            if (isset($searchCriteria['userId'])) {
+
+                if (is_string($searchCriteria['userId'])) {
+                    $searchCriteria['userId'] = explode(',', $searchCriteria['userId']);
+                }
+
+                $residentQueryBuilder->whereIn($thisModelTable . '.id', $searchCriteria['userId']);
+            }
+
             if (isset($searchCriteria['query'])) {
                 $residentQueryBuilder->where($thisModelTable . '.name', 'like', '%' . $searchCriteria['query'] . '%');
             }
@@ -222,7 +237,6 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
                 $users = $residents;
             }
         }
-
 
         return $users;
     }

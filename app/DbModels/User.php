@@ -48,6 +48,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * set default values
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'isActive' => 1
+    ];
+
+    /**
      * @param $pass
      */
     public function setPasswordAttribute($password)

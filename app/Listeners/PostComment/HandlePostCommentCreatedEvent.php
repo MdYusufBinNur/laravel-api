@@ -37,7 +37,7 @@ class HandlePostCommentCreatedEvent implements ShouldQueue
         $userNotificationRepository = app(UserNotificationRepository::class);
         foreach ($toUserIds as $toUserId) {
             if ($postCreatorId[0] === $toUserId){
-                $additionalMessage = $totalPostCommentUser > 1 ? 'and '. $totalPostCommentUser. ' others' : '';
+                $additionalMessage = $totalPostCommentUser > 1 ? ', and '. $totalPostCommentUser. ' others' : '';
                 $message = $additionalMessage .' commented on your post';
             } else if ($postCreatorId[0] !== $toUserId) {
                 $message = 'commented on a post that you`re following on';

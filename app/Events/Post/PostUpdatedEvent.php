@@ -3,6 +3,7 @@
 namespace App\Events\Post;
 
 use App\DbModels\Post;
+use App\DbModels\User;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\UserResource;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -71,7 +72,7 @@ class PostUpdatedEvent implements ShouldBroadcast
         return [
             'post' => new PostResource($this->post),
             'options' => $this->options['request'],
-            'loggedInUser' => new UserResource(\auth()->user())
+            'loggedInUser' => auth()->user() instanceof User ? new UserResource(auth()->user()) : null
         ];
     }
 }

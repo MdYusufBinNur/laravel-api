@@ -23,6 +23,8 @@ class IndexRequest extends Request
             'quantity' => 'list:numeric',
             'manufacturer' => 'list:string',
             'notifyCount' => 'list:numeric',
+            'startDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d',
         ];
     }
 }

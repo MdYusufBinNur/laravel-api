@@ -7,6 +7,7 @@ namespace App\Repositories;
 use App\DbModels\Attachment;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\EquipmentRepository;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class EloquentEquipmentRepository extends EloquentBaseRepository implements EquipmentRepository

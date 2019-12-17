@@ -7,6 +7,7 @@ namespace App\Repositories;
 use App\Events\InventoryItem\InventoryItemCreatedEvent;
 use App\Events\InventoryItem\InventoryItemUpdatedEvent;
 use App\Repositories\Contracts\InventoryItemRepository;
+use Carbon\Carbon;
 
 class EloquentInventoryItemRepository extends EloquentBaseRepository implements InventoryItemRepository
 {

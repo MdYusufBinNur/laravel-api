@@ -40,6 +40,9 @@ class CreateUserNotificationTypesTable extends Migration
             ['id' => 8, 'type' => 'amenity'],
             ['id' => 9, 'type' => 'residentAllowedToContact'],
             ['id' => 10, 'type' => 'message'],
+            ['id' => 11, 'type' => 'post_create'],
+            ['id' => 12, 'type' => 'post_update'],
+            ['id' => 13, 'type' => 'post_comment'],
         ]);
     }
 

@@ -67,7 +67,7 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
             unset($data['attachmentIds']);
         }
 
-        event(new PostUpdatedEvent($post, $this->generateEventOptionsForModel()));
+        event(new PostUpdatedEvent($post, $this->generateEventOptionsForModel(['loggedInUser' => $this->getLoggedInUser()])));
 
         DB::commit();
 

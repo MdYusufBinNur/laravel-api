@@ -72,7 +72,7 @@ class PostUpdatedEvent implements ShouldBroadcast
         return [
             'post' => new PostResource($this->post),
             'options' => $this->options['request'],
-            'loggedInUser' => auth()->user() instanceof User ? new UserResource(auth()->user()) : null
+            'loggedInUser' => $this->options['loggedInUser']
         ];
     }
 }

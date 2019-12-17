@@ -79,12 +79,12 @@ class EloquentServiceRequestRepository extends EloquentBaseRepository implements
         $queryBuilder = $this->model;
 
         if (isset($searchCriteria['endDate'])) {
-            $queryBuilder = $queryBuilder->whereDate('date', '<=', Carbon::parse($searchCriteria['endDate']));
+            $queryBuilder = $queryBuilder->whereDate('created_at', '<=', Carbon::parse($searchCriteria['endDate']));
             unset($searchCriteria['endDate']);
         }
 
         if (isset($searchCriteria['startDate'])) {
-            $queryBuilder = $queryBuilder->whereDate('date', '>=', Carbon::parse($searchCriteria['startDate']));
+            $queryBuilder = $queryBuilder->whereDate('created_at', '>=', Carbon::parse($searchCriteria['startDate']));
             unset($searchCriteria['startDate']);
         }
 

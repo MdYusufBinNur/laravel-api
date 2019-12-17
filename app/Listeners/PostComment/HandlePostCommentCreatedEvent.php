@@ -32,7 +32,7 @@ class HandlePostCommentCreatedEvent implements ShouldQueue
             $toUserIds = array_diff($postCommentUserIds, [$postComment->createdByUserId]);
         }
 
-        $totalPostCommentUser = count(array_diff($postCommentUserIds, $postCreatorId));
+        $totalPostCommentUser = count(array_diff($postCommentUserIds, [$postCreatorId[0],$postComment->createdByUserId]));
 
         $userNotificationRepository = app(UserNotificationRepository::class);
         foreach ($toUserIds as $toUserId) {

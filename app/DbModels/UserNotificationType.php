@@ -20,6 +20,8 @@ class UserNotificationType extends Model
     const FDI = ['id' => 7, 'type' => 'fdi'];
     const AMENITY = ['id' => 8, 'type' => 'amenity'];
     const RESIDENT_ALLOWED_TO_CONTACT = ['id' => 9, 'type' => 'residentAllowedToContact'];
-    const MESSAFE = ['id' => 10, 'type' => 'message'];
-
+    const MESSAGE = ['id' => 10, 'type' => 'message'];
+    const POST_CREATE = ['id' => 11, 'type' => 'post_create'];
+    const POST_UPDATE = ['id' => 12, 'type' => 'post_update'];
+    const POST_COMMENT = ['id' => 13, 'type' => 'post_comment'];
 }

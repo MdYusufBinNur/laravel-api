@@ -2,7 +2,7 @@
 
 namespace App\Listeners\Post;
 
-use App\Events\Post\PostUpdatedEvent;
+use App\Events\PostComment\PostCommentUpdatedEvent;
 use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -13,12 +13,12 @@ class HandlePostCommentUpdatedEvent implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param PostUpdatedEvent $event
+     * @param PostCommentUpdatedEvent $event
      * @return void
      */
-    public function handle(PostUpdatedEvent $event)
+    public function handle(PostCommentUpdatedEvent $event)
     {
-        $post = $event->post;
+        $postComment = $event->postComment;
         $eventOptions = $event->options;
     }
 }

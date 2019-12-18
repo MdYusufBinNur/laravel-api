@@ -42,10 +42,11 @@ class HandlePostUpdatedEvent implements ShouldQueue
             ]);
         }
 
-        if ($eventOptions['request']['likeChanged']){
-            $postCreatorId = $post->createdByUserId;
+        $postCreatorId = $post->createdByUserId;
+        $loggedInUserId = $eventOptions['request']['loggedInUserId'];
+
+        if ($eventOptions['request']['likeChanged'] && ($postCreatorId !== $loggedInUserId)){
             $totalLikes = $post->likeCount;
-            $loggedInUserId = $eventOptions['request']['loggedInUserId'];
 
             $additionalMessage = $totalLikes > 1 ? ', and '. $totalLikes. ' others' : '';
             $message = $additionalMessage .' liked your post';

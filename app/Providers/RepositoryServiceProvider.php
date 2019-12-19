@@ -16,6 +16,7 @@ use App\DbModels\ExpenseCategory;
 use App\DbModels\Fdi;
 use App\DbModels\FdiGuestType;
 use App\DbModels\FdiLog;
+use App\DbModels\Feedback;
 use App\DbModels\Income;
 use App\DbModels\IncomeCategory;
 use App\DbModels\InventoryCategory;
@@ -106,6 +107,7 @@ use App\Repositories\Contracts\ExpenseRepository;
 use App\Repositories\Contracts\FdiGuestTypeRepository;
 use App\Repositories\Contracts\FdiLogRepository;
 use App\Repositories\Contracts\FdiRepository;
+use App\Repositories\Contracts\FeedbackRepository;
 use App\Repositories\Contracts\IncomeCategoryRepository;
 use App\Repositories\Contracts\IncomeRepository;
 use App\Repositories\Contracts\InventoryCategoryRepository;
@@ -188,6 +190,7 @@ use App\Repositories\EloquentExpenseRepository;
 use App\Repositories\EloquentFdiGuestTypeRepository;
 use App\Repositories\EloquentFdiLogRepository;
 use App\Repositories\EloquentFdiRepository;
+use App\Repositories\EloquentFeedbackRepository;
 use App\Repositories\EloquentIncomeCategoryRepository;
 use App\Repositories\EloquentIncomeRepository;
 use App\Repositories\EloquentInventoryCategoryRepository;
@@ -741,6 +744,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind ModuleSettingPropertyRepository
         $this->app->bind(ModuleSettingPropertyRepository::class, function() {
             return new EloquentModuleSettingPropertyRepository(new ModuleSettingProperty());
+        });
+
+        // bind FeedbackRepository
+        $this->app->bind(FeedbackRepository::class, function() {
+            return new EloquentFeedbackRepository(new Feedback());
         });
     }
 }

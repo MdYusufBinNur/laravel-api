@@ -217,6 +217,11 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('expense-category', 'ExpenseCategoryController');
         Route::apiResource('expense', 'ExpenseController');
 
+        /**
+         * Related to user feedback
+         */
+        Route::apiResource('feedback', 'FeedbackController');
+
     });
 
     //route without authentication

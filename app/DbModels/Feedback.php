@@ -9,6 +9,8 @@ class Feedback extends Model
 {
     use CommonModelFeatures;
 
+    protected $table = 'feedbacks';
+
     /**
      * The attributes that are mass assignable.
      *

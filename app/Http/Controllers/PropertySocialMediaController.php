@@ -36,7 +36,7 @@ class PropertySocialMediaController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', PropertySocialMedia::class);
+        // $this->authorize('list', [PropertySocialMedia::class]);
 
         $propertySocialMedias = $this->propertySocialMediaRepository->findBy($request->all());
 

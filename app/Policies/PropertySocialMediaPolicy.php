@@ -6,7 +6,7 @@ use App\DbModels\PropertySocialMedia;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PropertySocailMediaPolicy
+class PropertySocialMediaPolicy
 {
     use HandlesAuthorization;
 

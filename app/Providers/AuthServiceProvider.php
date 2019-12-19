@@ -5,7 +5,6 @@ namespace App\Providers;
 use App\DbModels\Admin;
 use App\DbModels\Announcement;
 use App\DbModels\Attachment;
-use App\DbModels\CommonModelFeatures;
 use App\DbModels\Company;
 use App\DbModels\EnterpriseUser;
 use App\DbModels\EnterpriseUserProperty;
@@ -91,7 +90,6 @@ use App\DbModels\VisitorType;
 use App\Policies\AdminPolicy;
 use App\Policies\AnnouncementPolicy;
 use App\Policies\AttachementPolicy;
-use App\Policies\CommonModelFeaturesPolicy;
 use App\Policies\CompanyPolicy;
 use App\Policies\EnterpriseUserPolicy;
 use App\Policies\EnterpriseUserPropertyPolicy;
@@ -146,7 +144,7 @@ use App\Policies\PropertyImagePolicy;
 use App\Policies\PropertyLinkCategoryPolicy;
 use App\Policies\PropertyLinkPolicy;
 use App\Policies\PropertyPolicy;
-use App\Policies\PropertySocailMediaPolicy;
+use App\Policies\PropertySocialMediaPolicy;
 use App\Policies\ResidentAccessRequestPolicy;
 use App\Policies\ResidentArchivePolicy;
 use App\Policies\ResidentEmergencyPolicy;
@@ -244,7 +242,7 @@ class AuthServiceProvider extends ServiceProvider
         PropertyLinkCategory::class => PropertyLinkCategoryPolicy::class,
         PropertyLink::class => PropertyLinkPolicy::class,
         Property::class => PropertyPolicy::class,
-        PropertySocialMedia::class => PropertySocailMediaPolicy::class,
+        PropertySocialMedia::class => PropertySocialMediaPolicy::class,
         ResidentAccessRequest::class => ResidentAccessRequestPolicy::class,
         ResidentArchive::class => ResidentArchivePolicy::class,
         ResidentEmergency::class => ResidentEmergencyPolicy::class,

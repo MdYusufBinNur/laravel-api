@@ -29,6 +29,7 @@ class StoreRequest extends Request
             'user.name' => 'required_with:user|max:255',
             'user.password' => 'required_with:user|min:5|max:255',
             'user.locale' => 'in:en,bn',
+            'user.isActive' => 'boolean'
         ];
     }
 

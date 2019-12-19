@@ -44,6 +44,7 @@ class StoreRequest extends Request
             'user.name'            => 'required_without:userId|max:100',
             'user.email'           => 'required_without:userId|email|unique:users,email',
             'user.password'        => 'required_without:userId',
+            'user.isActive'        => 'required_without:userId|boolean',
         ];
     }
 }

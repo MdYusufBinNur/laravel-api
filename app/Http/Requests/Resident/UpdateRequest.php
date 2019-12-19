@@ -45,6 +45,7 @@ class UpdateRequest extends Request
             'user.name'            => 'min:3|max:255',
             'email'                => Rule::unique('users')->ignore($userId, 'id'),
             'user.password'        => 'min:5|max:255',
+            'user.isActive'        => 'boolean',
         ];
     }
 

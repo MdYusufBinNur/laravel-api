@@ -33,6 +33,7 @@ class UpdateRequest extends Request
             'user.name' => 'max:255',
             'user.password' => 'min:5|max:255',
             'user.locale' => 'in:en,bn',
+            'user.isActive' => 'boolean',
         ];
     }
 

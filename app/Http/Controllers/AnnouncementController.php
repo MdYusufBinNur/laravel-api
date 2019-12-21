@@ -57,7 +57,7 @@ class AnnouncementController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', $request->get('propertyId'));
+        $this->authorize('store', [Announcement::class, $request->get('propertyId')]);
 
         $announcement = $this->announcementRepository->save($request->all());
 

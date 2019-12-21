@@ -36,7 +36,7 @@ class PropertyLinkCategoryController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [PropertyLinkCategory::class, $request->get('propertyId')]);
+        //$this->authorize('list', PropertyLinkCategory::class);
 
         $propertyLinkCategories = $this->propertyLinkCategoryRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class PropertyLinkCategoryController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [PropertyLinkCategory::class, $request->get('propertyId')]);
+        $this->authorize('store', PropertyLinkCategory::class);
 
         $propertyLinkCategory = $this->propertyLinkCategoryRepository->save($request->all());
 
@@ -68,7 +68,7 @@ class PropertyLinkCategoryController extends Controller
      */
     public function show(PropertyLinkCategory $propertyLinkCategory)
     {
-        $this->authorize('show', $propertyLinkCategory);
+        //$this->authorize('show', $propertyLinkCategory);
 
         return new PropertyLinkCategoryResource($propertyLinkCategory);
     }

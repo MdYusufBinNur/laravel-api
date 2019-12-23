@@ -9,6 +9,10 @@ class PaymentItem extends Model
 {
     use CommonModelFeatures;
 
+    const STATUS_PENDING = 'pending';
+    const STATUS_PAID = 'paid';
+    const STATUS_CANCELLED = 'cancelled';
+
     /**
      * The attributes that are mass assignable.
      *

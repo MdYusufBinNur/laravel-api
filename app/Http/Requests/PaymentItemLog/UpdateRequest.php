@@ -2,20 +2,10 @@
 
 namespace App\Http\Requests\PaymentItemLog;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Request;
 
-class UpdateRequest extends FormRequest
+class UpdateRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +14,11 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'paymentItemId' => 'exists:payment_items,id',
+            'userId' => 'exists:users,id',
+            'unitId' => 'exists:units,id',
+            'status' => 'max:255',
+            'updatedByUserId' => 'exists:users,id',
         ];
     }
 }

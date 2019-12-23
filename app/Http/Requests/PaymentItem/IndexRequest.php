@@ -2,20 +2,10 @@
 
 namespace App\Http\Requests\PaymentItem;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Request;
 
-class IndexRequest extends FormRequest
+class IndexRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +14,12 @@ class IndexRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'id' => 'list:numeric',
+            'createdByUserId' => 'list:numeric',
+            'paymentId' => 'list:numeric',
+            'userId' => 'list:numeric',
+            'unitId' => 'list:numeric',
+            'status' => 'list:string',
         ];
     }
 }

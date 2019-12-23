@@ -2,9 +2,8 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class PaymentItemLogResource extends JsonResource
+class PaymentItemLogResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +13,15 @@ class PaymentItemLogResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'paymentItemId' => $this->paymentItemId,
+            'userId' =>  $this->userId,
+            'unitId' => $this->unitId,
+            'status' => $this->status,
+            'updatedByUserId' => $this->updatedByUserId,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
     }
 }

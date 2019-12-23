@@ -2,20 +2,11 @@
 
 namespace App\Http\Requests\PaymentItem;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\DbModels\PaymentItem;
+use App\Http\Requests\Request;
 
-class StoreRequest extends FormRequest
+class StoreRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +15,11 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'createdByUserId' => 'exists:user,id',
+            'paymentId' => 'required|exists:payments,id',
+            'userId' => 'exists:users,id',
+            'unitId' => 'exists:units,id',
+            'status' => 'required|in:'.PaymentItem::STATUS_PAID.','.PaymentItem::STATUS_PENDING.','.PaymentItem::STATUS_CANCELLED,
         ];
     }
 }

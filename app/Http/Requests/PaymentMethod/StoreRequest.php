@@ -2,19 +2,10 @@
 
 namespace App\Http\Requests\PaymentMethod;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Request;
 
-class StoreRequest extends FormRequest
+class StoreRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -24,7 +15,8 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|min:2|max:255',
+            'propertyId' => 'exists:properties,id',
         ];
     }
 }

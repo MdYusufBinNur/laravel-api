@@ -14,8 +14,30 @@ class CreatePaymentRecurringTable extends Migration
     public function up()
     {
         Schema::create('payment_recurring', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->integer('createdByUserId')->unsigned();
+            $table->unsignedInteger('propertyId');
+            $table->integer('paymentId')->unsigned();
+            $table->date('activationDate');
+            $table->date('expireDate');
+            $table->string('period');
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('propertyId')
+                ->references('id')->on('properties')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('paymentId')
+                ->references('id')->on('payments')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

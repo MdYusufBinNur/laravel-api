@@ -14,8 +14,40 @@ class CreatePaymentsTable extends Migration
     public function up()
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->integer('createdByUserId')->unsigned();
+            $table->unsignedInteger('propertyId');
+            $table->integer('paymentMethodId')->unsigned();
+            $table->integer('paymentTypeId')->unsigned();
+            $table->string('amount');
+            $table->string('note');
+            $table->date('dueDate');
+            $table->integer('dueDays');
+            $table->boolean('isRecurring')->default(false);
+            $table->string('status');
+            $table->date('activationDate');
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('propertyId')
+                ->references('id')->on('properties')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('paymentMethodId')
+                ->references('id')->on('payment_methods')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('paymentTypeId')
+                ->references('id')->on('payment_types')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

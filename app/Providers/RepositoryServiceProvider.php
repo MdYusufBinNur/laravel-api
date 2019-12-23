@@ -48,6 +48,12 @@ use App\DbModels\ParkingPass;
 use App\DbModels\ParkingPassLog;
 use App\DbModels\ParkingSpace;
 use App\DbModels\PasswordReset;
+use App\DbModels\Payment;
+use App\DbModels\PaymentItem;
+use App\DbModels\PaymentItemLog;
+use App\DbModels\PaymentMethod;
+use App\DbModels\PaymentRecur;
+use App\DbModels\PaymentType;
 use App\DbModels\Post;
 use App\DbModels\PostApprovalArchive;
 use App\DbModels\PostApprovalBlacklistUnit;
@@ -137,6 +143,12 @@ use App\Repositories\Contracts\ParkingPassLogRepository;
 use App\Repositories\Contracts\ParkingPassRepository;
 use App\Repositories\Contracts\ParkingSpaceRepository;
 use App\Repositories\Contracts\PasswordResetRepository;
+use App\Repositories\Contracts\PaymentItemLogRepository;
+use App\Repositories\Contracts\PaymentItemRepository;
+use App\Repositories\Contracts\PaymentMethodRepository;
+use App\Repositories\Contracts\PaymentRecurRepository;
+use App\Repositories\Contracts\PaymentRepository;
+use App\Repositories\Contracts\PaymentTypeRepository;
 use App\Repositories\Contracts\PostApprovalArchiveRepository;
 use App\Repositories\Contracts\PostApprovalBlacklistUnitRepository;
 use App\Repositories\Contracts\PostCommentRepository;
@@ -224,6 +236,12 @@ use App\Repositories\EloquentParkingPassLogRepository;
 use App\Repositories\EloquentParkingPassRepository;
 use App\Repositories\EloquentParkingSpaceRepository;
 use App\Repositories\EloquentPasswordResetRepository;
+use App\Repositories\EloquentPaymentItemLogRepository;
+use App\Repositories\EloquentPaymentItemRepository;
+use App\Repositories\EloquentPaymentMethodRepository;
+use App\Repositories\EloquentPaymentRecurRepository;
+use App\Repositories\EloquentPaymentRepository;
+use App\Repositories\EloquentPaymentTypeRepository;
 use App\Repositories\EloquentPostApprovalArchiveRepository;
 use App\Repositories\EloquentPostApprovalBlacklistUnitRepository;
 use App\Repositories\EloquentPostCommentRepository;
@@ -749,6 +767,36 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind FeedbackRepository
         $this->app->bind(FeedbackRepository::class, function() {
             return new EloquentFeedbackRepository(new Feedback());
+        });
+
+        // bind PaymentTypeRepository
+        $this->app->bind(PaymentTypeRepository::class, function() {
+            return new EloquentPaymentTypeRepository(new PaymentType());
+        });
+
+        // bind PaymentMethodRepository
+        $this->app->bind(PaymentMethodRepository::class, function() {
+            return new EloquentPaymentMethodRepository(new PaymentMethod());
+        });
+
+        // bind PaymentRepository
+        $this->app->bind(PaymentRepository::class, function() {
+            return new EloquentPaymentRepository(new Payment());
+        });
+
+        // bind PaymentRecurRepository
+        $this->app->bind(PaymentRecurRepository::class, function() {
+            return new EloquentPaymentRecurRepository(new PaymentRecur());
+        });
+
+        // bind PaymentRecurRepository
+        $this->app->bind(PaymentItemRepository::class, function() {
+            return new EloquentPaymentItemRepository(new PaymentItem());
+        });
+
+        // bind PaymentItemLogRepository
+        $this->app->bind(PaymentItemLogRepository::class, function() {
+            return new EloquentPaymentItemLogRepository(new PaymentItemLog());
         });
     }
 }

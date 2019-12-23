@@ -222,6 +222,17 @@ Route::group(['prefix' => 'api/v1'], function () {
          */
         Route::apiResource('feedback', 'FeedbackController');
 
+
+        /**
+         * Related to payment
+         */
+        Route::apiResource('payment-type', 'PaymentTypeController');
+        Route::apiResource('payment-method', 'PaymentMethodController');
+        Route::apiResource('payment', 'PaymentController');
+        Route::apiResource('payment-recur', 'PaymentRecurController');
+        Route::apiResource('payment-item', 'PaymentItemController');
+        Route::apiResource('payment-item-log', 'PaymentItemLogController');
+
     });
 
     //route without authentication

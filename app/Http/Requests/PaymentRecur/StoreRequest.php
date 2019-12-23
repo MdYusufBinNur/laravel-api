@@ -2,20 +2,11 @@
 
 namespace App\Http\Requests\PaymentRecur;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\DbModels\PaymentRecur;
+use App\Http\Requests\Request;
 
-class StoreRequest extends FormRequest
+class StoreRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +15,12 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'createdByUserId' => 'exists:users,id',
+            'propertyId' => 'required|exists:properties,id',
+            'paymentId' => 'required|exists:payments,id',
+            'activationDate' => 'required|date_format:Y-m-d',
+            'expireDate' => 'required|date_format:Y-m-d',
+            'period' => 'required|in:'.PaymentRecur::PERIOD_EVERY_DAY.','.PaymentRecur::PERIOD_EVERY_WEEK.','.PaymentRecur::PERIOD_EVERY_MONTH.','.PaymentRecur::PERIOD_EVERY_THREE_MONTHS.','.PaymentRecur::PERIOD_TWICE_A_YEAR.','.PaymentRecur::PERIOD_EVERY_YEAR.','.PaymentRecur::PERIOD_SPECIFIC_DATES,
         ];
     }
 }

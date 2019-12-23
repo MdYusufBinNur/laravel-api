@@ -16,9 +16,11 @@ class IndexRequest extends Request
         return [
             'id' => 'list:numeric',
             'createdByUserId' => 'list:numeric',
+            'propertyId' => 'list:numeric',
             'paymentId' => 'list:numeric',
-            'userId' => 'list:numeric',
-            'unitId' => 'list:numeric',
+            'activationDate' => 'date_format:Y-m-d',
+            'expireDate' => 'date_format:Y-m-d',
+            'period' => 'list:string',
         ];
     }
 }

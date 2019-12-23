@@ -2,9 +2,7 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-
-class PaymenRecurResource extends JsonResource
+class PaymenRecurResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +12,16 @@ class PaymenRecurResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'createdByUserId' => $this->createdByUserId,
+            'propertyId' => $this->propertyId,
+            'paymentId' => $this->paymentId,
+            'activationDate' => $this->activationDate,
+            'expireDate' => $this->expireDate,
+            'period' => $this->period,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
     }
 }

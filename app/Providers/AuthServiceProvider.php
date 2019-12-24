@@ -248,6 +248,7 @@ class AuthServiceProvider extends ServiceProvider
         ResidentEmergency::class => ResidentEmergencyPolicy::class,
         Resident::class => ResidentPolicy::class,
         ResidentVehicle::class => ResidentVehiclePolicy::class,
+        Role::class => RolePolicy::class,
         ServiceRequestCategory::class => ServiceRequestCategoryPolicy::class,
         ServiceRequestLog::class => ServiceRequestLogPolicy::class,
         ServiceRequestMessage::class => ServiceRequestMessagePolicy::class,

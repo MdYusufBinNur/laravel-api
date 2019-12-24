@@ -21,11 +21,11 @@ class StoreRequest extends Request
             'paymentTypeId' => 'required|exists:payment_types,id',
             'amount' => 'required',
             'note' => 'required',
-            'dueDate' => 'required|date_format:Y-m-d',
+            'dueDate' => 'date_format:Y-m-d',
             'dueDays' => 'numeric',
             'isRecurring' => 'boolean',
             'status' => 'required|in:'.Payment::STATUS_PENDING.','.Payment::STATUS_DONE.','.Payment::STATUS_NOT_ACTIVATED.','.Payment::STATUS_PARTIALLY_DONE,
-            'activationDate' => 'required|date_format:Y-m-d',
+            'activationDate' => 'date_format:Y-m-d',
         ];
     }
 }

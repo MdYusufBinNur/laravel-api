@@ -2,10 +2,9 @@
 
 namespace App\Policies;
 
-use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PaymentRecurPolicy
+class PaymentRecurringPolicy
 {
     use HandlesAuthorization;
 

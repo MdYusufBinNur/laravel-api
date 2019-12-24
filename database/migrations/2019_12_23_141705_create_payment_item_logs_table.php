@@ -16,6 +16,7 @@ class CreatePaymentItemLogsTable extends Migration
         Schema::create('payment_item_logs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('paymentItemId')->unsigned();
+            $table->integer('propertyId')->unsigned();
             $table->unsignedInteger('userId')->nullable();
             $table->unsignedInteger('unitId')->nullable();
             $table->string('status')->nullable();
@@ -25,6 +26,11 @@ class CreatePaymentItemLogsTable extends Migration
 
             $table->foreign('paymentItemId')
                 ->references('id')->on('payment_items')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('propertyId')
+                ->references('id')->on('properties')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 

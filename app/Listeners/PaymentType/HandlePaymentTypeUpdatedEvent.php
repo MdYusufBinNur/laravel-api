@@ -11,7 +11,7 @@ class HandlePaymentTypeUpdatedEvent implements ShouldQueue
     use CommonListenerFeatures;
 
     /**
-     * Handle the event.
+     * Handle the event.a
      *
      * @param  PaymentTypeUpdatedEvent  $event
      * @return void

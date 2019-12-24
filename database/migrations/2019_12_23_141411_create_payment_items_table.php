@@ -16,6 +16,7 @@ class CreatePaymentItemsTable extends Migration
         Schema::create('payment_items', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned();
+            $table->integer('propertyId')->unsigned();
             $table->integer('paymentId')->unsigned();
             $table->integer('userId')->unsigned();
             $table->integer('unitId')->unsigned();
@@ -30,6 +31,11 @@ class CreatePaymentItemsTable extends Migration
 
             $table->foreign('paymentId')
                 ->references('id')->on('payments')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('propertyId')
+                ->references('id')->on('properties')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

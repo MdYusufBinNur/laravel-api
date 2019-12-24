@@ -21,11 +21,11 @@ class CreatePaymentsTable extends Migration
             $table->integer('paymentTypeId')->unsigned();
             $table->string('amount');
             $table->string('note');
-            $table->date('dueDate');
-            $table->integer('dueDays');
+            $table->date('dueDate')->nullable();
+            $table->integer('dueDays')->nullable();
             $table->boolean('isRecurring')->default(false);
             $table->string('status');
-            $table->date('activationDate');
+            $table->date('activationDate')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

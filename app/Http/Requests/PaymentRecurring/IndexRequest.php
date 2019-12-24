@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\PaymentRecur;
+namespace App\Http\Requests\PaymentRecurring;
 
 use App\Http\Requests\Request;
 

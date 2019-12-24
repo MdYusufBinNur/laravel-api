@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-class PaymenRecurResource extends Resource
+class PaymentRecurringResource extends Resource
 {
     /**
      * Transform the resource into an array.

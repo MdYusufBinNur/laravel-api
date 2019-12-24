@@ -52,7 +52,7 @@ use App\DbModels\Payment;
 use App\DbModels\PaymentItem;
 use App\DbModels\PaymentItemLog;
 use App\DbModels\PaymentMethod;
-use App\DbModels\PaymentRecur;
+use App\DbModels\PaymentRecurring;
 use App\DbModels\PaymentType;
 use App\DbModels\Post;
 use App\DbModels\PostApprovalArchive;
@@ -146,7 +146,7 @@ use App\Repositories\Contracts\PasswordResetRepository;
 use App\Repositories\Contracts\PaymentItemLogRepository;
 use App\Repositories\Contracts\PaymentItemRepository;
 use App\Repositories\Contracts\PaymentMethodRepository;
-use App\Repositories\Contracts\PaymentRecurRepository;
+use App\Repositories\Contracts\PaymentRecurringRepository;
 use App\Repositories\Contracts\PaymentRepository;
 use App\Repositories\Contracts\PaymentTypeRepository;
 use App\Repositories\Contracts\PostApprovalArchiveRepository;
@@ -239,7 +239,7 @@ use App\Repositories\EloquentPasswordResetRepository;
 use App\Repositories\EloquentPaymentItemLogRepository;
 use App\Repositories\EloquentPaymentItemRepository;
 use App\Repositories\EloquentPaymentMethodRepository;
-use App\Repositories\EloquentPaymentRecurRepository;
+use App\Repositories\EloquentPaymentRecurringRepository;
 use App\Repositories\EloquentPaymentRepository;
 use App\Repositories\EloquentPaymentTypeRepository;
 use App\Repositories\EloquentPostApprovalArchiveRepository;
@@ -784,12 +784,12 @@ class RepositoryServiceProvider extends ServiceProvider
             return new EloquentPaymentRepository(new Payment());
         });
 
-        // bind PaymentRecurRepository
-        $this->app->bind(PaymentRecurRepository::class, function() {
-            return new EloquentPaymentRecurRepository(new PaymentRecur());
+        // bind PaymentRecurringRepository
+        $this->app->bind(PaymentRecurringRepository::class, function() {
+            return new EloquentPaymentRecurringRepository(new PaymentRecurring());
         });
 
-        // bind PaymentRecurRepository
+        // bind PaymentRecurringRepository
         $this->app->bind(PaymentItemRepository::class, function() {
             return new EloquentPaymentItemRepository(new PaymentItem());
         });

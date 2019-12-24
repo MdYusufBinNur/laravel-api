@@ -5,7 +5,7 @@ namespace App\DbModels;
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
 
-class PaymentRecur extends Model
+class PaymentRecurring extends Model
 {
     use CommonModelFeatures;
 

@@ -19,7 +19,7 @@ class CreatePaymentRecurringTable extends Migration
             $table->unsignedInteger('propertyId');
             $table->integer('paymentId')->unsigned();
             $table->date('activationDate');
-            $table->date('expireDate');
+            $table->date('expireDate')->nullable();
             $table->string('period');
             $table->timestamps();
             $table->softDeletes();

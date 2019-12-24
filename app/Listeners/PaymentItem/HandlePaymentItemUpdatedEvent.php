@@ -2,29 +2,24 @@
 
 namespace App\Listeners\PaymentItem;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\PaymentItem\PaymentItemUpdatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandlePaymentItemUpdatedEvent
+class HandlePaymentItemUpdatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  PaymentItemUpdatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(PaymentItemUpdatedEvent $event)
     {
-        //
+        $paymentItem = $event->paymentItem;
+        $eventOptions = $event->options;
+        $oldPaymentItem = $eventOptions['oldModel'];
     }
 }

@@ -2,29 +2,23 @@
 
 namespace App\Listeners\PaymentRecur;
 
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\PaymentRecur\PaymentRecurCreatedEvent;
+use App\Listeners\CommonListenerFeatures;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandlePaymentRecurCreatedEvent
+class HandlePaymentRecurCreatedEvent implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+    use CommonListenerFeatures;
 
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param  PaymentRecurCreatedEvent  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(PaymentRecurCreatedEvent $event)
     {
-        //
+        $paymentRecur = $event->paymentRecur;
+        $eventOptions = $event->options;
     }
 }

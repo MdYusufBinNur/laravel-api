@@ -2,35 +2,32 @@
 
 namespace App\Events\Payment;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\Payment;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class PaymentCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var array
+     */
+    public $options;
+
+    /**
+     * @var Payment
+     */
+    public $payment;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Payment $payment
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(Payment $payment, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->payment = $payment;
+        $this->options = $options;
     }
 }

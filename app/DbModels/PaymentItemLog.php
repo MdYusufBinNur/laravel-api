@@ -16,6 +16,7 @@ class PaymentItemLog extends Model
      */
     protected $fillable = [
         'paymentItemId',
+        'propertyId',
         'userId',
         'unitId',
         'status',

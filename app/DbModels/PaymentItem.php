@@ -21,6 +21,7 @@ class PaymentItem extends Model
     protected $fillable = [
         'createdByUserId',
         'paymentId',
+        'propertyId',
         'userId',
         'unitId',
         'status'

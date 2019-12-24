@@ -17,6 +17,7 @@ class StoreRequest extends Request
         return [
             'createdByUserId' => 'exists:user,id',
             'paymentId' => 'required|exists:payments,id',
+            'propertyId' => 'required|exists:properties,id',
             'userId' => 'exists:users,id',
             'unitId' => 'exists:units,id',
             'status' => 'required|in:'.PaymentItem::STATUS_PAID.','.PaymentItem::STATUS_PENDING.','.PaymentItem::STATUS_CANCELLED,

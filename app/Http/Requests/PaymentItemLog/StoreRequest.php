@@ -15,6 +15,7 @@ class StoreRequest extends Request
     {
         return [
             'paymentItemId' => 'required|exists:payment_items,id',
+            'propertyId' => 'required|exists:properties,id',
             'userId' => 'exists:users,id',
             'unitId' => 'exists:units,id',
             'status' => 'max:255',

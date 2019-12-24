@@ -24,7 +24,7 @@ class StoreRequest extends Request
             'dueDate' => 'required|date_format:Y-m-d',
             'dueDays' => 'numeric',
             'isRecurring' => 'boolean',
-            'status' => 'required|id:'.Payment::STATUS_PENDING.','.Payment::STATUS_DONE.','.Payment::STATUS_NOT_ACTIVATED.','.Payment::STATUS_PARTIALLY_DONE,
+            'status' => 'required|in:'.Payment::STATUS_PENDING.','.Payment::STATUS_DONE.','.Payment::STATUS_NOT_ACTIVATED.','.Payment::STATUS_PARTIALLY_DONE,
             'activationDate' => 'required|date_format:Y-m-d',
         ];
     }

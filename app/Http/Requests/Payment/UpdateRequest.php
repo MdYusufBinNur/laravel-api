@@ -23,7 +23,7 @@ class UpdateRequest extends Request
             'dueDate' => 'date_format:Y-m-d',
             'dueDays' => 'numeric',
             'isRecurring' => 'boolean',
-            'status' => 'id:'.Payment::STATUS_PENDING.','.Payment::STATUS_DONE.','.Payment::STATUS_NOT_ACTIVATED.','.Payment::STATUS_PARTIALLY_DONE,
+            'status' => 'in:'.Payment::STATUS_PENDING.','.Payment::STATUS_DONE.','.Payment::STATUS_NOT_ACTIVATED.','.Payment::STATUS_PARTIALLY_DONE,
             'activationDate' => 'date_format:Y-m-d',
         ];
     }

@@ -30,6 +30,7 @@ class Payment extends Model
         'amount',
         'note',
         'dueDate',
+        'dueDays',
         'isRecurring',
         'status',
         'activationDate'

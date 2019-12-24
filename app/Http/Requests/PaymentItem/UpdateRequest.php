@@ -17,6 +17,7 @@ class UpdateRequest extends Request
         return [
             'createdByUserId' => 'exists:user,id',
             'paymentId' => 'exists:payments,id',
+            'propertyId' => 'exists:properties,id',
             'userId' => 'exists:users,id',
             'unitId' => 'exists:units,id',
             'status' => 'in:'.PaymentItem::STATUS_PAID.','.PaymentItem::STATUS_PENDING.','.PaymentItem::STATUS_CANCELLED,

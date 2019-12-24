@@ -15,6 +15,7 @@ class UpdateRequest extends Request
     {
         return [
             'paymentItemId' => 'exists:payment_items,id',
+            'propertyId' => 'exists:properties,id',
             'userId' => 'exists:users,id',
             'unitId' => 'exists:units,id',
             'status' => 'max:255',

@@ -57,13 +57,13 @@ class EloquentPostPollRepository extends EloquentBaseRepository implements PostP
         }
 
         $postPoll = parent::update($model, $data);
-        if (isset($data['post'])) {
-            $postRepository = app(PostRepository::class);
-            $post = $postRepository->findOne($postPoll->postId);
 
-            if ($post instanceof Post) {
-                $postRepository->update($post, $data['post']);
-            }
+        $data['post'] = $data['post'] ?? [];
+        $postRepository = app(PostRepository::class);
+        $post = $postRepository->findOne($postPoll->postId);
+
+        if ($post instanceof Post) {
+            $postRepository->update($post, $data['post']);
         }
 
         DB::commit();

@@ -9,6 +9,7 @@ use App\Http\Requests\ModuleOptionProperty\UpdateRequest;
 use App\Http\Resources\ModuleOptionPropertyResource;
 use App\Http\Resources\ModuleOptionPropertyResourceCollection;
 use App\Repositories\Contracts\ModuleOptionPropertyRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class ModuleOptionPropertyController extends Controller
 {
@@ -31,9 +32,12 @@ class ModuleOptionPropertyController extends Controller
      *
      * @param IndexRequest $request
      * @return ModuleOptionPropertyResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [ModuleOptionProperty::class, $request->get('propertyId')]);
+
         $moduleOptionProperties = $this->moduleOptionPropertyRepository->findBy($request->all());
 
         return new ModuleOptionPropertyResourceCollection($moduleOptionProperties);
@@ -44,9 +48,12 @@ class ModuleOptionPropertyController extends Controller
      *
      * @param StoreRequest $request
      * @return ModuleOptionPropertyResourceCollection
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [ModuleOptionProperty::class, $request->get('propertyId')]);
+
         $moduleOptionProperty = $this->moduleOptionPropertyRepository->saveModuleOptionProperty($request->all());
 
         return new ModuleOptionPropertyResourceCollection($moduleOptionProperty);
@@ -58,9 +65,12 @@ class ModuleOptionPropertyController extends Controller
      *
      * @param ModuleOptionProperty $moduleOptionProperty
      * @return ModuleOptionPropertyResource
+     * @throws AuthorizationException
      */
     public function show(ModuleOptionProperty $moduleOptionProperty)
     {
+        $this->authorize('show', $moduleOptionProperty);
+
         return new ModuleOptionPropertyResource($moduleOptionProperty);
     }
 
@@ -70,9 +80,12 @@ class ModuleOptionPropertyController extends Controller
      * @param UpdateRequest $request
      * @param ModuleOptionProperty $moduleOptionProperty
      * @return ModuleOptionPropertyResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, ModuleOptionProperty $moduleOptionProperty)
     {
+        $this->authorize('update', $moduleOptionProperty);
+
         $moduleOptionProperty = $this->moduleOptionPropertyRepository->update($moduleOptionProperty, $request->all());
 
         return new ModuleOptionPropertyResource($moduleOptionProperty);
@@ -83,9 +96,12 @@ class ModuleOptionPropertyController extends Controller
      *
      * @param ModuleOptionProperty $moduleOptionProperty
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(ModuleOptionProperty $moduleOptionProperty)
     {
+        $this->authorize('destroy', $moduleOptionProperty);
+
         $this->moduleOptionPropertyRepository->delete($moduleOptionProperty);
 
         return response()->json(null, 204);

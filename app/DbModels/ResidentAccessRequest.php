@@ -2,7 +2,9 @@
 
 namespace App\DbModels;
 
+use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ResidentAccessRequest extends Model
 {
@@ -19,7 +21,7 @@ class ResidentAccessRequest extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'unitId', 'name', 'email', 'pin', 'type', 'groups', 'status', 'active', 'comment', 'moderatedUserId', 'moderatedAt', 'movedInDate', 'birthDate'
+        'createdByUserId', 'propertyId', 'unitId', 'name', 'email', 'phone', 'pin', 'type', 'groups', 'status', 'active', 'comment', 'moderatedUserId', 'moderatedAt', 'movedInDate', 'birthDate'
     ];
 
     protected $attributes = [
@@ -41,7 +43,7 @@ class ResidentAccessRequest extends Model
     /**
      * get the property
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return hasOne
      */
     public function property()
     {
@@ -51,7 +53,7 @@ class ResidentAccessRequest extends Model
     /**
      * get the unit
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return hasOne
      */
     public function unit()
     {

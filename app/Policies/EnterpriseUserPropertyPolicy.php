@@ -35,18 +35,6 @@ class EnterpriseUserPropertyPolicy
     }
 
     /**
-     * Determine if a given user has permission to store
-     *
-     * @param User $currentUser
-     * @param User $user
-     * @return bool
-     */
-    public function store(User $currentUser)
-    {
-        return true;
-    }
-
-    /**
      * Determine if a given user has permission to show
      *
      * @param User $currentUser
@@ -54,30 +42,6 @@ class EnterpriseUserPropertyPolicy
      * @return bool
      */
     public function show(User $currentUser,  EnterpriseUserProperty $enterpriseUserProperty)
-    {
-        return $currentUser->id === $user->id;
-    }
-
-    /**
-     * Determine if a given user can update
-     *
-     * @param User $currentUser
-     * @param EnterpriseUserProperty $enterpriseUserProperty
-     * @return bool
-     */
-    public function update(User $currentUser, EnterpriseUserProperty $enterpriseUserProperty)
-    {
-        return $currentUser->id === $user->id;
-    }
-
-    /**
-     * Determine if a given user can delete
-     *
-     * @param User $currentUser
-     * @param EnterpriseUserProperty $enterpriseUserProperty
-     * @return bool
-     */
-    public function destroy(User $currentUser, EnterpriseUserProperty $enterpriseUserProperty)
     {
         return false;
     }

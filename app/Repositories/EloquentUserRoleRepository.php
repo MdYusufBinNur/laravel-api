@@ -25,7 +25,7 @@ class EloquentUserRoleRepository extends EloquentBaseRepository implements UserR
     {
         return $this->model->select(['userId'])
             ->where(['propertyId' => $propertyId])
-            ->whereIn('roleId', [Role::ROLE_RESIDENT_STUDENT['id'], Role::ROLE_RESIDENT_SHOP['id'], Role::ROLE_RESIDENT_TENANT['id'], Role::ROLE_RESIDENT_OWNER['id']])
+            ->whereIn('roleId', [Role::ROLE_RESIDENT_TENANT['id'], Role::ROLE_RESIDENT_OWNER['id']])
             ->pluck('userId')->toArray();
     }
 

@@ -5,8 +5,11 @@ namespace App\Repositories;
 
 
 use App\DbModels\Attachment;
+use App\DbModels\MessageUser;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\MessagePostRepository;
+use App\Repositories\Contracts\MessageUserRepository;
+use Illuminate\Support\Facades\DB;
 
 class EloquentMessagePostRepository extends EloquentBaseRepository implements MessagePostRepository
 {
@@ -15,6 +18,8 @@ class EloquentMessagePostRepository extends EloquentBaseRepository implements Me
      */
     public function save(array $data): \ArrayAccess
     {
+        DB::beginTransaction();
+
         $data['fromUserId'] = $this->getLoggedInUser()->id;
         $messagePost = parent::save($data);
 
@@ -29,6 +34,27 @@ class EloquentMessagePostRepository extends EloquentBaseRepository implements Me
             }
             unset($data['attachmentIds']);
         }
+
+        if (!isset($data['isFirstTime'])) {
+            $messageUsers = $messagePost->messageUsers()->get();
+
+            $messageUserRepository = app(MessageUserRepository::class);
+
+            foreach ($messageUsers as $messageUser) {
+                $messageUserData = [];
+
+                if ($messageUser->userId != $this->getLoggedInUser()->id) {
+                    $messageUserData['isRead'] = false;
+                    if ($messageUser->folder == MessageUser::FOLDER_SENT) {
+                        $messageUserData['folder'] = MessageUser::FOLDER_INBOX_SENT;
+                    }
+                }
+                
+                $messageUserRepository->update($messageUser, $messageUserData);
+            }
+        }
+
+        DB::commit();
 
         return $messagePost;
     }

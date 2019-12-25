@@ -2,7 +2,10 @@
 
 namespace App\DbModels;
 
+use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ServiceRequest extends Model
 {
@@ -51,7 +54,7 @@ class ServiceRequest extends Model
     /**
      * service request and its message relationship
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function messages()
     {
@@ -61,7 +64,7 @@ class ServiceRequest extends Model
     /**
      * service request and its log relationship
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function logs()
     {
@@ -71,7 +74,7 @@ class ServiceRequest extends Model
     /**
      * user of the service request
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function user()
     {
@@ -81,7 +84,7 @@ class ServiceRequest extends Model
     /**
      * unit of the service request
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function unit()
     {
@@ -91,7 +94,7 @@ class ServiceRequest extends Model
     /**
      * category of the service request
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function serviceRequestCategory()
     {
@@ -101,7 +104,7 @@ class ServiceRequest extends Model
     /**
      * get service request photos
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function serviceRequestPhotos()
     {

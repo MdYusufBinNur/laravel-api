@@ -14,7 +14,7 @@ class PackageTypeResource extends Resource
     {
         return [
             'id' => $this->id,
-            'createdByUserId' => $this->createdByUserId,
+            'propertyId' => $this->propertyId,
             'title' => $this->title,
             'icon' => $this->icon,
             'created_at' => $this->created_at,

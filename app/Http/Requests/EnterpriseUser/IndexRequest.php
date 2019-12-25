@@ -16,7 +16,7 @@ class IndexRequest extends Request
         return [
             'id' => 'list:numeric',
             'userId' =>  'list:numeric',
-            'companyId' =>  'list:numeric',
+            'companyId' =>  'required|list:numeric',
             'contactEmail' =>  'list:string',
             'phone' =>  'list:string',
             'title' =>  'list:string',

@@ -31,19 +31,31 @@ class PropertyImagePolicy
      */
     public function list(User $currentUser)
     {
-        return false;
+        return true;
     }
 
     /**
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId)
     {
-        return true;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +67,17 @@ class PropertyImagePolicy
      */
     public function show(User $currentUser,  PropertyImage $propertyImage)
     {
-        return $currentUser->id === $user->id;
+        $propertyId = $propertyImage->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -67,7 +89,21 @@ class PropertyImagePolicy
      */
     public function update(User $currentUser, PropertyImage $propertyImage)
     {
-        return $currentUser->id === $user->id;
+        $propertyId = $propertyImage->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -79,6 +115,20 @@ class PropertyImagePolicy
      */
     public function destroy(User $currentUser, PropertyImage $propertyImage)
     {
+        $propertyId = $propertyImage->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 }

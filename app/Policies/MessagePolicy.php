@@ -27,10 +27,15 @@ class MessagePolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -39,11 +44,16 @@ class MessagePolicy
      *
      * @param User $currentUser
      * @param User $user
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId)
     {
-        return true;
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +65,7 @@ class MessagePolicy
      */
     public function show(User $currentUser,  Message $message)
     {
-        return $currentUser->id === $user->id;
+        return in_array($currentUser->id, $message->messageUsers()->pluck('userId')->toArray());
     }
 
     /**
@@ -67,7 +77,7 @@ class MessagePolicy
      */
     public function update(User $currentUser, Message $message)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->id === $message->id;
     }
 
     /**
@@ -79,6 +89,6 @@ class MessagePolicy
      */
     public function destroy(User $currentUser, Message $message)
     {
-        return false;
+        return $currentUser->id === $message->id;
     }
 }

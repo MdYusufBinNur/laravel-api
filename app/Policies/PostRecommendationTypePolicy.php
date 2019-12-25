@@ -31,7 +31,7 @@ class PostRecommendationTypePolicy
      */
     public function list(User $currentUser)
     {
-        return false;
+        return true;
     }
 
     /**
@@ -43,7 +43,7 @@ class PostRecommendationTypePolicy
      */
     public function store(User $currentUser)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -55,7 +55,7 @@ class PostRecommendationTypePolicy
      */
     public function show(User $currentUser,  PostRecommendationType $postRecommendationType)
     {
-        return $currentUser->id === $user->id;
+        return true;
     }
 
     /**
@@ -67,7 +67,7 @@ class PostRecommendationTypePolicy
      */
     public function update(User $currentUser, PostRecommendationType $postRecommendationType)
     {
-        return $currentUser->id === $user->id;
+        return false;
     }
 
     /**

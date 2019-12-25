@@ -64,6 +64,7 @@ class UserNotificationCreatedEvent implements ShouldBroadcast
      */
     public function broadcastWith()
     {
+        request()->merge(['include' => 'un.type,un.fromUser,un.toUser,user.profilePic,image.avatar']);
         return [
             'userNotification' => new UserNotificationResource($this->userNotification)
         ];

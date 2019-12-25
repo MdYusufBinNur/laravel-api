@@ -27,10 +27,19 @@ class ResidentAccessRequestPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -38,7 +47,6 @@ class ResidentAccessRequestPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
      * @return bool
      */
     public function store(User $currentUser)
@@ -55,7 +63,16 @@ class ResidentAccessRequestPolicy
      */
     public function show(User $currentUser,  ResidentAccessRequest $residentAccessRequest)
     {
-        return $currentUser->id === $user->id;
+        $propertyId = $residentAccessRequest->propertyId;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -67,7 +84,16 @@ class ResidentAccessRequestPolicy
      */
     public function update(User $currentUser, ResidentAccessRequest $residentAccessRequest)
     {
-        return $currentUser->id === $user->id;
+        $propertyId = $residentAccessRequest->propertyId;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -79,6 +105,15 @@ class ResidentAccessRequestPolicy
      */
     public function destroy(User $currentUser, ResidentAccessRequest $residentAccessRequest)
     {
+        $propertyId = $residentAccessRequest->propertyId;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 }

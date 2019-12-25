@@ -18,7 +18,7 @@ class AdminPolicy
      */
     public function before(User $currentUser)
     {
-        if ($currentUser->isAdmin()) {
+        if ($currentUser->isSuperAdmin()) {
             return true;
         }
     }
@@ -31,6 +31,10 @@ class AdminPolicy
      */
     public function list(User $currentUser)
     {
+        if ($currentUser->isStandardAdmin()) {
+            return true;
+        }
+
         return false;
     }
 
@@ -38,12 +42,18 @@ class AdminPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param string $level
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, string $level)
     {
-        return true;
+        if ($currentUser->isStandardAdmin()) {
+            if ($level == Admin::LEVEL_LIMITED) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +65,7 @@ class AdminPolicy
      */
     public function show(User $currentUser,  Admin $admin)
     {
-        return $currentUser->id === $user->id;
+        return $this->adminBasicPermission($currentUser, $admin);
     }
 
     /**
@@ -67,7 +77,7 @@ class AdminPolicy
      */
     public function update(User $currentUser, Admin $admin)
     {
-        return $currentUser->id === $user->id;
+        return $this->adminBasicPermission($currentUser, $admin);
     }
 
     /**
@@ -79,6 +89,36 @@ class AdminPolicy
      */
     public function destroy(User $currentUser, Admin $admin)
     {
-        return false;
+        return $this->adminBasicPermission($currentUser, $admin);
+    }
+
+    /**
+     * To prevent duplicity
+     *
+     * admin basic permission
+     *
+     * @param User $currentUser
+     * @param Admin $admin
+     * @return bool
+     */
+    private function adminBasicPermission(User $currentUser, Admin $admin)
+    {
+        $adminUser = $admin->user;
+        if (!$adminUser instanceof User) {
+            return false;
+        }
+
+        // if it's a super admin return false
+        if ($adminUser->isSuperAdmin()) {
+            return false;
+        }
+
+
+        // if current user is standard admin & want to see limited admin then return true
+        if ($admin->user->isLimitedAdmin() && $currentUser->isStandardAdmin()) {
+            return true;
+        }
+
+        return $currentUser->id === $admin->user->id;
     }
 }

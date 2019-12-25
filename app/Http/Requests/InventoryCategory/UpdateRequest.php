@@ -14,7 +14,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'min:2|max:255'
+            'title' => 'max:255'
         ];
     }
 }

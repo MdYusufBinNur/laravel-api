@@ -15,7 +15,9 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
-            'title' => 'list:string'
+            'propertyId' => 'list:numeric',
+            'title' => 'list:string',
+
         ];
     }
 }

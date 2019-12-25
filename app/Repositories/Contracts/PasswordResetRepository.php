@@ -4,14 +4,18 @@
 namespace App\Repositories\Contracts;
 
 
+use App\DbModels\PasswordReset;
+use App\DbModels\User;
+
 interface PasswordResetRepository extends BaseRepository
 {
     /**
      * reset a user's password
      *
      * @param array $data
-     * @return bool|null
+     * @param PasswordReset $passwordReset
+     * @return User
      */
-    public function resetPassword(array $data);
+    public function resetPassword(PasswordReset $passwordReset, array $data);
 
 }

@@ -27,10 +27,27 @@ class ParkingPassPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
+     * @param int $unitId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId, ?int $unitId)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+
+            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
+
+            return in_array($unitId, $unitIds);
+        }
+
         return false;
     }
 
@@ -38,12 +55,20 @@ class ParkingPassPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId)
     {
-        return true;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -51,11 +76,29 @@ class ParkingPassPolicy
      *
      * @param User $currentUser
      * @param ParkingPass $parkingPass
+     * @param int $unitId
      * @return bool
      */
-    public function show(User $currentUser,  ParkingPass $parkingPass)
+    public function show(User $currentUser,  ParkingPass $parkingPass, ?int $unitId)
     {
-        return $currentUser->id === $user->id;
+        $propertyId = $parkingPass->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+
+            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
+
+            return in_array($unitId, $unitIds);
+        }
+
+        return false;
     }
 
     /**
@@ -67,7 +110,15 @@ class ParkingPassPolicy
      */
     public function update(User $currentUser, ParkingPass $parkingPass)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -79,6 +130,14 @@ class ParkingPassPolicy
      */
     public function destroy(User $currentUser, ParkingPass $parkingPass)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($parkingPass->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($parkingPass->propertyId)) {
+            return true;
+        }
+
         return false;
     }
 }

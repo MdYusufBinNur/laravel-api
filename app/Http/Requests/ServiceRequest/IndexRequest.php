@@ -28,6 +28,8 @@ class IndexRequest extends Request
             'feedback' => 'list:string',
             'photo' => 'list:boolean',
             'resolvedAt' => 'list:date',
+            'startDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d',
         ];
     }
 }

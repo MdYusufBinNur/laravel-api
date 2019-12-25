@@ -9,6 +9,7 @@ use App\Http\Requests\PostPoll\UpdateRequest;
 use App\Http\Resources\PostPollResource;
 use App\Http\Resources\PostPollResourceCollection;
 use App\Repositories\Contracts\PostPollRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class PostPollController extends Controller
 {
@@ -19,7 +20,7 @@ class PostPollController extends Controller
 
     /**
      * PostPollController constructor.
-     * @param PostPollRepository $pollRepository
+     * @param PostPollRepository $postPollRepository
      */
     public function __construct(PostPollRepository $postPollRepository)
     {
@@ -31,9 +32,12 @@ class PostPollController extends Controller
      *
      * @param IndexRequest $request
      * @return PostPollResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [PostPoll::class, $request->get('propertyId')]);
+
         $postPolls = $this->postPollRepository->findBy($request->all());
 
         return new PostPollResourceCollection($postPolls);
@@ -44,9 +48,12 @@ class PostPollController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return PostPollResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [PostPoll::class, $request->get('post')['propertyId']]);
+
         $postPoll = $this->postPollRepository->save($request->all());
 
         return new PostPollResource($postPoll);
@@ -57,9 +64,12 @@ class PostPollController extends Controller
      *
      * @param PostPoll $postPoll
      * @return PostPollResource
+     * @throws AuthorizationException
      */
     public function show(PostPoll $postPoll)
     {
+        $this->authorize('show', $postPoll);
+
         return new PostPollResource($postPoll);
     }
 
@@ -69,9 +79,12 @@ class PostPollController extends Controller
      * @param UpdateRequest $request
      * @param PostPoll $postPoll
      * @return PostPollResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, PostPoll $postPoll)
     {
+        $this->authorize('update', $postPoll);
+
         $postPoll = $this->postPollRepository->update($postPoll, $request->all());
 
         return new PostPollResource($postPoll);
@@ -82,9 +95,12 @@ class PostPollController extends Controller
      *
      * @param PostPoll $postPoll
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(PostPoll $postPoll)
     {
+        $this->authorize('destroy', $postPoll);
+
         $this->postPollRepository->delete($postPoll);
 
         return response()->json(null,204);

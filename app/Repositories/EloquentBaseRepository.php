@@ -88,7 +88,6 @@ class EloquentBaseRepository implements BaseRepository
 
         $this->setCacheByKey($cacheKey, $item);
 
-
         return $item;
     }
 
@@ -99,7 +98,7 @@ class EloquentBaseRepository implements BaseRepository
     {
         $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 50; // it's needed for pagination
         $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';
-        $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
+        $orderDirection = !empty($searchCriteria['']) ? $searchCriteria['order_direction'] : 'desc';
         $queryBuilder = $this->model->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
@@ -359,14 +358,26 @@ class EloquentBaseRepository implements BaseRepository
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 
-    public function generateEventOptionsForModel($additionalData = [])
+    /**
+     * generate event options for model
+     *
+     * @param array $additionalData
+     * @param bool $addRequest
+     * @return array
+     */
+    public function generateEventOptionsForModel($additionalData = [], $addRequest = true)
     {
-        $request = request();
-        $options['request'] = $request->toArray();
+        $options['request'] = [];
+        if ($addRequest) {
+            $request = request();
+            $options['request'] = $request->toArray();
+        }
+
         $options['request']['loggedInUserId'] = $this->getLoggedInUser()->id;
         if ($this->oldModel instanceof \ArrayAccess) {
             $options['oldModel'] = $this->oldModel;
         }
+        
         return array_merge($options, $additionalData);
     }
 }

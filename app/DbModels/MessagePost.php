@@ -2,7 +2,10 @@
 
 namespace App\DbModels;
 
+use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class MessagePost extends Model
 {
@@ -20,7 +23,7 @@ class MessagePost extends Model
     /**
      * get the user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function fromUser()
     {
@@ -30,10 +33,28 @@ class MessagePost extends Model
     /**
      * get the user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return hasOne
      */
     public function message()
     {
         return $this->hasOne(Message::class, 'id', 'messageId');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function messageUsers()
+    {
+        return $this->hasMany(MessageUser::class, 'messageId', 'messageId');
+    }
+
+    /**
+     * get the attachments
+     *
+     * @return HasMany
+     */
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class, 'resourceId')->where('type', Attachment::ATTACHMENT_TYPE_MESSAGE_POST);
     }
 }

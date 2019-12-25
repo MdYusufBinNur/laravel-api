@@ -27,10 +27,17 @@ class PropertyPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param mixed $companyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, $companyId)
     {
+        if (isset($companyId)) {
+            if ($currentUser->isAnEnterpriseUserOfTheCompany($companyId)) {
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -38,12 +45,18 @@ class PropertyPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param mixed $companyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, $companyId)
     {
-        return true;
+        if (isset($companyId)) {
+            if ($currentUser->isAnEnterpriseUserOfTheCompany($companyId)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -53,9 +66,9 @@ class PropertyPolicy
      * @param Property $property
      * @return bool
      */
-    public function show(User $currentUser,  Property $property)
+    public function show(User $currentUser, Property $property)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->isUserOfTheProperty($property->id);
     }
 
     /**
@@ -63,11 +76,21 @@ class PropertyPolicy
      *
      * @param User $currentUser
      * @param Property $property
+     * @param mixed $companyId
      * @return bool
      */
-    public function update(User $currentUser, Property $property)
+    public function update(User $currentUser, Property $property, $companyId)
     {
-        return $currentUser->id === $user->id;
+        // don't allow other than admin to assign company
+        if (isset($companyId)) {
+            return false;
+        }
+
+        if ($currentUser->isAnAdminEnterpriseUserOfTheProperty($property->id)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

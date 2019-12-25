@@ -2,7 +2,9 @@
 
 namespace App\DbModels;
 
+use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class LdsBlacklistUnit extends Model
 {
@@ -20,7 +22,7 @@ class LdsBlacklistUnit extends Model
     /**
      * get slide of the property
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function property()
     {
@@ -30,7 +32,7 @@ class LdsBlacklistUnit extends Model
     /**
      * get slide of the property
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function unit()
     {

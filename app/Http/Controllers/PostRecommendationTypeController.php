@@ -9,6 +9,7 @@ use App\Http\Requests\PostRecommendationType\UpdateRequest;
 use App\Http\Resources\PostRecommendationTypeResource;
 use App\Http\Resources\PostRecommendationTypeResourceCollection;
 use App\Repositories\Contracts\PostRecommendationTypeRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class PostRecommendationTypeController extends Controller
 {
@@ -31,9 +32,12 @@ class PostRecommendationTypeController extends Controller
      *
      * @param IndexRequest $request
      * @return PostRecommendationTypeResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', PostRecommendationType::class);
+
         $postRecommendationTypes = $this->postRecommendationTypeRepository->findBy($request->all());
 
         return new PostRecommendationTypeResourceCollection($postRecommendationTypes);
@@ -44,9 +48,12 @@ class PostRecommendationTypeController extends Controller
      *
      * @param  StoreRequest  $request
      * @return PostRecommendationTypeResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', PostRecommendationType::class);
+
         $postRecommendationType = $this->postRecommendationTypeRepository->save($request->all());
 
         return new PostRecommendationTypeResource($postRecommendationType);
@@ -57,9 +64,12 @@ class PostRecommendationTypeController extends Controller
      *
      * @param PostRecommendationType $postRecommendationType
      * @return PostRecommendationTypeResource
+     * @throws AuthorizationException
      */
     public function show(PostRecommendationType $postRecommendationType)
     {
+        $this->authorize('show', $postRecommendationType);
+
         return new PostRecommendationTypeResource($postRecommendationType);
     }
 
@@ -69,9 +79,12 @@ class PostRecommendationTypeController extends Controller
      * @param UpdateRequest $request
      * @param PostRecommendationType $postRecommendationType
      * @return PostRecommendationTypeResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, PostRecommendationType $postRecommendationType)
     {
+        $this->authorize('update', $postRecommendationType);
+
         $postRecommendationType = $this->postRecommendationTypeRepository->update($postRecommendationType,$request->all());
 
         return new PostRecommendationTypeResource($postRecommendationType);
@@ -82,9 +95,12 @@ class PostRecommendationTypeController extends Controller
      *
      * @param PostRecommendationType $postRecommendationType
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(PostRecommendationType $postRecommendationType)
     {
+        $this->authorize('destroy', $postRecommendationType);
+
         $this->postRecommendationTypeRepository->delete($postRecommendationType);
 
         return response()->json(null, 204);

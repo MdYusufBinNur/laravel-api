@@ -13,6 +13,7 @@ class CreateManagerPropertiesTable extends Migration
      */
     public function up()
     {
+        //todo - no use case now - may be in future
         Schema::create('manager_properties', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();

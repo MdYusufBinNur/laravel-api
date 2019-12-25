@@ -34,7 +34,7 @@ class UserLoginResource extends Resource
                 return new AdminResource($this->admin);
             }),
             'profilePic' => $this->when($this->needToInclude($request, 'ul.profilePic'), function () {
-                return new AttachmentResource($this->userProfilePic);
+                return new AttachmentResource($this->userProfilePics->last());
             }),
             'lastLoginAt' => $this->lastLoginAt,
             'created_at' => $this->created_at,

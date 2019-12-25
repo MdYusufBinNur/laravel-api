@@ -16,7 +16,7 @@ class IndexRequest extends Request
     public function rules()
     {
         return $rules = [
-            'propertyId' => 'numeric',
+            'propertyId' => 'required|numeric',
             'roleId' => 'in:' . Role::ROLE_STAFF_PRIORITY['id'] . ',' . Role::ROLE_STAFF_STANDARD['id'] . ',' . Role::ROLE_STAFF_LIMITED['id'],
             'query' => ''
         ];

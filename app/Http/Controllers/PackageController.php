@@ -9,7 +9,7 @@ use App\Http\Requests\Package\UpdateRequest;
 use App\Http\Resources\PackageResource;
 use App\Http\Resources\PackageResourceCollection;
 use App\Repositories\Contracts\PackageRepository;
-use Illuminate\Http\Request;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class PackageController extends Controller
 {
@@ -32,9 +32,12 @@ class PackageController extends Controller
      *
      * @param IndexRequest $request
      * @return PackageResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [Package::class, $request->get('propertyId'), $request->get('unitId', null)]);
+
         $packages = $this->packageRepository->findBy($request->all());
 
         return new PackageResourceCollection($packages);
@@ -45,9 +48,12 @@ class PackageController extends Controller
      *
      * @param  StoreRequest  $request
      * @return PackageResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [Package::class, $request->get('propertyId'), $request->get('unitId', null)]);
+
         $package = $this->packageRepository->save($request->all());
 
         return new PackageResource($package);
@@ -57,9 +63,12 @@ class PackageController extends Controller
      * Display the specified Package resource.
      * @param Package $package
      * @return PackageResource
+     * @throws AuthorizationException
      */
     public function show(Package $package)
     {
+        $this->authorize('show', $package);
+
         return new PackageResource($package);
     }
 
@@ -69,9 +78,12 @@ class PackageController extends Controller
      * @param UpdateRequest $request
      * @param Package $package
      * @return PackageResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, Package $package)
     {
+        $this->authorize('update', $package);
+
         $package = $this->packageRepository->update($package, $request->all());
 
         return new PackageResource($package);
@@ -82,9 +94,12 @@ class PackageController extends Controller
      *
      * @param Package $package
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(Package $package)
     {
+        $this->authorize('destroy', $package);
+
         $this->packageRepository->delete($package);
 
         return response()->json(null, 204);

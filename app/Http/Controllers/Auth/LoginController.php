@@ -40,7 +40,7 @@ class LoginController extends Controller
      */
     public function index(LoginRequest $request)
     {
-        $user = $this->userRepository->findOneBy(['email' => $request->get('email')]);
+        $user = $this->userRepository->findUserByEmailPhone($request->get('email'));
 
         if ($user instanceof User) {
             if (Hash::check($request->get('password'), $user->password)) {
@@ -50,12 +50,12 @@ class LoginController extends Controller
                 }
 
                 if ($request->has('propertyId')) {
-                    if (!$user->userOfTheProperty($request->get('propertyId'))) {
+                    if (!$user->isUserOfTheProperty($request->get('propertyId'))) {
                         return response(['message' => __("auth.invalid_property_login")], 422);
                     }
                 }
 
-                $token = $user->createToken('Password Grant Client', $user->roles());
+                $token = $user->createToken('Password Grant Client', $user->getRolesTitles());
 
                 event(new UserLoggedInEvent($user, []));
 

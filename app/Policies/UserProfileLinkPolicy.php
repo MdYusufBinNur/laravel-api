@@ -27,23 +27,24 @@ class UserProfileLinkPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $userId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, ?int $userId)
     {
-        return false;
+        return $this->hasAccessByUserId($currentUser, $userId);
     }
 
     /**
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $userId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, ?int $userId)
     {
-        return true;
+        return $this->hasAccessByUserId($currentUser, $userId);
     }
 
     /**
@@ -55,7 +56,7 @@ class UserProfileLinkPolicy
      */
     public function show(User $currentUser,  UserProfileLink $userProfileLink)
     {
-        return $currentUser->id === $user->id;
+        return $this->hasAccessByUserId($currentUser, $userProfileLink->userId);
     }
 
     /**
@@ -67,7 +68,7 @@ class UserProfileLinkPolicy
      */
     public function update(User $currentUser, UserProfileLink $userProfileLink)
     {
-        return $currentUser->id === $user->id;
+        return $this->hasAccessByUserId($currentUser, $userProfileLink->userId);
     }
 
     /**
@@ -79,6 +80,6 @@ class UserProfileLinkPolicy
      */
     public function destroy(User $currentUser, UserProfileLink $userProfileLink)
     {
-        return false;
+        return $this->hasAccessByUserId($currentUser, $userProfileLink->userId);
     }
 }

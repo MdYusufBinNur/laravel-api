@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\DbModels\PasswordReset;
 use App\Http\Requests\PasswordReset\GenerateTokenRequest;
 use App\Http\Requests\PasswordReset\PasswordResetRequest;
 use App\Http\Requests\Request;
 use App\Http\Resources\PasswordResetResource;
+use App\Http\Resources\UserResource;
 use App\Repositories\Contracts\PasswordResetRepository;
 
 class PasswordResetController extends Controller
@@ -41,12 +43,19 @@ class PasswordResetController extends Controller
      *
      * @param Request $request
      * @param $token
-     * @return PasswordResetResource
+     * @return UserResource
      */
     public function resetPassword(PasswordResetRequest $request)
     {
-        $this->passwordResetRepository->resetPassword($request->all());
+        $passwordReset = $this->passwordResetRepository->findOneBy(['token' => $request->get('token')]);
 
-        return response()->json(['status' => 201, 'message' => 'Password has been reset'], 201);
+        if (!$passwordReset instanceof PasswordReset) {
+            return response()->json(['status' => 404, 'message' => 'Token is invalid.'], 404);
+        }
+
+        $user = $this->passwordResetRepository->resetPassword($passwordReset, $request->all());
+
+        return response()->json(['status' => 201, 'message' => 'Password has been reset.', 'user' => new UserResource($user)], 201);
+
     }
 }

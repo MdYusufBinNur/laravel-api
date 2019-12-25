@@ -4,6 +4,7 @@ namespace App\Http\Requests\Attachment;
 
 use App\DbModels\Attachment;
 use App\Http\Requests\Request;
+use App\Rules\CSVString;
 
 class StoreRequest extends Request
 {
@@ -27,11 +28,12 @@ class StoreRequest extends Request
                 . ',' . Attachment::ATTACHMENT_TYPE_FDI
                 . ',' . Attachment::ATTACHMENT_TYPE_VISITOR
                 . ',' . Attachment::ATTACHMENT_TYPE_MESSAGE
+                . ',' . Attachment::ATTACHMENT_TYPE_MESSAGE_POST
                 . ',' . Attachment::ATTACHMENT_TYPE_EVENT
                 . ',' . Attachment::ATTACHMENT_TYPE_LDS_SLIDE
                 . ',' . Attachment::ATTACHMENT_TYPE_EQUIPMENT,
-            'fileSource'   => 'required|file|max:2048',
-            'resourceId'   => 'required',
+            'fileSource'   => 'required|file|max:15360',
+            'resourceId'   => '',
             'fileName'     => '',
             'descriptions' => '',
             'fileType'     => '',
@@ -40,6 +42,15 @@ class StoreRequest extends Request
             'resizeImage'  => 'boolean',
             'width'  => 'required_with:resizeImage',
             'height'  => 'required_with:resizeImage',
+
+            'multipleTypes'  => [new CSVString(['thumbnail', 'medium', 'large', 'avatar'])],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'upload.max' => "Maximum file size to upload is 15MB. If you are uploading a photo, try to reduce its resolution to make it under 15 MB"
         ];
     }
 }

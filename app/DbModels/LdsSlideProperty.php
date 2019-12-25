@@ -2,6 +2,8 @@
 
 namespace App\DbModels;
 
+use App\DbModels\Traits\CommonModelFeatures;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class LdsSlideProperty extends Pivot
@@ -22,7 +24,7 @@ class LdsSlideProperty extends Pivot
     /**
      * get slide of the property
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function slide()
     {
@@ -32,7 +34,7 @@ class LdsSlideProperty extends Pivot
     /**
      * get slide of the property
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function property()
     {

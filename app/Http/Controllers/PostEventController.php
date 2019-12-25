@@ -9,6 +9,7 @@ use App\Http\Requests\PostEvent\UpdateRequest;
 use App\Http\Resources\PostEventResource;
 use App\Http\Resources\PostEventResourceCollection;
 use App\Repositories\Contracts\PostEventRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 class PostEventController extends Controller
@@ -32,9 +33,12 @@ class PostEventController extends Controller
      *
      * @param IndexRequest $request
      * @return PostEventResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [PostEvent::class, $request->get('propertyId')]);
+
         $postEvents = $this->postEventRepository->findBy($request->all());
 
         return new PostEventResourceCollection($postEvents);
@@ -45,9 +49,12 @@ class PostEventController extends Controller
      *
      * @param StoreRequest $request
      * @return PostEventResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [PostEvent::class, $request->get('post')['propertyId']]);
+
         $postEvent = $this->postEventRepository->save($request->all());
 
         return new PostEventResource($postEvent);
@@ -58,9 +65,12 @@ class PostEventController extends Controller
      *
      * @param PostEvent $postEvent
      * @return PostEventResource
+     * @throws AuthorizationException
      */
     public function show(PostEvent $postEvent)
     {
+        $this->authorize('show', $postEvent);
+
         return new PostEventResource($postEvent);
     }
 
@@ -70,9 +80,12 @@ class PostEventController extends Controller
      * @param UpdateRequest $request
      * @param PostEvent $postEvent
      * @return PostEventResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, PostEvent $postEvent)
     {
+        $this->authorize('update', $postEvent);
+
         $postEvent = $this->postEventRepository->update($postEvent, $request->all());
 
         return new PostEventResource($postEvent);
@@ -83,9 +96,12 @@ class PostEventController extends Controller
      *
      * @param PostEvent $postEvent
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(PostEvent $postEvent)
     {
+        $this->authorize('destroy', $postEvent);
+
         $this->postEventRepository->delete($postEvent);
 
         return response()->json(null, 204);

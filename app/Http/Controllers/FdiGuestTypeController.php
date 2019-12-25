@@ -9,6 +9,7 @@ use App\Http\Requests\FdiGuestType\UpdateRequest;
 use App\Http\Resources\FdiGuestTypeResource;
 use App\Http\Resources\FdiGuestTypeResourceCollection;
 use App\Repositories\Contracts\FdiGuestTypeRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class FdiGuestTypeController extends Controller
 {
@@ -31,9 +32,12 @@ class FdiGuestTypeController extends Controller
      *
      * @param IndexRequest $request
      * @return FdiGuestTypeResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [FdiGuestType::class, $request->get('propertyId')]);
+
         $fdiGuestTypes = $this->fdiGuestTypeRepository->findBy($request->all());
 
         return new FdiGuestTypeResourceCollection($fdiGuestTypes);
@@ -44,9 +48,12 @@ class FdiGuestTypeController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return FdiGuestTypeResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [FdiGuestType::class, $request->get('propertyId')]);
+
         $fdiGuestType = $this->fdiGuestTypeRepository->save($request->all());
 
         return new FdiGuestTypeResource($fdiGuestType);
@@ -57,9 +64,12 @@ class FdiGuestTypeController extends Controller
      *
      * @param FdiGuestType $fdiGuestType
      * @return FdiGuestTypeResource
+     * @throws AuthorizationException
      */
     public function show(FdiGuestType $fdiGuestType)
     {
+        $this->authorize('show', $fdiGuestType);
+
         return new FdiGuestTypeResource($fdiGuestType);
     }
 
@@ -69,9 +79,12 @@ class FdiGuestTypeController extends Controller
      * @param UpdateRequest $request
      * @param FdiGuestType $fdiGuestType
      * @return FdiGuestTypeResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, FdiGuestType $fdiGuestType)
     {
+        $this->authorize('update', $fdiGuestType);
+
         $fdiGuestType = $this->fdiGuestTypeRepository->update($fdiGuestType, $request->all());
 
         return new FdiGuestTypeResource($fdiGuestType);
@@ -82,9 +95,12 @@ class FdiGuestTypeController extends Controller
      *
      * @param FdiGuestType $fdiGuestType
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(FdiGuestType $fdiGuestType)
     {
+        $this->authorize('destroy', $fdiGuestType);
+
         $this->fdiGuestTypeRepository->delete($fdiGuestType);
 
         return response()->json(null, 204);

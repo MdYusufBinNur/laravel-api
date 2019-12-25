@@ -28,22 +28,35 @@ class ModuleOptionPropertyPolicy
      *
      * @param User $currentUser
      * @return bool
+     * @param int $propertyId
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
-        return false;
+        return $currentUser->isUserOfTheProperty($propertyId);
     }
 
     /**
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId)
     {
-        return true;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +68,7 @@ class ModuleOptionPropertyPolicy
      */
     public function show(User $currentUser,  ModuleOptionProperty $moduleOptionProperty)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->isUserOfTheProperty($moduleOptionProperty->propertyId);
     }
 
     /**
@@ -67,7 +80,21 @@ class ModuleOptionPropertyPolicy
      */
     public function update(User $currentUser, ModuleOptionProperty $moduleOptionProperty)
     {
-        return $currentUser->id === $user->id;
+        $propertyId = $moduleOptionProperty->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

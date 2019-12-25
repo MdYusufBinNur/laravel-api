@@ -2,7 +2,9 @@
 
 namespace App\DbModels;
 
+use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Admin extends Model
 {
@@ -25,7 +27,7 @@ class Admin extends Model
     /**
      * get the user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function user()
     {
@@ -35,7 +37,7 @@ class Admin extends Model
     /**
      * get the user role
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function userRole()
     {

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Stats;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Stats\IndexRequest;
 use App\Http\Resources\Stats\StaffReminderResource;
-use App\Services\StatsHelper\StaffReminderHelper;
+use App\Services\Helpers\StatsHelper\StaffReminderHelper;
 
 class StaffReminderController extends Controller
 {

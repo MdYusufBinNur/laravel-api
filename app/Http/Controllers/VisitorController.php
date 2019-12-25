@@ -9,6 +9,7 @@ use App\Http\Requests\Visitor\UpdateRequest;
 use App\Http\Resources\VisitorResource;
 use App\Http\Resources\VisitorResourceCollection;
 use App\Repositories\Contracts\VisitorRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class VisitorController extends Controller
 {
@@ -31,9 +32,12 @@ class VisitorController extends Controller
      *
      * @param IndexRequest $request
      * @return VisitorResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [Visitor::class, $request->get('propertyId')]);
+
         $visitors = $this->visitorRepository->findBy($request->all());
 
         return new VisitorResourceCollection($visitors);
@@ -44,9 +48,12 @@ class VisitorController extends Controller
      *
      * @param  StoreRequest  $request
      * @return VisitorResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [Visitor::class, $request->get('propertyId')]);
+
         $visitor = $this->visitorRepository->save($request->all());
 
         return new VisitorResource($visitor);
@@ -57,9 +64,12 @@ class VisitorController extends Controller
      *
      * @param Visitor $visitor
      * @return VisitorResource
+     * @throws AuthorizationException
      */
     public function show(Visitor $visitor)
     {
+        $this->authorize('show', $visitor);
+
         return new VisitorResource($visitor);
     }
 
@@ -69,9 +79,12 @@ class VisitorController extends Controller
      * @param UpdateRequest $request
      * @param Visitor $visitor
      * @return VisitorResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, Visitor $visitor)
     {
+        $this->authorize('update', $visitor);
+
         $visitor = $this->visitorRepository->update($visitor,$request->all());
 
         return new VisitorResource($visitor);
@@ -82,9 +95,12 @@ class VisitorController extends Controller
      *
      * @param Visitor $visitor
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(Visitor $visitor)
     {
+        $this->authorize('destroy', $visitor);
+
         $this->visitorRepository->delete($visitor);
 
         return response()->json(null,204);

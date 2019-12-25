@@ -5,7 +5,6 @@ namespace App\Providers;
 use App\DbModels\Admin;
 use App\DbModels\Announcement;
 use App\DbModels\Attachment;
-use App\DbModels\CommonModelFeatures;
 use App\DbModels\Company;
 use App\DbModels\EnterpriseUser;
 use App\DbModels\EnterpriseUserProperty;
@@ -91,7 +90,6 @@ use App\DbModels\VisitorType;
 use App\Policies\AdminPolicy;
 use App\Policies\AnnouncementPolicy;
 use App\Policies\AttachementPolicy;
-use App\Policies\CommonModelFeaturesPolicy;
 use App\Policies\CompanyPolicy;
 use App\Policies\EnterpriseUserPolicy;
 use App\Policies\EnterpriseUserPropertyPolicy;
@@ -146,7 +144,7 @@ use App\Policies\PropertyImagePolicy;
 use App\Policies\PropertyLinkCategoryPolicy;
 use App\Policies\PropertyLinkPolicy;
 use App\Policies\PropertyPolicy;
-use App\Policies\PropertySocailMediaPolicy;
+use App\Policies\PropertySocialMediaPolicy;
 use App\Policies\ResidentAccessRequestPolicy;
 use App\Policies\ResidentArchivePolicy;
 use App\Policies\ResidentEmergencyPolicy;
@@ -174,7 +172,7 @@ use App\Policies\UserRolePolicy;
 use App\Policies\VisitorArchivePolicy;
 use App\Policies\VisitorPolicy;
 use App\Policies\VisitorTypePolicy;
-use App\Services\ScopesHelper;
+use App\Services\Helpers\ScopesHelper;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
@@ -190,7 +188,6 @@ class AuthServiceProvider extends ServiceProvider
         Admin::class => AdminPolicy::class,
         Announcement::class => AnnouncementPolicy::class,
         Attachment::class => AttachementPolicy::class,
-        CommonModelFeatures::class => CommonModelFeaturesPolicy::class,
         Company::class => CompanyPolicy::class,
         EnterpriseUser::class => EnterpriseUserPolicy::class,
         EnterpriseUserProperty::class => EnterpriseUserPropertyPolicy::class,
@@ -245,12 +242,13 @@ class AuthServiceProvider extends ServiceProvider
         PropertyLinkCategory::class => PropertyLinkCategoryPolicy::class,
         PropertyLink::class => PropertyLinkPolicy::class,
         Property::class => PropertyPolicy::class,
-        PropertySocialMedia::class => PropertySocailMediaPolicy::class,
+        PropertySocialMedia::class => PropertySocialMediaPolicy::class,
         ResidentAccessRequest::class => ResidentAccessRequestPolicy::class,
         ResidentArchive::class => ResidentArchivePolicy::class,
         ResidentEmergency::class => ResidentEmergencyPolicy::class,
         Resident::class => ResidentPolicy::class,
         ResidentVehicle::class => ResidentVehiclePolicy::class,
+        Role::class => RolePolicy::class,
         ServiceRequestCategory::class => ServiceRequestCategoryPolicy::class,
         ServiceRequestLog::class => ServiceRequestLogPolicy::class,
         ServiceRequestMessage::class => ServiceRequestMessagePolicy::class,

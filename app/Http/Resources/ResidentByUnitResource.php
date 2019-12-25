@@ -18,10 +18,13 @@ class ResidentByUnitResource extends Resource
                 'residentId' => $resident['id'] ?? null,
                 'title' => $resident['title'],
                 'unitId' => $resident['unitId'],
+                'name' => $resident['name'] ?? '',
                 'email' => $resident['email'] ?? '',
+                'phone' => $resident['phone'] ?? '',
                 $this->mergeWhen(isset($resident['userId']), [
                     'contactEmail' => $resident['contactEmail'] ?? null,
-                    'type' => 'active'
+                    'type' => 'active',
+                    'profilePic' => $resident['profilePic'] ?? null
                 ]),
                 $this->mergeWhen(isset($resident['residentAccessRequestId']), [
                     'residentAccessRequestId' => $resident['residentAccessRequestId'] ?? null,

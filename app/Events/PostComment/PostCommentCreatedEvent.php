@@ -65,10 +65,11 @@ class PostCommentCreatedEvent implements ShouldBroadcast
      */
     public function broadcastWith()
     {
-        request()->merge(['include' => 'pc.createdByUser']);
+        request()->merge(['include' => 'pc.createdByUser,pc.commentOnPostUserIds,user.profilePic,image.avatar']);
 
         return [
-            'comment' => new PostCommentResource($this->postComment)
+            'comment' => new PostCommentResource($this->postComment),
+            'options' => $this->options['request']
         ];
     }
 }

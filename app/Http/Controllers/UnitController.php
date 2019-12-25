@@ -13,6 +13,7 @@ use App\Http\Resources\LineListAutoCompleteResourceCollection;
 use App\Http\Resources\UnitResource;
 use App\Http\Resources\UnitResourceCollection;
 use App\Repositories\Contracts\UnitRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class UnitController extends Controller
 {
@@ -35,9 +36,13 @@ class UnitController extends Controller
      *
      * @param IndexRequest $request
      * @return UnitResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        //todo for some reason it's not working :O
+        //$this->authorize('list', [Unit::class, $request->get('propertyId')]);
+
         $units = $this->unitRepository->findBy($request->all());
 
         return new UnitResourceCollection($units);
@@ -48,9 +53,12 @@ class UnitController extends Controller
      *
      * @param  StoreRequest  $request
      * @return UnitResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [Unit::class, $request->get('propertyId')]);
+
         $unit = $this->unitRepository->save($request->all());
 
         return new UnitResource($unit);
@@ -61,9 +69,12 @@ class UnitController extends Controller
      *
      * @param Unit $unit
      * @return UnitResource
+     * @throws AuthorizationException
      */
     public function show(Unit $unit)
     {
+        $this->authorize('show', $unit);
+
         return new UnitResource($unit);
     }
 
@@ -73,9 +84,12 @@ class UnitController extends Controller
      * @param UpdateRequest $request
      * @param Unit $unit
      * @return UnitResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, Unit $unit)
     {
+        $this->authorize('update', $unit);
+
         $unit = $this->unitRepository->update($unit, $request->all());
 
         return new UnitResource($unit);
@@ -86,9 +100,12 @@ class UnitController extends Controller
      *
      * @param Unit $unit
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(Unit $unit)
     {
+        $this->authorize('destroy', $unit);
+
         $this->unitRepository->delete($unit);
 
         return response()->json(null, 204);
@@ -99,9 +116,12 @@ class UnitController extends Controller
      *
      * @param FloorListAutoCompleteRequest $request
      * @return FloorListAutoCompleteResourceCollection
+     * @throws AuthorizationException
      */
     public function floorListAutoComplete(FloorListAutoCompleteRequest $request)
     {
+        $this->authorize('floorListAutoComplete', [Unit::class, $request->get('propertyId')]);
+
         $units = $this->unitRepository->floorListAutoComplete($request->all());
         return new FloorListAutoCompleteResourceCollection(collect($units));
     }
@@ -111,9 +131,12 @@ class UnitController extends Controller
      *
      * @param LineListAutoCompleteRequest $request
      * @return LineListAutoCompleteResourceCollection
+     * @throws AuthorizationException
      */
     public function lineListAutoComplete(LineListAutoCompleteRequest $request)
     {
+        $this->authorize('lineListAutoComplete', [Unit::class, $request->get('propertyId')]);
+
         $units = $this->unitRepository->lineListAutoComplete($request->all());
         return new LineListAutoCompleteResourceCollection(collect($units));
     }

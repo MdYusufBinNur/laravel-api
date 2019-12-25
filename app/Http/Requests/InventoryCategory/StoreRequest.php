@@ -14,7 +14,8 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'title' => 'required|min:2|max:255'
+            'title' => 'required|max:255',
+            'propertyId' => 'required|exists:properties,id'
         ];
     }
 }

@@ -3,9 +3,8 @@ namespace App\Repositories;
 
 use App\DbModels\EnterpriseUser;
 use App\Repositories\Contracts\PropertyRepository;
-use App\Services\HostsHelper;
+use App\Services\Helpers\HostsHelper;
 use Illuminate\Support\Facades\DB;
-use Intervention\Image\Point;
 
 class EloquentPropertyRepository extends EloquentBaseRepository implements PropertyRepository
 {
@@ -52,7 +51,7 @@ class EloquentPropertyRepository extends EloquentBaseRepository implements Prope
     {
         $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
 
-        $searchCriteria['eagerLoad'] = ['property.designSettings' => 'propertyDesignSetting', 'property.images' => 'propertyImages'];
+        $searchCriteria['eagerLoad'] = ['property.designSettings' => 'propertyDesignSetting', 'property.images' => 'propertyImages','property.company' => 'company' ];
 
         return parent::findBy($searchCriteria, $withTrashed);
     }
@@ -71,14 +70,13 @@ class EloquentPropertyRepository extends EloquentBaseRepository implements Prope
             if ($loggedInUser->isEnterpriseUser()) {
                 $enterpriseUser = $loggedInUser->enterpriseUser;
                 if ($enterpriseUser instanceof EnterpriseUser) {
-                    $searchCriteria['id'] = $enterpriseUser->enterPriseUserProperties()->pluck('id')->toArray();
+                    $searchCriteria['id'] = $enterpriseUser->enterPriseUserProperties()->pluck('propertyId')->toArray();
                 }
             } else {
                 $searchCriteria['id'] = [];
             }
         }
-
-
+        
         if (array_key_exists('host', $searchCriteria)) {
             $hostSearchCriteria = HostsHelper::getSearchCriteriaForAHost($searchCriteria['host']);
             $searchCriteria = array_merge($searchCriteria, $hostSearchCriteria);
@@ -97,7 +95,7 @@ class EloquentPropertyRepository extends EloquentBaseRepository implements Prope
             unset($searchCriteria['query']);
         }
 
-        if (isset($searchCriteria['id'])) {
+        if (isset($searchCriteria['id']) && is_array($searchCriteria['id'])) {
             $searchCriteria['id'] = implode(",", array_unique($searchCriteria['id']));
         }
 

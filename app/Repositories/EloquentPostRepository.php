@@ -10,7 +10,7 @@ use App\Events\Post\PostUpdatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\PostApprovalBlacklistUnitRepository;
 use App\Repositories\Contracts\PostRepository;
-use App\Services\RoleHelper;
+use App\Services\Helpers\RoleHelper;
 use Illuminate\Support\Facades\DB;
 
 class EloquentPostRepository extends EloquentBaseRepository implements PostRepository
@@ -67,7 +67,7 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
             unset($data['attachmentIds']);
         }
 
-        event(new PostUpdatedEvent($post, $this->generateEventOptionsForModel()));
+        event(new PostUpdatedEvent($post, $this->generateEventOptionsForModel(['loggedInUser' => $this->getLoggedInUser()])));
 
         DB::commit();
 

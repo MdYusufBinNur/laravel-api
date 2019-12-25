@@ -2,6 +2,7 @@
 
 namespace App\DbModels;
 
+use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
 
 class ServiceRequestOfficeDetail extends Model
@@ -27,4 +28,14 @@ class ServiceRequestOfficeDetail extends Model
         'temporarilyRepaired' => 'boolean',
         'signature' => 'boolean',
     ];
+
+    /**
+     * service request
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function serviceRequest()
+    {
+        return $this->hasOne(ServiceRequest::class, 'id', 'serviceRequestId');
+    }
 }

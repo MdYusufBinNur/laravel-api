@@ -27,10 +27,28 @@ class ServiceRequestMessagePolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
+     * @param int $unitId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId, ?int $unitId)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+
+            //todo create a method for resident of a unit in user model
+            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
+
+            return in_array($unitId, $unitIds);
+        }
+
         return false;
     }
 
@@ -38,12 +56,29 @@ class ServiceRequestMessagePolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
+     * @param int $unitId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId, ?int $unitId)
     {
-        return true;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+
+            //todo create a method for resident of a unit in user model
+            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
+
+            return in_array($unitId, $unitIds);
+        }
+
+        return false;
     }
 
     /**
@@ -53,9 +88,27 @@ class ServiceRequestMessagePolicy
      * @param ServiceRequestMessage $serviceRequestMessage
      * @return bool
      */
-    public function show(User $currentUser,  ServiceRequestMessage $serviceRequestMessage)
+    public function show(User $currentUser, ServiceRequestMessage $serviceRequestMessage)
     {
-        return $currentUser->id === $user->id;
+        $propertyId = $serviceRequestMessage->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+
+            //todo create a method for resident of a unit in user model
+            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
+
+            return in_array($serviceRequestMessage->unitId, $unitIds);
+        }
+
+        return false;
     }
 
     /**
@@ -67,12 +120,30 @@ class ServiceRequestMessagePolicy
      */
     public function update(User $currentUser, ServiceRequestMessage $serviceRequestMessage)
     {
-        return $currentUser->id === $user->id;
+        $propertyId = $serviceRequestMessage->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+
+            //todo create a method for resident of a unit in user model
+            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
+
+            return in_array($serviceRequestMessage->unitId, $unitIds);
+        }
+
+        return false;
     }
 
     /**
      * Determine if a given user can delete
-     *
+     *e
      * @param User $currentUser
      * @param ServiceRequestMessage $serviceRequestMessage
      * @return bool

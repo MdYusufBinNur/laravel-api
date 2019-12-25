@@ -27,10 +27,15 @@ class ServiceRequestCategoryPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -38,12 +43,20 @@ class ServiceRequestCategoryPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId)
     {
-        return true;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +68,11 @@ class ServiceRequestCategoryPolicy
      */
     public function show(User $currentUser,  ServiceRequestCategory $serviceRequestCategory)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isUserOfTheProperty($serviceRequestCategory->propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -67,7 +84,17 @@ class ServiceRequestCategoryPolicy
      */
     public function update(User $currentUser, ServiceRequestCategory $serviceRequestCategory)
     {
-        return $currentUser->id === $user->id;
+        $propertyId = $serviceRequestCategory->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -79,6 +106,17 @@ class ServiceRequestCategoryPolicy
      */
     public function destroy(User $currentUser, ServiceRequestCategory $serviceRequestCategory)
     {
+
+        $propertyId = $serviceRequestCategory->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 }

@@ -24,6 +24,7 @@ class InventoryItemResource extends Resource
             'quantity' => $this->quantity,
             'comment' => $this->comment,
             'manufacturer' => $this->manufacturer,
+            'restockNote' => $this->restockNote,
             'notifyCount' => $this->notifyCount,
         ];
     }

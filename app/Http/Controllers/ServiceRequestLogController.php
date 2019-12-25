@@ -9,6 +9,7 @@ use App\Http\Requests\ServiceRequestLog\UpdateRequest;
 use App\Http\Resources\ServiceRequestLogResource;
 use App\Http\Resources\ServiceRequestLogResourceCollection;
 use App\Repositories\Contracts\ServiceRequestLogRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class ServiceRequestLogController extends Controller
 {
@@ -31,9 +32,12 @@ class ServiceRequestLogController extends Controller
      *
      * @param IndexRequest $request
      * @return ServiceRequestLogResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [ServiceRequestLog::class, $request->get('propertyId')]);
+
         $serviceRequestLogs = $this->serviceRequestLogRepository->findBy($request->all());
 
         return new ServiceRequestLogResourceCollection($serviceRequestLogs);
@@ -44,9 +48,12 @@ class ServiceRequestLogController extends Controller
      *
      * @param  StoreRequest  $request
      * @return ServiceRequestLogResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [ServiceRequestLog::class, $request->get('propertyId')]);
+
         $serviceRequestLog = $this->serviceRequestLogRepository->save($request->all());
 
         return new ServiceRequestLogResource($serviceRequestLog);
@@ -57,9 +64,12 @@ class ServiceRequestLogController extends Controller
      *
      * @param ServiceRequestLog $serviceRequestLog
      * @return ServiceRequestLogResource
+     * @throws AuthorizationException
      */
     public function show(ServiceRequestLog $serviceRequestLog)
     {
+        $this->authorize('show', $serviceRequestLog);
+
         return new ServiceRequestLogResource($serviceRequestLog);
     }
 
@@ -69,9 +79,12 @@ class ServiceRequestLogController extends Controller
      * @param UpdateRequest $request
      * @param ServiceRequestLog $serviceRequestLog
      * @return ServiceRequestLogResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, ServiceRequestLog $serviceRequestLog)
     {
+        $this->authorize('update', $serviceRequestLog);
+
         $serviceRequestLog = $this->serviceRequestLogRepository->update($serviceRequestLog,$request->all());
 
         return new ServiceRequestLogResource($serviceRequestLog);
@@ -82,9 +95,12 @@ class ServiceRequestLogController extends Controller
      *
      * @param ServiceRequestLog $serviceRequestLog
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(ServiceRequestLog $serviceRequestLog)
     {
+        $this->authorize('destroy', $serviceRequestLog);
+
         $this->serviceRequestLogRepository->delete($serviceRequestLog);
 
         return response()->json(null,204);

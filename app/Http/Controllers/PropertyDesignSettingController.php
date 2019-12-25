@@ -9,6 +9,7 @@ use App\Http\Requests\PropertyDesignSetting\UpdateRequest;
 use App\Http\Resources\PropertyDesignSettingResource;
 use App\Http\Resources\PropertyDesignSettingResourceCollection;
 use App\Repositories\Contracts\PropertyDesignSettingRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class PropertyDesignSettingController extends Controller
 {
@@ -31,9 +32,12 @@ class PropertyDesignSettingController extends Controller
      *
      * @param IndexRequest $request
      * @return PropertyDesignSettingResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', PropertyDesignSettingResource::class);
+
         $propertyDesignSettings = $this->propertyDesignSettingRepository->findBy($request->all());
 
         return new PropertyDesignSettingResourceCollection($propertyDesignSettings);
@@ -44,9 +48,12 @@ class PropertyDesignSettingController extends Controller
      *
      * @param StoreRequest $request
      * @return PropertyDesignSettingResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [PropertyDesignSettingResource::class, $request->get('propertyId')]);
+
         $propertyDesignSetting = $this->propertyDesignSettingRepository->setDesignSetting($request->all());
 
         return new PropertyDesignSettingResource($propertyDesignSetting);
@@ -57,9 +64,12 @@ class PropertyDesignSettingController extends Controller
      *
      * @param PropertyDesignSetting $propertyDesignSetting
      * @return PropertyDesignSettingResource
+     * @throws AuthorizationException
      */
     public function show(PropertyDesignSetting $propertyDesignSetting)
     {
+        $this->authorize('show', $propertyDesignSetting);
+
         return new PropertyDesignSettingResource($propertyDesignSetting);
     }
 
@@ -69,9 +79,12 @@ class PropertyDesignSettingController extends Controller
      * @param UpdateRequest $request
      * @param PropertyDesignSetting $propertyDesignSetting
      * @return PropertyDesignSettingResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, PropertyDesignSetting $propertyDesignSetting)
     {
+        $this->authorize('update', $propertyDesignSetting);
+
         $propertyDesignSetting = $this->propertyDesignSettingRepository->update($propertyDesignSetting,$request->all());
 
         return new PropertyDesignSettingResource($propertyDesignSetting);
@@ -82,9 +95,12 @@ class PropertyDesignSettingController extends Controller
      *
      * @param PropertyDesignSetting $propertyDesignSetting
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(PropertyDesignSetting $propertyDesignSetting)
     {
+        $this->authorize('destroy', $propertyDesignSetting);
+
         $this->propertyDesignSettingRepository->delete($propertyDesignSetting);
 
         return response()->json(null, 204);

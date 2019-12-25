@@ -9,6 +9,7 @@ use App\Http\Requests\ParkingSpace\UpdateRequest;
 use App\Http\Resources\ParkingSpaceResource;
 use App\Http\Resources\ParkingSpaceResourceCollection;
 use App\Repositories\Contracts\ParkingSpaceRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class ParkingSpaceController extends Controller
 {
@@ -31,9 +32,12 @@ class ParkingSpaceController extends Controller
      *
      * @param IndexRequest $request
      * @return ParkingSpaceResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [ParkingSpace::class, $request->get('propertyId')]);
+
         $parkingSpaces = $this->parkingSpaceRepository->findBy($request->all());
 
         return new ParkingSpaceResourceCollection($parkingSpaces);
@@ -44,9 +48,12 @@ class ParkingSpaceController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return ParkingSpaceResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [ParkingSpace::class, $request->get('propertyId')]);
+
         $parkingSpace = $this->parkingSpaceRepository->save($request->all());
 
         return new ParkingSpaceResource($parkingSpace);
@@ -57,9 +64,12 @@ class ParkingSpaceController extends Controller
      *
      * @param ParkingSpace $parkingSpace
      * @return ParkingSpaceResource
+     * @throws AuthorizationException
      */
     public function show(ParkingSpace $parkingSpace)
     {
+        $this->authorize('show', $parkingSpace);
+
         return new ParkingSpaceResource($parkingSpace);
     }
 
@@ -69,9 +79,12 @@ class ParkingSpaceController extends Controller
      * @param UpdateRequest $request
      * @param ParkingSpace $parkingSpace
      * @return ParkingSpaceResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, ParkingSpace $parkingSpace)
     {
+        $this->authorize('update', $parkingSpace);
+
         $parkingSpace = $this->parkingSpaceRepository->update($parkingSpace, $request->all());
 
         return new ParkingSpaceResource($parkingSpace);
@@ -82,9 +95,12 @@ class ParkingSpaceController extends Controller
      *
      * @param ParkingSpace $parkingSpace
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(ParkingSpace $parkingSpace)
     {
+        $this->authorize('destroy', $parkingSpace);
+
         $this->parkingSpaceRepository->delete($parkingSpace);
 
         return response()->json(null, 204);

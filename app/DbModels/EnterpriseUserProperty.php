@@ -2,7 +2,9 @@
 
 namespace App\DbModels;
 
+use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class EnterpriseUserProperty extends Model
 {
@@ -29,7 +31,7 @@ class EnterpriseUserProperty extends Model
     /**
      * get the enterprise user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function enterpriseUser()
     {
@@ -39,7 +41,7 @@ class EnterpriseUserProperty extends Model
     /**
      * get the property related to the enterprise user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return hasOne
      */
     public function property()
     {

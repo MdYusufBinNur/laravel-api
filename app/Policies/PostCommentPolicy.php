@@ -2,13 +2,29 @@
 
 namespace App\Policies;
 
+use App\DbModels\Post;
 use App\DbModels\PostComment;
 use App\DbModels\User;
+use App\Repositories\Contracts\PostRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PostCommentPolicy
 {
     use HandlesAuthorization;
+
+    /**
+     * @var PostRepository
+     */
+    private $postRepository;
+
+    /**
+     * MessagePostPolicy constructor.
+     * @param PostRepository $postRepository
+     */
+    public function __construct(PostRepository $postRepository)
+    {
+        $this->postRepository = $postRepository;
+    }
 
     /**
      * Intercept checks
@@ -27,10 +43,20 @@ class PostCommentPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $postId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $postId)
     {
+        $post = $this->postRepository->findOne($postId);
+
+        if ($post instanceof Post) {
+
+            if ($currentUser->isUserOfTheProperty($post->propertyId)) {
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -38,12 +64,21 @@ class PostCommentPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $postId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $postId)
     {
-        return true;
+        $post = $this->postRepository->findOne($postId);
+
+        if ($post instanceof Post) {
+
+            if ($currentUser->isUserOfTheProperty($post->propertyId)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +90,11 @@ class PostCommentPolicy
      */
     public function show(User $currentUser,  PostComment $postComment)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isUserOfTheProperty($postComment->post->propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -67,7 +106,7 @@ class PostCommentPolicy
      */
     public function update(User $currentUser, PostComment $postComment)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->id === $postComment->createdByUserId;
     }
 
     /**
@@ -79,6 +118,18 @@ class PostCommentPolicy
      */
     public function destroy(User $currentUser, PostComment $postComment)
     {
-        return false;
+        $post = $postComment->post->propertyId;
+        $propertyId = $post->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return $currentUser->id === $postComment->createdByUserId
+            || $currentUser->id === $post->createdByUserId;
     }
 }

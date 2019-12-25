@@ -2,7 +2,9 @@
 
 namespace App\DbModels;
 
+use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Package extends Model
 {
@@ -31,7 +33,7 @@ class Package extends Model
     /**
      * user and enterprise user relationship
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function unit()
     {
@@ -41,7 +43,7 @@ class Package extends Model
     /**
      * user and enterprise user relationship
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function resident()
     {
@@ -51,7 +53,7 @@ class Package extends Model
     /**
      * get entered user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function enteredUser()
     {
@@ -61,7 +63,7 @@ class Package extends Model
     /**
      * user and enterprise user relationship
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function type()
     {
@@ -71,7 +73,7 @@ class Package extends Model
     /**
      * get the property
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     * @return hasOne
      */
     public function property()
     {

@@ -8,9 +8,8 @@ use App\DbModels\ResidentAccessRequest;
 use App\DbModels\Role;
 use App\DbModels\Unit;
 use App\DbModels\User;
-use App\DbModels\UserRole;
 use App\Events\Resident\ResidentCreatedEvent;
-use App\Services\RoleHelper;
+use App\Services\Helpers\RoleHelper;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use App\Repositories\Contracts\ResidentArchiveRepository;
 use App\Repositories\Contracts\ResidentRepository;
@@ -18,7 +17,6 @@ use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EloquentResidentRepository extends EloquentBaseRepository implements ResidentRepository
 {
@@ -99,7 +97,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
     {
         $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
 
-        $searchCriteria['eagerLoad'] = ['resident.user' => 'user', 'resident.unit' => 'unit', 'user.roles' => 'user.userRoles', 'user.profilePic' => 'user.userProfilePic'];
+        $searchCriteria['eagerLoad'] = ['resident.user' => 'user', 'resident.unit' => 'unit', 'user.roles' => 'user.userRoles', 'user.profilePic' => 'user.userProfilePics'];
 
         return parent::findBy($searchCriteria, $withTrashed);
     }
@@ -147,6 +145,8 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
      */
     public function getResidentsByUnits(array $searchCriteria = [])
     {
+        $userRepository = app(UserRepository::class);
+
         $thisModelTable = $this->model->getTable();
         $userModelTable = User::getTableName();
         $residentAccessRequestModelTable = ResidentAccessRequest::getTableName();
@@ -158,7 +158,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         if (isset($searchCriteria['unitId'])) {
             $residentBuilder->where($thisModelTable . '.unitId', $searchCriteria['unitId']);
         }
-        $residentBuilder = $residentBuilder->select($thisModelTable . '.id', 'units.title', $thisModelTable . '.unitId', 'users.id as userId', 'users.name', 'users.email')
+        $residentBuilder = $residentBuilder->select($thisModelTable . '.id', 'units.title', $thisModelTable . '.unitId', 'users.id as userId', 'users.name', 'users.email', 'users.phone')
             ->join($userModelTable, $userModelTable . '.id', '=', $thisModelTable . '.userId')
             ->join($unitModelTable, $unitModelTable . '.id', '=', $thisModelTable . '.unitId');
 
@@ -181,7 +181,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
             }
 
             $residentAccessRequests = $residentAccessRequestsQueryBuilder->where($residentAccessRequestModelTable . '.propertyId', $searchCriteria['propertyId'])
-                ->select($residentAccessRequestModelTable . '.id as residentAccessRequestId', $unitModelTable . '.title', $residentAccessRequestModelTable . '.unitId', $residentAccessRequestModelTable . '.name', $residentAccessRequestModelTable . '.email')
+                ->select($residentAccessRequestModelTable . '.id as residentAccessRequestId', $unitModelTable . '.title', $residentAccessRequestModelTable . '.unitId', $residentAccessRequestModelTable . '.name', $residentAccessRequestModelTable . '.email', $residentAccessRequestModelTable . '.phone')
                 ->join($unitModelTable, $residentAccessRequestModelTable . '.unitId', '=', $unitModelTable . '.id')
                 ->get()->toArray();
 
@@ -192,6 +192,11 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         // group by units
         $residentsByUnits = [];
         foreach ($residents as $index => $resident) {
+
+            //todo too many DB calls
+            if (isset($resident['userId'])) {
+                $resident['profilePic'] = $userRepository->getProfilePicByUserId($resident['userId'], 'avatar');
+            }
             $residentsByUnits[$resident['title']][$index] = $resident;
         }
 
@@ -246,7 +251,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
      */
     public function transferResidents(array $data)
     {
-        $residents = $this->model->whereIn('id', $data['residentIds'])->get();
+        $residents = $this->model->where('propertyId', $data['propertyId'])->whereIn('id', $data['residentIds'])->get();
         unset($data['residentIds']);
         foreach ($residents as $resident) {
             $residents[] = $this->update($resident, $data);

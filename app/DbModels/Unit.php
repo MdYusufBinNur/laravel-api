@@ -2,7 +2,10 @@
 
 namespace App\DbModels;
 
+use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Unit extends Model
 {
@@ -20,7 +23,7 @@ class Unit extends Model
     /**
      * Get the property
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function property()
     {
@@ -30,7 +33,7 @@ class Unit extends Model
     /**
      * Get the tower of the unit
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function tower()
     {
@@ -40,10 +43,20 @@ class Unit extends Model
     /**
      * user and residents relationship
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function residents()
     {
         return $this->hasMany(Resident::class, 'unitId', 'id')->where('propertyId', $this->propertyId);
+    }
+
+    /**
+     * get residents users' ids
+     *
+     * @return array
+     */
+    public function getResidentsUserIds()
+    {
+        return $this->residents()->pluck('userId')->toArray();
     }
 }

@@ -38,12 +38,19 @@ class LdsSlidePolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
      * @return bool
      */
     public function store(User $currentUser)
     {
-        return true;
+        if ($currentUser->isEnterpriseUser()) {
+            return true;
+        }
+
+        if ($currentUser->isPriorityStaff()) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +62,17 @@ class LdsSlidePolicy
      */
     public function show(User $currentUser,  LdsSlide $ldsSlide)
     {
-        return $currentUser->id === $user->id;
+        $propertyIds = $ldsSlide->ldsSlidesProperties()->pluck('propertyId')->toArray();
+
+        foreach ($propertyIds as $propertyId) {
+            if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+                return true;
+            }
+
+            if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+                return true;
+            }
+        }
     }
 
     /**
@@ -67,7 +84,19 @@ class LdsSlidePolicy
      */
     public function update(User $currentUser, LdsSlide $ldsSlide)
     {
-        return $currentUser->id === $user->id;
+        $propertyIds = $ldsSlide->ldsSlidesProperties()->pluck('propertyId')->toArray();
+
+        foreach ($propertyIds as $propertyId) {
+            if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+                return true;
+            }
+
+            if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -79,6 +108,16 @@ class LdsSlidePolicy
      */
     public function destroy(User $currentUser, LdsSlide $ldsSlide)
     {
-        return false;
+        $propertyIds = $ldsSlide->ldsSlidesProperties()->pluck('propertyId')->toArray();
+
+        foreach ($propertyIds as $propertyId) {
+            if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+                return true;
+            }
+
+            if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+                return true;
+            }
+        }
     }
 }

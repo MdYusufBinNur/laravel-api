@@ -27,10 +27,15 @@ class PostPollPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -38,12 +43,16 @@ class PostPollPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId)
     {
-        return true;
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -55,19 +64,23 @@ class PostPollPolicy
      */
     public function show(User $currentUser,  PostPoll $postPoll)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isUserOfTheProperty($postPoll->propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
      * Determine if a given user can update
      *
      * @param User $currentUser
-     * @param PostPoll $postPoll
+     * @param PostPoll $post
      * @return bool
      */
     public function update(User $currentUser, PostPoll $postPoll)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->id === $postPoll->createdByUserId;
     }
 
     /**
@@ -79,6 +92,16 @@ class PostPollPolicy
      */
     public function destroy(User $currentUser, PostPoll $postPoll)
     {
-        return false;
+        $propertyId = $postPoll->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return $currentUser->id === $postPoll->createdByUserId;;
     }
 }

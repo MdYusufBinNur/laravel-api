@@ -7,7 +7,7 @@ namespace App\Repositories;
 use App\DbModels\Role;
 use App\DbModels\User;
 use App\Events\EnterpriseUser\EnterpriseUserCreatedEvent;
-use App\Services\RoleHelper;
+use App\Services\Helpers\RoleHelper;
 use App\Repositories\Contracts\EnterpriseUserPropertyRepository;
 use App\Repositories\Contracts\EnterpriseUserRepository;
 use App\Repositories\Contracts\UserRepository;
@@ -23,7 +23,7 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
     {
         $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
 
-        $searchCriteria['eagerLoad'] = ['eu.user' => 'user','eu.properties' => 'properties'];
+        $searchCriteria['eagerLoad'] = ['eu.user' => 'user','eu.properties' => 'enterPriseUserProperties'];
 
         return parent::findBy($searchCriteria, $withTrashed);
     }
@@ -59,14 +59,18 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
         // create enterprise user
         $enterpriseUser = parent::save($data);
 
-        //to save propertyId in EnterpriseUserProperty table if property is exists for the enterprise user
-        if (array_key_exists('propertyIds', $data)) {
-            $enterpriseUserPropertyRepository = app(EnterpriseUserPropertyRepository::class);
-            foreach ($data['propertyIds'] as $property) {
-                $enterpriseUserPropertyRepository->save(['enterpriseUserId' => $enterpriseUser->id, 'propertyId' => $property]);
+        if ($data['level'] == Role::ROLE_ENTERPRISE_STANDARD['title']) {
+            //todo, duplicate snippet in the update method
+            //to save propertyId in EnterpriseUserProperty table if property is exists for the enterprise user
+            if (array_key_exists('propertyIds', $data)) {
+                $enterpriseUserPropertyRepository = app(EnterpriseUserPropertyRepository::class);
+                $propertyIds = explode(',', $data['propertyIds']);
+                foreach ($propertyIds as $property) {
+                    $enterpriseUserPropertyRepository->save(['enterpriseUserId' => $enterpriseUser->id, 'propertyId' => $property]);
+                }
             }
         }
-
+        
         // fire EnterpriseUserCreatedEvent
         event(new EnterpriseUserCreatedEvent($enterpriseUser, $data));
 
@@ -89,7 +93,8 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
             $enterpriseUserPropertyRepository = app(EnterpriseUserPropertyRepository::class);
 
             $enterpriseUserPropertyRepository->model->where(['enterpriseUserId' => $enterpriseUser->id])->delete();
-            foreach ($data['propertyIds'] as $propertyId) {
+            $propertyIds = explode(',', $data['propertyIds']);
+            foreach ($propertyIds as $propertyId) {
                 $enterpriseUserPropertyData = ['enterpriseUserId' => $enterpriseUser->id, 'propertyId' => $propertyId];
                 $enterpriseUserPropertyRepository->patch($enterpriseUserPropertyData, $enterpriseUserPropertyData);
             }
@@ -138,7 +143,7 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
         unset($searchCriteria['enterpriseUserId']);
         unset($searchCriteria['userId']);
 
-        if (isset($searchCriteria['id'])) {
+        if (isset($searchCriteria['id']) && is_array($searchCriteria['id'])) {
             $searchCriteria['id'] = implode(",", array_unique($searchCriteria['id']));
         }
 

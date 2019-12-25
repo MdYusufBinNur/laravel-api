@@ -27,23 +27,24 @@ class UserProfileChildPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $userId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, ?int $userId)
     {
-        return false;
+        return $this->hasAccessByUserId($currentUser, $userId);
     }
 
     /**
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $userId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, ?int $userId)
     {
-        return true;
+        return $this->hasAccessByUserId($currentUser, $userId);
     }
 
     /**
@@ -55,7 +56,8 @@ class UserProfileChildPolicy
      */
     public function show(User $currentUser,  UserProfileChild $userProfileChild)
     {
-        return $currentUser->id === $user->id;
+        return $this->hasAccessByUserId($currentUser, $userProfileChild->userId);
+
     }
 
     /**
@@ -67,7 +69,7 @@ class UserProfileChildPolicy
      */
     public function update(User $currentUser, UserProfileChild $userProfileChild)
     {
-        return $currentUser->id === $user->id;
+        return $this->hasAccessByUserId($currentUser, $userProfileChild->userId);
     }
 
     /**
@@ -79,6 +81,41 @@ class UserProfileChildPolicy
      */
     public function destroy(User $currentUser, UserProfileChild $userProfileChild)
     {
+        return $this->hasAccessByUserId($currentUser, $userProfileChild->userId);
+    }
+
+
+    /**
+     * has access to the property
+     *
+     * @param User $currentUser
+     * @param int|null $userId
+     * @return bool
+     */
+    private function hasAccessByUserId(User $currentUser, ?int $userId)
+    {
+        if (empty($userId)) {
+            return false;
+        }
+
+        if ($currentUser->userId == $userId) {
+            return true;
+        }
+
+        $user = $this->userRepository->findOne($userId);
+        if ($user instanceof User) {
+            $propertyIds = $user->getPropertyIds();
+            foreach ($propertyIds as $propertyId) {
+                if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+                    return true;
+                }
+
+                if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 }

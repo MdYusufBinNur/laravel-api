@@ -27,23 +27,24 @@ class PostApprovalArchivePolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
-        return false;
-    }
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
 
-    /**
-     * Determine if a given user has permission to store
-     *
-     * @param User $currentUser
-     * @param User $user
-     * @return bool
-     */
-    public function store(User $currentUser)
-    {
-        return true;
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -55,30 +56,20 @@ class PostApprovalArchivePolicy
      */
     public function show(User $currentUser,  PostApprovalArchive $postApprovalArchive)
     {
-        return $currentUser->id === $user->id;
-    }
+        $propertyId = $postApprovalArchive->post->propertyId;
 
-    /**
-     * Determine if a given user can update
-     *
-     * @param User $currentUser
-     * @param PostApprovalArchive $postApprovalArchive
-     * @return bool
-     */
-    public function update(User $currentUser, PostApprovalArchive $postApprovalArchive)
-    {
-        return $currentUser->id === $user->id;
-    }
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
 
-    /**
-     * Determine if a given user can delete
-     *
-     * @param User $currentUser
-     * @param PostApprovalArchive $postApprovalArchive
-     * @return bool
-     */
-    public function destroy(User $currentUser, PostApprovalArchive $postApprovalArchive)
-    {
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 }

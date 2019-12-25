@@ -32,7 +32,13 @@ class ModuleOptionPolicy
      */
     public function list(User $currentUser)
     {
-        return false;
+        if ($currentUser->isEnterpriseUser()) {
+            return true;
+        }
+
+        if ($currentUser->isStaff()) {
+            return true;
+        }
     }
 
     /**
@@ -44,7 +50,7 @@ class ModuleOptionPolicy
      */
     public function store(User $currentUser)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -56,7 +62,14 @@ class ModuleOptionPolicy
      */
     public function show(User $currentUser,  ModuleOption $moduleOption)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isEnterpriseUser()) {
+            return true;
+        }
+
+        if ($currentUser->isStaff()) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -68,7 +81,7 @@ class ModuleOptionPolicy
      */
     public function update(User $currentUser, ModuleOption $moduleOption)
     {
-        return $currentUser->id === $user->id;
+        return false;
     }
 
     /**

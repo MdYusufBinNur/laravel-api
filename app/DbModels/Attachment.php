@@ -2,7 +2,9 @@
 
 namespace App\DbModels;
 
+use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Attachment extends Model
@@ -23,6 +25,7 @@ class Attachment extends Model
     const ATTACHMENT_TYPE_LDS_SLIDE = 'lds-slide';
     const ATTACHMENT_TYPE_VISITOR = 'visitor';
     const ATTACHMENT_TYPE_MESSAGE = 'message';
+    const ATTACHMENT_TYPE_MESSAGE_POST = 'message-post';
     const ATTACHMENT_TYPE_EQUIPMENT = 'equipment';
 
     /**
@@ -50,7 +53,7 @@ class Attachment extends Model
     /**
      * Get the user who created the attachment
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {
@@ -109,11 +112,74 @@ class Attachment extends Model
             case self::ATTACHMENT_TYPE_MESSAGE:
                 $directoryName = 'messages';
                 break;
+            case self::ATTACHMENT_TYPE_MESSAGE_POST:
+                $directoryName = 'message-posts';
+                break;
             case self::ATTACHMENT_TYPE_EQUIPMENT:
                 $directoryName = 'equipments';
                 break;
         }
 
         return $directoryName;
+    }
+
+    /**
+     * get image width and height by image type title
+     *
+     * @param $title
+     * @return array
+     */
+    public function getImageSizeByTypeTitle($title)
+    {
+        $sizes = ['width' => 150, 'height' => 150];
+        switch (strtolower($title)) {
+            case 'avatar':
+                $sizes = ['width' => 40, 'height' => 40];
+                break;
+            case 'thumbnail':
+                $sizes = ['width' => 150, 'height' => 150];
+                break;
+            case 'medium':
+                $sizes = ['width' => 300, 'height' => 300];
+                break;
+            case 'large':
+                $sizes = ['width' => 1024, 'height' => 1024];
+                break;
+
+        }
+
+        return $sizes;
+    }
+
+    /**
+     * get attachment file path by type-title(thumbnail, medium, large etc.)
+     *
+     * @param string $typeTitle
+     * @return string
+     */
+    public function getAttachmentDirectoryPathByTypeTitle($typeTitle = '')
+    {
+        switch (strtolower($typeTitle)) {
+            case 'avatar':
+                $path = $typeTitle . '/' . $this->fileName;
+                break;
+            case 'thumbnail':
+                $path = $typeTitle . '/' . $this->fileName;
+                break;
+            case 'medium':
+                $path = $typeTitle . '/' . $this->fileName;
+                break;
+            case 'large':
+                $path = $typeTitle . '/' . $this->fileName;
+                break;
+            default:
+                $path = $this->fileName;
+
+        }
+
+        $directoryName = $this->getDirectoryName($this->type);
+
+        return $directoryName . '/' . $path;
+
     }
 }

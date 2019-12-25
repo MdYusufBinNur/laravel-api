@@ -8,6 +8,7 @@ use App\Http\Requests\ParkingPassLog\IndexRequest;
 use App\Http\Resources\ParkingPassLogResource;
 use App\Http\Resources\ParkingPassLogResourceCollection;
 use App\Repositories\Contracts\ParkingPassLogRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class ParkingPassLogController extends Controller
 {
@@ -30,9 +31,12 @@ class ParkingPassLogController extends Controller
      *
      * @param IndexRequest $request
      * @return ParkingPassLogResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [ParkingPassLog::class, $request->get('propertyId'), $request->get('unitId', null)]);
+
         $parkingPassLogs = $this->parkingPassLogRepository->findBy($request->all());
 
         return new ParkingPassLogResourceCollection($parkingPassLogs);
@@ -43,9 +47,12 @@ class ParkingPassLogController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return ParkingPassLogResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('list', ParkingPassLog::class);
+
         $parkingPassLog = $this->parkingPassLogRepository->save($request->all());
 
         return new ParkingPassLogResource($parkingPassLog);
@@ -56,9 +63,12 @@ class ParkingPassLogController extends Controller
      *
      * @param ParkingPassLog $parkingPassLog
      * @return ParkingPassLogResource
+     * @throws AuthorizationException
      */
     public function show(ParkingPassLog $parkingPassLog)
     {
+        $this->authorize('show', $parkingPassLog);
+
         return new ParkingPassLogResource($parkingPassLog);
     }
 
@@ -67,9 +77,12 @@ class ParkingPassLogController extends Controller
      *
      * @param ParkingPassLog $parkingPassLog
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(ParkingPassLog $parkingPassLog)
     {
+        $this->authorize('destroy', $parkingPassLog);
+
         $this->parkingPassLogRepository->delete($parkingPassLog);
         return response()->json(null, 204);
     }

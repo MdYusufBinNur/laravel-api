@@ -10,7 +10,7 @@ use App\Http\Requests\EnterpriseUser\UpdateRequest;
 use App\Http\Resources\EnterpriseUserResource;
 use App\Http\Resources\EnterpriseUserResourceCollection;
 use App\Repositories\Contracts\EnterpriseUserRepository;
-use Illuminate\Http\Request;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class EnterpriseUserController extends Controller
 {
@@ -35,9 +35,12 @@ class EnterpriseUserController extends Controller
      *
      * @param IndexRequest $request
      * @return EnterpriseUserResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [EnterpriseUser::class, $request->get('companyId')]);
+
         $enterpriseUsers = $this->enterpriseUserRepository->findBy($request->all());
 
         return new EnterpriseUserResourceCollection($enterpriseUsers);
@@ -48,9 +51,12 @@ class EnterpriseUserController extends Controller
      *
      * @param  StoreRequest  $request
      * @return EnterpriseUserResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [EnterpriseUser::class, $request->get('companyId')]);
+
         $enterpriseUser = $this->enterpriseUserRepository->save($request->all());
 
         return new EnterpriseUserResource($enterpriseUser);
@@ -61,9 +67,12 @@ class EnterpriseUserController extends Controller
      *
      * @param EnterpriseUser $enterpriseUser
      * @return EnterpriseUserResource
+     * @throws AuthorizationException
      */
     public function show(EnterpriseUser $enterpriseUser)
     {
+        $this->authorize('show', $enterpriseUser);
+
         return new EnterpriseUserResource($enterpriseUser);
     }
 
@@ -73,9 +82,12 @@ class EnterpriseUserController extends Controller
      * @param UpdateRequest $request
      * @param EnterpriseUser $enterpriseUser
      * @return EnterpriseUserResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, EnterpriseUser $enterpriseUser)
     {
+        $this->authorize('update', $enterpriseUser);
+
         $enterpriseUser = $this->enterpriseUserRepository->updateEnterpriseUser($enterpriseUser, $request->all());
 
         return new EnterpriseUserResource($enterpriseUser);
@@ -87,9 +99,12 @@ class EnterpriseUserController extends Controller
      * @param DestroyRequest $request
      * @param EnterpriseUser $enterpriseUser
      * @return \Illuminate\Http\Response
+     * @throws AuthorizationException
      */
     public function destroy(DestroyRequest $request, EnterpriseUser $enterpriseUser)
     {
+        $this->authorize('destroy', $enterpriseUser);
+
         $this->enterpriseUserRepository->deleteEnterpriseUser($enterpriseUser,$request->all());
 
         return response()->json(null, 204);

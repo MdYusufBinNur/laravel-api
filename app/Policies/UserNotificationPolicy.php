@@ -18,7 +18,7 @@ class UserNotificationPolicy
      */
     public function before(User $currentUser)
     {
-        if ($currentUser->isAdmin()) {
+        if ($currentUser->isSuperAdmin()) {
             return true;
         }
     }
@@ -27,23 +27,12 @@ class UserNotificationPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $userId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $userId)
     {
-        return false;
-    }
-
-    /**
-     * Determine if a given user has permission to store
-     *
-     * @param User $currentUser
-     * @param User $user
-     * @return bool
-     */
-    public function store(User $currentUser)
-    {
-        return true;
+        return $currentUser->id == $userId;
     }
 
     /**
@@ -55,30 +44,6 @@ class UserNotificationPolicy
      */
     public function show(User $currentUser,  UserNotification $userNotification)
     {
-        return $currentUser->id === $user->id;
-    }
-
-    /**
-     * Determine if a given user can update
-     *
-     * @param User $currentUser
-     * @param UserNotification $userNotification
-     * @return bool
-     */
-    public function update(User $currentUser, UserNotification $userNotification)
-    {
-        return $currentUser->id === $user->id;
-    }
-
-    /**
-     * Determine if a given user can delete
-     *
-     * @param User $currentUser
-     * @param UserNotification $userNotification
-     * @return bool
-     */
-    public function destroy(User $currentUser, UserNotification $userNotification)
-    {
-        return false;
+        return $currentUser->id == $userNotification->toUserId;
     }
 }

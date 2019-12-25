@@ -11,9 +11,14 @@ use App\DbModels\EnterpriseUserProperty;
 use App\DbModels\Equipment;
 use App\DbModels\Event;
 use App\DbModels\EventSignup;
+use App\DbModels\Expense;
+use App\DbModels\ExpenseCategory;
 use App\DbModels\Fdi;
 use App\DbModels\FdiGuestType;
 use App\DbModels\FdiLog;
+use App\DbModels\Feedback;
+use App\DbModels\Income;
+use App\DbModels\IncomeCategory;
 use App\DbModels\InventoryCategory;
 use App\DbModels\InventoryItem;
 use App\DbModels\InventoryItemLog;
@@ -31,6 +36,7 @@ use App\DbModels\Module;
 use App\DbModels\ModuleOption;
 use App\DbModels\ModuleProperty;
 use App\DbModels\ModuleOptionProperty;
+use App\DbModels\ModuleSettingProperty;
 use App\DbModels\NotificationFeed;
 use App\DbModels\NotificationTemplate;
 use App\DbModels\NotificationTemplateProperty;
@@ -42,6 +48,12 @@ use App\DbModels\ParkingPass;
 use App\DbModels\ParkingPassLog;
 use App\DbModels\ParkingSpace;
 use App\DbModels\PasswordReset;
+use App\DbModels\Payment;
+use App\DbModels\PaymentItem;
+use App\DbModels\PaymentItemLog;
+use App\DbModels\PaymentMethod;
+use App\DbModels\PaymentRecurring;
+use App\DbModels\PaymentType;
 use App\DbModels\Post;
 use App\DbModels\PostApprovalArchive;
 use App\DbModels\PostApprovalBlacklistUnit;
@@ -96,9 +108,14 @@ use App\Repositories\Contracts\EnterpriseUserRepository;
 use App\Repositories\Contracts\EquipmentRepository;
 use App\Repositories\Contracts\EventRepository;
 use App\Repositories\Contracts\EventSignupRepository;
+use App\Repositories\Contracts\ExpenseCategoryRepository;
+use App\Repositories\Contracts\ExpenseRepository;
 use App\Repositories\Contracts\FdiGuestTypeRepository;
 use App\Repositories\Contracts\FdiLogRepository;
 use App\Repositories\Contracts\FdiRepository;
+use App\Repositories\Contracts\FeedbackRepository;
+use App\Repositories\Contracts\IncomeCategoryRepository;
+use App\Repositories\Contracts\IncomeRepository;
 use App\Repositories\Contracts\InventoryCategoryRepository;
 use App\Repositories\Contracts\InventoryItemLogRepository;
 use App\Repositories\Contracts\InventoryItemRepository;
@@ -114,6 +131,7 @@ use App\Repositories\Contracts\MessageTemplateRepository;
 use App\Repositories\Contracts\MessageUserRepository;
 use App\Repositories\Contracts\ModuleOptionRepository;
 use App\Repositories\Contracts\ModuleRepository;
+use App\Repositories\Contracts\ModuleSettingPropertyRepository;
 use App\Repositories\Contracts\NotificationFeedRepository;
 use App\Repositories\Contracts\NotificationTemplatePropertyRepository;
 use App\Repositories\Contracts\NotificationTemplateRepository;
@@ -125,6 +143,12 @@ use App\Repositories\Contracts\ParkingPassLogRepository;
 use App\Repositories\Contracts\ParkingPassRepository;
 use App\Repositories\Contracts\ParkingSpaceRepository;
 use App\Repositories\Contracts\PasswordResetRepository;
+use App\Repositories\Contracts\PaymentItemLogRepository;
+use App\Repositories\Contracts\PaymentItemRepository;
+use App\Repositories\Contracts\PaymentMethodRepository;
+use App\Repositories\Contracts\PaymentRecurringRepository;
+use App\Repositories\Contracts\PaymentRepository;
+use App\Repositories\Contracts\PaymentTypeRepository;
 use App\Repositories\Contracts\PostApprovalArchiveRepository;
 use App\Repositories\Contracts\PostApprovalBlacklistUnitRepository;
 use App\Repositories\Contracts\PostCommentRepository;
@@ -173,9 +197,14 @@ use App\Repositories\EloquentEnterpriseUserRepository;
 use App\Repositories\EloquentEquipmentRepository;
 use App\Repositories\EloquentEventRepository;
 use App\Repositories\EloquentEventSignupRepository;
+use App\Repositories\EloquentExpenseCategoryRepository;
+use App\Repositories\EloquentExpenseRepository;
 use App\Repositories\EloquentFdiGuestTypeRepository;
 use App\Repositories\EloquentFdiLogRepository;
 use App\Repositories\EloquentFdiRepository;
+use App\Repositories\EloquentFeedbackRepository;
+use App\Repositories\EloquentIncomeCategoryRepository;
+use App\Repositories\EloquentIncomeRepository;
 use App\Repositories\EloquentInventoryCategoryRepository;
 use App\Repositories\EloquentInventoryItemLogRepository;
 use App\Repositories\EloquentInventoryItemRepository;
@@ -195,6 +224,7 @@ use App\Repositories\Contracts\ModulePropertyRepository;
 use App\Repositories\EloquentModulePropertyRepository;
 use App\Repositories\Contracts\ModuleOptionPropertyRepository;
 use App\Repositories\EloquentModuleOptionPropertyRepository;
+use App\Repositories\EloquentModuleSettingPropertyRepository;
 use App\Repositories\EloquentNotificationFeedRepository;
 use App\Repositories\EloquentNotificationTemplatePropertyRepository;
 use App\Repositories\EloquentNotificationTemplateRepository;
@@ -206,6 +236,12 @@ use App\Repositories\EloquentParkingPassLogRepository;
 use App\Repositories\EloquentParkingPassRepository;
 use App\Repositories\EloquentParkingSpaceRepository;
 use App\Repositories\EloquentPasswordResetRepository;
+use App\Repositories\EloquentPaymentItemLogRepository;
+use App\Repositories\EloquentPaymentItemRepository;
+use App\Repositories\EloquentPaymentMethodRepository;
+use App\Repositories\EloquentPaymentRecurringRepository;
+use App\Repositories\EloquentPaymentRepository;
+use App\Repositories\EloquentPaymentTypeRepository;
 use App\Repositories\EloquentPostApprovalArchiveRepository;
 use App\Repositories\EloquentPostApprovalBlacklistUnitRepository;
 use App\Repositories\EloquentPostCommentRepository;
@@ -701,6 +737,66 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind EquipmentRepository
         $this->app->bind(EquipmentRepository::class, function() {
             return new EloquentEquipmentRepository(new Equipment());
+        });
+
+        // bind IncomeCategoryRepository
+        $this->app->bind(IncomeCategoryRepository::class, function() {
+            return new EloquentIncomeCategoryRepository(new IncomeCategory());
+        });
+
+        // bind IncomeRepository
+        $this->app->bind(IncomeRepository::class, function() {
+            return new EloquentIncomeRepository(new Income());
+        });
+
+        // bind ExpenseCategoryRepository
+        $this->app->bind(ExpenseCategoryRepository::class, function() {
+            return new EloquentExpenseCategoryRepository(new ExpenseCategory());
+        });
+
+        // bind ExpenseRepository
+        $this->app->bind(ExpenseRepository::class, function() {
+            return new EloquentExpenseRepository(new Expense());
+        });
+
+        // bind ModuleSettingPropertyRepository
+        $this->app->bind(ModuleSettingPropertyRepository::class, function() {
+            return new EloquentModuleSettingPropertyRepository(new ModuleSettingProperty());
+        });
+
+        // bind FeedbackRepository
+        $this->app->bind(FeedbackRepository::class, function() {
+            return new EloquentFeedbackRepository(new Feedback());
+        });
+
+        // bind PaymentTypeRepository
+        $this->app->bind(PaymentTypeRepository::class, function() {
+            return new EloquentPaymentTypeRepository(new PaymentType());
+        });
+
+        // bind PaymentMethodRepository
+        $this->app->bind(PaymentMethodRepository::class, function() {
+            return new EloquentPaymentMethodRepository(new PaymentMethod());
+        });
+
+        // bind PaymentRepository
+        $this->app->bind(PaymentRepository::class, function() {
+            return new EloquentPaymentRepository(new Payment());
+        });
+
+        // bind PaymentRecurringRepository
+        $this->app->bind(PaymentRecurringRepository::class, function() {
+            return new EloquentPaymentRecurringRepository(new PaymentRecurring());
+        });
+
+        // bind PaymentRecurringRepository
+        $this->app->bind(PaymentItemRepository::class, function() {
+            return new EloquentPaymentItemRepository(new PaymentItem());
+        });
+
+        // bind PaymentItemLogRepository
+        $this->app->bind(PaymentItemLogRepository::class, function() {
+            return new EloquentPaymentItemLogRepository(new PaymentItemLog());
         });
     }
 }

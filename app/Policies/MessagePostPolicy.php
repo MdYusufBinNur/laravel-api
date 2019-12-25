@@ -2,13 +2,29 @@
 
 namespace App\Policies;
 
+use App\DbModels\Message;
 use App\DbModels\MessagePost;
 use App\DbModels\User;
+use App\Repositories\Contracts\MessageRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class MessagePostPolicy
 {
     use HandlesAuthorization;
+
+    /**
+     * @var MessageRepository
+     */
+    private $messageRepository;
+
+    /**
+     * MessagePostPolicy constructor.
+     * @param MessageRepository $messageRepository
+     */
+    public function __construct(MessageRepository $messageRepository)
+    {
+        $this->messageRepository = $messageRepository;
+    }
 
     /**
      * Intercept checks
@@ -27,10 +43,17 @@ class MessagePostPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $messageId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $messageId)
     {
+        $message = $this->messageRepository->findOne($messageId);
+
+        if ($message instanceof Message) {
+            return $message->messageCanBeAccessedByTheUser($currentUser->id);
+        }
+
         return false;
     }
 
@@ -38,11 +61,17 @@ class MessagePostPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $messageId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $messageId)
     {
+        $message = $this->messageRepository->findOne($messageId);
+
+        if ($message instanceof Message) {
+            return $message->messageCanBeAccessedByTheUser($currentUser->id);
+        }
+
         return true;
     }
 
@@ -55,7 +84,7 @@ class MessagePostPolicy
      */
     public function show(User $currentUser,  MessagePost $messagePost)
     {
-        return $currentUser->id === $user->id;
+        return $messagePost->message->messageCanBeAccessedByTheUser($currentUser->id);
     }
 
     /**
@@ -67,7 +96,7 @@ class MessagePostPolicy
      */
     public function update(User $currentUser, MessagePost $messagePost)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->id === $messagePost->createdByUserId;
     }
 
     /**
@@ -79,6 +108,6 @@ class MessagePostPolicy
      */
     public function destroy(User $currentUser, MessagePost $messagePost)
     {
-        return false;
+        return $currentUser->id === $messagePost->createdByUserId;
     }
 }

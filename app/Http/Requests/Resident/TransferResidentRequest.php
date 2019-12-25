@@ -17,9 +17,9 @@ class TransferResidentRequest extends Request
     public function rules()
     {
         return $rules = [
+            'propertyId' => 'required|exists:properties,id',
             'residentIds' => ['required', new ListOfIds('residents', 'id')],
-            'unitId' => 'exists:units,id',
-            'propertyId' => 'exists:properties,id'
+            'unitId' => 'exists:units,id'
         ];
     }
 

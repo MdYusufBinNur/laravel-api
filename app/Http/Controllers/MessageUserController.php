@@ -6,12 +6,11 @@ use App\DbModels\MessageUser;
 use App\Http\Requests\MessageUser\BulkDeleteRequest;
 use App\Http\Requests\MessageUser\BulkUpdateReadStatusRequest;
 use App\Http\Requests\MessageUser\IndexRequest;
-use App\Http\Requests\MessageUser\StoreRequest;
 use App\Http\Requests\MessageUser\UpdateRequest;
 use App\Http\Resources\MessageUserResource;
 use App\Http\Resources\MessageUserResourceCollection;
 use App\Repositories\Contracts\MessageUserRepository;
-use Illuminate\Http\Request;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class MessageUserController extends Controller
 {
@@ -34,25 +33,15 @@ class MessageUserController extends Controller
      *
      * @param IndexRequest $request
      * @return MessageUserResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [MessageUser::class, $request->get('userId')]);
+
         $messageUsers = $this->messageUserRepository->findBy($request->all());
 
         return new MessageUserResourceCollection($messageUsers);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return MessageUserResource
-     */
-    public function store(StoreRequest $request)
-    {
-        $messageUser = $this->messageUserRepository->save($request->all());
-
-        return new MessageUserResource($messageUser);
     }
 
     /**
@@ -60,9 +49,12 @@ class MessageUserController extends Controller
      *
      * @param MessageUser $messageUser
      * @return MessageUserResource
+     * @throws AuthorizationException
      */
     public function show(MessageUser $messageUser)
     {
+        $this->authorize('show', $messageUser);
+
         return new MessageUserResource($messageUser);
     }
 
@@ -72,9 +64,12 @@ class MessageUserController extends Controller
      * @param UpdateRequest $request
      * @param MessageUser $messageUser
      * @return MessageUserResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, MessageUser $messageUser)
     {
+        $this->authorize('update', $messageUser);
+
         $messageUser = $this->messageUserRepository->update($messageUser, $request->all());
 
         return new MessageUserResource($messageUser);
@@ -84,36 +79,31 @@ class MessageUserController extends Controller
      * Bulk update the specified resource in storage.
      *
      * @param BulkUpdateReadStatusRequest $request
-     * @return MessageUserResource
+     * @return MessageUserResourceCollection
+     * @throws AuthorizationException
      */
     public function bulkUpdate(BulkUpdateReadStatusRequest $request)
     {
-        $messageUsers = $this->messageUserRepository->bulkUpdateReadStatus($request->all());
+        $requestData = $request->all();
+        $this->authorize('bulkUpdate', [MessageUser::class, $requestData['messageUserIds']]);
+
+        $messageUsers = $this->messageUserRepository->bulkUpdateReadStatus($requestData);
 
         return  new MessageUserResourceCollection($messageUsers);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param MessageUser $messageUser
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(MessageUser $messageUser)
-    {
-        $this->messageUserRepository->delete($messageUser);
-
-        return response()->json(null, 204);
-    }
 
     /**
      * Bulk delete the specified resource in storage.
      *
      * @param BulkDeleteRequest $request
      * @return MessageUserResource
+     * @throws AuthorizationException
      */
     public function bulkDelete(BulkDeleteRequest $request)
     {
+        $this->authorize('bulkDelete', [MessageUser::class, $request->get('messageUserIds')]);
+
         $this->messageUserRepository->bulkDelete($request->all());
 
         return response()->json(null, 204);

@@ -27,23 +27,40 @@ class ParkingPassLogPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
+     * @param int $unitId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId, ?int $unitId)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+
+            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
+
+            return in_array($unitId, $unitIds);
+        }
+
         return false;
+
     }
 
     /**
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
      * @return bool
      */
     public function store(User $currentUser)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -55,19 +72,22 @@ class ParkingPassLogPolicy
      */
     public function show(User $currentUser,  ParkingPassLog $parkingPassLog)
     {
-        return $currentUser->id === $user->id;
-    }
+        $propertyId = $parkingPassLog->propertyId;
 
-    /**
-     * Determine if a given user can update
-     *
-     * @param User $currentUser
-     * @param ParkingPassLog $parkingPassLog
-     * @return bool
-     */
-    public function update(User $currentUser, ParkingPassLog $parkingPassLog)
-    {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+
+            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
+
+            return in_array($parkingPassLog->unitId, $unitIds);
+        }
     }
 
     /**

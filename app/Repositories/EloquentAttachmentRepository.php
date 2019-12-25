@@ -3,9 +3,12 @@
 namespace App\Repositories;
 
 use App\DbModels\Attachment;
+use App\Events\Attachment\AttachmentCreatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
+use Carbon\Carbon;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 class EloquentAttachmentRepository extends EloquentBaseRepository implements AttachmentRepository
@@ -24,7 +27,7 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
                 //resize image
                 if (!empty($data['resizeImage'])) {
                     $resizedImagePath = '/tmp/' . Str::random(10);
-                    \Image::make($data['fileSource']->getPathname())->resize($data['width'], $data['height'])->save($resizedImagePath);
+                    \Image::make($data['fileSource']->getPathname())->resize($data['width'], $data['height']);
                     $filePath = $resizedImagePath;
                 }
 
@@ -33,11 +36,19 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
             }
             $image = file_get_contents($filePath);
         }
+        if (!isset($data['resourceId'])) {
+            $data['resourceId'] = '';
+        }
 
         $directoryName = $this->model->getDirectoryName($data['type']);
-        $data['fileName'] = Str::random(20) . '_'.$data['resourceId'].'_'. $data['fileSource']->getClientOriginalName();
+        $data['fileName'] = Str::random(20) . '_' . $data['resourceId'] . '_' . $data['fileSource']->getClientOriginalName();
         \Storage::put($directoryName . '/' . $data['fileName'], $image, 'public');
-        return parent::save($data);
+        $data['fileType'] = $data['fileSource']->getMimeType();
+        $attachment = parent::save($data);
+
+        event(new AttachmentCreatedEvent($attachment, $this->generateEventOptionsForModel(['multipleTypes' => $data['multipleTypes'] ?? []], false)));
+
+        return $attachment;
     }
 
     /**
@@ -47,8 +58,8 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
     {
         $image = file_get_contents($data['fileSource']);
         $directoryName = $this->model->getDirectoryName($data['type']);
-        $data['fileName'] = Str::random(20) . '_'.$data['resourceId'].'_'. $data['fileSource']->getClientOriginalName();
-        \Storage::delete($directoryName.'/'.$model->fileName);
+        $data['fileName'] = Str::random(20) . '_' . $data['resourceId'] . '_' . $data['fileSource']->getClientOriginalName();
+        \Storage::delete($directoryName . '/' . $model->fileName);
         \Storage::put($directoryName . '/' . $data['fileName'], $image, 'public');
         return parent::update($model, $data);
     }
@@ -59,7 +70,7 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
     public function delete(\ArrayAccess $model): bool
     {
         $directoryName = $this->model->getDirectoryName($model->type);
-        \Storage::delete($directoryName.'/'.$model->fileName);
+        \Storage::delete($directoryName . '/' . $model->fileName);
         return parent::delete($model);
     }
 
@@ -80,6 +91,15 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
      */
     public function updateResourceId(Attachment $attachment, $id)
     {
+        // check if the resourceId is already assigned
+        // todo move it to rules
+        if (!empty($attachment->resourceId)) {
+            /*throw ValidationException::withMessages([
+                'resourceId' => ['Resource Id is already assigned.']
+            ]);*/
+            return;
+        }
+
         return parent::update($attachment, ['resourceId' => $id]);
     }
 
@@ -94,5 +114,28 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
                 $this->updateResourceId($attachment, $id);
             }
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAttachmentByTypeAndResourceId($type, $resourceId)
+    {
+        $profileAttachment = $this->findOneBy(['resourceId' => $resourceId, 'type' => $type]);
+
+        return $profileAttachment;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getProfilePicByResourceId($resourceId, $size = 'medium')
+    {
+        $profileAttachment = $this->getAttachmentByTypeAndResourceId(Attachment::ATTACHMENT_TYPE_USER_PROFILE, $resourceId);
+        if ($profileAttachment instanceof Attachment) {
+            return \Storage::temporaryUrl($profileAttachment->getAttachmentDirectoryPathByTypeTitle($size), Carbon::now()->addDays(6));
+        }
+
+        return null;
     }
 }

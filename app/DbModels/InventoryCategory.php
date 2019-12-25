@@ -2,6 +2,7 @@
 
 namespace App\DbModels;
 
+use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
 
 class InventoryCategory extends Model
@@ -13,6 +14,6 @@ class InventoryCategory extends Model
      * @var array
      */
     protected $fillable = [
-        'title'
+        'title', 'propertyId'
     ];
 }

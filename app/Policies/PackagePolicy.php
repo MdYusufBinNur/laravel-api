@@ -27,10 +27,31 @@ class PackagePolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
+     * @param int $unitId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId, ?int $unitId)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+
+            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
+
+            return in_array($unitId, $unitIds);
+        }
+
         return false;
     }
 
@@ -38,12 +59,33 @@ class PackagePolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
+     * @param int $unitId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId, ?int $unitId)
     {
-        return true;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+
+            //todo create a method for resident of a unit in user model
+            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
+
+            return in_array($unitId, $unitIds);
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +97,15 @@ class PackagePolicy
      */
     public function show(User $currentUser,  Package $package)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($package->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($package->propertyId)) {
+            return true;
+        }
+
+        return in_array($currentUser->id, $package->unit->getResidentsUserIds());
     }
 
     /**
@@ -67,7 +117,15 @@ class PackagePolicy
      */
     public function update(User $currentUser, Package $package)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($package->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($package->propertyId)) {
+            return true;
+        }
+
+        return in_array($currentUser->id, $package->unit->getResidentsUserIds());
     }
 
     /**
@@ -79,6 +137,30 @@ class PackagePolicy
      */
     public function destroy(User $currentUser, Package $package)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($package->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($package->propertyId)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Determine if a given user has permission to see lds package list
+     *
+     * @param User $currentUser
+     * @param int $propertyId
+     * @return bool
+     */
+    public function packagesForLds(User $currentUser, int $propertyId)
+    {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 }

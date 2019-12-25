@@ -38,7 +38,7 @@ Route::group(['prefix' => 'api/v1'], function () {
          */
         Route::apiResource('company', 'CompanyController');
         Route::apiResource('enterprise-user', 'EnterpriseUserController');
-        Route::apiResource('enterprise-user-property', 'EnterpriseUserPropertyController');
+        Route::apiResource('enterprise-user-property', 'EnterpriseUserPropertyController', ['except' => ['store', 'put', 'delete']]);
 
 
         /**
@@ -57,6 +57,7 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('module-option', 'ModuleOptionController');
         Route::apiResource('module-property', 'ModulePropertyController');
         Route::apiResource('module-option-property', 'ModuleOptionPropertyController');
+        Route::apiResource('module-setting-property', 'ModuleSettingPropertyController');
 
 
         /**
@@ -102,7 +103,7 @@ Route::group(['prefix' => 'api/v1'], function () {
          * related to post features
          */
         Route::apiResource('post', 'PostController');
-        Route::apiResource('post-approval-archive', 'PostApprovalArchiveController');
+        Route::apiResource('post-approval-archive', 'PostApprovalArchiveController', ['only' => ['index', 'show']]);
         Route::apiResource('post-approval-blacklist-unit', 'PostApprovalBlacklistUnitController');
         Route::apiResource('post-comment', 'PostCommentController');
         Route::apiResource('post-event', 'PostEventController');
@@ -195,11 +196,11 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::get('line-list-auto-complete', 'UnitController@lineListAutoComplete');
 
         /**
-         * Related to inventory
+         * Related to inventory & maintenance
          */
         Route::apiResource('inventory-category', 'InventoryCategoryController');
         Route::apiResource('inventory-item', 'InventoryItemController');
-        Route::apiResource('inventory-item-log', 'InventoryItemLogController');
+        Route::apiResource('inventory-item-log', 'InventoryItemLogController', ['except' => ['store', 'update', 'destroy']]);
         Route::apiResource('equipment', 'EquipmentController');
 
         /**
@@ -207,12 +208,39 @@ Route::group(['prefix' => 'api/v1'], function () {
          */
         Route::get('staff-reminders', 'Stats\\StaffReminderController@index');
 
+
+        /**
+         * Related to income and expense
+         */
+        Route::apiResource('income-category', 'IncomeCategoryController');
+        Route::apiResource('income', 'IncomeController');
+        Route::apiResource('expense-category', 'ExpenseCategoryController');
+        Route::apiResource('expense', 'ExpenseController');
+
+        /**
+         * Related to user feedback
+         */
+        Route::apiResource('feedback', 'FeedbackController');
+
+
+        /**
+         * Related to payment
+         */
+        Route::apiResource('payment-type', 'PaymentTypeController');
+        Route::apiResource('payment-method', 'PaymentMethodController');
+        Route::apiResource('payment', 'PaymentController');
+        Route::apiResource('payment-recurring', 'PaymentRecurringController');
+        Route::apiResource('payment-item', 'PaymentItemController');
+        Route::apiResource('payment-item-log', 'PaymentItemLogController');
+
     });
 
     //route without authentication
-    Route::get('property/{property}', 'PropertyController@show');
+    //Route::get('property/{property}', 'PropertyController@show');
     Route::get('property-by-host', 'PropertyController@propertyByHost');
     Route::get('unit', 'UnitController@index');
+    Route::get('property-social-media', 'PropertySocialMediaController@index');
+
 
     Route::get('property-login-page-events', 'EventController@index');
     Route::get('property-login-page-announcements', 'AnnouncementController@index');

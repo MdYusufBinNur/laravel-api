@@ -2,6 +2,7 @@
 
 namespace App\DbModels;
 
+use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
@@ -31,8 +32,6 @@ class Role extends Model
 
     const ROLE_RESIDENT_OWNER = ['id' => 9, 'type' => 'resident', 'title' => 'resident_owner'];
     const ROLE_RESIDENT_TENANT = ['id' => 10, 'type' => 'resident', 'title' => 'resident_tenant'];
-    const ROLE_RESIDENT_SHOP = ['id' => 11, 'type' => 'resident', 'title' => 'resident_shop'];
-    const ROLE_RESIDENT_STUDENT = ['id' => 12, 'type' => 'resident', 'title' => 'resident_student'];
 
     /**
      * is a super admin role
@@ -72,7 +71,7 @@ class Role extends Model
      */
     public function hasAdminRole()
     {
-        return in_array($this->title, [self::ROLE_ADMIN_SUPER['title'], self::ROLE_ADMIN_SUPER['title'], self::ROLE_ADMIN_LIMITED['title']]);
+        return in_array($this->title, [self::ROLE_ADMIN_SUPER['title'], self::ROLE_ADMIN_STANDARD['title'], self::ROLE_ADMIN_LIMITED['title']]);
     }
 
     /**
@@ -167,32 +166,12 @@ class Role extends Model
     }
 
     /**
-     * is a shop type residents role
-     *
-     * @return bool
-     */
-    public function isShopResidentRole()
-    {
-        return $this->title === self::ROLE_RESIDENT_SHOP['title'];
-    }
-
-    /**
-     * is a student type residents role
-     *
-     * @return bool
-     */
-    public function isStudentResidentRole()
-    {
-        return $this->title === self::ROLE_RESIDENT_STUDENT['title'];
-    }
-
-    /**
      * has any resident role
      *
      * @return bool
      */
     public function hasResidentRole()
     {
-        return in_array($this->title, [self::ROLE_RESIDENT_OWNER['title'], self::ROLE_RESIDENT_TENANT['title'], self::ROLE_RESIDENT_SHOP, self::ROLE_RESIDENT_STUDENT]);
+        return in_array($this->title, [self::ROLE_RESIDENT_OWNER['title'], self::ROLE_RESIDENT_TENANT['title']]);
     }
 }

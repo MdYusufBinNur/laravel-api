@@ -19,7 +19,7 @@ class StoreRequest extends Request
             'phone' => 'required_without:email|unique:users|max:20',
             'name' => 'max:255',
             'password' => 'required|min:5|max:255',
-            'locale' => 'max:255',
+            'locale' => 'in:en,bn',
             'isActive' => 'boolean',
             'role' => '',
             'role.roleId' => 'required|exists:roles,id',

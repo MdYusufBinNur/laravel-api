@@ -2,7 +2,10 @@
 
 namespace App\DbModels;
 
+use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Tower extends Model
 {
@@ -20,7 +23,7 @@ class Tower extends Model
     /**
      * Get the units for the tower.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function units()
     {
@@ -30,7 +33,7 @@ class Tower extends Model
     /**
      * Get the property of the tower
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function property()
     {

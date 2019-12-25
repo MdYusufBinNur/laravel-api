@@ -10,21 +10,20 @@ class VisitorCreatedEvent
     use SerializesModels;
 
     /**
-     * @var Visitor
-     */
-    public $visitor;
-
-    /**
      * @var array
      */
     public $options;
+
+    /**
+     * @var Visitor
+     */
+    public $visitor;
 
     /**
      * Create a new event instance.
      *
      * @param Visitor $visitor
      * @param array $options
-     * @return void
      */
     public function __construct(Visitor $visitor, array $options = [])
     {

@@ -27,10 +27,27 @@ class FdiPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
+     * @param int $unitId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId, ?int $unitId)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+
+            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
+
+            return in_array($unitId, $unitIds);
+        }
+
         return false;
     }
 
@@ -38,11 +55,26 @@ class FdiPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
+     * @param int $unitId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId, int $unitId)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
+
+            return in_array($unitId, $unitIds);
+        }
+
         return true;
     }
 
@@ -55,7 +87,22 @@ class FdiPolicy
      */
     public function show(User $currentUser,  Fdi $fdi)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($fdi->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($fdi->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($fdi->propertyId)) {
+
+            $relatedUserIds =  $fdi->unit->getResidentsUserIds();
+
+            return in_array($currentUser->id, $relatedUserIds);
+        }
+
+        return false;
     }
 
     /**
@@ -67,18 +114,34 @@ class FdiPolicy
      */
     public function update(User $currentUser, Fdi $fdi)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($fdi->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($fdi->propertyId)) {
+            return true;
+        }
+
+        return $currentUser->id === $fdi->userId;
     }
 
     /**
      * Determine if a given user can delete
      *
      * @param User $currentUser
-     * @param Fdi $admin
+     * @param Fdi $fdi
      * @return bool
      */
-    public function destroy(User $currentUser, Fdi $admin)
+    public function destroy(User $currentUser, Fdi $fdi)
     {
-        return false;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($fdi->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($fdi->propertyId)) {
+            return true;
+        }
+
+        return $currentUser->id === $fdi->userId;
     }
 }

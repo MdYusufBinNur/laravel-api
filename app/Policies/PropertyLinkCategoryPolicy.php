@@ -31,19 +31,19 @@ class PropertyLinkCategoryPolicy
      */
     public function list(User $currentUser)
     {
-        return false;
+        return true;
     }
 
     /**
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -55,7 +55,7 @@ class PropertyLinkCategoryPolicy
      */
     public function show(User $currentUser,  PropertyLinkCategory $propertyLinkCategory)
     {
-        return $currentUser->id === $user->id;
+        return true;
     }
 
     /**
@@ -67,7 +67,7 @@ class PropertyLinkCategoryPolicy
      */
     public function update(User $currentUser, PropertyLinkCategory $propertyLinkCategory)
     {
-        return $currentUser->id === $user->id;
+        return false;
     }
 
     /**

@@ -34,9 +34,12 @@ class StaffController extends Controller
      *
      * @param IndexRequest $request
      * @return StaffResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [Manager::class, $request->get('propertyId')]);
+
         $users = $this->managerRepository->findStaffUsers($request->all());
 
         return new StaffResourceCollection($users);
@@ -47,9 +50,12 @@ class StaffController extends Controller
      *
      * @param  StoreRequest  $request
      * @return StaffResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [Manager::class, $request->get('propertyId')]);
+
         $staff = $this->managerRepository->save($request->all());
 
         return new StaffResource($staff);
@@ -58,33 +64,35 @@ class StaffController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\DbModels\User  $user
+     * @param int $id
      * @return StaffResource
      * @throws AuthorizationException
      */
     public function show($id)
     {
-        $user = $this->managerRepository->findOne($id);
+        $staff = $this->managerRepository->findOne($id);
 
-        if (!$user instanceof Manager) {
+        if (!$staff instanceof Manager) {
             return response()->json(['status' => 404, 'message' => 'Resource not found with the specific id.'], 404);
         }
 
-        //$this->authorize('show', $user);
+        $this->authorize('show', $staff);
 
-        return new StaffResource($user);
+        return new StaffResource($staff);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateRequest  $request
-     * @param  Manager $staff
+     * @param UpdateRequest $request
+     * @param Manager $staff
      * @return StaffResource
      * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, Manager $staff)
     {
+        $this->authorize('update', $staff);
+
         $staff = $this->managerRepository->updateManager($staff, $request->all());
 
         return new StaffResource($staff);
@@ -100,7 +108,10 @@ class StaffController extends Controller
      */
     public function destroy(DestroyRequest $request, Manager $staff)
     {
+        $this->authorize('destroy', $staff);
+
         $this->managerRepository->deleteStaff($staff, $request->all());
+
         return response()->json(null, 204);
     }
 }

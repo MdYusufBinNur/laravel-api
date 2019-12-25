@@ -35,9 +35,12 @@ class UserController extends Controller
      *
      * @param IndexRequest $request
      * @return UserResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', User::class);
+
         $users = $this->userRepository->findBy($request->all());
 
         return new UserResourceCollection($users);
@@ -48,9 +51,12 @@ class UserController extends Controller
      *
      * @param  StoreRequest  $request
      * @return UserResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', User::class);
+
         $user = $this->userRepository->save($request->all());
 
         return new UserResource($user);
@@ -80,12 +86,14 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  UpdateRequest  $request
-     * @param  User  $user
+     * @param  User $user
      * @return UserResource
      * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, User $user)
     {
+        $this->authorize('update', $user);
+
         $user = $this->userRepository->updateUser($user, $request->all());
 
         return new UserResource($user);
@@ -100,6 +108,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize('destroy', $user);
+
         $this->userRepository->delete($user);
         return response()->json(null, 204);
     }
@@ -109,9 +119,11 @@ class UserController extends Controller
      *
      * @param UserListAutoCompleteRequest $request
      * @return UserListAutoCompleteResourceCollection
+     * @throws AuthorizationException
      */
     public function usersListAutoComplete(UserListAutoCompleteRequest $request)
     {
+        $this->authorize('usersListAutoComplete', [User::class, $request->get('propertyId')]);
         $users = $this->userRepository->usersListAutoComplete($request->all());
         return new UserListAutoCompleteResourceCollection(collect($users));
     }

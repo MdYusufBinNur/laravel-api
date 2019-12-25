@@ -21,11 +21,12 @@ class StaffResource extends Resource
             'level' => $this->level,
             'displayInCorner' => $this->displayInCorner,
             'displayPublicProfile' => $this->displayPublicProfile,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'userId' => $this->userId,
             'user' => $this->when($this->needToInclude($request, 'staff.user'), function () {
                 return new UserResource($this->user);
             }),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

@@ -27,10 +27,23 @@ class ManagerPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -38,12 +51,24 @@ class ManagerPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId)
     {
-        return true;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -53,9 +78,15 @@ class ManagerPolicy
      * @param Manager $manager
      * @return bool
      */
-    public function show(User $currentUser,  Manager $manager)
+    public function show(User $currentUser, Manager $manager)
     {
-        return $currentUser->id === $user->id;
+        $user = $manager->user;
+        if ($user instanceof User) {
+            $propertyId = $manager->propertyId;
+            return $currentUser->isUserOfTheProperty($propertyId);
+        }
+
+        return false;
     }
 
     /**
@@ -67,7 +98,27 @@ class ManagerPolicy
      */
     public function update(User $currentUser, Manager $manager)
     {
-        return $currentUser->id === $user->id;
+        $user = $manager->user;
+
+        if ($user instanceof User) {
+            $propertyId = $manager->propertyId;
+
+            if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+                return true;
+            }
+
+            if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+                return true;
+            }
+
+            if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+                return true;
+            }
+
+            return $currentUser->id === $user->id;
+        }
+
+        return false;
     }
 
     /**
@@ -79,6 +130,14 @@ class ManagerPolicy
      */
     public function destroy(User $currentUser, Manager $manager)
     {
+        $user = $manager->user;
+        if ($user instanceof User) {
+            $propertyId = $manager->propertyId;
+            if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+                return true;
+            }
+        }
+
         return false;
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Requests\UserNotification\UpdateRequest;
 use App\Http\Resources\UserNotificationResource;
 use App\Http\Resources\UserNotificationResourceCollection;
 use App\Repositories\Contracts\UserNotificationRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class UserNotificationController extends Controller
 {
@@ -30,9 +31,12 @@ class UserNotificationController extends Controller
      *
      * @param IndexRequest $request
      * @return UserNotificationResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [UserNotification::class, $request->get('userId')]);
+
         $userNotificationTypes = $this->userNotificationRepository->findBy($request->all());
 
         return new UserNotificationResourceCollection($userNotificationTypes);
@@ -43,6 +47,7 @@ class UserNotificationController extends Controller
      *
      * @param int $id
      * @return UserNotificationResource
+     * @throws AuthorizationException
      */
     public function show($id)
     {
@@ -51,6 +56,8 @@ class UserNotificationController extends Controller
         if (!$userNotification instanceof UserNotification) {
             return response()->json(['status' => 404, 'message' => 'Resource not found with the specific id.'], 404);
         }
+
+        $this->authorize('list', $userNotification);
 
         return new UserNotificationResource($userNotification);
     }

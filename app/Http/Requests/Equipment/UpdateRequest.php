@@ -29,7 +29,7 @@ class UpdateRequest extends Request
             'nextMaintenanceDate' => 'date',
             'notifyDuration' => 'in:' . implode(',', Equipment::getConstantsByPrefix('NOTIFY_')),
             'restockNote' => 'max:255',
-            //'attachmentIds' => [new ListOfIds('attachments', 'id')],
+            'attachmentIds' => [new ListOfIds('attachments', 'id')],
 
         ];
     }

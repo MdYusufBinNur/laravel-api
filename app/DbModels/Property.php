@@ -2,8 +2,12 @@
 
 namespace App\DbModels;
 
-use App\Services\Point;
+use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Property extends Model
 {
@@ -29,7 +33,7 @@ class Property extends Model
     /**
      * Get the towers for the property.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function towers()
     {
@@ -39,7 +43,7 @@ class Property extends Model
     /**
      * Get all of the units for the property.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasManyThrough
+     * @return hasManyThrough
      */
     public function units()
     {
@@ -49,17 +53,17 @@ class Property extends Model
     /**
      * Get the company of the property
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function company()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class, 'companyId', 'id');
     }
 
     /**
      * Get the users for the property.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function users()
     {
@@ -69,7 +73,7 @@ class Property extends Model
     /**
      * get images
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function propertyImages()
     {
@@ -79,10 +83,34 @@ class Property extends Model
     /**
      * get images
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasMany
+     */
+    public function moduleProperties()
+    {
+        return $this->hasMany(ModuleProperty::class, 'propertyId', 'id')->where('value', 1);
+    }
+
+    /**
+     * get images
+     *
+     * @return HasOne
      */
     public function propertyDesignSetting()
     {
         return $this->hasOne(PropertyDesignSetting::class, 'propertyId', 'id');
+    }
+
+    /**
+     * get the login link
+     *
+     * @return mixed|string
+     */
+    public function getLoginLink()
+    {
+        if (!empty($this->domain)) {
+            return $this->domain;
+        } else {
+            return $this->subdomain . '.' . env('BRAND_SITE');
+        }
     }
 }

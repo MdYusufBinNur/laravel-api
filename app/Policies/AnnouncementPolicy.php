@@ -27,23 +27,24 @@ class AnnouncementPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
-        return false;
+        return $currentUser->isUserOfTheProperty($propertyId);
     }
 
     /**
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId)
     {
-        return true;
+        $currentUser->isAStaffOfTheProperty($propertyId);
     }
 
     /**
@@ -55,7 +56,7 @@ class AnnouncementPolicy
      */
     public function show(User $currentUser,  Announcement $announcement)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->isUserOfTheProperty($announcement->propertyId);
     }
 
     /**
@@ -67,7 +68,7 @@ class AnnouncementPolicy
      */
     public function update(User $currentUser, Announcement $announcement)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->isAStaffOfTheProperty($announcement->propertyId);
     }
 
     /**
@@ -79,6 +80,22 @@ class AnnouncementPolicy
      */
     public function destroy(User $currentUser, Announcement $announcement)
     {
+        return $currentUser->isAStaffOfTheProperty($announcement->propertyId);
+    }
+
+    /**
+     * Determine if a given user has permission to see announcement for lds
+     *
+     * @param User $currentUser
+     * @param int $propertyId
+     * @return bool
+     */
+    public function announcementsForLds(User $currentUser, int $propertyId)
+    {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 }

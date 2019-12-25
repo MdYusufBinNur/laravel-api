@@ -2,13 +2,17 @@
 
 namespace App\Repositories;
 
+use App\DbModels\Attachment;
 use App\DbModels\Manager;
 use App\DbModels\Resident;
 use App\DbModels\Role;
 use App\DbModels\Unit;
 use App\DbModels\UserRole;
+use App\Events\User\UserCreatedEvent;
+use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -27,7 +31,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
 
         $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
 
-        $searchCriteria['eagerLoad'] = ['user.roles' => 'userRoles', 'user.profilePic' => 'userProfilePic', 'user.userProfile' => 'userProfile','user.residents' => 'residents', 'user.staffs' => 'managers', 'user.enterpriseUser' => 'enterpriseUser', 'userRole.role' => 'userRoles.role', 'userRole.property' => 'userRoles.property', 'eu.properties' => 'enterpriseUser.enterpriseUserProperties'];
+        $searchCriteria['eagerLoad'] = ['user.roles' => 'userRoles', 'user.profilePic' => 'userProfilePics', 'user.userProfile' => 'userProfile', 'user.residents' => 'residents', 'user.staffs' => 'managers', 'user.enterpriseUser' => 'enterpriseUser', 'userRole.role' => 'userRoles.role', 'userRole.property' => 'userRoles.property', 'eu.properties' => 'enterpriseUser.enterpriseUserProperties'];
 
         $users = parent::findBy($searchCriteria, $withTrashed);
 
@@ -62,6 +66,8 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
             $userRoleRepository = app(UserRoleRepository::class);
             $userRoleRepository->save($data['role']);
         }
+
+        event(new UserCreatedEvent($user, $this->generateEventOptionsForModel()));
 
         DB::commit();
 
@@ -165,37 +171,74 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
         $unitTable = Unit::getTableName();
         $managerTable = Manager::getTableName();
 
-        $staffs = $this->model
-            ->select($thisModelTable . '.id',
-                $thisModelTable . '.name',
-                $thisModelTable . '.email',
-                $thisModelTable . '.email',
-                $managerTable . '.id as managerId',
-                $managerTable . '.title as managerTitle',
-                $managerTable . '.level as managerLevel'
-            )
-            ->join($managerTable, $thisModelTable . '.id', '=', $managerTable . '.userId')
-            ->where($managerTable . '.propertyId', $searchCriteria['propertyId'])
-            ->where($thisModelTable . '.name', 'like', '%' . $searchCriteria['query'] . '%')
-            ->with('userProfilePic')
-            ->get();
+        // don't return staffs if it asks for residents-only
+        if (empty($searchCriteria['residentsOnly'])) {
+            $staffsQueryBuilder = $this->model
+                ->select($thisModelTable . '.id',
+                    $thisModelTable . '.name',
+                    $thisModelTable . '.email',
+                    $thisModelTable . '.phone',
+                    $managerTable . '.id as managerId',
+                    $managerTable . '.title as managerTitle',
+                    $managerTable . '.level as managerLevel'
+                )
+                ->join($managerTable, $thisModelTable . '.id', '=', $managerTable . '.userId')
+                ->where($managerTable . '.propertyId', $searchCriteria['propertyId']);
 
-        $residents = $this->model
-            ->select($thisModelTable . '.id',
-                $thisModelTable . '.name',
-                $thisModelTable . '.email',
-                $residentTable . '.id as residentId',
-                $residentTable . '.type as residentTitle',
-                $unitTable . '.title as unit'
-            )
-            ->join($residentTable, $thisModelTable . '.id', '=', $residentTable . '.userId')
-            ->join($unitTable, $unitTable . '.id', '=', $residentTable . '.unitId')
-            ->where($residentTable . '.propertyId', $searchCriteria['propertyId'])
-            ->where($thisModelTable . '.name', 'like', '%' . $searchCriteria['query'] . '%')
-            ->with('userProfilePic')
-            ->get();
+            if (isset($searchCriteria['userId'])) {
+                $searchCriteria['userId'] = explode(',', $searchCriteria['userId']);
+                $staffsQueryBuilder->whereIn($thisModelTable . '.id', $searchCriteria['userId']);
+            }
 
-        return $staffs->merge($residents);
+            if (isset($searchCriteria['query'])) {
+                $staffsQueryBuilder->where($thisModelTable . '.name', 'like', '%' . $searchCriteria['query'] . '%');
+            }
+
+            $users = $staffsQueryBuilder
+                ->with('userProfilePics')
+                ->get();
+        }
+
+        // don't return residents if it asks for staffs-only
+        if (empty($searchCriteria['staffsOnly'])) {
+            $residentQueryBuilder = $this->model
+                ->select($thisModelTable . '.id',
+                    $thisModelTable . '.name',
+                    $thisModelTable . '.email',
+                    $thisModelTable . '.phone',
+                    $residentTable . '.id as residentId',
+                    $residentTable . '.type as residentTitle',
+                    $unitTable . '.title as unit'
+                )
+                ->join($residentTable, $thisModelTable . '.id', '=', $residentTable . '.userId')
+                ->join($unitTable, $unitTable . '.id', '=', $residentTable . '.unitId')
+                ->where($residentTable . '.propertyId', $searchCriteria['propertyId']);
+
+            if (isset($searchCriteria['userId'])) {
+
+                if (is_string($searchCriteria['userId'])) {
+                    $searchCriteria['userId'] = explode(',', $searchCriteria['userId']);
+                }
+
+                $residentQueryBuilder->whereIn($thisModelTable . '.id', $searchCriteria['userId']);
+            }
+
+            if (isset($searchCriteria['query'])) {
+                $residentQueryBuilder->where($thisModelTable . '.name', 'like', '%' . $searchCriteria['query'] . '%');
+            }
+
+            $residents = $residentQueryBuilder
+                ->with('userProfilePics')
+                ->get();
+
+            if (isset($users)) {
+                $users = $users->merge($residents);
+            } else {
+                $users = $residents;
+            }
+        }
+
+        return $users;
     }
 
     /**
@@ -206,5 +249,17 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
         return $this->model->where(['email' => $emailOrPhone])
             ->orWhere(['phone' => $emailOrPhone])
             ->first();
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function getProfilePicByUserId($userId, $size = 'medium')
+    {
+        $attachmentRepository = app(AttachmentRepository::class);
+        $profileAttachment = $attachmentRepository->getProfilePicByResourceId($userId, $size);
+
+        return $profileAttachment;
     }
 }

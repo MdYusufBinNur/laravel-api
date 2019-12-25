@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\DbModels\PropertyDesignSetting;
 use App\DbModels\User;
+use App\Http\Resources\PropertyDesignSettingResource;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PropertyDesignSettingPolicy
@@ -31,54 +31,86 @@ class PropertyDesignSettingPolicy
      */
     public function list(User $currentUser)
     {
-        return false;
+        return true;
     }
 
     /**
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId)
     {
-        return true;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
      * Determine if a given user has permission to show
      *
      * @param User $currentUser
-     * @param PropertyDesignSetting $propertyDesignSetting
+     * @param PropertyDesignSettingResource $propertyDesignSettingResource
      * @return bool
      */
-    public function show(User $currentUser,  PropertyDesignSetting $propertyDesignSetting)
+    public function show(User $currentUser,  PropertyDesignSettingResource $propertyDesignSettingResource)
     {
-        return $currentUser->id === $user->id;
+        return true;
     }
 
     /**
      * Determine if a given user can update
      *
      * @param User $currentUser
-     * @param PropertyDesignSetting $propertyDesignSetting
+     * @param PropertyDesignSettingResource $propertyDesignSettingResource
      * @return bool
      */
-    public function update(User $currentUser, PropertyDesignSetting $propertyDesignSetting)
+    public function update(User $currentUser, PropertyDesignSettingResource $propertyDesignSettingResource)
     {
-        return $currentUser->id === $user->id;
+        $propertyId = $propertyDesignSettingResource->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
      * Determine if a given user can delete
      *
      * @param User $currentUser
-     * @param PropertyDesignSetting $propertyDesignSetting
+     * @param PropertyDesignSettingResource $propertyDesignSettingResource
      * @return bool
      */
-    public function destroy(User $currentUser, PropertyDesignSetting $propertyDesignSetting)
+    public function destroy(User $currentUser, PropertyDesignSettingResource $propertyDesignSettingResource)
     {
+        $propertyId = $propertyDesignSettingResource->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 }

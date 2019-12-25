@@ -15,9 +15,15 @@ class CreateInventoryCategoriesTable extends Migration
     {
         Schema::create('inventory_categories', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('propertyId')->unsigned();
             $table->string('title');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('propertyId')
+                ->references('id')->on('properties')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

@@ -27,10 +27,19 @@ class FdiGuestTypePolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -38,12 +47,20 @@ class FdiGuestTypePolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId)
     {
-        return true;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +72,16 @@ class FdiGuestTypePolicy
      */
     public function show(User $currentUser,  FdiGuestType $fdiGuestType)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($fdiGuestType->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($fdiGuestType->propertyId)) {
+            return true;
+        }
+
+        return false;
+
     }
 
     /**
@@ -67,7 +93,15 @@ class FdiGuestTypePolicy
      */
     public function update(User $currentUser, FdiGuestType $fdiGuestType)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($fdiGuestType->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($fdiGuestType->propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -79,6 +113,14 @@ class FdiGuestTypePolicy
      */
     public function destroy(User $currentUser, FdiGuestType $fdiGuestType)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($fdiGuestType->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($fdiGuestType->propertyId)) {
+            return true;
+        }
+
         return false;
     }
 }

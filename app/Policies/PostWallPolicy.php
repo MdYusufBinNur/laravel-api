@@ -27,10 +27,15 @@ class PostWallPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -38,12 +43,16 @@ class PostWallPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $propertyId)
     {
-        return true;
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +64,11 @@ class PostWallPolicy
      */
     public function show(User $currentUser,  PostWall $postWall)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isUserOfTheProperty($postWall->post->propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -67,7 +80,7 @@ class PostWallPolicy
      */
     public function update(User $currentUser, PostWall $postWall)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->id === $postWall->createdByUserId;
     }
 
     /**
@@ -79,6 +92,16 @@ class PostWallPolicy
      */
     public function destroy(User $currentUser, PostWall $postWall)
     {
-        return false;
+        $propertyId = $postWall->post->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return $currentUser->id === $postWall->createdByUserId;;
     }
 }

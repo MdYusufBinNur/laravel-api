@@ -2,13 +2,29 @@
 
 namespace App\Policies;
 
+use App\DbModels\Event;
 use App\DbModels\EventSignup;
 use App\DbModels\User;
+use App\Repositories\Contracts\EventRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class EventSignupPolicy
 {
     use HandlesAuthorization;
+
+    /**
+     * @var EventRepository
+     */
+    private $eventRepository;
+
+    /**
+     * EventSignupPolicy constructor.
+     * @param EventRepository $eventRepository
+     */
+    public function __construct(EventRepository $eventRepository)
+    {
+        $this->eventRepository = $eventRepository;
+    }
 
     /**
      * Intercept checks
@@ -27,10 +43,15 @@ class EventSignupPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser)
+    public function list(User $currentUser, int $propertyId)
     {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -38,12 +59,24 @@ class EventSignupPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param int $eventId
      * @return bool
      */
-    public function store(User $currentUser)
+    public function store(User $currentUser, int $eventId)
     {
-        return true;
+        $event = $this->eventRepository->findOne($eventId);
+
+        if ($event instanceof Event) {
+
+            if ($event->allowedSignUp) {
+                if ($currentUser->isUserOfTheProperty($event->propertyId)) {
+                    return true;
+                }
+            }
+
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +88,11 @@ class EventSignupPolicy
      */
     public function show(User $currentUser,  EventSignup $eventSignup)
     {
-        return $currentUser->id === $user->id;
+        if ($currentUser->isUserOfTheProperty($eventSignup->event->propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -67,7 +104,7 @@ class EventSignupPolicy
      */
     public function update(User $currentUser, EventSignup $eventSignup)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->userId === $eventSignup->userId;
     }
 
     /**
@@ -79,6 +116,7 @@ class EventSignupPolicy
      */
     public function destroy(User $currentUser, EventSignup $eventSignup)
     {
-        return false;
+        return $currentUser->userId === $eventSignup->userId;
     }
 }
+

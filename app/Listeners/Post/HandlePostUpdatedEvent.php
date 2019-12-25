@@ -4,12 +4,14 @@ namespace App\Listeners\Post;
 
 use App\DbModels\Fdi;
 use App\DbModels\FdiLog;
+use App\DbModels\UserNotificationType;
 use App\Events\Fdi\FdiCreatedEvent;
 use App\Events\Fdi\FdiUpdatedEvent;
 use App\Events\Post\PostUpdatedEvent;
 use App\Listeners\CommonListenerFeatures;
 use App\Repositories\Contracts\FdiLogRepository;
 use App\Repositories\Contracts\PostApprovalArchiveRepository;
+use App\Repositories\Contracts\UserNotificationRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class HandlePostUpdatedEvent implements ShouldQueue
@@ -40,5 +42,23 @@ class HandlePostUpdatedEvent implements ShouldQueue
             ]);
         }
 
+        $postCreatorId = $post->createdByUserId;
+        $loggedInUserId = $eventOptions['request']['loggedInUserId'];
+
+        if ($eventOptions['request']['likeChanged'] && ($postCreatorId !== $loggedInUserId)){
+            $totalLikes = $post->likeCount;
+
+            $additionalMessage = $totalLikes > 1 ? ', and '. $totalLikes. ' others' : '';
+            $message = $additionalMessage .' liked your post';
+
+            $userNotificationRepository = app(UserNotificationRepository::class);
+            $userNotificationRepository->save([
+                'fromUserId' => $loggedInUserId,
+                'toUserId' => $postCreatorId,
+                'userNotificationTypeId' => UserNotificationType::POST_UPDATE['id'],
+                'resourceId' => $post->id,
+                'message' => $message,
+            ]);
+        }
     }
 }

@@ -9,8 +9,7 @@ use App\Http\Requests\ModuleOption\UpdateRequest;
 use App\Http\Resources\ModuleOptionResource;
 use App\Http\Resources\ModuleOptionResourceCollection;
 use App\Repositories\Contracts\ModuleOptionRepository;
-use http\Env\Response;
-use Illuminate\Http\Request;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class ModuleOptionController extends Controller
 {
@@ -33,9 +32,12 @@ class ModuleOptionController extends Controller
      *
      * @param IndexRequest $request
      * @return ModuleOptionResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', ModuleOption::class);
+
         $moduleOptions = $this->moduleOptionRepository->findBy($request->all());
 
         return new ModuleOptionResourceCollection($moduleOptions);
@@ -46,9 +48,12 @@ class ModuleOptionController extends Controller
      *
      * @param StoreRequest  $request
      * @return ModuleOptionResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', ModuleOption::class);
+
         $moduleOption = $this->moduleOptionRepository->save($request->all());
 
         return new ModuleOptionResource($moduleOption);
@@ -59,9 +64,12 @@ class ModuleOptionController extends Controller
      *
      * @param ModuleOption $moduleOption
      * @return ModuleOptionResource
+     * @throws AuthorizationException
      */
     public function show(ModuleOption $moduleOption)
     {
+        $this->authorize('show', $moduleOption);
+
         return new ModuleOptionResource($moduleOption);
     }
 
@@ -71,9 +79,12 @@ class ModuleOptionController extends Controller
      * @param UpdateRequest $request
      * @param ModuleOption $moduleOption
      * @return ModuleOptionResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, ModuleOption $moduleOption)
     {
+        $this->authorize('update', $moduleOption);
+
         $moduleOption = $this->moduleOptionRepository->update($moduleOption, $request->all());
 
         return new ModuleOptionResource($moduleOption);
@@ -84,9 +95,12 @@ class ModuleOptionController extends Controller
      *
      * @param ModuleOption $moduleOption
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(ModuleOption $moduleOption)
     {
+        $this->authorize('destroy', $moduleOption);
+
         $this->moduleOptionRepository->delete($moduleOption);
 
         return response()->json(null, 204);

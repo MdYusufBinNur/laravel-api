@@ -2,7 +2,9 @@
 
 namespace App\DbModels;
 
+use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ParkingPass extends Model
 {
@@ -31,7 +33,7 @@ class ParkingPass extends Model
     /**
      * get the property
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function property()
     {
@@ -41,7 +43,7 @@ class ParkingPass extends Model
     /**
      * get the released by user
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function releasedByUser()
     {
@@ -51,7 +53,7 @@ class ParkingPass extends Model
     /**
      * get the parking space
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function parkingSpace()
     {
@@ -62,7 +64,7 @@ class ParkingPass extends Model
     /**
      * get the unit
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function unit()
     {

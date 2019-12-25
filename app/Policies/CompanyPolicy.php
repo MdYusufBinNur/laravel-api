@@ -18,7 +18,7 @@ class CompanyPolicy
      */
     public function before(User $currentUser)
     {
-        if ($currentUser->isAdmin()) {
+        if ($currentUser->isSuperAdmin() || $currentUser->isStandardAdmin()) {
             return true;
         }
     }
@@ -43,7 +43,7 @@ class CompanyPolicy
      */
     public function store(User $currentUser)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -55,7 +55,7 @@ class CompanyPolicy
      */
     public function show(User $currentUser,  Company $company)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->isLimitedAdmin() || $currentUser->isAnEnterpriseUserOfTheCompany($company->id);
     }
 
     /**
@@ -67,7 +67,7 @@ class CompanyPolicy
      */
     public function update(User $currentUser, Company $company)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->isAnAdminEnterpriseUserOfTheCompany($company->id);
     }
 
     /**

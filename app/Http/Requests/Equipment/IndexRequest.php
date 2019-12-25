@@ -25,6 +25,8 @@ class IndexRequest extends Request
             'modelNumber' => 'string',
             'notifyDuration' => 'string',
             'nextMaintenanceDate' => 'date',
+            'startDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d',
         ];
     }
 }

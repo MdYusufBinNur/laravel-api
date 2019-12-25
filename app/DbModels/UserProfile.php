@@ -2,7 +2,9 @@
 
 namespace App\DbModels;
 
+use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class UserProfile extends Model
 {
@@ -34,7 +36,7 @@ class UserProfile extends Model
     /**
      * get user's profile profile links
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function userProfileLinks()
     {
@@ -44,7 +46,7 @@ class UserProfile extends Model
     /**
      * get user's profile profile child info
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function userProfileChildren()
     {

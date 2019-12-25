@@ -138,5 +138,10 @@ class DatabaseSeeder extends Seeder
         factory(App\DbModels\InventoryCategory::class, 5)->create();
         factory(App\DbModels\InventoryItem::class, 20)->create();
         factory(App\DbModels\InventoryItemLog::class, 10)->create();
+
+        $this->call([
+            AllTypesUserSeeder::class,
+        ]);
+
     }
 }

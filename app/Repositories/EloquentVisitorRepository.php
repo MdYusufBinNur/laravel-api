@@ -42,6 +42,7 @@ class EloquentVisitorRepository extends EloquentBaseRepository implements Visito
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
+        $searchCriteria = $this->applyFilterByUserType($searchCriteria);
         $queryBuilder = $this->model;
 
         if (isset($searchCriteria['endDate'])) {
@@ -65,6 +66,30 @@ class EloquentVisitorRepository extends EloquentBaseRepository implements Visito
         $queryBuilder->orderBy($orderBy, $orderDirection);
         return $queryBuilder->paginate($limit);
 
+    }
+
+    /**
+     * add more criteria by user type
+     * @param array $searchCriteria
+     * @return array
+     */
+    private function applyFilterByUserType(array $searchCriteria)
+    {
+        $loggedInUser = $this->getLoggedInUser();
+        $propertyId = $searchCriteria['propertyId'];
+
+        //if a resident only
+        if (!$loggedInUser->isAdmin() &&
+            !$loggedInUser->isAnEnterpriseUserOfTheProperty($propertyId) &&
+            !$loggedInUser->isAStaffOfTheProperty($propertyId) &&
+            $this->getLoggedInUser()->isResident($propertyId)) {
+
+            $unitIds = $this->getLoggedInUser()->getResidentsUnitIdsOfTheProperty($propertyId);
+            $searchCriteria['unitId'] = implode(',', $unitIds);
+            
+        }
+
+        return $searchCriteria;
     }
 
 }

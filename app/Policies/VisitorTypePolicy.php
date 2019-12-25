@@ -32,11 +32,7 @@ class VisitorTypePolicy
      */
     public function list(User $currentUser, int $propertyId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -72,13 +68,7 @@ class VisitorTypePolicy
      */
     public function show(User $currentUser,  VisitorType $visitorType)
     {
-        $propertyId = $visitorType->propertyId;
-
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+        if ($currentUser->isUserOfTheProperty($visitorType->propertyId)) {
             return true;
         }
 

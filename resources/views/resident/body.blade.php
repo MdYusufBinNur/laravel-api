@@ -1,5 +1,4 @@
-<table bgcolor="#4DBFBF" cellpadding="0" cellspacing="0"
-       class="force-full-width" style="margin: 0 auto;">
+<table bgcolor="#4DBFBF" cellpadding="0" cellspacing="0" class="force-full-width" style="margin: 0 auto;">
     <tbody>
     <tr>
         <td><br>
@@ -13,8 +12,8 @@
         <td class="headline"><br>
             <strong>Greetings
                 <span id="first_name">
-                    Zakaria!!!
-                </span>!
+                        Zakaria!!!
+                    </span>!
             </strong>
         </td>
     </tr>
@@ -25,16 +24,16 @@
                 <table cellpadding="0" cellspacing="0"
                        style="margin: 0 auto;" width="60%">
                     <tbody>
-                        <tr>
-                            <td style="font-size:18px;color:#ffffff;"><br>
-                                You did it! This robot is super
-                                impressed<br>
-                                (and she's not easy to impress).<br>
-                                <br>
-                                <br>
-                                <br>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td style="font-size:18px;color:#ffffff;"><br>
+                            You did it! This robot is super
+                            impressed<br>
+                            (and she's not easy to impress).<br>
+                            <br>
+                            <br>
+                            <br>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </center>
@@ -59,8 +58,7 @@
     </tr>
     </tbody>
 </table>
-<table bgcolor="#F5774E" cellpadding="0" cellspacing="0"
-       class="force-full-width" style="margin: 0 auto;">
+<table bgcolor="#F5774E" cellpadding="0" cellspacing="0" class="force-full-width" style="margin: 0 auto;">
     <tbody>
     <tr>
         <td style="background-color:#f5774e;">

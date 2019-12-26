@@ -1,3 +1,12 @@
-@extends('resident.access-request.layouts-request')
+@extends('layouts.app')
+@section('logo')
+    @include('layouts.logo')
+@endsection
 
-@section ('title', 'Welcome to '.$property->title)
+@section('title')
+    @include('layouts.title', ['residentAccessRequest' => $residentAccessRequest, 'property' => $property, 'unit' => $unit])
+@endsection
+
+@section('content')
+    @include('resident.access-request.body', ['data' => 'Welcome to '.$property->title])
+@endsection

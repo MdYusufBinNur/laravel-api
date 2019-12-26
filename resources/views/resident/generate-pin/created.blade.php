@@ -8,5 +8,5 @@
 @endsection
 
 @section('content')
-    @include('resident.access-request.body', ['data' => 'Welcome to '.$property->title])
+    @include('resident.generate-pin.body', ['data' => 'Welcome to '.$property->title])
 @endsection

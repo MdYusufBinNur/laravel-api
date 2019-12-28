@@ -25,6 +25,8 @@ class CreatePaymentsTable extends Migration
             $table->integer('dueDays')->nullable();
             $table->boolean('isRecurring')->default(false);
             $table->string('status');
+            $table->string('toUserIds')->nullable();
+            $table->string('toUnitIds')->nullable();
             $table->date('activationDate')->nullable();
             $table->timestamps();
             $table->softDeletes();

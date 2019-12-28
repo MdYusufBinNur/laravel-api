@@ -4,10 +4,7 @@ namespace App\Http\Requests\EnterpriseUser;
 
 use App\DbModels\EnterpriseUser;
 use App\Http\Requests\Request;
-use App\Rules\ListOfIds;
 use App\Rules\PropertyForCompanyAllowed;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
 
 class UpdateRequest extends Request
 {

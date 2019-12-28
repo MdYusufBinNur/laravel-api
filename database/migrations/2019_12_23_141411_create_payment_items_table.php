@@ -18,8 +18,8 @@ class CreatePaymentItemsTable extends Migration
             $table->integer('createdByUserId')->unsigned();
             $table->integer('propertyId')->unsigned();
             $table->integer('paymentId')->unsigned();
-            $table->integer('userId')->unsigned();
-            $table->integer('unitId')->unsigned();
+            $table->integer('userId')->unsigned()->nullable();
+            $table->integer('unitId')->unsigned()->nullable();
             $table->string('status');
             $table->timestamps();
             $table->softDeletes();

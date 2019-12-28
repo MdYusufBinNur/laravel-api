@@ -4,6 +4,7 @@ namespace App\Http\Requests\Payment;
 
 use App\DbModels\Payment;
 use App\Http\Requests\Request;
+use App\Rules\ListOfIds;
 
 class StoreRequest extends Request
 {
@@ -15,16 +16,16 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'createdByUserId' => 'exists:users,id',
             'propertyId' => 'required|exists:properties,id',
             'paymentMethodId' => 'required|exists:payment_methods,id',
             'paymentTypeId' => 'required|exists:payment_types,id',
             'amount' => 'required',
             'note' => 'required',
-            'dueDate' => 'date_format:Y-m-d',
-            'dueDays' => 'numeric',
+            'dueDate' => 'required_without:dueDays|date_format:Y-m-d',
+            'dueDays' => 'required_without:dueDays|numeric',
             'isRecurring' => 'boolean',
-            'status' => 'required|in:'.Payment::STATUS_PENDING.','.Payment::STATUS_DONE.','.Payment::STATUS_NOT_ACTIVATED.','.Payment::STATUS_PARTIALLY_DONE,
+            'toUserIds' => [new ListOfIds('users', 'id')],
+            'toUnitIds' => [new ListOfIds('units', 'id', ['all_units'])],
             'activationDate' => 'date_format:Y-m-d',
         ];
     }

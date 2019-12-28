@@ -26,4 +26,8 @@ class PaymentItem extends Model
         'unitId',
         'status'
     ];
+
+    protected $attributes = [
+        'status' => self::STATUS_PENDING
+    ];
 }

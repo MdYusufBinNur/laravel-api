@@ -47,7 +47,7 @@ class PaymentController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $payment = $this->paymentRepository->save($request->all());
+        $payment = $this->paymentRepository->savePayment($request->all());
 
         return new PaymentResource($payment);
     }

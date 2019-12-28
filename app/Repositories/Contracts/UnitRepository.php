@@ -22,4 +22,12 @@ interface UnitRepository extends BaseRepository
      */
     public function lineListAutoComplete(array $searchCriteria = []);
 
+    /**
+     * get unitIds of a property
+     *
+     * @param int $propertyId
+     * @return mixed
+     */
+    public function getAllUnitIdsByPropertyId(int $propertyId);
+
 }

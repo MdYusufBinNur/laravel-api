@@ -16,9 +16,7 @@ class PaymentMethodResource extends Resource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'propertyId' => $this->propertyId,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'propertyId' => $this->propertyId
         ];
     }
 }

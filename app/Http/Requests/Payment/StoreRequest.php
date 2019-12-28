@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Payment;
 
 use App\DbModels\Payment;
+use App\DbModels\PaymentRecurring;
 use App\Http\Requests\Request;
 use App\Rules\ListOfIds;
 
@@ -27,6 +28,8 @@ class StoreRequest extends Request
             'toUserIds' => [new ListOfIds('users', 'id')],
             'toUnitIds' => [new ListOfIds('units', 'id', ['all_units'])],
             'activationDate' => 'date_format:Y-m-d',
+            'expireDate' => 'required_if:isRecurring,1' . '|date_format:Y-m-d',
+            'period' => 'required_if:isRecurring,1' .'|in:'. implode(',', PaymentRecurring::getConstantsByPrefix('PERIOD_')),
         ];
     }
 }

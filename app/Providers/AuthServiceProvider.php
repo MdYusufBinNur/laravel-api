@@ -43,6 +43,7 @@ use App\DbModels\ParkingPass;
 use App\DbModels\ParkingPassLog;
 use App\DbModels\ParkingSpace;
 use App\DbModels\PasswordReset;
+use App\DbModels\PaymentType;
 use App\DbModels\Post;
 use App\DbModels\PostApprovalArchive;
 use App\DbModels\PostApprovalBlacklistUnit;
@@ -128,6 +129,7 @@ use App\Policies\ParkingPassLogPolicy;
 use App\Policies\ParkingPassPolicy;
 use App\Policies\ParkingSpacePolicy;
 use App\Policies\PasswordResetPolicy;
+use App\Policies\PaymentTypePolicy;
 use App\Policies\PostApprovalArchivePolicy;
 use App\Policies\PostApprovalBlacklistUnitPolicy;
 use App\Policies\PostCommentPolicy;
@@ -226,6 +228,7 @@ class AuthServiceProvider extends ServiceProvider
         ParkingPass::class => ParkingPassPolicy::class,
         ParkingPassLog::class => ParkingPassLogPolicy::class,
         PasswordReset::class => PasswordResetPolicy::class,
+        PaymentType::class => PaymentTypePolicy::class,
         PostApprovalArchive::class => PostApprovalArchivePolicy::class,
         PostApprovalBlacklistUnit::class => PostApprovalBlacklistUnitPolicy::class,
         PostComment::class => PostCommentPolicy::class,

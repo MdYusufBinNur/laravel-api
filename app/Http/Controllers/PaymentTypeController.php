@@ -9,6 +9,7 @@ use App\Http\Requests\PaymentType\UpdateRequest;
 use App\Http\Resources\PaymentTypeResource;
 use App\Http\Resources\PaymentTypeResourceCollection;
 use App\Repositories\Contracts\PaymentTypeRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class PaymentTypeController extends Controller
 {
@@ -34,6 +35,8 @@ class PaymentTypeController extends Controller
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [PaymentType::class, $request->propertyId]);
+
         $paymentTypes = $this->paymentTypeRepository->findBy($request->all());
 
         return new PaymentTypeResourceCollection($paymentTypes);
@@ -42,11 +45,14 @@ class PaymentTypeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreRequest $request
      * @return PaymentTypeResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [PaymentType::class, $request->propertyId]);
+
         $paymentType = $this->paymentTypeRepository->save($request->all());
 
         return new PaymentTypeResource($paymentType);
@@ -57,9 +63,12 @@ class PaymentTypeController extends Controller
      *
      * @param PaymentType $paymentType
      * @return PaymentTypeResource
+     * @throws AuthorizationException
      */
     public function show(PaymentType $paymentType)
     {
+        $this->authorize('show', $paymentType);
+
         return new PaymentTypeResource($paymentType);
 
     }
@@ -70,9 +79,12 @@ class PaymentTypeController extends Controller
      * @param UpdateRequest $request
      * @param PaymentType $paymentType
      * @return PaymentTypeResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, PaymentType $paymentType)
     {
+        $this->authorize('update', $paymentType);
+
         $paymentType = $this->paymentTypeRepository->update($paymentType, $request->all());
 
         return new PaymentTypeResource($paymentType);
@@ -83,9 +95,12 @@ class PaymentTypeController extends Controller
      *
      * @param PaymentType $paymentType
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(PaymentType $paymentType)
     {
+        $this->authorize('destroy', $paymentType);
+
         $this->paymentTypeRepository->delete($paymentType);
 
         return response()->json(null, 204);

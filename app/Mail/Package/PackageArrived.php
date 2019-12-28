@@ -37,7 +37,7 @@ class PackageArrived extends Mailable
         $resident = $this->package->resident;
         $unit = $this->package->unit;
 
-        return $this->subject("New Package Arrived")->view('package.arrived')
+        return $this->subject("New Package Arrived")->view('package.arrived.index')
             ->with(['package' => $this->package, 'resident' => $resident, 'property' => $property, 'unit' => $unit]);
     }
 }

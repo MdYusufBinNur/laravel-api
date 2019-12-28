@@ -35,7 +35,7 @@ class NotifyInventoryDecreased extends Mailable
     {
         $property = $this->inventoryItem->property;
 
-        return $this->subject("A Inventory Item Decreased")->view('inventory.notify-decreased')
+        return $this->subject("A Inventory Item Decreased")->view('inventory.notify-decreased.index')
             ->with(['inventory' => $this->inventoryItem, 'property' => $property]);
     }
 }

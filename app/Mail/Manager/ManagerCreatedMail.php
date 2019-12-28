@@ -37,7 +37,7 @@ class ManagerCreatedMail extends Mailable
         $user = $manager->user;
         $property = $manager->property;
 
-        return $this->subject("Welcome to {$property->title} community")->view('manager.created')
+        return $this->subject("Welcome to {$property->title} community")->view('manager.index')
             ->with(['staff' => $manager, 'user' => $user, 'property' => $property]);
     }
 }

@@ -39,7 +39,7 @@ class PackageSignOut extends Mailable
         $resident = $package->resident;
         $unit = $package->unit;
 
-        return $this->subject("Your Package Just Signed Out!")->view('package.sign-out')
+        return $this->subject("Your Package Just Signed Out!")->view('package.sign-out.index')
             ->with(['packageArchive' => $this->packageArchive, 'package' => $package, 'resident' => $resident, 'property' => $property, 'unit' => $unit]);
     }
 }

@@ -63,7 +63,7 @@ class SendMessageNotification extends Mailable
      */
     public function build()
     {
-        return $this->subject("New Message!")->view('message.notification')
+        return $this->subject("New Message!")->view('message.notification.index')
             ->with([
                 'messageModel' => $this->message, //message property is restricted in blade
                 'property' => $this->property,

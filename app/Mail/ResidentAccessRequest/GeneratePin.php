@@ -37,7 +37,7 @@ class GeneratePin extends Mailable
         $property = $this->residentAccessRequest->property;
         $unit = $this->residentAccessRequest->unit;
 
-        return $this->subject("Welcome to {$property->title} community")->view('resident.access-request.generate-pin')
+        return $this->subject("Welcome to {$property->title} community")->view('resident.generate-pin.index')
             ->with(['residentAccessRequest' => $residentAccessRequest, 'property' => $property, 'unit' => $unit]);
     }
 }

@@ -25,6 +25,11 @@ class CreatePaymentMethodsTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
+
+        DB::table('payment_methods')->insert([
+            'id' => 1,
+            'title' => 'Cash'
+        ]);
     }
 
     /**

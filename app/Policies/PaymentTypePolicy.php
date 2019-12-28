@@ -63,12 +63,12 @@ class PaymentTypePolicy
      * Determine if a given user has permission to show
      *
      * @param User $currentUser
-     * @param ParkingSpace $parkingSpace
+     * @param PaymentType $paymentType
      * @return bool
      */
-    public function show(User $currentUser,  ParkingSpace $parkingSpace)
+    public function show(User $currentUser,  PaymentType $paymentType)
     {
-        if ($currentUser->isUserOfTheProperty($parkingSpace->propertyId)) {
+        if ($currentUser->isUserOfTheProperty($paymentType->propertyId)) {
             return true;
         }
 

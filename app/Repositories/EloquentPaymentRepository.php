@@ -17,6 +17,15 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
     /**
      * @inheritDoc
      */
+    public function findBy(array $searchCriteria = [], $withTrashed = false)
+    {
+        $searchCriteria['eagerLoad'] = ['payment.createdByUser' => 'createdByUser', 'payment.property' => 'property',  'payment.paymentMethod' => 'paymentMethod', 'payment.paymentType' => 'paymentType', 'payment.paymentItems' => 'paymentItems'];
+        return parent::findBy($searchCriteria, $withTrashed);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function savePayment(array $data): \ArrayAccess
     {
         DB::beginTransaction();

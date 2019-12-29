@@ -15,6 +15,9 @@ class PaymentResource extends Resource
         return [
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
+            'createdByUser' => $this->when($this->needToInclude($request, 'payment.createdByUser'), function () {
+                return new UserResource($this->createdByUser);
+            }),
             'propertyId' => $this->propertyId,
             'property' => $this->when($this->needToInclude($request, 'payment.property'), function () {
                 return new PropertyResource($this->property);

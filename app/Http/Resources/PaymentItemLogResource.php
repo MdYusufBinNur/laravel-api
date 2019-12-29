@@ -28,6 +28,7 @@ class PaymentItemLogResource extends Resource
                 return new UnitResource($this->unit);
             }),
             'status' => $this->status,
+            'event' => $this->event,
             'updatedByUserId' => $this->updatedByUserId,
             'updatedByUser' => $this->when($this->needToInclude($request, 'pil.updatedByUser'), function () {
                 return new UserResource($this->updatedByUser);

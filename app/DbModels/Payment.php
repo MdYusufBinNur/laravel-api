@@ -125,7 +125,7 @@ class Payment extends Model
     }
 
     /**
-     * user and roles relationship
+     * payment and payment-item relationship
      *
      * @return HasMany
      */

@@ -33,6 +33,9 @@ class PaymentItemResource extends Resource
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'paymentItemLogs' => $this->when($this->needToInclude($request, 'pi.paymentItemLogs'), function () {
+                return new PaymentItemLogResourceCollection($this->paymentItemLogs);
+            }),
         ];
     }
 }

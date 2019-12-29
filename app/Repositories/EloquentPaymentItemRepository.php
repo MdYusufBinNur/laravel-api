@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\DbModels\Payment;
+use App\Events\PaymentItem\PaymentItemCreatedEvent;
 use App\Events\PaymentItem\PaymentItemUpdatedEvent;
 use App\Repositories\Contracts\PaymentItemRepository;
 use App\Repositories\Contracts\UnitRepository;
@@ -16,9 +17,21 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = ['pi.createdByUser' => 'createdByUser', 'pi.property' => 'property',  'pi.payment' => 'payment', 'pi.user' => 'user'];
+        $searchCriteria['eagerLoad'] = ['pi.createdByUser' => 'createdByUser', 'pi.property' => 'property',  'pi.payment' => 'payment', 'pi.user' => 'user', 'pi.paymentItemLogs' => 'paymentItemLogs'];
 
         return parent::findBy($searchCriteria, $withTrashed);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function save(array $data): \ArrayAccess
+    {
+        $paymentItem = parent::save($data);
+
+        event(new PaymentItemCreatedEvent($paymentItem, $this->generateEventOptionsForModel()));
+
+        return $paymentItem;
     }
 
     /**
@@ -27,7 +40,6 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
     public function savePaymentItem(Payment $payment, array $data): \ArrayAccess
     {
         //todo filter out duplicate payment item
-
         return $this->save($data);
     }
 

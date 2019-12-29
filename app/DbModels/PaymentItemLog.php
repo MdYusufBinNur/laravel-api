@@ -21,6 +21,7 @@ class PaymentItemLog extends Model
         'userId',
         'unitId',
         'status',
+        'event',
         'updatedByUserId'
     ];
 

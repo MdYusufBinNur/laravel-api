@@ -16,7 +16,7 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = ['paymentItem.createdByUser' => 'createdByUser', 'paymentItem.property' => 'property',  'paymentItem.payment' => 'payment', 'paymentItem.user' => 'user'];
+        $searchCriteria['eagerLoad'] = ['pi.createdByUser' => 'createdByUser', 'pi.property' => 'property',  'pi.payment' => 'payment', 'pi.user' => 'user'];
 
         return parent::findBy($searchCriteria, $withTrashed);
     }

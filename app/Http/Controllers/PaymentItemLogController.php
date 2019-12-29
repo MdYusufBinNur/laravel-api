@@ -40,19 +40,6 @@ class PaymentItemLogController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return PaymentItemLogResource
-     */
-    public function store(StoreRequest $request)
-    {
-        $paymentItemLog = $this->paymentItemLogRepository->save($request->all());
-
-        return new PaymentItemLogResource($paymentItemLog);
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param PaymentItemLog $paymentItemLog
@@ -61,32 +48,5 @@ class PaymentItemLogController extends Controller
     public function show(PaymentItemLog $paymentItemLog)
     {
         return new PaymentItemLogResource($paymentItemLog);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param UpdateRequest $request
-     * @param PaymentItemLog $paymentItemLog
-     * @return PaymentItemLogResource
-     */
-    public function update(UpdateRequest $request, PaymentItemLog $paymentItemLog)
-    {
-        $paymentItemLog = $this->paymentItemLogRepository->update($paymentItemLog, $request->all());
-
-        return new PaymentItemLogResource($paymentItemLog);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param PaymentItemLog $paymentItemLog
-     * @return void
-     */
-    public function destroy(PaymentItemLog $paymentItemLog)
-    {
-        $this->paymentItemLogRepository->delete($paymentItemLog);
-
-        return response()->json(null, 204);
     }
 }

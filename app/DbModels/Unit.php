@@ -59,4 +59,14 @@ class Unit extends Model
     {
         return $this->residents()->pluck('userId')->toArray();
     }
+
+    /**
+     * get residents users' ids
+     *
+     * @return array
+     */
+    public function getResidentsContactEmails()
+    {
+        return $this->residents()->pluck('emails')->toArray();
+    }
 }

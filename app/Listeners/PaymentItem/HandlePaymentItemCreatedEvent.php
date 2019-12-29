@@ -4,8 +4,10 @@ namespace App\Listeners\PaymentItem;
 
 use App\Events\PaymentItem\PaymentItemCreatedEvent;
 use App\Listeners\CommonListenerFeatures;
+use App\Mail\Payment\SendInvoice;
 use App\Repositories\Contracts\PaymentItemLogRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Mail;
 
 class HandlePaymentItemCreatedEvent implements ShouldQueue
 {
@@ -37,7 +39,7 @@ class HandlePaymentItemCreatedEvent implements ShouldQueue
         $paymentItem = $event->paymentItem;
         $eventOptions = $event->options;
 
-
+        // log the event
         $logData = [
             'paymentItemId' => $paymentItem->id,
             'propertyId' => $paymentItem->propertyId,
@@ -48,5 +50,16 @@ class HandlePaymentItemCreatedEvent implements ShouldQueue
         $logData['status'] = $paymentItem->status;
         $logData['updatedByUserId'] = $eventOptions['request']['loggedInUserId'];
         $this->paymentItemLogRepository->save($logData);
+
+        // send email
+        if (!empty($paymentItem->unitId)) {
+            $residents = $paymentItem->unit->residents;
+            foreach ($residents as $resident) {
+                Mail::to($resident->contactEmail)->send(new SendInvoice($paymentItem, $resident->user->name));
+            }
+        } else {
+            $user = $paymentItem->user;
+            Mail::to($user->email)->send(new SendInvoice($paymentItem, $user->name));
+        }
     }
 }

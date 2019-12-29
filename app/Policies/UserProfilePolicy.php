@@ -112,7 +112,7 @@ class UserProfilePolicy
             return false;
         }
 
-        if ($currentUser->userId == $userId) {
+        if ($currentUser->id == $userId) {
             return true;
         }
 

@@ -30,4 +30,9 @@ class PaymentItem extends Model
     protected $attributes = [
         'status' => self::STATUS_PENDING
     ];
+
+    public function isPaid()
+    {
+        return  $this->attributes['status'] == self::STATUS_PAID;
+    }
 }

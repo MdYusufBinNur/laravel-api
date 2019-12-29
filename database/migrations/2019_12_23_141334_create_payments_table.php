@@ -19,8 +19,8 @@ class CreatePaymentsTable extends Migration
             $table->unsignedInteger('propertyId');
             $table->integer('paymentMethodId')->unsigned();
             $table->integer('paymentTypeId')->unsigned();
-            $table->string('amount');
-            $table->string('note');
+            $table->float('amount');
+            $table->string('note')->nullable();
             $table->date('dueDate')->nullable();
             $table->integer('dueDays')->nullable();
             $table->boolean('isRecurring')->default(false);

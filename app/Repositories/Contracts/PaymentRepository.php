@@ -24,4 +24,12 @@ interface PaymentRepository extends BaseRepository
      * @return \ArrayAccess
      */
     public function updatePayment(Payment $model, array $data): \ArrayAccess;
+
+    /**
+     * remove a payment
+     *
+     * @param Payment $payment
+     * @return bool
+     */
+    public function removePayment(Payment $payment): bool;
 }

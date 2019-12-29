@@ -5,8 +5,10 @@ namespace App\Repositories;
 
 
 use App\DbModels\Payment;
+use App\DbModels\PaymentItem;
 use App\Events\Payment\PaymentCreatedEvent;
 use App\Events\Payment\PaymentUpdatedEvent;
+use App\Repositories\Contracts\PaymentItemRepository;
 use App\Repositories\Contracts\PaymentRecurringRepository;
 use App\Repositories\Contracts\PaymentRepository;
 use Illuminate\Support\Facades\DB;
@@ -20,6 +22,7 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
         $searchCriteria['eagerLoad'] = ['payment.createdByUser' => 'createdByUser', 'payment.property' => 'property',  'payment.paymentMethod' => 'paymentMethod', 'payment.paymentType' => 'paymentType', 'payment.paymentItems' => 'paymentItems'];
+
         return parent::findBy($searchCriteria, $withTrashed);
     }
 
@@ -79,5 +82,27 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
                 'status' => ["Payment is already in process. You can't update it"]
             ]);
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function removePayment(Payment $payment): bool
+    {
+        DB::beginTransaction();
+
+        $paymentItemRepository = app(PaymentItemRepository::class);
+
+        $paymentItems = $payment->paymentItems;
+        foreach ($paymentItems as $paymentItem) {
+            if (!$paymentItem->isPaid()) {
+                $paymentItemRepository->update($paymentItem, ['status' => PaymentItem::STATUS_CANCELLED]);
+            }
+        }
+        $hasDeleted = $this->update($payment, ['status' => Payment::STATUS_CANCELLED]);
+
+        DB::commit();
+
+        return $hasDeleted instanceof Payment;
     }
 }

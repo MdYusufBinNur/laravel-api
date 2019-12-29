@@ -20,7 +20,7 @@ class StoreRequest extends Request
             'paymentMethodId' => 'required|exists:payment_methods,id',
             'paymentTypeId' => 'required|exists:payment_types,id',
             'amount' => 'required',
-            'note' => 'required',
+            'note' => 'string',
             'dueDate' => 'required_without:dueDays|date_format:Y-m-d',
             'dueDays' => 'required_without:dueDate|numeric',
             'isRecurring' => 'boolean',

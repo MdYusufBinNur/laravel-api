@@ -120,7 +120,7 @@ class Payment extends Model
      */
     public function paymentType()
     {
-        return $this->hasOne(PaymentMethod::class, 'id', 'paymentTypeId');
+        return $this->hasOne(PaymentType::class, 'id', 'paymentTypeId');
     }
 
     /**

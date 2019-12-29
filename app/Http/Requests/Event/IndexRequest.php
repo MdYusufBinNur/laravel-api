@@ -15,6 +15,7 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'numeric',
+            'createdByUserId' => 'numeric',
             'propertyId' => 'required|numeric',
             'title' => 'string',
             'allowedSignUp' => 'boolean',

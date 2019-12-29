@@ -5,13 +5,22 @@ namespace App\Repositories;
 
 
 use App\DbModels\Payment;
-use App\DbModels\PaymentItem;
 use App\Events\PaymentItem\PaymentItemUpdatedEvent;
 use App\Repositories\Contracts\PaymentItemRepository;
 use App\Repositories\Contracts\UnitRepository;
 
 class EloquentPaymentItemRepository extends EloquentBaseRepository implements PaymentItemRepository
 {
+    /**
+     * @inheritDoc
+     */
+    public function findBy(array $searchCriteria = [], $withTrashed = false)
+    {
+        $searchCriteria['eagerLoad'] = ['paymentItem.createdByUser' => 'createdByUser', 'paymentItem.property' => 'property',  'paymentItem.payment' => 'payment', 'paymentItem.user' => 'user'];
+
+        return parent::findBy($searchCriteria, $withTrashed);
+    }
+
     /**
      * @inheritDoc
      */

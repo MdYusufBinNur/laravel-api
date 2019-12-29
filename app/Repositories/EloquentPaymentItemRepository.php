@@ -5,6 +5,8 @@ namespace App\Repositories;
 
 
 use App\DbModels\Payment;
+use App\DbModels\PaymentItem;
+use App\Events\PaymentItem\PaymentItemUpdatedEvent;
 use App\Repositories\Contracts\PaymentItemRepository;
 use App\Repositories\Contracts\UnitRepository;
 
@@ -49,6 +51,18 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
                 }
             }
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function update(\ArrayAccess $model, array $data): \ArrayAccess
+    {
+        $paymentItem = parent::update($model, $data);
+
+        event(new PaymentItemUpdatedEvent($paymentItem, $this->generateEventOptionsForModel()));
+
+        return $paymentItem;
     }
 
     /**

@@ -7,36 +7,46 @@ namespace App\Repositories;
 use App\DbModels\Payment;
 use App\Repositories\Contracts\PaymentItemRepository;
 use App\Repositories\Contracts\UnitRepository;
-use Carbon\Carbon;
 
 class EloquentPaymentItemRepository extends EloquentBaseRepository implements PaymentItemRepository
 {
     /**
      * @inheritDoc
      */
-    public function saveByPayment(Payment $payment)
+    public function savePaymentItem(Payment $payment, array $data): \ArrayAccess
     {
-        if (!$payment->hasPublished() && $payment->hasActivationDatePassed()) {
+        //todo filter out duplicate payment item
+
+        return $this->save($data);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function publishPayment(Payment $payment, array $options = [])
+    {
+        if ($payment->isPublishAble()) {
+
             $data = [
                 'propertyId' => $payment->propertyId,
                 'paymentId' => $payment->id,
             ];
 
-            if (isset($payment->toUserIds)) {
+            if (!empty($payment->toUserIds)) {
                 $userIds = $payment->toUserIds;
                 foreach ($userIds as $userId) {
                     $data['userId'] = $userId;
-                    $this->save($data);
+                    $this->savePaymentItem($payment, $data);
                 }
             }
 
-            if (isset($payment->toUnitIds)) {
-             $unitIds = $this->getAllUnitIds($payment);
+            if (!empty($payment->toUnitIds)) {
+                $unitIds = $this->getAllUnitIds($payment);
 
-             foreach ($unitIds as $unitId) {
-                 $data['unitId'] = $unitId;
-                 $this->save($data);
-             }
+                foreach ($unitIds as $unitId) {
+                    $data['unitId'] = $unitId;
+                    $this->savePaymentItem($payment, $data);
+                }
             }
         }
     }

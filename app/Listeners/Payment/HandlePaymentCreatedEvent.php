@@ -44,7 +44,7 @@ class HandlePaymentCreatedEvent implements ShouldQueue
         $payment = $event->payment;
         $eventOptions = $event->options;
 
-        $this->paymentItemRepository->saveByPayment($payment);
+        $this->paymentItemRepository->publishPayment($payment);
 
     }
 }

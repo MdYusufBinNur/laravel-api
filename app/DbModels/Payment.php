@@ -51,11 +51,47 @@ class Payment extends Model
      */
     protected $casts = [
         'isRecurring' => 'boolean',
-        'toUserIds' => 'json',
-        'toUnitIds' => 'json',
+        //'toUserIds' => 'json',
+        //'toUnitIds' => 'json',
         'dueDate' => 'datetime:Y-m-d h:i',
         'activationDate' => 'datetime:Y-m-d h:i',
     ];
+
+    /**
+     * toUserId setter
+     *
+     * @param $toUserIds
+     */
+    public function setToUserIdsAttribute($toUserIds)
+    {
+        $this->attributes['toUserIds'] = json_encode($toUserIds);
+    }
+
+    /**
+     * toUserId getter
+     */
+    public function getToUserIdsAttribute()
+    {
+        return isset($this->attributes['toUserIds']) ? json_decode($this->attributes['toUserIds']) : [];
+    }
+
+    /**
+     * toUnitIds setter
+     *
+     * @param $toUnitIds
+     */
+    public function setToUnitIdsAttribute($toUnitIds)
+    {
+        $this->attributes['toUnitIds'] = json_encode($toUnitIds);
+    }
+
+    /**
+     * toUnitIds getter
+     */
+    public function getToUnitIdsAttribute()
+    {
+        return isset($this->attributes['toUnitIds']) ? json_decode($this->attributes['toUnitIds']) : [];
+    }
 
     /**
      * get the property
@@ -104,7 +140,7 @@ class Payment extends Model
      */
     public function hasPublished()
     {
-        return $this->attributes['status'] !== self::STATUS_NOT_PUBLISHED;
+        return  $this->attributes['status'] !== self::STATUS_NOT_PUBLISHED;
     }
 
     /**
@@ -115,6 +151,34 @@ class Payment extends Model
     public function hasActivationDatePassed()
     {
         return $this->attributes['activationDate'] <= Carbon::today();
+    }
+
+    /**
+     * is the model change/update able
+     *
+     * @return bool
+     */
+    public function isUpdateAble()
+    {
+        if (in_array($this->attributes['status'], [self::STATUS_NOT_PUBLISHED, self::STATUS_PENDING, self::STATUS_NOT_ACTIVATED])) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * is the model change/update-able
+     *
+     * @return bool
+     */
+    public function isPublishAble()
+    {
+        if ($this->isUpdateAble() && $this->hasActivationDatePassed()) {
+            return true;
+        }
+
+        return false;
     }
 
 }

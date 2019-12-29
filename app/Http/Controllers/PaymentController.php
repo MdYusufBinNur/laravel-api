@@ -72,7 +72,7 @@ class PaymentController extends Controller
      */
     public function update(UpdateRequest $request, Payment $payment)
     {
-        $payment = $this->paymentRepository->update($payment, $request->all());
+        $payment = $this->paymentRepository->updatePayment($payment, $request->all());
 
         return new PaymentResource($payment);
     }

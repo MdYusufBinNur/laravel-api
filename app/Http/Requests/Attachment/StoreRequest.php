@@ -16,22 +16,7 @@ class StoreRequest extends Request
     public function rules()
     {
         return $rules = [
-            'type'         => 'required|in:' . Attachment::ATTACHMENT_TYPE_GENERIC
-                . ',' . Attachment::ATTACHMENT_TYPE_PROPERTY_LOGO
-                . ',' . Attachment::ATTACHMENT_TYPE_PROPERTY_BANNER
-                . ',' . Attachment::ATTACHMENT_TYPE_PROPERTY_GALLERY
-                . ',' . Attachment::ATTACHMENT_TYPE_USER_PROFILE
-                . ',' . Attachment::ATTACHMENT_TYPE_PROPERTY_DESIGN_CUSTOM
-                . ',' . Attachment::ATTACHMENT_TYPE_PROPERTY_SLIDE
-                . ',' . Attachment::ATTACHMENT_TYPE_SERVICE_REQUEST
-                . ',' . Attachment::ATTACHMENT_TYPE_POST
-                . ',' . Attachment::ATTACHMENT_TYPE_FDI
-                . ',' . Attachment::ATTACHMENT_TYPE_VISITOR
-                . ',' . Attachment::ATTACHMENT_TYPE_MESSAGE
-                . ',' . Attachment::ATTACHMENT_TYPE_MESSAGE_POST
-                . ',' . Attachment::ATTACHMENT_TYPE_EVENT
-                . ',' . Attachment::ATTACHMENT_TYPE_LDS_SLIDE
-                . ',' . Attachment::ATTACHMENT_TYPE_EQUIPMENT,
+            'type'         => 'required|in:' . implode(',', Attachment::getConstantsByPrefix('ATTACHMENT_TYPE_')),
             'fileSource'   => 'required|file|max:15360',
             'resourceId'   => '',
             'fileName'     => '',

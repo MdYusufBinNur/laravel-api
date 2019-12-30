@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Attachment extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, CommonModelFeatures;
 
     const ATTACHMENT_TYPE_GENERIC = 'generic';
     const ATTACHMENT_TYPE_USER_PROFILE = 'user-profile';
@@ -27,6 +27,7 @@ class Attachment extends Model
     const ATTACHMENT_TYPE_MESSAGE = 'message';
     const ATTACHMENT_TYPE_MESSAGE_POST = 'message-post';
     const ATTACHMENT_TYPE_EQUIPMENT = 'equipment';
+    const ATTACHMENT_TYPE_TEMP = 'temp';
 
     /**
      * The database table used by the model.
@@ -117,6 +118,9 @@ class Attachment extends Model
                 break;
             case self::ATTACHMENT_TYPE_EQUIPMENT:
                 $directoryName = 'equipments';
+                break;
+            case self::ATTACHMENT_TYPE_TEMP:
+                $directoryName = 'temp';
                 break;
         }
 

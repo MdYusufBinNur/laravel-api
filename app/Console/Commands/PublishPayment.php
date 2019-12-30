@@ -67,8 +67,8 @@ class PublishPayment extends Command
         $totalOneTimePaymentsPublished = $this->publishOneTimePayments();
         $totalRecurringPaymentsPublished = $this->publishRecurringPayments();
 
-        echo 'Total One Time Payments Published: ' . $totalOneTimePaymentsPublished;
-        echo '<br>Total Recurring Payments Published: ' . $totalRecurringPaymentsPublished;
+        echo "Total One Time Payments Published: " . $totalOneTimePaymentsPublished;
+        echo "\nTotal Recurring Payments Published: " . $totalRecurringPaymentsPublished;
     }
 
     private function publishOneTimePayments()

@@ -10,7 +10,7 @@
                         Hey {{ $residentAccessRequest->name }}
                         <br>
                         <br>
-                        The support team received your request. You will get notify by email within a few days after then you can continue registration process in this community.
+                        The support team received your request. You will get notify by email within a few days after after getting email you can continue registration process in this community.
                         <br>
                         <br>
                         <br>

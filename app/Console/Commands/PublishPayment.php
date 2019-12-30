@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\DbModels\Payment;
 use App\Repositories\Contracts\PaymentItemRepository;
-use App\Repositories\Contracts\PaymentPublishLogRepository;
 use App\Repositories\Contracts\PaymentRecurringRepository;
 use App\Repositories\Contracts\PaymentRepository;
 use Carbon\Carbon;

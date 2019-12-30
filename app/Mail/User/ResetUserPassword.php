@@ -34,8 +34,9 @@ class ResetUserPassword extends Mailable
     public function build()
     {
         $passwordReset = $this->passwordReset;
+        $user = $passwordReset->getUser();
 
         return $this->subject("Reset your password.")->view('user.password-reset.index')
-            ->with(['resetLink' =>env('PASSWORD_RESET_LINK_PREFIX') . '/' . $passwordReset->token , 'email' => $passwordReset->email, 'token' => $passwordReset->token, 'created_at' => $passwordReset->created_at]);
+            ->with(['resetLink' =>env('PASSWORD_RESET_LINK_PREFIX') . '/' . $passwordReset->token , 'email' => $passwordReset->email, 'token' => $passwordReset->token, 'created_at' => $passwordReset->created_at, 'user'=> $user]);
     }
 }

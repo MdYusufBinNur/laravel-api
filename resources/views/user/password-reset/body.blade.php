@@ -1,61 +1,42 @@
-<table bgcolor="#4DBFBF" cellpadding="0" cellspacing="0" class="force-full-width" style="margin: 0 auto;">
-    <tbody>
-    <tr>
-        <td><br>
-            <img alt="robot picture" height="240"
-                 src="https://www.filepicker.io/api/file/carctJpuT0exMaN8WUYQ"
-                 width="224">
-        </td>
-    </tr>
-
-    <tr>
-        <td class="headline"><br>
-            <strong>Greetings
-                <span id="first_name">
-                        Zakaria!!!
-                    </span>!
-            </strong>
-        </td>
-    </tr>
-
+<table bgcolor="#0292B7" cellpadding="0" cellspacing="0"
+       class="force-full-width" style="margin: 0 auto;">
+    <tbody >
     <tr>
         <td>
-            <center>
-                <table cellpadding="0" cellspacing="0"
-                       style="margin: 0 auto;" width="60%">
-                    <tbody>
-                    <tr>
-                        <td style="font-size:18px;color:#ffffff;">
-                            <br>
-                            Visitor Info: <br>
-                            <hr>
-
-
-                            <a href="{{$resetLink}}">Reset Password</a>
-
-                            <hr>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </center>
+            <table cellpadding="0" cellspacing="0" style="margin: 0 auto;" width="80%">
+                <tbody>
+                <tr >
+                    <td  style="text-align:left; font-size:18px;color:#ffffff;"><br>
+                        Hey {{ $user->name }}
+                        <br>
+                        <br>
+                        The support team received your request to reset your password. Click the button below to get started.
+                        <br>
+                        <br>
+                        <div >
+                            <!--[if mso]> <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://www.sendwithus.com" style="height:50px;v-text-anchor:middle;width:200px;" arcsize="8%" stroke="f" fillcolor="#178f8f"> <w:anchorlock></w:anchorlock> <center> <![endif]-->
+                            <a  href="{{ $resetLink }}"
+                                style="background-color:#DEE2EC;border-radius:4px;color:#000;display:inline-block;font-family:Helvetica, Arial, sans-serif;font-size:16px;font-weight:bold;line-height:50px;text-align:center;text-decoration:none;width:180px;-webkit-text-size-adjust:none;">
+                                <span id="button_text">Reset Password</span>
+                            </a>
+                            <!--[if mso]> </center> </v:roundrect> <![endif]-->
+                        </div>
+                        <br>
+                        If it doesn’t work, you can copy and paste the following link in your browser:
+                        <br>
+                        <br>
+                        {{ $resetLink }}
+                        <br>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </td>
     </tr>
 
-    <tr>
-        <td>
-            <div>
-                <!--[if mso]> <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://www.sendwithus.com" style="height:50px;v-text-anchor:middle;width:200px;" arcsize="8%" stroke="f" fillcolor="#178f8f"> <w:anchorlock></w:anchorlock> <center> <![endif]-->
-                <a href="https://reformedtech.org/"
-                   style="background-color:#178f8f;border-radius:4px;color:#ffffff;display:inline-block;font-family:Helvetica, Arial, sans-serif;font-size:16px;font-weight:bold;line-height:50px;text-align:center;text-decoration:none;width:250px;-webkit-text-size-adjust:none;">
-                    <span id="button_text">Button</span>
-                </a>
-                <!--[if mso]> </center> </v:roundrect> <![endif]-->
-            </div>
+    <tr >
+        <td >
+
             <br>
             <br>
             <br>

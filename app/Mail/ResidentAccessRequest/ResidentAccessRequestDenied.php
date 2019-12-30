@@ -6,9 +6,9 @@ use App\DbModels\ResidentAccessRequest;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ResidentAccessRequestCreated extends Mailable
+class ResidentAccessRequestDenied extends Mailable
 {
-    use SerializesModels;
+    use  SerializesModels;
 
     /**
      * @var ResidentAccessRequest
@@ -37,7 +37,7 @@ class ResidentAccessRequestCreated extends Mailable
         $property = $this->residentAccessRequest->property;
         $unit = $this->residentAccessRequest->unit;
 
-        return $this->subject("Registration request to {$property->title} community")->view('resident.access-request.index')
+        return $this->subject("Registration request to {$property->title} community")->view('resident.denied-request.index')
             ->with(['residentAccessRequest' => $residentAccessRequest, 'property' => $property, 'unit' => $unit]);
     }
 }

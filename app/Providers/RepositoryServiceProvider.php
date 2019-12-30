@@ -52,6 +52,7 @@ use App\DbModels\Payment;
 use App\DbModels\PaymentItem;
 use App\DbModels\PaymentItemLog;
 use App\DbModels\PaymentMethod;
+use App\DbModels\PaymentPublishLog;
 use App\DbModels\PaymentRecurring;
 use App\DbModels\PaymentType;
 use App\DbModels\Post;
@@ -146,6 +147,7 @@ use App\Repositories\Contracts\PasswordResetRepository;
 use App\Repositories\Contracts\PaymentItemLogRepository;
 use App\Repositories\Contracts\PaymentItemRepository;
 use App\Repositories\Contracts\PaymentMethodRepository;
+use App\Repositories\Contracts\PaymentPublishLogRepository;
 use App\Repositories\Contracts\PaymentRecurringRepository;
 use App\Repositories\Contracts\PaymentRepository;
 use App\Repositories\Contracts\PaymentTypeRepository;
@@ -239,6 +241,7 @@ use App\Repositories\EloquentPasswordResetRepository;
 use App\Repositories\EloquentPaymentItemLogRepository;
 use App\Repositories\EloquentPaymentItemRepository;
 use App\Repositories\EloquentPaymentMethodRepository;
+use App\Repositories\EloquentPaymentPublishLogRepository;
 use App\Repositories\EloquentPaymentRecurringRepository;
 use App\Repositories\EloquentPaymentRepository;
 use App\Repositories\EloquentPaymentTypeRepository;
@@ -797,6 +800,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind PaymentItemLogRepository
         $this->app->bind(PaymentItemLogRepository::class, function() {
             return new EloquentPaymentItemLogRepository(new PaymentItemLog());
+        });
+
+        // bind PaymentPublishLogRepository
+        $this->app->bind(PaymentPublishLogRepository::class, function() {
+            return new EloquentPaymentPublishLogRepository(new PaymentPublishLog());
         });
     }
 }

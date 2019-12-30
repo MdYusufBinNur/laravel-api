@@ -84,4 +84,15 @@ trait ResidentUserMethods
     {
         return $this->residents()->where('propertyId', $propertyId);
     }
+
+    /**
+     * get all the unitIds of the user
+     *
+     * @param int $propertyId
+     * @return array
+     */
+    public function getResidentsUnitIdsOfTheProperty($propertyId)
+    {
+        return $this->scopeResidentOfTheProperty($propertyId)->select('unitId')->pluck('unitId')->toArray();
+    }
 }

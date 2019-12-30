@@ -274,7 +274,11 @@ class EloquentBaseRepository implements BaseRepository
                     $queryBuilder->whereNotNull($key);
                 } else {
                     //we can pass multiple params for a filter with commas
-                    $allValues = explode(',', $value);
+                    if (is_array($value)) {
+                        $allValues = $value;
+                    } else {
+                        $allValues = explode(',', $value);
+                    }
 
                     if (count($allValues) > 1) {
                         $queryBuilder->whereIn($key, $allValues);

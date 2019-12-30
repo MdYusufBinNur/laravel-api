@@ -4,7 +4,6 @@ namespace App\Http\Requests\EnterpriseUser;
 
 use App\DbModels\EnterpriseUser;
 use App\Http\Requests\Request;
-use App\Rules\ListOfIds;
 use App\Rules\PropertyForCompanyAllowed;
 
 class StoreRequest extends Request

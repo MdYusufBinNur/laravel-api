@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\PaymentMethod;
+namespace App\Http\Requests\Payment;
 
 use App\Http\Requests\Request;
 
-class IndexRequest extends Request
+class DeleteRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,9 +14,8 @@ class IndexRequest extends Request
     public function rules()
     {
         return [
-            'id' => 'list:numeric',
-            'propertyId' => 'required|numeric',
-            'title' => 'string',
+            'confirm' => 'required|in:1'
+
         ];
     }
 }

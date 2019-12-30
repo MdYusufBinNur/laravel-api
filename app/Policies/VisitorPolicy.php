@@ -28,15 +28,12 @@ class VisitorPolicy
      *
      * @param User $currentUser
      * @param int $propertyId
+     * @param int $unitId
      * @return bool
      */
     public function list(User $currentUser, int $propertyId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
             return true;
         }
 

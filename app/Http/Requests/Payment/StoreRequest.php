@@ -2,8 +2,9 @@
 
 namespace App\Http\Requests\Payment;
 
-use App\DbModels\Payment;
+use App\DbModels\PaymentRecurring;
 use App\Http\Requests\Request;
+use App\Rules\ListOfIds;
 
 class StoreRequest extends Request
 {
@@ -15,17 +16,19 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'createdByUserId' => 'exists:users,id',
             'propertyId' => 'required|exists:properties,id',
             'paymentMethodId' => 'required|exists:payment_methods,id',
             'paymentTypeId' => 'required|exists:payment_types,id',
             'amount' => 'required',
-            'note' => 'required',
-            'dueDate' => 'date_format:Y-m-d',
-            'dueDays' => 'numeric',
+            'note' => 'string',
+            'dueDate' => 'required_without:dueDays|date_format:Y-m-d',
+            'dueDays' => 'required_without:dueDate|numeric',
             'isRecurring' => 'boolean',
-            'status' => 'required|in:'.Payment::STATUS_PENDING.','.Payment::STATUS_DONE.','.Payment::STATUS_NOT_ACTIVATED.','.Payment::STATUS_PARTIALLY_DONE,
+            'toUserIds' => ['required_without:toUnitIds', new ListOfIds('users', 'id')],
+            'toUnitIds' => ['required_without:toUserIds', new ListOfIds('units', 'id', ['all_units'])],
             'activationDate' => 'date_format:Y-m-d',
+            'expireDate' => 'required_if:isRecurring,1' . '|date_format:Y-m-d',
+            'period' => 'required_if:isRecurring,1' .'|in:'. implode(',', PaymentRecurring::getConstantsByPrefix('PERIOD_')),
         ];
     }
 }

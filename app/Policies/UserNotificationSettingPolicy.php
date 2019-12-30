@@ -19,7 +19,7 @@ class UserNotificationSettingPolicy
     public function before(User $currentUser)
     {
         if ($currentUser->isAdmin()) {
-            return true;
+            //return true;
         }
     }
 
@@ -42,7 +42,7 @@ class UserNotificationSettingPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param User $user
+     * @param array $requestData
      * @return bool
      */
     public function store(User $currentUser, array $requestData)

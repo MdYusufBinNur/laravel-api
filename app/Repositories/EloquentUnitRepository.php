@@ -98,4 +98,12 @@ class EloquentUnitRepository extends EloquentBaseRepository implements UnitRepos
         return $uniqueLines;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getAllUnitIdsByPropertyId(int $propertyId)
+    {
+        return $this->model->where('propertyId', $propertyId)->select('id')->pluck('id')->toArray();
+    }
+
 }

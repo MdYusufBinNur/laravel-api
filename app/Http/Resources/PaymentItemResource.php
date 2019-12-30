@@ -15,12 +15,27 @@ class PaymentItemResource extends Resource
         return [
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
+            'createdByUser' => $this->when($this->needToInclude($request, 'pi.createdByUser'), function () {
+                return new UserResource($this->createdByUser);
+            }),
             'paymentId' => $this->paymentId,
+            'payment' => $this->when($this->needToInclude($request, 'pi.payment'), function () {
+                return new PaymentResource($this->payment);
+            }),
             'userId' => $this->userId,
+            'user' => $this->when($this->needToInclude($request, 'pi.user'), function () {
+                return new UserResource($this->user);
+            }),
             'unitId' => $this->unitId,
+            'unit' => $this->when($this->needToInclude($request, 'pi.unit'), function () {
+                return new UnitResource($this->unit);
+            }),
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'paymentItemLogs' => $this->when($this->needToInclude($request, 'pi.paymentItemLogs'), function () {
+                return new PaymentItemLogResourceCollection($this->paymentItemLogs);
+            }),
         ];
     }
 }

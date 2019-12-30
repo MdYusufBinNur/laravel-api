@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DbModels\PaymentItem;
+use App\Http\Requests\PaymentItem\DeleteRequest;
 use App\Http\Requests\PaymentItem\IndexRequest;
-use App\Http\Requests\PaymentItem\StoreRequest;
 use App\Http\Requests\PaymentItem\UpdateRequest;
 use App\Http\Resources\PaymentItemResource;
 use App\Http\Resources\PaymentItemResourceCollection;
@@ -40,19 +40,6 @@ class PaymentItemController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return PaymentItemResource
-     */
-    public function store(StoreRequest $request)
-    {
-        $paymentItem = $this->paymentItemRepository->save($request->all());
-
-        return new PaymentItemResource($paymentItem);
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param PaymentItem $paymentItem
@@ -81,11 +68,12 @@ class PaymentItemController extends Controller
      * Remove the specified resource from storage.
      *
      * @param PaymentItem $paymentItem
+     * @param DeleteRequest $request
      * @return void
      */
-    public function destroy(PaymentItem $paymentItem)
+    public function destroy(DeleteRequest $request, PaymentItem $paymentItem)
     {
-        $this->paymentItemRepository->delete($paymentItem);
+        $this->paymentItemRepository->update($paymentItem, ['status' => PaymentItem::STATUS_CANCELLED]);
 
         return response()->json(null,204);
     }

@@ -34,7 +34,7 @@ class ParkingSpace extends Model
      */
     public function property()
     {
-        return $this->hasOne(User::class, 'id', 'propertyId');
+        return $this->hasOne(Property::class, 'id', 'propertyId');
     }
 
     /**

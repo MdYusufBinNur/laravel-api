@@ -9,6 +9,7 @@ use App\Http\Requests\PaymentMethod\UpdateRequest;
 use App\Http\Resources\PaymentMethodResource;
 use App\Http\Resources\PaymentMethodResourceCollection;
 use App\Repositories\Contracts\PaymentMethodRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class PaymentMethodController extends Controller
 {
@@ -31,9 +32,12 @@ class PaymentMethodController extends Controller
      *
      * @param IndexRequest $request
      * @return PaymentMethodResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [PaymentMethod::class, $request->get('propertyId')]);
+
         $paymentMethods = $this->paymentMethodRepository->findBy($request->all());
 
         return new PaymentMethodResourceCollection($paymentMethods);
@@ -44,9 +48,12 @@ class PaymentMethodController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return PaymentMethodResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [PaymentMethod::class, $request->get('propertyId', null)]);
+
         $paymentMethod = $this->paymentMethodRepository->save($request->all());
 
         return new PaymentMethodResource($paymentMethod);
@@ -57,9 +64,12 @@ class PaymentMethodController extends Controller
      *
      * @param PaymentMethod $paymentMethod
      * @return PaymentMethodResource
+     * @throws AuthorizationException
      */
     public function show(PaymentMethod $paymentMethod)
     {
+        $this->authorize('show', $paymentMethod);
+
         return new PaymentMethodResource($paymentMethod);
     }
 
@@ -69,9 +79,12 @@ class PaymentMethodController extends Controller
      * @param UpdateRequest $request
      * @param PaymentMethod $paymentMethod
      * @return PaymentMethodResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, PaymentMethod $paymentMethod)
     {
+        $this->authorize('update', $paymentMethod);
+
         $paymentMethod = $this->paymentMethodRepository->update($paymentMethod, $request->all());
 
         return new PaymentMethodResource($paymentMethod);
@@ -82,9 +95,12 @@ class PaymentMethodController extends Controller
      *
      * @param PaymentMethod $paymentMethod
      * @return \Illuminate\Http\Response
+     * @throws AuthorizationException
      */
     public function destroy(PaymentMethod $paymentMethod)
     {
+        $this->authorize('destroy', $paymentMethod);
+
         $this->paymentMethodRepository->delete($paymentMethod);
 
         return response()->json(null, 204);

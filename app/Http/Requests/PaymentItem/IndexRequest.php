@@ -17,7 +17,7 @@ class IndexRequest extends Request
             'id' => 'list:numeric',
             'createdByUserId' => 'list:numeric',
             'paymentId' => 'list:numeric',
-            'propertyId' => 'list:numeric',
+            'propertyId' => 'required|numeric',
             'userId' => 'list:numeric',
             'unitId' => 'list:numeric',
             'status' => 'list:string',

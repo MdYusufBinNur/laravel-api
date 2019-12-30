@@ -82,6 +82,18 @@ use App\Events\ParkingPassLog\ParkingPassLogUpdatedEvent;
 use App\Events\ParkingSpace\ParkingSpaceCreatedEvent;
 use App\Events\ParkingSpace\ParkingSpaceUpdatedEvent;
 use App\Events\PasswordReset\PasswordResetEvent;
+use App\Events\Payment\PaymentCreatedEvent;
+use App\Events\Payment\PaymentUpdatedEvent;
+use App\Events\PaymentItem\PaymentItemCreatedEvent;
+use App\Events\PaymentItem\PaymentItemUpdatedEvent;
+use App\Events\PaymentItemLog\PaymentItemLogCreatedEvent;
+use App\Events\PaymentItemLog\PaymentItemLogUpdatedEvent;
+use App\Events\PaymentMethod\PaymentMethodCreatedEvent;
+use App\Events\PaymentMethod\PaymentMethodUpdatedEvent;
+use App\Events\PaymentRecurring\PaymentRecurringCreatedEvent;
+use App\Events\PaymentRecurring\PaymentRecurringUpdatedEvent;
+use App\Events\PaymentType\PaymentTypeCreatedEvent;
+use App\Events\PaymentType\PaymentTypeUpdatedEvent;
 use App\Events\Post\PostUpdatedEvent;
 use App\Events\PostApprovalArchive\PostApprovalArchiveCreatedEvent;
 use App\Events\PostApprovalArchive\PostApprovalArchiveUpdatedEvent;
@@ -245,6 +257,18 @@ use App\Listeners\ParkingPassLog\HandleParkingPassLogUpdatedEvent;
 use App\Listeners\ParkingSpace\HandleParkingSpaceCreatedEvent;
 use App\Listeners\ParkingSpace\HandleParkingSpaceUpdatedEvent;
 use App\Listeners\PasswordReset\HandlePasswordResetEvent;
+use App\Listeners\Payment\HandlePaymentCreatedEvent;
+use App\Listeners\Payment\HandlePaymentUpdatedEvent;
+use App\Listeners\PaymentItem\HandlePaymentItemCreatedEvent;
+use App\Listeners\PaymentItem\HandlePaymentItemUpdatedEvent;
+use App\Listeners\PaymentItemLog\HandlePaymentItemLogCreatedEvent;
+use App\Listeners\PaymentItemLog\HandlePaymentItemLogUpdatedEvent;
+use App\Listeners\PaymentMethod\HandlePaymentMethodCreatedEvent;
+use App\Listeners\PaymentMethod\HandlePaymentMethodUpdatedEvent;
+use App\Listeners\PaymentRecurring\HandlePaymentRecurringCreatedEvent;
+use App\Listeners\PaymentRecurring\HandlePaymentRecurringUpdatedEvent;
+use App\Listeners\PaymentType\HandlePaymentTypeCreatedEvent;
+use App\Listeners\PaymentType\HandlePaymentTypeUpdatedEvent;
 use App\Listeners\Post\HandlePostCommentUpdatedEvent;
 use App\Listeners\Post\HandlePostUpdatedEvent;
 use App\Listeners\PostApprovalArchive\HandlePostApprovalArchiveCreatedEvent;
@@ -572,11 +596,9 @@ class EventServiceProvider extends ServiceProvider
         NotificationTemplateTypeUpdatedEvent::class => [
             HandleNotificationTemplateTypeUpdatedEvent::class
         ],
-
         PasswordResetEvent::class => [
             HandlePasswordResetEvent::class
         ],
-
         PackageTypeCreatedEvent::class => [
             HandlePackageTypeCreatedEvent::class
         ],
@@ -592,7 +614,6 @@ class EventServiceProvider extends ServiceProvider
         PackageArchivedCreatedEvent::class => [
             HandlePackageArchivedCreatedEvent::class
         ],
-
         ParkingPassCreatedEvent::class => [
             HandleParkingPassCreatedEvent::class
         ],
@@ -611,7 +632,42 @@ class EventServiceProvider extends ServiceProvider
         ParkingSpaceUpdatedEvent::class => [
             HandleParkingSpaceUpdatedEvent::class
         ],
-
+        PaymentMethodCreatedEvent::class => [
+            HandlePaymentMethodCreatedEvent::class
+        ],
+        PaymentMethodUpdatedEvent::class => [
+            HandlePaymentMethodUpdatedEvent::class
+        ],
+        PaymentTypeCreatedEvent::class => [
+            HandlePaymentTypeCreatedEvent::class
+        ],
+        PaymentTypeUpdatedEvent::class => [
+            HandlePaymentTypeUpdatedEvent::class
+        ],
+        PaymentCreatedEvent::class => [
+            HandlePaymentCreatedEvent::class
+        ],
+        PaymentUpdatedEvent::class => [
+            HandlePaymentUpdatedEvent::class
+        ],
+        PaymentItemCreatedEvent::class => [
+            HandlePaymentItemCreatedEvent::class
+        ],
+        PaymentItemUpdatedEvent::class => [
+            HandlePaymentItemUpdatedEvent::class
+        ],
+        PaymentRecurringCreatedEvent::class => [
+            HandlePaymentRecurringCreatedEvent::class
+        ],
+        PaymentRecurringUpdatedEvent::class => [
+            HandlePaymentRecurringUpdatedEvent::class
+        ],
+        PaymentItemLogCreatedEvent::class => [
+            HandlePaymentItemLogCreatedEvent::class
+        ],
+        PaymentItemLogUpdatedEvent::class => [
+            HandlePaymentItemLogUpdatedEvent::class
+        ],
         PostUpdatedEvent::class => [
             HandlePostUpdatedEvent::class
         ],
@@ -779,7 +835,6 @@ class EventServiceProvider extends ServiceProvider
         ServiceRequestOfficeDetailUpdatedEvent::class => [
             HandleServiceRequestOfficeDetailUpdatedEvent::class
         ],
-
         StaffCreatedEvent::class => [
             HandleStaffCreatedEvent::class
         ],

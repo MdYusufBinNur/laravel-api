@@ -18,8 +18,6 @@ class PaymentTypeResource extends Resource
             'createdByUserId' => $this->createdByUserId,
             'title' => $this->title,
             'propertyId' => $this->propertyId,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ];
     }
 }

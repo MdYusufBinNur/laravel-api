@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DbModels\Payment;
+use App\Http\Requests\Payment\DeleteRequest;
 use App\Http\Requests\Payment\IndexRequest;
 use App\Http\Requests\Payment\StoreRequest;
 use App\Http\Requests\Payment\UpdateRequest;
@@ -47,7 +48,7 @@ class PaymentController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $payment = $this->paymentRepository->save($request->all());
+        $payment = $this->paymentRepository->savePayment($request->all());
 
         return new PaymentResource($payment);
     }
@@ -72,7 +73,7 @@ class PaymentController extends Controller
      */
     public function update(UpdateRequest $request, Payment $payment)
     {
-        $payment = $this->paymentRepository->update($payment, $request->all());
+        $payment = $this->paymentRepository->updatePayment($payment, $request->all());
 
         return new PaymentResource($payment);
     }
@@ -81,11 +82,12 @@ class PaymentController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Payment $payment
+     * @param DeleteRequest $request
      * @return PaymentResource
      */
-    public function destroy(Payment $payment)
+    public function destroy(DeleteRequest $request, Payment $payment)
     {
-        $this->paymentRepository->delete($payment);
+        $this->paymentRepository->removePayment($payment);
 
         return response()->json(null, 204);
     }

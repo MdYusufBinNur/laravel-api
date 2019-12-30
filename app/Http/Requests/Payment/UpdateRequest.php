@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Payment;
 
-use App\DbModels\Payment;
 use App\Http\Requests\Request;
+use App\Rules\ListOfIds;
 
 class UpdateRequest extends Request
 {
@@ -15,15 +15,14 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'propertyId' => 'exists:properties,id',
             'paymentMethodId' => 'exists:payment_methods,id',
             'paymentTypeId' => 'exists:payment_types,id',
-            'amount' => '',
-            'note' => '',
+            'amount' => 'numeric',
+            'note' => 'string',
             'dueDate' => 'date_format:Y-m-d',
             'dueDays' => 'numeric',
-            'isRecurring' => 'boolean',
-            'status' => 'in:'.Payment::STATUS_PENDING.','.Payment::STATUS_DONE.','.Payment::STATUS_NOT_ACTIVATED.','.Payment::STATUS_PARTIALLY_DONE,
+            'toUserIds' => [new ListOfIds('users', 'id')],
+            'toUnitIds' => [new ListOfIds('units', 'id', ['all_units'])],
             'activationDate' => 'date_format:Y-m-d',
         ];
     }

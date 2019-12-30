@@ -7,14 +7,14 @@
                 <tbody>
                 <tr >
                     <td  style="text-align:left; font-size:18px;color:#ffffff;"><br>
-                        Hey {{ $residentAccessRequest->name }}
+                        Hey, {{ $residentAccessRequest->name }}
                         <br>
                         <br>
-                        The support team received your request. You will get notify by email within a few days after then you can continue registration process in this community.
+                        The support team received your request. And mark you as a unprivileged resident. So they reject your request.
                         <br>
                         <br>
                         <br>
-                        If you don’t get any email in this period, please contact with support team of your community.
+                        If you are a resident of this property, please contact with support team of your community.
                         <br>
                         <br>
                         <br>

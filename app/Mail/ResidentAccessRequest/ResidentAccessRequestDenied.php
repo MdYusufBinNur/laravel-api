@@ -37,7 +37,7 @@ class ResidentAccessRequestDenied extends Mailable
         $property = $this->residentAccessRequest->property;
         $unit = $this->residentAccessRequest->unit;
 
-        return $this->subject("Registration request to {$property->title} community")->view('resident.denied-request.index')
+        return $this->subject("Denied! Registration request to {$property->title} community")->view('resident.denied-request.index')
             ->with(['residentAccessRequest' => $residentAccessRequest, 'property' => $property, 'unit' => $unit]);
     }
 }

@@ -37,7 +37,7 @@ class ResidentAccessRequestCreated extends Mailable
         $property = $this->residentAccessRequest->property;
         $unit = $this->residentAccessRequest->unit;
 
-        return $this->subject("Registration request to {$property->title} community")->view('resident.access-request.index')
+        return $this->subject("Received! Registration request to {$property->title} community")->view('resident.access-request.index')
             ->with(['residentAccessRequest' => $residentAccessRequest, 'property' => $property, 'unit' => $unit]);
     }
 }

@@ -37,7 +37,7 @@ class ResidentAccessRequestCompleted extends Mailable
         $property = $this->residentAccessRequest->property;
         $unit = $this->residentAccessRequest->unit;
 
-        return $this->subject("Welcome to {$property->title} community")->view('resident.completed-request.index')
+        return $this->subject("Completed! Welcome to {$property->title} community")->view('resident.completed-request.index')
             ->with(['residentAccessRequest' => $residentAccessRequest, 'property' => $property, 'unit' => $unit]);
     }
 }

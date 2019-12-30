@@ -5,7 +5,6 @@ namespace App\Listeners\PaymentItem;
 use App\Events\PaymentItem\PaymentItemUpdatedEvent;
 use App\Listeners\CommonListenerFeatures;
 use App\Mail\Payment\PaymentItemUpdated;
-use App\Mail\Payment\SendInvoice;
 use App\Repositories\Contracts\PaymentItemLogRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;

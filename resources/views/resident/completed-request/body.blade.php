@@ -9,7 +9,7 @@
                     <td align="left" valign="top" width="100%">
                         <table border="0" cellpadding="0" cellspacing="0" class="r-2" width="100%">
                             <tr>
-                                <td align="center" valign="top"><span style="font-family:Arial, sans-serif;font-size:30px;font-weight:bold;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:100%;color:#283663;" class="text H1">Almost there!<br /></span></td>
+                                <td align="center" valign="top"><span style="font-family:Arial, sans-serif;font-size:30px;font-weight:bold;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:100%;color:#283663;" class="text H1">Congratulations!<br /></span></td>
                             </tr>
                         </table><img src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" style="display:block" alt="" border="0" height="30" width="1" /></td>
                     <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" height="1" border="0" alt="" width="49" /></td>
@@ -22,8 +22,7 @@
                         <table border="0" cellpadding="0" cellspacing="0" class="r-2" width="100%">
                             <tr>
                                 <td align="left" style="text-align: left !important;" valign="top">
-                                    <span style="font-family:Arial, sans-serif;font-size:20px;font-weight:bold;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:100%;color:#283663;" class="text H1">Hey {{ $residentAccessRequest->name }}<br /></span><br />
-                                    <span style="font-family:Arial, sans-serif;font-size:20px;font-weight:bold;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:100%;color:#283663;" class="text H1">Congratulations!<br /></span>
+                                    <span style="font-family:Arial, sans-serif;font-size:20px;font-weight:bold;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:100%;color:#283663;" class="text H1">Hey {{ $residentAccessRequest->name }}<br /></span><
                                     <span style="  font-family:Arial, sans-serif;font-size:15px;font-weight:normal;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:20px;color:#717B81;" class="text P1">We're ready when you are! You're pretty much up and running. Smart property moves with your needs &ndash; <br /><br />You'll also get:<br /></span>
                                 </td>
                             </tr>

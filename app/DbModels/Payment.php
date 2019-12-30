@@ -135,6 +135,16 @@ class Payment extends Model
     }
 
     /**
+     * payment and payment-item relationship
+     *
+     * @return HasMany
+     */
+    public function paymentPublishLogs()
+    {
+        return $this->hasMany(PaymentPublishLog::class, 'paymentId', 'id');
+    }
+
+    /**
      * check if payment is published nor not
      *
      * @return bool

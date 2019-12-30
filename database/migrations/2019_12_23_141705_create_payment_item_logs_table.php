@@ -21,7 +21,7 @@ class CreatePaymentItemLogsTable extends Migration
             $table->unsignedInteger('unitId')->nullable();
             $table->string('status')->nullable();
             $table->string('event');
-            $table->integer('updatedByUserId')->unsigned();
+            $table->integer('updatedByUserId')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
 

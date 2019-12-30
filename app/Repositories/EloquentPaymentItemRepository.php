@@ -9,6 +9,7 @@ use App\Events\PaymentItem\PaymentItemCreatedEvent;
 use App\Events\PaymentItem\PaymentItemUpdatedEvent;
 use App\Repositories\Contracts\PaymentItemRepository;
 use App\Repositories\Contracts\UnitRepository;
+use Illuminate\Support\Facades\DB;
 
 class EloquentPaymentItemRepository extends EloquentBaseRepository implements PaymentItemRepository
 {
@@ -48,6 +49,8 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
      */
     public function publishPayment(Payment $payment, array $options = [])
     {
+        DB::beginTransaction();
+
         if ($payment->isPublishAble()) {
 
             $data = [
@@ -72,6 +75,8 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
                 }
             }
         }
+
+        DB::commit();
     }
 
     /**

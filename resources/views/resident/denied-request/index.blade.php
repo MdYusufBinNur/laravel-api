@@ -3,5 +3,5 @@
     @include('layouts.logo')
 @endsection
 @section('content')
-    @include('resident.access-request.body', ['residentAccessRequest' => $residentAccessRequest, 'property' => $property, 'unit' => $unit])
+    @include('resident.denied-request.body', ['residentAccessRequest' => $residentAccessRequest, 'property' => $property, 'unit' => $unit])
 @endsection

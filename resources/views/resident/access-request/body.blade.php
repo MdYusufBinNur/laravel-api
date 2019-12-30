@@ -22,6 +22,7 @@
                         <br>
                         {{ $property->title }} Support Team
                         <br>
+                        <br>
                         {{ $property->address }}
                         <br>
                     </td>

@@ -37,6 +37,12 @@ class InsertModulesAndOptions extends Migration
             ['id' => 21, 'key' => 'MAINTENANCE', 'title' => 'Maintenance'],
             ['id' => 22, 'key' => 'IE', 'title' => 'Income and Expense'],
             ['id' => 23, 'key' => 'CA', 'title' => 'Community Activities'],
+            ['id' => 24, 'key' => 'IP', 'title' => 'Inventory Panel'],
+            ['id' => 25, 'key' => 'MN', 'title' => 'My Neighbours'],
+            ['id' => 26, 'key' => 'CI', 'title' => 'Community Info'],
+            ['id' => 27, 'key' => 'CL', 'title' => 'Community Links'],
+            ['id' => 28, 'key' => 'RR', 'title' => 'Registration Requests'],
+            ['id' => 29, 'key' => 'AS', 'title' => 'Application Settings']
         ]);
 
         DB::table('module_options')->insert([

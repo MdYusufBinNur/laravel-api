@@ -3,10 +3,6 @@
     @include('layouts.logo')
 @endsection
 
-@section('title')
-    @include('layouts.title', [ 'data' => 'A new Package just arrived for you. Please collect it from Front Desk'])
-@endsection
-
 @section('content')
-    @include('package.arrived.body', ['package' => $package])
+    @include('package.arrived.body', ['package' => $package, 'resident' => $resident, 'unit' => $unit, 'property' => $property])
 @endsection

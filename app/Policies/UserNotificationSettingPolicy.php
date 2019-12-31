@@ -96,7 +96,7 @@ class UserNotificationSettingPolicy
         if ($currentUser->isAPriorityStaffOfTheProperty($userNotificationSetting->propertyId)) {
             return true;
         }
-        
+
         return $currentUser->id === $userNotificationSetting->userId;
     }
 

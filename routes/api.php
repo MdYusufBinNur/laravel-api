@@ -229,7 +229,7 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('payment-type', 'PaymentTypeController');
         Route::apiResource('payment-method', 'PaymentMethodController');
         Route::apiResource('payment', 'PaymentController');
-        Route::apiResource('payment-recurring', 'PaymentRecurringController');
+        Route::apiResource('payment-recurring', 'PaymentRecurringController', ['except' => ['store', 'update', 'destroy']);
         Route::apiResource('payment-item', 'PaymentItemController', ['except' => ['store']]);
         Route::apiResource('payment-item-log', 'PaymentItemLogController');
         Route::apiResource('payment-publish-log', 'PaymentPublishLogController');

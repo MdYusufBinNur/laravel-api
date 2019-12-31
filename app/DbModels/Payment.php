@@ -145,6 +145,16 @@ class Payment extends Model
     }
 
     /**
+     * get the payment recurring
+     *
+     * @return HasOne
+     */
+    public function paymentRecurring()
+    {
+        return $this->hasOne(PaymentRecurring::class, 'paymentId', 'id');
+    }
+
+    /**
      * check if payment is published nor not
      *
      * @return bool

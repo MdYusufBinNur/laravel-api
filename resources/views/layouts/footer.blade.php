@@ -4,33 +4,33 @@
         <br>
     </td>
 </tr>
-<tr>
-    <td align="center" class="FooterApps-copy"
-        style="font-size: 16px; color: #221924; font-family: sofia, arial, sans-serif; mso-line-height-rule: exactly; line-height: 120%; text-align: center;">
-        Download the Wayfair App
-    </td>
-</tr>
-<tr>
-    <td align="center">
-        <table align="center">
-            <tr>
-                <td class="FooterApps-icons" align="center" style="padding: 20px 10px;">
-                    <a href="https://www.wayfair.com/the-wayfair-app?af_sub5=AppEmail&c=Triggered&csnid=A03D88B4-7762-4D5E-90B5-41E0B5542F30&mmid=1980829224&pid=Email&refid=TEM_WF_274"
-                       style="text-decoration:none; text-decoration: none;"><img
-                            src="http://img.wfrcdn.com/st4/stores/common/emails/assets/footer/app_android.png"
-                            width="196" alt="Android App"
-                            style="display: block; border: none; display: inline-block;"></a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="https://www.wayfair.com/the-wayfair-app?af_sub5=AppEmail&c=Triggered&csnid=A03D88B4-7762-4D5E-90B5-41E0B5542F30&mmid=1980829224&pid=Email&refid=TEM_WF_274"
-                       style="text-decoration:none; text-decoration: none;"><img
-                            src="http://img.wfrcdn.com/st4/stores/common/emails/assets/footer/app_ios.png"
-                            width="199" alt="iOS App"
-                            style="display: block; border: none; display: inline-block;"></a>
-                </td>
-            </tr>
-        </table>
-    </td>
-</tr>
+{{--<tr>--}}
+{{--    <td align="center" class="FooterApps-copy"--}}
+{{--        style="font-size: 16px; color: #221924; font-family: sofia, arial, sans-serif; mso-line-height-rule: exactly; line-height: 120%; text-align: center;">--}}
+{{--        Download the Wayfair App--}}
+{{--    </td>--}}
+{{--</tr>--}}
+{{--<tr>--}}
+{{--    <td align="center">--}}
+{{--        <table align="center">--}}
+{{--            <tr>--}}
+{{--                <td class="FooterApps-icons" align="center" style="padding: 20px 10px;">--}}
+{{--                    <a href="https://www.wayfair.com/the-wayfair-app?af_sub5=AppEmail&c=Triggered&csnid=A03D88B4-7762-4D5E-90B5-41E0B5542F30&mmid=1980829224&pid=Email&refid=TEM_WF_274"--}}
+{{--                       style="text-decoration:none; text-decoration: none;"><img--}}
+{{--                            src="http://img.wfrcdn.com/st4/stores/common/emails/assets/footer/app_android.png"--}}
+{{--                            width="196" alt="Android App"--}}
+{{--                            style="display: block; border: none; display: inline-block;"></a>--}}
+{{--                    &nbsp;&nbsp;&nbsp;&nbsp;--}}
+{{--                    <a href="https://www.wayfair.com/the-wayfair-app?af_sub5=AppEmail&c=Triggered&csnid=A03D88B4-7762-4D5E-90B5-41E0B5542F30&mmid=1980829224&pid=Email&refid=TEM_WF_274"--}}
+{{--                       style="text-decoration:none; text-decoration: none;"><img--}}
+{{--                            src="http://img.wfrcdn.com/st4/stores/common/emails/assets/footer/app_ios.png"--}}
+{{--                            width="199" alt="iOS App"--}}
+{{--                            style="display: block; border: none; display: inline-block;"></a>--}}
+{{--                </td>--}}
+{{--            </tr>--}}
+{{--        </table>--}}
+{{--    </td>--}}
+{{--</tr>--}}
 <tr>
     <td align="center" class="FooterSocial-copy FooterSocial-copy--nonEU"
         style="border-top: solid 1px #ebebeb; font-size: 16px; color: #221924; font-family: sofia, arial, sans-serif; mso-line-height-rule: exactly; line-height: 120%; text-align: center; padding-top: 20px;">

@@ -10,11 +10,14 @@
                         Hey, {{ $residentAccessRequest->name }}
                         <br>
                         <br>
-                        The support team received your request. And mark you as a unprivileged resident. So they reject your request.
+                        We have reviewed your request.
+                        And Sorry to say that we mark you as a unprivileged resident of our community.
+                        That's why we reject your request.
                         <br>
                         <br>
                         <br>
-                        If you are a resident of this property, please contact with support team of your community.
+                        If you are a resident of our property, please contact with support team of your community.
+                        to consider your request again.
                         <br>
                         <br>
                         <br>

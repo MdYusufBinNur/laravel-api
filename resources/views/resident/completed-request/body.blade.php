@@ -22,7 +22,9 @@
                         <table border="0" cellpadding="0" cellspacing="0" class="r-2" width="100%">
                             <tr>
                                 <td align="left" style="text-align: left !important;" valign="top">
-                                    <span style="font-family:Arial, sans-serif;font-size:20px;font-weight:bold;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:100%;color:#283663;" class="text H1">Hey {{ $residentAccessRequest->name }}<br /></span>
+                                    <span style="font-family:Arial, sans-serif;font-size:20px;font-weight:bold;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:100%;color:#283663;" class="text H1">Hey {{ $residentAccessRequest->name }}<br /></span><br />
+
+                                    <span style="  font-family:Arial, sans-serif;font-size:15px;font-weight:normal;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:20px;color:#717B81;" class="text P1">Your account in our community has been created successfully. <br /><br />You'll also get:<br /></span>
                                     <span style="  font-family:Arial, sans-serif;font-size:15px;font-weight:normal;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:20px;color:#717B81;" class="text P1">We're ready when you are! You're pretty much up and running. Smart property moves with your needs &ndash; <br /><br />You'll also get:<br /></span>
                                 </td>
                             </tr>
@@ -155,21 +157,25 @@
                 </tr>
             </table>
             <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                <tr>
-                    <td>
-                        <div >
-                            <!--[if mso]> <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://www.sendwithus.com" style="height:50px;v-text-anchor:middle;width:200px;" arcsize="8%" stroke="f" fillcolor="#178f8f"> <w:anchorlock></w:anchorlock> <center> <![endif]-->
-                            <a
-                                style="background-color:#89d6a3;border-radius:4px;color:#000;display:inline-block;font-family:Helvetica, Arial, sans-serif;font-size:16px;font-weight:bold;line-height:50px;text-align:center;text-decoration:none;width:180px;-webkit-text-size-adjust:none;">
-                                <span id="button_text">Complete registration</span>
-                            </a>
-                            <!--[if mso]> </center> </v:roundrect> <![endif]-->
-                        </div>
-                    </td>
-                </tr>
+{{--                <tr>--}}
+{{--                    <td>--}}
+{{--                        <div >--}}
+{{--                            <!--[if mso]> <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://www.sendwithus.com" style="height:50px;v-text-anchor:middle;width:200px;" arcsize="8%" stroke="f" fillcolor="#178f8f"> <w:anchorlock></w:anchorlock> <center> <![endif]-->--}}
+{{--                            <a--}}
+{{--                                style="background-color:#89d6a3;border-radius:4px;color:#000;display:inline-block;font-family:Helvetica, Arial, sans-serif;font-size:16px;font-weight:bold;line-height:50px;text-align:center;text-decoration:none;width:180px;-webkit-text-size-adjust:none;">--}}
+{{--                                <span id="button_text">Complete registration</span>--}}
+{{--                            </a>--}}
+{{--                            <!--[if mso]> </center> </v:roundrect> <![endif]-->--}}
+{{--                        </div>--}}
+{{--                    </td>--}}
+{{--                </tr>--}}
                 <tr>
                     <td height="40">
 
                     </td>
                 </tr>
             </table>
+        </td>
+    </tr>
+    </tbody>
+</table>

@@ -7,16 +7,17 @@
                 <tbody>
                 <tr >
                     <td  style="text-align:left; font-size:18px;color:#ffffff;"><br>
-                        Hey {{ $residentAccessRequest->name }}
+                        Hey, {{ $residentAccessRequest->name }}
                         <br>
                         <br>
-                        The support team received your request.
-                        Soon, You will get notify by email with a PIN.
-                        By entering PIN you can continue further registration process in our community.
+                        We have reviewed your request.
+                        And Sorry to say that we mark you as a unprivileged resident of our community.
+                        That's why we reject your request.
                         <br>
                         <br>
                         <br>
-                        If you don’t get any email in this period, please contact with support team of your community.
+                        If you are a resident of this community, please contact with support team of your community,
+                        to consider your request again.
                         <br>
                         <br>
                         <br>
@@ -37,7 +38,6 @@
     <tr >
         <td >
 
-            <br>
             <br>
             <br>
             <br>

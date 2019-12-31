@@ -1,67 +1,36 @@
 <table bgcolor="#4DBFBF" cellpadding="0" cellspacing="0" class="force-full-width" style="margin: 0 auto;">
     <tbody>
     <tr>
-        <td><br>
-            <img alt="robot picture" height="240"
-                 src="https://www.filepicker.io/api/file/carctJpuT0exMaN8WUYQ"
-                 width="224">
-        </td>
-    </tr>
-
-    <tr>
-        <td class="headline"><br>
-            <strong>Greetings
-                <span id="first_name">
-                        Zakaria!!!
-                    </span>!
-            </strong>
-        </td>
-    </tr>
-
-    <tr>
         <td>
-            <center>
-                <table cellpadding="0" cellspacing="0"
-                       style="margin: 0 auto;" width="60%">
-                    <tbody>
-                    <tr>
-                        <td style="font-size:18px;color:#ffffff;">
+            <table cellpadding="0" cellspacing="0"
+                   style="margin: 0 auto;" width="80%">
+                <tbody>
+                <tr>
+                    <td height="50">
 
-                            <br>
-                            New message arrived: <br>
-                            <hr>
-                            Arrived At: {{$messageModel->created_at->toDayDateTimeString()}} <br>
-                            From User : {{$fromUser->name}} <br>
-                            Text: {{$messageText}} <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" style="font-size:18px;color:#ffffff; text-align: left;">
+                        Dear {{ $toUser->name }}, <br> <br>
 
-                            <hr>
+                        You Have a new message from {{ $fromUser->name }}.<br>
+                        <br>
+                        <br>
+                       {{ $messageText }}
+                        <br>
+                        <br>
+                        <br>
+                        <br>
 
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </center>
-        </td>
-    </tr>
-
-    <tr>
-        <td>
-            <div>
-                <!--[if mso]> <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://www.sendwithus.com" style="height:50px;v-text-anchor:middle;width:200px;" arcsize="8%" stroke="f" fillcolor="#178f8f"> <w:anchorlock></w:anchorlock> <center> <![endif]-->
-                <a href="https://reformedtech.org/"
-                   style="background-color:#178f8f;border-radius:4px;color:#ffffff;display:inline-block;font-family:Helvetica, Arial, sans-serif;font-size:16px;font-weight:bold;line-height:50px;text-align:center;text-decoration:none;width:250px;-webkit-text-size-adjust:none;">
-                    <span id="button_text">Button</span>
-                </a>
-                <!--[if mso]> </center> </v:roundrect> <![endif]-->
-            </div>
-            <br>
-            <br>
-            <br>
-            <br>
+                        Sincerely, <br>
+                        {{ $fromUser->name }}
+                        <br>
+                        <br>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </td>
     </tr>
     </tbody>

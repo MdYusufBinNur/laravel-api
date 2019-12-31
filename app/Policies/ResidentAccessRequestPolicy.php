@@ -85,6 +85,9 @@ class ResidentAccessRequestPolicy
     public function update(User $currentUser, ResidentAccessRequest $residentAccessRequest)
     {
         $propertyId = $residentAccessRequest->propertyId;
+        if ($currentUser->isSuperAdmin()) {
+            return true;
+        }
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
         }

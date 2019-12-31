@@ -17,7 +17,7 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' => 'required|exists:properties,id',
-            'paymentMethodId' => 'required|exists:payment_methods,id',
+            'paymentMethodIds' => ['required', new ListOfIds('payment_methods', 'id')],
             'paymentTypeId' => 'required|exists:payment_types,id',
             'amount' => 'required',
             'note' => 'string',

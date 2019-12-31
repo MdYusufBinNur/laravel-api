@@ -15,7 +15,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'paymentMethodId' => 'exists:payment_methods,id',
+            'paymentMethodIds' => [new ListOfIds('payment_methods', 'id')],
             'paymentTypeId' => 'exists:payment_types,id',
             'amount' => 'numeric',
             'note' => 'string',

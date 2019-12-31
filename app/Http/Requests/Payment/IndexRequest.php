@@ -19,7 +19,7 @@ class IndexRequest extends Request
             'propertyId' => 'required|numeric',
             'toUserIds' => 'numeric',
             'toUnitIds' => 'numeric',
-            'paymentMethodId' => 'list:numeric',
+            'paymentMethodIds' => 'list:numeric',
             'paymentTypeId' => 'list:numeric',
             'amount' => '',
             'note' => '',

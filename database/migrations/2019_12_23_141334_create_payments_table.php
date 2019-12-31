@@ -17,7 +17,6 @@ class CreatePaymentsTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();;
             $table->unsignedInteger('propertyId');
-            $table->integer('paymentMethodId')->unsigned();
             $table->integer('paymentTypeId')->unsigned();
             $table->float('amount');
             $table->string('note')->nullable();
@@ -38,11 +37,6 @@ class CreatePaymentsTable extends Migration
 
             $table->foreign('propertyId')
                 ->references('id')->on('properties')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
-            $table->foreign('paymentMethodId')
-                ->references('id')->on('payment_methods')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

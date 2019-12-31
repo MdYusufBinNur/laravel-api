@@ -22,9 +22,8 @@ class PaymentResource extends Resource
             'property' => $this->when($this->needToInclude($request, 'payment.property'), function () {
                 return new PropertyResource($this->property);
             }),
-            'paymentMethodId' => $this->paymentMethodId,
-            'paymentMethod' => $this->when($this->needToInclude($request, 'payment.paymentMethod'), function () {
-                return new PaymentMethodResource($this->paymentMethod);
+            'paymentPaymentMethods' => $this->when($this->needToInclude($request, 'payment.paymentPaymentMethods'), function () {
+                return new PaymentPaymentMethodResourceCollection($this->paymentPaymentMethods);
             }),
             'paymentTypeId' => $this->paymentTypeId,
             'paymentType' => $this->when($this->needToInclude($request, 'payment.paymentType'), function () {

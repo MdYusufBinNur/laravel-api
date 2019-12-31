@@ -9,6 +9,7 @@ use App\DbModels\PaymentItem;
 use App\Events\Payment\PaymentCreatedEvent;
 use App\Events\Payment\PaymentUpdatedEvent;
 use App\Repositories\Contracts\PaymentItemRepository;
+use App\Repositories\Contracts\PaymentPaymentMethodRepository;
 use App\Repositories\Contracts\PaymentRecurringRepository;
 use App\Repositories\Contracts\PaymentRepository;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,7 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = ['payment.createdByUser' => 'createdByUser', 'payment.property' => 'property',  'payment.paymentMethod' => 'paymentMethod', 'payment.paymentType' => 'paymentType', 'payment.paymentItems' => 'paymentItems','payment.paymentRecurring' => 'paymentRecurring'];
+        $searchCriteria['eagerLoad'] = ['payment.createdByUser' => 'createdByUser', 'payment.property' => 'property',  'payment.paymentPaymentMethods' => 'paymentPaymentMethods', 'payment.paymentType' => 'paymentType', 'payment.paymentItems' => 'paymentItems','payment.paymentRecurring' => 'paymentRecurring', 'pp.createdByUser' => 'createdByUser', 'ppm.paymentMethod' => 'paymentPaymentMethods.paymentMethod'];
 
         return parent::findBy($searchCriteria, $withTrashed);
     }
@@ -47,13 +48,28 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
             ]);
         }
 
-        event(new PaymentCreatedEvent($payment, $this->generateEventOptionsForModel()));
+        $this->setPaymentMethods($payment, $data);
 
         DB::commit();
+
+        event(new PaymentCreatedEvent($payment, $this->generateEventOptionsForModel()));
 
         return $payment;
     }
 
+    /**
+     * set payment methods
+     * @param $payment
+     * @param $data
+     */
+    private function setPaymentMethods($payment, $data)
+    {
+        if (isset($data['paymentMethodIds'])) {
+
+            $paymentPaymentMethodRepository = app(PaymentPaymentMethodRepository::class);
+            $paymentPaymentMethodRepository->setPaymentMethods($payment, $data['paymentMethodIds']);
+        }
+    }
     /**
      * @inheritDoc
      */
@@ -61,7 +77,7 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
     {
         $this->validatePaymentChanges($model, $data);
 
-        $payment = parent::update($model, $data);
+        $payment = $this->update($model, $data);
 
         event(new PaymentUpdatedEvent($model, $this->generateEventOptionsForModel()));
 

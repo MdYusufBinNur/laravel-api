@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -28,7 +29,6 @@ class Payment extends Model
         'createdByUserId',
         'title',
         'propertyId',
-        'paymentMethodId',
         'paymentTypeId',
         'amount',
         'note',
@@ -107,11 +107,11 @@ class Payment extends Model
     /**
      * get the payment method
      *
-     * @return HasOne
+     * @return HasMany
      */
-    public function paymentMethod()
+    public function paymentPaymentMethods()
     {
-        return $this->hasOne(PaymentMethod::class, 'id', 'paymentMethodId');
+        return $this->hasMany(PaymentPaymentMethod::class, 'paymentId', 'id');
     }
 
     /**

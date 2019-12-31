@@ -35,7 +35,10 @@ class PaymentResource extends Resource
             'dueDate' => $this->dueDate,
             'dueDays' => $this->dueDays,
             'isRecurring' => $this->isRecurring,
-            'status' => $this->status,
+            'paymentRecurring' => $this->when($this->needToInclude($request, 'payment.paymentRecurring'), function () {
+                return new PaymentRecurringResource($this->paymentRecurring);
+            }),
+            'status' => $this->estatus,
             'activationDate' => $this->activationDate,
             'toUserIds' => $this->toUserIds,
             'toUnitIds' => $this->toUnitIds,

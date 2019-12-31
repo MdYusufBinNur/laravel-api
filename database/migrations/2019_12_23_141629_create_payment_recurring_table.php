@@ -15,7 +15,7 @@ class CreatePaymentRecurringTable extends Migration
     {
         Schema::create('payment_recurring', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('createdByUserId')->unsigned();
+            $table->integer('createdByUserId')->unsigned()->nullable();;
             $table->unsignedInteger('propertyId');
             $table->integer('paymentId')->unsigned();
             $table->date('activationDate');

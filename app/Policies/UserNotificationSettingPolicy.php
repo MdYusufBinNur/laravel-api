@@ -19,7 +19,7 @@ class UserNotificationSettingPolicy
     public function before(User $currentUser)
     {
         if ($currentUser->isAdmin()) {
-            //return true;
+            return true;
         }
     }
 
@@ -47,6 +47,14 @@ class UserNotificationSettingPolicy
      */
     public function store(User $currentUser, array $requestData)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($requestData['propertyId'])) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($requestData['propertyId'])) {
+            return true;
+        }
+
         $userIds = array_unique(array_column($requestData['userNotificationSettings'], 'userId'));
 
         return count($userIds) === 1 && $userIds[0] == $currentUser->id;
@@ -61,6 +69,14 @@ class UserNotificationSettingPolicy
      */
     public function show(User $currentUser,  UserNotificationSetting $userNotificationSetting)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($userNotificationSetting->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($userNotificationSetting->propertyId)) {
+            return true;
+        }
+
         return $currentUser->id === $userNotificationSetting->userId;
     }
 
@@ -73,6 +89,14 @@ class UserNotificationSettingPolicy
      */
     public function update(User $currentUser, UserNotificationSetting $userNotificationSetting)
     {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($userNotificationSetting->propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($userNotificationSetting->propertyId)) {
+            return true;
+        }
+
         return $currentUser->id === $userNotificationSetting->userId;
     }
 

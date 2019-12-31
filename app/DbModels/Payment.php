@@ -135,6 +135,26 @@ class Payment extends Model
     }
 
     /**
+     * payment and payment-item relationship
+     *
+     * @return HasMany
+     */
+    public function paymentPublishLogs()
+    {
+        return $this->hasMany(PaymentPublishLog::class, 'paymentId', 'id');
+    }
+
+    /**
+     * get the payment recurring
+     *
+     * @return HasOne
+     */
+    public function paymentRecurring()
+    {
+        return $this->hasOne(PaymentRecurring::class, 'paymentId', 'id');
+    }
+
+    /**
      * check if payment is published nor not
      *
      * @return bool

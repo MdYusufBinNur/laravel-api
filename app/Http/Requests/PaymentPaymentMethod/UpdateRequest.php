@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\PaymentPublishLog;
+namespace App\Http\Requests\PaymentPaymentMethod;
 
 use App\Http\Requests\Request;
 
@@ -15,7 +15,7 @@ class UpdateRequest extends Request
     {
         return [
             'paymentId' => 'exists:payments,id',
-            'propertyId' => 'exists:properties,id'
+            'paymentMethodId' => 'exists:payment_methods,id'
         ];
     }
 }

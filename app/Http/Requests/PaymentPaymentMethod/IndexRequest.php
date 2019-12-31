@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\PaymentPublishLog;
+namespace App\Http\Requests\PaymentPaymentMethod;
 
 use App\Http\Requests\Request;
 
-class StoreRequest extends Request
+class IndexRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,8 +14,9 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'paymentId' => 'required|exists:payments,id',
-            'propertyId' => 'exists:properties,id'
+            'id' => 'list:numeric',
+            'paymentId' => 'list:numeric',
+            'paymentMethodId' => 'list:numeric',
         ];
     }
 }

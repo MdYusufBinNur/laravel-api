@@ -46,6 +46,12 @@ class Kernel extends ConsoleKernel
             ->emailOutputTo('dev@reformedtech.org')
             ->emailOutputOnFailure('dev@reformedtech.org');
 
+        // publish payment - at night 1:45 am
+        $schedule->command('pms:publish-payment')
+            ->dailyAt("01:45")
+            ->name("Scheduled Job - Publish Payments!")
+            ->emailOutputTo('dev@reformedtech.org')
+            ->emailOutputOnFailure('dev@reformedtech.org');
     }
 
     /**

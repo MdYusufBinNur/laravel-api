@@ -2,10 +2,13 @@
 
 namespace App\Listeners\PaymentItem;
 
+use App\DbModels\Payment;
+use App\DbModels\PaymentItem;
 use App\Events\PaymentItem\PaymentItemUpdatedEvent;
 use App\Listeners\CommonListenerFeatures;
 use App\Mail\Payment\PaymentItemUpdated;
 use App\Repositories\Contracts\PaymentItemLogRepository;
+use App\Repositories\Contracts\PaymentRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
@@ -14,16 +17,23 @@ class HandlePaymentItemUpdatedEvent implements ShouldQueue
     use CommonListenerFeatures;
 
     /**
+     * @var PaymentRepository
+     */
+    private $paymentRepository;
+
+    /**
      * @var PaymentItemLogRepository
      */
     private $paymentItemLogRepository;
 
     /**
      * HandlePaymentItemUpdatedEvent constructor.
+     * @param PaymentRepository $paymentRepository,
      * @param PaymentItemLogRepository $paymentItemLogRepository
      */
-    public function __construct(PaymentItemLogRepository $paymentItemLogRepository)
+    public function __construct(PaymentRepository $paymentRepository, PaymentItemLogRepository $paymentItemLogRepository)
     {
+        $this->paymentRepository = $paymentRepository;
         $this->paymentItemLogRepository = $paymentItemLogRepository;
     }
 
@@ -42,6 +52,13 @@ class HandlePaymentItemUpdatedEvent implements ShouldQueue
         // if `status` changes
         if ($this->hasAFieldValueChanged($paymentItem, $oldPaymentItem, 'status')) {
 
+            // set payment's status
+            $payment = $paymentItem->payment;
+            if ($paymentItem->status == PaymentItem::STATUS_PAID) {
+                $this->paymentRepository->updatePayment($payment, ['status' => Payment::STATUS_PARTIALLY_DONE]);
+            }
+
+            //log event
             $logData = [
                 'paymentItemId' => $paymentItem->id,
                 'propertyId' => $paymentItem->propertyId,
@@ -49,7 +66,6 @@ class HandlePaymentItemUpdatedEvent implements ShouldQueue
                 'updatedByUserId' => $eventOptions['request']['loggedInUserId'],
                 'event' => 'updated'
             ];
-
             $this->paymentItemLogRepository->save($logData);
 
             // send email

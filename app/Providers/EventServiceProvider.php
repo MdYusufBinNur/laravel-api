@@ -90,8 +90,6 @@ use App\Events\PaymentItemLog\PaymentItemLogCreatedEvent;
 use App\Events\PaymentItemLog\PaymentItemLogUpdatedEvent;
 use App\Events\PaymentMethod\PaymentMethodCreatedEvent;
 use App\Events\PaymentMethod\PaymentMethodUpdatedEvent;
-use App\Events\PaymentRecurring\PaymentRecurringCreatedEvent;
-use App\Events\PaymentRecurring\PaymentRecurringUpdatedEvent;
 use App\Events\PaymentType\PaymentTypeCreatedEvent;
 use App\Events\PaymentType\PaymentTypeUpdatedEvent;
 use App\Events\Post\PostUpdatedEvent;
@@ -655,12 +653,6 @@ class EventServiceProvider extends ServiceProvider
         ],
         PaymentItemUpdatedEvent::class => [
             HandlePaymentItemUpdatedEvent::class
-        ],
-        PaymentRecurringCreatedEvent::class => [
-            HandlePaymentRecurringCreatedEvent::class
-        ],
-        PaymentRecurringUpdatedEvent::class => [
-            HandlePaymentRecurringUpdatedEvent::class
         ],
         PaymentItemLogCreatedEvent::class => [
             HandlePaymentItemLogCreatedEvent::class

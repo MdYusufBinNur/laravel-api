@@ -86,6 +86,17 @@ trait ResidentUserMethods
     }
 
     /**
+     * resident of a specific property query builder
+     *
+     * @param int $unitId
+     * @return HasMany
+     */
+    public function scopeResidentOfTheUnit($unitId)
+    {
+        return $this->residents()->where('unitId', $unitId);
+    }
+
+    /**
      * get all the unitIds of the user
      *
      * @param int $propertyId
@@ -94,5 +105,41 @@ trait ResidentUserMethods
     public function getResidentsUnitIdsOfTheProperty($propertyId)
     {
         return $this->scopeResidentOfTheProperty($propertyId)->select('unitId')->pluck('unitId')->toArray();
+    }
+
+    /**
+     * is the resident owner of the unit
+     *
+     * @param int $unitId
+     * @return bool
+     */
+    public function isOwnerOfTheUnit(int $unitId)
+    {
+        if ($this->isResident()) {
+            $residents = $this->scopeResidentOfTheUnit($unitId)->get();
+            foreach ($residents as $resident) {
+                return $resident->isTypeOwner();
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * is the resident tenant of the unit
+     *
+     * @param int $unitId
+     * @return bool
+     */
+    public function isTenantOfTheUnit(int $unitId)
+    {
+        if ($this->isResident()) {
+            $residents = $this->scopeResidentOfTheUnit($unitId)->get();
+            foreach ($residents as $resident) {
+                return $resident->isTypeOwner();
+            }
+        }
+
+        return false;
     }
 }

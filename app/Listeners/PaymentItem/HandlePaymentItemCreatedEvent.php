@@ -2,10 +2,12 @@
 
 namespace App\Listeners\PaymentItem;
 
+use App\DbModels\Payment;
 use App\Events\PaymentItem\PaymentItemCreatedEvent;
 use App\Listeners\CommonListenerFeatures;
 use App\Mail\Payment\SendInvoice;
 use App\Repositories\Contracts\PaymentItemLogRepository;
+use App\Repositories\Contracts\PaymentRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
@@ -16,14 +18,21 @@ class HandlePaymentItemCreatedEvent implements ShouldQueue
     /**
      * @var PaymentItemLogRepository
      */
+    private $paymentRepository;
+
+    /**
+     * @var PaymentItemLogRepository
+     */
     private $paymentItemLogRepository;
 
     /**
      * HandlePaymentItemUpdatedEvent constructor.
+     * @param PaymentRepository $paymentRepository
      * @param PaymentItemLogRepository $paymentItemLogRepository
      */
-    public function __construct(PaymentItemLogRepository $paymentItemLogRepository)
+    public function __construct(PaymentRepository $paymentRepository, PaymentItemLogRepository $paymentItemLogRepository)
     {
+        $this->paymentRepository = $paymentRepository;
         $this->paymentItemLogRepository = $paymentItemLogRepository;
     }
 
@@ -38,6 +47,12 @@ class HandlePaymentItemCreatedEvent implements ShouldQueue
     {
         $paymentItem = $event->paymentItem;
         $eventOptions = $event->options;
+        $payment = $paymentItem->payment;
+
+        // set payment's status
+        if ($payment->status == Payment::STATUS_NOT_PUBLISHED) {
+            $this->paymentRepository->updatePayment($payment, ['status' => Payment::STATUS_PENDING]);
+        }
 
         // log the event
         $logData = [

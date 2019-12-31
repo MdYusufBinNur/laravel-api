@@ -10,6 +10,7 @@ use App\Http\Requests\Payment\UpdateRequest;
 use App\Http\Resources\PaymentResource;
 use App\Http\Resources\PaymentResourceCollection;
 use App\Repositories\Contracts\PaymentRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class PaymentController extends Controller
 {
@@ -32,10 +33,15 @@ class PaymentController extends Controller
      *
      * @param IndexRequest $request
      * @return PaymentResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
-        $payments = $this->paymentRepository->findBy($request->all());
+        $allRequests = $request->all();
+
+        $this->authorize('list', [Payment::class, $allRequests['propertyId'], $allRequests['toUnitIds'] ?? []]);
+
+        $payments = $this->paymentRepository->findBy($allRequests);
 
         return new PaymentResourceCollection($payments);
     }
@@ -45,10 +51,15 @@ class PaymentController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return PaymentResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
-        $payment = $this->paymentRepository->savePayment($request->all());
+        $allRequests = $request->all();
+
+        $this->authorize('store', [Payment::class, $allRequests['propertyId'], $allRequests['toUnitIds'] ?? []]);
+
+        $payment = $this->paymentRepository->savePayment($allRequests);
 
         return new PaymentResource($payment);
     }
@@ -58,9 +69,12 @@ class PaymentController extends Controller
      *
      * @param Payment $payment
      * @return PaymentResource
+     * @throws AuthorizationException
      */
     public function show(Payment $payment)
     {
+        $this->authorize('show', $payment);
+
         return new PaymentResource($payment);
     }
 
@@ -70,9 +84,12 @@ class PaymentController extends Controller
      * @param UpdateRequest $request
      * @param Payment $payment
      * @return PaymentResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, Payment $payment)
     {
+        $this->authorize('update', $payment);
+
         $payment = $this->paymentRepository->updatePayment($payment, $request->all());
 
         return new PaymentResource($payment);
@@ -84,9 +101,12 @@ class PaymentController extends Controller
      * @param Payment $payment
      * @param DeleteRequest $request
      * @return PaymentResource
+     * @throws AuthorizationException
      */
     public function destroy(DeleteRequest $request, Payment $payment)
     {
+        $this->authorize('destroy', $payment);
+
         $this->paymentRepository->removePayment($payment);
 
         return response()->json(null, 204);

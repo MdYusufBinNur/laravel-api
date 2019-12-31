@@ -39,7 +39,7 @@ class PaymentController extends Controller
     {
         $allRequests = $request->all();
 
-        $this->authorize('list', [Payment::class, $allRequests['propertyId'], $allRequests['toUnitIds'] ?? []]);
+        $this->authorize('list', [Payment::class, $allRequests['propertyId'], $allRequests['toUnitIds'] ?? [], $allRequests['toUserIds'] ?? []]);
 
         $payments = $this->paymentRepository->findBy($allRequests);
 
@@ -57,7 +57,7 @@ class PaymentController extends Controller
     {
         $allRequests = $request->all();
 
-        $this->authorize('store', [Payment::class, $allRequests['propertyId'], $allRequests['toUnitIds'] ?? []]);
+        $this->authorize('store', [Payment::class, $allRequests['propertyId'], $allRequests['toUnitIds'] ?? [], $allRequests['toUserIds'] ?? []]);
 
         $payment = $this->paymentRepository->savePayment($allRequests);
 

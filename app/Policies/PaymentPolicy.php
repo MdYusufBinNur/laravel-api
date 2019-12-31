@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\DbModels\Payment;
 use App\DbModels\User;
+use App\Repositories\Contracts\UserRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PaymentPolicy
@@ -28,10 +29,11 @@ class PaymentPolicy
      *
      * @param User $currentUser
      * @param int $propertyId
-     * @param int $unitIds
+     * @param array $unitIds
+     * @param array $userIds
      * @return bool
      */
-    public function list(User $currentUser, int $propertyId, ?array $unitIds)
+    public function list(User $currentUser, int $propertyId, ?array $unitIds, ?array $userIds)
     {
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
@@ -42,6 +44,10 @@ class PaymentPolicy
         }
 
         if ($this->isOwnerOfTheAllUnits($currentUser, $unitIds)) {
+            return true;
+        }
+
+        if ($this->isSameUsersOfTheProperty($propertyId, $userIds)) {
             return true;
         }
 
@@ -54,9 +60,10 @@ class PaymentPolicy
      * @param User $currentUser
      * @param int $propertyId
      * @param array $unitIds
+     * @param array $userIds
      * @return bool
      */
-    public function store(User $currentUser, int $propertyId, ?array $unitIds)
+    public function store(User $currentUser, int $propertyId, ?array $unitIds, ?array $userIds)
     {
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
@@ -67,6 +74,10 @@ class PaymentPolicy
         }
 
         if ($this->isOwnerOfTheAllUnits($currentUser, $unitIds)) {
+            return true;
+        }
+
+        if ($this->isSameUsersOfTheProperty($propertyId, $userIds)) {
             return true;
         }
 
@@ -164,6 +175,27 @@ class PaymentPolicy
             }
         }
 
+        return true;
+    }
+
+    private function isSameUsersOfTheProperty(int $propertyId, array $userIds)
+    {
+        if (count($userIds) < 1) {
+            return false;
+        }
+
+        $userRepository = app(UserRepository::class);
+        $users = $userRepository->getModel()->whereIn('id', $userIds)->get();
+
+        if ($users->count() !== count($userIds)) {
+            return false;
+        }
+
+        foreach ($users as $user) {
+            if (!$user->isUserOfTheProperty($propertyId)) {
+                return false;
+            }
+        }
         return true;
     }
 }

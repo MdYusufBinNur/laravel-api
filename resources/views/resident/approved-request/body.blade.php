@@ -9,7 +9,7 @@
                     <td align="left" valign="top" width="100%">
                         <table border="0" cellpadding="0" cellspacing="0" class="r-2" width="100%">
                             <tr>
-                                <td align="center" valign="top"><span style="font-family:Arial, sans-serif;font-size:30px;font-weight:bold;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:100%;color:#283663;" class="text H1">Almost there!<br /></span></td>
+                                <td align="center" valign="top"><span style="font-family:Arial, sans-serif;font-size:30px;font-weight:bold;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:100%;color:#283663;" class="text H1">Approved!<br /></span></td>
                             </tr>
                         </table><img src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" style="display:block" alt="" border="0" height="30" width="1" /></td>
                     <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" height="1" border="0" alt="" width="49" /></td>
@@ -22,144 +22,48 @@
                         <table border="0" cellpadding="0" cellspacing="0" class="r-2" width="100%">
                             <tr>
                                 <td align="left" style="text-align: left !important;" valign="top">
-                                    <span style="font-family:Arial, sans-serif;font-size:20px;font-weight:bold;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:100%;color:#283663;" class="text H1">Hey {{ $residentAccessRequest->name }}<br /></span>
-                                    <span style="  font-family:Arial, sans-serif;font-size:15px;font-weight:normal;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:20px;color:#717B81;" class="text P1">We're ready when you are! You're pretty much up and running. Smart property moves with your needs &ndash; <br /><br />You'll also get:<br /></span>
+                                    <span style="font-family:Arial, sans-serif;font-size:20px;font-weight:bold;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:100%;color:#283663;" class="text H1">Hey {{ $residentAccessRequest->name }}<br /></span><br />
+                                    <span style="  font-family:Arial, sans-serif;font-size:15px;font-weight:normal;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:20px;color:#717B81;" class="text P1">We're ready when you are! You're pretty much up and running.
+                                        We reviewed and approved your request. Now you can continue your further registration by clicking on below continue registration button <br />
+                                        <br />Some Credential You Need for continue registration: - <br /></span>
                                 </td>
                             </tr>
                         </table><img src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" style="display:block" alt="" border="0" height="30" width="1" /></td>
                     <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" height="1" border="0" alt="" width="49" /></td>
                 </tr>
             </table>
-            <table cellpadding="0" cellspacing="0" border="0" class="" width="100%">
+
+            <table class="promotion" align="left" width="100%" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; background-color: #FFFFFF; border: 2px solid #9BA2AB; margin: 0; margin-bottom: 25px; margin-top: 15px; width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; -premailer-width: 100%;">
                 <tr>
-                    <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" width="1" height="1" alt="" border="0" /></td>
-                    <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" width="1" border="0" alt="" height="10" /></td>
-                    <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" width="1" height="1" alt="" border="0" /></td>
-                </tr>
-                <tr>
-                    <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" height="1" border="0" alt="" width="45" /></td>
-                    <td align="left" valign="top" width="100%">
-                        <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                    <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
+                        <span
+                            style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e;  margin-top: 0; text-align: left; font-size: 15px; font-weight: bold;">
+                            Community:  {{$property->title}}
+                        </span>
+                        <br>
+                        <span style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e;  margin-top: 0; text-align: left; font-size: 15px; font-weight: bold;">
+                            Unit:  {{$unit->title}}
+                        </span >
+                        <table class="subcopy" width="100%" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; border-top: 1px solid #edeff2; margin-top: 25px; padding-top: 25px;">
                             <tr>
-                                <td align="left" valign="top">
-                                    <table cellpadding="0" cellspacing="0" border="0" class="" width="50">
-                                        <tr>
-                                            <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" width="1" border="0" alt="" height="3" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td align="left" valign="top" width="50">
-                                                <img style="display:block" alt="" border="0" class="myimage" src="{{ url('/logo/circleTick.png') }}" width="50" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td align="left" valign="top" width="20"><img src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" style="display:block" alt="" border="0" height="1" width="20" /></td>
-                                <td align="left" valign="top">
-                                    <table border="0" cellpadding="0" cellspacing="0" class="r-2" width="100%">
-                                        <tr>
-                                            <td align="left" style="text-align: left!important; valign="top"><span style="font-family:Arial, sans-serif;font-size:15px;font-weight:normal;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:20px;color:#717B81;" class="text P1"><b><span style="font-family:Arial, sans-serif;color:#283663;" color="#283663">Best Price</span><br
-                                                    /></b>We are providing the best services with the best price.<br /></span>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
+                                    <span
+                                        style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: blue;  margin-top: 0; text-align: left; font-size: 15px; font-weight: bold;">
+                                        Pin: {{$residentAccessRequest->pin}}
+                                    </span>
                                 </td>
                             </tr>
-                        </table><img src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" style="display:block" alt="" border="0" height="30" width="1" /></td>
-                    <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" height="1" border="0" alt="" width="45" /></td>
+                        </table>
+                    </td>
                 </tr>
             </table>
-            <table cellpadding="0" cellspacing="0" border="0" class="" width="100%">
-                <tr>
-                    <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" width="1" height="1" alt="" border="0" /></td>
-                    <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" width="1" border="0" alt="" height="10" /></td>
-                    <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" width="1" height="1" alt="" border="0" /></td>
-                </tr>
-                <tr>
-                    <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" height="1" border="0" alt="" width="45" /></td>
-                    <td align="left" valign="top" width="100%">
-                        <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                            <tr>
-                                <td align="left" valign="top">
-                                    <table cellpadding="0" cellspacing="0" border="0" class="" width="50">
-                                        <tr>
-                                            <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" width="1" border="0" alt="" height="3" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td align="left" valign="top" width="50">
-                                                <img style="display:block" alt="" border="0" class="myimage"  src="{{url('/logo/gridSmall.png')}}"  width="50" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td align="left" valign="top" width="20"><img src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" style="display:block" alt="" border="0" height="1" width="20" /></td>
-                                <td align="left" valign="top">
-                                    <table border="0" cellpadding="0" cellspacing="0" class="r-2" width="100%">
-                                        <tr>
-                                            <td align="left" style="text-align: left!important; valign="top"><span style="font-family:Arial, sans-serif;font-size:15px;font-weight:normal;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:20px;color:#717B81;" class="text P1"><b><span style="font-family:Arial, sans-serif;color:#283663;" color="#283663">Community Marketplace</span></b><br
-                                                />Here you can buy and sell your used products like TV, Fridge, computer, etc with the best price. Even, you can buy & sell new products, also land, flat & property. <a href="http://newsletterclick.izettle.com/mail/RLS?mid=30235315&guid=63yk0002019GftGFaDg&lid=62739927&s=1"
-                                                                                                                                                                                                                         style="font-family:Arial, sans-serif;font-weight:bold;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:100%;color:#89d6a3;" color="#89d6a3" target="_blank" clinkID="62739927">Read more</a>.<br
-                                                /></span>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table><img src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" style="display:block" alt="" border="0" height="30" width="1" /></td>
-                    <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" height="1" border="0" alt="" width="45" /></td>
-                </tr>
-            </table>
-            <table cellpadding="0" cellspacing="0" border="0" class="" width="100%">
-                <tr>
-                    <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" width="1" height="1" alt="" border="0" /></td>
-                    <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" width="1" border="0" alt="" height="10" /></td>
-                    <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" width="1" height="1" alt="" border="0" /></td>
-                </tr>
-                <tr>
-                    <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" height="1" border="0" alt="" width="45" /></td>
-                    <td align="left" valign="top" width="100%">
-                        <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                            <tr>
-                                <td align="left" valign="top">
-                                    <table cellpadding="0" cellspacing="0" border="0" class="" width="50">
-                                        <tr>
-                                            <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" width="1" border="0" alt="" height="3" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td align="left" valign="top" width="50">
-                                                <img style="display:block" alt="" border="0" class="myimage" src="{{ url('/logo/mobilePhone.png') }}" width="50" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td align="left" valign="top" width="20"><img src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" style="display:block" alt="" border="0" height="1" width="20" /></td>
-                                <td align="left" valign="top">
-                                    <table border="0" cellpadding="0" cellspacing="0" class="r-2" width="100%">
-                                        <tr>
-                                            <td align="left" style="text-align: left!important; valign="top"><span style="font-family:Arial, sans-serif;font-size:15px;font-weight:normal;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:20px;color:#717B81;" class="text P1"><span style="font-family:Arial, sans-serif;color:#717b81;" color="#717b81"><b><span style="font-family:Arial, sans-serif;color:#283663;" color="#283663">A better way to get paid</span><br
-                                                        /></b>
-                                          </span>It’s simple to conduct the apartment owners' association from this portal dividing the responsibilities to the particular person & simplify the conduct of your association.<a href="https://buildo.xyz"
-                                                                                                                                                                                                                                style="font-family:Arial, sans-serif;font-weight:bold;text-decoration:none;font-style:normal;mso-line-height-rule:exactly;line-height:100%;color:#89d6a3;" color="#89d6a3" target="_blank" clinkID="62739928">Read about the Smart Property</a>.<br
-                                                /></span>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table><img src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" style="display:block" alt="" border="0" height="30" width="1" /></td>
-                    <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" height="1" border="0" alt="" width="45" /></td>
-                </tr>
-                <tr>
-                    <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" width="1" height="1" alt="" border="0" /></td>
-                    <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" width="1" border="0" alt="" height="5" /></td>
-                    <td><img style="display:block" src="http://ec2-54-93-116-216.eu-central-1.compute.amazonaws.com/i.gif" width="1" height="1" alt="" border="0" /></td>
-                </tr>
-            </table>
+
             <table width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                     <td>
                         <div >
                             <!--[if mso]> <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://www.sendwithus.com" style="height:50px;v-text-anchor:middle;width:200px;" arcsize="8%" stroke="f" fillcolor="#178f8f"> <w:anchorlock></w:anchorlock> <center> <![endif]-->
-                            <a
+                            <a href="{{ $propertyLink .'/registration' }}"
                                 style="background-color:#89d6a3;border-radius:4px;color:#000;display:inline-block;font-family:Helvetica, Arial, sans-serif;font-size:16px;font-weight:bold;line-height:50px;text-align:center;text-decoration:none;width:180px;-webkit-text-size-adjust:none;">
                                 <span id="button_text">Complete registration</span>
                             </a>
@@ -167,9 +71,25 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td height="40">
-
+            </table>
+            <table cellpadding="0" cellspacing="0" style="margin: 0 auto;" width="80%">
+                <tbody>
+                <tr >
+                    <td  style="text-align:left; font-size:18px;color: black;"><br>
+                        <br>
+                        Thank You
+                        <br>
+                        {{ $property->title }} Support Team
+                        <br>
+                        <br>
+                        {{ $property->address }}
+                        <br>
+                        <br>
                     </td>
                 </tr>
+                </tbody>
             </table>
+        </td>
+    </tr>
+    </tbody>
+</table>

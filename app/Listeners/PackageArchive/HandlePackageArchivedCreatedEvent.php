@@ -29,9 +29,7 @@ class HandlePackageArchivedCreatedEvent implements ShouldQueue
 
         if ($resident instanceof Resident) {
             Mail::to($resident->user->email)->send(new PackageSignOut($packageArchive));
-
         } else {
-
             foreach ($package->unit->residents as $resident) {
                 Mail::to($resident->user->email)->send(new PackageSignOut($packageArchive));
             }

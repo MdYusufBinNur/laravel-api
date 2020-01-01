@@ -75,12 +75,12 @@ class HandlePaymentItemUpdatedEvent implements ShouldQueue
                 $residents = $paymentItem->unit->residents;
                 foreach ($residents as $resident) {
                     $user = $resident->user;
-                    $this->savePaymentNotification($payment->toUserId, $user->id, $paymentItem->id);
+                    $this->savePaymentNotification($logData->updatedByUserId, $user->id, $paymentItem->id);
                     Mail::to($resident->contactEmail)->send(new PaymentItemUpdated($paymentItem, $user->name));
                 }
             } else {
                 $user = $paymentItem->user;
-                $this->savePaymentNotification($payment->toUserId, $user->id, $paymentItem->id);
+                $this->savePaymentNotification($logData->updatedByUserId, $user->id, $paymentItem->id);
                 Mail::to($user->email)->send(new PaymentItemUpdated($paymentItem, $user->name));
             }
         }

@@ -4,11 +4,13 @@ namespace App\Listeners\PaymentItem;
 
 use App\DbModels\Payment;
 use App\DbModels\PaymentItem;
+use App\DbModels\UserNotificationType;
 use App\Events\PaymentItem\PaymentItemUpdatedEvent;
 use App\Listeners\CommonListenerFeatures;
 use App\Mail\Payment\PaymentItemUpdated;
 use App\Repositories\Contracts\PaymentItemLogRepository;
 use App\Repositories\Contracts\PaymentRepository;
+use App\Repositories\Contracts\UserNotificationRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
@@ -72,14 +74,35 @@ class HandlePaymentItemUpdatedEvent implements ShouldQueue
             if (!empty($paymentItem->unitId)) {
                 $residents = $paymentItem->unit->residents;
                 foreach ($residents as $resident) {
-                    Mail::to($resident->contactEmail)->send(new PaymentItemUpdated($paymentItem, $resident->user->name));
+                    $user = $resident->user;
+                    $this->savePaymentNotification($payment->toUserId, $user->id, $paymentItem->id);
+                    Mail::to($resident->contactEmail)->send(new PaymentItemUpdated($paymentItem, $user->name));
                 }
             } else {
                 $user = $paymentItem->user;
+                $this->savePaymentNotification($payment->toUserId, $user->id, $paymentItem->id);
                 Mail::to($user->email)->send(new PaymentItemUpdated($paymentItem, $user->name));
             }
         }
+    }
 
-
+    /**
+     * save payment item's notification
+     *
+     * @param int $fromUserId
+     * @param int $toUserId
+     * @param int $resourceId
+     */
+    private function savePaymentNotification($fromUserId, $toUserId, $resourceId)
+    {
+        // save notification
+        $userNotificationRepository = app(UserNotificationRepository::class);
+        $userNotificationRepository->save([
+            'fromUserId' => $fromUserId,
+            'toUserId' => $toUserId,
+            'userNotificationTypeId' => UserNotificationType::PAYMENT_ITEM_CREATED['id'],
+            'resourceId' => $resourceId,
+            'message' => "One of your payment status has been updated.",
+        ]);
     }
 }

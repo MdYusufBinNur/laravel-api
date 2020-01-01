@@ -43,6 +43,8 @@ class CreateUserNotificationTypesTable extends Migration
             ['id' => 11, 'type' => 'post_create'],
             ['id' => 12, 'type' => 'post_update'],
             ['id' => 13, 'type' => 'post_comment'],
+            ['id' => 14, 'type' => 'payment_item_created'],
+            ['id' => 15, 'type' => 'payment_item_updated'],
         ]);
     }
 

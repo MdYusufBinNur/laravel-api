@@ -235,6 +235,10 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('payment-publish-log', 'PaymentPublishLogController', ['only' => ['index', 'show']]);
         Route::apiResource('payment-payment-method', 'PaymentPaymentMethodController');
 
+        /**
+         * Related to Reminder
+         */
+        Route::apiResource('reminder', 'ReminderController', ['except' => ['update']]);
     });
 
     //route without authentication

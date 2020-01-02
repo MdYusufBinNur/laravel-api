@@ -33,31 +33,29 @@
                 </tr>
             </table>
 
-            <table class="promotion" align="left" width="100%" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; background-color: #FFFFFF; border: 2px solid #9BA2AB; margin: 0; margin-bottom: 25px; margin-top: 15px; width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; -premailer-width: 100%;">
+            <table cellpadding="0" cellspacing="0" border="0" class="r-4" width="100%">
                 <tr>
-                    <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
-                        <span
-                            style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e;  margin-top: 0; text-align: left; font-size: 15px; font-weight: bold;">
-                            Community:  {{$property->title}}
-                        </span>
-                        <br>
-                        <span style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e;  margin-top: 0; text-align: left; font-size: 15px; font-weight: bold;">
-                            Unit:  {{$unit->title}}
-                        </span >
-                        <table class="subcopy" width="100%" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; border-top: 1px solid #edeff2; margin-top: 25px; padding-top: 25px;">
+                    <td align="center">
+                        <table width="80%" cellspacing="0" cellpadding="0" border="0">
                             <tr>
-                                <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
-                                    <span
-                                        style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: blue;  margin-top: 0; text-align: left; font-size: 15px; font-weight: bold;">
+                                <td align="center" class="message" valign="top" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse; display: table-cell; background-color: rgb(244, 244, 245); padding: 18px;">
+                                    <div class="text textColorNormal" style=" font-weight: 400; font-size: 16px; line-height: 21px; color: rgb(79, 79, 101);">
+                                        <span class="text-bold textColorDark" style="font-weight: 600; color: rgb(35, 35, 62);"> Community:  {{$property->title}}</span>
+                                        <br />
+                                        Unit:  {{$unit->title}}
+                                        <br />
+                                        <br />
                                         Pin: {{$residentAccessRequest->pin}}
-                                    </span>
+                                        <br>
+                                    </div>
                                 </td>
                             </tr>
                         </table>
                     </td>
                 </tr>
             </table>
-
+            <br>
+            <br>
             <table width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                     <td>

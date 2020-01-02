@@ -41,19 +41,6 @@ class PaymentPaymentMethodController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return PaymentPaymentMethodResource
-     */
-    public function store(StoreRequest $request)
-    {
-        $paymentPaymentMethod = $this->paymentPaymentMethodRepository->save($request->all());
-
-        return new PaymentPaymentMethodResource($paymentPaymentMethod);
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param PaymentPaymentMethod $paymentPaymentMethod
@@ -62,33 +49,5 @@ class PaymentPaymentMethodController extends Controller
     public function show(PaymentPaymentMethod $paymentPaymentMethod)
     {
         return new PaymentPaymentMethodResource($paymentPaymentMethod);
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param UpdateRequest $request
-     * @param PaymentPaymentMethod $paymentPaymentMethod
-     * @return PaymentPaymentMethodResource
-     */
-    public function update(UpdateRequest $request, PaymentPaymentMethod $paymentPaymentMethod)
-    {
-        $paymentPaymentMethod = $this->paymentPaymentMethodRepository->update($paymentPaymentMethod, $request->all());
-
-        return new PaymentPaymentMethodResource($paymentPaymentMethod);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param PaymentPaymentMethod $paymentPaymentMethod
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(PaymentPaymentMethod $paymentPaymentMethod)
-    {
-        $this->paymentPaymentMethodRepository->delete($paymentPaymentMethod);
-
-        return response()->json(null, 204);
     }
 }

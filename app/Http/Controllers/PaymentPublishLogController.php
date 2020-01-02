@@ -7,6 +7,7 @@ use App\Http\Requests\PaymentPublishLog\IndexRequest;
 use App\Http\Resources\PaymentPublishLogResource;
 use App\Http\Resources\PaymentPublishLogResourceCollection;
 use App\Repositories\Contracts\PaymentPublishLogRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class PaymentPublishLogController extends Controller
 {
@@ -29,9 +30,12 @@ class PaymentPublishLogController extends Controller
      *
      * @param IndexRequest $request
      * @return PaymentPublishLogResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [PaymentPublishLog::class]);
+
         $paymentPublishLogs = $this->paymentPublishLogRepository->findBy($request->all());
 
         return new PaymentPublishLogResourceCollection($paymentPublishLogs);
@@ -42,9 +46,12 @@ class PaymentPublishLogController extends Controller
      *
      * @param PaymentPublishLog $paymentPublishLog
      * @return PaymentPublishLogResource
+     * @throws AuthorizationException
      */
     public function show(PaymentPublishLog $paymentPublishLog)
     {
+        $this->authorize('show', $paymentPublishLog);
+
         return new PaymentPublishLogResource($paymentPublishLog);
     }
 }

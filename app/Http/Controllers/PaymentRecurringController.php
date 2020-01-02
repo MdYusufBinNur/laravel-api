@@ -14,7 +14,7 @@ class PaymentRecurringController extends Controller
     /**
      * @var PaymentRecurringRepository
      */
-    protected $paymentRecurRepository;
+    protected $paymentRecurringRepository;
 
     /**
      * PaymentRecurringController constructor.
@@ -22,7 +22,7 @@ class PaymentRecurringController extends Controller
      */
     public function __construct(PaymentRecurringRepository $paymentRecurRepository)
     {
-        $this->paymentRecurRepository = $paymentRecurRepository;
+        $this->paymentRecurringRepository = $paymentRecurRepository;
     }
 
     /**
@@ -36,7 +36,7 @@ class PaymentRecurringController extends Controller
     {
         $this->authorize('list', [PaymentRecurring::class, $request->get('propertyId')]);
 
-        $paymentRecurs = $this->paymentRecurRepository->findBy($request->all());
+        $paymentRecurs = $this->paymentRecurringRepository->findBy($request->all());
 
         return new PaymentRecurringResourceCollection($paymentRecurs);
     }

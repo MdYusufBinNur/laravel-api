@@ -46,6 +46,7 @@ use App\DbModels\PasswordReset;
 use App\DbModels\Payment;
 use App\DbModels\PaymentItem;
 use App\DbModels\PaymentMethod;
+use App\DbModels\PaymentRecurring;
 use App\DbModels\PaymentType;
 use App\DbModels\Post;
 use App\DbModels\PostApprovalArchive;
@@ -135,6 +136,7 @@ use App\Policies\PasswordResetPolicy;
 use App\Policies\PaymentItemPolicy;
 use App\Policies\PaymentMethodPolicy;
 use App\Policies\PaymentPolicy;
+use App\Policies\PaymentRecurringPolicy;
 use App\Policies\PaymentTypePolicy;
 use App\Policies\PostApprovalArchivePolicy;
 use App\Policies\PostApprovalBlacklistUnitPolicy;
@@ -238,6 +240,7 @@ class AuthServiceProvider extends ServiceProvider
         PaymentType::class => PaymentTypePolicy::class,
         Payment::class => PaymentPolicy::class,
         PaymentItem::class => PaymentItemPolicy::class,
+        PaymentRecurring::class => PaymentRecurringPolicy::class,
         PostApprovalArchive::class => PostApprovalArchivePolicy::class,
         PostApprovalBlacklistUnit::class => PostApprovalBlacklistUnitPolicy::class,
         PostComment::class => PostCommentPolicy::class,

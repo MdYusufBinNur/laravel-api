@@ -7,6 +7,7 @@ use App\Http\Requests\PaymentRecurring\IndexRequest;
 use App\Http\Resources\PaymentRecurringResource;
 use App\Http\Resources\PaymentRecurringResourceCollection;
 use App\Repositories\Contracts\PaymentRecurringRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class PaymentRecurringController extends Controller
 {
@@ -29,9 +30,12 @@ class PaymentRecurringController extends Controller
      *
      * @param IndexRequest $request
      * @return PaymentRecurringResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [PaymentRecurring::class, $request->get('propertyId')]);
+
         $paymentRecurs = $this->paymentRecurRepository->findBy($request->all());
 
         return new PaymentRecurringResourceCollection($paymentRecurs);
@@ -40,11 +44,14 @@ class PaymentRecurringController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param PaymentRecurring $paymentRecur
+     * @param PaymentRecurring $paymentRecurring
      * @return PaymentRecurringResource
+     * @throws AuthorizationException
      */
-    public function show(PaymentRecurring $paymentRecur)
+    public function show(PaymentRecurring $paymentRecurring)
     {
-        return new PaymentRecurringResource($paymentRecur);
+        $this->authorize('show', $paymentRecurring);
+
+        return new PaymentRecurringResource($paymentRecurring);
     }
 }

@@ -181,7 +181,7 @@ class Payment extends Model
      */
     public function isUpdateAble()
     {
-        if (in_array($this->attributes['status'], [self::STATUS_NOT_PUBLISHED, self::STATUS_PENDING, self::STATUS_NOT_ACTIVATED])) {
+        if (in_array($this->attributes['status'], [self::STATUS_NOT_PUBLISHED, self::STATUS_NOT_ACTIVATED])) {
             return true;
         }
 

@@ -2,9 +2,6 @@
 
 namespace App\Http\Resources;
 
-
-use Carbon\Carbon;
-
 class AttachmentResource extends Resource
 {
     /**

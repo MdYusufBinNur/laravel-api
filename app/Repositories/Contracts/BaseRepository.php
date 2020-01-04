@@ -31,6 +31,16 @@ interface BaseRepository
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false);
 
+
+    /**
+     * Search All resources without pagination (very expensive)
+     *
+     * @param array $searchCriteria
+     * @param bool $withTrashed
+     * @return mixed
+     */
+    public function findByWithoutPagination(array $searchCriteria = [], $withTrashed = false);
+
     /**
      * Search All resources by any values of a key
      *

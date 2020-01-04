@@ -115,7 +115,20 @@ class EloquentBaseRepository implements BaseRepository
             $queryBuilder->orderBy($orderBy, $orderDirection);
         }
 
-        return $queryBuilder->paginate($limit);
+        if (empty($searchCriteria['withoutPagination'])) {
+            return $queryBuilder->paginate($limit);
+        } else {
+            return $queryBuilder->get();
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function findByWithoutPagination(array $searchCriteria = [], $withTrashed = false)
+    {
+        $searchCriteria['withoutPagination'] = true;
+        return $this->findBy($searchCriteria, $withTrashed);
     }
 
     /**
@@ -258,7 +271,7 @@ class EloquentBaseRepository implements BaseRepository
         array $searchCriteria = [],
         string $operator = '='
     ) {
-        unset($searchCriteria['include'], $searchCriteria['eagerLoad'], $searchCriteria['rawOrder'], $searchCriteria['detailed']); //don't need that field for query. only needed for transformer.
+        unset($searchCriteria['include'], $searchCriteria['eagerLoad'], $searchCriteria['rawOrder'], $searchCriteria['detailed'], $searchCriteria['withOutPagination']); //don't need that field for query. only needed for transformer.
 
         foreach ($searchCriteria as $key => $value) {
 

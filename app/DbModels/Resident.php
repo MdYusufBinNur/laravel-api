@@ -21,7 +21,7 @@ class Resident extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'userId', 'userRoleId', 'unitId', 'contactEmail', 'type', 'group', 'boardMember', 'sendEmailPermission', 'displayUnit', 'displayPublicProfile', 'allowPostNote', 'allowSendMessage', 'defaultDial', 'homePhone', 'cellPhone', 'employerName', 'employerAddress', 'businessPhone', 'businessEmail', 'secondaryAddress', 'secondaryPhone', 'secondaryEmail', 'joiningDate'
+        'createdByUserId', 'propertyId', 'userId', 'userRoleId', 'unitId', 'isOwnerLivingHere', 'contactEmail', 'type', 'group', 'boardMember', 'sendEmailPermission', 'displayUnit', 'displayPublicProfile', 'allowPostNote', 'allowSendMessage', 'defaultDial', 'homePhone', 'cellPhone', 'employerName', 'employerAddress', 'businessPhone', 'businessEmail', 'secondaryAddress', 'secondaryPhone', 'secondaryEmail', 'joiningDate'
     ];
 
     /**

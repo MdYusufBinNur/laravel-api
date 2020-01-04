@@ -20,6 +20,7 @@ class CreateResidentsTable extends Migration
             $table->unsignedInteger('userId');
             $table->unsignedInteger('userRoleId');
             $table->unsignedInteger('unitId');
+            $table->boolean('isOwnerLivingHere')->default(1);
             $table->string('contactEmail')->nullable();
             $table->string('type')->nullable();
             $table->string('group')->nullable();

@@ -42,7 +42,6 @@ class ServiceRequestPolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-
             return $currentUser->isResidentOfTheUnits($unitIdCsv);
         }
 

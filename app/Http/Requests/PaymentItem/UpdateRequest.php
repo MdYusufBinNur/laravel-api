@@ -16,6 +16,7 @@ class UpdateRequest extends Request
     {
         return [
             'status' => 'in:'.PaymentItem::STATUS_PAID.','.PaymentItem::STATUS_PENDING.','.PaymentItem::STATUS_CANCELLED,
+            'note' => 'string|max:65535'
         ];
     }
 }

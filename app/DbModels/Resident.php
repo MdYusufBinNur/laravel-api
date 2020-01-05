@@ -16,15 +16,6 @@ class Resident extends Model
     const RESIDENT_TYPE_OWNER = 'owner';
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'createdByUserId', 'propertyId', 'userId', 'userRoleId', 'unitId', 'isOwnerLivingHere', 'contactEmail', 'type', 'group', 'boardMember', 'sendEmailPermission', 'displayUnit', 'displayPublicProfile', 'allowPostNote', 'allowSendMessage', 'defaultDial', 'homePhone', 'cellPhone', 'employerName', 'employerAddress', 'businessPhone', 'businessEmail', 'secondaryAddress', 'secondaryPhone', 'secondaryEmail', 'joiningDate'
-    ];
-
-    /**
      * The attributes that should be cast to native types.
      *
      * @var array
@@ -36,7 +27,17 @@ class Resident extends Model
         'displayPublicProfile' => 'boolean',
         'allowPostNote' => 'boolean',
         'allowSendMessage' => 'boolean',
+        'isOwnerLivingHere' => 'boolean',
         'joiningDate' => 'datetime:Y-m-d h:i',
+    ];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'createdByUserId', 'propertyId', 'userId', 'userRoleId', 'unitId', 'isOwnerLivingHere', 'contactEmail', 'type', 'group', 'boardMember', 'sendEmailPermission', 'displayUnit', 'displayPublicProfile', 'allowPostNote', 'allowSendMessage', 'defaultDial', 'homePhone', 'cellPhone', 'employerName', 'employerAddress', 'businessPhone', 'businessEmail', 'secondaryAddress', 'secondaryPhone', 'secondaryEmail', 'joiningDate'
     ];
 
     /**

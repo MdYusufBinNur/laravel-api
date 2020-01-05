@@ -17,7 +17,7 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' => 'required|exists:properties,id',
-            'paymentMethodIds' => ['required', new ListOfIds('payment_methods', 'id')],
+            'paymentMethodIds' => ['required', new ListOfIds('payment_methods', 'id')], //todo rule for only this propertyId
             'paymentTypeId' => 'required|exists:payment_types,id',
             'amount' => 'required',
             'note' => 'string',

@@ -113,10 +113,12 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
      */
     private function validatePaymentChanges(Payment $payment, array $data)
     {
-        if (!$payment->isUpdateAble()) {
-            throw ValidationException::withMessages([
-                'status' => ["Payment is already in process. You can't update it"]
-            ]);
+        if (!(isset($data['status']))) {
+            if (!$payment->isUpdateAble()) {
+                throw ValidationException::withMessages([
+                    'status' => ["Payment is already in process. You can't update it"]
+                ]);
+            }
         }
     }
 

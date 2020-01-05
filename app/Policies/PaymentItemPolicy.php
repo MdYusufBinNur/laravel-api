@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\DbModels\Payment;
+use App\DbModels\PaymentItem;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -53,11 +54,12 @@ class PaymentItemPolicy
      * Determine if a given user has permission to show
      *
      * @param User $currentUser
-     * @param Payment $payment
+     * @param PaymentItem $paymentItem
      * @return bool
      */
-    public function show(User $currentUser, Payment $payment)
+    public function show(User $currentUser, PaymentItem $paymentItem)
     {
+        $payment = $paymentItem->payment;
         $propertyId = $payment->propertyId;
 
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
@@ -82,11 +84,12 @@ class PaymentItemPolicy
      * Determine if a given user can update
      *
      * @param User $currentUser
-     * @param Payment $payment
+     * @param PaymentItem $paymentItem
      * @return bool
      */
-    public function update(User $currentUser, Payment $payment)
+    public function update(User $currentUser, PaymentItem $paymentItem)
     {
+        $payment = $paymentItem->payment;
         $propertyId = $payment->propertyId;
 
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
@@ -111,11 +114,12 @@ class PaymentItemPolicy
      * Determine if a given user can delete
      *
      * @param User $currentUser
-     * @param Payment $payment
+     * @param PaymentItem $paymentItem
      * @return bool
      */
-    public function destroy(User $currentUser, Payment $payment)
+    public function destroy(User $currentUser, PaymentItem $paymentItem)
     {
+        $payment = $paymentItem->payment;
         $propertyId = $payment->propertyId;
 
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {

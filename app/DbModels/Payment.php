@@ -154,6 +154,16 @@ class Payment extends Model
         return $this->hasOne(PaymentRecurring::class, 'paymentId', 'id');
     }
 
+
+    /**
+     * check if payment item is paid or not
+     *
+     * @return bool
+     */
+    public function hasAllPaymentItemsPaid()
+    {
+        return $this->paymentItems()->where('status','<>',  PaymentItem::STATUS_PAID)->doesntExist();
+    }
     /**
      * check if payment is published nor not
      *

@@ -28,10 +28,10 @@ class ParkingPassPolicy
      *
      * @param User $currentUser
      * @param int $propertyId
-     * @param int $unitId
+     * @param string $unitId
      * @return bool
      */
-    public function list(User $currentUser, int $propertyId, ?int $unitId)
+    public function list(User $currentUser, int $propertyId, ?string $unitId)
     {
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
@@ -42,10 +42,7 @@ class ParkingPassPolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-
-            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
-
-            return in_array($unitId, $unitIds);
+            return $currentUser->isResidentOfTheUnits($unitId);
         }
 
         return false;
@@ -76,10 +73,10 @@ class ParkingPassPolicy
      *
      * @param User $currentUser
      * @param ParkingPass $parkingPass
-     * @param int $unitId
+     * @param string $unitId
      * @return bool
      */
-    public function show(User $currentUser,  ParkingPass $parkingPass, ?int $unitId)
+    public function show(User $currentUser,  ParkingPass $parkingPass, ?string $unitId)
     {
         $propertyId = $parkingPass->propertyId;
 
@@ -92,10 +89,7 @@ class ParkingPassPolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-
-            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
-
-            return in_array($unitId, $unitIds);
+            return $currentUser->isResidentOfTheUnits($unitId);
         }
 
         return false;
@@ -110,6 +104,8 @@ class ParkingPassPolicy
      */
     public function update(User $currentUser, ParkingPass $parkingPass)
     {
+        $propertyId = $parkingPass->propertyId;
+
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
         }
@@ -130,11 +126,13 @@ class ParkingPassPolicy
      */
     public function destroy(User $currentUser, ParkingPass $parkingPass)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($parkingPass->propertyId)) {
+        $propertyId = $parkingPass->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
         }
 
-        if ($currentUser->isAStaffOfTheProperty($parkingPass->propertyId)) {
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
             return true;
         }
 

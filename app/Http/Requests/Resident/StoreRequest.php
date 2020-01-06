@@ -21,6 +21,7 @@ class StoreRequest extends Request
             'unitId'                => 'required|exists:units,id',
             'contactEmail'          => 'required|email|max:255',
             'type'                  => 'in:' . implode(',', [Role::ROLE_RESIDENT_OWNER['title'], Role::ROLE_RESIDENT_TENANT['title']]),
+            'isOwnerLivingHere'     => 'boolean|required_if:type,=,' . Role::ROLE_RESIDENT_OWNER['title'],
             'group'                 => 'min:5|max:255',
             'boardMember'           => 'boolean',
             'sendEmailPermission'   => 'boolean',

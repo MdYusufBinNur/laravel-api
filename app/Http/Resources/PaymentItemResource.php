@@ -31,6 +31,7 @@ class PaymentItemResource extends Resource
                 return new UnitResource($this->unit);
             }),
             'status' => $this->status,
+            'note' => $this->note,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'paymentItemLogs' => $this->when($this->needToInclude($request, 'pi.paymentItemLogs'), function () {

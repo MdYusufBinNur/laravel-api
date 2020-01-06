@@ -28,10 +28,10 @@ class ParkingPassLogPolicy
      *
      * @param User $currentUser
      * @param int $propertyId
-     * @param int $unitId
+     * @param string $unitId
      * @return bool
      */
-    public function list(User $currentUser, int $propertyId, ?int $unitId)
+    public function list(User $currentUser, int $propertyId, ?string $unitId)
     {
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
@@ -42,10 +42,7 @@ class ParkingPassLogPolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-
-            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
-
-            return in_array($unitId, $unitIds);
+            return $currentUser->isResidentOfTheUnits($unitId);
         }
 
         return false;
@@ -83,11 +80,10 @@ class ParkingPassLogPolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-
-            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
-
-            return in_array($parkingPassLog->unitId, $unitIds);
+            return $currentUser->isResidentOfTheUnits($parkingPassLog->unitId);
         }
+
+        return false;
     }
 
     /**

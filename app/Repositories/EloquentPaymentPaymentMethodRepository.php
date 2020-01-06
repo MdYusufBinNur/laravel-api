@@ -22,7 +22,6 @@ class EloquentPaymentPaymentMethodRepository extends EloquentBaseRepository impl
             }
         }
 
-
         foreach ($methodIds as $methodId) {
             $data = ['paymentId' => $payment->id, 'paymentMethodId' => $methodId];
             $this->patch($data, $data);

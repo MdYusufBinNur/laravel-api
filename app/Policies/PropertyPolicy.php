@@ -90,6 +90,10 @@ class PropertyPolicy
             return true;
         }
 
+        if ($currentUser->isAPriorityStaffOfTheProperty($property->id)) {
+            return true;
+        }
+
         return false;
     }
 

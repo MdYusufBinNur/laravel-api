@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\SMS\SMS;
+use App\Services\SMS\SMSMicroService\SMSMicroService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,6 +18,11 @@ class AppServiceProvider extends ServiceProvider
         if (!$this->app->isProduction()) {
             $this->app->register(TelescopeServiceProvider::class);
         }
+
+        // bind SMS
+        $this->app->bind(SMS::class, function() {
+            return new SMSMicroService();
+        });
     }
 
     /**

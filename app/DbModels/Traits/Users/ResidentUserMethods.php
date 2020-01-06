@@ -108,6 +108,21 @@ trait ResidentUserMethods
     }
 
     /**
+     * is resident of the units
+     *
+     * @param mixed $unitIds
+     * @return boolean
+     */
+    public function isResidentOfTheUnits($unitIds)
+    {
+        if (!is_array($unitIds)) {
+            $unitIds = array_map('intval', explode(',', $unitIds));
+        }
+
+        return $this->residents()->whereIn('unitId', $unitIds)->count() === count(array_unique($unitIds));
+    }
+
+    /**
      * is the resident owner of the unit
      *
      * @param int $unitId

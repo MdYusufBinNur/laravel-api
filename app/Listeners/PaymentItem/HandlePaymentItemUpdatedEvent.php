@@ -56,9 +56,13 @@ class HandlePaymentItemUpdatedEvent implements ShouldQueue
 
             // set payment's status
             $payment = $paymentItem->payment;
-            if ($paymentItem->status == PaymentItem::STATUS_PAID) {
-                $this->paymentRepository->updatePayment($payment, ['status' => Payment::STATUS_PARTIALLY_DONE]);
+            if ($payment->hasAllPaymentItemsPaid()) {
+                $updatedData = ['status' => Payment::STATUS_DONE];
+            } else {
+                $updatedData = ['status' => Payment::STATUS_PARTIALLY_DONE];
             }
+            
+            $this->paymentRepository->updatePayment($payment, $updatedData);
 
             //log event
             $logData = [
@@ -75,12 +79,12 @@ class HandlePaymentItemUpdatedEvent implements ShouldQueue
                 $residents = $paymentItem->unit->residents;
                 foreach ($residents as $resident) {
                     $user = $resident->user;
-                    $this->savePaymentNotification($logData->updatedByUserId, $user->id, $paymentItem->id);
+                    $this->savePaymentNotification($logData['updatedByUserId'], $user->id, $paymentItem->id);
                     Mail::to($resident->contactEmail)->send(new PaymentItemUpdated($paymentItem, $user->name));
                 }
             } else {
                 $user = $paymentItem->user;
-                $this->savePaymentNotification($logData->updatedByUserId, $user->id, $paymentItem->id);
+                $this->savePaymentNotification($logData['updatedByUserId'], $user->id, $paymentItem->id);
                 Mail::to($user->email)->send(new PaymentItemUpdated($paymentItem, $user->name));
             }
         }

@@ -16,7 +16,7 @@
                         <br>
                         <br>
                         <br>
-                        If you are a resident of this community, please contact with support team of your community,
+                        If you are a resident of our community, please contact with support team of our community,
                         to consider your request again.
                         <br>
                         <br>

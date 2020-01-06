@@ -28,10 +28,10 @@ class ServiceRequestPolicy
      *
      * @param User $currentUser
      * @param int $propertyId
-     * @param int $unitId
+     * @param string $unitIdCsv
      * @return bool
      */
-    public function list(User $currentUser, int $propertyId, ?int $unitId)
+    public function list(User $currentUser, int $propertyId, ?string $unitIdCsv)
     {
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
@@ -42,11 +42,7 @@ class ServiceRequestPolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-
-            //todo create a method for resident of a unit in user model
-            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
-
-            return in_array($unitId, $unitIds);
+            return $currentUser->isResidentOfTheUnits($unitIdCsv);
         }
 
         return false;
@@ -58,10 +54,10 @@ class ServiceRequestPolicy
      *
      * @param User $currentUser
      * @param int $propertyId
-     * @param int $unitId
+     * @param string $unitIdCsv
      * @return bool
      */
-    public function store(User $currentUser, int $propertyId, ?int $unitId)
+    public function store(User $currentUser, int $propertyId, ?string $unitIdCsv)
     {
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
@@ -73,10 +69,7 @@ class ServiceRequestPolicy
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
 
-            //todo create a method for resident of a unit in user model
-            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
-
-            return in_array($unitId, $unitIds);
+            return $currentUser->isResidentOfTheUnits($unitIdCsv);
         }
 
         return false;

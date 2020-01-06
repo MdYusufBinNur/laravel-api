@@ -26,7 +26,8 @@ class PaymentItem extends Model
         'propertyId',
         'userId',
         'unitId',
-        'status'
+        'status',
+        'note'
     ];
 
     protected $attributes = [

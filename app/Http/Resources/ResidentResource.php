@@ -22,6 +22,7 @@ class ResidentResource extends Resource
                 return new UnitResource($this->unit);
             }),
             'contactEmail' => $this->contactEmail,
+            'isOwnerLivingHere' => $this->isOwnerLivingHere,
             'type' => $this->type,
             'group' => $this->group,
             'boardMember' => $this->boardMember,

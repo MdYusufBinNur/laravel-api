@@ -44,7 +44,11 @@ use App\DbModels\ParkingPassLog;
 use App\DbModels\ParkingSpace;
 use App\DbModels\PasswordReset;
 use App\DbModels\Payment;
+use App\DbModels\PaymentItem;
 use App\DbModels\PaymentMethod;
+use App\DbModels\PaymentPaymentMethod;
+use App\DbModels\PaymentPublishLog;
+use App\DbModels\PaymentRecurring;
 use App\DbModels\PaymentType;
 use App\DbModels\Post;
 use App\DbModels\PostApprovalArchive;
@@ -131,8 +135,12 @@ use App\Policies\ParkingPassLogPolicy;
 use App\Policies\ParkingPassPolicy;
 use App\Policies\ParkingSpacePolicy;
 use App\Policies\PasswordResetPolicy;
+use App\Policies\PaymentItemPolicy;
 use App\Policies\PaymentMethodPolicy;
+use App\Policies\PaymentPaymentMethodPolicy;
 use App\Policies\PaymentPolicy;
+use App\Policies\PaymentPublishLogPolicy;
+use App\Policies\PaymentRecurringPolicy;
 use App\Policies\PaymentTypePolicy;
 use App\Policies\PostApprovalArchivePolicy;
 use App\Policies\PostApprovalBlacklistUnitPolicy;
@@ -235,6 +243,10 @@ class AuthServiceProvider extends ServiceProvider
         PaymentMethod::class => PaymentMethodPolicy::class,
         PaymentType::class => PaymentTypePolicy::class,
         Payment::class => PaymentPolicy::class,
+        PaymentItem::class => PaymentItemPolicy::class,
+        PaymentRecurring::class => PaymentRecurringPolicy::class,
+        PaymentPublishLog::class => PaymentPublishLogPolicy::class,
+        PaymentPaymentMethod::class => PaymentPaymentMethodPolicy::class,
         PostApprovalArchive::class => PostApprovalArchivePolicy::class,
         PostApprovalBlacklistUnit::class => PostApprovalBlacklistUnitPolicy::class,
         PostComment::class => PostCommentPolicy::class,

@@ -28,10 +28,10 @@ class PackageArchivePolicy
      *
      * @param User $currentUser
      * @param int $propertyId
-     * @param int $unitId
+     * @param string $unitId
      * @return bool
      */
-    public function list(User $currentUser, int $propertyId, ?int $unitId)
+    public function list(User $currentUser, int $propertyId, ?string $unitId)
     {
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
@@ -46,10 +46,7 @@ class PackageArchivePolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-
-            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
-
-            return in_array($unitId, $unitIds);
+            return $currentUser->isResidentOfTheUnits($unitId);
         }
 
         return false;
@@ -60,10 +57,10 @@ class PackageArchivePolicy
      *
      * @param User $currentUser
      * @param int $propertyId
-     * @param int $unitId
+     * @param string $unitId
      * @return bool
      */
-    public function store(User $currentUser, int $propertyId, ?int $unitId)
+    public function store(User $currentUser, int $propertyId, ?string $unitId)
     {
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
@@ -78,10 +75,7 @@ class PackageArchivePolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-
-            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
-
-            return in_array($unitId, $unitIds);
+            return $currentUser->isResidentOfTheUnits($unitId);
         }
 
         return false;
@@ -104,7 +98,13 @@ class PackageArchivePolicy
             return true;
         }
 
-        return in_array($currentUser->id, $packageArchive->property->unit->getResidentsUserIds());
+        if ($currentUser->isResidentOfTheProperty($packageArchive->propertyId)) {
+
+            return $currentUser->isResidentOfTheUnits($packageArchive->package->unitId);
+        }
+
+        return false;
+
     }
 
     /**
@@ -124,7 +124,7 @@ class PackageArchivePolicy
             return true;
         }
 
-        return in_array($currentUser->id, $packageArchive->property->unit->getResidentsUserIds());
+        return false;
     }
 
     /**

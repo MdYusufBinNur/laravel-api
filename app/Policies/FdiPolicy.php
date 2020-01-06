@@ -28,10 +28,10 @@ class FdiPolicy
      *
      * @param User $currentUser
      * @param int $propertyId
-     * @param int $unitId
+     * @param string $unitId
      * @return bool
      */
-    public function list(User $currentUser, int $propertyId, ?int $unitId)
+    public function list(User $currentUser, int $propertyId, ?string $unitId)
     {
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
@@ -43,9 +43,7 @@ class FdiPolicy
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
 
-            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
-
-            return in_array($unitId, $unitIds);
+            return $currentUser->isResidentOfTheUnits($unitId);
         }
 
         return false;
@@ -70,9 +68,7 @@ class FdiPolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
-
-            return in_array($unitId, $unitIds);
+            return $currentUser->isResidentOfTheUnits($unitId);
         }
 
         return true;
@@ -97,9 +93,7 @@ class FdiPolicy
 
         if ($currentUser->isResidentOfTheProperty($fdi->propertyId)) {
 
-            $relatedUserIds =  $fdi->unit->getResidentsUserIds();
-
-            return in_array($currentUser->id, $relatedUserIds);
+            return $currentUser->isResidentOfTheUnits($fdi->unitId);
         }
 
         return false;

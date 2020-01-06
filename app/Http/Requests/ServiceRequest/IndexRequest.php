@@ -30,6 +30,7 @@ class IndexRequest extends Request
             'resolvedAt' => 'list:date',
             'startDate' => 'date_format:Y-m-d',
             'endDate' => 'date_format:Y-m-d',
+            'withOutPagination' => 'boolean'
         ];
     }
 }

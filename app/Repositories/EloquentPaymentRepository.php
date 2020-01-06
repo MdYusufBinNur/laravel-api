@@ -37,16 +37,7 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
         $payment = $this->save($data);
 
         //is it recurring?
-        if (!empty($data['isRecurring'])) {
-            $paymentRecurringRepository = app(PaymentRecurringRepository::class);
-            $paymentRecurringRepository->save([
-                'propertyId'=> $payment->propertyId,
-                'paymentId' => $payment->id,
-                'activationDate' => $payment->activationDate,
-                'expireDate' => $data['expireDate'],
-                'period' => $data['period']
-            ]);
-        }
+        $this->setRecurringPayment($payment, $data);
 
         $this->setPaymentMethods($payment, $data);
 
@@ -70,6 +61,26 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
             $paymentPaymentMethodRepository->setPaymentMethods($payment, $data['paymentMethodIds']);
         }
     }
+
+    /**
+     * set payment methods
+     * @param $payment
+     * @param $data
+     */
+    private function setRecurringPayment($payment, $data)
+    {
+        if (!empty($data['isRecurring'])) {
+            $paymentRecurringRepository = app(PaymentRecurringRepository::class);
+            $paymentRecurringRepository->setRecurringPayment([
+                'propertyId'=> $payment->propertyId,
+                'paymentId' => $payment->id,
+                'activationDate' => $payment->activationDate,
+                'expireDate' => $data['expireDate'],
+                'period' => $data['period']
+            ]);
+        }
+    }
+
     /**
      * @inheritDoc
      */
@@ -77,7 +88,16 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
     {
         $this->validatePaymentChanges($model, $data);
 
+        DB::beginTransaction();
+
         $payment = $this->update($model, $data);
+
+        //is it recurring?
+        $this->setRecurringPayment($payment, $data);
+
+        $this->setPaymentMethods($payment, $data);
+
+        DB::commit();
 
         event(new PaymentUpdatedEvent($model, $this->generateEventOptionsForModel()));
 
@@ -93,10 +113,12 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
      */
     private function validatePaymentChanges(Payment $payment, array $data)
     {
-        if (!$payment->isUpdateAble()) {
-            throw ValidationException::withMessages([
-                'status' => ["Payment is already in process. You can't update it"]
-            ]);
+        if (!(isset($data['status']))) {
+            if (!$payment->isUpdateAble()) {
+                throw ValidationException::withMessages([
+                    'status' => ["Payment is already in process. You can't update it"]
+                ]);
+            }
         }
     }
 

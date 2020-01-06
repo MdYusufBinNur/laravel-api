@@ -11,6 +11,7 @@ interface PaymentPaymentMethodRepository extends BaseRepository
     /**
      * set module property
      *
+     * @param Payment $payment
      * @param array $data
      * @return \ArrayAccess
      */

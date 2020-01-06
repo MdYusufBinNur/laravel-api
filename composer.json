@@ -13,6 +13,7 @@
         "felixkiss/uniquewith-validator": "^3.2",
         "fideloper/proxy": "^4.0",
         "genealabs/laravel-model-caching": "*",
+        "guzzlehttp/guzzle": "~6.0",
         "intervention/image": "^2.5",
         "laravel/framework": "^6.0",
         "laravel/horizon": "^3.3",

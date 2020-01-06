@@ -26,7 +26,7 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
                 //resize image
                 if (!empty($data['resizeImage'])) {
                     $resizedImagePath = '/tmp/' . Str::random(10);
-                    \Image::make($data['fileSource']->getPathname())->resize($data['width'], $data['height']);
+                    \Image::make($data['fileSource']->getPathname())->resize($data['width'], $data['height'])->save($resizedImagePath);;
                     $filePath = $resizedImagePath;
                 }
 

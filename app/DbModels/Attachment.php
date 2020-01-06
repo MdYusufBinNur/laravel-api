@@ -3,6 +3,7 @@
 namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -128,6 +129,33 @@ class Attachment extends Model
     }
 
     /**
+     * get access type of the attachment
+     *
+     * @param string $attachmentType
+     * @return string
+     */
+    public function getAccessTypeByAttachmentType($attachmentType)
+    {
+        $accessType = 'public';
+
+        switch ($attachmentType) {
+            case self::ATTACHMENT_TYPE_VISITOR:
+                $accessType = 'private';
+                break;
+            case self::ATTACHMENT_TYPE_MESSAGE:
+                $accessType = 'private';
+                break;
+             case self::ATTACHMENT_TYPE_MESSAGE_POST:
+                $accessType = 'private';
+                break;
+             case self::ATTACHMENT_TYPE_POST:
+                $accessType = 'private';
+                break;
+        }
+        return $accessType;
+    }
+
+    /**
      * get image width and height by image type title
      *
      * @param $title
@@ -185,5 +213,21 @@ class Attachment extends Model
 
         return $directoryName . '/' . $path;
 
+    }
+
+    /**
+     * generate file URL by type
+     * @param string $imageType
+     * @return mixed
+     */
+    public function getFileUrl($imageType = '')
+    {
+        $accessType = $this->getAccessTypeByAttachmentType($this->type);
+
+        if ($accessType == 'private') {
+            return \Storage::temporaryUrl($this->getAttachmentDirectoryPathByTypeTitle($imageType), Carbon::now()->addMinutes(10));
+        } else {
+            return \Storage::url($this->getAttachmentDirectoryPathByTypeTitle($imageType));
+        }
     }
 }

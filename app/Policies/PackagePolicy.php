@@ -28,10 +28,10 @@ class PackagePolicy
      *
      * @param User $currentUser
      * @param int $propertyId
-     * @param int $unitId
+     * @param string $unitId
      * @return bool
      */
-    public function list(User $currentUser, int $propertyId, ?int $unitId)
+    public function list(User $currentUser, int $propertyId, ?string $unitId)
     {
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
@@ -46,10 +46,7 @@ class PackagePolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-
-            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
-
-            return in_array($unitId, $unitIds);
+            return $currentUser->isResidentOfTheUnits($unitId);
         }
 
         return false;
@@ -60,10 +57,10 @@ class PackagePolicy
      *
      * @param User $currentUser
      * @param int $propertyId
-     * @param int $unitId
+     * @param string $unitId
      * @return bool
      */
-    public function store(User $currentUser, int $propertyId, ?int $unitId)
+    public function store(User $currentUser, int $propertyId, ?string $unitId)
     {
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
@@ -78,11 +75,7 @@ class PackagePolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-
-            //todo create a method for resident of a unit in user model
-            $unitIds = $currentUser->residents()->pluck('unitId')->toArray();
-
-            return in_array($unitId, $unitIds);
+            return $currentUser->isResidentOfTheUnits($unitId);
         }
 
         return false;
@@ -97,15 +90,21 @@ class PackagePolicy
      */
     public function show(User $currentUser,  Package $package)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($package->propertyId)) {
+        $propertyId = $package->propertyId;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
         }
 
-        if ($currentUser->isAStaffOfTheProperty($package->propertyId)) {
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
             return true;
         }
 
-        return in_array($currentUser->id, $package->unit->getResidentsUserIds());
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+            return $currentUser->isResidentOfTheUnits($package->unitId);
+        }
+
+        return false;
+
     }
 
     /**

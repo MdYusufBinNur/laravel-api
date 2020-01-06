@@ -33,7 +33,12 @@ class ResidentCreated extends Mailable
      */
     public function build()
     {
+        $residentCreated = $this->resident;
+        $property = $this->$residentCreated->property;
+        $propertyLink = $property->getLoginLink();
+
+
         return $this->view('resident.index')
-            ->with(['resident' => $this->resident]);
+            ->with(['resident' => $this->resident, 'property' => $property, 'propertyLink' => $propertyLink]);
     }
 }

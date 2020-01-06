@@ -10,7 +10,7 @@
                         Hey {{ $user->name }}
                         <br>
                         <br>
-                        The support team received your request to reset your password. Click the button below to get started.
+                        A request has been made to reset your password. If you made this request, please click on the button below.
                         <br>
                         <br>
                         <div >
@@ -25,7 +25,7 @@
                         If it doesn’t work, you can copy and paste the following link in your browser:
                         <br>
                         <br>
-                        {{ $resetLink }}
+                        <a href="{{ $resetLink }}" target="_blank"> {{ $resetLink }}</a>
                         <br>
                     </td>
                 </tr>

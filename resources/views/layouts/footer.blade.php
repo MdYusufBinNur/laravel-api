@@ -95,28 +95,28 @@
                                     style="color:#01768b; text-decoration:none;"></a>.
     </td>
 </tr>
+{{--<tr>--}}
+{{--    <td class="Footer-copy"--}}
+{{--        style="font-size: 11px; padding: 0 10px 10px; text-align: center; -webkit-text-size-adjust: none; color: #221924; font-family: sofia, arial, sans-serif; mso-line-height-rule: exactly; line-height: 120%;">--}}
+{{--        <strong>*Free Shipping:</strong> Some exclusions apply.<br>--}}
+{{--        Read more about our <a--}}
+{{--            href="https://www.wayfair.com/customerservice/shipping_info.php?csnid=A03D88B4-7762-4D5E-90B5-41E0B5542F30&libra_c=&libra_d=&libra_g=%23ordership&mmid=1980829224&refid=TEM_WF_274"--}}
+{{--            style="text-decoration: none; color: #01768b;"><span--}}
+{{--                style="color: #01768b;">shipping policy.</span></a>--}}
+{{--    </td>--}}
+{{--</tr>--}}
+{{--<tr>--}}
+{{--    <td class="Footer-copy"--}}
+{{--        style="font-size: 11px; padding: 0 10px 10px; text-align: center; -webkit-text-size-adjust: none; color: #221924; font-family: sofia, arial, sans-serif; mso-line-height-rule: exactly; line-height: 120%;">--}}
+{{--        Product prices and availability are limited time and subject to change. Quoted--}}
+{{--        prices are in U.S. dollars and are exclusive of shipping and handling or sales--}}
+{{--        taxes, if applicable.--}}
+{{--    </td>--}}
+{{--</tr>--}}
 <tr>
     <td class="Footer-copy"
         style="font-size: 11px; padding: 0 10px 10px; text-align: center; -webkit-text-size-adjust: none; color: #221924; font-family: sofia, arial, sans-serif; mso-line-height-rule: exactly; line-height: 120%;">
-        <strong>*Free Shipping:</strong> Some exclusions apply.<br>
-        Read more about our <a
-            href="https://www.wayfair.com/customerservice/shipping_info.php?csnid=A03D88B4-7762-4D5E-90B5-41E0B5542F30&libra_c=&libra_d=&libra_g=%23ordership&mmid=1980829224&refid=TEM_WF_274"
-            style="text-decoration: none; color: #01768b;"><span
-                style="color: #01768b;">shipping policy.</span></a>
-    </td>
-</tr>
-<tr>
-    <td class="Footer-copy"
-        style="font-size: 11px; padding: 0 10px 10px; text-align: center; -webkit-text-size-adjust: none; color: #221924; font-family: sofia, arial, sans-serif; mso-line-height-rule: exactly; line-height: 120%;">
-        Product prices and availability are limited time and subject to change. Quoted
-        prices are in U.S. dollars and are exclusive of shipping and handling or sales
-        taxes, if applicable.
-    </td>
-</tr>
-<tr>
-    <td class="Footer-copy"
-        style="font-size: 11px; padding: 0 10px 10px; text-align: center; -webkit-text-size-adjust: none; color: #221924; font-family: sofia, arial, sans-serif; mso-line-height-rule: exactly; line-height: 120%;">
-        Wayfair Inc., 4 Copley Place, Floor 7, Boston, MA 02116
+        32/1, Sharifa Manzil (9th floor), Road-3, Shyamoli, Dhaka, Bangladesh.
     </td>
 </tr>
 <tr>

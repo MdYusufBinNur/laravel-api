@@ -30,10 +30,6 @@ class EloquentUnitRepository extends EloquentBaseRepository implements UnitRepos
             unset($searchCriteria['title']);
         }
 
-        if (isset($searchCriteria['id'])) {
-            $searchCriteria['id'] = implode(",", array_unique($searchCriteria['id']));
-        }
-
         return $searchCriteria;
     }
 

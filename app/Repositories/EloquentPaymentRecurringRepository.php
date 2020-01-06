@@ -4,7 +4,6 @@
 namespace App\Repositories;
 
 
-use App\DbModels\Payment;
 use App\Repositories\Contracts\PaymentRecurringRepository;
 use Illuminate\Support\Arr;
 

@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\DbModels\Payment;
 use App\DbModels\PaymentItem;
+use App\DbModels\PaymentRecurring;
 use App\Events\Payment\PaymentCreatedEvent;
 use App\Events\Payment\PaymentUpdatedEvent;
 use App\Repositories\Contracts\PaymentItemRepository;
@@ -69,8 +70,8 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
      */
     private function setRecurringPayment($payment, $data)
     {
+        $paymentRecurringRepository = app(PaymentRecurringRepository::class);
         if (!empty($data['isRecurring'])) {
-            $paymentRecurringRepository = app(PaymentRecurringRepository::class);
             $paymentRecurringRepository->setRecurringPayment([
                 'propertyId'=> $payment->propertyId,
                 'paymentId' => $payment->id,
@@ -78,6 +79,11 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
                 'expireDate' => $data['expireDate'],
                 'period' => $data['period']
             ]);
+        } else {
+            $paymentRecurring = $payment->paymentRecurring;
+            if ($payment->paymentRecurring instanceof PaymentRecurring) {
+                $paymentRecurringRepository->delete($paymentRecurring);
+            }
         }
     }
 

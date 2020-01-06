@@ -3,7 +3,6 @@
 namespace App\Listeners\PaymentItem;
 
 use App\DbModels\Payment;
-use App\DbModels\PaymentItem;
 use App\DbModels\UserNotificationType;
 use App\Events\PaymentItem\PaymentItemUpdatedEvent;
 use App\Listeners\CommonListenerFeatures;
@@ -61,7 +60,7 @@ class HandlePaymentItemUpdatedEvent implements ShouldQueue
             } else {
                 $updatedData = ['status' => Payment::STATUS_PARTIALLY_DONE];
             }
-            
+
             $this->paymentRepository->updatePayment($payment, $updatedData);
 
             //log event

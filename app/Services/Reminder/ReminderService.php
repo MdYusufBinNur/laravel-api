@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Mail;
 class ReminderService
 {
     /**
-     * base constructor method
+     * base constructor
+     * 
      * @param Reminder $reminder
      */
     public static function sendReminderByResourceType(Reminder $reminder)

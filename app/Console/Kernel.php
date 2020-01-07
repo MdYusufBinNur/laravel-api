@@ -42,7 +42,7 @@ class Kernel extends ConsoleKernel
         // equipment-maintenance-notification
         $schedule->command('pms:equipment-maintenance-notification')
             ->daily()
-            ->name("Scheduled Job - Reminder for Equipment Maintenance!")
+            ->name("Scheduled Job - reminder for Equipment Maintenance!")
             ->emailOutputTo('dev@reformedtech.org')
             ->emailOutputOnFailure('dev@reformedtech.org');
 

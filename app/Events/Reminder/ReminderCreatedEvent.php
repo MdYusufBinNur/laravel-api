@@ -2,35 +2,32 @@
 
 namespace App\Events\Reminder;
 
-use Illuminate\Broadcasting\Channel;
+use App\DbModels\Reminder;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class ReminderCreatedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use SerializesModels;
+
+    /**
+     * @var Reminder
+     */
+    public $reminder;
+
+    /**
+     * @var array
+     */
+    public $options;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Reminder $reminder
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(Reminder $reminder, array $options = [])
     {
-        //
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
-    {
-        return new PrivateChannel('channel-name');
+        $this->reminder = $reminder;
+        $this->options = $options;
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 
+use App\DbModels\Reminder;
+
 class ReminderResource extends Resource
 {
     /**
@@ -24,6 +26,10 @@ class ReminderResource extends Resource
             'resourceId' => $this->resourceId,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+//            'details' => $this->when($this->needToInclude($request, 'reminder.details'), function () {
+//                return  $this->getResourceByType();
+//            }),
+//            'details' => $this->getResourceByType()
         ];
     }
 }

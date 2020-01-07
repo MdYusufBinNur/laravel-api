@@ -34,7 +34,7 @@ class SendExpiredNotification extends Mailable
      */
     public function build()
     {
-        return $this->subject("Equipment Expiration Reminder!")->view('equipment.expiration.index')
+        return $this->subject("Equipment Expiration reminder!")->view('equipment.expiration.index')
             ->with([
                 'equipment' => $this->equipment,
                 'property' => $this->equipment->property

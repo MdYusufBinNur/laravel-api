@@ -14,8 +14,27 @@ class CreateRemindersTable extends Migration
     public function up()
     {
         Schema::create('reminders', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->integer('createdByUserId')->unsigned();
+            $table->unsignedInteger('propertyId')->nullable();
+            $table->string('toUserIds')->nullable();
+            $table->string('toUnitIds')->nullable();
+            $table->string('reminderType');
+            $table->string('resourceType');
+            $table->integer('resourceId');
             $table->timestamps();
+            $table->softDeletes();
+
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('propertyId')
+                ->references('id')->on('properties')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

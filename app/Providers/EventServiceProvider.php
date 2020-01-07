@@ -127,6 +127,7 @@ use App\Events\PropertyLinkCategory\PropertyLinkCategoryCreatedEvent;
 use App\Events\PropertyLinkCategory\PropertyLinkCategoryUpdatedEvent;
 use App\Events\PropertySocialMedia\PropertySocialMediaCreatedEvent;
 use App\Events\PropertySocialMedia\PropertySocialMediaUpdatedEvent;
+use App\Events\Reminder\ReminderCreatedEvent;
 use App\Events\ResidentAccessRequest\ResidentAccessRequestCreatedEvent;
 use App\Events\ResidentAccessRequest\ResidentAccessRequestUpdatedEvent;
 use App\Events\Resident\ResidentCreatedEvent;
@@ -302,6 +303,7 @@ use App\Listeners\PropertyLinkCategory\HandlePropertyLinkCategoryCreatedEvent;
 use App\Listeners\PropertyLinkCategory\HandlePropertyLinkCategoryUpdatedEvent;
 use App\Listeners\PropertySocialMedia\HandlePropertySocialMediaCreatedEvent;
 use App\Listeners\PropertySocialMedia\HandlePropertySocialMediaUpdatedEvent;
+use App\Listeners\Reminder\HandleReminderCreatedEvent;
 use App\Listeners\ResidentAccessRequest\HandleResidentAccessRequestCreatedEvent;
 use App\Listeners\ResidentAccessRequest\HandleResidentAccessRequestUpdatedEvent;
 use App\Listeners\Resident\HandleResidentCreatedEvent;
@@ -798,6 +800,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         RoleUpdatedEvent::class => [
             HandleRoleUpdatedEvent::class
+        ],
+
+        ReminderCreatedEvent::class => [
+            HandleReminderCreatedEvent::class
         ],
 
         ServiceRequestCreatedEvent::class => [

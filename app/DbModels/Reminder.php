@@ -3,9 +3,7 @@
 namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
-use App\Http\Resources\PaymentItemResourceCollection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Reminder extends Model

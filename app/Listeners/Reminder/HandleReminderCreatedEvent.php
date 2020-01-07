@@ -6,7 +6,6 @@ use App\DbModels\Reminder;
 use App\DbModels\UserNotificationType;
 use App\Events\Reminder\ReminderCreatedEvent;
 use App\Listeners\CommonListenerFeatures;
-use App\Mail\Payment\SendInvoice;
 use App\Mail\Reminder\SendReminder;
 use App\Repositories\Contracts\ReminderRepository;
 use App\Repositories\Contracts\UserNotificationRepository;

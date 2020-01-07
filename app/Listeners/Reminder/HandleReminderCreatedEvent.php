@@ -3,10 +3,13 @@
 namespace App\Listeners\Reminder;
 
 use App\DbModels\Reminder;
+use App\DbModels\UserNotificationType;
 use App\Events\Reminder\ReminderCreatedEvent;
 use App\Listeners\CommonListenerFeatures;
 use App\Mail\Payment\SendInvoice;
+use App\Mail\Reminder\SendReminder;
 use App\Repositories\Contracts\ReminderRepository;
+use App\Repositories\Contracts\UserNotificationRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
@@ -46,15 +49,16 @@ class HandleReminderCreatedEvent implements ShouldQueue
             foreach ($residents as $resident) {
                 $user = $resident->user;
                 $this->savePaymentNotification($reminder->createdByUserId, $user->id, $reminder->id);
-                if ($reminder->email == Reminder::REMINDER_TYPE_EMAIL){
-                    Mail::to($resident->contactEmail)->send(new SendInvoice($paymentItem, $user->name));
+                if ($reminder->reminderType == Reminder::REMINDER_TYPE_EMAIL){
+                    Mail::to($resident->contactEmail)->send(new SendReminder($reminder, $user, $$details));
                 }
             }
         } else {
             $user = $details->user;
-            dd($user);
-            $this->savePaymentNotification($payment->createdByUserId, $user->id, $paymentItem->id);
-            Mail::to($user->email)->send(new SendInvoice($paymentItem, $user->name));
+            $this->savePaymentNotification($reminder->createdByUserId, $user->id, $reminder->id);
+            if ($reminder->reminderType == Reminder::REMINDER_TYPE_EMAIL) {
+                Mail::to($user->email)->send(new SendReminder($reminder, $user, $details));
+            }
         }
     }
 
@@ -72,9 +76,9 @@ class HandleReminderCreatedEvent implements ShouldQueue
         $userNotificationRepository->save([
             'fromUserId' => $fromUserId,
             'toUserId' => $toUserId,
-            'userNotificationTypeId' => UserNotificationType::PAYMENT_ITEM_CREATED['id'],
+            'userNotificationTypeId' => UserNotificationType::REMINDER['id'],
             'resourceId' => $resourceId,
-            'message' => "You have a new payment notification.",
+            'message' => "You have a new reminder.",
         ]);
     }
 }

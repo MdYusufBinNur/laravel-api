@@ -27,6 +27,15 @@ class Reminder extends Model
         'createdByUserId', 'propertyId', 'toUserIds', 'toUnitIds', 'reminderType', 'resourceType', 'resourceId',
     ];
 
+    /**
+     * get the property
+     *
+     * @return HasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(Property::class, 'id', 'propertyId');
+    }
 
     /**
      * get the details based on type

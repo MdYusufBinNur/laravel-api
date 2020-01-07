@@ -34,7 +34,7 @@ class SendMaintenanceNotification extends Mailable
      */
     public function build()
     {
-        return $this->subject("Maintenance Reminder Notification!")->view('equipment.maintenance.index')
+        return $this->subject("Maintenance ReminderService Notification!")->view('equipment.maintenance.index')
             ->with([
                 'equipment' => $this->equipment,
                 'property' => $this->equipment->property

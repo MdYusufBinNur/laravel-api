@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Mail\Reminder;
+namespace App\Mail\Payment;
 
 use App\DbModels\Reminder;
 use App\DbModels\User;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SendReminder extends Mailable
+class SendPaymentItemReminder extends Mailable
 {
     use SerializesModels;
     /**
@@ -47,8 +47,8 @@ class SendReminder extends Mailable
         $property = $this->reminder->property;
         $user = $this->user;
         $details = $this->details;
-
-        return $this->subject("Reminder from {$property->title} community")->view('reminder.index')
-            ->with(['reminder' => $reminder, 'property' => $property, 'user' => $user, 'details' => $details]);
+        $payment = $details->payment;
+        return $this->subject("Reminder from {$property->title} community")->view('payment.send-payment-item-reminder.index')
+            ->with(['reminder' => $reminder, 'property' => $property, 'user' => $user, 'details' => $details, 'payment' => $payment]);
     }
 }

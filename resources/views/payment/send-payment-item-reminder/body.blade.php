@@ -14,6 +14,32 @@
                         Reminder!
                         <br>
                         <br>
+                        You have to paid your due payment before {{$payment->dueDate}}.
+                        In the below we added your payment details. please check it.
+                        <br>
+                        <br>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table cellpadding="0" cellspacing="0"
+                   style="margin: 0 auto;" width="60%">
+                <tbody>
+                <tr>
+                    <td style="font-size:18px;color:#ffffff;">
+                        <br>
+                        Reminder Details: <br>
+                        <hr>
+                        Amount: {{$payment->amount}} <br>
+                        Note: {{$payment->note}} <br>
+                        Due Date: {{$payment->dueDate}} <br>
+                        Due Days: {{$payment->dueDays}} <br>
+                        Status: {{$payment->status}} <br>
+                        <hr>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
                     </td>
                 </tr>
                 </tbody>

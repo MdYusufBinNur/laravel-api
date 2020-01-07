@@ -38,7 +38,7 @@ class EloquentReminderRepository extends EloquentBaseRepository implements Remin
     }
 
     /**
-     * Reminder has different types,
+     * ReminderService has different types,
      * get the repository by types
      *
      * @param $type

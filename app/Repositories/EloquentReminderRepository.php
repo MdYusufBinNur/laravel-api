@@ -38,13 +38,13 @@ class EloquentReminderRepository extends EloquentBaseRepository implements Remin
     }
 
     /**
-     * post has different types,
-     * get the relationship class by types
+     * Reminder has different types,
+     * get the repository by types
      *
      * @param $type
      * @return string
      */
-    public function getRepositoryNameByType($type)
+    private function getRepositoryNameByType($type)
     {
         $repositoryName = '';
         switch ($type) {

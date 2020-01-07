@@ -15,7 +15,7 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'propertyId' => 'exists:properties,id',
+            'propertyId' => 'required|exists:properties,id',
             'category' => 'required|max:255',
             'feedbackText' => 'required|max:65535',
             'status' => 'boolean',

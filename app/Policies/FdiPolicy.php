@@ -71,7 +71,7 @@ class FdiPolicy
             return $currentUser->isResidentOfTheUnits($unitId);
         }
 
-        return true;
+        return false;
     }
 
     /**

@@ -9,6 +9,7 @@ use App\Http\Requests\Feedback\UpdateRequest;
 use App\Http\Resources\FeedbackResource;
 use App\Http\Resources\FeedbackResourceCollection;
 use App\Repositories\Contracts\FeedbackRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class FeedbackController extends Controller
 {
@@ -17,6 +18,11 @@ class FeedbackController extends Controller
      */
     protected $feedbackRepository;
 
+    /**
+     * FeedbackController constructor.
+     *
+     * @param FeedbackRepository $feedbackRepository
+     */
     public function __construct(FeedbackRepository $feedbackRepository)
     {
         $this->feedbackRepository = $feedbackRepository;
@@ -27,9 +33,12 @@ class FeedbackController extends Controller
      *
      * @param IndexRequest $request
      * @return FeedbackResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', Feedback::class);
+
         $feedbacks = $this->feedbackRepository->findBy($request->all());
 
         return new FeedbackResourceCollection($feedbacks);
@@ -40,9 +49,12 @@ class FeedbackController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return FeedbackResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [Feedback::class, $request->get('propertyId')]);
+
         $feedback = $this->feedbackRepository->save($request->all());
 
         return new FeedbackResource($feedback);
@@ -53,9 +65,12 @@ class FeedbackController extends Controller
      *
      * @param Feedback $feedback
      * @return FeedbackResource
+     * @throws AuthorizationException
      */
     public function show(Feedback $feedback)
     {
+        $this->authorize('show', $feedback);
+
         return new FeedbackResource($feedback);
     }
 
@@ -65,9 +80,12 @@ class FeedbackController extends Controller
      * @param UpdateRequest $request
      * @param Feedback $feedback
      * @return FeedbackResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, Feedback $feedback)
     {
+        $this->authorize('update', $feedback);
+
         $feedback = $this->feedbackRepository->update($feedback, $request->all());
 
         return new FeedbackResource($feedback);
@@ -78,9 +96,12 @@ class FeedbackController extends Controller
      *
      * @param Feedback $feedback
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(Feedback $feedback)
     {
+        $this->authorize('destroy', $feedback);
+
         $this->feedbackRepository->delete($feedback);
 
         return response()->json(null, 204);

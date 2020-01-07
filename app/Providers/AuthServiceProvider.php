@@ -14,6 +14,7 @@ use App\DbModels\EventSignup;
 use App\DbModels\Fdi;
 use App\DbModels\FdiGuestType;
 use App\DbModels\FdiLog;
+use App\DbModels\Feedback;
 use App\DbModels\InventoryCategory;
 use App\DbModels\InventoryItem;
 use App\DbModels\InventoryItemLog;
@@ -106,6 +107,7 @@ use App\Policies\EventSignupPolicy;
 use App\Policies\FdiGuestTypePolicy;
 use App\Policies\FdiLogPolicy;
 use App\Policies\FdiPolicy;
+use App\Policies\FeedbackPolicy;
 use App\Policies\InventoryCategoryPolicy;
 use App\Policies\InventoryItemLogPolicy;
 use App\Policies\InventoryItemPolicy;
@@ -211,6 +213,7 @@ class AuthServiceProvider extends ServiceProvider
         FdiGuestType::class => FdiGuestTypePolicy::class,
         FdiLog::class => FdiLogPolicy::class,
         Fdi::class => FdiPolicy::class,
+        Feedback::class => FeedbackPolicy::class,
         InventoryCategory::class => InventoryCategoryPolicy::class,
         InventoryItemLog::class => InventoryItemLogPolicy::class,
         InventoryItem::class => InventoryItemPolicy::class,

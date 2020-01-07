@@ -15,7 +15,7 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
-            'propertyId' => 'required',
+            'propertyId' => 'required|numeric',
             'linkCategoryId' => 'list:numeric',
             'isFeatured' => 'boolean',
         ];

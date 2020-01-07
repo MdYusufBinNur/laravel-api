@@ -23,7 +23,7 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = ['payment.createdByUser' => 'createdByUser', 'payment.property' => 'property',  'payment.paymentPaymentMethods' => 'paymentPaymentMethods', 'payment.paymentType' => 'paymentType', 'payment.paymentItems' => 'paymentItems','payment.paymentRecurring' => 'paymentRecurring', 'pp.createdByUser' => 'createdByUser', 'ppm.paymentMethod' => 'paymentPaymentMethods.paymentMethod'];
+        $searchCriteria['eagerLoad'] = ['payment.createdByUser' => 'createdByUser', 'payment.property' => 'property', 'payment.paymentPaymentMethods' => 'paymentPaymentMethods', 'payment.paymentType' => 'paymentType', 'payment.paymentItems' => 'paymentItems', 'payment.paymentRecurring' => 'paymentRecurring', 'pp.createdByUser' => 'createdByUser', 'ppm.paymentMethod' => 'paymentPaymentMethods.paymentMethod'];
 
         return parent::findBy($searchCriteria, $withTrashed);
     }
@@ -71,19 +71,22 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
     private function setRecurringPayment($payment, $data)
     {
         $paymentRecurringRepository = app(PaymentRecurringRepository::class);
-        if (!empty($data['isRecurring'])) {
-            $paymentRecurringRepository->setRecurringPayment([
-                'propertyId'=> $payment->propertyId,
-                'paymentId' => $payment->id,
-                'activationDate' => $payment->activationDate,
-                'expireDate' => $data['expireDate'],
-                'period' => $data['period']
-            ]);
-        } else {
-            $paymentRecurring = $payment->paymentRecurring;
-            if ($payment->paymentRecurring instanceof PaymentRecurring) {
-                $paymentRecurringRepository->delete($paymentRecurring);
+        if (isset($data['isRecurring'])) {
+            if ($data['isRecurring'] == 1) {
+                $paymentRecurringRepository->setRecurringPayment([
+                    'propertyId' => $payment->propertyId,
+                    'paymentId' => $payment->id,
+                    'activationDate' => $payment->activationDate,
+                    'expireDate' => $data['expireDate'],
+                    'period' => $data['period']
+                ]);
+            } else if ($data['isRecurring'] == 0) {
+                $paymentRecurring = $payment->paymentRecurring;
+                if ($payment->paymentRecurring instanceof PaymentRecurring) {
+                    $paymentRecurringRepository->delete($paymentRecurring);
+                }
             }
+
         }
     }
 

@@ -73,6 +73,7 @@ use App\DbModels\PropertyImage;
 use App\DbModels\PropertyLink;
 use App\DbModels\PropertyLinkCategory;
 use App\DbModels\PropertySocialMedia;
+use App\DbModels\Reminder;
 use App\DbModels\Resident;
 use App\DbModels\ResidentAccessRequest;
 use App\DbModels\ResidentArchive;
@@ -169,6 +170,7 @@ use App\Repositories\Contracts\PropertyImageRepository;
 use App\Repositories\Contracts\PropertyLinkCategoryRepository;
 use App\Repositories\Contracts\PropertyLinkRepository;
 use App\Repositories\Contracts\PropertySocialMediaRepository;
+use App\Repositories\Contracts\ReminderRepository;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use App\Repositories\Contracts\ResidentArchiveRepository;
 use App\Repositories\Contracts\ResidentEmergencyRepository;
@@ -264,6 +266,7 @@ use App\Repositories\EloquentPropertyImageRepository;
 use App\Repositories\EloquentPropertyLinkCategoryRepository;
 use App\Repositories\EloquentPropertyLinkRepository;
 use App\Repositories\EloquentPropertySocialMediaRepository;
+use App\Repositories\EloquentReminderRepository;
 use App\Repositories\EloquentResidentAccessRequestRepository;
 use App\Repositories\EloquentResidentArchiveRepository;
 use App\Repositories\EloquentResidentEmergencyRepository;
@@ -813,6 +816,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind PaymentPaymentMethodRepository
         $this->app->bind(PaymentPaymentMethodRepository::class, function() {
             return new EloquentPaymentPaymentMethodRepository(new PaymentPaymentMethod());
+        });
+
+        // bind ReminderRepository
+        $this->app->bind(ReminderRepository::class, function() {
+            return new EloquentReminderRepository(new Reminder());
         });
     }
 }

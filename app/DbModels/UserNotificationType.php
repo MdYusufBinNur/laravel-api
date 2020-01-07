@@ -26,4 +26,5 @@ class UserNotificationType extends Model
     const POST_COMMENT = ['id' => 13, 'type' => 'post_comment'];
     const PAYMENT_ITEM_CREATED = ['id' => 14, 'type' => 'payment_item_created'];
     const PAYMENT_ITEM_UPDATED = ['id' => 15, 'type' => 'payment_item_updated'];
+    const REMINDER = ['id' => 16, 'type' => 'reminder'];
 }

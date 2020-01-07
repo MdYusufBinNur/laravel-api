@@ -10,11 +10,10 @@
                         Hey {{ $user->name }}
                         <br>
                         <br>
-                        <br>
                         Reminder!
                         <br>
                         <br>
-                        You have to paid your due payment before {{$payment->dueDate}}.
+                        You have to pay your due payment before {{$payment->dueDate}}.
                         In the below we added your payment details. please check it.
                         <br>
                         <br>
@@ -37,9 +36,6 @@
                         Status: {{$payment->status}} <br>
                         <hr>
                         <br>
-                        <br>
-                        <br>
-                        <br>
                     </td>
                 </tr>
                 </tbody>
@@ -55,6 +51,7 @@
                         <br>
                         <br>
                         {{ $property->address }}
+                        <br>
                         <br>
                     </td>
                 </tr>

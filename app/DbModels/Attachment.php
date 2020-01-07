@@ -29,6 +29,7 @@ class Attachment extends Model
     const ATTACHMENT_TYPE_MESSAGE_POST = 'message-post';
     const ATTACHMENT_TYPE_EQUIPMENT = 'equipment';
     const ATTACHMENT_TYPE_TEMP = 'temp';
+    const ATTACHMENT_TYPE_FEEDBACK = 'feedback';
 
     /**
      * The database table used by the model.
@@ -122,6 +123,9 @@ class Attachment extends Model
                 break;
             case self::ATTACHMENT_TYPE_TEMP:
                 $directoryName = 'temp';
+                break;
+            case self::ATTACHMENT_TYPE_FEEDBACK:
+                $directoryName = 'feedback';
                 break;
         }
 

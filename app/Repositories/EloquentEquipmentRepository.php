@@ -71,6 +71,7 @@ class EloquentEquipmentRepository extends EloquentBaseRepository implements Equi
             unset($searchCriteria['startDate']);
         }
 
+        $searchCriteria['eagerLoad'] = ['equipment.createdByUser' => 'createdByUser', 'equipment.attachments' => 'attachments'];
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
@@ -80,8 +81,6 @@ class EloquentEquipmentRepository extends EloquentBaseRepository implements Equi
         $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
         $queryBuilder->orderBy($orderBy, $orderDirection);
         return $queryBuilder->paginate($limit);
-
-        return parent::findBy($searchCriteria, $withTrashed);
     }
 
 }

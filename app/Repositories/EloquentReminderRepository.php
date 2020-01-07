@@ -25,7 +25,7 @@ class EloquentReminderRepository extends EloquentBaseRepository implements Remin
         if ($data['resourceType'] === Reminder::RESOURCE_TYPE_PAYMENT_ITEM){
             $data['propertyId'] = isset($data['propertyId']) ?  $data['propertyId'] : $getData->propertyId;
             $data['toUserIds'] = isset($data['toUserIds']) ?  $data['toUserIds'] : $getData->userId;
-            $data['toUserIds'] = isset($data['toUserIds']) ?  $data['toUserIds'] : $getData->unitId;
+            $data['toUnitIds'] = isset($data['toUnitIds']) ?  $data['toUnitIds'] : $getData->unitId;
         }
 
         $reminder = parent::save($data);

@@ -114,7 +114,9 @@ class PropertyLinkPolicy
      */
     public function destroy(User $currentUser, PropertyLink $propertyLink)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyLink->propertyId)) {
+        $propertyId = $propertyLink->propertyId;
+        
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -122,7 +124,7 @@ class PropertyLinkPolicy
             return true;
         }
 
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyLink->propertyId)) {
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 

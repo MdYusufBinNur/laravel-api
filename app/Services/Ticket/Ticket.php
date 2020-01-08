@@ -26,10 +26,9 @@ interface Ticket
      * find a ticket resource by id
      *
      * @param mixed $id
-     * @param array $options
      * @return \ArrayAccess|null
      */
-    public function show($id, array $options = []);
+    public function show($id);
 
     /**
      * update a ticket resource

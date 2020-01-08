@@ -28,9 +28,9 @@ class FreshDesk extends Base implements Ticket
     /**
      * @inheritDoc
      */
-    public function show($id, array $options = [])
+    public function show($id)
     {
-        return $this->requestToAPI('GET', '/tickets/'.$id, $options);
+        return $this->requestToAPI('GET', '/tickets/'.$id);
     }
 
     /**

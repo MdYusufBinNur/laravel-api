@@ -20,7 +20,7 @@ class FreshDesk extends Base implements Ticket
     /**
      * @inheritDoc
      */
-    public function store(array $options = [])
+    public function store(array $data = [])
     {
         $ticket_payload = [
             'email' => 'test@example.com',

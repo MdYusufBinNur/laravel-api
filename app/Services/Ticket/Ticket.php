@@ -17,10 +17,10 @@ interface Ticket
     /**
      * save a ticket resource
      *
-     * @param array $options
+     * @param array $data
      * @return \ArrayAccess
      */
-    public function store(array $options = []);
+    public function store(array $data = []);
 
     /**
      * find a ticket resource by id

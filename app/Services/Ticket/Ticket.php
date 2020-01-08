@@ -37,7 +37,7 @@ interface Ticket
      * @param array $data
      * @return \ArrayAccess
      */
-    public function update(\ArrayAccess $model, array $data):  \ArrayAccess;
+    public function update(\ArrayAccess $model, array $data);
 
     /**
      * delete a ticket resource by id

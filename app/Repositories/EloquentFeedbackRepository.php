@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 
+use App\Events\Feedback\FeedbackCreatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\FeedbackRepository;
 use Illuminate\Support\Facades\DB;
@@ -36,6 +37,8 @@ class EloquentFeedbackRepository extends EloquentBaseRepository implements Feedb
         }
 
         DB::commit();
+
+        event(new FeedbackCreatedEvent($feedback, $this->generateEventOptionsForModel()));
 
         return $feedback;
     }

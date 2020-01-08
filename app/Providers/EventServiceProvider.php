@@ -27,6 +27,7 @@ use App\Events\FdiGuestType\FdiGuestTypeCreatedEvent;
 use App\Events\FdiGuestType\FdiGuestTypeUpdatedEvent;
 use App\Events\FdiLog\FdiLogCreatedEvent;
 use App\Events\FdiLog\FdiLogUpdatedEvent;
+use App\Events\Feedback\FeedbackCreatedEvent;
 use App\Events\Income\IncomeCreatedEvent;
 use App\Events\Income\IncomeUpdatedEvent;
 use App\Events\IncomeCategory\IncomeCategoryCreatedEvent;
@@ -205,6 +206,7 @@ use App\Listeners\FdiGuestType\HandleFdiGuestTypeCreatedEvent;
 use App\Listeners\FdiGuestType\HandleFdiGuestTypeUpdatedEvent;
 use App\Listeners\FdiLog\HandleFdiLogCreatedEvent;
 use App\Listeners\FdiLog\HandleFdiLogUpdatedEvent;
+use App\Listeners\Feedback\HandleFeedbackCreatedEvent;
 use App\Listeners\Income\HandleIncomeCreatedEvent;
 use App\Listeners\Income\HandleIncomeUpdatedEvent;
 use App\Listeners\IncomeCategory\HandleIncomeCategoryCreatedEvent;
@@ -440,6 +442,9 @@ class EventServiceProvider extends ServiceProvider
             HandleExpenseCategoryUpdatedEvent::class
         ],
 
+        FeedbackCreatedEvent::class => [
+            HandleFeedbackCreatedEvent::class
+        ],
 
         FdiCreatedEvent::class => [
             HandleFdiCreatedEvent::class

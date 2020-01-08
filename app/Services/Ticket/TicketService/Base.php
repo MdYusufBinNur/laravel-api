@@ -37,7 +37,6 @@ abstract class Base
     public function requestToAPI(string $method, $uri, array $data = [])
     {
         $url = env('FRESH_DESK_DOMAIN') . $uri . '';
-
         try {
             self::setClient();
             $response = self::$httpClient->request($method, $url, [
@@ -45,7 +44,6 @@ abstract class Base
                 'auth' => [ env('FRESH_DESK_API_KEY'), env('FRESH_DESK_PASSWORD')]
             ]);
             return json_decode($response->getBody()->getContents());
-
         } catch (RequestException $e) {
             return json_decode($e->getResponse()->getBody()->getContents());
         }

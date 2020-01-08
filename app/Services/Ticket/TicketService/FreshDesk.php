@@ -22,15 +22,7 @@ class FreshDesk extends Base implements Ticket
      */
     public function store(array $data = [])
     {
-        $ticket_payload = [
-            'email' => 'test@example.com',
-            'subject' => 'test',
-            'description' => 'testing description content',
-            'priority' => 2,
-            'status' => 2,
-//            'attachments[]' =>  curl_file_create("data/x.png", "image/png", "x.png")
-        ];
-        return $this->requestToAPI('POST', '/tickets',  $ticket_payload);
+        return $this->requestToAPI('POST', '/tickets',  $data);
     }
 
     /**
@@ -46,15 +38,14 @@ class FreshDesk extends Base implements Ticket
      */
     public function update($id, array $data)
     {
-        $ticket_payload = [
+        $data = [
             'email' => 'test@example.com',
             'subject' => 'test',
             'description' => 'testing description content',
             'priority' => 2,
             'status' => 2,
-//            'attachments[]' =>  curl_file_create("data/x.png", "image/png", "x.png")
         ];
-        return $this->requestToAPI('PUT', '/tickets/'.$id,  $ticket_payload);
+        return $this->requestToAPI('PUT', '/tickets/'.$id,  $data);
     }
 
     /**

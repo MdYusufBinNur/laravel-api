@@ -13,7 +13,7 @@ class FreshDesk extends Base implements Ticket
      */
     public function index(array $options = [])
     {
-
+        return $this->requestToAPI('GET', '/tickets', $options);
     }
 
 
@@ -22,29 +22,47 @@ class FreshDesk extends Base implements Ticket
      */
     public function store(array $options = [])
     {
-
+        $ticket_payload = [
+            'email' => 'test@example.com',
+            'subject' => 'test',
+            'description' => 'testing description content',
+            'priority' => 2,
+            'status' => 2,
+//            'attachments[]' =>  curl_file_create("data/x.png", "image/png", "x.png")
+        ];
+        return $this->requestToAPI('POST', '/tickets',  $ticket_payload);
     }
 
     /**
      * @inheritDoc
      */
-    public function show($id)
+    public function show($id, array $options = [])
     {
-
+        return $this->requestToAPI('GET', '/tickets/'.$id, $options);
     }
 
     /**
      * @inheritDoc
      */
-    public function update(\ArrayAccess $model, array $data){
-
+    public function update($id, array $data)
+    {
+        $ticket_payload = [
+            'email' => 'test@example.com',
+            'subject' => 'test',
+            'description' => 'testing description content',
+            'priority' => 2,
+            'status' => 2,
+//            'attachments[]' =>  curl_file_create("data/x.png", "image/png", "x.png")
+        ];
+        return $this->requestToAPI('PUT', '/tickets/'.$id,  $ticket_payload);
     }
 
     /**
      * @inheritDoc
      */
-    public function delete($id){
-
+    public function delete($id)
+    {
+        return $this->requestToAPI('DELETE', '/tickets'.$id);
     }
 
 }

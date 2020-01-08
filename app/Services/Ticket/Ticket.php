@@ -7,37 +7,43 @@ namespace App\Services\Ticket;
 interface Ticket
 {
     /**
-     * send a text to a numbers
-     *
-     * @param mixed $toMobileNumber
-     * @param string $text
-     * @param array $options
-     * @return mixed
-     */
-    public function send($toMobileNumber, string $text, array $options = []);
-
-    /**
-     * send a text to a multiple numbers
-     *
-     * @param array $toMobileNumbers
-     * @param string $text
-     * @param array $options
-     * @return mixed
-     */
-    public function bulkSend(array $toMobileNumbers, string $text, array $options = []);
-
-    /**
-     * get all the tickets
+     * get all the tickets resources
      * @param array $options
      * @return mixed
      */
     public function index(array $options = []);
 
+
+    /**
+     * save a ticket resource
+     *
+     * @param array $options
+     * @return \ArrayAccess
+     */
     public function store(array $options = []);
 
-    public function show();
+    /**
+     * find a ticket resource by id
+     *
+     * @param mixed $id
+     * @return \ArrayAccess|null
+     */
+    public function show($id);
 
-    public function update();
+    /**
+     * update a ticket resource
+     *
+     * @param \ArrayAccess $model
+     * @param array $data
+     * @return \ArrayAccess
+     */
+    public function update(\ArrayAccess $model, array $data):  \ArrayAccess;
 
-    public function delete();
+    /**
+     * delete a ticket resource by id
+     *
+     * @param $id
+     * @return bool
+     */
+    public function delete($id);
 }

@@ -41,8 +41,7 @@ class HandleReminderCreatedEvent implements ShouldQueue
     {
         $reminder = $event->reminder;
         $eventOptions = $event->options;
-        $details = $reminder->detailByType;
 
-        ReminderService::sendReminderByResourceType($reminder);
+        ReminderService::sendReminderByResourceType($reminder,$eventOptions);
     }
 }

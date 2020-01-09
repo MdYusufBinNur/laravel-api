@@ -5,6 +5,7 @@ namespace App\DbModels;
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Feedback extends Model
 {
@@ -35,12 +36,22 @@ class Feedback extends Model
     ];
 
     /**
+     * get feedback property
+     *
+     * @return HasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(Property::class, 'id', 'propertyId');
+    }
+
+    /**
      * get user's profile picture
      *
      * @return HasMany
      */
     public function attachments()
     {
-        return $this->hasMany(Attachment::class, 'resourceId')->where('type', Attachment::ATTACHMENT_TYPE_FEEDBACK);
+        return $this->hasMany(Attachment::class, 'resourceId', 'id')->where('type', Attachment::ATTACHMENT_TYPE_FEEDBACK);
     }
 }

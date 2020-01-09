@@ -4,6 +4,8 @@
 namespace App\Repositories;
 
 
+use App\Events\Feedback\FeedbackCreatedEvent;
+use App\Events\Feedback\FeedbackDeletedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\FeedbackRepository;
 use Illuminate\Support\Facades\DB;
@@ -31,12 +33,24 @@ class EloquentFeedbackRepository extends EloquentBaseRepository implements Feedb
         if (isset($data['attachmentIds'])) {
             $attachmentRepository = app(AttachmentRepository::class);
             $attachmentRepository->updateResourceIds($data['attachmentIds'], $feedback->id);
-
             unset($data['attachmentIds']);
         }
 
+        unset($data['attachmentIds']);
         DB::commit();
 
+        event(new FeedbackCreatedEvent($feedback, $this->generateEventOptionsForModel()));
+
         return $feedback;
+    }
+
+    public function delete(\ArrayAccess $model): bool
+    {
+        $isDeleted = parent::delete($model);
+
+        // TODO need to delete from freshdesk by feedbackId
+        // event(new FeedbackDeletedEvent($model,$this->generateEventOptionsForModel()));
+
+        return $isDeleted;
     }
 }

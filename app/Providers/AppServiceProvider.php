@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Services\SMS\SMS;
 use App\Services\SMS\SMSMicroService\SMSMicroService;
+use App\Services\Ticket\Ticket;
+use App\Services\Ticket\TicketService\FreshDesk;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,6 +24,11 @@ class AppServiceProvider extends ServiceProvider
         // bind SMS
         $this->app->bind(SMS::class, function() {
             return new SMSMicroService();
+        });
+
+        // bind Ticket
+        $this->app->bind(Ticket::class, function() {
+            return new FreshDesk();
         });
     }
 

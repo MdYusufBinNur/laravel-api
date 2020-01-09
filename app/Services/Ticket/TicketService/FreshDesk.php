@@ -38,13 +38,6 @@ class FreshDesk extends Base implements Ticket
      */
     public function update($id, array $data)
     {
-        $data = [
-            'email' => 'test@example.com',
-            'subject' => 'test',
-            'description' => 'testing description content',
-            'priority' => 2,
-            'status' => 2,
-        ];
         return $this->requestToAPI('PUT', '/tickets/'.$id,  $data);
     }
 
@@ -53,7 +46,7 @@ class FreshDesk extends Base implements Ticket
      */
     public function delete($id)
     {
-        return $this->requestToAPI('DELETE', '/tickets'.$id);
+        return $this->requestToAPI('DELETE', '/tickets/'.$id);
     }
 
 }

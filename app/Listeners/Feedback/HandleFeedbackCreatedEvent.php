@@ -3,9 +3,7 @@
 namespace App\Listeners\Feedback;
 
 use App\Events\Feedback\FeedbackCreatedEvent;
-use App\Http\Resources\AttachmentResource;
 use App\Listeners\CommonListenerFeatures;
-use App\Repositories\Contracts\AttachmentRepository;
 use App\Services\Ticket\TicketService\FreshDesk;
 use Illuminate\Contracts\Queue\ShouldQueue;
 

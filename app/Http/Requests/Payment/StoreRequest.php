@@ -20,7 +20,7 @@ class StoreRequest extends Request
             'paymentMethodIds' => ['required', new ListOfIds('payment_methods', 'id')], //todo rule for only this propertyId
             'paymentTypeId' => 'required|exists:payment_types,id',
             'amount' => 'required',
-            'note' => 'string',
+            'note' => '',
             'dueDate' => 'required_without:dueDays|date_format:Y-m-d',
             'dueDays' => 'required_without:dueDate|numeric',
             'isRecurring' => 'boolean',

@@ -29,13 +29,12 @@ class EloquentFeedbackRepository extends EloquentBaseRepository implements Feedb
 
         $feedback = parent::save($data);
 
-        if (isset($data['attachmentIds'])) {
-            $attachmentRepository = app(AttachmentRepository::class);
-            $attachmentRepository->updateResourceIds($data['attachmentIds'], $feedback->id);
-
-            unset($data['attachmentIds']);
-        }
-
+//        if (isset($data['attachmentIds'])) {
+//            $attachmentRepository = app(AttachmentRepository::class);
+//            $attachmentRepository->updateResourceIds($data['attachmentIds'], $feedback->id);
+//            unset($data['attachmentIds']);
+//        }
+        unset($data['attachmentIds']);
         DB::commit();
 
         event(new FeedbackCreatedEvent($feedback, $this->generateEventOptionsForModel()));

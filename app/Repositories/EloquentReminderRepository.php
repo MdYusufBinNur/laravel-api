@@ -32,7 +32,7 @@ class EloquentReminderRepository extends EloquentBaseRepository implements Remin
         DB::commit();
 
         // fire reminder created event
-        event(new ReminderCreatedEvent($reminder));
+        event(new ReminderCreatedEvent($reminder, $this->generateEventOptionsForModel()));
 
         return $reminder;
     }

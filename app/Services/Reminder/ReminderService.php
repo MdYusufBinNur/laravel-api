@@ -14,37 +14,41 @@ class ReminderService
 {
     /**
      * base constructor
-     * 
+     *
      * @param Reminder $reminder
+     * @param $eventOptions
      */
-    public static function sendReminderByResourceType(Reminder $reminder)
+    public static function sendReminderByResourceType(Reminder $reminder, $eventOptions)
     {
         switch ($reminder->resourceType) {
             case Reminder::RESOURCE_TYPE_PAYMENT_ITEM:
-                (new ReminderService)->sendReminderOfPaymentItem($reminder);
+                (new ReminderService)->sendReminderOfPaymentItem($reminder, $eventOptions);
                 break;
         }
     }
 
     // TODO need to add sending SMS to user feature
+
     /**
      * send reminder mail to user about payment item
      * @param Reminder $reminder
+     * @param $eventOptions
      */
-    private function sendReminderOfPaymentItem(Reminder $reminder){
+    private function sendReminderOfPaymentItem(Reminder $reminder, $eventOptions){
+        $createdByUserId = $eventOptions['request']['loggedInUserId'];
         $details = $reminder->detailByType;
         if (!empty($details->unitId)) {
             $residents = $details->unit->residents;
             foreach ($residents as $resident) {
                 $user = $resident->user;
-                $this->savePaymentNotification($reminder->createdByUserId, $user->id, $reminder->id);
+                $this->savePaymentNotification($createdByUserId, $user->id, $reminder->id);
                 if ($reminder->reminderType == Reminder::REMINDER_TYPE_EMAIL){
                     Mail::to($resident->contactEmail)->send(new SendPaymentItemReminder($reminder, $user, $$details));
                 }
             }
         } else {
             $user = $details->user;
-            $this->savePaymentNotification($reminder->createdByUserId, $user->id, $reminder->id);
+            $this->savePaymentNotification($createdByUserId, $user->id, $reminder->id);
             if ($reminder->reminderType == Reminder::REMINDER_TYPE_EMAIL) {
                 Mail::to($user->email)->send(new SendPaymentItemReminder($reminder, $user, $details));
             }

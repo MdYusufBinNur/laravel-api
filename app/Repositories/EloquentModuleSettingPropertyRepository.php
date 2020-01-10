@@ -36,6 +36,18 @@ class EloquentModuleSettingPropertyRepository extends EloquentBaseRepository imp
     /**
      * @inheritDoc
      */
+    public function isModuleActiveForTheProperty(int $propertyId, int $moduleId)
+    {
+        return $this->model
+            ->where('propertyId', $propertyId)
+            ->where('moduleId', $moduleId)
+            ->where('isActive', 1)
+            ->exists();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function setModuleSettingProperty(array $data): \ArrayAccess
     {
         DB::beginTransaction();

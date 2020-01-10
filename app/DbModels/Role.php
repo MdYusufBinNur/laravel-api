@@ -18,7 +18,7 @@ class Role extends Model
         'createdByUserId', 'type', 'title'
     ];
 
-    // N.B. setting `id` statically for quicker insert
+    // N.B. setting `id` statically for quicker insert where called
     const ROLE_ADMIN_SUPER = ['id' => 1, 'type' => 'admin', 'title' => 'super_admin'];
     const ROLE_ADMIN_STANDARD = ['id' => 2, 'type' => 'admin', 'title' => 'standard_admin'];
     const ROLE_ADMIN_LIMITED = ['id' => 3, 'type' => 'admin', 'title' => 'limited_admin'];

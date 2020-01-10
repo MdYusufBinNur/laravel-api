@@ -25,7 +25,7 @@ class InsertModulesAndOptions extends Migration
             ['id' => 9, 'key' => 'PAYMENT_CENTER', 'title' => 'Payment Center'],
             ['id' => 10, 'key' => 'RESIDENTS', 'title' => 'Residents Information'],
             ['id' => 11, 'key' => 'STAFF', 'title' => 'Staff users'],
-            ['id' => 12, 'key' => 'MGI', 'title' => 'Main Gate Instructions'],
+            ['id' => 12, 'key' => 'FDI', 'title' => 'Front Desk Instructions'],
             ['id' => 13, 'key' => 'CONTENT', 'title' => 'Content Approval'],
             ['id' => 14, 'key' => 'EL', 'title' => 'Entry Log'],
             ['id' => 15, 'key' => 'ETC', 'title' => 'Employee Time Clock'],

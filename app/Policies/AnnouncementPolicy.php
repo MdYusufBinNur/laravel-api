@@ -3,12 +3,13 @@
 namespace App\Policies;
 
 use App\DbModels\Announcement;
+use App\DbModels\Module;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AnnouncementPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * Intercept checks
@@ -32,6 +33,10 @@ class AnnouncementPolicy
      */
     public function list(User $currentUser, int $propertyId)
     {
+        if (!$this->isModuleActiveForTheProperty($propertyId, Module::MODULE_ANNOUNCEMENTS)) {
+            return false;
+        }
+
         return $currentUser->isUserOfTheProperty($propertyId);
     }
 
@@ -44,7 +49,11 @@ class AnnouncementPolicy
      */
     public function store(User $currentUser, int $propertyId)
     {
-        $currentUser->isAStaffOfTheProperty($propertyId);
+        if (!$this->isModuleActiveForTheProperty($propertyId, Module::MODULE_ANNOUNCEMENTS)) {
+            return false;
+        }
+
+        return $currentUser->isAStaffOfTheProperty($propertyId);
     }
 
     /**
@@ -56,6 +65,12 @@ class AnnouncementPolicy
      */
     public function show(User $currentUser,  Announcement $announcement)
     {
+        $propertyId = $announcement->propertyId;
+
+        if (!$this->isModuleActiveForTheProperty($propertyId, Module::MODULE_ANNOUNCEMENTS)) {
+            return false;
+        }
+
         return $currentUser->isUserOfTheProperty($announcement->propertyId);
     }
 
@@ -68,6 +83,12 @@ class AnnouncementPolicy
      */
     public function update(User $currentUser, Announcement $announcement)
     {
+        $propertyId = $announcement->propertyId;
+
+        if (!$this->isModuleActiveForTheProperty($propertyId, Module::MODULE_ANNOUNCEMENTS)) {
+            return false;
+        }
+
         return $currentUser->isAStaffOfTheProperty($announcement->propertyId);
     }
 
@@ -80,6 +101,12 @@ class AnnouncementPolicy
      */
     public function destroy(User $currentUser, Announcement $announcement)
     {
+        $propertyId = $announcement->propertyId;
+
+        if (!$this->isModuleActiveForTheProperty($propertyId, Module::MODULE_ANNOUNCEMENTS)) {
+            return false;
+        }
+
         return $currentUser->isAStaffOfTheProperty($announcement->propertyId);
     }
 
@@ -92,6 +119,11 @@ class AnnouncementPolicy
      */
     public function announcementsForLds(User $currentUser, int $propertyId)
     {
+
+        if (!$this->isModuleActiveForTheProperty($propertyId, Module::MODULE_LDS)) {
+            return false;
+        }
+
         if ($currentUser->isUserOfTheProperty($propertyId)) {
             return true;
         }

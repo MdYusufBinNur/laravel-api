@@ -19,7 +19,7 @@ interface ModuleSettingPropertyRepository extends BaseRepository
      *
      * @param int $propertyId
      * @param int $moduleId
-     * @return mixed
+     * @return boolean
      */
     public function isModuleActiveForTheProperty(int $propertyId, int $moduleId);
 

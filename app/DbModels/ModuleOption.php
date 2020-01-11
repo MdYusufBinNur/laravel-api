@@ -21,8 +21,8 @@ class ModuleOption extends Model
         'createdByUserId', 'moduleId', 'key', 'title'
     ];
 
-    const MODULE_PACKAGES_OPTION_DEFAULT_VIEW = ['moduleId' => 2, 'key' => 'defaultView'];
-    const MODULE_PACKAGES_OPTION_REQUIRE_SIGNATURE = ['moduleId' => 2, 'key' => 'requireSignature'];
+    const PACKAGES_OPTION_DEFAULT_VIEW = ['moduleId' => 2, 'key' => 'defaultView'];
+    const PACKAGES_OPTION_REQUIRE_SIGNATURE = ['moduleId' => 2, 'key' => 'requireSignature'];
 
     const SERVICE_REQUEST_MODULE_NAME = ['moduleId' => 7, 'key' => 'moduleName'];
     const SERVICE_REQUEST_RESIDENT_FEEDBACK_ALLOWED = ['moduleId' => 7, 'key' => 'residentsLeaveFeedback'];

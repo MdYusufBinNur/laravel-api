@@ -3,7 +3,6 @@
 
 namespace App\Repositories;
 
-
 use App\DbModels\ModuleOption;
 use App\Repositories\Contracts\ModuleOptionPropertyRepository;
 use App\Repositories\Contracts\ModuleOptionRepository;
@@ -54,6 +53,23 @@ class EloquentModuleOptionPropertyRepository extends EloquentBaseRepository impl
             $moduleOptionPropertyIds[] = $this->patch($searchCriteria, $dataToSave)['id'];
         }
         return $this->model->whereIn('id', $moduleOptionPropertyIds)->get();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAModuleOptionValueByProperty(int $propertyId, array $moduleOptionConst)
+    {
+        $thisModelTable = $this->model->getTable();
+        $moduleOptionModelTable = ModuleOption::getTableName();
+
+        return $this->model
+            ->select($thisModelTable . '.value')
+            ->join($moduleOptionModelTable, $moduleOptionModelTable . '.id', '=', $thisModelTable . '.moduleOptionId')
+            ->where($thisModelTable . '.propertyId', $propertyId)
+            ->where($moduleOptionModelTable . '.moduleId', $moduleOptionConst['moduleId'])
+            ->where($moduleOptionModelTable . '.key', $moduleOptionConst['key'])
+            ->pluck('value')->toArray();
     }
 
 }

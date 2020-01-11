@@ -13,4 +13,13 @@ interface ModuleOptionPropertyRepository extends BaseRepository
      * @return mixed
      */
     public function saveModuleOptionProperty(array $data);
+
+    /**
+     * get a module option value of a property
+     *
+     * @param int $propertyId
+     * @param array $moduleOptionConst
+     * @return mixed
+     */
+    public function getAModuleOptionValueByProperty(int $propertyId, array $moduleOptionConst);
 }

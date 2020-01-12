@@ -79,6 +79,7 @@ use App\DbModels\ServiceRequestCategory;
 use App\DbModels\ServiceRequestLog;
 use App\DbModels\ServiceRequestMessage;
 use App\DbModels\ServiceRequestOfficeDetail;
+use App\DbModels\StaffTimeClock;
 use App\DbModels\Tower;
 use App\DbModels\Unit;
 use App\DbModels\User;
@@ -172,6 +173,7 @@ use App\Policies\ServiceRequestLogPolicy;
 use App\Policies\ServiceRequestMessagePolicy;
 use App\Policies\ServiceRequestOfficeDetailPolicy;
 use App\Policies\ServiceRequestPolicy;
+use App\Policies\StaffTimeClockPolicy;
 use App\Policies\TowerPolicy;
 use App\Policies\UnitPolicy;
 use App\Policies\UserNotificationPolicy;
@@ -278,6 +280,7 @@ class AuthServiceProvider extends ServiceProvider
         ServiceRequestMessage::class => ServiceRequestMessagePolicy::class,
         ServiceRequestOfficeDetail::class => ServiceRequestOfficeDetailPolicy::class,
         ServiceRequest::class => ServiceRequestPolicy::class,
+        StaffTimeClock::class => StaffTimeClockPolicy::class,
         Tower::class => TowerPolicy::class,
         Unit::class => UnitPolicy::class,
         UserNotification::class => UserNotificationPolicy::class,

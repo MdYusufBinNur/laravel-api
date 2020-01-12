@@ -136,7 +136,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
             }
 
             $userIds = $queryBuilder->pluck('userId')->toArray();
-            $searchCriteria['id'] = isset($searchCriteria['id']) ? array_intersect(explode(',', $searchCriteria['id'], $userIds)) : $userIds;
+            $searchCriteria['id'] = isset($searchCriteria['id']) ? array_intersect(explode(',', $searchCriteria['id']), $userIds) : $userIds;
             unset($searchCriteria['roleId']);
             unset($searchCriteria['propertyId']);
         }

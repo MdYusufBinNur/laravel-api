@@ -75,6 +75,20 @@ trait ResidentUserMethods
     }
 
     /**
+     * has only resident role in a property
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function isOnlyResidentOfTheProperty(int $propertyId)
+    {
+        return $this->isResidentOfTheProperty($propertyId)
+            && !$this->isAStaffOfTheProperty($propertyId)
+            && !$this->isAnEnterpriseUserOfTheProperty($propertyId)
+            && !$this->isAdmin();
+    }
+
+    /**
      * resident of a specific property query builder
      *
      * @param int $propertyId

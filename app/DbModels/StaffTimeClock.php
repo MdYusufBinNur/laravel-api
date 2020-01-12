@@ -27,17 +27,6 @@ class StaffTimeClock extends Model
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'clockedIn' => 'datetime:H:i',
-        'clockedOut' => 'datetime:H:i',
-    ];
-
-
-    /**
      * get the property
      *
      * @return hasOne

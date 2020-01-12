@@ -25,7 +25,7 @@ class ModifyHeader
 
         $response = $next($request);
         $response->headers->set("Access-Control-Allow-Origin", "*");
-        $response->headers->set("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization, X-Requested-With");
+        $response->headers->set("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization, X-Requested-With, propertyId");
         $response->headers->set("Access-Control-Allow-Methods", "OPTIONS, HEAD, GET, POST, PUT, DELETE");
         $response->headers->set("CrossOrigin", "Anonymous");
 

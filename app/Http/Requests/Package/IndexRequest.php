@@ -23,6 +23,7 @@ class IndexRequest extends Request
             'trackingNumber' => 'list:string',
             'startDate' => 'date_format:Y-m-d',
             'endDate' => 'date_format:Y-m-d',
+            'withOutPagination' => 'boolean'
         ];
     }
 }

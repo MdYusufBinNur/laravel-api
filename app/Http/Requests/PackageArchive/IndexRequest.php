@@ -21,6 +21,7 @@ class IndexRequest extends Request
             'startDate' => 'date_format:Y-m-d',
             'endDate' => 'date_format:Y-m-d',
             'unitId' => '',
+            'withOutPagination' => 'boolean'
         ];
     }
 }

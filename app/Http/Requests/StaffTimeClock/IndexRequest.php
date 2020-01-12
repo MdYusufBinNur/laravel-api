@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Http\Requests\StaffTimeClock;
+
+use App\Http\Requests\Request;
+
+class IndexRequest extends Request
+{
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'id' => 'list:numeric',
+            'createdByUserId' => 'list:numeric',
+            'managerId' => 'list:numeric',
+            'propertyId' => 'list:numeric',
+            'clockedIn' => 'date_format:Y-m-d H:i',
+            'clockedOut' => 'date_format:Y-m-d H:i',
+        ];
+    }
+}

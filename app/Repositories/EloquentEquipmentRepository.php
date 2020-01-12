@@ -71,10 +71,12 @@ class EloquentEquipmentRepository extends EloquentBaseRepository implements Equi
             unset($searchCriteria['startDate']);
         }
 
-        $searchCriteria['eagerLoad'] = ['equipment.createdByUser' => 'createdByUser', 'equipment.attachments' => 'attachments'];
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
+        $searchCriteria['eagerLoad'] = ['equipment.createdByUser' => 'createdByUser', 'equipment.attachments' => 'attachments'];
+        $this->applyEagerLoad($queryBuilder, $searchCriteria);
+
 
         $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;
         $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';

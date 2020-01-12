@@ -20,6 +20,8 @@ class IndexRequest extends Request
             'propertyId' => 'list:numeric',
             'clockedIn' => 'date_format:Y-m-d H:i',
             'clockedOut' => 'date_format:Y-m-d H:i',
+            'startDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d|after_or_equal:startDate'
         ];
     }
 }

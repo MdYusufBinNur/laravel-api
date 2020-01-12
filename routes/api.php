@@ -139,6 +139,7 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('parking-pass-log', 'ParkingPassLogController', ['except' => ['put']]);
 
         Route::apiResource('manager-invitation','ManagerInvitationController');
+        Route::apiResource('staff-time-clock','StaffTimeClockController');
 
         /**
          * related to Settings System Notification

@@ -14,8 +14,8 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'clockedIn' => 'date_format:H:i',
-            'clockedOut' => 'date_format:H:i',
+            'clockedIn' => 'date_format:Y-m-d H:i',
+            'clockedOut' => 'date_format:Y-m-d H:i',
         ];
     }
 }

@@ -15,10 +15,10 @@ class StoreRequest extends Request
     {
         return [
             'createdByUserId' => 'exists:users,id',
-            'managerId' => 'required|exists,managers,id',
+            'managerId' => 'required|exists:managers,id',
             'propertyId' => 'required|exists:properties,id',
-            'clockedIn' => 'required|date_format:H:i',
-            'clockedOut' => 'required|date_format:H:i',
+            'clockedIn' => 'required|date_format:Y-m-d H:i',
+            'clockedOut' => 'required|date_format:Y-m-d H:i',
         ];
     }
 }

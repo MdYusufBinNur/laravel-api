@@ -33,8 +33,10 @@ trait ValidateModules
      * @param array $moduleConst
      * @return bool
      */
-    public function isModuleActiveForTheProperty(int $propertyId, array $moduleConst)
+    public function isModuleActiveForTheProperty(array $moduleConst, $propertyId = null)
     {
+        $propertyId = $propertyId ?? request()->get('propertyId');
+
         $this->setModuleRepositories();
 
         return $this->moduleSettingRepository->isModuleActiveForTheProperty($propertyId, $moduleConst['id']);

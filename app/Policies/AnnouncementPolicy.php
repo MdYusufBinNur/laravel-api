@@ -22,6 +22,10 @@ class AnnouncementPolicy
         if ($currentUser->isAdmin()) {
             return true;
         }
+
+        if (!$this->isModuleActiveForTheProperty(request()->get('propertyId'), Module::MODULE_ANNOUNCEMENTS)) {
+            return false;
+        }
     }
 
     /**
@@ -33,10 +37,6 @@ class AnnouncementPolicy
      */
     public function list(User $currentUser, int $propertyId)
     {
-        if (!$this->isModuleActiveForTheProperty($propertyId, Module::MODULE_ANNOUNCEMENTS)) {
-            return false;
-        }
-
         return $currentUser->isUserOfTheProperty($propertyId);
     }
 
@@ -49,10 +49,6 @@ class AnnouncementPolicy
      */
     public function store(User $currentUser, int $propertyId)
     {
-        if (!$this->isModuleActiveForTheProperty($propertyId, Module::MODULE_ANNOUNCEMENTS)) {
-            return false;
-        }
-
         return $currentUser->isAStaffOfTheProperty($propertyId);
     }
 
@@ -67,11 +63,7 @@ class AnnouncementPolicy
     {
         $propertyId = $announcement->propertyId;
 
-        if (!$this->isModuleActiveForTheProperty($propertyId, Module::MODULE_ANNOUNCEMENTS)) {
-            return false;
-        }
-
-        return $currentUser->isUserOfTheProperty($announcement->propertyId);
+        return $currentUser->isUserOfTheProperty($propertyId);
     }
 
     /**
@@ -83,13 +75,7 @@ class AnnouncementPolicy
      */
     public function update(User $currentUser, Announcement $announcement)
     {
-        $propertyId = $announcement->propertyId;
-
-        if (!$this->isModuleActiveForTheProperty($propertyId, Module::MODULE_ANNOUNCEMENTS)) {
-            return false;
-        }
-
-        return $currentUser->isAStaffOfTheProperty($announcement->propertyId);
+        return $currentUser->isAStaffOfTheProperty($propertyId);
     }
 
     /**
@@ -103,11 +89,7 @@ class AnnouncementPolicy
     {
         $propertyId = $announcement->propertyId;
 
-        if (!$this->isModuleActiveForTheProperty($propertyId, Module::MODULE_ANNOUNCEMENTS)) {
-            return false;
-        }
-
-        return $currentUser->isAStaffOfTheProperty($announcement->propertyId);
+        return $currentUser->isAStaffOfTheProperty($propertyId);
     }
 
     /**

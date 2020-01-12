@@ -23,6 +23,11 @@ class ModifyHeader
             $request->headers->set('Accept', 'application/json');
         }
 
+        $propertyId = $request->headers->has('propertyId') ? $request->headers->get('propertyId') : $request->get('propertyId');
+        if (!empty($propertyId)) {
+            $request->merge(['propertyId' => $propertyId]);
+        }
+
         $response = $next($request);
         $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->headers->set("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization, X-Requested-With, propertyId");

@@ -19,7 +19,9 @@ class CreateManagerTimeClocksTable extends Migration
             $table->integer('managerId')->unsigned();
             $table->integer('propertyId')->unsigned();
             $table->dateTime('clockedIn');
-            $table->dateTime('clockedOut');
+            $table->dateTime('clockedOut')->nullable();
+            $table->text('clockInNote')->nullable();
+            $table->text('clockOutNote')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

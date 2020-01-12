@@ -14,11 +14,10 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'createdByUserId' => 'exists:users,id',
             'managerId' => 'required|exists:managers,id',
             'propertyId' => 'required|exists:properties,id',
-            'clockedIn' => 'required|date_format:Y-m-d H:i',
-            'clockedOut' => 'required|date_format:Y-m-d H:i',
+            'clockInNote' => 'max:65535',
+            'attachmentId' => 'required|exists:attachments,id'
         ];
     }
 }

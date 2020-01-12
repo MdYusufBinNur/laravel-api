@@ -8,6 +8,7 @@ use App\Repositories\Contracts\AttachmentRepository;
 use Carbon\Carbon;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 class EloquentAttachmentRepository extends EloquentBaseRepository implements AttachmentRepository

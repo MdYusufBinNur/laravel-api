@@ -23,7 +23,7 @@ class StaffTimeClock extends Model
      * @var array
      */
     protected $fillable = [
-        'propertyId', 'managerId', 'createdByUserId', 'clockedIn', 'clockedOut'
+        'propertyId', 'managerId', 'createdByUserId', 'clockedIn', 'clockedOut', 'clockInNote', 'clockOutNote'
     ];
 
     /**
@@ -34,5 +34,35 @@ class StaffTimeClock extends Model
     public function property()
     {
         return $this->hasOne(Property::class, 'id', 'propertyId');
+    }
+
+    /**
+     * get the visitor image
+     *
+     * @return hasOne
+     */
+    public function clockInPhoto()
+    {
+        return $this->hasOne(Attachment::class, 'resourceId', 'id')->where('type',Attachment::ATTACHMENT_TYPE_STAFF_TIME_CLOCK_IN);
+    }
+
+    /**
+     * get the visitor image
+     *
+     * @return hasOne
+     */
+    public function clockOutPhoto()
+    {
+        return $this->hasOne(Attachment::class, 'resourceId', 'id')->where('type',Attachment::ATTACHMENT_TYPE_STAFF_TIME_CLOCK_OUT);
+    }
+
+    /**
+     * user and manager relationship
+     *
+     * @return HasOne
+     */
+    public function manager()
+    {
+        return $this->hasOne(Manager::class, 'id', 'managerId');
     }
 }

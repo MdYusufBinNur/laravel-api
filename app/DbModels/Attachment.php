@@ -30,6 +30,8 @@ class Attachment extends Model
     const ATTACHMENT_TYPE_EQUIPMENT = 'equipment';
     const ATTACHMENT_TYPE_TEMP = 'temp';
     const ATTACHMENT_TYPE_FEEDBACK = 'feedback';
+    const ATTACHMENT_TYPE_STAFF_TIME_CLOCK_IN = 'staff-time-clock-in';
+    const ATTACHMENT_TYPE_STAFF_TIME_CLOCK_OUT = 'staff-time-clock-out';
 
     /**
      * The database table used by the model.
@@ -127,6 +129,12 @@ class Attachment extends Model
             case self::ATTACHMENT_TYPE_FEEDBACK:
                 $directoryName = 'feedback';
                 break;
+            case self::ATTACHMENT_TYPE_STAFF_TIME_CLOCK_IN:
+                $directoryName = 'staff-time-clock-in';
+                break;
+            case self::ATTACHMENT_TYPE_STAFF_TIME_CLOCK_OUT:
+                $directoryName = 'staff-time-clock-out';
+                break;
         }
 
         return $directoryName;
@@ -149,10 +157,10 @@ class Attachment extends Model
             case self::ATTACHMENT_TYPE_MESSAGE:
                 $accessType = 'private';
                 break;
-             case self::ATTACHMENT_TYPE_MESSAGE_POST:
+            case self::ATTACHMENT_TYPE_MESSAGE_POST:
                 $accessType = 'private';
                 break;
-             case self::ATTACHMENT_TYPE_POST:
+            case self::ATTACHMENT_TYPE_POST:
                 $accessType = 'private';
                 break;
         }

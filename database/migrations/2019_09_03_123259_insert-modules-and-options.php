@@ -28,7 +28,7 @@ class InsertModulesAndOptions extends Migration
             ['id' => 12, 'key' => 'FDI', 'title' => 'Front Desk Instructions'],
             ['id' => 13, 'key' => 'CONTENT', 'title' => 'Content Approval'],
             ['id' => 14, 'key' => 'EL', 'title' => 'Entry Log'],
-            ['id' => 15, 'key' => 'ETC', 'title' => 'Employee Time Clock'],
+            ['id' => 15, 'key' => 'STC', 'title' => 'Staff Time Clock'],
             ['id' => 16, 'key' => 'PROFANITY', 'title' => 'Filter Content for Profanity'],
             ['id' => 17, 'key' => 'AR', 'title' => 'Amenity Reservation'],
             ['id' => 18, 'key' => 'KL', 'title' => 'Key Log'],

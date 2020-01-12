@@ -86,6 +86,7 @@ use App\DbModels\ServiceRequestLog;
 use App\DbModels\ServiceRequestMessage;
 use App\DbModels\ServiceRequestOfficeDetail;
 use App\DbModels\ServiceRequestStatus;
+use App\DbModels\StaffTimeClock;
 use App\DbModels\Tower;
 use App\DbModels\Unit;
 use App\DbModels\User;
@@ -181,6 +182,7 @@ use App\Repositories\Contracts\ServiceRequestMessageRepository;
 use App\Repositories\Contracts\ServiceRequestOfficeDetailRepository;
 use App\Repositories\Contracts\ServiceRequestRepository;
 use App\Repositories\Contracts\ServiceRequestStatusRepository;
+use App\Repositories\Contracts\StaffTimeClockRepository;
 use App\Repositories\Contracts\UserNotificationRepository;
 use App\Repositories\Contracts\UserNotificationSettingRepository;
 use App\Repositories\Contracts\UserNotificationTypeRepository;
@@ -277,6 +279,7 @@ use App\Repositories\EloquentServiceRequestMessageRepository;
 use App\Repositories\EloquentServiceRequestOfficeDetailRepository;
 use App\Repositories\EloquentServiceRequestRepository;
 use App\Repositories\EloquentServiceRequestStatusRepository;
+use App\Repositories\EloquentStaffTimeClockRepository;
 use App\Repositories\EloquentUnitRepository;
 use App\Repositories\Contracts\PropertyRepository;
 use App\Repositories\Contracts\ResidentRepository;
@@ -821,6 +824,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind ReminderRepository
         $this->app->bind(ReminderRepository::class, function() {
             return new EloquentReminderRepository(new Reminder());
+        });
+
+        // bind StaffTimeClockRepository
+        $this->app->bind(StaffTimeClockRepository::class, function() {
+            return new EloquentStaffTimeClockRepository(new StaffTimeClock());
         });
     }
 }

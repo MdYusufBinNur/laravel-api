@@ -40,7 +40,12 @@ class EloquentPackageRepository extends EloquentBaseRepository implements Packag
         $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';
         $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
         $queryBuilder->orderBy($orderBy, $orderDirection);
-        return $queryBuilder->paginate($limit);
+
+        if (empty($searchCriteria['withOutPagination'])) {
+            return $queryBuilder->paginate($limit);
+        } else {
+            return $queryBuilder->get();
+        }
     }
 
     /**

@@ -99,6 +99,7 @@ class EloquentBaseRepository implements BaseRepository
         $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 50; // it's needed for pagination
         $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';
         $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
+
         $queryBuilder = $this->model->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
@@ -272,6 +273,11 @@ class EloquentBaseRepository implements BaseRepository
         string $operator = '='
     ) {
         unset($searchCriteria['include'], $searchCriteria['eagerLoad'], $searchCriteria['rawOrder'], $searchCriteria['detailed'], $searchCriteria['withOutPagination']); //don't need that field for query. only needed for transformer.
+
+        // remove propertyId, if it is not in table
+        if (isset($searchCriteria['propertyId']) && !in_array('propertyId', $this->model->getFillable())) {
+            unset($searchCriteria['propertyId']);
+        }
 
         foreach ($searchCriteria as $key => $value) {
 

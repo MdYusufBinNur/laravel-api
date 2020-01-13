@@ -16,7 +16,6 @@ class UpdateRequest extends Request
     {
         $id = $this->segment(4);
         return [
-            'propertyId' => 'exists:properties,id|unique:property_general_infos,propertyId',
             'officeHours' => 'min:7|max:20',
             'phone' => 'min:11|max:20',
             'emergenceContact' => 'min:5|max:255',

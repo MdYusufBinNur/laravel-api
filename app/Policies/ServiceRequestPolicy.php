@@ -84,15 +84,20 @@ class ServiceRequestPolicy
      */
     public function show(User $currentUser,  ServiceRequest $serviceRequest)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($serviceRequest->propertyId)) {
+        $propertyId = $serviceRequest->propertyId;
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
         }
 
-        if ($currentUser->isAStaffOfTheProperty($serviceRequest->propertyId)) {
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
             return true;
         }
 
-        return in_array($currentUser->id, $serviceRequest->unit->getResidentsUserIds());
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+            return $currentUser->isResidentOfTheUnits($serviceRequest->unitId);
+        }
+
+        return false;
     }
 
     /**
@@ -104,15 +109,19 @@ class ServiceRequestPolicy
      */
     public function update(User $currentUser, ServiceRequest $serviceRequest)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($serviceRequest->propertyId)) {
+        $propertyId = $serviceRequest->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
         }
 
-        if ($currentUser->isAStaffOfTheProperty($serviceRequest->propertyId)) {
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
             return true;
         }
 
-        return in_array($currentUser->id, $serviceRequest->unit->getResidentsUserIds());
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+            return $currentUser->isResidentOfTheUnits($serviceRequest->unitId);
+        }
     }
 
     /**

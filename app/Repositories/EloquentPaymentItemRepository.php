@@ -20,8 +20,8 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
     {
         $searchCriteria['eagerLoad'] = ['pi.createdByUser' => 'createdByUser', 'pi.property' => 'property',  'pi.payment' => 'payment', 'pi.user' => 'user', 'pi.paymentItemLogs' => 'paymentItemLogs'];
 
-        $loggedInUser = $this->getLoggedInUser();
         if (empty($searchCriteria['unitId'])) {
+            $loggedInUser = $this->getLoggedInUser();
             if ($loggedInUser->isOnlyResidentOfTheProperty($searchCriteria['propertyId'])) {
                 $searchCriteria['unitId'] = $loggedInUser->getResidentsUnitIdsOfTheProperty($searchCriteria['propertyId']);
             }

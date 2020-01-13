@@ -15,6 +15,13 @@ class EloquentServiceRequestMessageRepository extends EloquentBaseRepository imp
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
+        if (empty($searchCriteria['unitId'])) {
+            $loggedInUser = $this->getLoggedInUser();
+            if ($loggedInUser->isOnlyResidentOfTheProperty($searchCriteria['propertyId'])) {
+                $searchCriteria['unitId'] = $loggedInUser->getResidentsUnitIdsOfTheProperty($searchCriteria['propertyId']);
+            }
+        }
+        
         $searchCriteria['eagerLoad'] = ['srm.user' => 'user'];
         return parent::findBy($searchCriteria, $withTrashed);
     }

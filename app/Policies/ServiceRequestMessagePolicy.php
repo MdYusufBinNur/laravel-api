@@ -33,16 +33,8 @@ class ServiceRequestMessagePolicy
      */
     public function list(User $currentUser, int $propertyId, ?string $unitId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
             return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isResidentOfTheProperty($propertyId)) {
-            return $currentUser->isResidentOfTheUnits($unitId);
         }
 
         return false;
@@ -58,16 +50,8 @@ class ServiceRequestMessagePolicy
      */
     public function store(User $currentUser, int $propertyId, ?string $unitId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
             return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isResidentOfTheProperty($propertyId)) {
-            return $currentUser->isResidentOfTheUnits($unitId);
         }
 
         return false;
@@ -84,16 +68,8 @@ class ServiceRequestMessagePolicy
     {
         $propertyId = $serviceRequestMessage->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
             return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isResidentOfTheProperty($propertyId)) {
-            return $currentUser->isResidentOfTheUnits($serviceRequestMessage->unitId);
         }
 
         return false;
@@ -110,16 +86,8 @@ class ServiceRequestMessagePolicy
     {
         $propertyId = $serviceRequestMessage->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
             return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isResidentOfTheProperty($propertyId)) {
-            return $currentUser->isResidentOfTheUnits($serviceRequestMessage->unitId);
         }
 
         return false;

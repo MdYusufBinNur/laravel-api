@@ -68,8 +68,19 @@ class ServiceRequestMessagePolicy
     {
         $propertyId = $serviceRequestMessage->propertyId;
 
-        if ($currentUser->isUserOfTheProperty($propertyId)) {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+            $unitId = $serviceRequestMessage->unitId;
+            if ($currentUser->isResidentOfTheUnits($unitId)) {
+                return true;
+            }
         }
 
         return false;
@@ -86,8 +97,19 @@ class ServiceRequestMessagePolicy
     {
         $propertyId = $serviceRequestMessage->propertyId;
 
-        if ($currentUser->isUserOfTheProperty($propertyId)) {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+            $unitId = $serviceRequestMessage->unitId;
+            if ($currentUser->isResidentOfTheUnits($unitId)) {
+                return true;
+            }
         }
 
         return false;

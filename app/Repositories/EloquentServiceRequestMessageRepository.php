@@ -21,7 +21,7 @@ class EloquentServiceRequestMessageRepository extends EloquentBaseRepository imp
                 $searchCriteria['unitId'] = $loggedInUser->getResidentsUnitIdsOfTheProperty($searchCriteria['propertyId']);
             }
         }
-        
+
         $searchCriteria['eagerLoad'] = ['srm.user' => 'user'];
         return parent::findBy($searchCriteria, $withTrashed);
     }

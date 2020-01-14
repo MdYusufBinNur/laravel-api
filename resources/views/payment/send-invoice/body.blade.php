@@ -32,6 +32,7 @@
                             Amount: {{$payment->amount}} <br>
                             Type: {{$payment->paymentType->title}}
                             Note: {{$payment->note}} <br>
+                            Note: {{$payment->billingInfo}} <br>
                             Method: {{$payment->method}} <br>
                             Due Date: {{$payment->dueDate}} <br>
                             Status Date: {{$paymentItem->status}} <br>

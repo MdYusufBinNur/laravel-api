@@ -32,6 +32,7 @@ class Payment extends Model
         'paymentTypeId',
         'amount',
         'note',
+        'billingInfo',
         'dueDate',
         'dueDays',
         'isRecurring',

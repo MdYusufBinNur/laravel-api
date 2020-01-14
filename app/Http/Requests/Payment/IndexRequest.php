@@ -22,7 +22,6 @@ class IndexRequest extends Request
             'paymentMethodIds' => 'list:numeric',
             'paymentTypeId' => 'list:numeric',
             'amount' => '',
-            'note' => '',
             'dueDate' => 'date_format:Y-m-d',
             'dueDays' => 'numeric',
             'isRecurring' => 'boolean',

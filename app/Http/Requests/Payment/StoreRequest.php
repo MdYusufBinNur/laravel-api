@@ -21,6 +21,7 @@ class StoreRequest extends Request
             'paymentTypeId' => 'required|exists:payment_types,id',
             'amount' => 'required',
             'note' => '',
+            'billingInfo' => '',
             'dueDate' => 'required_without:dueDays|date_format:Y-m-d',
             'dueDays' => 'required_without:dueDate|numeric',
             'isRecurring' => 'boolean',

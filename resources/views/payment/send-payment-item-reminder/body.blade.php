@@ -31,6 +31,7 @@
                         <hr>
                         Amount: {{$payment->amount}} <br>
                         Note: {{$payment->note}} <br>
+                        Note: {{$payment->billingInfo}} <br>
                         Due Date: {{$payment->dueDate}} <br>
                         Due Days: {{$payment->dueDays}} <br>
                         Status: {{$payment->status}} <br>

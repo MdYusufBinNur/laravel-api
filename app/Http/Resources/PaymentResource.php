@@ -31,6 +31,7 @@ class PaymentResource extends Resource
             }),
             'amount' => $this->amount,
             'note' => $this->note,
+            'billingInfo' => $this->billingInfo,
             'dueDate' => $this->dueDate,
             'dueDays' => $this->dueDays,
             'isRecurring' => $this->isRecurring,

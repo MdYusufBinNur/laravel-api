@@ -15,12 +15,12 @@ class UpdateRequest extends Request
     {
         return [
             'assignedUserId' => 'exists:users,id',
-            'materialUsed' => 'min:3|max:255',
-            'materialAmount' => 'min:3|max:255',
-            'handyman' => 'min:3|max:255',
+            'materialUsed' => 'max:255',
+            'materialAmount' => 'max:255',
+            'handyman' => 'max:255',
             'outsideContractor' => 'boolean',
-            'partsNeeded' => 'min:3|max:65535',
-            'comment' => 'min:3|max:65535',
+            'partsNeeded' => 'max:65535',
+            'comment' => 'max:65535',
             'temporarilyRepaired' => 'boolean',
             'signature' => 'boolean',
         ];

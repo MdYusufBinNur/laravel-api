@@ -4,9 +4,11 @@
 namespace App\Services\Reminder;
 
 
+use App\DbModels\PaymentItem;
 use App\DbModels\Reminder;
 use App\DbModels\UserNotificationType;
 use App\Mail\Payment\SendPaymentItemReminder;
+use App\Repositories\Contracts\PaymentItemLogRepository;
 use App\Repositories\Contracts\UserNotificationRepository;
 use Illuminate\Support\Facades\Mail;
 
@@ -36,23 +38,24 @@ class ReminderService
      */
     private function sendReminderOfPaymentItem(Reminder $reminder, $eventOptions){
         $createdByUserId = $eventOptions['request']['loggedInUserId'];
-        $details = $reminder->detailByType;
-        if (!empty($details->unitId)) {
-            $residents = $details->unit->residents;
+        $paymentItem = $reminder->detailByType;
+        if (!empty($paymentItem->unitId)) {
+            $residents = $paymentItem->unit->residents;
             foreach ($residents as $resident) {
                 $user = $resident->user;
                 $this->savePaymentNotification($createdByUserId, $user->id, $reminder->id);
                 if ($reminder->reminderType == Reminder::REMINDER_TYPE_EMAIL){
-                    Mail::to($resident->contactEmail)->send(new SendPaymentItemReminder($reminder, $user, $$details));
+                    Mail::to($resident->contactEmail)->send(new SendPaymentItemReminder($reminder, $user, $$paymentItem));
                 }
             }
         } else {
-            $user = $details->user;
+            $user = $paymentItem->user;
             $this->savePaymentNotification($createdByUserId, $user->id, $reminder->id);
             if ($reminder->reminderType == Reminder::REMINDER_TYPE_EMAIL) {
-                Mail::to($user->email)->send(new SendPaymentItemReminder($reminder, $user, $details));
+                Mail::to($user->email)->send(new SendPaymentItemReminder($reminder, $user, $paymentItem));
             }
         }
+        $this->logPaymentItem($paymentItem, $eventOptions);
     }
 
 
@@ -74,5 +77,25 @@ class ReminderService
             'resourceId' => $resourceId,
             'message' => "You have a new reminder.",
         ]);
+    }
+
+    /**
+     * log reminder event in payment
+     *
+     * @param PaymentItem $paymentItem
+     * @param $eventOptions
+     */
+    private function logPaymentItem($paymentItem, $eventOptions)
+    {
+        $paymentItemLogRepository = app(PaymentItemLogRepository::class);
+
+        //log the event
+        $logData = [
+            'paymentItemId' => $paymentItem->id,
+            'propertyId' => $paymentItem->propertyId,
+            'updatedByUserId' => $eventOptions['request']['loggedInUserId'],
+            'event' => 'reminder'
+        ];
+        $paymentItemLogRepository->save($logData);
     }
 }

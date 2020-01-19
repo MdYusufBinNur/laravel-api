@@ -30,6 +30,18 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
             unset($searchCriteria['startDate']);
         }
 
+        if (!empty($searchCriteria['onlyActive'])) {
+            $queryBuilder = $queryBuilder->whereDate('clockedIn', Carbon::today());
+            $queryBuilder = $queryBuilder->whereNull('clockedOut');
+            unset($searchCriteria['onlyActive']);
+        }
+
+        if (!empty($searchCriteria['onlyHistory'])) {
+            $queryBuilder = $queryBuilder->whereDate('clockedIn', '<', Carbon::today());
+            $queryBuilder = $queryBuilder->orWhereNotNull('clockedOut');
+            unset($searchCriteria['onlyHistory']);
+        }
+
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });

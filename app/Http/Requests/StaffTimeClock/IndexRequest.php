@@ -21,7 +21,9 @@ class IndexRequest extends Request
             'clockedIn' => 'date_format:Y-m-d H:i',
             'clockedOut' => 'date_format:Y-m-d H:i',
             'startDate' => 'date_format:Y-m-d',
-            'endDate' => 'date_format:Y-m-d|after_or_equal:startDate'
+            'endDate' => 'date_format:Y-m-d|after_or_equal:startDate',
+            'onlyActive' => 'boolean',
+            'onlyHistory' => 'boolean',
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Module extends Model
 {
@@ -48,4 +49,14 @@ class Module extends Model
     const MODULE_COMMUNITY_LINKS = ['id' => 27, 'key' => 'CL', 'title' => 'Community Links'];
     const MODULE_REGISTRATION_REQUEST = ['id' => 28, 'key' => 'RR', 'title' => 'Registration Requests'];
     const MODULE_APPLICATION_SETTING = ['id' => 29, 'key' => 'AS', 'title' => 'Application Settings'];
+
+    /**
+     * get the module
+     *
+     * @return HasMany
+     */
+    public function moduleOptions()
+    {
+        return $this->HasMany(ModuleOption::class, 'moduleId', 'id');
+    }
 }

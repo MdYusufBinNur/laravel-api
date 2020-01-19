@@ -32,7 +32,7 @@ class ModulePolicy
      */
     public function list(User $currentUser)
     {
-        return false;
+        return true;
     }
 
     /**
@@ -56,7 +56,7 @@ class ModulePolicy
      */
     public function show(User $currentUser,  Module $module)
     {
-        return false;
+        return true;
     }
 
     /**

@@ -20,6 +20,9 @@ class ModuleOptionResource extends Resource
             'module' => $this->when($this->needToInclude($request, 'mo.module'), function () {
                 return new ModuleResource($this->module);
             }),
+            'moduleOptionsProperty' => $this->when($this->needToInclude($request, 'mo.moduleOptionsProperty'), function () {
+                return new ModuleOptionPropertyResourceCollection($this->moduleOptionsProperty);
+            }),
         ];
     }
 }

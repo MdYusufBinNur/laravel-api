@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ModuleOption extends Model
@@ -73,5 +74,15 @@ class ModuleOption extends Model
     public function module()
     {
         return $this->hasOne(Module::class, 'id', 'moduleId');
+    }
+
+    /**
+     * get the module
+     *
+     * @return HasMany
+     */
+    public function moduleOptionsProperty()
+    {
+        return $this->HasMany(ModuleOptionProperty::class, 'moduleOptionId', 'id');
     }
 }

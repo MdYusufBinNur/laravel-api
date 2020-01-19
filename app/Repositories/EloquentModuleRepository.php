@@ -20,6 +20,7 @@ class EloquentModuleRepository extends EloquentBaseRepository implements ModuleR
             $searchCriteria['id'] = implode(",", $moduleIds);
             unset($searchCriteria['propertyId']);
         }
+        $searchCriteria['eagerLoad'] = ['module.moduleOptions' => 'moduleOptions', 'mo.moduleOptionsProperty' => 'moduleOptions.moduleOptionsProperty'];
 
         return parent::findBy($searchCriteria, $withTrashed);
     }

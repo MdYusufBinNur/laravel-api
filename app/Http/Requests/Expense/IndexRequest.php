@@ -21,7 +21,8 @@ class IndexRequest extends Request
             'sourceOfIncome' => 'string',
             'amount' => '',
             'startDate' => 'date_format:Y-m-d',
-            'endDate' => 'date_format:Y-m-d|after:startDate'
+            'endDate' => 'date_format:Y-m-d|after:startDate',
+            'withOutPagination' => 'boolean'
         ];
     }
 }

@@ -23,6 +23,7 @@ class IndexRequest extends Request
             'signOutAt' => 'date_format:Y-m-d H:i',
             'endDate' => 'date_format:Y-m-d|after:startDate',
             'unitId' => '',
+            'withOutPagination' => 'boolean'
         ];
     }
 }

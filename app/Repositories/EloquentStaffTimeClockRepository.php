@@ -21,11 +21,13 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
         $queryBuilder = $this->model;
 
         if (isset($searchCriteria['endDate'])) {
+            $searchCriteria['onlyHistory'] = false;
             $queryBuilder = $queryBuilder->whereDate('created_at', '<=', Carbon::parse($searchCriteria['endDate']));
             unset($searchCriteria['endDate']);
         }
 
         if (isset($searchCriteria['startDate'])) {
+            $searchCriteria['onlyHistory'] = false;
             $queryBuilder = $queryBuilder->whereDate('created_at', '>=', Carbon::parse($searchCriteria['startDate']));
             unset($searchCriteria['startDate']);
         }
@@ -52,7 +54,7 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
         $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';
         $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
         $queryBuilder->orderBy($orderBy, $orderDirection);
-        return $queryBuilder->paginate($limit);
+        return $queryBuilder->dd($limit);
     }
 
     /**

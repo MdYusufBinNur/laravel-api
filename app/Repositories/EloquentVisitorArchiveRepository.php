@@ -78,7 +78,11 @@ class EloquentVisitorArchiveRepository extends EloquentBaseRepository implements
 
         $queryBuilder->orderBy($orderBy, $orderDirection);
 
-        return $queryBuilder->paginate($limit);
+        if (empty($searchCriteria['withOutPagination'])) {
+            return $queryBuilder->paginate($limit);
+        } else {
+            return $queryBuilder->get();
+        }
 
     }
 

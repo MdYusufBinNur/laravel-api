@@ -25,6 +25,7 @@ class IndexRequest extends Request
             'notifyCount' => 'list:numeric',
             'startDate' => 'date_format:Y-m-d',
             'endDate' => 'date_format:Y-m-d',
+            'withOutPagination' => 'boolean'
         ];
     }
 }

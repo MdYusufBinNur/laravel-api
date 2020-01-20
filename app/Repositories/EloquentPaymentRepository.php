@@ -23,9 +23,20 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
+        $queryBuilder = $this->model;
+
         $searchCriteria['eagerLoad'] = ['payment.createdByUser' => 'createdByUser', 'payment.property' => 'property', 'payment.paymentPaymentMethods' => 'paymentPaymentMethods', 'payment.paymentType' => 'paymentType', 'payment.paymentItems' => 'paymentItems', 'payment.paymentRecurring' => 'paymentRecurring', 'pp.createdByUser' => 'createdByUser', 'ppm.paymentMethod' => 'paymentPaymentMethods.paymentMethod'];
 
-        return parent::findBy($searchCriteria, $withTrashed);
+        $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;
+        $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';
+        $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
+        $queryBuilder->orderBy($orderBy, $orderDirection);
+
+        if (empty($searchCriteria['withOutPagination'])) {
+            return $queryBuilder->paginate($limit);
+        } else {
+            return $queryBuilder->get();
+        }
     }
 
     /**

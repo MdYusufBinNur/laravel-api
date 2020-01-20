@@ -20,6 +20,7 @@ class IndexRequest extends Request
             'ownedByUserId' => 'list:numeric',
             'ownedBy' => 'string',
             'createdByUserId' => 'list:numeric',
+            'withOutPagination' => 'boolean'
         ];
     }
 }

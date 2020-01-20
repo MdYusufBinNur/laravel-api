@@ -23,7 +23,6 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-
         $queryBuilder = $this->model;
 
         $searchCriteria['eagerLoad'] = ['payment.createdByUser' => 'createdByUser', 'payment.property' => 'property', 'payment.paymentPaymentMethods' => 'paymentPaymentMethods', 'payment.paymentType' => 'paymentType', 'payment.paymentItems' => 'paymentItems', 'payment.paymentRecurring' => 'paymentRecurring', 'pp.createdByUser' => 'createdByUser', 'ppm.paymentMethod' => 'paymentPaymentMethods.paymentMethod'];

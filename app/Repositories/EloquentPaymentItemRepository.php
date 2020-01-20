@@ -18,6 +18,8 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
+        $queryBuilder = $this->model;
+
         $searchCriteria['eagerLoad'] = ['pi.createdByUser' => 'createdByUser', 'pi.property' => 'property',  'pi.payment' => 'payment', 'pi.user' => 'user', 'pi.paymentItemLogs' => 'paymentItemLogs'];
 
         if (empty($searchCriteria['unitId'])) {
@@ -27,7 +29,16 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
             }
         }
 
-        return parent::findBy($searchCriteria, $withTrashed);
+        $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;
+        $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';
+        $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
+        $queryBuilder->orderBy($orderBy, $orderDirection);
+
+        if (empty($searchCriteria['withOutPagination'])) {
+            return $queryBuilder->paginate($limit);
+        } else {
+            return $queryBuilder->get();
+        }
     }
 
     /**

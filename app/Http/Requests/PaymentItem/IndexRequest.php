@@ -21,6 +21,7 @@ class IndexRequest extends Request
             'userId' => 'list:numeric',
             'unitId' => 'list:numeric',
             'status' => 'list:string',
+            'withOutPagination' => 'boolean'
         ];
     }
 }

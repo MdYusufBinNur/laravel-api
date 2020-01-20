@@ -4,7 +4,8 @@ namespace App\Http\Requests\Income;
 
 use App\Http\Requests\Request;
 
-class IndexRequest extends Request
+class
+IndexRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -22,6 +23,7 @@ class IndexRequest extends Request
             'amount' => '',
             'startDate' => 'date_format:Y-m-d',
             'endDate' => 'date_format:Y-m-d|after:startDate',
+            'withOutPagination' => 'boolean'
         ];
     }
 }

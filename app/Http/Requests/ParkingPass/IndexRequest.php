@@ -24,6 +24,7 @@ class IndexRequest extends Request
             'endDate' => 'date_format:Y-m-d',
             'releasedStartDate' => 'date_format:Y-m-d',
             'releasedEndDate' => 'date_format:Y-m-d',
+            'withOutPagination' => 'boolean'
         ];
     }
 }

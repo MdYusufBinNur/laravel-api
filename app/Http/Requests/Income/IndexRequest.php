@@ -4,8 +4,7 @@ namespace App\Http\Requests\Income;
 
 use App\Http\Requests\Request;
 
-class
-IndexRequest extends Request
+class IndexRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.

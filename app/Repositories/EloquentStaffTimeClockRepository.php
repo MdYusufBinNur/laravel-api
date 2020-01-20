@@ -24,12 +24,14 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
             $searchCriteria['onlyHistory'] = false;
             $queryBuilder = $queryBuilder->whereDate('created_at', '<=', Carbon::parse($searchCriteria['endDate']));
             unset($searchCriteria['endDate']);
+            unset($searchCriteria['onlyHistory']);
         }
 
         if (isset($searchCriteria['startDate'])) {
             $searchCriteria['onlyHistory'] = false;
             $queryBuilder = $queryBuilder->whereDate('created_at', '>=', Carbon::parse($searchCriteria['startDate']));
             unset($searchCriteria['startDate']);
+            unset($searchCriteria['onlyHistory']);
         }
 
         if (!empty($searchCriteria['onlyActive'])) {

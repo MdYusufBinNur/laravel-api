@@ -19,7 +19,7 @@ class UpdateRequest extends Request
             'email'             => 'unique:manager_invitations,email|max:255',
             'name'              => 'min:3|max:255',
             'title'             => 'min:3|max:255',
-            'level'             => 'in:'.ManagerInvitation::LEVEL_ADMIN.','.ManagerInvitation::LEVEL_STANDARD.','.ManagerInvitation::LEVEL_LIMITED.','.ManagerInvitation::LEVEL_RESTRICTED,
+            'level'             => 'in:'.ManagerInvitation::LEVEL_ADMIN.','.ManagerInvitation::LEVEL_STANDARD.','.ManagerInvitation::LEVEL_LIMITED,
             'status'            => 'in:'.ManagerInvitation::STATUS_ACTIVE.','.ManagerInvitation::STATUS_CANCELLED.','.ManagerInvitation::STATUS_COMPLETED,
             'invitedAt'          => 'date',
         ];

@@ -10,9 +10,9 @@ class ManagerInvitation extends Model
     use CommonModelFeatures;
 
     const LEVEL_ADMIN = 'admin';
-    const LEVEL_STANDARD = 'standard';
-    const LEVEL_LIMITED = 'limited';
-    const LEVEL_RESTRICTED = 'restricted';
+    const LEVEL_LIMITED = 'priority_limited';
+    const LEVEL_STANDARD = 'standard_staff';
+    const LEVEL_PRIORITY = 'limited_staff';
 
     const STATUS_ACTIVE = 'active';
     const STATUS_CANCELLED = 'cancelled';

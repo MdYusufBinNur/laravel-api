@@ -12,8 +12,8 @@ class Resident extends Model
 
     const DEFAULT_DIAL_HOME_PHONE = 'homePhone';
     const DEFAULT_DIAL_CELL_PHONE = 'cellPhone';
-    const RESIDENT_TYPE_TENANT = 'tenant';
-    const RESIDENT_TYPE_OWNER = 'owner';
+    const RESIDENT_TYPE_TENANT = 'resident_tenant';
+    const RESIDENT_TYPE_OWNER = 'resident_owner';
 
     /**
      * The attributes that are mass assignable.

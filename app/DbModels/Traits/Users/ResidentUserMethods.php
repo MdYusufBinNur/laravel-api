@@ -146,6 +146,7 @@ trait ResidentUserMethods
     {
         if ($this->isResident()) {
             $residents = $this->scopeResidentOfTheUnit($unitId)->get();
+
             foreach ($residents as $resident) {
                 return $resident->isTypeOwner();
             }

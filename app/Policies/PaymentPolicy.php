@@ -33,8 +33,11 @@ class PaymentPolicy
      * @param array $userIds
      * @return bool
      */
-    public function list(User $currentUser, int $propertyId, ?array $unitIds, ?array $userIds)
+    public function list(User $currentUser, int $propertyId, $unitIds = [], $userIds = [])
     {
+        $unitIds = is_string($unitIds) ?  explode(',', $unitIds): $unitIds;
+        $userIds = is_string($userIds) ?  explode(',', $userIds): $userIds;
+
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
                 return true;
@@ -75,6 +78,7 @@ class PaymentPolicy
      */
     public function store(User $currentUser, int $propertyId, ?array $unitIds, ?array $userIds)
     {
+
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
                 return true;

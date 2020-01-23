@@ -12,9 +12,9 @@ class Manager extends Model
     use CommonModelFeatures;
 
     const LEVEL_ADMIN = 'admin';
-    const LEVEL_STANDARD = 'standard';
-    const LEVEL_LIMITED = 'limited';
-    const LEVEL_RESTRICTED = 'restricted';
+    const LEVEL_STANDARD = 'standard_staff';
+    const LEVEL_PRIORITY = 'priority_staff';
+    const LEVEL_LIMITED = 'limited_staff';
 
     /**
      * The attributes that are mass assignable.

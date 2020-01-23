@@ -316,6 +316,28 @@ class EloquentBaseRepository implements BaseRepository
     }
 
     /**
+     * apply eager load in query builder
+     *
+     * @param mixed $queryBuilder
+     * @param string $fieldName
+     * @return mixed $values
+     */
+    public function applySearchInJsonField($queryBuilder, $fieldName, $values)
+    {
+        $valuesArray =  is_string($values) ? explode(',', $values) : $values;
+
+        foreach ($valuesArray  as $key => $value) {
+            if ($key === 0) {
+                $queryBuilder =  $queryBuilder->whereJsonContains($fieldName, [$value]);
+            } else {
+                $queryBuilder =  $queryBuilder->orWhereJsonContains($fieldName, [$value]);
+            }
+        }
+
+        return $queryBuilder;
+    }
+
+    /**
      * @inheritdoc
      */
     public function updateIn(string $key, array $values, array $data): \IteratorAggregate

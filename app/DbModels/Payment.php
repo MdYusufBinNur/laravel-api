@@ -66,6 +66,8 @@ class Payment extends Model
      */
     public function setToUserIdsAttribute($toUserIds)
     {
+        $toUserIds = array_map('intval', $toUserIds);
+
         $this->attributes['toUserIds'] = json_encode($toUserIds);
     }
 
@@ -84,6 +86,8 @@ class Payment extends Model
      */
     public function setToUnitIdsAttribute($toUnitIds)
     {
+        $toUnitIds = array_map('intval', $toUnitIds);
+
         $this->attributes['toUnitIds'] = json_encode($toUnitIds);
     }
 

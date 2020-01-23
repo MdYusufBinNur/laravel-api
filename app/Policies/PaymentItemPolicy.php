@@ -71,7 +71,7 @@ class PaymentItemPolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-            $unitId = $payment->unitId;
+            $unitId = $paymentItem->unitId;
             if (!empty($unitId) && $currentUser->isOwnerOfTheUnit($unitId)) {
                 return true;
             }
@@ -101,7 +101,7 @@ class PaymentItemPolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-            $unitId = $payment->unitId;
+            $unitId = $paymentItem->unitId;
             if (!empty($unitId) && $currentUser->isOwnerOfTheUnit($unitId)) {
                 return true;
             }
@@ -131,7 +131,7 @@ class PaymentItemPolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-            $unitId = $payment->unitId;
+            $unitId = $paymentItem->unitId;
             if (!empty($unitId) && $currentUser->isOwnerOfTheUnit($unitId)) {
                 return true;
             }
@@ -151,7 +151,8 @@ class PaymentItemPolicy
 
         if (count($unitIds) > 0) {
             foreach ($unitIds as $unitId) {
-                if (!$currentUser->isOwnerOfTheUnit($unitId)) {
+
+                if (!$currentUser->isOwnerOfTheUnit((int) $unitId)) {
                     return false;
                 }
             }

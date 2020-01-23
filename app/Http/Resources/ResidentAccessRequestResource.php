@@ -35,6 +35,7 @@ class ResidentAccessRequestResource extends Resource
             'moderatedAt' => $this->moderatedAt,
             'movedInDate' => $this->movedInDate,
             'birthDate' => $this->birthDate,
+            'isOwnerLivingHere' => $this->isOwnerLivingHere,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

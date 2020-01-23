@@ -30,7 +30,8 @@ class StoreRequest extends Request
             'moderatedAt' => 'date_format:Y-m-d',
             'movedInDate' => 'date_format:Y-m-d',
             'birthDate' => 'date_format:Y-m-d',
-            'accessInPast' => 'boolean'
+            'accessInPast' => 'boolean',
+            'isOwnerLivingHere' => 'boolean'
         ];
     }
 }

@@ -328,9 +328,9 @@ class EloquentBaseRepository implements BaseRepository
 
         foreach ($valuesArray  as $key => $value) {
             if ($key === 0) {
-                $queryBuilder =  $queryBuilder->whereJsonContains($fieldName, [$value]);
+                $queryBuilder =  $queryBuilder->whereJsonContains($fieldName, [(int)$value]);
             } else {
-                $queryBuilder =  $queryBuilder->orWhereJsonContains($fieldName, [$value]);
+                $queryBuilder =  $queryBuilder->orWhereJsonContains($fieldName, [(int)$value]);
             }
         }
 

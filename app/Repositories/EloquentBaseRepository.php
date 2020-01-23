@@ -324,10 +324,9 @@ class EloquentBaseRepository implements BaseRepository
      */
     public function applySearchInJsonField($queryBuilder, $fieldName, $values)
     {
-        $valuesArray =  explode(',', $values);
+        $valuesArray =  is_string($values) ? explode(',', $values) : $values;
 
-        $stringyfiedArrayValues = array_map('strval', $valuesArray);
-        foreach ($stringyfiedArrayValues  as $key => $value) {
+        foreach ($valuesArray  as $key => $value) {
             if ($key === 0) {
                 $queryBuilder =  $queryBuilder->whereJsonContains($fieldName, [$value]);
             } else {

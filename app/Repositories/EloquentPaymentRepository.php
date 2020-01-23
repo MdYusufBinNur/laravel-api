@@ -31,8 +31,9 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
         };
 
         if (isset($searchCriteria['toUserIds'])) {
-            $searchCriteria['toUserIds'] = array_map('strval', explode(',', $searchCriteria['toUserIds']));
-            $queryBuilder =  $queryBuilder->whereJsonContains('toUnitIds', $searchCriteria['toUnitIds']);
+            $queryBuilder = $this->applySearchInJsonField($queryBuilder, 'toUnitIds', $searchCriteria['toUserIds']);
+            unset($searchCriteria['toUserIds']);
+
         };
 
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {

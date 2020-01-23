@@ -33,8 +33,8 @@ class ResidentCreated extends Mailable
      */
     public function build()
     {
-        $residentCreated = $this->resident;
-        $property = $this->$residentCreated->property;
+        $resident = $this->resident;
+        $property = $resident->property;
         $propertyLink = $property->getLoginLink();
 
 

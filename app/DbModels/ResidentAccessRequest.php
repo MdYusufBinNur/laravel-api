@@ -21,7 +21,7 @@ class ResidentAccessRequest extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'unitId', 'name', 'email', 'phone', 'pin', 'type', 'groups', 'status', 'active', 'comment', 'moderatedUserId', 'moderatedAt', 'movedInDate', 'birthDate'
+        'createdByUserId', 'propertyId', 'unitId', 'name', 'email', 'phone', 'pin', 'type', 'groups', 'status', 'active', 'comment', 'moderatedUserId', 'moderatedAt', 'movedInDate', 'birthDate','isOwnerLivingHere'
     ];
 
     protected $attributes = [

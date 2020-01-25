@@ -31,6 +31,7 @@ class CreateResidentAccessRequestsTable extends Migration
             $table->dateTime('moderatedAt')->nullable();
             $table->date('movedInDate');
             $table->date('birthDate')->nullable();
+            $table->boolean('isOwnerLivingHere')->default(false);
             $table->timestamps();
             $table->softDeletes();
 

@@ -15,7 +15,7 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' => 'required|exists:properties,id',
-            'title' => 'required|min:5|max:255',
+            'title' => 'required|max:255',
             'content' => 'required|min:5|max:16777215',
             'link' => 'required|min:5|max:255',
             'linkinNewWindows' => 'boolean',

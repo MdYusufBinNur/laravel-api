@@ -31,7 +31,8 @@ class UpdateRequest extends Request
             'moderatedAt' => 'date_format:Y-m-d',
             'movedInDate' => 'date_format:Y-m-d',
             'birthDate' => 'date_format:Y-m-d',
-            'regeneratePin' => 'boolean'
+            'regeneratePin' => 'boolean',
+            'isOwnerLivingHere' => 'boolean'
         ];
     }
 

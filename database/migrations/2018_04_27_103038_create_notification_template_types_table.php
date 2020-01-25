@@ -26,6 +26,11 @@ class CreateNotificationTemplateTypesTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
+        DB::table('notification_template_types')->insert([
+            ['id' => 1, 'key' => 'Welcome Letter', 'module' => 'Welcome letter to user'],
+            ['id' => 2, 'key' => 'Email Notification', 'module' => 'Email template notification body'],
+        ]);
+
     }
 
     /**

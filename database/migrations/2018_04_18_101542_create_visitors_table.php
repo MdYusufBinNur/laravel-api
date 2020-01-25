@@ -18,8 +18,8 @@ class CreateVisitorsTable extends Migration
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
             $table->unsignedInteger('signInUserId');
-            $table->unsignedInteger('unitId');
-            $table->unsignedInteger('visitorTypeId');
+            $table->unsignedInteger('unitId')->nullable();
+            $table->unsignedInteger('visitorTypeId')->nullable();
             $table->string('name');
             $table->string('phone', 20);
             $table->string('email', 100)->nullable();

@@ -55,12 +55,19 @@ class EloquentVisitorRepository extends EloquentBaseRepository implements Visito
             unset($searchCriteria['startDate']);
         }
 
+        if (isset($searchCriteria['query'])) {
+            $queryBuilder = $queryBuilder->where('name', $searchCriteria['query'])
+                ->orWhere('phone', 'like', '%' . $searchCriteria['query'] . '%')
+                ->orWhere('email', 'like', '%' . $searchCriteria['query'] . '%')
+                ->orWhere('phone', 'like', '%' . $searchCriteria['query'] . '%');
+            unset($searchCriteria['query']);
+        }
+
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
         $searchCriteria['eagerLoad'] = ['visitor.createdByUser' => 'createdByUser', 'visitor.property' => 'property',  'visitor.visitorType' => 'visitorType', 'visitor.unit' => 'unit', 'visitor.image' => 'image'];
         $queryBuilder = $this->applyEagerLoad($queryBuilder, $searchCriteria);
-
 
         $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;
         $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';

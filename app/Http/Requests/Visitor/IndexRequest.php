@@ -28,7 +28,8 @@ class IndexRequest extends Request
             'startDate' => 'date_format:Y-m-d',
             'signInAt' => 'date_format:Y-m-d H:i',
             'endDate' => 'date_format:Y-m-d|after:startDate',
-            'withOutPagination' => 'boolean'
+            'withOutPagination' => 'boolean',
+            'query' => '',
         ];
     }
 }

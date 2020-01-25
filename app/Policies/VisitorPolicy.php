@@ -45,10 +45,9 @@ class VisitorPolicy
      *
      * @param User $currentUser
      * @param int $propertyId
-     * @param int $unitId
      * @return bool
      */
-    public function store(User $currentUser, int $propertyId, ?int $unitId)
+    public function store(User $currentUser, int $propertyId)
     {
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;

@@ -23,7 +23,7 @@ class AnnouncementPolicy
             return true;
         }
 
-        if (!$this->isModuleActiveForTheProperty(request()->get('propertyId'), Module::MODULE_ANNOUNCEMENTS)) {
+        if (!$this->isModuleActiveForTheProperty( Module::MODULE_ANNOUNCEMENTS)) {
             return false;
         }
     }
@@ -75,7 +75,7 @@ class AnnouncementPolicy
      */
     public function update(User $currentUser, Announcement $announcement)
     {
-        return $currentUser->isAStaffOfTheProperty($propertyId);
+        return $currentUser->isAStaffOfTheProperty($announcement->propertyId);
     }
 
     /**

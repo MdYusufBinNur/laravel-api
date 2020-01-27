@@ -45,7 +45,7 @@ class EloquentVisitorArchiveRepository extends EloquentBaseRepository implements
             ->join($visitorModelTable, $visitorModelTable . '.id', '=', $thisModelTable . '.visitorId');
 
         if (isset($searchCriteria['unitId'])) {
-            $queryBuilder = $queryBuilder->where($visitorModelTable . '.unitId', $searchCriteria['unitId']);
+            $searchCriteria[$visitorModelTable. '.unitId'] = $searchCriteria['unitId'];
             unset($searchCriteria['unitId']);
         }
 
@@ -67,10 +67,10 @@ class EloquentVisitorArchiveRepository extends EloquentBaseRepository implements
         }
 
         if (isset($searchCriteria['query'])) {
-            $queryBuilder = $queryBuilder->where($visitorModelTable . '.' . 'name', $searchCriteria['query'])
-                ->orWhere($visitorModelTable . '.' .'phone', 'like', '%' . $searchCriteria['query'] . '%')
-                ->orWhere($visitorModelTable . '.' . 'email', 'like', '%' . $searchCriteria['query'] . '%')
-                ->orWhere($visitorModelTable . '.' . 'company', 'like', '%' . $searchCriteria['query'] . '%');
+            $queryBuilder = $queryBuilder->where($visitorModelTable . '.name', 'like', '%' . $searchCriteria['query'] . '%')
+                ->orWhere($visitorModelTable . '.phone', 'like', '%' . $searchCriteria['query'] . '%')
+                ->orWhere($visitorModelTable . '.email', 'like', '%' . $searchCriteria['query'] . '%')
+                ->orWhere($visitorModelTable . '.company', 'like', '%' . $searchCriteria['query'] . '%');
             unset($searchCriteria['query']);
         }
 

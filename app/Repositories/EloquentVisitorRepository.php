@@ -59,7 +59,7 @@ class EloquentVisitorRepository extends EloquentBaseRepository implements Visito
             $queryBuilder = $queryBuilder->where('name', $searchCriteria['query'])
                 ->orWhere('phone', 'like', '%' . $searchCriteria['query'] . '%')
                 ->orWhere('email', 'like', '%' . $searchCriteria['query'] . '%')
-                ->orWhere('phone', 'like', '%' . $searchCriteria['query'] . '%');
+                ->orWhere('company', 'like', '%' . $searchCriteria['query'] . '%');
             unset($searchCriteria['query']);
         }
 

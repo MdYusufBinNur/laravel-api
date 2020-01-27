@@ -66,6 +66,14 @@ class EloquentVisitorArchiveRepository extends EloquentBaseRepository implements
             }
         }
 
+        if (isset($searchCriteria['query'])) {
+            $queryBuilder = $queryBuilder->where($visitorModelTable . '.' . 'name', $searchCriteria['query'])
+                ->orWhere($visitorModelTable . '.' .'phone', 'like', '%' . $searchCriteria['query'] . '%')
+                ->orWhere($visitorModelTable . '.' . 'email', 'like', '%' . $searchCriteria['query'] . '%')
+                ->orWhere($visitorModelTable . '.' . 'company', 'like', '%' . $searchCriteria['query'] . '%');
+            unset($searchCriteria['query']);
+        }
+
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });

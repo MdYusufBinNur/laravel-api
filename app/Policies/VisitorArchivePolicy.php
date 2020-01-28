@@ -29,10 +29,15 @@ class VisitorArchivePolicy
      * @param User $currentUser
      * @param int $propertyId
      * @param int $unitId
+     * @param int $userId
      * @return bool
      */
-    public function list(User $currentUser, int $propertyId, ?string $unitId)
+    public function list(User $currentUser, int $propertyId, ?string $unitId, ?string $userId)
     {
+        if ($userId == $currentUser->id) {
+            return true;
+        }
+
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
         }

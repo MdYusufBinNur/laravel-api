@@ -36,7 +36,7 @@ class VisitorArchiveController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [VisitorArchive::class, $request->get('propertyId'), $request->get('unitId', null)]);
+        $this->authorize('list', [VisitorArchive::class, $request->get('propertyId'), $request->get('unitId', null), $request->get('userId', null)]);
 
         $visitorArchives = $this->visitorArchiveRepository->findBy($request->all());
 

@@ -30,6 +30,10 @@ class VisitorResource extends Resource
             'unit' => $this->when($this->needToInclude($request, 'visitor.unit'), function () {
                 return new UnitResource($this->unit);
             }),
+            'userId' => $this->userId,
+            'user' => $this->when($this->needToInclude($request, 'visitor.user'), function () {
+                return new UserResource($this->user);
+            }),
             'visitorTypeId' => $this->visitorTypeId,
             'visitorType' => $this->when($this->needToInclude($request, 'visitor.visitorType'), function () {
                 return new VisitorTypeResource($this->visitorType);

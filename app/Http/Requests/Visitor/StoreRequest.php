@@ -17,6 +17,7 @@ class StoreRequest extends Request
         return [
             'propertyId' => 'required|exists:properties,id',
             'unitId' => 'exists:units,id',
+            'userId' => 'exists:users,id',
             'visitorTypeId' => 'exists:visitor_types,id',
             'name' => 'required|min:3|max:255',
             'phone' => 'min:5|max:20',

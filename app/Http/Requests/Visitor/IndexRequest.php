@@ -18,6 +18,7 @@ class IndexRequest extends Request
             'propertyId' => 'required|numeric',
             'signInUserId' => 'list:numeric',
             'unitId' => 'list:numeric',
+            'userId' => 'list:numeric',
             'visitorTypeId' => 'list:numeric',
             'phone' => 'list:string',
             'email' => 'list:string',

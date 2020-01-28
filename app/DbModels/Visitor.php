@@ -19,7 +19,7 @@ class Visitor extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'propertyId', 'signInUserId', 'unitId', 'visitorTypeId', 'name', 'phone', 'email', 'company', 'photo', 'permanent', 'comment', 'signature', 'status', 'signInAt'
+        'createdByUserId', 'propertyId', 'signInUserId', 'unitId', 'userId', 'visitorTypeId', 'name', 'phone', 'email', 'company', 'photo', 'permanent', 'comment', 'signature', 'status', 'signInAt'
     ];
 
     /**
@@ -53,6 +53,16 @@ class Visitor extends Model
     public function unit()
     {
         return $this->hasOne(Unit::class, 'id', 'unitId');
+    }
+
+    /**
+     * get the unit
+     *
+     * @return hasOne
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'userId');
     }
 
     /**

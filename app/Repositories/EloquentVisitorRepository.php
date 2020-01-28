@@ -27,7 +27,7 @@ class EloquentVisitorRepository extends EloquentBaseRepository implements Visito
             $attachment = $attachmentRepository->findOne($data['attachmentId']);
 
             if (!empty($data['copyOldAttachment'])) {
-                $attachmentRepository->copyOldAttachment($attachment, ['resourceId' => $visitor->id]);
+                $attachmentRepository->copyOldAttachment($attachment, ['resourceId' => $visitor->id, 'type' => Attachment::ATTACHMENT_TYPE_VISITOR]);
                 unset($data['copyOldAttachment']);
 
             } else {
@@ -73,7 +73,7 @@ class EloquentVisitorRepository extends EloquentBaseRepository implements Visito
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
-        $searchCriteria['eagerLoad'] = ['visitor.createdByUser' => 'createdByUser', 'visitor.property' => 'property',  'visitor.visitorType' => 'visitorType', 'visitor.unit' => 'unit', 'visitor.image' => 'image'];
+        $searchCriteria['eagerLoad'] = ['visitor.createdByUser' => 'createdByUser', 'visitor.property' => 'property',  'visitor.visitorType' => 'visitorType', 'visitor.unit' => 'unit', 'visitor.user' => 'user', 'visitor.image' => 'image'];
         $queryBuilder = $this->applyEagerLoad($queryBuilder, $searchCriteria);
 
         $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;

@@ -19,7 +19,7 @@ class VisitorPolicy
     public function before(User $currentUser)
     {
         if ($currentUser->isAdmin()) {
-            return true;
+            //return true;
         }
     }
 
@@ -29,10 +29,15 @@ class VisitorPolicy
      * @param User $currentUser
      * @param int $propertyId
      * @param string $unitId
+     * @param string $userId
      * @return bool
      */
-    public function list(User $currentUser, int $propertyId, ?string $unitId)
+    public function list(User $currentUser, int $propertyId, ?string $unitId, ?string $userId)
     {
+        if ($userId == $currentUser->id) {
+            return true;
+        }
+
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
         }
@@ -46,7 +51,7 @@ class VisitorPolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-            return $currentUser->isResidentOfTheUnits($unitId);
+           // return $currentUser->isResidentOfTheUnits($unitId);
         }
 
         return false;
@@ -81,6 +86,10 @@ class VisitorPolicy
      */
     public function show(User $currentUser,  Visitor $visitor)
     {
+        if ($visitor->userId == $currentUser->userId) {
+            return true;
+        }
+
         $propertyId = $visitor->propertyId;
 
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {

@@ -19,6 +19,7 @@ class CreateVisitorsTable extends Migration
             $table->unsignedInteger('propertyId');
             $table->unsignedInteger('signInUserId');
             $table->unsignedInteger('unitId')->nullable();
+            $table->unsignedInteger('userId')->nullable();
             $table->unsignedInteger('visitorTypeId')->nullable();
             $table->string('name');
             $table->string('phone', 20);
@@ -45,6 +46,11 @@ class CreateVisitorsTable extends Migration
 
             $table->foreign('unitId')
                 ->references('id')->on('units')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('userId')
+                ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

@@ -29,6 +29,7 @@ class HandleMessageCreatedEvent implements ShouldQueue
 
         $property = $message->property;
         $fromUser = $message->fromUser;
+        $messageUser = $message->messageUsers;
 
         if ($message->emailNotification) {
             $messageText = $message->scopeLastMessagePostOfTheUser($fromUser->id)->first()->text;
@@ -46,15 +47,19 @@ class HandleMessageCreatedEvent implements ShouldQueue
         }
 
         foreach ($toUserIds as $toUserId) {
+            $resource = array_filter(
+                $messageUser,
+                function ($e) use (&$toUserId) {
+                    return $e->userId ==  $toUserId;
+                }
+            );
             $userNotificationRepository->save([
                 'fromUserId' => $message->fromUserId,
                 'toUserId' => $toUserId,
                 'userNotificationTypeId' => UserNotificationType::MESSAGE['id'],
-                'resourceId' => $message->id,
+                'resourceId' => $resource->id,
                 'message' => 'New message from ' . $fromUser->name,
             ]);
         }
-
-
     }
 }

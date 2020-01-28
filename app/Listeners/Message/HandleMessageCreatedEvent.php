@@ -47,7 +47,7 @@ class HandleMessageCreatedEvent implements ShouldQueue
         }
 
         foreach ($toUserIds as $toUserId) {
-            $resource = array_filter(
+            $messageToUser = array_filter(
                 $messageUser,
                 function ($e) use (&$toUserId) {
                     return $e['userId'] ==  $toUserId;
@@ -57,7 +57,7 @@ class HandleMessageCreatedEvent implements ShouldQueue
                 'fromUserId' => $message->fromUserId,
                 'toUserId' => $toUserId,
                 'userNotificationTypeId' => UserNotificationType::MESSAGE['id'],
-                'resourceId' => $resource[0]['id'],
+                'resourceId' => $messageToUser[0]['id'],
                 'message' => 'New message from ' . $fromUser->name,
             ]);
         }

@@ -36,7 +36,7 @@ class VisitorController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [Visitor::class, $request->get('propertyId')]);
+        $this->authorize('list', [Visitor::class, $request->get('propertyId'), $request->get('unitId', null)]);
 
         $visitors = $this->visitorRepository->findBy($request->all());
 

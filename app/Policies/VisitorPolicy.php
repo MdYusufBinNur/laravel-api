@@ -28,13 +28,25 @@ class VisitorPolicy
      *
      * @param User $currentUser
      * @param int $propertyId
-     * @param int $unitId
+     * @param string $unitId
      * @return bool
      */
-    public function list(User $currentUser, int $propertyId)
+    public function list(User $currentUser, int $propertyId, ?string $unitId)
     {
-        if ($currentUser->isUserOfTheProperty($propertyId)) {
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+            return $currentUser->isResidentOfTheUnits($unitId);
         }
 
         return false;
@@ -77,6 +89,10 @@ class VisitorPolicy
 
         if ($currentUser->isAStaffOfTheProperty($propertyId)) {
             return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+            return $currentUser->isResidentOfTheUnits($visitor->unitId);
         }
 
         return false;

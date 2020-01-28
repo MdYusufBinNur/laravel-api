@@ -28,9 +28,10 @@ class VisitorArchivePolicy
      *
      * @param User $currentUser
      * @param int $propertyId
+     * @param int $unitId
      * @return bool
      */
-    public function list(User $currentUser, int $propertyId)
+    public function list(User $currentUser, int $propertyId, ?string $unitId)
     {
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
             return true;
@@ -38,6 +39,10 @@ class VisitorArchivePolicy
 
         if ($currentUser->isAStaffOfTheProperty($propertyId)) {
             return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+            return $currentUser->isResidentOfTheUnits($unitId);
         }
 
         return false;
@@ -80,6 +85,10 @@ class VisitorArchivePolicy
 
         if ($currentUser->isAStaffOfTheProperty($propertyId)) {
             return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+            return $currentUser->isResidentOfTheUnits($propertyId);
         }
 
         return false;

@@ -29,7 +29,7 @@ class HandleMessageCreatedEvent implements ShouldQueue
 
         $property = $message->property;
         $fromUser = $message->fromUser;
-        $messageUser = $message->messageUsers->toArray();
+        $messageUsers = $message->messageUsers->toArray();
 
         if ($message->emailNotification) {
             $messageText = $message->scopeLastMessagePostOfTheUser($fromUser->id)->first()->text;
@@ -45,21 +45,24 @@ class HandleMessageCreatedEvent implements ShouldQueue
         } else {
             $toUserIds = [$message->toUserId];
         }
-
         foreach ($toUserIds as $toUserId) {
             $messageToUser = array_filter(
-                $messageUser,
+                $messageUsers,
                 function ($e) use (&$toUserId) {
                     return $e['userId'] ==  $toUserId;
                 }
             );
-            $userNotificationRepository->save([
-                'fromUserId' => $message->fromUserId,
-                'toUserId' => $toUserId,
-                'userNotificationTypeId' => UserNotificationType::MESSAGE['id'],
-                'resourceId' => $messageToUser[0]['id'],
-                'message' => 'New message from ' . $fromUser->name,
-            ]);
+
+            if(!empty($messageToUser)){
+                $resource = array_values($messageToUser)[0];
+                $userNotificationRepository->save([
+                    'fromUserId' => $message->fromUserId,
+                    'toUserId' => $toUserId,
+                    'userNotificationTypeId' => UserNotificationType::MESSAGE['id'],
+                    'resourceId' => $resource['id'],
+                    'message' => 'New message from ' . $fromUser->name,
+                ]);
+            }
         }
     }
 }

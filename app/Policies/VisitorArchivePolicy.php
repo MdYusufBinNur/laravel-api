@@ -88,7 +88,7 @@ class VisitorArchivePolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-            return $currentUser->isResidentOfTheUnits($propertyId);
+            return $currentUser->isResidentOfTheUnits($visitorArchive->visitor->unitId);
         }
 
         return false;

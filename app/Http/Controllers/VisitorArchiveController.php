@@ -10,7 +10,6 @@ use App\Http\Resources\VisitorArchiveResource;
 use App\Http\Resources\VisitorArchiveResourceCollection;
 use App\Repositories\Contracts\VisitorArchiveRepository;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Http\Request;
 
 class VisitorArchiveController extends Controller
 {

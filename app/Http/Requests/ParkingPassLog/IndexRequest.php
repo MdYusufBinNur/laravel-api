@@ -23,6 +23,7 @@ class IndexRequest extends Request
             'licensePlate' => 'list:string',
             'startAt' => 'list:date_format:Y-m-d',
             'endAt' => 'list:date_format:Y-m-d',
+            'withOutPagination' => 'boolean',
         ];
     }
 }

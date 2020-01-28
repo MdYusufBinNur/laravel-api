@@ -25,8 +25,15 @@ class EloquentVisitorRepository extends EloquentBaseRepository implements Visito
         if (isset($data['attachmentId'])) {
             $attachmentRepository = app(AttachmentRepository::class);
             $attachment = $attachmentRepository->findOne($data['attachmentId']);
-            if ($attachment instanceof Attachment) {
-                $attachmentRepository->updateResourceId($attachment, $visitor->id);
+
+            if (!empty($data['copyOldAttachment'])) {
+                $attachmentRepository->copyOldAttachment($attachment, ['resourceId' => $visitor->id]);
+                unset($data['copyOldAttachment']);
+
+            } else {
+                if ($attachment instanceof Attachment) {
+                    $attachmentRepository->updateResourceId($attachment, $visitor->id);
+                }
             }
             unset($data['attachmentId']);
         }

@@ -26,7 +26,8 @@ class StoreRequest extends Request
             'permanent' => 'boolean',
             'comment' => 'min:3|max:16777215',
             'signature' => 'boolean',
-            'attachmentId' => 'exists:attachments,id'
+            'attachmentId' => 'exists:attachments,id',
+            'copyOldAttachment' => 'boolean'
         ];
     }
 }

@@ -47,4 +47,13 @@ interface AttachmentRepository extends BaseRepository
      * @return mixed
      */
     public function getProfilePicByResourceId($resourceId, $size = 'medium');
+
+    /**
+     * copy an old attachment as a new
+     *
+     * @param Attachment $attachment
+     * @param array $data
+     * @return @return \ArrayAccess
+     */
+    public function copyOldAttachment(Attachment $attachment, array $data = []);
 }

@@ -138,4 +138,15 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
 
         return null;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function copyOldAttachment(Attachment $attachment, array $data = [])
+    {
+        $newData = array_merge($attachment->toArray(), $data);
+        unset($newData['id']);
+
+        return parent::save($newData);
+    }
 }

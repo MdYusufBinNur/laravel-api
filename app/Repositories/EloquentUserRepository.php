@@ -183,7 +183,8 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
                     $managerTable . '.level as managerLevel'
                 )
                 ->join($managerTable, $thisModelTable . '.id', '=', $managerTable . '.userId')
-                ->where($managerTable . '.propertyId', $searchCriteria['propertyId']);
+                ->where($managerTable . '.propertyId', $searchCriteria['propertyId'])
+                ->whereNull($managerTable . '.deleted_at');
 
             if (isset($searchCriteria['userId'])) {
                 $searchCriteria['userId'] = explode(',', $searchCriteria['userId']);
@@ -212,7 +213,8 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
                 )
                 ->join($residentTable, $thisModelTable . '.id', '=', $residentTable . '.userId')
                 ->join($unitTable, $unitTable . '.id', '=', $residentTable . '.unitId')
-                ->where($residentTable . '.propertyId', $searchCriteria['propertyId']);
+                ->where($residentTable . '.propertyId', $searchCriteria['propertyId'])
+                ->whereNull($residentTable . '.deleted_at');
 
             if (isset($searchCriteria['userId'])) {
 

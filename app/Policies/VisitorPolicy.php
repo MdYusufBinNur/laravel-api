@@ -19,7 +19,7 @@ class VisitorPolicy
     public function before(User $currentUser)
     {
         if ($currentUser->isAdmin()) {
-            //return true;
+            return true;
         }
     }
 
@@ -51,7 +51,7 @@ class VisitorPolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-           // return $currentUser->isResidentOfTheUnits($unitId);
+            return $currentUser->isResidentOfTheUnits($unitId);
         }
 
         return false;

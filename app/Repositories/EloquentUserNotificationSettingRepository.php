@@ -14,7 +14,11 @@ class EloquentUserNotificationSettingRepository extends EloquentBaseRepository i
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        if (!$this->getLoggedInUser()->isAdmin()) {
+        $loggedInUser = $this->getLoggedInUser();
+        if (!$loggedInUser->isAdmin()
+            || !$loggedInUser->isAnEnterpriseUserOfTheProperty($searchCriteria['propertyId'])
+            || !$loggedInUser->isAPriorityStaffOfTheProperty($searchCriteria['propertyId']))
+        {
             $searchCriteria['userId'] = $this->getLoggedInUser()->id;
         }
 

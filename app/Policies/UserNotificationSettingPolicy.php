@@ -27,15 +27,25 @@ class UserNotificationSettingPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
+     * @param int $propertyId
+     * @param int $userId
      * @return bool
      */
-    public function list(User $currentUser, ?int $userId)
+    public function list(User $currentUser, int $propertyId, ?int $userId)
     {
         if (isset($userId)) {
             return $currentUser->id == $userId;
         }
-        // handling in findBy() method
-        return true;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

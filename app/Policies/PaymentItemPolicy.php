@@ -41,6 +41,10 @@ class PaymentItemPolicy
             return true;
         }
 
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
             if ($this->isUnitFilterAllowedForResidents($currentUser, $unitId)) {
                 return true;
@@ -67,6 +71,10 @@ class PaymentItemPolicy
         }
 
         if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -100,6 +108,10 @@ class PaymentItemPolicy
             return true;
         }
 
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
             $unitId = $paymentItem->unitId;
             if (!empty($unitId) && $currentUser->isOwnerOfTheUnit($unitId)) {
@@ -127,6 +139,10 @@ class PaymentItemPolicy
         }
 
         if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 

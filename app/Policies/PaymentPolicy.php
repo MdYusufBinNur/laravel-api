@@ -303,7 +303,7 @@ class PaymentPolicy
     private function allAreUnitsOfTheProperty($propertyId, array $unitIds)
     {
         if (count($unitIds) < 1) {
-            return false;
+            return true;
         }
 
         $unitRepository = app(UnitRepository::class);

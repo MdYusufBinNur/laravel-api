@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\DbModels\Payment;
 use App\DbModels\User;
+use App\Repositories\Contracts\UnitRepository;
 use App\Repositories\Contracts\UserRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -43,7 +44,7 @@ class PaymentPolicy
                 return true;
             }
 
-            if ($this->isOwnerOfTheAllUnits($currentUser, $unitIds)) {
+            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
                 return true;
             }
         }
@@ -53,7 +54,17 @@ class PaymentPolicy
                 return true;
             }
 
-            if ($this->isOwnerOfTheAllUnits($currentUser, $unitIds)) {
+            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
+                return true;
+            }
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
+                return true;
+            }
+
+            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
                 return true;
             }
         }
@@ -84,7 +95,7 @@ class PaymentPolicy
                 return true;
             }
 
-            if ($this->isOwnerOfTheAllUnits($currentUser, $unitIds)) {
+            if ($this->allAreUnitsOfTheProperty($currentUser, $unitIds)) {
                 return true;
             }
         }
@@ -94,7 +105,17 @@ class PaymentPolicy
                 return true;
             }
 
-            if ($this->isOwnerOfTheAllUnits($currentUser, $unitIds)) {
+            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
+                return true;
+            }
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
+                return true;
+            }
+
+            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
                 return true;
             }
         }
@@ -126,7 +147,7 @@ class PaymentPolicy
                 return true;
             }
 
-            if ($this->isOwnerOfTheAllUnits($currentUser, $unitIds)) {
+            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
                 return true;
             }
         }
@@ -136,7 +157,17 @@ class PaymentPolicy
                 return true;
             }
 
-            if ($this->isOwnerOfTheAllUnits($currentUser, $unitIds)) {
+            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
+                return true;
+            }
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
+                return true;
+            }
+
+            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
                 return true;
             }
         }
@@ -168,7 +199,7 @@ class PaymentPolicy
                 return true;
             }
 
-            if ($this->isOwnerOfTheAllUnits($currentUser, $unitIds)) {
+            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
                 return true;
             }
         }
@@ -178,7 +209,17 @@ class PaymentPolicy
                 return true;
             }
 
-            if ($this->isOwnerOfTheAllUnits($currentUser, $unitIds)) {
+            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
+                return true;
+            }
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
+                return true;
+            }
+
+            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
                 return true;
             }
         }
@@ -210,7 +251,7 @@ class PaymentPolicy
                 return true;
             }
 
-            if ($this->isOwnerOfTheAllUnits($currentUser, $unitIds)) {
+            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
                 return true;
             }
         }
@@ -220,7 +261,17 @@ class PaymentPolicy
                 return true;
             }
 
-            if ($this->isOwnerOfTheAllUnits($currentUser, $unitIds)) {
+            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
+                return true;
+            }
+        }
+
+        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
+                return true;
+            }
+
+            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
                 return true;
             }
         }
@@ -247,6 +298,18 @@ class PaymentPolicy
         }
 
         return true;
+    }
+
+    private function allAreUnitsOfTheProperty($propertyId, array $unitIds)
+    {
+        if (count($unitIds) < 1) {
+            return false;
+        }
+
+        $unitRepository = app(UnitRepository::class);
+        $units = $unitRepository->getModel()->whereIn('id', $unitIds)->where('propertyId', $propertyId)->count();
+
+        return count($unitIds) == $units;
     }
 
     private function isUsersOfTheProperty(int $propertyId, array $userIds)

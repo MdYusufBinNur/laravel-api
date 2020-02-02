@@ -15,7 +15,7 @@ class UpdateRequest extends Request
     {
         return [
             'signOutUserId' => 'exists:users,id',
-            'signOutComment' => 'min:3|max:255',
+            'signOutComment' => 'max:255',
             'signature' => 'boolean',
             'signOutAt' => '',
         ];

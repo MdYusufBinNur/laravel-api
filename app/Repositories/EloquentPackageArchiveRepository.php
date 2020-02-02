@@ -31,6 +31,11 @@ class EloquentPackageArchiveRepository extends EloquentBaseRepository implements
             unset($searchCriteria['unitId']);
         }
 
+        if (isset($searchCriteria['residentId'])) {
+            $queryBuilder = $queryBuilder->where($packageModelTable. '.residentId', $searchCriteria['residentId']);
+            unset($searchCriteria['residentId']);
+        }
+
         if (isset($searchCriteria['endDate'])) {
             $queryBuilder = $queryBuilder->whereDate('signOutAt', '<=', Carbon::parse($searchCriteria['endDate']));
             unset($searchCriteria['endDate']);

@@ -22,7 +22,7 @@ class Request extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            $allowableFields = array_merge($this->rules(), ['page' => 'number', 'per_page' => 'number', 'order_by' => 'string', 'order_direction' => 'string', 'include' => 'string', 'detailed' => 'string', 'propertyId' => 'number']);
+            $allowableFields = array_merge($this->rules(), ['page' => 'number', 'per_page' => 'number', 'order_by' => 'string', 'order_direction' => 'in:asc,desc', 'include' => 'string', 'detailed' => 'string', 'propertyId' => 'number']);
 
             foreach ($this->all() as $key => $value) {
                 if (!array_key_exists($key, $allowableFields)) {

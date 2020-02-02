@@ -80,6 +80,11 @@ class Handler extends ExceptionHandler
                 403);
         }
 
+        if ($exception instanceof \InvalidArgumentException) {
+            return response()->json((['status' => 403, 'message' => $exception->getMessage()]),
+                403);
+        }
+
         return parent::render($request, $exception);
     }
 }

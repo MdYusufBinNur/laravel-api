@@ -19,7 +19,7 @@ class CreateAnnouncementsTable extends Migration
             $table->unsignedInteger('propertyId');
             $table->string('title');
             $table->mediumText('content');
-            $table->string('link');
+            $table->string('link')->nullable();
             $table->boolean('linkinNewWindows')->default(0);
             $table->boolean('showOnWebsite')->default(0);
             $table->boolean('showOnLds')->default(0);

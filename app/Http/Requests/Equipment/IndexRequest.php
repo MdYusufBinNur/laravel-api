@@ -27,7 +27,8 @@ class IndexRequest extends Request
             'nextMaintenanceDate' => 'date',
             'startDate' => 'date_format:Y-m-d',
             'endDate' => 'date_format:Y-m-d',
-            'withOutPagination' => 'boolean'
+            'withOutPagination' => 'boolean',
+            'query' => '',
         ];
     }
 }

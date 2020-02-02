@@ -52,6 +52,15 @@ class EloquentInventoryItemRepository extends EloquentBaseRepository implements 
             unset($searchCriteria['startDate']);
         }
 
+        if (isset($searchCriteria['query'])) {
+            $queryBuilder = $queryBuilder->where('name', 'like', '%' . $searchCriteria['query'] . '%')
+                ->orWhere('sku', 'like', '%' . $searchCriteria['query'] . '%')
+                ->orWhere('manufacturer', 'like', '%' . $searchCriteria['query'] . '%')
+                ->orWhere('location', 'like', '%' . $searchCriteria['query'] . '%')
+                ->orWhere('restockNote', 'like', '%' . $searchCriteria['query'] . '%');
+            unset($searchCriteria['query']);
+        }
+
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });

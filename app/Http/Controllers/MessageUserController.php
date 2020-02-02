@@ -102,9 +102,11 @@ class MessageUserController extends Controller
      */
     public function bulkDelete(BulkDeleteRequest $request)
     {
-        $this->authorize('bulkDelete', [MessageUser::class, $request->get('messageUserIds')]);
+        $requestData = $request->all();
 
-        $this->messageUserRepository->bulkDelete($request->all());
+        $this->authorize('bulkDelete', [MessageUser::class, $requestData['messageUserIds']]);
+
+        $this->messageUserRepository->bulkDelete($requestData);
 
         return response()->json(null, 204);
     }

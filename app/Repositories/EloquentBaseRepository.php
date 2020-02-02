@@ -326,13 +326,15 @@ class EloquentBaseRepository implements BaseRepository
     {
         $valuesArray =  is_string($values) ? explode(',', $values) : $values;
 
-        foreach ($valuesArray  as $key => $value) {
-            if ($key === 0) {
-                $queryBuilder =  $queryBuilder->whereJsonContains($fieldName, [(int)$value]);
-            } else {
-                $queryBuilder =  $queryBuilder->orWhereJsonContains($fieldName, [(int)$value]);
+        $queryBuilder = $queryBuilder->where(function ($query) use ($fieldName, $valuesArray, $queryBuilder){
+            foreach ($valuesArray  as $key => $value) {
+                if ($key === 0) {
+                   $query->whereJsonContains($fieldName, [(int)$value]);
+                } else {
+                    $query->orWhereJsonContains($fieldName, [(int)$value]);
+                }
             }
-        }
+        });
 
         return $queryBuilder;
     }

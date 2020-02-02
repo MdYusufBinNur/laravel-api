@@ -25,12 +25,12 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
     {
         $queryBuilder = $this->model;
 
-        if (isset($searchCriteria['toUnitIds'])) {
+        if (!empty($searchCriteria['toUnitIds'])) {
             $queryBuilder = $this->applySearchInJsonField($queryBuilder, 'toUnitIds', $searchCriteria['toUnitIds']);
             unset($searchCriteria['toUnitIds']);
         };
 
-        if (isset($searchCriteria['toUserIds'])) {
+        if (!empty($searchCriteria['toUserIds'])) {
             $queryBuilder = $this->applySearchInJsonField($queryBuilder, 'toUnitIds', $searchCriteria['toUserIds']);
             unset($searchCriteria['toUserIds']);
 
@@ -46,6 +46,7 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
         $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';
         $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
         $queryBuilder->orderBy($orderBy, $orderDirection);
+        //$queryBuilder->dd();
 
         if (empty($searchCriteria['withOutPagination'])) {
             return $queryBuilder->paginate($limit);

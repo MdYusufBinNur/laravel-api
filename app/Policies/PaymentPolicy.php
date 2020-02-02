@@ -292,7 +292,7 @@ class PaymentPolicy
         }
 
         foreach ($unitIds as $unitId) {
-            if (!$currentUser->isOwnerOfTheUnit($unitId)) {
+            if (!$currentUser->isOwnerOfTheUnit((int) $unitId)) {
                 return false;
             }
         }

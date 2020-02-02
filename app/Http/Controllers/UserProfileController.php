@@ -85,7 +85,7 @@ class UserProfileController extends Controller
     {
         $this->authorize('update', $userProfile);
 
-        $userProfile = $this->userProfileRepository->update($userProfile,$request->all());
+        $userProfile = $this->userProfileRepository->setUserProfile($request->all());
 
         return new UserProfileResource($userProfile);
     }

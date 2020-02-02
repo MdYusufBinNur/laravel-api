@@ -5,6 +5,8 @@ namespace App\Repositories;
 
 
 use App\Repositories\Contracts\UserProfileRepository;
+use App\Repositories\Contracts\UserRepository;
+use Illuminate\Support\Facades\DB;
 
 class EloquentUserProfileRepository extends EloquentBaseRepository implements UserProfileRepository
 {
@@ -23,7 +25,18 @@ class EloquentUserProfileRepository extends EloquentBaseRepository implements Us
      */
     public function setUserProfile(array $data): \ArrayAccess
     {
+        DB::beginTransaction();
+
+        if (array_key_exists('user', $data)) {
+            $userRepository = app(UserRepository::class);
+            $userRepository->updateUser($model->user, $data['user']);
+        }
+
         $data['userId'] = isset($data['userId']) ? $data['userId'] : $this->getLoggedInUser()->id;
-        return $this->patch(['userId' => $data['userId']], $data);
+        $userProfile = $this->patch(['userId' => $data['userId']], $data);
+
+        DB::commit();
+
+        return $userProfile;
     }
 }

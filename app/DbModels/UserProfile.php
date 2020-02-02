@@ -5,6 +5,7 @@ namespace App\DbModels;
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class UserProfile extends Model
 {
@@ -32,6 +33,16 @@ class UserProfile extends Model
         'interests' => 'json'
     ];
 
+
+    /**
+     * get the user
+     *
+     * @return HasOne
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'userId');
+    }
 
     /**
      * get user's profile profile links

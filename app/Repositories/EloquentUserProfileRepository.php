@@ -27,13 +27,13 @@ class EloquentUserProfileRepository extends EloquentBaseRepository implements Us
     {
         DB::beginTransaction();
 
-        if (array_key_exists('user', $data)) {
-            $userRepository = app(UserRepository::class);
-            $userRepository->updateUser($model->user, $data['user']);
-        }
-
         $data['userId'] = isset($data['userId']) ? $data['userId'] : $this->getLoggedInUser()->id;
         $userProfile = $this->patch(['userId' => $data['userId']], $data);
+
+        if (array_key_exists('user', $data)) {
+            $userRepository = app(UserRepository::class);
+            $userRepository->updateUser($userProfile->user, $data['user']);
+        }
 
         DB::commit();
 

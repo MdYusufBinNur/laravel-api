@@ -32,7 +32,7 @@ class UpdateRequest extends Request
 
             'user'                 => '',
             'user.name'            => 'min:3|max:255',
-            'user.phone' => Rule::unique('users')->ignore($userId, 'id'),
+            'user.phone' => Rule::unique('users', 'phone')->ignore($userId, 'id'),
         ];
     }
 }

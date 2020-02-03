@@ -4,13 +4,14 @@ namespace App\Policies;
 
 use App\DbModels\Message;
 use App\DbModels\MessagePost;
+use App\DbModels\Module;
 use App\DbModels\User;
 use App\Repositories\Contracts\MessageRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class MessagePostPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * @var MessageRepository
@@ -36,6 +37,10 @@ class MessagePostPolicy
     {
         if ($currentUser->isAdmin()) {
             return true;
+        }
+
+        if (!$this->isModuleActiveForTheProperty(Module::MODULE_MESSAGES)) {
+            return false;
         }
     }
 

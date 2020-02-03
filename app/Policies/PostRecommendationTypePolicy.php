@@ -2,13 +2,14 @@
 
 namespace App\Policies;
 
+use App\DbModels\Module;
 use App\DbModels\PostRecommendationType;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PostRecommendationTypePolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * Intercept checks
@@ -20,6 +21,10 @@ class PostRecommendationTypePolicy
     {
         if ($currentUser->isAdmin()) {
             return true;
+        }
+
+        if (!$this->isModuleActiveForTheProperty(Module::MODULE_COMMUNITY_ACTIVITY)) {
+            return false;
         }
     }
 

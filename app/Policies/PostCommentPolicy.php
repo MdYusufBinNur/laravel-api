@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\DbModels\Module;
 use App\DbModels\Post;
 use App\DbModels\PostComment;
 use App\DbModels\User;
@@ -10,7 +11,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PostCommentPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * @var PostRepository
@@ -36,6 +37,10 @@ class PostCommentPolicy
     {
         if ($currentUser->isAdmin()) {
             return true;
+        }
+
+        if (!$this->isModuleActiveForTheProperty(Module::MODULE_COMMUNITY_ACTIVITY)) {
+            return false;
         }
     }
 

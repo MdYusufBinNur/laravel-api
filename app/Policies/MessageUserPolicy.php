@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\DbModels\MessageUser;
+use App\DbModels\Module;
 use App\DbModels\User;
 use App\Repositories\Contracts\MessageRepository;
 use App\Repositories\Contracts\MessageUserRepository;
@@ -10,7 +11,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 
 class MessageUserPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * @var MessageUserRepository
@@ -36,6 +37,10 @@ class MessageUserPolicy
     {
         if ($currentUser->isAdmin()) {
             return true;
+        }
+
+        if (!$this->isModuleActiveForTheProperty(Module::MODULE_MESSAGES)) {
+            return false;
         }
     }
 

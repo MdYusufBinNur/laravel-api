@@ -2,13 +2,14 @@
 
 namespace App\Policies;
 
+use App\DbModels\Module;
 use App\DbModels\User;
 use App\DbModels\VisitorType;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class VisitorTypePolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * Intercept checks
@@ -20,6 +21,10 @@ class VisitorTypePolicy
     {
         if ($currentUser->isAdmin()) {
             return true;
+        }
+
+        if (!$this->isModuleActiveForTheProperty(Module::MODULE_ENTRY_LOG)) {
+            return false;
         }
     }
 

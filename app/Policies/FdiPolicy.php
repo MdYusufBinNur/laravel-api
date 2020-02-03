@@ -3,12 +3,13 @@
 namespace App\Policies;
 
 use App\DbModels\Fdi;
+use App\DbModels\Module;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class FdiPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * Intercept checks
@@ -20,6 +21,10 @@ class FdiPolicy
     {
         if ($currentUser->isAdmin()) {
             return true;
+        }
+
+        if (!$this->isModuleActiveForTheProperty( Module::MODULE_FRONT_DESK_INSTRUCTION)) {
+            return false;
         }
     }
 

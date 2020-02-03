@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\DbModels\Module;
 use App\DbModels\Payment;
 use App\DbModels\User;
 use App\Repositories\Contracts\UnitRepository;
@@ -10,7 +11,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PaymentPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * Intercept checks
@@ -22,6 +23,10 @@ class PaymentPolicy
     {
         if ($currentUser->isAdmin()) {
             return true;
+        }
+
+        if (!$this->isModuleActiveForTheProperty(Module::MODULE_PAYMENT_CENTER)) {
+            return false;
         }
     }
 

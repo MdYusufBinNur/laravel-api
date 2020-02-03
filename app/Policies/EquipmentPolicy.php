@@ -3,12 +3,13 @@
 namespace App\Policies;
 
 use App\DbModels\Equipment;
+use App\DbModels\Module;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class EquipmentPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * Intercept checks
@@ -20,6 +21,10 @@ class EquipmentPolicy
     {
         if ($currentUser->isAdmin()) {
             return true;
+        }
+
+        if (!$this->isModuleActiveForTheProperty( Module::MODULE_EQUIPMENT)) {
+            return false;
         }
     }
 

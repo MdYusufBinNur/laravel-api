@@ -2,13 +2,14 @@
 
 namespace App\Policies;
 
+use App\DbModels\Module;
 use App\DbModels\PackageArchive;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PackageArchivePolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * Intercept checks
@@ -20,6 +21,10 @@ class PackageArchivePolicy
     {
         if ($currentUser->isAdmin()) {
             return true;
+        }
+
+        if (!$this->isModuleActiveForTheProperty(Module::MODULE_PACKAGES)) {
+            return false;
         }
     }
 

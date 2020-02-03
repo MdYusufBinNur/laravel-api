@@ -2,13 +2,14 @@
 
 namespace App\Policies;
 
+use App\DbModels\Module;
 use App\DbModels\ServiceRequestLog;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ServiceRequestLogPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * Intercept checks
@@ -20,6 +21,10 @@ class ServiceRequestLogPolicy
     {
         if ($currentUser->isAdmin()) {
             return true;
+        }
+
+        if (!$this->isModuleActiveForTheProperty(Module::MODULE_SERVICE_REQUEST)) {
+            return false;
         }
     }
 

@@ -2,13 +2,14 @@
 
 namespace App\Policies;
 
+use App\DbModels\Module;
 use App\DbModels\PropertyLink;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PropertyLinkPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * Intercept checks
@@ -20,6 +21,10 @@ class PropertyLinkPolicy
     {
         if ($currentUser->isAdmin()) {
             return true;
+        }
+
+        if (!$this->isModuleActiveForTheProperty(Module::MODULE_COMMUNITY_LINKS)) {
+            return false;
         }
     }
 

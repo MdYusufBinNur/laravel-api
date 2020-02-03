@@ -2,13 +2,14 @@
 
 namespace App\Policies;
 
+use App\DbModels\Module;
 use App\DbModels\User;
 use App\DbModels\VisitorArchive;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class VisitorArchivePolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * Intercept checks
@@ -20,6 +21,10 @@ class VisitorArchivePolicy
     {
         if ($currentUser->isAdmin()) {
             return true;
+        }
+
+        if (!$this->isModuleActiveForTheProperty(Module::MODULE_ENTRY_LOG)) {
+            return false;
         }
     }
 

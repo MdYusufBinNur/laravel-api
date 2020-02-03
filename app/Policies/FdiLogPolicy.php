@@ -3,13 +3,14 @@
 namespace App\Policies;
 
 use App\DbModels\FdiLog;
+use App\DbModels\Module;
 use App\DbModels\User;
 use App\Repositories\Contracts\FdiRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class FdiLogPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * @var FdiRepository
@@ -34,6 +35,10 @@ class FdiLogPolicy
     {
         if ($currentUser->isAdmin()) {
             return true;
+        }
+
+        if (!$this->isModuleActiveForTheProperty( Module::MODULE_FRONT_DESK_INSTRUCTION)) {
+            return false;
         }
     }
 

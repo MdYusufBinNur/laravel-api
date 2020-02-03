@@ -2,13 +2,14 @@
 
 namespace App\Policies;
 
+use App\DbModels\Module;
 use App\DbModels\StaffTimeClock;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class StaffTimeClockPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * Intercept checks
@@ -20,6 +21,10 @@ class StaffTimeClockPolicy
     {
         if ($currentUser->isAdmin()) {
             return true;
+        }
+
+        if (!$this->isModuleActiveForTheProperty(Module::MODULE_EMPLOYEE_TIME_CLOCK)) {
+            return false;
         }
     }
 

@@ -4,13 +4,14 @@ namespace App\Policies;
 
 use App\DbModels\Event;
 use App\DbModels\EventSignup;
+use App\DbModels\Module;
 use App\DbModels\User;
 use App\Repositories\Contracts\EventRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class EventSignupPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * @var EventRepository
@@ -36,6 +37,10 @@ class EventSignupPolicy
     {
         if ($currentUser->isAdmin()) {
             return true;
+        }
+
+        if (!$this->isModuleActiveForTheProperty( Module::MODULE_EVENTS)) {
+            return false;
         }
     }
 

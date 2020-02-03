@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\DbModels\Module;
 use App\DbModels\Payment;
 use App\DbModels\PaymentItem;
 use App\DbModels\User;
@@ -9,7 +10,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PaymentItemPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * Intercept checks
@@ -21,6 +22,10 @@ class PaymentItemPolicy
     {
         if ($currentUser->isAdmin()) {
             return true;
+        }
+
+        if (!$this->isModuleActiveForTheProperty(Module::MODULE_PARKING_PASS)) {
+            return false;
         }
     }
 

@@ -3,12 +3,13 @@
 namespace App\Policies;
 
 use App\DbModels\LdsBlacklistUnit;
+use App\DbModels\Module;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class LdsBlackListUnitPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * Intercept checks
@@ -20,6 +21,10 @@ class LdsBlackListUnitPolicy
     {
         if ($currentUser->isAdmin()) {
             return true;
+        }
+
+        if (!$this->isModuleActiveForTheProperty(Module::MODULE_LDS)) {
+            return false;
         }
     }
 

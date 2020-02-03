@@ -3,12 +3,13 @@
 namespace App\Policies;
 
 use App\DbModels\IncomeCategory;
+use App\DbModels\Module;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class IncomeCategoryPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * Intercept checks
@@ -20,6 +21,10 @@ class IncomeCategoryPolicy
     {
         if ($currentUser->isAdmin()) {
             return true;
+        }
+
+        if (!$this->isModuleActiveForTheProperty(Module::MODULE_INCOME_EXPENSE)) {
+            return false;
         }
     }
 

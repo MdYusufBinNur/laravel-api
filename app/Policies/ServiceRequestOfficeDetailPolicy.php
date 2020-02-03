@@ -2,13 +2,14 @@
 
 namespace App\Policies;
 
+use App\DbModels\Module;
 use App\DbModels\ServiceRequestOfficeDetail;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ServiceRequestOfficeDetailPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * Intercept checks
@@ -20,6 +21,10 @@ class ServiceRequestOfficeDetailPolicy
     {
         if ($currentUser->isAdmin()) {
             return true;
+        }
+
+        if (!$this->isModuleActiveForTheProperty(Module::MODULE_SERVICE_REQUEST)) {
+            return false;
         }
     }
 

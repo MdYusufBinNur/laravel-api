@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\DbModels\Module;
 use App\DbModels\PostApprovalBlacklistUnit;
 use App\DbModels\Unit;
 use App\DbModels\User;
@@ -10,7 +11,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PostApprovalBlacklistUnitPolicy
 {
-    use HandlesAuthorization;
+    use HandlesAuthorization, ValidateModules;
 
     /**
      * @var UnitRepository
@@ -35,6 +36,10 @@ class PostApprovalBlacklistUnitPolicy
     {
         if ($currentUser->isAdmin()) {
             return true;
+        }
+
+        if (!$this->isModuleActiveForTheProperty(Module::MODULE_COMMUNITY_ACTIVITY)) {
+            return false;
         }
     }
 

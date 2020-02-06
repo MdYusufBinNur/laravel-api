@@ -95,8 +95,10 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
             $enterpriseUserPropertyRepository->model->where(['enterpriseUserId' => $enterpriseUser->id])->delete();
             $propertyIds = explode(',', $data['propertyIds']);
             foreach ($propertyIds as $propertyId) {
-                $enterpriseUserPropertyData = ['enterpriseUserId' => $enterpriseUser->id, 'propertyId' => $propertyId];
-                $enterpriseUserPropertyRepository->patch($enterpriseUserPropertyData, $enterpriseUserPropertyData);
+                if (!empty($propertyId)) {
+                    $enterpriseUserPropertyData = ['enterpriseUserId' => $enterpriseUser->id, 'propertyId' => $propertyId];
+                    $enterpriseUserPropertyRepository->patch($enterpriseUserPropertyData, $enterpriseUserPropertyData);
+                }
             }
         }
 

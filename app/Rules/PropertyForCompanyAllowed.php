@@ -40,8 +40,9 @@ class PropertyForCompanyAllowed implements Rule
     public function passes($attribute, $value)
     {
         $propertyIds = explode(',', $value);
-        if (count($propertyIds) < 1) {
-            return false;
+        
+        if (empty($value)) {
+            return true;
         }
 
 

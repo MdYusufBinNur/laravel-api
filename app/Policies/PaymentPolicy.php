@@ -75,7 +75,7 @@ class PaymentPolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-            if ($this->isOwnerOfTheAllUnits($currentUser, $unitIds)) {
+            if ($this->isOwnerOfAnyUnit($currentUser, $unitIds)) {
                 return true;
             }
         }
@@ -126,7 +126,7 @@ class PaymentPolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-            if ($this->isOwnerOfTheAllUnits($currentUser, $unitIds)) {
+            if ($this->isOwnerOfAllUnits($currentUser, $unitIds)) {
                 return true;
             }
         }
@@ -178,7 +178,7 @@ class PaymentPolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-            if ($this->isOwnerOfTheAllUnits($currentUser, $unitIds)) {
+            if ($this->isOwnerOfAnyUnit($currentUser, $unitIds)) {
                 return true;
             }
         }
@@ -230,7 +230,7 @@ class PaymentPolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-            if ($this->isOwnerOfTheAllUnits($currentUser, $unitIds)) {
+            if ($this->isOwnerOfAllUnits($currentUser, $unitIds)) {
                 return true;
             }
         }
@@ -282,7 +282,7 @@ class PaymentPolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-            if ($this->isOwnerOfTheAllUnits($currentUser, $unitIds)) {
+            if ($this->isOwnerOfAllUnits($currentUser, $unitIds)) {
                 return true;
             }
         }
@@ -290,7 +290,7 @@ class PaymentPolicy
         return false;
     }
 
-    private function isOwnerOfTheAllUnits($currentUser, array $unitIds)
+    private function isOwnerOfAllUnits($currentUser, array $unitIds)
     {
         if (count($unitIds) < 1) {
             return false;
@@ -303,6 +303,21 @@ class PaymentPolicy
         }
 
         return true;
+    }
+
+    private function isOwnerOfAnyUnit($currentUser, array $unitIds)
+    {
+        if (count($unitIds) < 1) {
+            return false;
+        }
+
+        foreach ($unitIds as $unitId) {
+            if ($currentUser->isOwnerOfTheUnit((int) $unitId)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function allAreUnitsOfTheProperty($propertyId, array $unitIds)

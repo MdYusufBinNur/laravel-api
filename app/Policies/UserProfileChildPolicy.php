@@ -47,7 +47,7 @@ class UserProfileChildPolicy
      */
     public function list(User $currentUser, ?int $userId)
     {
-        return $this->hasAccessByUserId($currentUser, $userId);
+        return true;
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\DbModels\UserProfileLink;
-use App\DbModels\UserProfilePost;
 use App\Http\Requests\UserProfileLink\IndexRequest;
 use App\Http\Requests\UserProfileLink\StoreRequest;
 use App\Http\Requests\UserProfileLink\UpdateRequest;
@@ -37,7 +36,7 @@ class UserProfileLinkController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [UserProfilePost::class, $request->get('userId', null)]);
+        $this->authorize('list', [UserProfileLink::class, $request->get('userId', null)]);
 
         $userProfileLinks = $this->userProfileLinkRepository->findBy($request->all());
 
@@ -53,7 +52,7 @@ class UserProfileLinkController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [UserProfilePost::class, $request->get('userId')]);
+        $this->authorize('store', [UserProfileLink::class, $request->get('userId')]);
 
         $userProfileLink = $this->userProfileLinkRepository->save($request->all());
 

@@ -4,11 +4,26 @@ namespace App\Policies;
 
 use App\DbModels\User;
 use App\DbModels\UserProfileLink;
+use App\Repositories\Contracts\UserRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserProfileLinkPolicy
 {
     use HandlesAuthorization;
+
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
+     * UserProfilePolicy constructor.
+     * @param UserRepository $userRepository
+     */
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
 
     /**
      * Intercept checks
@@ -81,5 +96,39 @@ class UserProfileLinkPolicy
     public function destroy(User $currentUser, UserProfileLink $userProfileLink)
     {
         return $this->hasAccessByUserId($currentUser, $userProfileLink->userId);
+    }
+
+    /**
+     * has access to the property
+     *
+     * @param User $currentUser
+     * @param int|null $userId
+     * @return bool
+     */
+    private function hasAccessByUserId(User $currentUser, ?int $userId)
+    {
+        if (empty($userId)) {
+            return false;
+        }
+
+        if ($currentUser->userId == $userId) {
+            return true;
+        }
+
+        $user = $this->userRepository->findOne($userId);
+        if ($user instanceof User) {
+            $propertyIds = $user->getPropertyIds();
+            foreach ($propertyIds as $propertyId) {
+                if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+                    return true;
+                }
+
+                if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

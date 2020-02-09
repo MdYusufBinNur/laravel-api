@@ -4,11 +4,26 @@ namespace App\Policies;
 
 use App\DbModels\User;
 use App\DbModels\UserProfileChild;
+use App\Repositories\Contracts\UserRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserProfileChildPolicy
 {
     use HandlesAuthorization;
+
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    /**
+     * UserProfilePolicy constructor.
+     * @param UserRepository $userRepository
+     */
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
 
     /**
      * Intercept checks

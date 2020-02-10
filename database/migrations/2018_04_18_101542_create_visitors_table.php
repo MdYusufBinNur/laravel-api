@@ -22,7 +22,7 @@ class CreateVisitorsTable extends Migration
             $table->unsignedInteger('userId')->nullable();
             $table->unsignedInteger('visitorTypeId')->nullable();
             $table->string('name');
-            $table->string('phone', 20);
+            $table->string('phone', 20)->nullable();
             $table->string('email', 100)->nullable();
             $table->string('company', 200)->nullable();
             $table->boolean('photo')->default(0);

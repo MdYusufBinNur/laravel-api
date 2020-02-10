@@ -15,11 +15,11 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' => 'required|exists:properties,id|unique:property_general_infos,propertyId',
-            'officeHours' => 'required|min:7|max:20',
-            'phone' => 'required|min:11|max:20',
-            'emergenceContact' => 'required|min:5|max:255',
-            'email' => 'required|email|unique:property_general_infos,email|max:255',
-            'additionalInfo' => 'min:3:max:65535',
+            'officeHours' => 'max:20',
+            'phone' => 'max:20',
+            'emergenceContact' => 'max:255',
+            'email' => 'email|unique:property_general_infos,email|max:255',
+            'additionalInfo' => 'max:65535',
         ];
     }
 }

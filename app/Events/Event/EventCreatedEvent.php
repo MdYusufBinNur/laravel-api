@@ -12,7 +12,7 @@ class EventCreatedEvent
     /**
      * @var Event
      */
-    public $event;
+    public $eventModel;
 
     /**
      * @var array
@@ -22,12 +22,12 @@ class EventCreatedEvent
     /**
      * Create a new event instance.
      *
-     * @param Event $event
+     * @param Event $eventModel
      * @param array $options
      */
-    public function __construct(Event $event, array $options = [])
+    public function __construct(Event $eventModel, array $options = [])
     {
-        $this->event = $event;
+        $this->eventModel = $eventModel;
         $this->options = $options;
     }
 }

@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 
+use App\Events\Event\EventCreatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\EventRepository;
 use Carbon\Carbon;
@@ -60,6 +61,8 @@ class EloquentEventRepository extends EloquentBaseRepository implements EventRep
         }
 
         DB::commit();
+
+        event(new EventCreatedEvent($event, $this->generateEventOptionsForModel([], true)));
 
         return $event;
     }

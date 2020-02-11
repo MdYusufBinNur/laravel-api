@@ -39,7 +39,7 @@ class EventSignupController extends Controller
     {
         $this->authorize('list', [Event::class, $request->get('propertyId')]);
 
-        $eventSignups= $this->eventSignupRepository->findBy($request->all());
+        $eventSignups = $this->eventSignupRepository->findBy($request->all());
 
         return new EventSignupResourceCollection($eventSignups);
     }

@@ -14,7 +14,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'title' => 'min:3|max:255|unique_with:visitor_types,propertyId,' . $this->segment(4)
+            'title' => 'max:255|unique_with:visitor_types,propertyId,' . $this->segment(4)
         ];
     }
 }

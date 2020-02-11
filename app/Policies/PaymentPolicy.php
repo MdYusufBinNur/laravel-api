@@ -100,7 +100,7 @@ class PaymentPolicy
                 return true;
             }
 
-            if ($this->allAreUnitsOfTheProperty($currentUser, $unitIds)) {
+            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
                 return true;
             }
         }

@@ -17,7 +17,7 @@ class UpdateRequest extends Request
     {
         $userId = $this->segment(4);
         return $rules = [
-            'password' => 'min:5|required_with:current_password|max:255',
+            'password' => 'min:6|required_with:current_password|max:255',
             'current_password' => 'required_with:password|max:255',
             'email' => Rule::unique('users')->ignore($userId, 'id'),
             'phone' => Rule::unique('users')->ignore($userId, 'id'),

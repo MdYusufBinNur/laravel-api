@@ -19,7 +19,7 @@ class StoreRequest extends Request
             'contactEmail' => 'email|required|max:255',
             'propertyId' => 'required|exists:properties,id',
             'phone' => 'max:20',
-            'title' => 'min:5|max:255',
+            'title' => 'max:255',
             'level' => ['in:' . Role::ROLE_STAFF_PRIORITY['title'] . ',' . Role::ROLE_STAFF_STANDARD['title'] . ',' . Role::ROLE_STAFF_LIMITED['title']],
             'displayInCorner' => 'boolean',
             'displayPublicProfile' => '',

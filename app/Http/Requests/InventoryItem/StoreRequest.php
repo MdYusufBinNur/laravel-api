@@ -15,7 +15,7 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' => 'required|exists:properties,id',
-            'categoryId' => 'required|exists:inventory_categories,id',
+            'categoryId' => 'exists:inventory_categories,id',
             'sku' => 'max:255',
             'name' => 'required|max:255',
             'description' => 'max:65535',

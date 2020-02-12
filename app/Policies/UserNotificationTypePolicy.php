@@ -31,7 +31,7 @@ class UserNotificationTypePolicy
      */
     public function list(User $currentUser)
     {
-        return false;
+        return true;
     }
 
     /**
@@ -43,7 +43,7 @@ class UserNotificationTypePolicy
      */
     public function store(User $currentUser)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -55,7 +55,7 @@ class UserNotificationTypePolicy
      */
     public function show(User $currentUser,  UserNotificationType $userNotificationType)
     {
-        return $currentUser->id === $user->id;
+        return true;
     }
 
     /**
@@ -67,7 +67,7 @@ class UserNotificationTypePolicy
      */
     public function update(User $currentUser, UserNotificationType $userNotificationType)
     {
-        return $currentUser->id === $user->id;
+        return false;
     }
 
     /**

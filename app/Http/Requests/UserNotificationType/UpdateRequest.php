@@ -15,7 +15,7 @@ class UpdateRequest extends Request
     {
         return [
             'type' => 'min:3|max:255',
-            'description' => 'min:10|max:255'
+            'description' => 'max:255'
         ];
     }
 }

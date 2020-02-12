@@ -16,7 +16,7 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:255',
+            'name' => 'required|max:255',
             'propertyId'  => 'required|exists:properties,id',
             'sku'  => 'max:255',
             'description'  => 'max:65535',
@@ -28,7 +28,7 @@ class StoreRequest extends Request
             'requiredService' => 'max:255',
             'nextMaintenanceDate' => 'date',
             'notifyDuration' => 'required|in:' . implode(',', Equipment::getConstantsByPrefix('NOTIFY_')),
-            'restockNote'  => 'min:3|max:255',
+            'restockNote'  => 'max:255',
             'attachmentIds' => [new ListOfIds('attachments', 'id')],
 
         ];

@@ -16,8 +16,8 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' => 'required',
-            'title' => 'required|min:3|max:255',
-            'backgroundColor' => 'required|max:20',
+            'title' => 'required|max:255',
+            'backgroundColor' => 'max:20',
             'type' => 'in:' . LdsSlide::TYPE_CUSTOM . ',' . LdsSlide::TYPE_STANDARD,
             'imageId' => 'unique:lds_slides,imageId,required|exists:attachments,id',
         ];

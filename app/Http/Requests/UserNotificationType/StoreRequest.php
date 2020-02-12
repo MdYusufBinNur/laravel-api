@@ -15,7 +15,7 @@ class StoreRequest extends Request
     {
         return [
             'type' => 'required|min:3|max:255',
-            'description' => 'min:10|max:255'
+            'description' => 'max:255'
         ];
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class EloquentBaseRepository implements BaseRepository
 {
@@ -100,6 +101,8 @@ class EloquentBaseRepository implements BaseRepository
         $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';
         $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
 
+        $this->validateOrderByField($orderBy);
+
         $queryBuilder = $this->model->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
@@ -120,6 +123,21 @@ class EloquentBaseRepository implements BaseRepository
             return $queryBuilder->paginate($limit);
         } else {
             return $queryBuilder->get();
+        }
+    }
+
+    /**
+     * validate order by field
+     *
+     * @param string $orderBy
+     */
+    protected function validateOrderByField($orderBy)
+    {
+        $allowableFields = array_merge($this->model->getFillable(), ['id', 'created_at', 'updated_at']);
+        if (!in_array($orderBy, $allowableFields)) {
+            throw ValidationException::withMessages([
+                'order_by' => ["You can't order with the field '" . $orderBy . "'"]
+            ]);
         }
     }
 

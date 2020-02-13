@@ -16,11 +16,11 @@ class UpdateRequest extends Request
     {
         $id = $this->segment(4);
         return [
-            'officeHours' => 'min:7|max:20',
-            'phone' => 'min:11|max:20',
-            'emergenceContact' => 'min:5|max:255',
+            'officeHours' => 'max:20',
+            'phone' => 'max:20',
+            'emergenceContact' => 'max:255',
             'email' => Rule::unique('property_general_infos')->ignore($id, 'id'),
-            'additionalInfo' => 'min:3:max:65535',
+            'additionalInfo' => 'max:65535',
         ];
     }
 }

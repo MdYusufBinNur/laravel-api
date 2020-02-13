@@ -18,7 +18,7 @@ class StoreRequest extends Request
             'email' => 'email|required_without:phone|unique:users|max:255',
             'phone' => 'required_without:email|unique:users|max:20',
             'name' => 'max:255',
-            'password' => 'required|min:5|max:255',
+            'password' => 'required|min:6|max:255',
             'locale' => 'in:en,bn',
             'isActive' => 'boolean',
             'role' => '',

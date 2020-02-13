@@ -14,8 +14,8 @@ class UpdateRequest extends Request
     public function rules()
     {
         return $rules = [
-            'title'     => 'min:3|max:255',
-            'address'   => 'min:3|max:255',
+            'title'     => 'max:255',
+            'address'   => 'max:255',
             'city'      => 'max:255',
             'state'     => 'max:255',
             'postCode' => 'max:10',

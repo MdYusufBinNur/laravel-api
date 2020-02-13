@@ -20,7 +20,7 @@ class CreateEventsTable extends Migration
             $table->string('title');
             $table->string('location');
             $table->mediumText('text')->nullable();
-            $table->unsignedMediumInteger('maxGuests');
+            $table->unsignedMediumInteger('maxGuests')->default(0);
             $table->boolean('allowedSignUp')->default(0);
             $table->boolean('multipleDaysEvent')->default(0);
             $table->boolean('allowedLoginPage')->default(0);

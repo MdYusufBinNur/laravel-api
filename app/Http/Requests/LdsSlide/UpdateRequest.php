@@ -16,7 +16,7 @@ class UpdateRequest extends Request
     {
         $ldsSlideId = $this->segment(4);
         return [
-            'title' => 'min:3|max:255',
+            'title' => 'max:255',
             'backgroundColor' => 'max:20',
             'type' => 'in:' . LdsSlide::TYPE_CUSTOM . ',' . LdsSlide::TYPE_STANDARD,
             'imageId' => 'exists:attachments,id|unique:lds_slides,imageId,' . $ldsSlideId,

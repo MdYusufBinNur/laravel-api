@@ -19,9 +19,11 @@ class UpdateRequest extends Request
         $userId = null;
         $profileId = $this->segment(4);
         $userProfile = UserProfile::find($profileId);
+
         if ($userProfile instanceof UserProfile) {
             $userId = $userProfile->userId;
         }
+
         return [
             'userId' => 'exists:users,id',
             'gender' => 'in:'.UserProfile::GENDER_FEMALE.','.UserProfile::GENDER_MALE,

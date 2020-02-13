@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Visitor;
 
-use App\DbModels\Visitor;
 use App\Http\Requests\Request;
 
 class UpdateRequest extends Request
@@ -16,8 +15,8 @@ class UpdateRequest extends Request
     {
         return [
             'propertyId' => 'exists:properties,id',
-            'unitId' => 'exists:units,id',
-            'userId' => 'exists:users,id',
+            'unitId' => 'exists:units,id|nullable',
+            'userId' => 'exists:users,id|nullable',
             'visitorTypeId' => 'exists:visitor_types,id',
             'name' => 'max:255',
             'phone' => 'max:20',

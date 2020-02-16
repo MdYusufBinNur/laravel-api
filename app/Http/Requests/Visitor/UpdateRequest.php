@@ -15,8 +15,8 @@ class UpdateRequest extends Request
     {
         return [
             'propertyId' => 'exists:properties,id',
-            'unitId' => 'exists:units,id|nullable',
-            'userId' => 'exists:users,id|nullable',
+            'unitId' => 'nullable|exists:units,id',
+            'userId' => 'nullable|exists:users,id',
             'visitorTypeId' => 'exists:visitor_types,id',
             'name' => 'max:255',
             'phone' => 'max:20',

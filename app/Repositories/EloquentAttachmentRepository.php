@@ -133,7 +133,7 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
     {
         $profileAttachment = $this->getAttachmentByTypeAndResourceId(Attachment::ATTACHMENT_TYPE_USER_PROFILE, $resourceId);
         if ($profileAttachment instanceof Attachment) {
-            return \Storage::temporaryUrl($profileAttachment->getAttachmentDirectoryPathByTypeTitle($size), Carbon::now()->addDays(6));
+            return $profileAttachment->getFileUrl('thumbnail');
         }
 
         return null;

@@ -19,7 +19,7 @@ class CreatePackagesTable extends Migration
             $table->unsignedInteger('propertyId');
             $table->unsignedInteger('unitId')->nullable();;
             $table->unsignedInteger('residentId')->nullable();;
-            $table->unsignedInteger('typeId');
+            $table->unsignedInteger('typeId')->nullable();
             $table->unsignedInteger('enteredUserId')->nullable();;
             $table->string('trackingNumber')->nullable();
             $table->string('comment')->nullable();

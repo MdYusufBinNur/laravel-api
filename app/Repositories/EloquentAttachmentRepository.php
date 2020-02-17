@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\DbModels\Attachment;
 use App\Events\Attachment\AttachmentCreatedEvent;
+use App\Http\Resources\AttachmentResource;
 use App\Repositories\Contracts\AttachmentRepository;
 use Carbon\Carbon;
 use Illuminate\Http\UploadedFile;
@@ -133,7 +134,7 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
     {
         $profileAttachment = $this->getAttachmentByTypeAndResourceId(Attachment::ATTACHMENT_TYPE_USER_PROFILE, $resourceId);
         if ($profileAttachment instanceof Attachment) {
-            return $profileAttachment->getFileUrl('thumbnail');
+            return new AttachmentResource($profileAttachment);
         }
 
         return null;

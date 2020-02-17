@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Repositories\Contracts\ModuleOptionPropertyRepository;
 use App\Repositories\Contracts\ModuleSettingPropertyRepository;
+use Illuminate\Validation\ValidationException;
 
 trait ValidateModules
 {
@@ -36,6 +37,12 @@ trait ValidateModules
     public function isModuleActiveForTheProperty(array $moduleConst, $propertyId = null)
     {
         $propertyId = $propertyId ?? request()['propertyId'];
+
+        if (empty($propertyId)) {
+            throw ValidationException::withMessages([
+                'propertyId' => ["Property Id field needs to be present in the request."]
+            ]);
+        }
 
         $this->setModuleRepositories();
 

@@ -52,7 +52,23 @@ class Attachment extends Model
         'fileName',
         'descriptions',
         'fileType',
-        'fileSize'
+        'fileSize',
+        'hasAvatarSize',
+        'hasThumbnailSize',
+        'hasMediumSize',
+        'hasLargeSize',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'hasAvatarSize' => 'boolean',
+        'hasThumbnailSize' => 'boolean',
+        'hasMediumSize' => 'boolean',
+        'hasLargeSize' => 'boolean',
     ];
 
     /**
@@ -224,11 +240,41 @@ class Attachment extends Model
         $directoryName = $this->getDirectoryName($this->type);
 
         return $directoryName . '/' . $path;
+    }
 
+    /**
+     * see if image type is available for that attachment
+     *
+     * @param string $imageType
+     * @return bool|mixed
+     */
+    public function isImageSizeAvailable($imageType = '')
+    {
+        switch (strtolower($imageType)) {
+            case '': //for normal file url
+                return true;
+                break;
+            case 'avatar':
+                return $this->hasAvatarSize;
+                break;
+            case 'thumbnail':
+                return $this->hasThumbnailSize;
+                break;
+            case 'medium':
+                return $this->hasMediumSize;
+                break;
+            case 'large':
+                return $this->hasLargeSize;
+                break;
+            default:
+                return false;
+
+        }
     }
 
     /**
      * generate file URL by type
+     * 
      * @param string $imageType
      * @return mixed
      */
@@ -237,9 +283,9 @@ class Attachment extends Model
         $accessType = $this->getAccessTypeByAttachmentType($this->type);
 
         if ($accessType == 'private') {
-            return \Storage::temporaryUrl($this->getAttachmentDirectoryPathByTypeTitle($imageType), Carbon::now()->addMinutes(10));
+            return $this->isImageSizeAvailable($imageType) ? \Storage::temporaryUrl($this->getAttachmentDirectoryPathByTypeTitle($imageType), Carbon::now()->addMinutes(10)) : null;
         } else {
-            return \Storage::url($this->getAttachmentDirectoryPathByTypeTitle($imageType));
+            return $this->isImageSizeAvailable($imageType) ? \Storage::url($this->getAttachmentDirectoryPathByTypeTitle($imageType)) : null;
         }
     }
 }

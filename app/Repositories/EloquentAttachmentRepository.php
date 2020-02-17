@@ -52,10 +52,10 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
         return $attachment;
     }
 
-    /**
+    /* todo no need
      * @inheritdoc
      */
-    public function update(\ArrayAccess $model, array $data): \ArrayAccess
+    /*public function update(\ArrayAccess $model, array $data): \ArrayAccess
     {
         $image = file_get_contents($data['fileSource']);
         $directoryName = $this->model->getDirectoryName($data['type']);
@@ -63,7 +63,7 @@ class EloquentAttachmentRepository extends EloquentBaseRepository implements Att
         \Storage::delete($directoryName . '/' . $model->fileName);
         \Storage::put($directoryName . '/' . $data['fileName'], $image, 'public');
         return parent::update($model, $data);
-    }
+    }*/
 
     /**
      * @inheritdoc

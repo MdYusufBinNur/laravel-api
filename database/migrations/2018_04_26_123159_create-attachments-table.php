@@ -22,6 +22,10 @@ class CreateAttachmentsTable extends Migration
             $table->text('descriptions')->nullable();
             $table->string('fileType')->nullable();
             $table->double('fileSize')->nullable();
+            $table->boolean('hasAvatarSize')->default(0);
+            $table->boolean('hasThumbnailSize')->default(0);
+            $table->boolean('hasMediumSize')->default(0);
+            $table->boolean('hasLargeSize')->default(0);
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('createdByUserId')

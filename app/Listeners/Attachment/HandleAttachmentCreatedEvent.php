@@ -2,7 +2,9 @@
 
 namespace App\Listeners\Attachment;
 
+use App\DbModels\Attachment;
 use App\Events\Attachment\AttachmentCreatedEvent;
+use App\Repositories\Contracts\AttachmentRepository;
 use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Str;
@@ -32,8 +34,38 @@ class HandleAttachmentCreatedEvent implements ShouldQueue
                 $image = \Image::make($imageUrl)->resize($imageSizes['width'], $imageSizes['height'])->save($resizedImagePath);
                 $filePath = $attachment->getAttachmentDirectoryPathByTypeTitle($imageSizeType);
                 \Storage::put($filePath, $image, 'public');
+
+                $this->setImageSize($attachment, $imageSizeType);
             }
 
         }
+    }
+
+    /**
+     * set image size for later retrieval
+     *
+     * @param Attachment $attachment
+     * @param $imageSize
+     */
+    private function setImageSize(Attachment $attachment, $imageSize)
+    {
+        $attachmentRepository = app(AttachmentRepository::class);
+        $data = [];
+        switch (strtolower($imageSize)) {
+            case 'avatar':
+                $data['hasAvatarSize'] = true;
+                break;
+            case 'thumbnail':
+                $data['hasThumbnailSize'] = true;
+                break;
+            case 'medium':
+                $data['hasMediumSize'] = true;
+                break;
+            case 'large':
+                $data['hasLargeSize'] = true;
+                break;
+        }
+
+        $attachmentRepository->update($attachment, $data);
     }
 }

@@ -17,7 +17,7 @@ class CreatePostWallsTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('postId');
-            $table->mediumText('text');
+            $table->mediumText('text')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

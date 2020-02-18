@@ -274,7 +274,7 @@ class Attachment extends Model
 
     /**
      * generate file URL by type
-     * 
+     *
      * @param string $imageType
      * @return mixed
      */

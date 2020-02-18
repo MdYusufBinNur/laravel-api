@@ -49,7 +49,15 @@ class AnnouncementPolicy
      */
     public function store(User $currentUser, int $propertyId)
     {
-        return $currentUser->isAStaffOfTheProperty($propertyId);
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -75,7 +83,17 @@ class AnnouncementPolicy
      */
     public function update(User $currentUser, Announcement $announcement)
     {
-        return $currentUser->isAStaffOfTheProperty($announcement->propertyId);
+        $propertyId = $announcement->propertyId;
+
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -89,7 +107,15 @@ class AnnouncementPolicy
     {
         $propertyId = $announcement->propertyId;
 
-        return $currentUser->isAStaffOfTheProperty($propertyId);
+        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -101,7 +127,6 @@ class AnnouncementPolicy
      */
     public function announcementsForLds(User $currentUser, int $propertyId)
     {
-
         if (!$this->isModuleActiveForTheProperty($propertyId, Module::MODULE_LDS)) {
             return false;
         }

@@ -16,7 +16,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'text' => 'string|max:16777215',
+            'text' => 'nullable|string|max:16777215',
             'post' => '',
             'post.status' => 'in:' . Post::STATUS_PENDING . ',' . Post::STATUS_DENIED . ',' . Post::STATUS_APPROVED . ',' . Post::STATUS_POSTED,
             'post.likeChanged' => 'boolean',

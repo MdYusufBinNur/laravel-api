@@ -16,6 +16,9 @@ class ResidentResource extends Resource
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
             'propertyId' => $this->propertyId,
+            'property' => $this->when($this->needToInclude($request, 'resident.property'), function () {
+                return new PropertyResource($this->property);
+            }),
             'userId' => $this->userId,
             'unitId' => $this->unitId,
             'unit' => $this->when($this->needToInclude($request, 'resident.unit'), function () {

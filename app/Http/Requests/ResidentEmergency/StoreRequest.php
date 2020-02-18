@@ -15,11 +15,11 @@ class StoreRequest extends Request
     {
         return [
             'residentId' => 'required|exists:residents,id',
-            'name' => 'min:3|max:255',
-            'relationship' => 'min:3|max:255',
-            'address' => 'min:3|max:255',
-            'homePhone' => 'min:11|max:20',
-            'cellPhone' => 'min:11|max:20',
+            'name' => 'min:2|max:255',
+            'relationship' => 'max:255',
+            'address' => 'max:255',
+            'homePhone' => 'max:20',
+            'cellPhone' => 'max:20',
             'email' => 'unique:resident_emergencies,email|email|max:255',
         ];
     }

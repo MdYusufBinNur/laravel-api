@@ -10,13 +10,13 @@
                         Hey {{ $residentAccessRequest->name }}
                         <br>
                         <br>
-                        The support team received your request.
-                        Soon, You will get notify by email with a PIN.
-                        By entering PIN you can continue further registration process in our community.
+                        Our support team received your request for registration in our community.
+                        Soon, You`ll notified by an email with a PIN.
+                        You can continue further registration process in our community, by entering PIN.
                         <br>
                         <br>
                         <br>
-                        If you don’t get any email in this period, please contact with support team of your community.
+                        If you don’t get any email within a few days, please contact with support team of your community.
                         <br>
                         <br>
                         <br>

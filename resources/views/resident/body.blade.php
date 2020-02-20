@@ -14,7 +14,8 @@
                         Greetings!
                         <br>
                         <br>
-                        Your Profile has been created successfully.
+                        Your profile has been created successfully.
+                        Please click on the box below to proceed further.
                         <br>
                         <br>
                     </td>

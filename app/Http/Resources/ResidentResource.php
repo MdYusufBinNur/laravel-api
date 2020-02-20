@@ -50,6 +50,9 @@ class ResidentResource extends Resource
             'user' => $this->when($this->needToInclude($request, 'resident.user'), function () {
                 return new UserResource($this->user);
             }),
+            'residentEmergency' => $this->when($this->needToInclude($request, 'resident.residentEmergency'), function () {
+                return new ResidentEmergencyResource($this->residentEmergency);
+            }),
         ];
     }
 }

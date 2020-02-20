@@ -81,6 +81,16 @@ class Resident extends Model
     }
 
     /**
+     * get the resident-emergency
+     *
+     * @return HasOne
+     */
+    public function residentEmergency()
+    {
+        return $this->hasOne(ResidentEmergency::class, 'residentId', 'id');
+    }
+
+    /**
      * is a tenant type resident
      *
      * @return bool

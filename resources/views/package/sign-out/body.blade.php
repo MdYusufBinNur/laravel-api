@@ -12,13 +12,13 @@
                 </tr>
                 <tr>
                     <td align="left" style="font-size:18px;color:#ffffff; text-align: left;">
-                        Dear {{ $resident->user->name }}, <br> <br>
+                        Dear Mr. {{ $resident->user->name }}, <br> <br>
 
                         Thank You for receiving your package.<br>
                         <br>
                         <br>
 
-                        Package details:
+                        Your package details:
                         <br>
                         <br>
                         Tracking Number: {{$package->trackingNumber}}

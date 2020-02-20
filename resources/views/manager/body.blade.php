@@ -14,7 +14,7 @@
                     <td align="left" style="font-size:18px;color:#ffffff; text-align: left;">
                         Hello {{ $property->title }} Team, <br> <br>
 
-                        A staff has been created for your property.<br>
+                        A staff has been added for your property.<br>
                         <br>
                         <br>
 
@@ -23,11 +23,12 @@
                         <br>
                         Name: {{$user->name}}
                         <br>
+                        Designation: {{$user->title}}
+                        <br>
                         email: {{$user->email}}
                         <br>
                         <br>
-                        <br>
-                        If You Have any issue about this please contact with out smart property team. <br>
+                        If You Have any issue concerning this please contact with out support team. <br>
 
                         <br>
                         <br>

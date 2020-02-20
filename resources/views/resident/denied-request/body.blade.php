@@ -11,12 +11,12 @@
                         <br>
                         <br>
                         We have reviewed your request.
-                        And Sorry to say that we mark you as a unprivileged resident of our community.
+                        And sorry to notify that you are not marked as a resident in our community.
                         That's why we reject your request.
                         <br>
                         <br>
                         <br>
-                        If you are a resident of our community, please contact with support team of our community,
+                        If you are a resident of our community, please contact with the support team of our community,
                         to consider your request again.
                         <br>
                         <br>

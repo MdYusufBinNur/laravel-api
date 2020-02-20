@@ -10,7 +10,8 @@
                         Hey {{ $user->name }}
                         <br>
                         <br>
-                        A request has been made to reset your password. If you made this request, please click on the button below.
+                        Please click on the button below to reset your password.
+                        If you didn’t request for a new password, you can ignore this email
                         <br>
                         <br>
                         <div >

@@ -12,9 +12,10 @@
                 </tr>
                 <tr>
                     <td align="left" style="font-size:18px;color:#ffffff; text-align: left;">
-                        Dear {{ $resident->user->name }}, <br> <br>
+                        Dear Mr. {{ $resident->user->name }}, <br> <br>
 
-                        A package has been Arrived in our desk for you.<br>
+                        A package has Arrived at our reception desk for you.<br>
+                        Please find the details of the Package below.
                         <br>
                         Arrived at: {{ $package->created_at }}
                         <br>
@@ -31,7 +32,7 @@
                         <br>
                         <br>
                         <br>
-                        Please collect your package from our office <br>
+                        Please collect your package from our reception desk.<br>
 
                         <br>
                         <br>

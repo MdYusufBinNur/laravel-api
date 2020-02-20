@@ -63,10 +63,12 @@ class EloquentVisitorRepository extends EloquentBaseRepository implements Visito
         }
 
         if (isset($searchCriteria['query'])) {
-            $queryBuilder = $queryBuilder->where('name', 'like', '%' . $searchCriteria['query'] . '%')
-                ->orWhere('phone', 'like', '%' . $searchCriteria['query'] . '%')
-                ->orWhere('email', 'like', '%' . $searchCriteria['query'] . '%')
-                ->orWhere('company', 'like', '%' . $searchCriteria['query'] . '%');
+            $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
+                $query->where('name', 'like', '%' . $searchCriteria['query'] . '%')
+                    ->orWhere('phone', 'like', '%' . $searchCriteria['query'] . '%')
+                    ->orWhere('email', 'like', '%' . $searchCriteria['query'] . '%')
+                    ->orWhere('company', 'like', '%' . $searchCriteria['query'] . '%');
+            });
             unset($searchCriteria['query']);
         }
 
@@ -80,6 +82,7 @@ class EloquentVisitorRepository extends EloquentBaseRepository implements Visito
         $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';
         $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
         $queryBuilder->orderBy($orderBy, $orderDirection);
+
         if (empty($searchCriteria['withOutPagination'])) {
             return $queryBuilder->paginate($limit);
         } else {

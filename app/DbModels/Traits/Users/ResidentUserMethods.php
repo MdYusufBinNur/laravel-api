@@ -132,8 +132,7 @@ trait ResidentUserMethods
         if (!is_array($unitIds)) {
             $unitIds = array_map('intval', explode(',', $unitIds));
         }
-
-        return $this->residents()->whereIn('unitId', $unitIds)->count() === count(array_unique($unitIds));
+        return $this->residents()->whereIn('unitId', $unitIds)->distinct('unitId')->count() === count(array_unique($unitIds));
     }
 
     /**

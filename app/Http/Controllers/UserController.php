@@ -72,7 +72,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = $this->userRepository->findOne($id);
-dd($user->upToLimitedStaffOfTheProperty(1));
+
         if (!$user instanceof User) {
             return response()->json(['status' => 404, 'message' => 'Resource not found with the specific id.'], 404);
         }

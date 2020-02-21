@@ -4,29 +4,78 @@
 namespace App\DbModels\Traits\Users;
 
 
-use App\DbModels\Role;
-
 trait CommonUserMethods
 {
     /**
-     * has up to the Role
+     * has any role upto standard admin user
      *
-     * @param int $propertyId
-     * @param int $upToRoleId
      * @return bool
      */
-    public function upToTheRoleInAProperty(int $upToRoleId, int $propertyId)
+    public function upToStandardAdmin()
     {
-        $roles = $this->userRoles;
+        if ($this->isSuperAdmin()) {
+            return true;
+        }
 
-        foreach ($roles as $role) {
-            if ($role->propertyId == $propertyId && $role->roleId <= $upToRoleId) {
-                return true;
-            }
+        if ($this->isStandardAdmin()) {
+            return true;
         }
 
         return false;
     }
+
+    /**
+     * has any role upto limited admin user
+     *
+     * @return bool
+     */
+    public function uptoLimitedAdmin()
+    {
+        if ($this->upToStandardAdmin()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * has any role upto admin enterprise user
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function upToAdminEnterpriseUserOfTheProperty($propertyId)
+    {
+        if ($this->uptoLimitedAdmin($propertyId)) {
+            return true;
+        }
+
+        if ($this->isAnAdminEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * has any role upto standard enterprise user
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function upToStandardEnterpriseUserOfTheProperty($propertyId)
+    {
+        if ($this->upToAdminEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($this->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
+    }
+
 
     /**
      * has any role upto priority staff
@@ -36,7 +85,15 @@ trait CommonUserMethods
      */
     public function upToPriorityStaffOfTheProperty($propertyId)
     {
-        return $this->upToTheRoleInAProperty(Role::ROLE_STAFF_PRIORITY['id'], $propertyId);
+        if ($this->upToStandardEnterpriseUserOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($this->isAPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -47,7 +104,15 @@ trait CommonUserMethods
      */
     public function upToStandardStaffOfTheProperty($propertyId)
     {
-        return $this->upToTheRoleInAProperty(Role::ROLE_STAFF_STANDARD['id'], $propertyId);
+        if ($this->upToPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($this->isAStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -58,6 +123,33 @@ trait CommonUserMethods
      */
     public function upToLimitedStaffOfTheProperty($propertyId)
     {
-        return $this->upToTheRoleInAProperty(Role::ROLE_STAFF_LIMITED['id'], $propertyId);
+        if ($this->upToStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($this->isALimitedStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * has any role upto resident user
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function upToResidentOfTheProperty($propertyId)
+    {
+        if ($this->upToLimitedStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        if ($this->isResidentOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
     }
 }

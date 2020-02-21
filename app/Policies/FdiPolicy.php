@@ -38,16 +38,11 @@ class FdiPolicy
      */
     public function list(User $currentUser, int $propertyId, ?string $unitId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-
             return $currentUser->isResidentOfTheUnits($unitId);
         }
 
@@ -64,11 +59,7 @@ class FdiPolicy
      */
     public function store(User $currentUser, int $propertyId, int $unitId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 

@@ -37,11 +37,7 @@ class FdiGuestTypePolicy
      */
     public function list(User $currentUser, int $propertyId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -57,11 +53,7 @@ class FdiGuestTypePolicy
      */
     public function store(User $currentUser, int $propertyId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -77,16 +69,11 @@ class FdiGuestTypePolicy
      */
     public function show(User $currentUser,  FdiGuestType $fdiGuestType)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($fdiGuestType->propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($fdiGuestType->propertyId)) {
+        if ($currentUser->isUserOfTheProperty($fdiGuestType->propertyId)) {
             return true;
         }
 
         return false;
-
     }
 
     /**
@@ -98,11 +85,7 @@ class FdiGuestTypePolicy
      */
     public function update(User $currentUser, FdiGuestType $fdiGuestType)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($fdiGuestType->propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($fdiGuestType->propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($fdiGuestType->propertyId)) {
             return true;
         }
 
@@ -118,11 +101,7 @@ class FdiGuestTypePolicy
      */
     public function destroy(User $currentUser, FdiGuestType $fdiGuestType)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($fdiGuestType->propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($fdiGuestType->propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($fdiGuestType->propertyId)) {
             return true;
         }
 

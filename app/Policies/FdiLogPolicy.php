@@ -25,6 +25,7 @@ class FdiLogPolicy
     {
         $this->fdiRepository = $fdiRepository;
     }
+
     /**
      * Intercept checks
      *
@@ -37,7 +38,7 @@ class FdiLogPolicy
             return true;
         }
 
-        if (!$this->isModuleActiveForTheProperty( Module::MODULE_FRONT_DESK_INSTRUCTION)) {
+        if (!$this->isModuleActiveForTheProperty(Module::MODULE_FRONT_DESK_INSTRUCTION)) {
             return false;
         }
     }
@@ -51,11 +52,7 @@ class FdiLogPolicy
      */
     public function list(User $currentUser, int $propertyId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -69,15 +66,11 @@ class FdiLogPolicy
      * @param FdiLog $fdiLog
      * @return bool
      */
-    public function show(User $currentUser,  FdiLog $fdiLog)
+    public function show(User $currentUser, FdiLog $fdiLog)
     {
         $propertyId = $fdiLog->fdi->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -95,11 +88,7 @@ class FdiLogPolicy
     {
         $propertyId = $fdiLog->fdi->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 

@@ -3,6 +3,7 @@
 namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
+use App\DbModels\Traits\Users\CommonUserMethods;
 use App\DbModels\Traits\Users\EnterpriseUserMethods;
 use App\DbModels\Traits\Users\AdminUserMethods;
 use App\DbModels\Traits\Users\ResidentUserMethods;
@@ -18,7 +19,7 @@ class User extends Authenticatable
 {
     use Notifiable, HasApiTokens, CommonModelFeatures;
 
-    use AdminUserMethods, EnterpriseUserMethods, StaffUserMethods, ResidentUserMethods;
+    use AdminUserMethods, EnterpriseUserMethods, StaffUserMethods, ResidentUserMethods, CommonUserMethods;
 
     /**
      * The attributes that are mass assignable.

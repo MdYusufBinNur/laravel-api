@@ -119,7 +119,7 @@ class EloquentBaseRepository implements BaseRepository
             $queryBuilder->orderBy($orderBy, $orderDirection);
         }
 
-        if (empty($searchCriteria['withoutPagination'])) {
+        if (empty($searchCriteria['withOutPagination'])) {
             return $queryBuilder->paginate($limit);
         } else {
             return $queryBuilder->get();
@@ -146,7 +146,7 @@ class EloquentBaseRepository implements BaseRepository
      */
     public function findByWithoutPagination(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['withoutPagination'] = true;
+        $searchCriteria['withOutPagination'] = true;
         return $this->findBy($searchCriteria, $withTrashed);
     }
 

@@ -112,6 +112,7 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('post-recommendation-type', 'PostRecommendationTypeController');
         Route::apiResource('post-recommendation', 'PostRecommendationController');
         Route::apiResource('post-wall', 'PostWallController');
+        Route::get('post-liked-users', 'PostController@likedUsers');
 
 
         /**

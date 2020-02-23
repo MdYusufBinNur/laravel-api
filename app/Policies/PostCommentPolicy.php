@@ -123,7 +123,7 @@ class PostCommentPolicy
      */
     public function destroy(User $currentUser, PostComment $postComment)
     {
-        $post = $postComment->post->propertyId;
+        $post = $postComment->post;
         $propertyId = $post->propertyId;
 
         if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {

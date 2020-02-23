@@ -38,11 +38,7 @@ class ParkingPassLogPolicy
      */
     public function list(User $currentUser, int $propertyId, ?string $unitId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -76,11 +72,7 @@ class ParkingPassLogPolicy
     {
         $propertyId = $parkingPassLog->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 

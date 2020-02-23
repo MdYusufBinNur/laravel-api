@@ -38,15 +38,7 @@ class PackagePolicy
      */
     public function list(User $currentUser, int $propertyId, ?string $unitId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -67,15 +59,7 @@ class PackagePolicy
      */
     public function store(User $currentUser, int $propertyId, ?string $unitId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -96,11 +80,7 @@ class PackagePolicy
     public function show(User $currentUser,  Package $package)
     {
         $propertyId = $package->propertyId;
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -121,11 +101,7 @@ class PackagePolicy
      */
     public function update(User $currentUser, Package $package)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($package->propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($package->propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($package->propertyId)) {
             return true;
         }
 
@@ -141,11 +117,7 @@ class PackagePolicy
      */
     public function destroy(User $currentUser, Package $package)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($package->propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($package->propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($package->propertyId)) {
             return true;
         }
 

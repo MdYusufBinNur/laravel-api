@@ -99,11 +99,7 @@ class PostEventPolicy
     {
         $propertyId = $$postEvent->post->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
             return true;
         }
 

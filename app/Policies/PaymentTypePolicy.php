@@ -53,11 +53,7 @@ class PaymentTypePolicy
      */
     public function store(User $currentUser, int $propertyId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -91,11 +87,7 @@ class PaymentTypePolicy
     {
         $propertyId = $paymentType->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -113,11 +105,7 @@ class PaymentTypePolicy
     {
         $propertyId = $paymentType->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
             return true;
         }
 

@@ -38,15 +38,7 @@ class PaymentItemPolicy
      */
     public function list(User $currentUser, int $propertyId, ?string $unitId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -71,15 +63,7 @@ class PaymentItemPolicy
         $payment = $paymentItem->payment;
         $propertyId = $payment->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -105,15 +89,7 @@ class PaymentItemPolicy
         $payment = $paymentItem->payment;
         $propertyId = $payment->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -139,15 +115,7 @@ class PaymentItemPolicy
         $payment = $paymentItem->payment;
         $propertyId = $payment->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 

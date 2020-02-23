@@ -79,16 +79,11 @@ class FdiPolicy
      */
     public function show(User $currentUser,  Fdi $fdi)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($fdi->propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($fdi->propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($fdi->propertyId)) {
             return true;
         }
 
         if ($currentUser->isResidentOfTheProperty($fdi->propertyId)) {
-
             return $currentUser->isResidentOfTheUnits($fdi->unitId);
         }
 
@@ -104,16 +99,11 @@ class FdiPolicy
      */
     public function update(User $currentUser, Fdi $fdi)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($fdi->propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($fdi->propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($fdi->propertyId)) {
             return true;
         }
 
         if ($currentUser->isResidentOfTheProperty($fdi->propertyId)) {
-
             return $currentUser->isResidentOfTheUnits($fdi->unitId);
         }
 
@@ -129,16 +119,11 @@ class FdiPolicy
      */
     public function destroy(User $currentUser, Fdi $fdi)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($fdi->propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($fdi->propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($fdi->propertyId)) {
             return true;
         }
 
         if ($currentUser->isResidentOfTheProperty($fdi->propertyId)) {
-
             return $currentUser->isResidentOfTheUnits($fdi->unitId);
         }
 

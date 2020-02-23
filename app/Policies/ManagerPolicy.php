@@ -32,15 +32,7 @@ class ManagerPolicy
      */
     public function list(User $currentUser, int $propertyId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -56,15 +48,7 @@ class ManagerPolicy
      */
     public function store(User $currentUser, int $propertyId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -102,19 +86,9 @@ class ManagerPolicy
 
         if ($user instanceof User) {
             $propertyId = $manager->propertyId;
-
-            if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
                 return true;
             }
-
-            if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
-                return true;
-            }
-
-            if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-                return true;
-            }
-
             return $currentUser->id === $user->id;
         }
 

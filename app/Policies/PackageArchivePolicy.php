@@ -39,15 +39,7 @@ class PackageArchivePolicy
      */
     public function list(User $currentUser, int $propertyId, ?string $unitId, ?string $residentId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -75,15 +67,7 @@ class PackageArchivePolicy
      */
     public function store(User $currentUser, int $propertyId, ?string $unitId, ?string $residentId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -109,11 +93,7 @@ class PackageArchivePolicy
      */
     public function show(User $currentUser,  PackageArchive $packageArchive)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($packageArchive->propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($packageArchive->propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($packageArchive->propertyId)) {
             return true;
         }
 
@@ -141,11 +121,7 @@ class PackageArchivePolicy
      */
     public function update(User $currentUser, PackageArchive $packageArchive)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($packageArchive->propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($packageArchive->propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($packageArchive->propertyId)) {
             return true;
         }
 
@@ -161,11 +137,7 @@ class PackageArchivePolicy
      */
     public function destroy(User $currentUser, PackageArchive $packageArchive)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($packageArchive->propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($packageArchive->propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($packageArchive->propertyId)) {
             return true;
         }
 

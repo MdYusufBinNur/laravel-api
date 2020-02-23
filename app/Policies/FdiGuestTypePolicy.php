@@ -37,7 +37,7 @@ class FdiGuestTypePolicy
      */
     public function list(User $currentUser, int $propertyId)
     {
-        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
             return true;
         }
 

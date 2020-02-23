@@ -109,7 +109,7 @@ class EventSignupPolicy
      */
     public function update(User $currentUser, EventSignup $eventSignup)
     {
-        return $currentUser->userId === $eventSignup->userId;
+        return $currentUser->id === $eventSignup->userId;
     }
 
     /**
@@ -121,7 +121,7 @@ class EventSignupPolicy
      */
     public function destroy(User $currentUser, EventSignup $eventSignup)
     {
-        return $currentUser->userId === $eventSignup->userId;
+        return $currentUser->id === $eventSignup->userId;
     }
 }
 

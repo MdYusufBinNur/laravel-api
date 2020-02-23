@@ -77,20 +77,12 @@ class ResidentPolicy
     {
         $propertyId = $resident->propertyId;
 
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($resident->user instanceof User) {
-            return $currentUser->id === $resident->user->id;
+        $residentUser = $resident->user;
+        if ( $residentUser instanceof User) {
+            return $currentUser->id === $residentUser->id;
         }
 
         return false;
@@ -107,15 +99,7 @@ class ResidentPolicy
     {
         $propertyId = $resident->propertyId;
 
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -131,15 +115,7 @@ class ResidentPolicy
      */
     public function residentTransfer(User $currentUser, int $propertyId)
     {
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 

@@ -53,11 +53,7 @@ class ServiceRequestCategoryPolicy
      */
     public function store(User $currentUser, int $propertyId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -91,11 +87,7 @@ class ServiceRequestCategoryPolicy
     {
         $propertyId = $serviceRequestCategory->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -114,11 +106,7 @@ class ServiceRequestCategoryPolicy
 
         $propertyId = $serviceRequestCategory->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
             return true;
         }
 

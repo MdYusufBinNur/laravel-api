@@ -38,11 +38,7 @@ class ServiceRequestPolicy
      */
     public function list(User $currentUser, int $propertyId, ?string $unitIdCsv)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -64,11 +60,7 @@ class ServiceRequestPolicy
      */
     public function store(User $currentUser, int $propertyId, ?string $unitIdCsv)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -90,11 +82,7 @@ class ServiceRequestPolicy
     public function show(User $currentUser,  ServiceRequest $serviceRequest)
     {
         $propertyId = $serviceRequest->propertyId;
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -116,11 +104,7 @@ class ServiceRequestPolicy
     {
         $propertyId = $serviceRequest->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 

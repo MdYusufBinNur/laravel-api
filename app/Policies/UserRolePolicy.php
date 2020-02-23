@@ -55,7 +55,7 @@ class UserRolePolicy
      */
     public function show(User $currentUser,  UserRole $userRole)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->id === $userRole->userId;
     }
 
     /**
@@ -67,7 +67,7 @@ class UserRolePolicy
      */
     public function update(User $currentUser, UserRole $userRole)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->id === $userRole->userId;
     }
 
     /**

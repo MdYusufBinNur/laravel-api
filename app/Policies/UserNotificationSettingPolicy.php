@@ -37,11 +37,7 @@ class UserNotificationSettingPolicy
             return $currentUser->id == $userId;
         }
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -57,11 +53,7 @@ class UserNotificationSettingPolicy
      */
     public function store(User $currentUser, array $requestData)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($requestData['propertyId'])) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($requestData['propertyId'])) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($requestData['propertyId'])) {
             return true;
         }
 
@@ -79,11 +71,7 @@ class UserNotificationSettingPolicy
      */
     public function show(User $currentUser,  UserNotificationSetting $userNotificationSetting)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($userNotificationSetting->propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($userNotificationSetting->propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($userNotificationSetting->propertyId)) {
             return true;
         }
 
@@ -99,11 +87,7 @@ class UserNotificationSettingPolicy
      */
     public function update(User $currentUser, UserNotificationSetting $userNotificationSetting)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($userNotificationSetting->propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($userNotificationSetting->propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($userNotificationSetting->propertyId)) {
             return true;
         }
 

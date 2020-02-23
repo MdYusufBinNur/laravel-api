@@ -55,7 +55,7 @@ class UserPropertyManagerPolicy
      */
     public function show(User $currentUser,  UserPropertyManager $userPropertyManager)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->id === $userPropertyManager->userId;
     }
 
     /**
@@ -67,7 +67,7 @@ class UserPropertyManagerPolicy
      */
     public function update(User $currentUser, UserPropertyManager $userPropertyManager)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->id === $userPropertyManager->userId;
     }
 
     /**

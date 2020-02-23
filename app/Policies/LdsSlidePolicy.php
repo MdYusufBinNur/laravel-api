@@ -70,11 +70,7 @@ class LdsSlidePolicy
         $propertyIds = $ldsSlide->ldsSlidesProperties()->pluck('propertyId')->toArray();
 
         foreach ($propertyIds as $propertyId) {
-            if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-                return true;
-            }
-
-            if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
                 return true;
             }
         }
@@ -92,11 +88,7 @@ class LdsSlidePolicy
         $propertyIds = $ldsSlide->ldsSlidesProperties()->pluck('propertyId')->toArray();
 
         foreach ($propertyIds as $propertyId) {
-            if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-                return true;
-            }
-
-            if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
                 return true;
             }
         }
@@ -116,11 +108,7 @@ class LdsSlidePolicy
         $propertyIds = $ldsSlide->ldsSlidesProperties()->pluck('propertyId')->toArray();
 
         foreach ($propertyIds as $propertyId) {
-            if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-                return true;
-            }
-
-            if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+            if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
                 return true;
             }
         }

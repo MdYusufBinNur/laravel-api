@@ -37,11 +37,7 @@ class LdsSlidePropertyPolicy
      */
     public function list(User $currentUser, int $propertyId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -57,11 +53,7 @@ class LdsSlidePropertyPolicy
      */
     public function store(User $currentUser, int $propertyId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -95,11 +87,7 @@ class LdsSlidePropertyPolicy
     {
         $propertyId = $ldsSlideProperty->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -117,11 +105,7 @@ class LdsSlidePropertyPolicy
     {
         $propertyId = $ldsSlideProperty->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
             return true;
         }
 

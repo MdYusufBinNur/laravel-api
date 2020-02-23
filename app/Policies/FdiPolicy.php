@@ -112,6 +112,11 @@ class FdiPolicy
             return true;
         }
 
+        if ($currentUser->isResidentOfTheProperty($fdi->propertyId)) {
+
+            return $currentUser->isResidentOfTheUnits($fdi->unitId);
+        }
+
         return $currentUser->id === $fdi->userId;
     }
 
@@ -130,6 +135,11 @@ class FdiPolicy
 
         if ($currentUser->isAStaffOfTheProperty($fdi->propertyId)) {
             return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($fdi->propertyId)) {
+
+            return $currentUser->isResidentOfTheUnits($fdi->unitId);
         }
 
         return $currentUser->id === $fdi->userId;

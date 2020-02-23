@@ -18,7 +18,7 @@ class StoreRequest extends Request
     {
         return $rules = [
             'type'         => 'required|in:' . implode(',', Attachment::getConstantsByPrefix('ATTACHMENT_TYPE_')),
-            'fileSource'   => 'required|file|max:15360|mimes:jpeg,jpg,png,bmp,pdf,zip,rar,csv,xls,xlsx,docx,odt,txt,text,gif,mpga,mp2,mp2a,mp3,m2a,m3a,3gp,h261,h262,h263,h264,mp4,mp4v,mpg4,mpeg,mpg,mpe,m1v,m2vm,qt,mov,flv,m4v,mkv,wmv,avi,movie,webm',
+            'fileSource'   => 'required|file|max:15360|mimes:jpeg,jpg,png,bmp,pdf,zip,rar,csv,xls,xlsx,docx,odt,txt,text,,conf,def,list,log,in,gif,mpga,mp2,mp2a,mp3,m2a,m3a,3gp,h261,h262,h263,h264,mp4,mp4v,mpg4,mpeg,mpg,mpe,m1v,m2vm,qt,mov,flv,m4v,mkv,wmv,avi,movie,webm',
             'resourceId'   => '',
             'fileName'     => '',
             'descriptions' => '',

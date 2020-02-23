@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\DbModels\Post;
 use App\Http\Requests\Post\IndexRequest;
+use App\Http\Requests\Post\LikedUserRequest;
 use App\Http\Requests\Post\StoreRequest;
 use App\Http\Requests\Post\UpdateRequest;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\PostResourceCollection;
+use App\Http\Resources\UserResourceCollection;
 use App\Repositories\Contracts\PostRepository;
 use Illuminate\Auth\Access\AuthorizationException;
 
@@ -104,5 +106,21 @@ class PostController extends Controller
         $this->postRepository->delete($post);
 
         return response()->json(null,204);
+    }
+
+    /**
+     * Display a listing of liked users.
+     *
+     * @param LikedUserRequest $request
+     * @return UserResourceCollection
+     * @throws AuthorizationException
+     */
+    public function likedUsers(LikedUserRequest $request)
+    {
+        $this->authorize('list', [Post::class, $request->get('propertyId')]);
+
+        $users = $this->postRepository->likedUsersByPostId($request->get('postId'));
+
+        return new UserResourceCollection($users);
     }
 }

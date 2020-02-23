@@ -10,7 +10,9 @@ use App\Events\Post\PostUpdatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\PostApprovalBlacklistUnitRepository;
 use App\Repositories\Contracts\PostRepository;
+use App\Repositories\Contracts\UserRepository;
 use App\Services\Helpers\RoleHelper;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
 class EloquentPostRepository extends EloquentBaseRepository implements PostRepository
@@ -120,6 +122,20 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
         DB::commit();
 
         return $deleted;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function likedUsersByPostId(int $postId)
+    {
+        $post = $this->findOne($postId);
+        $users = new Collection();
+        if ($post instanceof Post) {
+            $userRepository = app(UserRepository::class);
+            $users = $userRepository->findByWithoutPagination(['id' => $post->likeUsers]);
+        }
+        return $users;
     }
 
 

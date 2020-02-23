@@ -37,7 +37,7 @@ class EventSignupController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [Event::class, $request->get('propertyId')]);
+        $this->authorize('list', [EventSignup::class, $request->get('propertyId')]);
 
         $eventSignups = $this->eventSignupRepository->findBy($request->all());
 
@@ -53,7 +53,7 @@ class EventSignupController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [Event::class, $request->get('eventId')]);
+        $this->authorize('store', [EventSignup::class, $request->get('eventId')]);
 
         $eventSignup = $this->eventSignupRepository->saveEventSignup($request->all());
 

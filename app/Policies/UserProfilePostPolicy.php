@@ -80,7 +80,7 @@ class UserProfilePostPolicy
      */
     public function update(User $currentUser, UserProfilePost $userProfilePost)
     {
-        return $currentUser->userId === $userProfilePost->createdByUserId;
+        return $currentUser->id === $userProfilePost->createdByUserId;
     }
 
     /**
@@ -92,8 +92,8 @@ class UserProfilePostPolicy
      */
     public function destroy(User $currentUser, UserProfilePost $userProfilePost)
     {
-        return $currentUser->userId === $userProfilePost->createdByUserId
-            || $currentUser->userId === $userProfilePost->toUserId;
+        return $currentUser->id === $userProfilePost->createdByUserId
+            || $currentUser->id === $userProfilePost->toUserId;
 
     }
 }

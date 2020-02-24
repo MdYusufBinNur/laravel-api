@@ -27,7 +27,6 @@ class HandleEventCreatedEvent implements ShouldQueue
         // not from post-event
         if (!isset($eventOptions['request']['post']) && $eventModel->allowedSignUp) {
             $postEventRepository = app(PostEventRepository::class);
-            $postEvent = $postEventRepository->findOneBy(['eventId' => $eventModel->id]);
             $postEventRepository->save([
                 'eventId' => $eventModel->id,
                 'post' => ['type' => Post::TYPE_EVENT, 'propertyId' => $eventModel->propertyId, 'attachmentIds' => $eventOptions['attachmentIds'] ?? []]

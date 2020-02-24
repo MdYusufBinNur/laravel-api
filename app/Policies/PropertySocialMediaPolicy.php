@@ -43,11 +43,7 @@ class PropertySocialMediaPolicy
      */
     public function store(User $currentUser, int $propertyId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -75,11 +71,7 @@ class PropertySocialMediaPolicy
      */
     public function update(User $currentUser, PropertySocialMedia $propertySocialMedia)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertySocialMedia->propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertySocialMedia->propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertySocialMedia->propertyId)) {
             return true;
         }
 
@@ -95,11 +87,7 @@ class PropertySocialMediaPolicy
      */
     public function destroy(User $currentUser, PropertySocialMedia $propertySocialMedia)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertySocialMedia->propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertySocialMedia->propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertySocialMedia->propertyId)) {
             return true;
         }
 

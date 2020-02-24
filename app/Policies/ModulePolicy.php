@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\DbModels\Module;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use PhpParser\Node\Expr\AssignOp\Mod;
 
 class ModulePolicy
 {

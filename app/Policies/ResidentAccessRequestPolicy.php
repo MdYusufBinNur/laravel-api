@@ -32,11 +32,7 @@ class ResidentAccessRequestPolicy
      */
     public function list(User $currentUser, int $propertyId)
     {
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -64,11 +60,7 @@ class ResidentAccessRequestPolicy
     public function show(User $currentUser,  ResidentAccessRequest $residentAccessRequest)
     {
         $propertyId = $residentAccessRequest->propertyId;
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -85,14 +77,8 @@ class ResidentAccessRequestPolicy
     public function update(User $currentUser, ResidentAccessRequest $residentAccessRequest)
     {
         $propertyId = $residentAccessRequest->propertyId;
-        if ($currentUser->isSuperAdmin()) {
-            return true;
-        }
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
 
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -109,11 +95,7 @@ class ResidentAccessRequestPolicy
     public function destroy(User $currentUser, ResidentAccessRequest $residentAccessRequest)
     {
         $propertyId = $residentAccessRequest->propertyId;
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 

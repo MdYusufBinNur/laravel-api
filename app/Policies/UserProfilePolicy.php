@@ -120,11 +120,7 @@ class UserProfilePolicy
         if ($user instanceof User) {
             $propertyIds = $user->getPropertyIds();
             foreach ($propertyIds as $propertyId) {
-                if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-                    return true;
-                }
-
-                if ($currentUser->isAStaffOfTheProperty($propertyId)) {
+                if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
                     return true;
                 }
             }

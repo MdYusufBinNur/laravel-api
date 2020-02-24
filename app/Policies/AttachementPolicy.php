@@ -55,7 +55,7 @@ class AttachementPolicy
      */
     public function show(User $currentUser,  Attachment $attachment)
     {
-        return $currentUser->id === $user->id;
+        return false;
     }
 
     /**
@@ -67,7 +67,7 @@ class AttachementPolicy
      */
     public function update(User $currentUser, Attachment $attachment)
     {
-        return $currentUser->id === $user->id;
+        return false;
     }
 
     /**

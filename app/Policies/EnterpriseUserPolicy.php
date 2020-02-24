@@ -64,6 +64,7 @@ class EnterpriseUserPolicy
      */
     public function show(User $currentUser,  EnterpriseUser $enterpriseUser)
     {
+        //todo
         $propertyIds = $enterpriseUser->enterPriseUserProperties()->pluck('propertyId')->toArray();
 
         foreach ($propertyIds as $propertyId) {

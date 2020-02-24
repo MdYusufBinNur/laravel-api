@@ -86,11 +86,7 @@ class PropertyPolicy
             return false;
         }
 
-        if ($currentUser->isAnAdminEnterpriseUserOfTheProperty($property->id)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($property->id)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($property->id)) {
             return true;
         }
 

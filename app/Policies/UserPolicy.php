@@ -94,7 +94,7 @@ class UserPolicy
      */
     public function usersListAutoComplete(User $currentUser, int $propertyId)
     {
-        if ($currentUser->isAStaffOfTheProperty($propertyId) || $currentUser->isAnEnterpriseUserOfTheProperty($propertyId) || $currentUser->isResidentOfTheProperty($propertyId)) {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
             return true;
         }
 

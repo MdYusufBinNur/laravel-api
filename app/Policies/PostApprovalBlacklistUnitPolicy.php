@@ -56,15 +56,7 @@ class PostApprovalBlacklistUnitPolicy
         if ($unit instanceof Unit) {
             $propertyId = $unit->propertyId;
 
-            if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-                return true;
-            }
-
-            if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-                return true;
-            }
-
-            if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
                 return true;
             }
         }
@@ -86,15 +78,7 @@ class PostApprovalBlacklistUnitPolicy
         if ($unit instanceof Unit) {
             $propertyId = $unit->propertyId;
 
-            if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-                return true;
-            }
-
-            if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-                return true;
-            }
-
-            if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+            if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
                 return true;
             }
         }
@@ -113,15 +97,7 @@ class PostApprovalBlacklistUnitPolicy
     {
         $propertyId = $postApprovalBlacklistUnit->unit->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -139,15 +115,7 @@ class PostApprovalBlacklistUnitPolicy
     {
         $propertyId = $postApprovalBlacklistUnit->unit->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -165,15 +133,7 @@ class PostApprovalBlacklistUnitPolicy
     {
         $propertyId = $postApprovalBlacklistUnit->unit->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 

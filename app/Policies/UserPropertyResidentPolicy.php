@@ -55,7 +55,7 @@ class UserPropertyResidentPolicy
      */
     public function show(User $currentUser,  UserPropertyResident $userPropertyResident)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->id === $userPropertyResident->userId;
     }
 
     /**
@@ -67,7 +67,7 @@ class UserPropertyResidentPolicy
      */
     public function update(User $currentUser, UserPropertyResident $userPropertyResident)
     {
-        return $currentUser->id === $user->id;
+        return $currentUser->id === $userPropertyResident->userId;
     }
 
     /**

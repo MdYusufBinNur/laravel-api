@@ -51,15 +51,7 @@ class ResidentEmergencyPolicy
         $resident = $this->residentRepository->findOne($residentId);
 
         if ($resident instanceof Resident) {
-            if ($currentUser->isAnEnterpriseUserOfTheProperty($resident->propertyId)) {
-                return true;
-            }
-
-            if ($currentUser->isAPriorityStaffOfTheProperty($resident->propertyId)) {
-                return true;
-            }
-
-            if ($currentUser->isAStandardStaffOfTheProperty($resident->propertyId)) {
+            if ($currentUser->upToStandardStaffOfTheProperty($resident->propertyId)) {
                 return true;
             }
 
@@ -81,15 +73,7 @@ class ResidentEmergencyPolicy
         $resident = $this->residentRepository->findOne($residentId);
 
         if ($resident instanceof Resident) {
-            if ($currentUser->isAnEnterpriseUserOfTheProperty($resident->propertyId)) {
-                return true;
-            }
-
-            if ($currentUser->isAPriorityStaffOfTheProperty($resident->propertyId)) {
-                return true;
-            }
-
-            if ($currentUser->isAStandardStaffOfTheProperty($resident->propertyId)) {
+            if ($currentUser->upToStandardStaffOfTheProperty($resident->propertyId)) {
                 return true;
             }
 
@@ -112,15 +96,7 @@ class ResidentEmergencyPolicy
         $resident= $residentEmergency->resident;
         $propertyId = $resident->propertyId;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($resident->propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($resident->propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -139,11 +115,7 @@ class ResidentEmergencyPolicy
         $resident= $residentEmergency->resident;
         $propertyId = $resident->propertyId;
 
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 

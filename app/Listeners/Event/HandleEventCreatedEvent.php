@@ -6,7 +6,6 @@ use App\DbModels\Post;
 use App\Events\Event\EventCreatedEvent;
 use App\Listeners\CommonListenerFeatures;
 use App\Repositories\Contracts\PostEventRepository;
-use App\Repositories\Contracts\PostRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class HandleEventCreatedEvent implements ShouldQueue
@@ -16,7 +15,7 @@ class HandleEventCreatedEvent implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  EventUpdatedEvent  $event
+     * @param EventCreatedEvent $event
      * @return void
      */
     public function handle(EventCreatedEvent $event)
@@ -29,7 +28,7 @@ class HandleEventCreatedEvent implements ShouldQueue
             $postEventRepository = app(PostEventRepository::class);
             $postEventRepository->save([
                 'eventId' => $eventModel->id,
-                'post' => ['type' => Post::TYPE_EVENT, 'propertyId' => $eventModel->propertyId, 'attachmentIds' => $eventOptions['attachmentIds'] ?? []]
+                'post' => ['type' => Post::TYPE_EVENT, 'createdByUserId' => $eventModel->createdByUserId , 'propertyId' => $eventModel->propertyId, 'attachmentIds' => $eventOptions['attachmentIds'] ?? []]
             ]);
         }
     }

@@ -41,16 +41,16 @@ class ServiceRequestLogResource extends Resource
     private function buildMessage()
     {
         $message = [];
-
+        $user = $this->user;
         switch ($this->type) {
             case ServiceRequestLog::TYPE_CREATED:
-                $message['readable'] = 'Service Request created by ' . $this->user->name;
+                $message['readable'] = 'Service Request created by ' . $user->name;
                 break;
             case ServiceRequestLog::TYPE_STATUS:
-                $message['readable'] = 'Status changed to ' . str_replace('_', ' ', $this->status);
+                $message['readable'] = 'Status changed to ' . str_replace('_', ' ', $this->status) . ' by '. $user->name;
                 break;
             case ServiceRequestLog::TYPE_COMMENT:
-                $message['readable'] = 'Comment by ' . $this->user->name;
+                $message['readable'] = 'Added a comment by ' . $this->user->name;
                 $message['messageDetails'] = new ServiceRequestMessageResource($this->message);
                 break;
             case ServiceRequestLog::TYPE_FEEDBACK:
@@ -61,6 +61,7 @@ class ServiceRequestLogResource extends Resource
                 $message['readable'] = 'Assigned to ' . $this->user->name;
                 break;
         }
+
 
         return $message;
     }

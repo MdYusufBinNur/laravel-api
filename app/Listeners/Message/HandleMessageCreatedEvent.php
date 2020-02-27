@@ -29,39 +29,28 @@ class HandleMessageCreatedEvent implements ShouldQueue
 
         $property = $message->property;
         $fromUser = $message->fromUser;
-        $messageUsers = $message->messageUsers->toArray();
 
-        if ($message->emailNotification) {
-            $messageText = $message->scopeLastMessagePostOfTheUser($fromUser->id)->first()->text;
-            foreach ($message->toMessageUsers as $messageUser) {
-                $toUser = $messageUser->user;
-                Mail::to($toUser->email)->send(new SendMessageNotification($message, $property, $fromUser, $toUser, $messageText));
-            }
-        }
-
+        $notifyAbleMessageUsers = $message->notifyAbleMessageUsers;
+        $messageText = $message->scopeLastMessagePostOfTheUser($fromUser->id)->first()->text;
+        $needToSendEmailNotification = $message->emailNotification;
         $userNotificationRepository = app(UserNotificationRepository::class);
-        if ($message->isGroupMessage) {
-            $toUserIds = explode(',', $message->group);
-        } else {
-            $toUserIds = [$message->toUserId];
-        }
-        foreach ($toUserIds as $toUserId) {
-            $messageToUser = array_filter(
-                $messageUsers,
-                function ($e) use (&$toUserId) {
-                    return $e['userId'] ==  $toUserId;
-                }
-            );
 
-            if(!empty($messageToUser)){
-                $resource = array_values($messageToUser)[0];
-                $userNotificationRepository->save([
-                    'fromUserId' => $message->fromUserId,
-                    'toUserId' => $toUserId,
-                    'userNotificationTypeId' => UserNotificationType::MESSAGE['id'],
-                    'resourceId' => $resource['id'],
-                    'message' => 'New message from ' . $fromUser->name,
-                ]);
+        foreach ($notifyAbleMessageUsers as $notifyAbleMessageUser) {
+
+            $notifyAbleUser = $notifyAbleMessageUser->user;
+
+            // send notification
+            $userNotificationRepository->save([
+                'fromUserId' => $message->fromUserId,
+                'toUserId' => $notifyAbleUser->id,
+                'userNotificationTypeId' => UserNotificationType::MESSAGE['id'],
+                'resourceId' => $message->id,
+                'message' => 'New message from ' . $fromUser->name,
+            ]);
+
+            // send email
+            if ($needToSendEmailNotification) {
+                Mail::to($notifyAbleUser->email)->send(new SendMessageNotification($message, $property, $fromUser, $notifyAbleUser, $messageText));
             }
         }
     }

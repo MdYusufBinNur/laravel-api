@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\DbModels\Attachment;
 use App\DbModels\MessageUser;
+use App\Events\MessagePost\MessagePostCreatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\MessagePostRepository;
 use App\Repositories\Contracts\MessageUserRepository;
@@ -55,6 +56,8 @@ class EloquentMessagePostRepository extends EloquentBaseRepository implements Me
         }
 
         DB::commit();
+
+        event(new MessagePostCreatedEvent($messagePost, $this->generateEventOptionsForModel()));
 
         return $messagePost;
     }

@@ -94,16 +94,6 @@ class Message extends Model
     }
 
     /**
-     * user and to message users relationships
-     *
-     * @return HasMany
-     */
-    public function toMessageUsers()
-    {
-        return $this->messageUsers()->where('userId', '<>', $this->createdByUserId);
-    }
-
-    /**
      * get the attachments
      *
      * @return HasMany
@@ -111,6 +101,16 @@ class Message extends Model
     public function attachments()
     {
         return $this->hasMany(Attachment::class, 'resourceId')->where('type', Attachment::ATTACHMENT_TYPE_MESSAGE);
+    }
+
+    /**
+     * notify able message-users for this message
+     *
+     * @return HasMany
+     */
+    public function notifyAbleMessageUsers()
+    {
+        return $this->messageUsers()->where('userId', '<>', $this->createdByUserId);
     }
 
     /**
@@ -123,4 +123,5 @@ class Message extends Model
     {
         return in_array($userId, $this->messageUsers()->pluck('userId')->toArray());
     }
+
 }

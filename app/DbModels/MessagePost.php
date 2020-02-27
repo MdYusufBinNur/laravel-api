@@ -49,6 +49,16 @@ class MessagePost extends Model
     }
 
     /**
+     * notify able message-users for this message-post
+     *
+     * @return HasMany
+     */
+    public function notifyAbleMessageUsers()
+    {
+        return $this->messageUsers()->where('userId', '<>', $this->createdByUserId);
+    }
+
+    /**
      * get the attachments
      *
      * @return HasMany

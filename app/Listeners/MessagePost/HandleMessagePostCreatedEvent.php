@@ -2,9 +2,13 @@
 
 namespace App\Listeners\MessagePost;
 
+use App\DbModels\UserNotificationType;
 use App\Events\MessagePost\MessagePostCreatedEvent;
 use App\Listeners\CommonListenerFeatures;
+use App\Mail\Message\SendMessageNotification;
+use App\Repositories\Contracts\UserNotificationRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Mail;
 
 class HandleMessagePostCreatedEvent implements ShouldQueue
 {
@@ -20,5 +24,36 @@ class HandleMessagePostCreatedEvent implements ShouldQueue
     {
         $messagePost = $event->messagePost;
         $eventOptions = $event->options;
+
+        $message = $messagePost->message;
+        $property = $message->property;
+        $fromUser = $messagePost->fromUser;
+
+        if (isset($eventOptions['request']['messageId'])) {
+
+            $notifyAbleMessageUsers = $messagePost->notifyAbleMessageUsers;
+            $messageText = $messagePost->text;
+            $needToSendEmailNotification = $message->emailNotification;
+            $userNotificationRepository = app(UserNotificationRepository::class);
+
+            foreach ($notifyAbleMessageUsers as $notifyAbleMessageUser) {
+
+                $notifyAbleUser = $notifyAbleMessageUser->user;
+
+                // send notification
+                $userNotificationRepository->save([
+                    'fromUserId' => $message->fromUserId,
+                    'toUserId' => $notifyAbleUser->id,
+                    'userNotificationTypeId' => UserNotificationType::MESSAGE['id'],
+                    'resourceId' => $message->id,
+                    'message' => 'New message from ' . $fromUser->name,
+                ]);
+
+                // send email
+                if ($needToSendEmailNotification) {
+                    Mail::to($notifyAbleUser->email)->send(new SendMessageNotification($message, $property, $fromUser, $notifyAbleUser, $messageText));
+                }
+            }
+        }
     }
 }

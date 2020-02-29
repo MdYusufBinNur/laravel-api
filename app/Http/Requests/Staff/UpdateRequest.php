@@ -23,6 +23,7 @@ class UpdateRequest extends Request
             'contactEmail' => 'email|max:255',
             'propertyId' => 'exists:properties,id|required_with:role.addNewRole',
             'phone' => 'max:20',
+            'externalDeviceUserId' => 'max:255',
             'title' => 'max:255',
             'level' => 'in:' . Role::ROLE_STAFF_PRIORITY['title'] . ',' . Role::ROLE_STAFF_STANDARD['title'] . ',' . Role::ROLE_STAFF_LIMITED['title'],
             'displayInCorner' => 'boolean',

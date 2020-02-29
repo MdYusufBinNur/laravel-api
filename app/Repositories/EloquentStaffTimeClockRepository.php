@@ -5,11 +5,17 @@ namespace App\Repositories;
 
 
 use App\DbModels\Attachment;
+use App\DbModels\Manager;
+use App\DbModels\ModuleOption;
+use App\DbModels\ModuleOptionProperty;
 use App\Events\StaffTimeClock\StaffTimeClockCreatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
+use App\Repositories\Contracts\ManagerRepository;
+use App\Repositories\Contracts\ModuleOptionPropertyRepository;
 use App\Repositories\Contracts\StaffTimeClockRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements StaffTimeClockRepository
 {
@@ -66,7 +72,7 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
     {
         DB::beginTransaction();
 
-        $data['clockedIn'] = Carbon::now();
+        $data['clockedIn'] = $data['clockedIn'] ?? Carbon::now();
         $staffTimeClock = parent::save($data);
 
         if (isset($data['attachmentId'])) {
@@ -115,6 +121,31 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
         DB::commit();
 
         return $model;
+
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function saveFromWebhook(array $data):  \ArrayAccess
+    {
+        $managerRepository = app(ManagerRepository::class);
+        $manager = $managerRepository->findOneBy(['externalDeviceUserId' => $data['pin']]);
+        if ($manager instanceof Manager) {
+            $attendanceData = [
+                'propertyId' => $data['externalId'],
+                'managerId' => $manager->id,
+                'createdByUserId' => $manager->userId,
+                'clockedIn' => $data['activityTime'],
+                'externalDeviceId' => $data['deviceSerialNumber'],
+            ];
+            return $this->save($attendanceData);
+        }
+
+        throw ValidationException::withMessages([
+            'manager' => ["No manager found for the pin"]
+        ]);
+
 
     }
 

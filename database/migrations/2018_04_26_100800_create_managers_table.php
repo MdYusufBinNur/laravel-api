@@ -19,6 +19,7 @@ class CreateManagersTable extends Migration
             $table->unsignedInteger('userId');
             $table->unsignedInteger('userRoleId');
             $table->unsignedInteger('propertyId')->nullable();
+            $table->string('externalDeviceUserId')->nullable();
             $table->string('contactEmail')->nullable();
             $table->string('phone', 20)->nullable();
             $table->string('title')->nullable();

@@ -28,6 +28,7 @@ use App\DbModels\LdsSlide;
 use App\DbModels\LdsSlideProperty;
 use App\DbModels\Manager;
 use App\DbModels\ManagerInvitation;
+use App\DbModels\ManagerTimeClockDevice;
 use App\DbModels\Message;
 use App\DbModels\MessagePost;
 use App\DbModels\MessageTemplate;
@@ -128,6 +129,7 @@ use App\Repositories\Contracts\LdsSettingRepository;
 use App\Repositories\Contracts\LdsSlidePropertyRepository;
 use App\Repositories\Contracts\LdsSlideRepository;
 use App\Repositories\Contracts\ManagerRepository;
+use App\Repositories\Contracts\ManagerTimeClockDeviceRepository;
 use App\Repositories\Contracts\MangerInvitationRepository;
 use App\Repositories\Contracts\MessagePostRepository;
 use App\Repositories\Contracts\MessageRepository;
@@ -221,6 +223,7 @@ use App\Repositories\EloquentLdsSettingRepository;
 use App\Repositories\EloquentLdsSlidePropertyRepository;
 use App\Repositories\EloquentLdsSlideRepository;
 use App\Repositories\EloquentManagerRepository;
+use App\Repositories\EloquentManagerTimeClockDeviceRepository;
 use App\Repositories\EloquentMangerInvitationRepository;
 use App\Repositories\EloquentMessagePostRepository;
 use App\Repositories\EloquentMessageRepository;
@@ -829,6 +832,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind StaffTimeClockRepository
         $this->app->bind(StaffTimeClockRepository::class, function() {
             return new EloquentStaffTimeClockRepository(new StaffTimeClock());
+        });
+
+        // bind ManagerTimeClockDeviceRepository
+        $this->app->bind(ManagerTimeClockDeviceRepository::class, function() {
+            return new EloquentManagerTimeClockDeviceRepository(new ManagerTimeClockDevice());
         });
     }
 }

@@ -16,7 +16,7 @@ class StoreRequest extends Request
         return [
             'id' => 'required',
             'externalId' => 'required|exists:properties,id',
-            'deviceSerialNumber' => 'required',
+            'deviceSerialNumber' => 'required|exists:manager_time_clock_devices,deviceSN',
             'pin' => 'required',
             'activityTime' => 'required',
         ];

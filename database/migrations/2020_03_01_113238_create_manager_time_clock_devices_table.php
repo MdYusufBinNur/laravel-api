@@ -17,7 +17,7 @@ class CreateManagerTimeClockDevicesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('createdByUserId')->nullable();
             $table->integer('propertyId')->unsigned();
-            $table->string('deviceSN');
+            $table->string('deviceSN')->index();
             $table->string('location')->nullable();
             $table->timestamps();
             $table->softDeletes();

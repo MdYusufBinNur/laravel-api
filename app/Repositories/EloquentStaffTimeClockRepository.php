@@ -8,6 +8,7 @@ use App\DbModels\Attachment;
 use App\DbModels\Manager;
 use App\DbModels\ModuleOption;
 use App\DbModels\ModuleOptionProperty;
+use App\DbModels\StaffTimeClockDevice;
 use App\Events\StaffTimeClock\StaffTimeClockCreatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\ManagerRepository;
@@ -131,25 +132,31 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
     public function saveFromWebhook(array $data):  \ArrayAccess
     {
         $managerRepository = app(ManagerRepository::class);
-        $manager = $managerRepository->findOneBy(['externalDeviceUserId' => $data['pin']]);
+        $manager = $managerRepository->findOneBy(['timeClockDeviceUserId' => $data['pin']]);
 
         $staffTimeClockDeviceRepository = app(StaffTimeClockDeviceRepository::class);
         $staffTimeClockDevice = $staffTimeClockDeviceRepository->findOneBy(['propertyId' => $data['externalId'], 'deviceSN' => $data['deviceSerialNumber']]);
 
-        if ($manager instanceof Manager) {
-            $attendanceData = [
-                'propertyId' => $data['externalId'],
-                'managerId' => $manager->id,
-                'createdByUserId' => $manager->userId,
-                'clockedIn' => $data['activityTime'],
-                'timeClockDeviceId' => $staffTimeClockDevice->id,
-            ];
-            return $this->save($attendanceData);
+        if (!$manager instanceof Manager) {
+            throw ValidationException::withMessages([
+                'manager' => ["No manager found for the pin."]
+            ]);
         }
 
-        throw ValidationException::withMessages([
-            'manager' => ["No manager found for the pin"]
-        ]);
+        if (!$staffTimeClockDevice instanceof StaffTimeClockDevice) {
+            throw ValidationException::withMessages([
+                'deviceSerialNumber' => ["No device serial found for this property."]
+            ]);
+        }
+
+        $attendanceData = [
+            'propertyId' => $data['externalId'],
+            'managerId' => $manager->id,
+            'createdByUserId' => $manager->userId,
+            'clockedIn' => $data['activityTime'],
+            'timeClockDeviceId' => $staffTimeClockDevice->id,
+        ];
+        return $this->save($attendanceData);
 
 
     }

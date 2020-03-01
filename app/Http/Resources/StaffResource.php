@@ -25,7 +25,7 @@ class StaffResource extends Resource
             'user' => $this->when($this->needToInclude($request, 'staff.user'), function () {
                 return new UserResource($this->user);
             }),
-            'externalDeviceUserId' => $this->externalDeviceUserId,
+            'timeClockDeviceUserId' => $this->timeClockDeviceUserId,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

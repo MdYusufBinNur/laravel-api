@@ -22,7 +22,7 @@ class Manager extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'userId', 'userRoleId', 'propertyId', 'contactEmail', 'phone', 'title', 'level', 'displayInCorner', 'displayPublicProfile', 'externalDeviceUserId'
+        'createdByUserId', 'userId', 'userRoleId', 'propertyId', 'contactEmail', 'phone', 'title', 'level', 'displayInCorner', 'displayPublicProfile', 'timeClockDeviceUserId'
     ];
 
     /**

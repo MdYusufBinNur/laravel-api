@@ -172,6 +172,7 @@ return [
         'backgroundColor' => 'backgroundColor',
         'fromUserId' => 'fromUserId',
         'messageId' => 'messageId',
+        'deviceSN' => 'deviceSN',
 
 
         //todo

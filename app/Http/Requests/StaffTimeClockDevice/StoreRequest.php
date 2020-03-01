@@ -14,7 +14,8 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'deviceSN' => 'required|max:255',
+            'propertyId' => 'required|exists:properties,id',
+            'deviceSN' => 'required|max:255|unique_with:manager_time_clock_devices,propertyId',
             'location' => 'max:255',
         ];
     }

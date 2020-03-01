@@ -249,6 +249,7 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::get('property-by-host', 'PropertyController@propertyByHost');
     Route::get('unit', 'UnitController@index');
     Route::get('property-social-media', 'PropertySocialMediaController@index');
+    Route::post('webhook-attendance', 'WebhookStaffTimeClockController@store');
 
 
     Route::get('property-login-page-events', 'EventController@index');

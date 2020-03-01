@@ -82,6 +82,8 @@ class InsertModulesAndOptions extends Migration
             ['moduleId' => 15, 'key' => 'requireTimeclockPassword', 'title' => 'Require staff user\'s password when clocking in/out'],
             ['moduleId' => 15, 'key' => 'requireTimeclockSignature', 'title' => 'Require a signature when clocking in/out'],
             ['moduleId' => 15, 'key' => 'requireTimeclockPhoto', 'title' => 'Require a webcam photo when clocking in/out'],
+            ['moduleId' => 15, 'key' => 'externalDeviceSN', 'title' => 'External device serial number'],
+            ['moduleId' => 15, 'key' => 'startingClockOutTime', 'title' => 'Starting clock-out time'],
 
             ['moduleId' => 17, 'key' => 'approveReservation', 'title' => 'Require Managers to approve reservations made by resident'],
 

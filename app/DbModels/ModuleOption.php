@@ -52,6 +52,7 @@ class ModuleOption extends Model
     const EMPLOYEE_TIME_CLOCK_REQUIRE_PASSWORD = ['moduleId' => 15, 'key' => 'requireTimeclockPassword'];
     const EMPLOYEE_TIME_CLOCK_REQUIRE_SIGNATURE = ['moduleId' => 15, 'key' => 'requireTimeclockSignature'];
     const EMPLOYEE_TIME_CLOCK_REQUIRE_PHOTO = ['moduleId' => 15, 'key' => 'requireTimeclockPhoto'];
+    const EMPLOYEE_TIME_CLOCK_EXTERNAL_DEVICE_SN = ['moduleId' => 15, 'key' => 'externalDeviceSN'];
 
     const AMENITY_RESERVATION_APPROVAL = ['moduleId' => 17, 'key' => 'approveReservation'];
 

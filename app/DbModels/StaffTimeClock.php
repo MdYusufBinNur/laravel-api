@@ -23,7 +23,7 @@ class StaffTimeClock extends Model
      * @var array
      */
     protected $fillable = [
-        'propertyId', 'managerId', 'createdByUserId', 'clockedIn', 'clockedOut', 'clockInNote', 'clockOutNote'
+        'propertyId', 'managerId', 'createdByUserId', 'clockedIn', 'clockedOut', 'clockInNote', 'clockOutNote', 'externalDeviceId'
     ];
 
     /**

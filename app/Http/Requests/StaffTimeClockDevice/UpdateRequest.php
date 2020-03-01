@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\ManagerTimeClockDevice;
+namespace App\Http\Requests\StaffTimeClockDevice;
 
 use App\Http\Requests\Request;
 
-class StoreRequest extends Request
+class UpdateRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,7 +14,7 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'deviceSN' => 'required|max:255',
+            'deviceSN' => 'max:255',
             'location' => 'max:255',
         ];
     }

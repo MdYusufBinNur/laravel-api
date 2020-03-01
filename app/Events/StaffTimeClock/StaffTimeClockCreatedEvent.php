@@ -40,7 +40,7 @@ class StaffTimeClockCreatedEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        $channels[] = new PrivateChannel('PROPERTY.STAFF' . $this->staffTimeClock->propertyId);
+        $channels[] = new PrivateChannel('PROPERTY.STAFF.' . $this->staffTimeClock->propertyId);
 
         return $channels;
 

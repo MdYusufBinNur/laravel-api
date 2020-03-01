@@ -16,6 +16,7 @@ class CreateManagerTimeClockDevicesTable extends Migration
         Schema::create('manager_time_clock_devices', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('createdByUserId')->nullable();
+            $table->integer('propertyId')->unsigned();
             $table->string('deviceSN');
             $table->string('location')->nullable();
             $table->timestamps();
@@ -23,6 +24,12 @@ class CreateManagerTimeClockDevicesTable extends Migration
 
             $table->foreign('createdByUserId')
                 ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+
+            $table->foreign('propertyId')
+                ->references('id')->on('properties')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });

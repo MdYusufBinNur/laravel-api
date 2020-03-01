@@ -16,6 +16,7 @@ class ManagerTimeClockDeviceResource extends Resource
         return[
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
+            'propertyId' => $this->propertyId,
             'deviceSN' => $this->deviceSN,
             'location' => $this->location,
             'created_at' => $this->created_at,

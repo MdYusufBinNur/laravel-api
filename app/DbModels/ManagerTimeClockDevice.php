@@ -15,6 +15,6 @@ class ManagerTimeClockDevice extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'deviceSN', 'location'
+        'createdByUserId', 'propertyId', 'deviceSN', 'location'
     ];
 }

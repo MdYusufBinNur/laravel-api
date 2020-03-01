@@ -154,13 +154,14 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
             ->whereNull('clockedOut')->first();
 
         if ($staffTimeClock instanceof StaffTimeClock) {
-            return $this->update($staffTimeClock, ['clockedOut' => $data['activityTime']]);
+            return $this->update($staffTimeClock, ['clockedOut' => $data['activityTime'], 'timeClockInDeviceId' => $staffTimeClockDevice->id, 'clockInNote' => 'From the attendance device #' . $data['deviceSerialNumber']]);
         } else {
             $attendanceData = [
                 'propertyId' => $data['externalId'],
                 'managerId' => $manager->id,
                 'createdByUserId' => $manager->userId,
                 'clockedIn' => $data['activityTime'],
+                'clockInNote' => 'From the attendance device #' . $data['deviceSerialNumber'],
                 'timeClockInDeviceId' => $staffTimeClockDevice->id,
             ];
             return $this->save($attendanceData);

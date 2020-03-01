@@ -54,7 +54,7 @@ class StaffTimeClockUpdatedEvent implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return ['parkingPassUpdated'];
+        return ['staffTimeClockUpdated'];
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\DbModels\ManagerTimeClockDevice;
+use App\DbModels\StaffTimeClockDevice;
 use App\Http\Requests\StaffTimeClockDevice\IndexRequest;
 use App\Http\Requests\StaffTimeClockDevice\StoreRequest;
 use App\Http\Requests\StaffTimeClockDevice\UpdateRequest;
@@ -36,7 +36,7 @@ class StaffTimeClockDeviceController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', ManagerTimeClockDevice::class);
+        $this->authorize('list', StaffTimeClockDevice::class);
 
         $managerTimeClockDevices = $this->staffTimeClockDeviceRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class StaffTimeClockDeviceController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', ManagerTimeClockDevice::class);
+        $this->authorize('store', StaffTimeClockDevice::class);
 
         $managerTimeClockDevice = $this->staffTimeClockDeviceRepository->save($request->all());
 
@@ -62,11 +62,11 @@ class StaffTimeClockDeviceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param ManagerTimeClockDevice $managerTimeClockDevice
+     * @param StaffTimeClockDevice $managerTimeClockDevice
      * @return StaffTimeClockDeviceResource
      * @throws AuthorizationException
      */
-    public function show(ManagerTimeClockDevice $managerTimeClockDevice)
+    public function show(StaffTimeClockDevice $managerTimeClockDevice)
     {
         $this->authorize('show', $managerTimeClockDevice);
 
@@ -77,11 +77,11 @@ class StaffTimeClockDeviceController extends Controller
      * Update the specified resource in storage.
      *
      * @param UpdateRequest $request
-     * @param ManagerTimeClockDevice $managerTimeClockDevice
+     * @param StaffTimeClockDevice $managerTimeClockDevice
      * @return StaffTimeClockDeviceResource
      * @throws AuthorizationException
      */
-    public function update(UpdateRequest $request, ManagerTimeClockDevice $managerTimeClockDevice)
+    public function update(UpdateRequest $request, StaffTimeClockDevice $managerTimeClockDevice)
     {
         $this->authorize('update', $managerTimeClockDevice);
 
@@ -93,11 +93,11 @@ class StaffTimeClockDeviceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param ManagerTimeClockDevice $managerTimeClockDevice
+     * @param StaffTimeClockDevice $managerTimeClockDevice
      * @return \Illuminate\Http\Response
      * @throws AuthorizationException
      */
-    public function destroy(ManagerTimeClockDevice $managerTimeClockDevice)
+    public function destroy(StaffTimeClockDevice $managerTimeClockDevice)
     {
         $this->authorize('destroy', $managerTimeClockDevice);
 

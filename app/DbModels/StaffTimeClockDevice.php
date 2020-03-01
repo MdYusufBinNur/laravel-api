@@ -5,7 +5,7 @@ namespace App\DbModels;
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
 
-class ManagerTimeClockDevice extends Model
+class StaffTimeClockDevice extends Model
 {
     use CommonModelFeatures;
 

@@ -3,6 +3,7 @@
 namespace App\Events\StaffTimeClock;
 
 use App\DbModels\StaffTimeClock;
+use App\Http\Resources\StaffTimeClockResource;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
@@ -65,7 +66,7 @@ class StaffTimeClockCreatedEvent implements ShouldBroadcast
     {
         request()->merge(['include' => 'stc.manager,stc.clockInPhoto,staff.user,user.profilePic']);
         return [
-            'staffTimeClock' => new StaffTimeClock($this->staffTimeClock)
+            'staffTimeClock' => new StaffTimeClockResource($this->staffTimeClock)
         ];
     }
 }

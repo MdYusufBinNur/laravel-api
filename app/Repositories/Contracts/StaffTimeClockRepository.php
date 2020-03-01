@@ -12,5 +12,5 @@ interface StaffTimeClockRepository extends BaseRepository
      * @param array $data
      * @return \ArrayAccess
      */
-    public function saveFromWebhook(array $data):  \ArrayAccess;
+    public function saveFromWebhook(array $data) : \ArrayAccess;
 }

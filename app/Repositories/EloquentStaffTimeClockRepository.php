@@ -8,6 +8,7 @@ use App\DbModels\Attachment;
 use App\DbModels\Manager;
 use App\DbModels\ModuleOption;
 use App\DbModels\ModuleOptionProperty;
+use App\DbModels\StaffTimeClock;
 use App\DbModels\StaffTimeClockDevice;
 use App\Events\StaffTimeClock\StaffTimeClockCreatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
@@ -57,7 +58,7 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
-        $searchCriteria['eagerLoad'] = ['stc.createdByUser' => 'createdByUser', 'stc.property' => 'property',  'stc.manager' => 'manager', 'stc.clockInPhoto' => 'clockInPhoto', 'stc.clockOutPhoto' => 'clockOutPhoto', 'stc.timeClockInDeviceId' => 'timeClockInDeviceId', 'stc.timeClockOutDeviceId' => 'timeClockOutDeviceId'];
+        $searchCriteria['eagerLoad'] = ['stc.createdByUser' => 'createdByUser', 'stc.property' => 'property', 'stc.manager' => 'manager', 'stc.clockInPhoto' => 'clockInPhoto', 'stc.clockOutPhoto' => 'clockOutPhoto', 'stc.timeClockInDeviceId' => 'timeClockInDeviceId', 'stc.timeClockOutDeviceId' => 'timeClockOutDeviceId'];
         $this->applyEagerLoad($queryBuilder, $searchCriteria);
 
         $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;
@@ -101,11 +102,8 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
     {
         DB::beginTransaction();
 
-        // todo move to validation
         if (empty($model->clockedOut)) {
             $data['clockedOut'] = Carbon::now();
-        } else {
-            unset($data['clockedOut']);
         }
 
         $staffTimeClock = parent::update($model, $data);
@@ -129,7 +127,7 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
     /**
      * @inheritDoc
      */
-    public function saveFromWebhook(array $data):  \ArrayAccess
+    public function saveFromWebhook(array $data) : \ArrayAccess
     {
         $managerRepository = app(ManagerRepository::class);
         $manager = $managerRepository->findOneBy(['timeClockDeviceUserId' => $data['pin']]);
@@ -149,14 +147,24 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
             ]);
         }
 
-        $attendanceData = [
-            'propertyId' => $data['externalId'],
-            'managerId' => $manager->id,
-            'createdByUserId' => $manager->userId,
-            'clockedIn' => $data['activityTime'],
-            'timeClockInDeviceId' => $staffTimeClockDevice->id,
-        ];
-        return $this->save($attendanceData);
+        $staffTimeClock = $this->model
+            ->where('propertyId', $data['externalId'])
+            ->where('managerId', $manager->id)
+            ->whereDate('clockedIn', Carbon::today())
+            ->whereNull('clockedOut')->first();
+
+        if ($staffTimeClock instanceof StaffTimeClock) {
+            return $this->update($staffTimeClock, ['clockedOut' => $data['activityTime']]);
+        } else {
+            $attendanceData = [
+                'propertyId' => $data['externalId'],
+                'managerId' => $manager->id,
+                'createdByUserId' => $manager->userId,
+                'clockedIn' => $data['activityTime'],
+                'timeClockInDeviceId' => $staffTimeClockDevice->id,
+            ];
+            return $this->save($attendanceData);
+        }
 
     }
 

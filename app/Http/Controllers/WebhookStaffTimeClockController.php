@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DbModels\StaffTimeClock;
 use App\Http\Requests\WebhookStaffTimeClock\StoreRequest;
 use App\Http\Resources\StaffTimeClockResource;
 use App\Repositories\Contracts\StaffTimeClockRepository;

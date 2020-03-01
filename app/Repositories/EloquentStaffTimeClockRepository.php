@@ -11,6 +11,7 @@ use App\DbModels\ModuleOptionProperty;
 use App\DbModels\StaffTimeClock;
 use App\DbModels\StaffTimeClockDevice;
 use App\Events\StaffTimeClock\StaffTimeClockCreatedEvent;
+use App\Events\StaffTimeClock\StaffTimeClockUpdatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\ManagerRepository;
 use App\Repositories\Contracts\ModuleOptionPropertyRepository;
@@ -119,6 +120,9 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
         }
 
         DB::commit();
+
+        event(new StaffTimeClockUpdatedEvent($staffTimeClock, $this->generateEventOptionsForModel()));
+
 
         return $model;
 

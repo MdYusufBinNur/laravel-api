@@ -36,11 +36,11 @@ class StaffTimeClockResource extends Resource
             'clockOutPhoto' => $this->when($this->needToInclude($request, 'stc.clockOutPhoto'), function () {
                 return new AttachmentResource($this->clockOutPhoto);
             }),
-            'timeClockInDeviceId' => $this->timeClockDeviceId,
+            'timeClockInDeviceId' => $this->timeClockInDeviceId,
             'timeClockInDevice' => $this->when($this->needToInclude($request, 'stc.timeClockInDevice'), function () {
                 return new StaffTimeClockDeviceResource($this->timeClockInDevice);
             }),
-            'timeClockOutDeviceId' => $this->timeClockDeviceId,
+            'timeClockOutDeviceId' => $this->timeClockOutDeviceId,
             'timeClockOutDevice' => $this->when($this->needToInclude($request, 'stc.timeClockOutDevice'), function () {
                 return new StaffTimeClockDeviceResource($this->timeClockOutDevice);
             }),

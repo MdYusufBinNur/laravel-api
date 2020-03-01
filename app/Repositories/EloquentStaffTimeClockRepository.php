@@ -154,7 +154,7 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
             'managerId' => $manager->id,
             'createdByUserId' => $manager->userId,
             'clockedIn' => $data['activityTime'],
-            'timeClockDeviceId' => $staffTimeClockDevice->id,
+            'timeClockInDeviceId' => $staffTimeClockDevice->id,
         ];
         return $this->save($attendanceData);
 

@@ -20,11 +20,11 @@ Broadcast::channel('ADMIN.{userId}', function ($user, $userId) {
 });
 
 Broadcast::channel('PROPERTY.{propertyId}', function ($user, $propertyId) {
-    return $user->isUserOfTheProperty($propertyId);
+    return $user->upToStandardStaffOfTheProperty($propertyId);
 });
 
 Broadcast::channel('PROPERTY.STAFF.{propertyId}', function ($user, $propertyId) {
-    return $user->isAStaffOfTheProperty($propertyId);
+    return $user->upToStandardStaffOfTheProperty($propertyId);
 });
 
 

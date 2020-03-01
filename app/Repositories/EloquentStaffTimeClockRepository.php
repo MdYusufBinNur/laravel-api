@@ -12,6 +12,7 @@ use App\Events\StaffTimeClock\StaffTimeClockCreatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\ManagerRepository;
 use App\Repositories\Contracts\ModuleOptionPropertyRepository;
+use App\Repositories\Contracts\StaffTimeClockDeviceRepository;
 use App\Repositories\Contracts\StaffTimeClockRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -55,7 +56,7 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
-        $searchCriteria['eagerLoad'] = ['stc.createdByUser' => 'createdByUser', 'stc.property' => 'property',  'stc.manager' => 'manager', 'stc.clockInPhoto' => 'clockInPhoto', 'stc.clockOutPhoto' => 'clockOutPhoto'];
+        $searchCriteria['eagerLoad'] = ['stc.createdByUser' => 'createdByUser', 'stc.property' => 'property',  'stc.manager' => 'manager', 'stc.clockInPhoto' => 'clockInPhoto', 'stc.clockOutPhoto' => 'clockOutPhoto', 'stc.timeClockDevice' => 'timeClockDevice'];
         $this->applyEagerLoad($queryBuilder, $searchCriteria);
 
         $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;
@@ -131,13 +132,17 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
     {
         $managerRepository = app(ManagerRepository::class);
         $manager = $managerRepository->findOneBy(['externalDeviceUserId' => $data['pin']]);
+
+        $staffTimeClockDeviceRepository = app(StaffTimeClockDeviceRepository::class);
+        $staffTimeClockDevice = $staffTimeClockDeviceRepository->findOneBy(['propertyId' => $data['externalId'], 'deviceSN' => $data['deviceSerialNumber']]);
+
         if ($manager instanceof Manager) {
             $attendanceData = [
                 'propertyId' => $data['externalId'],
                 'managerId' => $manager->id,
                 'createdByUserId' => $manager->userId,
                 'clockedIn' => $data['activityTime'],
-                'externalDeviceId' => $data['deviceSerialNumber'],
+                'timeClockDeviceId' => $staffTimeClockDevice->id,
             ];
             return $this->save($attendanceData);
         }

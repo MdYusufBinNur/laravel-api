@@ -14,10 +14,11 @@ class CreateManagerTimeClocksTable extends Migration
     public function up()
     {
         Schema::create('manager_time_clocks', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('createdByUserId')->unsigned();
             $table->integer('managerId')->unsigned();
             $table->integer('propertyId')->unsigned();
+            $table->integer('timeClockDeviceId')->unsigned();
             $table->dateTime('clockedIn');
             $table->dateTime('clockedOut')->nullable();
             $table->text('clockInNote')->nullable();
@@ -33,6 +34,11 @@ class CreateManagerTimeClocksTable extends Migration
 
             $table->foreign('managerId')
                 ->references('id')->on('managers')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('timeClockDeviceId')
+                ->references('id')->on('manager_time_clock_devices')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 

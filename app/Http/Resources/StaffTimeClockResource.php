@@ -36,6 +36,10 @@ class StaffTimeClockResource extends Resource
             'clockOutPhoto' => $this->when($this->needToInclude($request, 'stc.clockOutPhoto'), function () {
                 return new AttachmentResource($this->clockOutPhoto);
             }),
+            'timeClockDeviceId' => $this->timeClockDeviceId,
+            'timeClockDevice' => $this->when($this->needToInclude($request, 'stc.timeClockDevice'), function () {
+                return new StaffTimeClockDeviceResource($this->timeClockDevice);
+            }),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

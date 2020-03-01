@@ -23,7 +23,7 @@ class StaffTimeClock extends Model
      * @var array
      */
     protected $fillable = [
-        'propertyId', 'managerId', 'createdByUserId', 'clockedIn', 'clockedOut', 'clockInNote', 'clockOutNote', 'externalDeviceId'
+        'propertyId', 'managerId', 'createdByUserId', 'clockedIn', 'clockedOut', 'clockInNote', 'clockOutNote', 'timeClockDeviceId'
     ];
 
     /**
@@ -64,5 +64,15 @@ class StaffTimeClock extends Model
     public function manager()
     {
         return $this->hasOne(Manager::class, 'id', 'managerId');
+    }
+
+    /**
+     * get the TimeClockDevice
+     *
+     * @return hasOne
+     */
+    public function timeClockDevice()
+    {
+        return $this->hasOne(StaffTimeClockDevice::class, 'id', 'timeClockDeviceId');
     }
 }

@@ -57,7 +57,7 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
-        $searchCriteria['eagerLoad'] = ['stc.createdByUser' => 'createdByUser', 'stc.property' => 'property',  'stc.manager' => 'manager', 'stc.clockInPhoto' => 'clockInPhoto', 'stc.clockOutPhoto' => 'clockOutPhoto', 'stc.timeClockDevice' => 'timeClockDevice'];
+        $searchCriteria['eagerLoad'] = ['stc.createdByUser' => 'createdByUser', 'stc.property' => 'property',  'stc.manager' => 'manager', 'stc.clockInPhoto' => 'clockInPhoto', 'stc.clockOutPhoto' => 'clockOutPhoto', 'stc.timeClockInDeviceId' => 'timeClockInDeviceId', 'stc.timeClockOutDeviceId' => 'timeClockOutDeviceId'];
         $this->applyEagerLoad($queryBuilder, $searchCriteria);
 
         $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;
@@ -157,7 +157,6 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
             'timeClockDeviceId' => $staffTimeClockDevice->id,
         ];
         return $this->save($attendanceData);
-
 
     }
 

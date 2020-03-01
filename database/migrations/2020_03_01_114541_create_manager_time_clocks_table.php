@@ -18,7 +18,8 @@ class CreateManagerTimeClocksTable extends Migration
             $table->integer('createdByUserId')->unsigned();
             $table->integer('managerId')->unsigned();
             $table->integer('propertyId')->unsigned();
-            $table->integer('timeClockDeviceId')->nullable()->unsigned();
+            $table->integer('timeClockInDeviceId')->nullable()->unsigned();
+            $table->integer('timeClockOutDeviceId')->nullable()->unsigned();
             $table->dateTime('clockedIn');
             $table->dateTime('clockedOut')->nullable();
             $table->text('clockInNote')->nullable();
@@ -37,7 +38,12 @@ class CreateManagerTimeClocksTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->foreign('timeClockDeviceId')
+            $table->foreign('timeClockInDeviceId')
+                ->references('id')->on('manager_time_clock_devices')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('timeClockOutDeviceId')
                 ->references('id')->on('manager_time_clock_devices')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

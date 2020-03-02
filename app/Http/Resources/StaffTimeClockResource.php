@@ -38,11 +38,11 @@ class StaffTimeClockResource extends Resource
             }),
             'timeClockInDeviceId' => $this->timeClockInDeviceId,
             'timeClockInDevice' => $this->when($this->needToInclude($request, 'stc.timeClockInDevice'), function () {
-                return new StaffTimeClockDeviceResource($this->timeClockInDevice);
+                return new TimeClockDeviceResource($this->timeClockInDevice);
             }),
             'timeClockOutDeviceId' => $this->timeClockOutDeviceId,
             'timeClockOutDevice' => $this->when($this->needToInclude($request, 'stc.timeClockOutDevice'), function () {
-                return new StaffTimeClockDeviceResource($this->timeClockOutDevice);
+                return new TimeClockDeviceResource($this->timeClockOutDevice);
             }),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

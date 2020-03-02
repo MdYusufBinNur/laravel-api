@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\StaffTimeClockDevice;
+namespace App\Http\Requests\TimeClockDevice;
 
 use App\Http\Requests\Request;
 
-class IndexRequest extends Request
+class UpdateRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,9 +14,8 @@ class IndexRequest extends Request
     public function rules()
     {
         return [
-            'id' => 'list:numeric',
-            'deviceSN' => 'list:string',
-            'location' => 'string'
+            'deviceSN' => 'max:255',
+            'location' => 'max:255',
         ];
     }
 }

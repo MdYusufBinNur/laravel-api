@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 
-class StaffTimeClockDeviceResource extends Resource
+class TimeClockDeviceResource extends Resource
 {
     /**
      * Transform the resource into an array.

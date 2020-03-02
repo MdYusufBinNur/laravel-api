@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\StaffTimeClockDevice;
+namespace App\Http\Requests\TimeClockDevice;
 
 use App\Http\Requests\Request;
 

@@ -64,7 +64,7 @@ class StaffTimeClockCreatedEvent implements ShouldBroadcast
      */
     public function broadcastWith()
     {
-        request()->merge(['include' => 'stc.manager,stc.clockInPhoto,staff.user,user.profilePic']);
+        request()->merge(['include' => 'stc.manager,stc.clockInPhoto,staff.user,user.profilePic', 'stc.timeClockInDevice']);
         return [
             'staffTimeClock' => new StaffTimeClockResource($this->staffTimeClock)
         ];

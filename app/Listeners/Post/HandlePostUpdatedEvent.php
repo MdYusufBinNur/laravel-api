@@ -9,7 +9,6 @@ use App\Events\Fdi\FdiCreatedEvent;
 use App\Events\Fdi\FdiUpdatedEvent;
 use App\Events\Post\PostUpdatedEvent;
 use App\Listeners\CommonListenerFeatures;
-use App\Repositories\Contracts\FdiLogRepository;
 use App\Repositories\Contracts\PostApprovalArchiveRepository;
 use App\Repositories\Contracts\UserNotificationRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -45,7 +44,7 @@ class HandlePostUpdatedEvent implements ShouldQueue
         $postCreatorId = $post->createdByUserId;
         $loggedInUserId = $eventOptions['request']['loggedInUserId'];
 
-        if ($eventOptions['request']['likeChanged'] && ($postCreatorId !== $loggedInUserId)){
+        if (isset($eventOptions['request']['likeChanged']) && ($postCreatorId !== $loggedInUserId)){
             $totalLikes = $post->likeCount;
 
             $additionalMessage = $totalLikes > 1 ? ', and '. $totalLikes. ' others' : '';

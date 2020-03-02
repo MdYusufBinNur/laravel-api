@@ -6,7 +6,7 @@ use App\DbModels\Manager;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class StaffTimeClockDevicePolicy
+class TimeClockDevicePolicy
 {
     use HandlesAuthorization;
 

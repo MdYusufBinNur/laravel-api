@@ -9,13 +9,13 @@ use App\DbModels\Manager;
 use App\DbModels\ModuleOption;
 use App\DbModels\ModuleOptionProperty;
 use App\DbModels\StaffTimeClock;
-use App\DbModels\StaffTimeClockDevice;
+use App\DbModels\TimeClockDevice;
 use App\Events\StaffTimeClock\StaffTimeClockCreatedEvent;
 use App\Events\StaffTimeClock\StaffTimeClockUpdatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\ManagerRepository;
 use App\Repositories\Contracts\ModuleOptionPropertyRepository;
-use App\Repositories\Contracts\StaffTimeClockDeviceRepository;
+use App\Repositories\Contracts\TimeClockDeviceRepository;
 use App\Repositories\Contracts\StaffTimeClockRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -136,7 +136,7 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
         $managerRepository = app(ManagerRepository::class);
         $manager = $managerRepository->findOneBy(['timeClockDeviceUserId' => $data['pin']]);
 
-        $staffTimeClockDeviceRepository = app(StaffTimeClockDeviceRepository::class);
+        $staffTimeClockDeviceRepository = app(TimeClockDeviceRepository::class);
         $staffTimeClockDevice = $staffTimeClockDeviceRepository->findOneBy(['propertyId' => $data['externalId'], 'deviceSN' => $data['deviceSerialNumber']]);
 
         if (!$manager instanceof Manager) {
@@ -145,7 +145,7 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
             ]);
         }
 
-        if (!$staffTimeClockDevice instanceof StaffTimeClockDevice) {
+        if (!$staffTimeClockDevice instanceof TimeClockDevice) {
             throw ValidationException::withMessages([
                 'deviceSerialNumber' => ["No device serial found for this property."]
             ]);

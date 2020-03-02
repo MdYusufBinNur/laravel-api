@@ -5,11 +5,11 @@ namespace App\DbModels;
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
 
-class StaffTimeClockDevice extends Model
+class TimeClockDevice extends Model
 {
     use CommonModelFeatures;
 
-    protected $table = 'manager_time_clock_devices';
+    protected $table = 'time_clock_devices';
 
     /**
      * The attributes that are mass assignable.

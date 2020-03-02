@@ -13,7 +13,7 @@ class CreateManagerTimeClockDevicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('manager_time_clock_devices', function (Blueprint $table) {
+        Schema::create('time_clock_devices', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('createdByUserId')->nullable();
             $table->integer('propertyId')->unsigned();
@@ -42,6 +42,6 @@ class CreateManagerTimeClockDevicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('manager_time_clock_devices');
+        Schema::dropIfExists('time_clock_devices');
     }
 }

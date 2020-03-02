@@ -73,7 +73,7 @@ class StaffTimeClock extends Model
      */
     public function timeClockInDevice()
     {
-        return $this->hasOne(StaffTimeClockDevice::class, 'id', 'timeClockInDeviceId');
+        return $this->hasOne(TimeClockDevice::class, 'id', 'timeClockInDeviceId');
     }
 
     /**
@@ -83,7 +83,7 @@ class StaffTimeClock extends Model
      */
     public function timeClockOutDevice()
     {
-        return $this->hasOne(StaffTimeClockDevice::class, 'id', 'timeClockOutDeviceId');
+        return $this->hasOne(TimeClockDevice::class, 'id', 'timeClockOutDeviceId');
     }
 
 

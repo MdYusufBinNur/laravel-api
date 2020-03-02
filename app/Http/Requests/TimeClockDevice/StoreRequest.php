@@ -15,7 +15,7 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' => 'required|exists:properties,id',
-            'deviceSN' => 'required|max:255|unique_with:manager_time_clock_devices,propertyId',
+            'deviceSN' => 'required|max:255|unique_with:time_clock_devices,propertyId',
             'location' => 'max:255',
         ];
     }

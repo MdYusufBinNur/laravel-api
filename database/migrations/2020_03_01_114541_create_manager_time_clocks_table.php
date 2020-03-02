@@ -39,12 +39,12 @@ class CreateManagerTimeClocksTable extends Migration
                 ->onUpdate('cascade');
 
             $table->foreign('timeClockInDeviceId')
-                ->references('id')->on('manager_time_clock_devices')
+                ->references('id')->on('time_clock_devices')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
             $table->foreign('timeClockOutDeviceId')
-                ->references('id')->on('manager_time_clock_devices')
+                ->references('id')->on('time_clock_devices')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 

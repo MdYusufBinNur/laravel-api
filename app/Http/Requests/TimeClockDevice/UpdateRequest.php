@@ -14,7 +14,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'deviceSN' => 'max:255',
+            'deviceSN' => 'max:255|unique_with:time_clock_devices,propertyId,' . $this->segment(4),
             'location' => 'max:255',
         ];
     }

@@ -19,7 +19,7 @@ class CreateManagerTimeClockDevicesTable extends Migration
             $table->integer('timeClockDeviceId')->nullable()->unsigned();
             $table->integer('propertyId')->unsigned()->nullable();
             $table->integer('managerId')->unsigned();
-            $table->string('pin')->nullable();
+            $table->string('timeClockDeviceUserId')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

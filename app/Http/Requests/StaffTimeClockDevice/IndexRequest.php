@@ -19,7 +19,7 @@ class IndexRequest extends Request
             'managerId' => 'list:numeric',
             'timeClockDeviceId' => 'list:numeric',
             'createdByUserId' => 'list:numeric',
-            'pin' => 'string',
+            'timeClockDeviceUserId' => 'string',
         ];
     }
 }

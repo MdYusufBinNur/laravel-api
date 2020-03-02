@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\DbModels\StaffTimeClockDevice;
 use App\Http\Requests\StaffTimeClockDevice\IndexRequest;
 use App\Http\Requests\StaffTimeClockDevice\StoreRequest;
-use App\Http\Requests\StaffTimeClockDevice\UpdateRequest;
 use App\Http\Resources\StaffTimeClockDeviceResource;
 use App\Http\Resources\StaffTimeClockDeviceResourceCollection;
 use App\Repositories\Contracts\StaffTimeClockDeviceRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class StaffTimeClockDeviceController extends Controller
 {
@@ -28,9 +28,12 @@ class StaffTimeClockDeviceController extends Controller
      *
      * @param IndexRequest $request
      * @return StaffTimeClockDeviceResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [StaffTimeClockDevice::class, $request->get('propertyId')]);
+
         $staffTimeClockDevices = $this->staffTimeClockDeviceRepository->findBy($request->all());
 
         return new StaffTimeClockDeviceResourceCollection($staffTimeClockDevices);
@@ -41,9 +44,12 @@ class StaffTimeClockDeviceController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return StaffTimeClockDeviceResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [StaffTimeClockDevice::class, $request->get('propertyId')]);
+
         $staffTimeClockDevice = $this->staffTimeClockDeviceRepository->save($request->all());
 
         return new StaffTimeClockDeviceResource($staffTimeClockDevice);
@@ -54,22 +60,11 @@ class StaffTimeClockDeviceController extends Controller
      *
      * @param StaffTimeClockDevice $staffTimeClockDevice
      * @return StaffTimeClockDeviceResource
+     * @throws AuthorizationException
      */
     public function show(StaffTimeClockDevice $staffTimeClockDevice)
     {
-        return new StaffTimeClockDeviceResource($staffTimeClockDevice);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param UpdateRequest $request
-     * @param StaffTimeClockDevice $staffTimeClockDevice
-     * @return StaffTimeClockDeviceResource
-     */
-    public function update(UpdateRequest $request, StaffTimeClockDevice $staffTimeClockDevice)
-    {
-        $staffTimeClockDevice = $this->staffTimeClockDeviceRepository->update($staffTimeClockDevice, $request->all());
+        $this->authorize('show', $staffTimeClockDevice);
 
         return new StaffTimeClockDeviceResource($staffTimeClockDevice);
     }
@@ -79,9 +74,12 @@ class StaffTimeClockDeviceController extends Controller
      *
      * @param StaffTimeClockDevice $staffTimeClockDevice
      * @return \Illuminate\Http\Response
+     * @throws AuthorizationException
      */
     public function destroy(StaffTimeClockDevice $staffTimeClockDevice)
     {
+        $this->authorize('destroy', $staffTimeClockDevice);
+
         $this->staffTimeClockDeviceRepository->delete($staffTimeClockDevice);
 
         return response()->json(null, 204);

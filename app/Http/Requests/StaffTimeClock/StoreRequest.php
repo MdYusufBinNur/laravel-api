@@ -14,8 +14,8 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'managerId' => 'required|exists:managers,id',
             'propertyId' => 'required|exists:properties,id',
+            'managerId' => 'required|exists:managers,id',
             'clockInNote' => 'max:65535',
             'attachmentId' => 'required|exists:attachments,id'
         ];

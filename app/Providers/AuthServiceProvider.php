@@ -25,6 +25,7 @@ use App\DbModels\LdsSlideProperty;
 use App\DbModels\Manager;
 use App\DbModels\ManagerInvitation;
 use App\DbModels\ManagerProperty;
+use App\DbModels\StaffTimeClockDevice;
 use App\DbModels\TimeClockDevice;
 use App\DbModels\Message;
 use App\DbModels\MessagePost;
@@ -120,6 +121,7 @@ use App\Policies\LdsSlidePropertyPolicy;
 use App\Policies\ManagerInvitationPolicy;
 use App\Policies\ManagerPolicy;
 use App\Policies\ManagerPropertyPolicy;
+use App\Policies\StaffTimeClockDevicePolicy;
 use App\Policies\TimeClockDevicePolicy;
 use App\Policies\MessagePolicy;
 use App\Policies\MessagePostPolicy;
@@ -284,6 +286,7 @@ class AuthServiceProvider extends ServiceProvider
         ServiceRequestOfficeDetail::class => ServiceRequestOfficeDetailPolicy::class,
         ServiceRequest::class => ServiceRequestPolicy::class,
         StaffTimeClock::class => StaffTimeClockPolicy::class,
+        StaffTimeClockDevice::class => StaffTimeClockDevicePolicy::class,
         Tower::class => TowerPolicy::class,
         Unit::class => UnitPolicy::class,
         UserNotification::class => UserNotificationPolicy::class,

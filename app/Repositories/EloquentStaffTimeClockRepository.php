@@ -9,12 +9,14 @@ use App\DbModels\Manager;
 use App\DbModels\ModuleOption;
 use App\DbModels\ModuleOptionProperty;
 use App\DbModels\StaffTimeClock;
+use App\DbModels\StaffTimeClockDevice;
 use App\DbModels\TimeClockDevice;
 use App\Events\StaffTimeClock\StaffTimeClockCreatedEvent;
 use App\Events\StaffTimeClock\StaffTimeClockUpdatedEvent;
 use App\Repositories\Contracts\AttachmentRepository;
 use App\Repositories\Contracts\ManagerRepository;
 use App\Repositories\Contracts\ModuleOptionPropertyRepository;
+use App\Repositories\Contracts\StaffTimeClockDeviceRepository;
 use App\Repositories\Contracts\TimeClockDeviceRepository;
 use App\Repositories\Contracts\StaffTimeClockRepository;
 use Carbon\Carbon;
@@ -133,23 +135,16 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
      */
     public function saveFromWebhook(array $data) : \ArrayAccess
     {
-        $managerRepository = app(ManagerRepository::class);
-        $manager = $managerRepository->findOneBy(['timeClockDeviceUserId' => $data['pin']]);
+        $staffTimeClockDeviceRepository = app(StaffTimeClockDeviceRepository::class);
+        $staffTimeClockDevice = $staffTimeClockDeviceRepository->getManagerTimeClockDeviceByDeviceSN($data['pin'], $data['deviceSerialNumber']);
 
-        $staffTimeClockDeviceRepository = app(TimeClockDeviceRepository::class);
-        $staffTimeClockDevice = $staffTimeClockDeviceRepository->findOneBy(['propertyId' => $data['externalId'], 'deviceSN' => $data['deviceSerialNumber']]);
-
-        if (!$manager instanceof Manager) {
+        if (!$staffTimeClockDevice instanceof StaffTimeClockDevice) {
             throw ValidationException::withMessages([
-                'manager' => ["No manager found for the pin."]
+                'manager' => ["No manager or device found for this pin."]
             ]);
         }
 
-        if (!$staffTimeClockDevice instanceof TimeClockDevice) {
-            throw ValidationException::withMessages([
-                'deviceSerialNumber' => ["No device serial found for this property."]
-            ]);
-        }
+        $manager = $staffTimeClockDevice->manager;
 
         $staffTimeClock = $this->model
             ->where('propertyId', $data['externalId'])
@@ -158,15 +153,15 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
             ->whereNull('clockedOut')->first();
 
         if ($staffTimeClock instanceof StaffTimeClock) {
-            return $this->update($staffTimeClock, ['clockedOut' => $data['activityTime'], 'timeClockOutDeviceId' => $staffTimeClockDevice->id, 'clockInNote' => 'From the attendance device #' . $data['deviceSerialNumber']]);
+            return $this->update($staffTimeClock, ['clockedOut' => $data['activityTime'], 'timeClockOutDeviceId' => $staffTimeClockDevice->timeClockDeviceId, 'clockOutNote' => 'From the device #' . $data['deviceSerialNumber']]);
         } else {
             $attendanceData = [
                 'propertyId' => $data['externalId'],
                 'managerId' => $manager->id,
                 'createdByUserId' => $manager->userId,
                 'clockedIn' => $data['activityTime'],
-                'clockInNote' => 'From the attendance device #' . $data['deviceSerialNumber'],
-                'timeClockInDeviceId' => $staffTimeClockDevice->id,
+                'clockInNote' => 'From the device #' . $data['deviceSerialNumber'],
+                'timeClockInDeviceId' => $staffTimeClockDevice->timeClockDeviceId,
             ];
             return $this->save($attendanceData);
         }

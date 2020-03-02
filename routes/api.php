@@ -142,7 +142,7 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('manager-invitation','ManagerInvitationController');
         Route::apiResource('staff-time-clock','StaffTimeClockController');
         Route::apiResource('time-clock-device','TimeClockDeviceController');
-        Route::apiResource('staff-time-clock-device','StaffTimeClockDeviceController');
+        Route::apiResource('staff-time-clock-device','StaffTimeClockDeviceController', ['except' => ['update']]);
 
         /**
          * related to Settings System Notification

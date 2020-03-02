@@ -18,8 +18,11 @@ class StaffTimeClockDeviceResource extends Resource
             'createdByUserId' => $this->createdByUserId,
             'propertyId' => $this->propertyId,
             'managerId' => $this->managerId,
-            'pin' => $this->pin,
+            'timeClockDeviceUserId' => $this->timeClockDeviceUserId,
             'timeClockDeviceId ' => $this->timeClockDeviceId ,
+            'timeClockDevice' => $this->when($this->needToInclude($request, 'stcd.timeClockDevice'), function () {
+                return new TimeClockDeviceResource($this->timeClockDevice);
+            }),
             'created_at ' => $this->created_at ,
             'updated_at ' => $this->updated_at ,
         ];

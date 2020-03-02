@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class StaffTimeClockDevice extends Model
 {
@@ -22,7 +23,27 @@ class StaffTimeClockDevice extends Model
      * @var array
      */
     protected $fillable = [
-        'propertyId', 'managerId', 'createdByUserId', 'timeClockDeviceId', 'pin'
+        'propertyId', 'managerId', 'createdByUserId', 'timeClockDeviceId', 'timeClockDeviceUserId'
     ];
+
+    /**
+     * get the TimeClockDevice
+     *
+     * @return hasOne
+     */
+    public function timeClockDevice()
+    {
+        return $this->hasOne(TimeClockDevice::class, 'id', 'timeClockDeviceId');
+    }
+
+    /**
+     * get the manager
+     *
+     * @return HasOne
+     */
+    public function manager()
+    {
+        return $this->hasOne(Manager::class, 'id', 'managerId');
+    }
 
 }

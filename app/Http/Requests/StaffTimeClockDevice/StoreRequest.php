@@ -17,7 +17,7 @@ class StoreRequest extends Request
             'propertyId' => 'exists:properties,id',
             'managerId' => 'required|exists:managers,id',
             'timeClockDeviceId' => 'required|exists:time_clock_devices,id',
-            'timeClockDeviceUserId' => 'max:255|unique_with:manager_time_clock_devices,timeClockDeviceId',
+            'timeClockDeviceUserId' => 'required|max:255|unique_with:manager_time_clock_devices,timeClockDeviceId',
         ];
     }
 }

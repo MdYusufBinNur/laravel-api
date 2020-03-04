@@ -84,6 +84,9 @@ class InsertModulesAndOptions extends Migration
             ['moduleId' => 15, 'key' => 'requireTimeclockPhoto', 'title' => 'Require a webcam photo when clocking in/out'],
             ['moduleId' => 15, 'key' => 'allowExternalDeviceToLog', 'title' => 'Allow external devices to log in'],
             ['moduleId' => 15, 'key' => 'startingClockOutTime', 'title' => 'Starting clock-out time'],
+            ['moduleId' => 15, 'key' => 'allowedStates', 'title' => 'List of states allowed'],
+            ['moduleId' => 15, 'key' => 'isPhotoRequired', 'title' => 'Photo required without attendance device'],
+            ['moduleId' => 15, 'key' => 'trackLocation', 'title' => 'Track location when used without attendance device'],
 
             ['moduleId' => 17, 'key' => 'approveReservation', 'title' => 'Require Managers to approve reservations made by resident'],
 

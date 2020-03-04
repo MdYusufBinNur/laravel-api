@@ -170,6 +170,12 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
 
     }
 
+    /**
+     * get the opposite state of "Out' state
+     *
+     * @param string $state
+     * @return string string
+     */
     private function getOppositeOfOutState($state)
     {
         switch ($state) {
@@ -183,6 +189,12 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
         return $state;
     }
 
+    /**
+     * get the opposite state of "IN' state
+     *
+     * @param string $state
+     * @return string string
+     */
     private function getOppositeOfInState($state)
     {
         switch ($state) {

@@ -10,6 +10,13 @@ class StaffTimeClock extends Model
 {
     use CommonModelFeatures;
 
+    const STATE_CHECK_IN = 'check-in';
+    const STATE_CHECK_OUT = 'check-out';
+    const STATE_BREAK_IN = 'break-in';
+    const STATE_BREAK_OUT = 'break-out';
+    const STATE_OVERTIME_IN = 'overtime-in';
+    const STATE_OVERTIME_OUT = 'overtime-out';
+
     /**
      * The database table used by the model.
      *
@@ -23,7 +30,7 @@ class StaffTimeClock extends Model
      * @var array
      */
     protected $fillable = [
-        'propertyId', 'managerId', 'createdByUserId', 'clockedIn', 'clockedOut', 'clockInNote', 'clockOutNote', 'timeClockInDeviceId', 'timeClockOutDeviceId'
+        'propertyId', 'managerId', 'state', 'createdByUserId', 'clockedIn', 'clockedOut', 'clockInNote', 'clockOutNote', 'timeClockInDeviceId', 'timeClockOutDeviceId'
     ];
 
     /**

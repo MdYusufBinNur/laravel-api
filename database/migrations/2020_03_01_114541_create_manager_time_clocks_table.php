@@ -22,6 +22,7 @@ class CreateManagerTimeClocksTable extends Migration
             $table->integer('timeClockOutDeviceId')->nullable()->unsigned();
             $table->dateTime('clockedIn');
             $table->dateTime('clockedOut')->nullable();
+            $table->string('state')->index();
             $table->text('clockInNote')->nullable();
             $table->text('clockOutNote')->nullable();
             $table->timestamps();

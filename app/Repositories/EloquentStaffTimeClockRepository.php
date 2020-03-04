@@ -149,14 +149,16 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
         $staffTimeClock = $this->model
             ->where('propertyId', $data['externalId'])
             ->where('managerId', $manager->id)
+            ->where('state', $this->getOppositeOfOutState($data['state']))
             ->whereDate('clockedIn', Carbon::today())
             ->whereNull('clockedOut')->first();
 
         if ($staffTimeClock instanceof StaffTimeClock) {
-            return $this->update($staffTimeClock, ['clockedOut' => $data['activityTime'], 'timeClockOutDeviceId' => $staffTimeClockDevice->timeClockDeviceId, 'clockOutNote' => 'From the device #' . $data['deviceSerialNumber']]);
+            return $this->update($staffTimeClock, ['state' => $this->getOppositeOfInState($data['state']), 'clockedOut' => $data['activityTime'], 'timeClockOutDeviceId' => $staffTimeClockDevice->timeClockDeviceId, 'clockOutNote' => 'From the device #' . $data['deviceSerialNumber']]);
         } else {
             $attendanceData = [
                 'propertyId' => $data['externalId'],
+                'state' => $this->getOppositeOfOutState($data['state']),
                 'managerId' => $manager->id,
                 'createdByUserId' => $manager->userId,
                 'clockedIn' => $data['activityTime'],
@@ -166,6 +168,32 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
             return $this->save($attendanceData);
         }
 
+    }
+
+    private function getOppositeOfOutState($state)
+    {
+        switch ($state) {
+            case StaffTimeClock::STATE_CHECK_OUT:
+                return 'check-in';
+            case StaffTimeClock::STATE_BREAK_OUT:
+                return 'break-in';
+            case StaffTimeClock::STATE_OVERTIME_OUT:
+                return 'overtime-in';
+        }
+        return $state;
+    }
+
+    private function getOppositeOfInState($state)
+    {
+        switch ($state) {
+            case StaffTimeClock::STATE_CHECK_IN:
+                return 'check-out';
+            case StaffTimeClock::STATE_BREAK_IN:
+                return 'break-out';
+            case StaffTimeClock::STATE_OVERTIME_IN:
+                return 'overtime-out';
+        }
+        return $state;
     }
 
 }

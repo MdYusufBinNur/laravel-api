@@ -26,6 +26,7 @@ class StaffTimeClockResource extends Resource
             'property' => $this->when($this->needToInclude($request, 'stc.property'), function () {
                 return new PropertyResource($this->property);
             }),
+            'state' => $this->state,
             'clockedIn' => $this->clockedIn,
             'clockedOut' => $this->clockedOut,
             'clockInNote' => $this->clockInNote,

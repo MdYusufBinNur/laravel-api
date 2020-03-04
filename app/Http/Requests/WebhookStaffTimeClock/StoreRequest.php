@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\WebhookStaffTimeClock;
 
+use App\DbModels\StaffTimeClock;
 use App\Http\Requests\Request;
 
 class StoreRequest extends Request
@@ -19,6 +20,7 @@ class StoreRequest extends Request
             'deviceSerialNumber' => 'required|exists:time_clock_devices,deviceSN',
             'pin' => 'required',
             'activityTime' => 'required',
+            'state' => 'required|in:'. implode(',', StaffTimeClock::getConstantsByPrefix('STATE_')),
         ];
     }
 }

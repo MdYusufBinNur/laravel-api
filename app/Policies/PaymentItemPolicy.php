@@ -43,7 +43,7 @@ class PaymentItemPolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-            if ($this->isUnitFilterAllowedForResidents($currentUser, $unitId)) {
+            if ($this->isResidentOfTheUnits($unitId)) {
                 return true;
             }
         }
@@ -127,26 +127,5 @@ class PaymentItemPolicy
         }
 
         return false;
-    }
-
-    /**
-     * @param $currentUser
-     * @param $UnitIdsCsv
-     * @return bool
-     */
-    private function isUnitFilterAllowedForResidents($currentUser, $UnitIdsCsv)
-    {
-        $unitIds = explode(',', $UnitIdsCsv);
-
-        if (count($unitIds) > 0) {
-            foreach ($unitIds as $unitId) {
-
-                if (!$currentUser->isOwnerOfTheUnit((int) $unitId)) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
     }
 }

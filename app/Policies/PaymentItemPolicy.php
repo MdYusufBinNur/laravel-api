@@ -43,7 +43,7 @@ class PaymentItemPolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-            if ($this->isResidentOfTheUnits($unitId)) {
+            if ($currentUser->isResidentOfTheUnits($unitId)) {
                 return true;
             }
         }

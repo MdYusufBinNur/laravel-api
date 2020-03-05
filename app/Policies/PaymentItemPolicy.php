@@ -69,7 +69,7 @@ class PaymentItemPolicy
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
             $unitId = $paymentItem->unitId;
-            if (!empty($unitId) && $currentUser->isOwnerOfTheUnit($unitId)) {
+            if (!empty($unitId) && $currentUser->isResidentOfTheUnits($unitId)) {
                 return true;
             }
         }

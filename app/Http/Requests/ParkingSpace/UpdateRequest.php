@@ -14,7 +14,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'parkingNumber' => 'required|unique_with:parking_spaces,propertyId',
+            'parkingNumber' => 'required|unique_with:parking_spaces,propertyId,' . $this->segment(4),
             'ownerUserId' => 'required_without:ownedBy|exists:users,id',
             'ownedBy' => 'required_without:ownerUserId|max:255',
             'address' => 'required_without:ownerUserId|max:255',

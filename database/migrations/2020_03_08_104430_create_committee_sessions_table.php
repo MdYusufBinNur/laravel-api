@@ -15,11 +15,12 @@ class CreateCommitteeSessionsTable extends Migration
     {
         Schema::create('committee_sessions', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->integer('propertyId')->unsigned();
             $table->integer('committeeTypeId')->unsigned()->nullable();
             $table->string('sessionName');
             $table->date('startedDate');
-            $table->date('endDate');
+            $table->date('endedDate');
             $table->timestamps();
             $table->softDeletes();
 

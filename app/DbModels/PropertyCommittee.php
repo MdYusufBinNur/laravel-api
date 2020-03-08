@@ -15,6 +15,6 @@ class PropertyCommittee extends Model
      * @var array
      */
     protected $fillable = [
-        'propertyId', 'committeeTypeId', 'committeeSessionId', 'userId', 'name', 'committeeRankId'
+        'createdByUserId', 'propertyId', 'committeeTypeId', 'committeeSessionId', 'userId', 'name', 'committeeRankId'
     ];
 }

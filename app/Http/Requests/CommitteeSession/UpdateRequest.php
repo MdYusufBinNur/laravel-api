@@ -14,6 +14,7 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
+            'createdByUserId' => 'exists:users,id',
             'propertyId' => 'exists:properties,id',
             'committeeTypeId' => 'exists:committee_types,id',
             'sessionName' => 'string',

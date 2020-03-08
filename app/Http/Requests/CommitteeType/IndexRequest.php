@@ -15,6 +15,7 @@ class IndexRequest extends FormRequest
     {
         return [
             'id' => 'list:numeric',
+            'createdByUserId' => 'list:numeric',
             'propertyId' => 'list:numeric',
             'title' => 'string',
         ];

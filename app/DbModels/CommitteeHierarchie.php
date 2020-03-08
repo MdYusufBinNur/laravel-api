@@ -15,6 +15,6 @@ class CommitteeHierarchie extends Model
      * @var array
      */
     protected $fillable = [
-        'propertyId', 'committeeTypeId', 'position', 'title'
+        'createdByUserId', 'propertyId', 'committeeTypeId', 'position', 'title'
     ];
 }

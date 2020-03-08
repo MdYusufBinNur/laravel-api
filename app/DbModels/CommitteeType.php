@@ -15,6 +15,6 @@ class CommitteeType extends Model
      * @var array
      */
     protected $fillable = [
-        'propertyId', 'title'
+        'createdByUserId', 'propertyId', 'title'
     ];
 }

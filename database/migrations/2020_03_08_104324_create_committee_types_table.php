@@ -15,6 +15,7 @@ class CreateCommitteeTypesTable extends Migration
     {
         Schema::create('committee_types', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->integer('propertyId')->unsigned();
             $table->string('title');
             $table->timestamps();

@@ -15,7 +15,7 @@ class CommitteeSession extends Model
      * @var array
      */
     protected $fillable = [
-        'propertyId', 'committeeTypeId', 'sessionName', 'startedDate', 'endedDate'
+        'createdByUserId', 'propertyId', 'committeeTypeId', 'sessionName', 'startedDate', 'endedDate'
     ];
 
     /**

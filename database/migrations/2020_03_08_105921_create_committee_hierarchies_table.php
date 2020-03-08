@@ -15,6 +15,7 @@ class CreateCommitteeHierarchiesTable extends Migration
     {
         Schema::create('committee_hierarchies', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('createdByUserId')->unsigned()->nullable();
             $table->integer('propertyId')->unsigned();
             $table->integer('committeeTypeId')->unsigned()->nullable();
             $table->integer('position');

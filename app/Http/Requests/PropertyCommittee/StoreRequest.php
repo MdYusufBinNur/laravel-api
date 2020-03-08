@@ -14,6 +14,7 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
+            'createdByUserId' => 'exists:users,id',
             'propertyId' => 'required|exists:properties,id',
             'committeeTypeId' => 'exists:committee_types,id',
             'committeeSessionId' => 'exists:committee_sessions,id',

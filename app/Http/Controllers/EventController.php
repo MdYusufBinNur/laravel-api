@@ -9,6 +9,7 @@ use App\Http\Requests\Event\UpdateRequest;
 use App\Http\Resources\EventResource;
 use App\Http\Resources\EventResourceCollection;
 use App\Repositories\Contracts\EventRepository;
+use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
 
 class EventController extends Controller
@@ -37,7 +38,7 @@ class EventController extends Controller
     public function index(IndexRequest $request)
     {
         if (strpos($request->getPathInfo(), 'property-login-page-events') !== false) {
-            $request->merge(['allowedLoginPage' => 1]);
+            $request->merge(['allowedLoginPage' => 1, 'endDate' => Carbon::today()]);
         } else {
             $this->authorize('list', [Event::class, $request->get('propertyId')]);
         }

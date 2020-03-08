@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCommitteeTypesTable extends Migration
+class CreateCommitteeSessionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,23 @@ class CreateCommitteeTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('committee_types', function (Blueprint $table) {
+        Schema::create('committee_sessions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('propertyId')->unsigned();
-            $table->string('title');
+            $table->integer('committeeTypeId')->unsigned()->nullable();
+            $table->string('sessionName');
+            $table->date('startedDate');
+            $table->date('endDate');
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('propertyId')
                 ->references('id')->on('properties')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('committeeTypeId')
+                ->references('id')->on('committee_types')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
@@ -34,6 +42,6 @@ class CreateCommitteeTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('committee_types');
+        Schema::dropIfExists('committee_sessions');
     }
 }

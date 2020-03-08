@@ -14,8 +14,23 @@ class CreateCommitteeHierarchiesTable extends Migration
     public function up()
     {
         Schema::create('committee_hierarchies', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->integer('propertyId')->unsigned();
+            $table->integer('committeeTypeId')->unsigned()->nullable();
+            $table->integer('position');
+            $table->string('title');
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('propertyId')
+                ->references('id')->on('properties')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('committeeTypeId')
+                ->references('id')->on('committee_types')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

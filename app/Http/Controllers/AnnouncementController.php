@@ -38,7 +38,7 @@ class AnnouncementController extends Controller
     {
 
         if (strpos($request->getPathInfo(), 'property-login-page-announcements') !== false) {
-            $request->merge(['showOnWebsite' => 1]);
+            $request->merge(['showOnWebsite' => 1, 'isExpired' => 0]);
         } else {
             $this->authorize('list', [Announcement::class, $request->get('propertyId')]);
         }

@@ -2,9 +2,8 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class PropertyCommitteeResource extends JsonResource
+class PropertyCommitteeResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +13,16 @@ class PropertyCommitteeResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'propertyId' => $this->propertyId,
+            'committeeTypeId' => $this->committeeTypeId,
+            'committeeSessionId' => $this->committeeSessionId,
+            'committeeRankId' => $this->committeeRankId,
+            'userId' => $this->userId,
+            'name' => $this->name,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
     }
 }

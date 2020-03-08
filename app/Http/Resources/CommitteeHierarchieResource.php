@@ -2,9 +2,7 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-
-class CommitteeHierarchieResource extends JsonResource
+class CommitteeHierarchieResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +12,14 @@ class CommitteeHierarchieResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'propertyId' => $this->propertyId,
+            'committeeTypeId' => $this->committeeTypeId,
+            'position' => $this->position,
+            'title' => $this->title,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
     }
 }

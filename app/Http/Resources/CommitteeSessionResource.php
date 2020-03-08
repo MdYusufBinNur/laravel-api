@@ -2,9 +2,8 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class CommitteeSessionResource extends JsonResource
+class CommitteeSessionResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +13,15 @@ class CommitteeSessionResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return[
+            'id' => $this->id,
+            'propertyId' => $this->propertyId,
+            'committeeTypeId' => $this->committeeTypeId,
+            'sessionName' => $this->sessionName,
+            'startedDate' => $this->startedDate,
+            'endedDate' => $this->endedDate,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Property;
 
+use App\DbModels\Property;
 use App\Http\Requests\Request;
 
 class StoreRequest extends Request
@@ -16,7 +17,7 @@ class StoreRequest extends Request
     {
         return $rules = [
             'companyId'  => 'nullable|exists:companies,id',
-            'type'       => 'required|max:255',
+            'type'       => 'required' .'|in:'. implode(',', Property::getConstantsByPrefix('TYPE_')),
             'title'      => 'required|min:3|max:255',
             'domain'     => 'nullable|domain|max:255',
             'subdomain'  => 'required|regex:/^[0-9A-Za-z.\-_]+$/|unique:properties,subdomain',

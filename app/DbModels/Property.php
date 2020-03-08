@@ -11,6 +11,13 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Property extends Model
 {
+    const TYPE_RESIDENT_PROPERTY = 'residential_property';
+    const TYPE_COMMERCIAL_PROPERTY = 'commercial_property';
+    const TYPE_STUDENT_HALL = 'student_hall';
+    const TYPE_BUILDER = 'builder';
+    const TYPE_FACTORY = 'factory';
+    const TYPE_OFFICE = 'office';
+
     use CommonModelFeatures;
 
     /**

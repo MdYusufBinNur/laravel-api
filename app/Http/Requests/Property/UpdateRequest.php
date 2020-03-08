@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Property;
 
+use App\DbModels\Property;
 use App\Http\Requests\Request;
 use Illuminate\Validation\Rule;
 
@@ -18,7 +19,7 @@ class UpdateRequest extends Request
         return $rules = [
             'companyId'  => 'nullable|exists:companies,id',
             'title'      => 'min:3|max:255',
-            'type'       => 'max:255',
+            'type'       => 'in:'. implode(',', Property::getConstantsByPrefix('TYPE_')),
             'domain'     => 'nullable|domain|' . Rule::unique('properties')->ignore($propertyId, 'id') . '|regex:/(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/',
             'subdomain'  => 'regex:/^[0-9A-Za-z.\-_]+$/|' . Rule::unique('properties')->ignore($propertyId, 'id'),
             'address'    => 'min:3|max:255',

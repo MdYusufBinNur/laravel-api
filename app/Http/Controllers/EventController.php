@@ -38,7 +38,7 @@ class EventController extends Controller
     public function index(IndexRequest $request)
     {
         if (strpos($request->getPathInfo(), 'property-login-page-events') !== false) {
-            $request->merge(['allowedLoginPage' => 1, 'endDate' => Carbon::today()]);
+            $request->merge(['allowedLoginPage' => 1, 'startDate' => Carbon::today()]);
         } else {
             $this->authorize('list', [Event::class, $request->get('propertyId')]);
         }

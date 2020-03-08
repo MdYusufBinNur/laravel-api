@@ -2,20 +2,10 @@
 
 namespace App\Http\Requests\CommitteeSession;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Request;
 
-class UpdateRequest extends FormRequest
+class UpdateRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +14,11 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'propertyId' => 'exists:properties,id',
+            'committeeTypeId' => 'exists:committee_types,id',
+            'sessionName' => 'string',
+            'startedDate' => 'date_format:Y-m-d',
+            'endedDate' => 'date_format:Y-m-d',
         ];
     }
 }

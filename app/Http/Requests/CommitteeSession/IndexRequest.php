@@ -2,20 +2,10 @@
 
 namespace App\Http\Requests\CommitteeSession;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Request;
 
-class IndexRequest extends FormRequest
+class IndexRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +14,12 @@ class IndexRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'id' => 'list:numeric',
+            'propertyId' => 'list:numeric',
+            'committeeTypeId' => 'list:numeric',
+            'sessionName' => 'string',
+            'startedDate' => 'date_format:Y-m-d',
+            'endedDate' => 'date_format:Y-m-d',
         ];
     }
 }

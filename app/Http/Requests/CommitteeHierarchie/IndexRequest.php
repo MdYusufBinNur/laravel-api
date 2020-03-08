@@ -2,20 +2,10 @@
 
 namespace App\Http\Requests\CommitteeHierarchie;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Request;
 
-class IndexRequest extends FormRequest
+class IndexRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +14,10 @@ class IndexRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'propertyId' => 'list:numeric',
+            'committeeTypeId' => 'list:numeric',
+            'position' => 'int',
+            'tile' => 'string',
         ];
     }
 }

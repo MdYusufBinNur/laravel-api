@@ -18,10 +18,10 @@ class CreateEventsTable extends Migration
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->unsignedInteger('propertyId');
             $table->string('title');
-            $table->string('location');
+            $table->string('location')->nullable();
             $table->mediumText('text')->nullable();
             $table->unsignedMediumInteger('maxGuests')->default(0);
-            $table->boolean('allowedSignUp')->default(0);
+            $table->boolean('allowedSigUp')->default(0);
             $table->boolean('multipleDaysEvent')->default(0);
             $table->boolean('allowedLoginPage')->default(0);
             $table->boolean('hasAttachment')->default(0);

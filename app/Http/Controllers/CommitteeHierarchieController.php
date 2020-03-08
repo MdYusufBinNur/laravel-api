@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class CommiteeSessionController extends Controller
+class CommitteeHierarchieController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\PropertyCommitee;
+namespace App\Http\Requests\CommitteeType;
 
 use Illuminate\Foundation\Http\FormRequest;
 

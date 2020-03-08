@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\CommiteeSession;
+namespace App\Http\Requests\CommitteeHierarchie;
 
 use Illuminate\Foundation\Http\FormRequest;
 

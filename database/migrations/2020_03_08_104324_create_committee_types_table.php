@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCommiteeTypesTable extends Migration
+class CreateCommitteeTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCommiteeTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('commitee_types', function (Blueprint $table) {
+        Schema::create('committee_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateCommiteeTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('commitee_types');
+        Schema::dropIfExists('committee_types');
     }
 }

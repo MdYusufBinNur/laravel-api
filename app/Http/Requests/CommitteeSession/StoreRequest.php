@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\CommiteeType;
+namespace App\Http\Requests\CommitteeSession;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

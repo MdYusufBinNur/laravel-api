@@ -243,6 +243,15 @@ Route::group(['prefix' => 'api/v1'], function () {
          * Related to ReminderService
          */
         Route::apiResource('reminder', 'ReminderController', ['except' => ['update']]);
+
+
+        /**
+         * Related to Property Committee
+         */
+        Route::apiResource('committee-type', 'CommitteeTypeController');
+        Route::apiResource('committee-session', 'CommitteeSessionController');
+        Route::apiResource('property-committee', 'PropertyCommitteeController');
+        Route::apiResource('committee-hierarchie', 'CommitteeHierarchieController');
     });
 
     //route without authentication

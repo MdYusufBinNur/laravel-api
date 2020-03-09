@@ -5,6 +5,9 @@ namespace App\Providers;
 use App\DbModels\Admin;
 use App\DbModels\Announcement;
 use App\DbModels\Attachment;
+use App\DbModels\CommitteeHierarchie;
+use App\DbModels\CommitteeSession;
+use App\DbModels\CommitteeType;
 use App\DbModels\Company;
 use App\DbModels\EnterpriseUser;
 use App\DbModels\EnterpriseUserProperty;
@@ -28,6 +31,7 @@ use App\DbModels\LdsSlide;
 use App\DbModels\LdsSlideProperty;
 use App\DbModels\Manager;
 use App\DbModels\ManagerInvitation;
+use App\DbModels\PropertyCommittee;
 use App\DbModels\StaffTimeClockDevice;
 use App\DbModels\TimeClockDevice;
 use App\DbModels\Message;
@@ -105,9 +109,13 @@ use App\DbModels\UserRole;
 use App\DbModels\Visitor;
 use App\DbModels\VisitorArchive;
 use App\DbModels\VisitorType;
+use App\Http\Resources\CommitteeTypeResource;
 use App\Repositories\Contracts\AdminRepository;
 use App\Repositories\Contracts\AnnouncementRepository;
 use App\Repositories\Contracts\AttachmentRepository;
+use App\Repositories\Contracts\CommitteeHierarchieRepository;
+use App\Repositories\Contracts\CommitteeSessionRepository;
+use App\Repositories\Contracts\CommitteeTypeRepository;
 use App\Repositories\Contracts\CompanyRepository;
 use App\Repositories\Contracts\EnterpriseUserPropertyRepository;
 use App\Repositories\Contracts\EnterpriseUserRepository;
@@ -130,6 +138,7 @@ use App\Repositories\Contracts\LdsSettingRepository;
 use App\Repositories\Contracts\LdsSlidePropertyRepository;
 use App\Repositories\Contracts\LdsSlideRepository;
 use App\Repositories\Contracts\ManagerRepository;
+use App\Repositories\Contracts\PropertyCommitteeRepository;
 use App\Repositories\Contracts\StaffTimeClockDeviceRepository;
 use App\Repositories\Contracts\TimeClockDeviceRepository;
 use App\Repositories\Contracts\MangerInvitationRepository;
@@ -204,6 +213,9 @@ use App\Repositories\Contracts\VisitorTypeRepository;
 use App\Repositories\EloquentAdminRepository;
 use App\Repositories\EloquentAnnouncementRepository;
 use App\Repositories\EloquentAttachmentRepository;
+use App\Repositories\EloquentCommitteeHierarchieRepository;
+use App\Repositories\EloquentCommitteeSessionRepository;
+use App\Repositories\EloquentCommitteeTypeRepository;
 use App\Repositories\EloquentEnterpriseUserPropertyRepository;
 use App\Repositories\EloquentEnterpriseUserRepository;
 use App\Repositories\EloquentEquipmentRepository;
@@ -225,6 +237,7 @@ use App\Repositories\EloquentLdsSettingRepository;
 use App\Repositories\EloquentLdsSlidePropertyRepository;
 use App\Repositories\EloquentLdsSlideRepository;
 use App\Repositories\EloquentManagerRepository;
+use App\Repositories\EloquentPropertyCommitteeRepository;
 use App\Repositories\EloquentStaffTimeClockDeviceRepository;
 use App\Repositories\EloquentTimeClockDeviceRepository;
 use App\Repositories\EloquentMangerInvitationRepository;
@@ -845,6 +858,26 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind StaffTimeClockDeviceRepository
         $this->app->bind(StaffTimeClockDeviceRepository::class, function() {
             return new EloquentStaffTimeClockDeviceRepository(new StaffTimeClockDevice());
+        });
+
+        // bind CommitteeTypeRepository
+        $this->app->bind(CommitteeTypeRepository::class, function() {
+            return new EloquentCommitteeTypeRepository(new CommitteeType());
+        });
+
+        // bind CommitteeSessionRepository
+        $this->app->bind(CommitteeSessionRepository::class, function() {
+            return new EloquentCommitteeSessionRepository(new CommitteeSession());
+        });
+
+        // bind PropertyCommitteeRepository
+        $this->app->bind(PropertyCommitteeRepository::class, function() {
+            return new EloquentPropertyCommitteeRepository(new PropertyCommittee());
+        });
+
+        // bind CommitteeHierarchieRepository
+        $this->app->bind(CommitteeHierarchieRepository::class, function() {
+            return new EloquentCommitteeHierarchieRepository(new CommitteeHierarchie());
         });
     }
 }

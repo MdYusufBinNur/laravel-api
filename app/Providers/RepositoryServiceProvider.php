@@ -5,7 +5,7 @@ namespace App\Providers;
 use App\DbModels\Admin;
 use App\DbModels\Announcement;
 use App\DbModels\Attachment;
-use App\DbModels\CommitteeHierarchie;
+use App\DbModels\CommitteeHierarchy;
 use App\DbModels\CommitteeSession;
 use App\DbModels\CommitteeType;
 use App\DbModels\Company;
@@ -113,7 +113,7 @@ use App\Http\Resources\CommitteeTypeResource;
 use App\Repositories\Contracts\AdminRepository;
 use App\Repositories\Contracts\AnnouncementRepository;
 use App\Repositories\Contracts\AttachmentRepository;
-use App\Repositories\Contracts\CommitteeHierarchieRepository;
+use App\Repositories\Contracts\CommitteeHierarchyRepository;
 use App\Repositories\Contracts\CommitteeSessionRepository;
 use App\Repositories\Contracts\CommitteeTypeRepository;
 use App\Repositories\Contracts\CompanyRepository;
@@ -213,7 +213,7 @@ use App\Repositories\Contracts\VisitorTypeRepository;
 use App\Repositories\EloquentAdminRepository;
 use App\Repositories\EloquentAnnouncementRepository;
 use App\Repositories\EloquentAttachmentRepository;
-use App\Repositories\EloquentCommitteeHierarchieRepository;
+use App\Repositories\EloquentCommitteeHierarchyRepository;
 use App\Repositories\EloquentCommitteeSessionRepository;
 use App\Repositories\EloquentCommitteeTypeRepository;
 use App\Repositories\EloquentEnterpriseUserPropertyRepository;
@@ -875,9 +875,9 @@ class RepositoryServiceProvider extends ServiceProvider
             return new EloquentPropertyCommitteeRepository(new PropertyCommittee());
         });
 
-        // bind CommitteeHierarchieRepository
-        $this->app->bind(CommitteeHierarchieRepository::class, function() {
-            return new EloquentCommitteeHierarchieRepository(new CommitteeHierarchie());
+        // bind CommitteeHierarchyRepository
+        $this->app->bind(CommitteeHierarchyRepository::class, function() {
+            return new EloquentCommitteeHierarchyRepository(new CommitteeHierarchy());
         });
     }
 }

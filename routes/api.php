@@ -251,7 +251,7 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('committee-type', 'CommitteeTypeController');
         Route::apiResource('committee-session', 'CommitteeSessionController');
         Route::apiResource('property-committee', 'PropertyCommitteeController');
-        Route::apiResource('committee-hierarchie', 'CommitteeHierarchieController');
+        Route::apiResource('committee-hierarchy', 'CommitteeHierarchyController');
     });
 
     //route without authentication

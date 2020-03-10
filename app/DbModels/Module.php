@@ -49,6 +49,7 @@ class Module extends Model
     const MODULE_COMMUNITY_LINKS = ['id' => 27, 'key' => 'CL', 'title' => 'Community Links'];
     const MODULE_REGISTRATION_REQUEST = ['id' => 28, 'key' => 'RR', 'title' => 'Registration Requests'];
     const MODULE_APPLICATION_SETTING = ['id' => 29, 'key' => 'AS', 'title' => 'Application Settings'];
+    const MODULE_PROPERTY_COMMITTEE = ['id' => 30, 'key' => 'PC', 'title' => 'Property Committee'];
 
     /**
      * get the module

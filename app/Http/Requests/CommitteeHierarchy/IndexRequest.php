@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\CommitteeHierarchie;
+namespace App\Http\Requests\CommitteeHierarchy;
 
 use App\Http\Requests\Request;
 
@@ -15,10 +15,9 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
-            'createdByUserId' => 'list:numeric',
             'propertyId' => 'list:numeric',
             'committeeTypeId' => 'list:numeric',
-            'position' => 'int',
+            'position' => 'list:numeric',
             'tile' => 'string',
         ];
     }

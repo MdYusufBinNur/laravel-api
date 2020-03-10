@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\CommitteeHierarchie;
+namespace App\Http\Requests\CommitteeHierarchy;
 
 use App\Http\Requests\Request;
 
@@ -14,8 +14,6 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'createdByUserId' => 'exists:users,id',
-            'propertyId' => 'exists:properties,id',
             'committeeTypeId' => 'exists:committee_types,id',
             'position' => 'numeric',
             'title' => 'max:255',

@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-class CommitteeHierarchieResource extends Resource
+class CommitteeHierarchyResource extends Resource
 {
     /**
      * Transform the resource into an array.

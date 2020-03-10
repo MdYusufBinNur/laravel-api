@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\CommitteeHierarchie;
+namespace App\Http\Requests\CommitteeHierarchy;
 
 use App\Http\Requests\Request;
 
@@ -14,7 +14,6 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'createdByUserId' => 'exists:users,id',
             'propertyId' => 'required|exists:properties,id',
             'committeeTypeId' => 'exists:committee_types,id',
             'position' => 'numeric',

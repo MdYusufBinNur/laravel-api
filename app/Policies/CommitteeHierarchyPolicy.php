@@ -2,12 +2,12 @@
 
 namespace App\Policies;
 
+use App\DbModels\CommitteeHierarchy;
 use App\DbModels\Module;
-use App\DbModels\PropertyCommittee;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CommitteeTypePolicy
+class CommitteeHierarchyPolicy
 {
     use HandlesAuthorization, ValidateModules;
 
@@ -64,12 +64,12 @@ class CommitteeTypePolicy
      * Determine if a given user has permission to show
      *
      * @param User $currentUser
-     * @param PropertyCommittee $propertyCommittee
+     * @param CommitteeHierarchy $committeeHierarchy
      * @return bool
      */
-    public function show(User $currentUser, PropertyCommittee $propertyCommittee)
+    public function show(User $currentUser, CommitteeHierarchy $committeeHierarchy)
     {
-        if ($currentUser->isUserOfTheProperty($propertyCommittee->propertyId)) {
+        if ($currentUser->isUserOfTheProperty($committeeHierarchy->propertyId)) {
             return true;
         }
 
@@ -80,12 +80,12 @@ class CommitteeTypePolicy
      * Determine if a given user can update
      *
      * @param User $currentUser
-     * @param PropertyCommittee $propertyCommittee
+     * @param CommitteeHierarchy $committeeHierarchy
      * @return bool
      */
-    public function update(User $currentUser, PropertyCommittee $propertyCommittee)
+    public function update(User $currentUser, CommitteeHierarchy $committeeHierarchy)
     {
-        if ($currentUser->upToPriorityStaffOfTheProperty($propertyCommittee->propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($committeeHierarchy->propertyId)) {
             return true;
         }
 
@@ -96,12 +96,12 @@ class CommitteeTypePolicy
      * Determine if a given user can delete
      *
      * @param User $currentUser
-     * @param PropertyCommittee $propertyCommittee
+     * @param CommitteeHierarchy $committeeHierarchy
      * @return bool
      */
-    public function destroy(User $currentUser, PropertyCommittee $propertyCommittee)
+    public function destroy(User $currentUser, CommitteeHierarchy $committeeHierarchy)
     {
-        if ($currentUser->upToPriorityStaffOfTheProperty($propertyCommittee->propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($committeeHierarchy->propertyId)) {
             return true;
         }
 

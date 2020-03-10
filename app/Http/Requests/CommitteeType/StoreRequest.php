@@ -14,7 +14,6 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'createdByUserId' => 'exists:users,id',
             'propertyId' => 'required|exists:properties,id',
             'title' => 'required|max:255',
         ];

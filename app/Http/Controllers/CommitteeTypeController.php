@@ -9,7 +9,7 @@ use App\Http\Requests\CommitteeType\UpdateRequest;
 use App\Http\Resources\CommitteeTypeResource;
 use App\Http\Resources\CommitteeTypeResourceCollection;
 use App\Repositories\Contracts\CommitteeTypeRepository;
-use Illuminate\Http\Request;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class CommitteeTypeController extends Controller
 {
@@ -32,9 +32,12 @@ class CommitteeTypeController extends Controller
      *
      * @param IndexRequest $request
      * @return CommitteeTypeResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [CommitteeType::class, $request->get('propertyId')]);
+
         $committeeTypes = $this->committeeTypeRepository->findBy($request->all());
 
         return new CommitteeTypeResourceCollection($committeeTypes);
@@ -43,11 +46,14 @@ class CommitteeTypeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreRequest  $request
      * @return CommitteeTypeResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [CommitteeType::class, $request->get('propertyId')]);
+
         $committeeType = $this->committeeTypeRepository->save($request->all());
 
         return new CommitteeTypeResource($committeeType);
@@ -58,9 +64,12 @@ class CommitteeTypeController extends Controller
      *
      * @param CommitteeType $committeeType
      * @return CommitteeTypeResource
+     * @throws AuthorizationException
      */
     public function show(CommitteeType $committeeType)
     {
+        $this->authorize('show', $committeeType);
+
         return new CommitteeTypeResource($committeeType);
     }
 
@@ -71,9 +80,12 @@ class CommitteeTypeController extends Controller
      * @param UpdateRequest $request
      * @param CommitteeType $committeeType
      * @return CommitteeTypeResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, CommitteeType $committeeType)
     {
+        $this->authorize('update', $committeeType);
+
         $committeeType = $this->committeeTypeRepository->update($committeeType, $request->all());
 
         return new CommitteeTypeResource($committeeType);
@@ -84,9 +96,12 @@ class CommitteeTypeController extends Controller
      *
      * @param CommitteeType $committeeType
      * @return \Illuminate\Http\Response
+     * @throws AuthorizationException
      */
     public function destroy(CommitteeType $committeeType)
     {
+        $this->authorize('destroy', $committeeType);
+
         $this->committeeTypeRepository->delete($committeeType);
 
         return response()->json(null, 204);

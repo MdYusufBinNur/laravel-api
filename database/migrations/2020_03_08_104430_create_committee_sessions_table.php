@@ -19,8 +19,8 @@ class CreateCommitteeSessionsTable extends Migration
             $table->integer('propertyId')->unsigned();
             $table->integer('committeeTypeId')->unsigned()->nullable();
             $table->string('sessionName');
-            $table->date('startedDate');
-            $table->date('endedDate');
+            $table->date('startedDate')->nullable();;
+            $table->date('endedDate')->nullable();;
             $table->timestamps();
             $table->softDeletes();
 

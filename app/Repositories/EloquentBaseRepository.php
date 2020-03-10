@@ -79,7 +79,7 @@ class EloquentBaseRepository implements BaseRepository
             return $item;
         }
 
-        $queryBuilder =  $this->model->where($criteria);
+        $queryBuilder = $this->model->where($criteria);
 
         if ($withTrashed) {
             $queryBuilder->withTrashed();
@@ -216,6 +216,14 @@ class EloquentBaseRepository implements BaseRepository
 
             // update only fillAble properties
             if (in_array($key, $fillAbleProperties)) {
+
+                // propertyId can't be updated, though super admin can in a special case
+                if ($key == 'propertyId') {
+                    if (!$this->getLoggedInUser()->isSuperAdmin()) {
+                        continue;
+                    }
+                }
+
                 $model->$key = $value;
             }
         }
@@ -257,7 +265,7 @@ class EloquentBaseRepository implements BaseRepository
     /**
      * @inheritdoc
      */
-    public function patch(array $searchCriteria, array $data) : \ArrayAccess
+    public function patch(array $searchCriteria, array $data): \ArrayAccess
     {
         //remove this repository related cache
         $this->removeThisClassCache();
@@ -289,7 +297,8 @@ class EloquentBaseRepository implements BaseRepository
         $queryBuilder,
         array $searchCriteria = [],
         string $operator = '='
-    ) {
+    )
+    {
         unset($searchCriteria['include'], $searchCriteria['eagerLoad'], $searchCriteria['rawOrder'], $searchCriteria['detailed'], $searchCriteria['withOutPagination']); //don't need that field for query. only needed for transformer.
 
         // remove propertyId, if it is not in table
@@ -342,12 +351,12 @@ class EloquentBaseRepository implements BaseRepository
      */
     public function applySearchInJsonField($queryBuilder, $fieldName, $values)
     {
-        $valuesArray =  is_string($values) ? explode(',', $values) : $values;
+        $valuesArray = is_string($values) ? explode(',', $values) : $values;
 
-        $queryBuilder = $queryBuilder->where(function ($query) use ($fieldName, $valuesArray, $queryBuilder){
-            foreach ($valuesArray  as $key => $value) {
+        $queryBuilder = $queryBuilder->where(function ($query) use ($fieldName, $valuesArray, $queryBuilder) {
+            foreach ($valuesArray as $key => $value) {
                 if ($key === 0) {
-                   $query->whereJsonContains($fieldName, [(int)$value]);
+                    $query->whereJsonContains($fieldName, [(int)$value]);
                 } else {
                     $query->orWhereJsonContains($fieldName, [(int)$value]);
                 }
@@ -416,7 +425,7 @@ class EloquentBaseRepository implements BaseRepository
      * @param array $options
      * @return LengthAwarePaginator
      */
-    protected function paginateData($items, $perPage = 15, $page = null, array $options = []) : LengthAwarePaginator
+    protected function paginateData($items, $perPage = 15, $page = null, array $options = []): LengthAwarePaginator
     {
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
         $items = $items instanceof Collection ? $items : Collection::make($items);
@@ -442,7 +451,7 @@ class EloquentBaseRepository implements BaseRepository
         if ($this->oldModel instanceof \ArrayAccess) {
             $options['oldModel'] = $this->oldModel;
         }
-        
+
         return array_merge($options, $additionalData);
     }
 }

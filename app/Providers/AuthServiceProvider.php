@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\DbModels\Admin;
 use App\DbModels\Announcement;
 use App\DbModels\Attachment;
+use App\DbModels\Committee;
 use App\DbModels\CommitteeHierarchy;
 use App\DbModels\CommitteeSession;
 use App\DbModels\CommitteeType;
@@ -105,6 +106,7 @@ use App\Policies\AdminPolicy;
 use App\Policies\AnnouncementPolicy;
 use App\Policies\AttachementPolicy;
 use App\Policies\CommitteeHierarchyPolicy;
+use App\Policies\CommitteePolicy;
 use App\Policies\CommitteeSessionPolicy;
 use App\Policies\CommitteeTypePolicy;
 use App\Policies\CompanyPolicy;
@@ -220,6 +222,7 @@ class AuthServiceProvider extends ServiceProvider
         CommitteeType::class => CommitteeTypePolicy::class,
         CommitteeHierarchy::class => CommitteeHierarchyPolicy::class,
         CommitteeSession::class => CommitteeSessionPolicy::class,
+        Committee::class => CommitteePolicy::class,
         EnterpriseUser::class => EnterpriseUserPolicy::class,
         EnterpriseUserProperty::class => EnterpriseUserPropertyPolicy::class,
         Equipment::class => EquipmentPolicy::class,

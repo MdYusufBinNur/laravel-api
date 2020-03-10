@@ -250,7 +250,7 @@ Route::group(['prefix' => 'api/v1'], function () {
          */
         Route::apiResource('committee-type', 'CommitteeTypeController');
         Route::apiResource('committee-session', 'CommitteeSessionController');
-        Route::apiResource('property-committee', 'PropertyCommitteeController');
+        Route::apiResource('committee', 'CommitteeController');
         Route::apiResource('committee-hierarchy', 'CommitteeHierarchyController');
     });
 

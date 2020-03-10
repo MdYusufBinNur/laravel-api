@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 
-class PropertyCommitteeResource extends Resource
+class CommitteeResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -18,7 +18,7 @@ class PropertyCommitteeResource extends Resource
             'propertyId' => $this->propertyId,
             'committeeTypeId' => $this->committeeTypeId,
             'committeeSessionId' => $this->committeeSessionId,
-            'committeeRankId' => $this->committeeRankId,
+            'committeeHierarchyId' => $this->committeeHierarchyId,
             'userId' => $this->userId,
             'name' => $this->name,
             'created_at' => $this->created_at,

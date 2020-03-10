@@ -15,8 +15,7 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
-            'createdByUserId' => 'list:numeric',
-            'propertyId' => 'list:numeric',
+            'propertyId' => 'required|numeric',
             'committeeTypeId' => 'list:numeric',
             'sessionName' => 'string',
             'startedDate' => 'date_format:Y-m-d',

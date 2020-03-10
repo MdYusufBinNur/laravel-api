@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\PropertyCommittee;
+namespace App\Http\Requests\Committee;
 
 use App\Http\Requests\Request;
 
@@ -14,13 +14,12 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'createdByUserId' => 'exists:users,id',
             'propertyId' => 'required|exists:properties,id',
             'committeeTypeId' => 'exists:committee_types,id',
             'committeeSessionId' => 'exists:committee_sessions,id',
-            'committeeRankId' => 'numeric',
-            'userId' => 'required|exists:users,id',
-            'name' => 'string|max:255',
+            'committeeHierarchyId' => 'exists:committee_hierarchies,id',
+            'userId' => 'required_without:name|exists:users,id',
+            'name' => 'required_without:userId|string|max:255',
         ];
     }
 }

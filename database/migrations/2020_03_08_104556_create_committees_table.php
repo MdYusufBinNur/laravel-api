@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePropertyCommitteesTable extends Migration
+class CreateCommitteesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreatePropertyCommitteesTable extends Migration
      */
     public function up()
     {
-        Schema::create('property_committees', function (Blueprint $table) {
+        Schema::create('committees', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->integer('propertyId')->unsigned();
             $table->integer('committeeTypeId')->unsigned()->nullable();
             $table->integer('committeeSessionId')->unsigned()->nullable();
-            $table->integer('committeeRankId')->unsigned();
+            $table->integer('committeeHierarchyId')->unsigned()->nullable();;
             $table->integer('userId')->unsigned();
             $table->string('name');
             $table->timestamps();
@@ -37,6 +37,11 @@ class CreatePropertyCommitteesTable extends Migration
 
             $table->foreign('committeeSessionId')
                 ->references('id')->on('committee_sessions')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('committeeHierarchyId')
+                ->references('id')->on('committee_hierarchies')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });

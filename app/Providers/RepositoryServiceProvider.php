@@ -31,7 +31,7 @@ use App\DbModels\LdsSlide;
 use App\DbModels\LdsSlideProperty;
 use App\DbModels\Manager;
 use App\DbModels\ManagerInvitation;
-use App\DbModels\PropertyCommittee;
+use App\DbModels\Committee;
 use App\DbModels\StaffTimeClockDevice;
 use App\DbModels\TimeClockDevice;
 use App\DbModels\Message;
@@ -91,7 +91,6 @@ use App\DbModels\ServiceRequestCategory;
 use App\DbModels\ServiceRequestLog;
 use App\DbModels\ServiceRequestMessage;
 use App\DbModels\ServiceRequestOfficeDetail;
-use App\DbModels\ServiceRequestStatus;
 use App\DbModels\StaffTimeClock;
 use App\DbModels\Tower;
 use App\DbModels\Unit;
@@ -109,7 +108,6 @@ use App\DbModels\UserRole;
 use App\DbModels\Visitor;
 use App\DbModels\VisitorArchive;
 use App\DbModels\VisitorType;
-use App\Http\Resources\CommitteeTypeResource;
 use App\Repositories\Contracts\AdminRepository;
 use App\Repositories\Contracts\AnnouncementRepository;
 use App\Repositories\Contracts\AttachmentRepository;
@@ -138,7 +136,7 @@ use App\Repositories\Contracts\LdsSettingRepository;
 use App\Repositories\Contracts\LdsSlidePropertyRepository;
 use App\Repositories\Contracts\LdsSlideRepository;
 use App\Repositories\Contracts\ManagerRepository;
-use App\Repositories\Contracts\PropertyCommitteeRepository;
+use App\Repositories\Contracts\CommitteeRepository;
 use App\Repositories\Contracts\StaffTimeClockDeviceRepository;
 use App\Repositories\Contracts\TimeClockDeviceRepository;
 use App\Repositories\Contracts\MangerInvitationRepository;
@@ -194,7 +192,6 @@ use App\Repositories\Contracts\ServiceRequestLogRepository;
 use App\Repositories\Contracts\ServiceRequestMessageRepository;
 use App\Repositories\Contracts\ServiceRequestOfficeDetailRepository;
 use App\Repositories\Contracts\ServiceRequestRepository;
-use App\Repositories\Contracts\ServiceRequestStatusRepository;
 use App\Repositories\Contracts\StaffTimeClockRepository;
 use App\Repositories\Contracts\UserNotificationRepository;
 use App\Repositories\Contracts\UserNotificationSettingRepository;
@@ -237,7 +234,7 @@ use App\Repositories\EloquentLdsSettingRepository;
 use App\Repositories\EloquentLdsSlidePropertyRepository;
 use App\Repositories\EloquentLdsSlideRepository;
 use App\Repositories\EloquentManagerRepository;
-use App\Repositories\EloquentPropertyCommitteeRepository;
+use App\Repositories\EloquentCommitteeRepository;
 use App\Repositories\EloquentStaffTimeClockDeviceRepository;
 use App\Repositories\EloquentTimeClockDeviceRepository;
 use App\Repositories\EloquentMangerInvitationRepository;
@@ -297,7 +294,6 @@ use App\Repositories\EloquentServiceRequestLogRepository;
 use App\Repositories\EloquentServiceRequestMessageRepository;
 use App\Repositories\EloquentServiceRequestOfficeDetailRepository;
 use App\Repositories\EloquentServiceRequestRepository;
-use App\Repositories\EloquentServiceRequestStatusRepository;
 use App\Repositories\EloquentStaffTimeClockRepository;
 use App\Repositories\EloquentUnitRepository;
 use App\Repositories\Contracts\PropertyRepository;
@@ -553,11 +549,6 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind ServiceRequestOfficeDetailRepository
         $this->app->bind(ServiceRequestOfficeDetailRepository::class, function() {
             return new EloquentServiceRequestOfficeDetailRepository(new ServiceRequestOfficeDetail());
-        });
-
-        // bind ServiceRequestStatusRepository
-        $this->app->bind(ServiceRequestStatusRepository::class, function() {
-            return new EloquentServiceRequestStatusRepository(new ServiceRequestStatus());
         });
 
         // bind UserNotificationSettingRepository
@@ -870,9 +861,9 @@ class RepositoryServiceProvider extends ServiceProvider
             return new EloquentCommitteeSessionRepository(new CommitteeSession());
         });
 
-        // bind PropertyCommitteeRepository
-        $this->app->bind(PropertyCommitteeRepository::class, function() {
-            return new EloquentPropertyCommitteeRepository(new PropertyCommittee());
+        // bind CommitteeRepository
+        $this->app->bind(CommitteeRepository::class, function() {
+            return new EloquentCommitteeRepository(new Committee());
         });
 
         // bind CommitteeHierarchyRepository

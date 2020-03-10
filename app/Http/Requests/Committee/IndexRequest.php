@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\PropertyCommittee;
+namespace App\Http\Requests\Committee;
 
 use App\Http\Requests\Request;
 
@@ -15,11 +15,10 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
-            'createdByUserId' => 'list:numeric',
-            'propertyId' => 'list:numeric',
+            'propertyId' => 'required|numeric',
             'committeeTypeId' => 'list:numeric',
             'committeeSessionId' => 'list:numeric',
-            'committeeRankId' => 'numeric',
+            'committeeHierarchyId' => 'list:numeric',
             'userId' => 'numeric',
             'name' => 'string',
         ];

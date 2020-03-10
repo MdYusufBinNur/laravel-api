@@ -2,12 +2,12 @@
 
 namespace App\Policies;
 
-use App\DbModels\CommitteeType;
+use App\DbModels\Committee;
 use App\DbModels\Module;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CommitteeTypePolicy
+class CommitteePolicy
 {
     use HandlesAuthorization, ValidateModules;
 
@@ -53,7 +53,7 @@ class CommitteeTypePolicy
      */
     public function store(User $currentUser, int $propertyId)
     {
-        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -64,12 +64,12 @@ class CommitteeTypePolicy
      * Determine if a given user has permission to show
      *
      * @param User $currentUser
-     * @param CommitteeType $committeeType
+     * @param Committee $committee
      * @return bool
      */
-    public function show(User $currentUser, CommitteeType $committeeType)
+    public function show(User $currentUser, Committee $committee)
     {
-        if ($currentUser->isUserOfTheProperty($committeeType->propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($committee->propertyId)) {
             return true;
         }
 
@@ -80,12 +80,12 @@ class CommitteeTypePolicy
      * Determine if a given user can update
      *
      * @param User $currentUser
-     * @param CommitteeType $committeeType
+     * @param Committee $committee
      * @return bool
      */
-    public function update(User $currentUser, CommitteeType $committeeType)
+    public function update(User $currentUser, Committee $committee)
     {
-        if ($currentUser->upToPriorityStaffOfTheProperty($committeeType->propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($committee->propertyId)) {
             return true;
         }
 
@@ -96,12 +96,12 @@ class CommitteeTypePolicy
      * Determine if a given user can delete
      *
      * @param User $currentUser
-     * @param CommitteeType $committeeType
+     * @param Committee $committee
      * @return bool
      */
-    public function destroy(User $currentUser, CommitteeType $committeeType)
+    public function destroy(User $currentUser, Committee $committee)
     {
-        if ($currentUser->upToPriorityStaffOfTheProperty($committeeType->propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($committee->propertyId)) {
             return true;
         }
 

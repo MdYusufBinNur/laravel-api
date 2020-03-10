@@ -16,6 +16,9 @@ class CommitteeTypeResource extends Resource
         return [
             'id' => $this->id,
             'propertyId' => $this->propertyId,
+            'property' => $this->when($this->needToInclude($request, 'ct.property'), function () {
+                return new PropertyResource($this->property);
+            }),
             'title' => $this->title,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

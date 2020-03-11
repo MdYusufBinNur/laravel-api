@@ -31,8 +31,8 @@ class CreateCustomersTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->foreign('committeeTypeId')
-                ->references('id')->on('committee_types')
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });

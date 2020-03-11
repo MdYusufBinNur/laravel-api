@@ -9,6 +9,7 @@ use App\DbModels\CommitteeHierarchy;
 use App\DbModels\CommitteeSession;
 use App\DbModels\CommitteeType;
 use App\DbModels\Company;
+use App\DbModels\Customer;
 use App\DbModels\EnterpriseUser;
 use App\DbModels\EnterpriseUserProperty;
 use App\DbModels\Equipment;
@@ -105,6 +106,7 @@ use App\DbModels\UserProfilePost;
 use App\DbModels\UserPropertyManager;
 use App\DbModels\UserPropertyResident;
 use App\DbModels\UserRole;
+use App\DbModels\Vendor;
 use App\DbModels\Visitor;
 use App\DbModels\VisitorArchive;
 use App\DbModels\VisitorType;
@@ -115,6 +117,7 @@ use App\Repositories\Contracts\CommitteeHierarchyRepository;
 use App\Repositories\Contracts\CommitteeSessionRepository;
 use App\Repositories\Contracts\CommitteeTypeRepository;
 use App\Repositories\Contracts\CompanyRepository;
+use App\Repositories\Contracts\CustomerRepository;
 use App\Repositories\Contracts\EnterpriseUserPropertyRepository;
 use App\Repositories\Contracts\EnterpriseUserRepository;
 use App\Repositories\Contracts\EquipmentRepository;
@@ -204,6 +207,7 @@ use App\Repositories\Contracts\UserPropertyManagerRepository;
 use App\Repositories\Contracts\UserPropertyResidentRepository;
 use App\Repositories\Contracts\UserRepository;
 use App\Repositories\Contracts\UserRoleRepository;
+use App\Repositories\Contracts\VendorRepository;
 use App\Repositories\Contracts\VisitorArchiveRepository;
 use App\Repositories\Contracts\VisitorRepository;
 use App\Repositories\Contracts\VisitorTypeRepository;
@@ -213,6 +217,7 @@ use App\Repositories\EloquentAttachmentRepository;
 use App\Repositories\EloquentCommitteeHierarchyRepository;
 use App\Repositories\EloquentCommitteeSessionRepository;
 use App\Repositories\EloquentCommitteeTypeRepository;
+use App\Repositories\EloquentCustomerRepository;
 use App\Repositories\EloquentEnterpriseUserPropertyRepository;
 use App\Repositories\EloquentEnterpriseUserRepository;
 use App\Repositories\EloquentEquipmentRepository;
@@ -317,6 +322,7 @@ use App\Repositories\EloquentUserPropertyManagerRepository;
 use App\Repositories\EloquentUserPropertyResidentRepository;
 use App\Repositories\EloquentUserRepository;
 use App\Repositories\EloquentUserRoleRepository;
+use App\Repositories\EloquentVendorRepository;
 use App\Repositories\EloquentVisitorArchiveRepository;
 use App\Repositories\EloquentVisitorRepository;
 use App\Repositories\EloquentVisitorTypeRepository;
@@ -869,6 +875,16 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind CommitteeHierarchyRepository
         $this->app->bind(CommitteeHierarchyRepository::class, function() {
             return new EloquentCommitteeHierarchyRepository(new CommitteeHierarchy());
+        });
+
+        // bind CustomerRepository
+        $this->app->bind(CustomerRepository::class, function() {
+            return new EloquentCustomerRepository(new Customer());
+        });
+
+        // bind VendorRepository
+        $this->app->bind(VendorRepository::class, function() {
+            return new EloquentVendorRepository(new Vendor());
         });
     }
 }

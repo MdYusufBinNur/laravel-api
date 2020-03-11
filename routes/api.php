@@ -252,6 +252,12 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('committee-session', 'CommitteeSessionController');
         Route::apiResource('committee', 'CommitteeController');
         Route::apiResource('committee-hierarchy', 'CommitteeHierarchyController');
+
+        /**
+         * Related to Customer and Vendore
+         */
+        Route::apiResource('customer', 'CustomerController');
+        Route::apiResource('vendor', 'VendorController');
     });
 
     //route without authentication

@@ -14,6 +14,7 @@ class Vendor extends Model
         'phone',
         'address',
         'website',
-        'note',
+        'billingInfo',
+        'additionalNote',
     ];
 }

@@ -9,6 +9,7 @@ use App\Http\Requests\ExpenseCategory\UpdateRequest;
 use App\Http\Resources\ExpenseCategoryResource;
 use App\Http\Resources\ExpenseCategoryResourceCollection;
 use App\Repositories\Contracts\ExpenseCategoryRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class ExpenseCategoryController extends Controller
 {
@@ -34,6 +35,8 @@ class ExpenseCategoryController extends Controller
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [ExpenseCategory::class, $request->get('propertyId')]);
+
         $expenseCategories = $this->expenseCategoryRepository->findBy($request->all());
 
         return new ExpenseCategoryResourceCollection($expenseCategories);
@@ -44,9 +47,12 @@ class ExpenseCategoryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return ExpenseCategoryResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [ExpenseCategory::class, $request->get('propertyId')]);
+
         $expenseCategory = $this->expenseCategoryRepository->save($request->all());
 
         return new ExpenseCategoryResource($expenseCategory);
@@ -57,9 +63,12 @@ class ExpenseCategoryController extends Controller
      *
      * @param ExpenseCategory $expenseCategory
      * @return ExpenseCategoryResource
+     * @throws AuthorizationException
      */
     public function show(ExpenseCategory $expenseCategory)
     {
+        $this->authorize('show', $expenseCategory);
+
         return new ExpenseCategoryResource($expenseCategory);
     }
 
@@ -69,9 +78,12 @@ class ExpenseCategoryController extends Controller
      * @param UpdateRequest $request
      * @param ExpenseCategory $expenseCategory
      * @return ExpenseCategoryResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, ExpenseCategory $expenseCategory)
     {
+        $this->authorize('update', $expenseCategory);
+
         $expenseCategory = $this->expenseCategoryRepository->update($expenseCategory, $request->all());
 
         return new ExpenseCategoryResource($expenseCategory);
@@ -82,9 +94,12 @@ class ExpenseCategoryController extends Controller
      *
      * @param ExpenseCategory $expenseCategory
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(ExpenseCategory $expenseCategory)
     {
+        $this->authorize('destroy', $expenseCategory);
+
         $this->expenseCategoryRepository->delete($expenseCategory);
 
         return response()->json(null, 204);

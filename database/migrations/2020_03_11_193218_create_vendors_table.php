@@ -22,7 +22,8 @@ class CreateVendorsTable extends Migration
             $table->string('phone', 20)->nullable();
             $table->string('address')->nullable();
             $table->string('website')->nullable();
-            $table->text('note')->nullable();
+            $table->text('billingInfo')->nullable();
+            $table->text('additionalNote')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

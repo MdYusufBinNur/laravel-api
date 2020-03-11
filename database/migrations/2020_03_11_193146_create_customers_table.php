@@ -22,7 +22,7 @@ class CreateCustomersTable extends Migration
             $table->string('address')->nullable();
             $table->string('website')->nullable();
             $table->text('billingInfo')->nullable();
-            $table->string('additionalNote')->nullable();
+            $table->text('additionalNote')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

@@ -24,7 +24,7 @@ class PaymentItemPolicy
             return true;
         }
 
-        if (!$this->isModuleActiveForTheProperty(Module::MODULE_PARKING_PASS)) {
+        if (!$this->isModuleActiveForTheProperty(Module::MODULE_PAYMENT_CENTER)) {
             return false;
         }
     }

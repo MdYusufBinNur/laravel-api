@@ -23,7 +23,6 @@ class IndexRequest extends Request
             'phone' => 'string',
             'address' => 'string',
             'website' => 'string',
-            'note' => 'string',
         ];
     }
 }

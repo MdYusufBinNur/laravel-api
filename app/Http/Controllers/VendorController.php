@@ -9,6 +9,7 @@ use App\Http\Requests\Vendor\UpdateRequest;
 use App\Http\Resources\VendorResource;
 use App\Http\Resources\VendorResourceCollection;
 use App\Repositories\Contracts\VendorRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class VendorController extends Controller
 {
@@ -31,9 +32,12 @@ class VendorController extends Controller
      *
      * @param IndexRequest $request
      * @return VendorResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [Vendor::class, $request->get('propertyId')]);
+
         $vendors = $this->vendorRepository->findBy($request->all());
 
         return new VendorResourceCollection($vendors);
@@ -44,9 +48,12 @@ class VendorController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return VendorResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [Vendor::class, $request->get('propertyId')]);
+
         $vendor = $this->vendorRepository->save($request->all());
 
         return new VendorResource($vendor);
@@ -57,9 +64,12 @@ class VendorController extends Controller
      *
      * @param Vendor $vendor
      * @return VendorResource
+     * @throws AuthorizationException
      */
     public function show(Vendor $vendor)
     {
+        $this->authorize('show', $vendor);
+
         return new VendorResource($vendor);
     }
 
@@ -69,9 +79,12 @@ class VendorController extends Controller
      * @param UpdateRequest $request
      * @param Vendor $vendor
      * @return VendorResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, Vendor $vendor)
     {
+        $this->authorize('update', $vendor);
+
         $vendor = $this->vendorRepository->update($vendor, $request->all());
 
         return new VendorResource($vendor);
@@ -82,9 +95,12 @@ class VendorController extends Controller
      *
      * @param Vendor $vendor
      * @return \Illuminate\Http\Response
+     * @throws AuthorizationException
      */
     public function destroy(Vendor $vendor)
     {
+        $this->authorize('detroy', $vendor);
+
         $this->vendorRepository->delete($vendor);
 
         return response()->json(null, 204);

@@ -14,15 +14,13 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'createdByUserId' => 'exists:users,id',
-            'propertyId' => 'exists:properties,id',
             'name' => 'max:255',
             'email' => 'max:255',
             'phone' => 'max:20',
             'address' => 'max:255',
             'website' => 'max:255',
-            'billingInfo' => 'max:255',
-            'additionalNote' => 'max:255',
+            'billingInfo' => 'max:65535',
+            'additionalNote' => 'max:65535',
         ];
     }
 }

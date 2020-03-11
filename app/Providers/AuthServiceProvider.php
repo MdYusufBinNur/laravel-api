@@ -10,6 +10,7 @@ use App\DbModels\CommitteeHierarchy;
 use App\DbModels\CommitteeSession;
 use App\DbModels\CommitteeType;
 use App\DbModels\Company;
+use App\DbModels\Customer;
 use App\DbModels\EnterpriseUser;
 use App\DbModels\EnterpriseUserProperty;
 use App\DbModels\Equipment;
@@ -99,6 +100,7 @@ use App\DbModels\UserProfilePost;
 use App\DbModels\UserPropertyManager;
 use App\DbModels\UserPropertyResident;
 use App\DbModels\UserRole;
+use App\DbModels\Vendor;
 use App\DbModels\Visitor;
 use App\DbModels\VisitorArchive;
 use App\DbModels\VisitorType;
@@ -110,6 +112,7 @@ use App\Policies\CommitteePolicy;
 use App\Policies\CommitteeSessionPolicy;
 use App\Policies\CommitteeTypePolicy;
 use App\Policies\CompanyPolicy;
+use App\Policies\CustomerPolicy;
 use App\Policies\EnterpriseUserPolicy;
 use App\Policies\EnterpriseUserPropertyPolicy;
 use App\Policies\EquipmentPolicy;
@@ -199,6 +202,7 @@ use App\Policies\UserProfilePostPolicy;
 use App\Policies\UserPropertyManagerPolicy;
 use App\Policies\UserPropertyResidentPolicy;
 use App\Policies\UserRolePolicy;
+use App\Policies\VendorPolicy;
 use App\Policies\VisitorArchivePolicy;
 use App\Policies\VisitorPolicy;
 use App\Policies\VisitorTypePolicy;
@@ -218,6 +222,7 @@ class AuthServiceProvider extends ServiceProvider
         Admin::class => AdminPolicy::class,
         Announcement::class => AnnouncementPolicy::class,
         Attachment::class => AttachementPolicy::class,
+        Customer::class => CustomerPolicy::class,
         Company::class => CompanyPolicy::class,
         CommitteeType::class => CommitteeTypePolicy::class,
         CommitteeHierarchy::class => CommitteeHierarchyPolicy::class,
@@ -312,6 +317,7 @@ class AuthServiceProvider extends ServiceProvider
         UserPropertyManager::class => UserPropertyManagerPolicy::class,
         UserPropertyResident::class => UserPropertyResidentPolicy::class,
         UserRole::class => UserRolePolicy::class,
+        Vendor::class => VendorPolicy::class,
         VisitorArchive::class => VisitorArchivePolicy::class,
         Visitor::class => VisitorPolicy::class,
         VisitorType::class => VisitorTypePolicy::class,

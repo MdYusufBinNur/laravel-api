@@ -22,7 +22,8 @@ class VendorResource extends Resource
             'phone' => $this->phone,
             'address' => $this->address,
             'website' => $this->website,
-            'note' => $this->note,
+            'billingInfo' => $this->additionalNote,
+            'additionalNote' => $this->additionalNote,
         ];
     }
 }

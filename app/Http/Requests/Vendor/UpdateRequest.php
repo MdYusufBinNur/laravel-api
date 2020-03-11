@@ -21,7 +21,8 @@ class UpdateRequest extends Request
             'phone' => 'max:20',
             'address' => 'max:255',
             'website' => 'max:255',
-            'note' => 'max:255',
+            'billingInfo' => 'max:65535',
+            'additionalNote' => 'max:65535',
         ];
     }
 }

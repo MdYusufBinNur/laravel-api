@@ -254,7 +254,7 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('committee-hierarchy', 'CommitteeHierarchyController');
 
         /**
-         * Related to Customer and Vendore
+         * Related to Customer and Vendors
          */
         Route::apiResource('customer', 'CustomerController');
         Route::apiResource('vendor', 'VendorController');

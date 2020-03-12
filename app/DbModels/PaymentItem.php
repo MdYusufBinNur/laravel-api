@@ -26,8 +26,10 @@ class PaymentItem extends Model
         'propertyId',
         'userId',
         'unitId',
+        'vendorId',
+        'customerId',
         'status',
-        'note'
+        'note',
     ];
 
     protected $attributes = [
@@ -82,6 +84,26 @@ class PaymentItem extends Model
     public function unit()
     {
         return $this->hasOne(Unit::class, 'id', 'unitId');
+    }
+
+    /**
+     * get the vendor
+     *
+     * @return HasOne
+     */
+    public function vendor()
+    {
+        return $this->hasOne(Vendor::class, 'id', 'vendorId');
+    }
+
+    /**
+     * get the customer
+     *
+     * @return HasOne
+     */
+    public function customer()
+    {
+        return $this->hasOne(Customer::class, 'id', 'customerId');
     }
 
     /**

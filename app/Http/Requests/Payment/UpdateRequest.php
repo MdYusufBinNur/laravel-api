@@ -25,6 +25,8 @@ class UpdateRequest extends Request
             'dueDays' => 'numeric',
             'toUserIds' => [new ListOfIds('users', 'id')],
             'toUnitIds' => [new ListOfIds('units', 'id', ['all_units'])],
+            'toVendorIds' => [new ListOfIds('vendors', 'id')],
+            'toCustomerIds' => [new ListOfIds('customers', 'id')],
             'activationDate' => 'date_format:Y-m-d',
             'isRecurring' => 'boolean',
             'expireDate' => 'required_if:isRecurring,1' . '|date_format:Y-m-d',

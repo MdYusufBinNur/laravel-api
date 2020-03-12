@@ -18,7 +18,7 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = ['pi.createdByUser' => 'createdByUser', 'pi.property' => 'property',  'pi.payment' => 'payment', 'pi.user' => 'user', 'pi.paymentItemLogs' => 'paymentItemLogs'];
+        $searchCriteria['eagerLoad'] = ['pi.createdByUser' => 'createdByUser', 'pi.property' => 'property',  'pi.payment' => 'payment', 'pi.user' => 'user', 'pi.unit' => 'unit', 'pi.vendor' => 'vendor', 'pi.customer' => 'customer', 'pi.paymentItemLogs' => 'paymentItemLogs'];
 
         if (empty($searchCriteria['unitId'])) {
             $loggedInUser = $this->getLoggedInUser();
@@ -74,10 +74,28 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
             }
 
             if (!empty($payment->toUnitIds)) {
-                $unitIds = $this->getAllUnitIds($payment);
+                $vendorIds = $this->getAllUnitIds($payment);
 
-                foreach ($unitIds as $unitId) {
+                foreach ($vendorIds as $unitId) {
                     $data['unitId'] = $unitId;
+                    $this->savePaymentItem($payment, $data);
+                }
+            }
+
+            if (!empty($payment->toCustomerIds)) {
+                $customerIds = $payment->toCustomerIds;
+
+                foreach ($customerIds as $customerId) {
+                    $data['customerId'] = $customerId;
+                    $this->savePaymentItem($payment, $data);
+                }
+            }
+
+            if (!empty($payment->toVendorIds)) {
+                $vendorIds = $payment->toVendorIds;
+
+                foreach ($vendorIds as $vendorId) {
+                    $data['vendorId'] = $vendorId;
                     $this->savePaymentItem($payment, $data);
                 }
             }

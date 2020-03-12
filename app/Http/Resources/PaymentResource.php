@@ -42,6 +42,8 @@ class PaymentResource extends Resource
             'activationDate' => $this->activationDate,
             'toUserIds' => $this->toUserIds,
             'toUnitIds' => $this->toUnitIds,
+            'toVendorIds' => $this->toVendorIds,
+            'toCustomerIds' => $this->toCustomerIds,
             'paymentItems' => $this->when($this->needToInclude($request, 'payment.paymentItems'), function () {
                 return new PaymentItemResourceCollection($this->paymentItems);
             }),

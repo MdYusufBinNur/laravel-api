@@ -39,6 +39,8 @@ class Payment extends Model
         'status',
         'toUserIds',
         'toUnitIds',
+        'toCustomerIds',
+        'toVendorIds',
         'activationDate'
     ];
 
@@ -97,6 +99,46 @@ class Payment extends Model
     public function getToUnitIdsAttribute()
     {
         return isset($this->attributes['toUnitIds']) ? json_decode($this->attributes['toUnitIds']) : [];
+    }
+
+    /**
+     * toCustomerIds setter
+     *
+     * @param $toCustomerIds
+     */
+    public function setToCustomerIdsAttribute($toCustomerIds)
+    {
+        $toCustomerIds = array_map('intval', $toCustomerIds);
+
+        $this->attributes['toCustomerIds'] = json_encode($toCustomerIds);
+    }
+
+    /**
+     * toCustomerIds getter
+     */
+    public function getToCustomerIdsAttribute()
+    {
+        return isset($this->attributes['toCustomerIds']) ? json_decode($this->attributes['toCustomerIds']) : [];
+    }
+
+    /**
+     * toVendorIds setter
+     *
+     * @param $toVendorIds
+     */
+    public function setToVendorIdsAttribute($toVendorIds)
+    {
+        $toVendorIds = array_map('intval', $toVendorIds);
+
+        $this->attributes['toVendorIds'] = json_encode($toVendorIds);
+    }
+
+    /**
+     * toVendorIds getter
+     */
+    public function getToVendorIdsAttribute()
+    {
+        return isset($this->attributes['toVendorIds']) ? json_decode($this->attributes['toVendorIds']) : [];
     }
 
     /**

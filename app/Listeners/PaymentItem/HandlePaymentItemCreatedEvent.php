@@ -76,10 +76,26 @@ class HandlePaymentItemCreatedEvent implements ShouldQueue
                 $this->savePaymentNotification($payment->createdByUserId, $user->id, $paymentItem->id);
                 Mail::to($resident->contactEmail)->send(new SendInvoice($paymentItem, $user->name));
             }
-        } else {
+        }
+
+        if (!empty($paymentItem->userId)) {
             $user = $paymentItem->user;
             $this->savePaymentNotification($payment->createdByUserId, $user->id, $paymentItem->id);
             Mail::to($user->email)->send(new SendInvoice($paymentItem, $user->name));
+        }
+
+        if (!empty($paymentItem->vendorId)) {
+            $customer = $paymentItem->vendor;
+            if ($customer->email) {
+                Mail::to($customer->email)->send(new SendInvoice($paymentItem, $customer->name));
+            }
+        }
+
+        if (!empty($paymentItem->customerId)) {
+            $customer = $paymentItem->customer;
+            if ($customer->email) {
+                Mail::to($customer->email)->send(new SendInvoice($paymentItem, $customer->name));
+            }
         }
     }
 

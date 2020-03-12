@@ -30,6 +30,14 @@ class PaymentItemResource extends Resource
             'unit' => $this->when($this->needToInclude($request, 'pi.unit'), function () {
                 return new UnitResource($this->unit);
             }),
+            'vendorId' => $this->vendorId,
+            'vendor' => $this->when($this->needToInclude($request, 'pi.vendor'), function () {
+                return new VendorResource($this->vendor);
+            }),
+            'customerId' => $this->customerId,
+            'customer' => $this->when($this->needToInclude($request, 'pi.customer'), function () {
+                return new CustomerResource($this->customer);
+            }),
             'status' => $this->status,
             'note' => $this->note,
             'created_at' => $this->created_at,

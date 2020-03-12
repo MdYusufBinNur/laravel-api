@@ -36,6 +36,16 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
 
         };
 
+        if (!empty($searchCriteria['toVendorIds'])) {
+            $queryBuilder = $this->applySearchInJsonField($queryBuilder, 'toVendorIds', $searchCriteria['toVendorIds']);
+            unset($searchCriteria['toVendorIds']);
+        };
+
+        if (!empty($searchCriteria['toCustomerIds'])) {
+            $queryBuilder = $this->applySearchInJsonField($queryBuilder, 'toCustomerIds', $searchCriteria['toVendorIds']);
+            unset($searchCriteria['toCustomerIds']);
+        };
+
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
@@ -46,7 +56,6 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
         $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';
         $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
         $queryBuilder->orderBy($orderBy, $orderDirection);
-        //$queryBuilder->dd();
 
         if (empty($searchCriteria['withOutPagination'])) {
             return $queryBuilder->paginate($limit);
@@ -113,7 +122,6 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
                     $paymentRecurringRepository->delete($paymentRecurring);
                 }
             }
-
         }
     }
 

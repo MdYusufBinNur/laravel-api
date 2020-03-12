@@ -16,10 +16,13 @@ use App\DbModels\EnterpriseUserProperty;
 use App\DbModels\Equipment;
 use App\DbModels\Event;
 use App\DbModels\EventSignup;
+use App\DbModels\Expense;
 use App\DbModels\Fdi;
 use App\DbModels\FdiGuestType;
 use App\DbModels\FdiLog;
 use App\DbModels\Feedback;
+use App\DbModels\Income;
+use App\DbModels\IncomeCategory;
 use App\DbModels\InventoryCategory;
 use App\DbModels\InventoryItem;
 use App\DbModels\InventoryItemLog;
@@ -118,10 +121,13 @@ use App\Policies\EnterpriseUserPropertyPolicy;
 use App\Policies\EquipmentPolicy;
 use App\Policies\EventPolicy;
 use App\Policies\EventSignupPolicy;
+use App\Policies\ExpensePolicy;
 use App\Policies\FdiGuestTypePolicy;
 use App\Policies\FdiLogPolicy;
 use App\Policies\FdiPolicy;
 use App\Policies\FeedbackPolicy;
+use App\Policies\IncomeCategoryPolicy;
+use App\Policies\IncomePolicy;
 use App\Policies\InventoryCategoryPolicy;
 use App\Policies\InventoryItemLogPolicy;
 use App\Policies\InventoryItemPolicy;
@@ -233,10 +239,13 @@ class AuthServiceProvider extends ServiceProvider
         Equipment::class => EquipmentPolicy::class,
         Event::class => EventPolicy::class,
         EventSignup::class => EventSignupPolicy::class,
+        Expense::class => ExpensePolicy::class,
         FdiGuestType::class => FdiGuestTypePolicy::class,
         FdiLog::class => FdiLogPolicy::class,
         Fdi::class => FdiPolicy::class,
         Feedback::class => FeedbackPolicy::class,
+        Income::class => IncomePolicy::class,
+        IncomeCategory::class => IncomeCategoryPolicy::class,
         InventoryCategory::class => InventoryCategoryPolicy::class,
         InventoryItemLog::class => InventoryItemLogPolicy::class,
         InventoryItem::class => InventoryItemPolicy::class,

@@ -10,6 +10,7 @@ use App\Http\Resources\ExpenseResource;
 use App\Http\Resources\ExpenseResourceCollection;
 use App\Repositories\Contracts\ExpenseRepository;
 use http\Env\Response;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
@@ -30,9 +31,12 @@ class ExpenseController extends Controller
      *
      * @param IndexRequest $request
      * @return ExpenseResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [Expense::class, $request->get('propertyId')]);
+
         $expenses = $this->expenseRepository->findBy($request->all());
 
         return new ExpenseResourceCollection($expenses);
@@ -43,9 +47,12 @@ class ExpenseController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return ExpenseResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [Expense::class, $request->get('propertyId')]);
+
         $expense = $this->expenseRepository->save($request->all());
 
         return new ExpenseResource($expense);
@@ -56,9 +63,12 @@ class ExpenseController extends Controller
      *
      * @param Expense $expense
      * @return ExpenseResource
+     * @throws AuthorizationException
      */
     public function show(Expense $expense)
     {
+        $this->authorize('show', $expense);
+
         return new ExpenseResource($expense);
     }
 
@@ -68,9 +78,12 @@ class ExpenseController extends Controller
      * @param UpdateRequest $request
      * @param Expense $expense
      * @return ExpenseResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, Expense $expense)
     {
+        $this->authorize('update', $expense);
+
         $expense = $this->expenseRepository->update($expense, $request->all());
 
         return new ExpenseResource($expense);
@@ -81,9 +94,12 @@ class ExpenseController extends Controller
      *
      * @param Expense $expense
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(Expense $expense)
     {
+        $this->authorize('destroy', $expense);
+
         $this->expenseRepository->delete($expense);
 
         return response()->json(null, 204);

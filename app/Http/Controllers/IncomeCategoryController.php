@@ -9,6 +9,7 @@ use App\Http\Requests\InventoryCategory\UpdateRequest;
 use App\Http\Resources\InventoryCategoryResource;
 use App\Http\Resources\InventoryCategoryResourceCollection;
 use App\Repositories\Contracts\IncomeCategoryRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class IncomeCategoryController extends Controller
 {
@@ -31,9 +32,12 @@ class IncomeCategoryController extends Controller
      *
      * @param IndexRequest $request
      * @return InventoryCategoryResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [IncomeCategory::class, $request->get('propertyId')]);
+
         $incomeCategories = $this->incomeCategoryRepository->findBy($request->all());
 
         return new InventoryCategoryResourceCollection($incomeCategories);
@@ -44,9 +48,12 @@ class IncomeCategoryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return InventoryCategoryResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [IncomeCategory::class, $request->get('propertyId')]);
+
         $incomeCategory = $this->incomeCategoryRepository->save($request->all());
 
         return new InventoryCategoryResource($incomeCategory);
@@ -57,9 +64,12 @@ class IncomeCategoryController extends Controller
      *
      * @param IncomeCategory $incomeCategory
      * @return InventoryCategoryResource
+     * @throws AuthorizationException
      */
     public function show(IncomeCategory $incomeCategory)
     {
+        $this->authorize('show', $incomeCategory);
+
         return new InventoryCategoryResource($incomeCategory);
     }
 
@@ -69,9 +79,12 @@ class IncomeCategoryController extends Controller
      * @param UpdateRequest $request
      * @param IncomeCategory $incomeCategory
      * @return InventoryCategoryResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, IncomeCategory $incomeCategory)
     {
+        $this->authorize('update', $incomeCategory);
+
         $incomeCategory = $this->incomeCategoryRepository->update($incomeCategory,$request->all());
 
         return new InventoryCategoryResource($incomeCategory);
@@ -82,9 +95,12 @@ class IncomeCategoryController extends Controller
      *
      * @param IncomeCategory $incomeCategory
      * @return \Illuminate\Http\Response
+     * @throws AuthorizationException
      */
     public function destroy(IncomeCategory $incomeCategory)
     {
+        $this->authorize('destroy', $incomeCategory);
+
         $this->incomeCategoryRepository->delete($incomeCategory);
 
         return response()->json(null, 204);

@@ -16,14 +16,13 @@ class IndexRequest extends Request
         return [
             'id' => 'list:numeric',
             'createdByUserId' => 'list:numeric',
-            'propertyId' => 'list:numeric',
+            'propertyId' => 'required|numeric',
             'name' => 'string',
             'email' => 'string',
             'phone' => 'string',
             'address' => 'string',
             'website' => 'string',
-            'billingInfo' => 'string',
-            'additionalNote' => 'string',
+            'query' => 'string',
         ];
     }
 }

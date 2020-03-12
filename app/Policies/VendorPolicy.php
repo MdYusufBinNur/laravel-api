@@ -46,6 +46,22 @@ class VendorPolicy
     }
 
     /**
+     * Determine if a given user has permission to list
+     *
+     * @param User $currentUser
+     * @param int $propertyId
+     * @return bool
+     */
+    public function store(User $currentUser, int $propertyId)
+    {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Determine if a given user has permission to show
      *
      * @param User $currentUser

@@ -33,6 +33,7 @@ use App\DbModels\LdsSlideProperty;
 use App\DbModels\Manager;
 use App\DbModels\ManagerInvitation;
 use App\DbModels\Committee;
+use App\DbModels\PaymentItemPartial;
 use App\DbModels\StaffTimeClockDevice;
 use App\DbModels\TimeClockDevice;
 use App\DbModels\Message;
@@ -140,6 +141,7 @@ use App\Repositories\Contracts\LdsSlidePropertyRepository;
 use App\Repositories\Contracts\LdsSlideRepository;
 use App\Repositories\Contracts\ManagerRepository;
 use App\Repositories\Contracts\CommitteeRepository;
+use App\Repositories\Contracts\PaymentItemPartialRepository;
 use App\Repositories\Contracts\StaffTimeClockDeviceRepository;
 use App\Repositories\Contracts\TimeClockDeviceRepository;
 use App\Repositories\Contracts\MangerInvitationRepository;
@@ -240,6 +242,7 @@ use App\Repositories\EloquentLdsSlidePropertyRepository;
 use App\Repositories\EloquentLdsSlideRepository;
 use App\Repositories\EloquentManagerRepository;
 use App\Repositories\EloquentCommitteeRepository;
+use App\Repositories\EloquentPaymentItemPartialRepository;
 use App\Repositories\EloquentStaffTimeClockDeviceRepository;
 use App\Repositories\EloquentTimeClockDeviceRepository;
 use App\Repositories\EloquentMangerInvitationRepository;
@@ -885,6 +888,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind VendorRepository
         $this->app->bind(VendorRepository::class, function() {
             return new EloquentVendorRepository(new Vendor());
+        });
+
+        // bind PaymentItemPartialRepository
+        $this->app->bind(PaymentItemPartialRepository::class, function() {
+            return new EloquentPaymentItemPartialRepository(new PaymentItemPartial());
         });
     }
 }

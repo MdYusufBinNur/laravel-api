@@ -238,6 +238,7 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('payment-item-log', 'PaymentItemLogController', ['only' => ['index', 'show']]);
         Route::apiResource('payment-publish-log', 'PaymentPublishLogController', ['only' => ['index', 'show']]);
         Route::apiResource('payment-payment-method', 'PaymentPaymentMethodController');
+        Route::apiResource('payment-item-partial', 'PaymentItemPartialController');
 
         /**
          * Related to ReminderService

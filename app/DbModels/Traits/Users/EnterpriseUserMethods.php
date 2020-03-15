@@ -137,6 +137,7 @@ trait EnterpriseUserMethods
      */
     public function isAnAdminEnterpriseUserOfTheProperty(int $propertyId)
     {
+        //todo
         return $this->isAdminEnterpriseUser() && $this->isAnEnterpriseUserOfTheProperty($propertyId);
     }
 }

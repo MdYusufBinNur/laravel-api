@@ -17,6 +17,7 @@ use App\DbModels\Equipment;
 use App\DbModels\Event;
 use App\DbModels\EventSignup;
 use App\DbModels\Expense;
+use App\DbModels\ExpenseCategory;
 use App\DbModels\Fdi;
 use App\DbModels\FdiGuestType;
 use App\DbModels\FdiLog;
@@ -121,6 +122,7 @@ use App\Policies\EnterpriseUserPropertyPolicy;
 use App\Policies\EquipmentPolicy;
 use App\Policies\EventPolicy;
 use App\Policies\EventSignupPolicy;
+use App\Policies\ExpenseCategoryPolicy;
 use App\Policies\ExpensePolicy;
 use App\Policies\FdiGuestTypePolicy;
 use App\Policies\FdiLogPolicy;
@@ -240,6 +242,7 @@ class AuthServiceProvider extends ServiceProvider
         Event::class => EventPolicy::class,
         EventSignup::class => EventSignupPolicy::class,
         Expense::class => ExpensePolicy::class,
+        ExpenseCategory::class => ExpenseCategoryPolicy::class,
         FdiGuestType::class => FdiGuestTypePolicy::class,
         FdiLog::class => FdiLogPolicy::class,
         Fdi::class => FdiPolicy::class,

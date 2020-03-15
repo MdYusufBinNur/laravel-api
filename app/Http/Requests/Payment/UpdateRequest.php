@@ -31,7 +31,6 @@ class UpdateRequest extends Request
             'isRecurring' => 'boolean',
             'expireDate' => 'required_if:isRecurring,1' . '|date_format:Y-m-d',
             'period' => 'required_if:isRecurring,1' .'|in:'. implode(',', PaymentRecurring::getConstantsByPrefix('PERIOD_')),
-
         ];
     }
 }

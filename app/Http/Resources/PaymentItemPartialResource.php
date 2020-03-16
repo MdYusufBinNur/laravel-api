@@ -21,8 +21,8 @@ class PaymentItemPartialResource extends Resource
             'paymentItemId' => $this->paymentItemId,
             'paymentDate' => $this->paymentDate,
             'amount' => $this->amount,
-            'createdAt' => $this->createdAt,
-            'updatedAt' => $this->updatedAt
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
         ];
     }
 }

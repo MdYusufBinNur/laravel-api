@@ -21,8 +21,7 @@ class CreatePaymentItemPartialsTable extends Migration
             $table->integer('paymentItemId')->unsigned();
             $table->date('paymentDate');
             $table->string('amount');
-            $table->dateTime('createAt');
-            $table->dateTime('updatedAt');
+            $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('propertyId')

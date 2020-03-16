@@ -9,6 +9,7 @@ use App\Http\Requests\PaymentItemPartial\UpdateRequest;
 use App\Http\Resources\PaymentItemPartialResource;
 use App\Http\Resources\PaymentItemPartialResourceCollection;
 use App\Repositories\Contracts\PaymentItemPartialRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class PaymentItemPartialController extends Controller
 {
@@ -31,9 +32,12 @@ class PaymentItemPartialController extends Controller
      *
      * @param IndexRequest $request
      * @return PaymentItemPartialResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [PaymentItemPartial::class, $request->get('propertyId')]);
+
         $paymentItemPartials = $this->paymentItemPartialRepository->findBy($request->all());
 
         return new PaymentItemPartialResourceCollection($paymentItemPartials);
@@ -44,10 +48,12 @@ class PaymentItemPartialController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return PaymentItemPartialResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
-        dd($request);
+        $this->authorize('store', [PaymentItemPartial::class, $request->get('propertyId')]);
+
         $paymentItemPartial = $this->paymentItemPartialRepository->save($request->all());
 
         return new PaymentItemPartialResource($paymentItemPartial);
@@ -58,9 +64,12 @@ class PaymentItemPartialController extends Controller
      *
      * @param PaymentItemPartial $paymentItemPartial
      * @return PaymentItemPartialResource
+     * @throws AuthorizationException
      */
     public function show(PaymentItemPartial $paymentItemPartial)
     {
+        $this->authorize('show', $paymentItemPartial);
+
         return new PaymentItemPartialResource($paymentItemPartial);
     }
 
@@ -70,9 +79,12 @@ class PaymentItemPartialController extends Controller
      * @param UpdateRequest $request
      * @param PaymentItemPartial $paymentItemPartial
      * @return PaymentItemPartialResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, PaymentItemPartial $paymentItemPartial)
     {
+        $this->authorize('update', $paymentItemPartial);
+
         $paymentItemPartial = $this->paymentItemPartialRepository->update($paymentItemPartial, $request->all());
 
         return new PaymentItemPartialResource($paymentItemPartial);
@@ -83,9 +95,12 @@ class PaymentItemPartialController extends Controller
      *
      * @param PaymentItemPartial $paymentItemPartial
      * @return \Illuminate\Http\Response
+     * @throws AuthorizationException
      */
     public function destroy(PaymentItemPartial $paymentItemPartial)
     {
+        $this->authorize('destroy', $paymentItemPartial);
+
         $this->paymentItemPartialRepository->delete($paymentItemPartial);
 
         return response()->json(null, 204);

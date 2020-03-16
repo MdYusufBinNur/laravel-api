@@ -14,12 +14,11 @@ class UpdateRequest extends Request
      */
     public function rules()
     {
-        $id = $this->segment(4);
         return [
             'officeHours' => 'max:20',
             'phone' => 'max:20',
             'emergenceContact' => 'max:255',
-            'email' => Rule::unique('property_general_infos')->ignore($id, 'id'),
+            'email' => 'email|max:255',
             'additionalInfo' => 'max:65535',
         ];
     }

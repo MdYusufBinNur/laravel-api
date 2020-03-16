@@ -3,12 +3,12 @@
 namespace App\Listeners\PaymentItemPartial;
 
 use App\DbModels\PaymentItem;
-use App\Events\PaymentItemPartial\PaymentItemPartialUpdatedEvent;
+use App\Events\PaymentItemPartial\PaymentItemPartialDeletedEvent;
 use App\Listeners\CommonListenerFeatures;
 use App\Repositories\Contracts\PaymentItemRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class HandlePaymentItemPartialUpdatedEvent implements ShouldQueue
+class HandlePaymentItemPartialDeletedEvent implements ShouldQueue
 {
     use CommonListenerFeatures;
 
@@ -29,14 +29,13 @@ class HandlePaymentItemPartialUpdatedEvent implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param PaymentItemPartialUpdatedEvent $event
+     * @param PaymentItemPartialDeletedEvent $event
      * @return void
      */
-    public function handle(PaymentItemPartialUpdatedEvent $event)
+    public function handle(PaymentItemPartialDeletedEvent $event)
     {
         $paymentItemPartial = $event->paymentItemPartial;
         $eventOptions = $event->options;
-        $oldPaymentItemPartial = $eventOptions['oldModel'];
 
         $paymentItem = $paymentItemPartial->paymentItem;
         $totalAmount = $paymentItem->payment->amount;

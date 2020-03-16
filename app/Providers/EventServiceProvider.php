@@ -91,6 +91,7 @@ use App\Events\PaymentItem\PaymentItemUpdatedEvent;
 use App\Events\PaymentItemLog\PaymentItemLogCreatedEvent;
 use App\Events\PaymentItemLog\PaymentItemLogUpdatedEvent;
 use App\Events\PaymentItemPartial\PaymentItemPartialCreatedEvent;
+use App\Events\PaymentItemPartial\PaymentItemPartialDeletedEvent;
 use App\Events\PaymentItemPartial\PaymentItemPartialUpdatedEvent;
 use App\Events\PaymentMethod\PaymentMethodCreatedEvent;
 use App\Events\PaymentMethod\PaymentMethodUpdatedEvent;
@@ -269,6 +270,7 @@ use App\Listeners\PaymentItem\HandlePaymentItemUpdatedEvent;
 use App\Listeners\PaymentItemLog\HandlePaymentItemLogCreatedEvent;
 use App\Listeners\PaymentItemLog\HandlePaymentItemLogUpdatedEvent;
 use App\Listeners\PaymentItemPartial\HandlePaymentItemPartialCreatedEvent;
+use App\Listeners\PaymentItemPartial\HandlePaymentItemPartialDeletedEvent;
 use App\Listeners\PaymentItemPartial\HandlePaymentItemPartialUpdatedEvent;
 use App\Listeners\PaymentMethod\HandlePaymentMethodCreatedEvent;
 use App\Listeners\PaymentMethod\HandlePaymentMethodUpdatedEvent;
@@ -670,6 +672,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         PaymentItemPartialUpdatedEvent::class => [
             HandlePaymentItemPartialUpdatedEvent::class
+        ],
+        PaymentItemPartialDeletedEvent::class => [
+            HandlePaymentItemPartialDeletedEvent::class
         ],
         PaymentItemLogCreatedEvent::class => [
             HandlePaymentItemLogCreatedEvent::class

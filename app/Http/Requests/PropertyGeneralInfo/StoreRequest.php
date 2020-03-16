@@ -18,7 +18,7 @@ class StoreRequest extends Request
             'officeHours' => 'max:20',
             'phone' => 'max:20',
             'emergenceContact' => 'max:255',
-            'email' => 'email|unique:property_general_infos,email|max:255',
+            'email' => 'email|max:255',
             'additionalInfo' => 'max:65535',
         ];
     }

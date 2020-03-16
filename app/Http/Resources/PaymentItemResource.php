@@ -45,6 +45,9 @@ class PaymentItemResource extends Resource
             'paymentItemLogs' => $this->when($this->needToInclude($request, 'pi.paymentItemLogs'), function () {
                 return new PaymentItemLogResourceCollection($this->paymentItemLogs);
             }),
+            'paymentItemPartials' => $this->when($this->needToInclude($request, 'pi.paymentItemPartials'), function () {
+                return new PaymentItemPartialResourceCollection($this->paymentItemPartials);
+            }),
         ];
     }
 }

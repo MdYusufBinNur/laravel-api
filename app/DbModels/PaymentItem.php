@@ -115,4 +115,14 @@ class PaymentItem extends Model
     {
         return $this->hasMany(PaymentItemLog::class, 'paymentItemId', 'id');
     }
+
+    /**
+     * payment-item and payment-item-partial relationship
+     *
+     * @return HasMany
+     */
+    public function paymentItemPartials()
+    {
+        return $this->hasMany(PaymentItemPartial::class, 'paymentItemId', 'id');
+    }
 }

@@ -17,7 +17,7 @@ class IndexRequest extends Request
             'id' => 'list:numeric',
             'createdByUserId' => 'list:numeric',
             'managerId' => 'list:numeric',
-            'propertyId' => 'list:numeric',
+            'propertyId' => 'required|numeric',
             'clockedIn' => 'date_format:Y-m-d H:i',
             'clockedOut' => 'date_format:Y-m-d H:i',
             'startDate' => 'date_format:Y-m-d',

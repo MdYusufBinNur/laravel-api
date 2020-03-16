@@ -90,6 +90,8 @@ use App\Events\PaymentItem\PaymentItemCreatedEvent;
 use App\Events\PaymentItem\PaymentItemUpdatedEvent;
 use App\Events\PaymentItemLog\PaymentItemLogCreatedEvent;
 use App\Events\PaymentItemLog\PaymentItemLogUpdatedEvent;
+use App\Events\PaymentItemPartial\PaymentItemPartialCreatedEvent;
+use App\Events\PaymentItemPartial\PaymentItemPartialUpdatedEvent;
 use App\Events\PaymentMethod\PaymentMethodCreatedEvent;
 use App\Events\PaymentMethod\PaymentMethodUpdatedEvent;
 use App\Events\PaymentType\PaymentTypeCreatedEvent;
@@ -266,10 +268,10 @@ use App\Listeners\PaymentItem\HandlePaymentItemCreatedEvent;
 use App\Listeners\PaymentItem\HandlePaymentItemUpdatedEvent;
 use App\Listeners\PaymentItemLog\HandlePaymentItemLogCreatedEvent;
 use App\Listeners\PaymentItemLog\HandlePaymentItemLogUpdatedEvent;
+use App\Listeners\PaymentItemPartial\HandlePaymentItemPartialCreatedEvent;
+use App\Listeners\PaymentItemPartial\HandlePaymentItemPartialUpdatedEvent;
 use App\Listeners\PaymentMethod\HandlePaymentMethodCreatedEvent;
 use App\Listeners\PaymentMethod\HandlePaymentMethodUpdatedEvent;
-use App\Listeners\PaymentRecurring\HandlePaymentRecurringCreatedEvent;
-use App\Listeners\PaymentRecurring\HandlePaymentRecurringUpdatedEvent;
 use App\Listeners\PaymentType\HandlePaymentTypeCreatedEvent;
 use App\Listeners\PaymentType\HandlePaymentTypeUpdatedEvent;
 use App\Listeners\Post\HandlePostCommentUpdatedEvent;
@@ -428,9 +430,6 @@ class EventServiceProvider extends ServiceProvider
         EventSignupUpdatedEvent::class => [
             HandleEventSignupUpdatedEvent::class
         ],
-
-
-
         ExpenseCreatedEvent::class => [
             HandleExpenseCreatedEvent::class
         ],
@@ -665,6 +664,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         PaymentItemUpdatedEvent::class => [
             HandlePaymentItemUpdatedEvent::class
+        ],
+        PaymentItemPartialCreatedEvent::class => [
+            HandlePaymentItemPartialCreatedEvent::class
+        ],
+        PaymentItemPartialUpdatedEvent::class => [
+            HandlePaymentItemPartialUpdatedEvent::class
         ],
         PaymentItemLogCreatedEvent::class => [
             HandlePaymentItemLogCreatedEvent::class

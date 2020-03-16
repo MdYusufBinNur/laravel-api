@@ -14,6 +14,7 @@ class PaymentItem extends Model
     const STATUS_PENDING = 'pending';
     const STATUS_PAID = 'paid';
     const STATUS_CANCELLED = 'cancelled';
+    const STATUS_PARTIAL = 'partial';
 
     /**
      * The attributes that are mass assignable.

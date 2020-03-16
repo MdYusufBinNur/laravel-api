@@ -29,7 +29,7 @@ class HandlePaymentItemUpdatedEvent implements ShouldQueue
 
     /**
      * HandlePaymentItemUpdatedEvent constructor.
-     * @param PaymentRepository $paymentRepository,
+     * @param PaymentRepository $paymentRepository ,
      * @param PaymentItemLogRepository $paymentItemLogRepository
      */
     public function __construct(PaymentRepository $paymentRepository, PaymentItemLogRepository $paymentItemLogRepository)
@@ -81,7 +81,9 @@ class HandlePaymentItemUpdatedEvent implements ShouldQueue
                     $this->savePaymentNotification($logData['updatedByUserId'], $user->id, $paymentItem->id);
                     Mail::to($resident->contactEmail)->send(new PaymentItemUpdated($paymentItem, $user->name));
                 }
-            } else {
+            }
+
+            if (!empty($paymentItem->user)) {
                 $user = $paymentItem->user;
                 $this->savePaymentNotification($logData['updatedByUserId'], $user->id, $paymentItem->id);
                 Mail::to($user->email)->send(new PaymentItemUpdated($paymentItem, $user->name));

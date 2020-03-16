@@ -53,14 +53,17 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
         }
 
         if (!empty($searchCriteria['onlyHistory'])) {
-            $queryBuilder = $queryBuilder->whereDate('clockedIn', '<', Carbon::today());
-            $queryBuilder = $queryBuilder->orWhereNotNull('clockedOut');
+            $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
+                $query->whereDate('clockedIn', '<', Carbon::today());
+                $query->orWhereNotNull('clockedOut');
+            });
             unset($searchCriteria['onlyHistory']);
         }
 
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
+
         $searchCriteria['eagerLoad'] = ['stc.createdByUser' => 'createdByUser', 'stc.property' => 'property', 'stc.manager' => 'manager', 'stc.clockInPhoto' => 'clockInPhoto', 'stc.clockOutPhoto' => 'clockOutPhoto', 'stc.timeClockInDeviceId' => 'timeClockInDeviceId', 'stc.timeClockOutDeviceId' => 'timeClockOutDeviceId'];
         $this->applyEagerLoad($queryBuilder, $searchCriteria);
 

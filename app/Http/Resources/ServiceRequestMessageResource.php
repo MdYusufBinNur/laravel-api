@@ -14,6 +14,10 @@ class ServiceRequestMessageResource extends Resource
     {
         return [
             'id' => $this->id,
+            'createdByUserId' => $this->createdByUserId,
+            'createdByUser' =>  $this->when($this->needToInclude($request, 'srm.createdByUser'), function () {
+                return new UserResource($this->createdByUser);
+            }),
             'propertyId' => $this->propertyId,
             'serviceRequestId' => $this->serviceRequestId,
             'userId' => $this->userId,

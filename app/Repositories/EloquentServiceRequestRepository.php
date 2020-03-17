@@ -88,7 +88,7 @@ class EloquentServiceRequestRepository extends EloquentBaseRepository implements
             unset($searchCriteria['startDate']);
         }
 
-        $searchCriteria['eagerLoad'] = ['sr.user' => 'user', 'sr.category' => 'serviceRequestCategory', 'sr.serviceRequestMessages' => 'serviceRequestMessages', 'sr.unit' => 'unit', 'unit.tower' => 'unit.tower', 'sr.logs' => 'logs', 'srLog.user' => 'logs.user', 'user.roles' => 'user.userRoles', 'sr.photos' => 'serviceRequestPhotos'];
+        $searchCriteria['eagerLoad'] = ['sr.createdByUser' => 'createdByUser', 'sr.user' => 'user', 'sr.category' => 'serviceRequestCategory', 'sr.serviceRequestMessages' => 'serviceRequestMessages', 'sr.unit' => 'unit', 'unit.tower' => 'unit.tower', 'sr.logs' => 'logs', 'srLog.user' => 'logs.user', 'user.roles' => 'user.userRoles', 'sr.photos' => 'serviceRequestPhotos'];
 
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);

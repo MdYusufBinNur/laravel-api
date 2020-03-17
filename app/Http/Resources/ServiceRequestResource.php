@@ -45,7 +45,7 @@ class ServiceRequestResource extends Resource
                 return new ServiceRequestLogResourceCollection($this->logs);
             }),
             'serviceRequestMessages' => $this->when($this->needToInclude($request, 'sr.serviceRequestMessages'), function () {
-                return new ServiceRequestMessageResourceCollection($this->logs);
+                return new ServiceRequestMessageResourceCollection($this->serviceRequestMessages);
             })
         ];
     }

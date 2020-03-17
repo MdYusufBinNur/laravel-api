@@ -43,7 +43,7 @@ class ExpenseController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreRequest $request
      * @return ExpenseResource
      * @throws AuthorizationException
      */

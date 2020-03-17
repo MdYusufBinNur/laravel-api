@@ -19,6 +19,9 @@ class CreateInventoryItemLogsTable extends Migration
             $table->unsignedInteger('propertyId');
             $table->unsignedInteger('updatedByUserId');
             $table->string('QuantityChange');
+            $table->unsignedInteger('vendorId')->nullable();
+            $table->unsignedInteger('expenseId')->nullable();
+            $table->float('cost')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
@@ -29,6 +32,16 @@ class CreateInventoryItemLogsTable extends Migration
 
             $table->foreign('inventoryItemId')
                 ->references('id')->on('inventory_items')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('vendorId')
+                ->references('id')->on('vendors')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('expenseId')
+                ->references('id')->on('expenses')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

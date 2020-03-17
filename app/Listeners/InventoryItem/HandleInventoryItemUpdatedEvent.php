@@ -5,8 +5,10 @@ namespace App\Listeners\InventoryItem;
 use App\Events\InventoryItem\InventoryItemUpdatedEvent;
 use App\Listeners\CommonListenerFeatures;
 use App\Mail\InventoryItem\NotifyInventoryDecreased;
+use App\Repositories\Contracts\ExpenseRepository;
 use App\Repositories\Contracts\InventoryItemLogRepository;
 use App\Repositories\Contracts\UserRoleRepository;
+use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
@@ -32,12 +34,22 @@ class HandleInventoryItemUpdatedEvent implements ShouldQueue
 
             // log the inventory item change
             $inventoryItemLogRepository = app(InventoryItemLogRepository::class);
-            $inventoryItemLogRepository->save([
+            $inventoryItemLogData = [
                 'inventoryItemId' => $inventoryItem->id,
                 'propertyId' => $inventoryItem->propertyId,
                 'updatedByUserId' => $eventOptions['request']['loggedInUserId'],
                 'QuantityChange' => $inventoryItem->quantity - $oldInventoryItem->quantity,
-            ]);
+                'vendorId' => $eventOptions['request']['vendorId'] ?? NULL
+            ];
+
+            if (!empty($eventOptions['request']['cost'])) {
+                $expenseRepository = app(ExpenseRepository::class);
+                $expense = $expenseRepository->save(['categoryId' => 1, 'amount' => $eventOptions['request']['cost'], 'expenseDate' => Carbon::today(), 'propertyId' => $inventoryItem->propertyId, 'expenseReason' => 'Expense from Inventory# ' . $inventoryItem->id]);
+                $inventoryItemLogData['expenseId'] = $expense->id;
+                $inventoryItemLogData['cost'] = $eventOptions['request']['cost'];
+            }
+
+            $inventoryItemLogRepository->save($inventoryItemLogData);
 
             // send email if `quantity` is less than `notifyCount`
             if ($inventoryItem->quantity < $inventoryItem->notifyCount) {

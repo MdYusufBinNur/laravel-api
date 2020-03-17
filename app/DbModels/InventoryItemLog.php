@@ -18,7 +18,10 @@ class InventoryItemLog extends Model
         'inventoryItemId',
         'propertyId',
         'updatedByUserId',
-        'QuantityChange'
+        'QuantityChange',
+        'vendorId',
+        'expenseId',
+        'cost',
     ];
 
     /**

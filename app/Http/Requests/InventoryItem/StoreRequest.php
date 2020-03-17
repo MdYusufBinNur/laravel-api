@@ -23,6 +23,8 @@ class StoreRequest extends Request
             'quantity' => 'max:255',
             'comment' => 'max:255',
             'manufacturer' => 'max:255',
+            'cost'=> 'numeric',
+            'vendorId' => 'exists:vendors,id',
             'restockNote' => 'max:255',
             'notifyCount' => 'numeric',
         ];

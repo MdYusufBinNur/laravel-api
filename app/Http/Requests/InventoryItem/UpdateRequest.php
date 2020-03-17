@@ -14,7 +14,6 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'propertyId' => 'exists:properties,id',
             'categoryId' => 'exists:inventory_categories,id',
             'sku' => 'max:255',
             'name' => 'max:255',
@@ -23,6 +22,8 @@ class UpdateRequest extends Request
             'quantity' => 'max:255',
             'comment' => 'max:255',
             'manufacturer' => 'max:255',
+            'vendorId' => 'exists:vendors,id',
+            'cost'=> 'numeric',
             'restockNote' => 'max:255',
             'notifyCount' => 'numeric',
         ];

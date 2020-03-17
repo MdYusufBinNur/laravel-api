@@ -17,7 +17,7 @@ class CreateExpenseCategoriesTable extends Migration
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
             $table->string('title');
-            $table->unsignedInteger('propertyId');
+            $table->unsignedInteger('propertyId')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
@@ -32,6 +32,8 @@ class CreateExpenseCategoriesTable extends Migration
                 ->onUpdate('cascade');
 
         });
+
+        DB::table('expense_categories')->insert(['id' => 1, 'title' => 'Inventory']);
     }
 
     /**

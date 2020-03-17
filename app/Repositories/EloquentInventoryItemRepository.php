@@ -6,8 +6,10 @@ namespace App\Repositories;
 
 use App\Events\InventoryItem\InventoryItemCreatedEvent;
 use App\Events\InventoryItem\InventoryItemUpdatedEvent;
+use App\Repositories\Contracts\ExpenseRepository;
 use App\Repositories\Contracts\InventoryItemRepository;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class EloquentInventoryItemRepository extends EloquentBaseRepository implements InventoryItemRepository
 {
@@ -16,9 +18,13 @@ class EloquentInventoryItemRepository extends EloquentBaseRepository implements 
      */
     public function save(array $data): \ArrayAccess
     {
+        DB::beginTransaction();
+
         $inventoryItem = parent::save($data);
 
         event(new InventoryItemCreatedEvent($inventoryItem, $this->generateEventOptionsForModel()));
+
+        DB::commit();
 
         return $inventoryItem;
     }
@@ -29,6 +35,11 @@ class EloquentInventoryItemRepository extends EloquentBaseRepository implements 
     public function update(\ArrayAccess $model, array $data): \ArrayAccess
     {
         $inventoryItem = parent::update($model, $data);
+
+        if (!empty($data['cost'])) {
+            $expenseRepository = app(ExpenseRepository::class);
+            $expenseRepository->save(['categoryId' => 1, 'amount' => $data['cost'], 'expenseDate' => Carbon::today(), 'propertyId' => $data['propertyId'], 'expenseReason' => 'Expense from Inventory# ' . $inventoryItem->id]);
+        }
 
         event(new InventoryItemUpdatedEvent($inventoryItem, $this->generateEventOptionsForModel()));
 

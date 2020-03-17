@@ -110,4 +110,14 @@ class ServiceRequest extends Model
     {
         return $this->hasMany(Attachment::class, 'resourceId')->where('type', Attachment::ATTACHMENT_TYPE_SERVICE_REQUEST);
     }
+
+    /**
+     * get service request messages
+     *
+     * @return HasMany
+     */
+    public function serviceRequestMessages()
+    {
+        return $this->hasMany(ServiceRequestMessage::class, 'serviceRequestId');
+    }
 }

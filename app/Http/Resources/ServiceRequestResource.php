@@ -43,6 +43,9 @@ class ServiceRequestResource extends Resource
             'updated_at' => $this->updated_at,
             'logs' => $this->when($this->needToInclude($request, 'sr.logs'), function () {
                 return new ServiceRequestLogResourceCollection($this->logs);
+            }),
+            'serviceRequestMessages' => $this->when($this->needToInclude($request, 'sr.serviceRequestMessages'), function () {
+                return new ServiceRequestMessageResourceCollection($this->logs);
             })
         ];
     }

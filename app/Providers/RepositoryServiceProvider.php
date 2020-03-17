@@ -33,6 +33,8 @@ use App\DbModels\LdsSlideProperty;
 use App\DbModels\Manager;
 use App\DbModels\ManagerInvitation;
 use App\DbModels\Committee;
+use App\DbModels\PaymentInstallment;
+use App\DbModels\PaymentInstallmentItem;
 use App\DbModels\PaymentItemPartial;
 use App\DbModels\StaffTimeClockDevice;
 use App\DbModels\TimeClockDevice;
@@ -141,6 +143,8 @@ use App\Repositories\Contracts\LdsSlidePropertyRepository;
 use App\Repositories\Contracts\LdsSlideRepository;
 use App\Repositories\Contracts\ManagerRepository;
 use App\Repositories\Contracts\CommitteeRepository;
+use App\Repositories\Contracts\PaymentInstallmentItemRepository;
+use App\Repositories\Contracts\PaymentInstallmentRepository;
 use App\Repositories\Contracts\PaymentItemPartialRepository;
 use App\Repositories\Contracts\StaffTimeClockDeviceRepository;
 use App\Repositories\Contracts\TimeClockDeviceRepository;
@@ -242,6 +246,8 @@ use App\Repositories\EloquentLdsSlidePropertyRepository;
 use App\Repositories\EloquentLdsSlideRepository;
 use App\Repositories\EloquentManagerRepository;
 use App\Repositories\EloquentCommitteeRepository;
+use App\Repositories\EloquentPaymentInstallmentItemRepository;
+use App\Repositories\EloquentPaymentInstallmentRepository;
 use App\Repositories\EloquentPaymentItemPartialRepository;
 use App\Repositories\EloquentStaffTimeClockDeviceRepository;
 use App\Repositories\EloquentTimeClockDeviceRepository;
@@ -893,6 +899,16 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind PaymentItemPartialRepository
         $this->app->bind(PaymentItemPartialRepository::class, function() {
             return new EloquentPaymentItemPartialRepository(new PaymentItemPartial());
+        });
+
+        // bind PaymentInstallmentRepository
+        $this->app->bind(PaymentInstallmentRepository::class, function() {
+            return new EloquentPaymentInstallmentRepository(new PaymentInstallment());
+        });
+
+        // bind PaymentInstallmentItemRepository
+        $this->app->bind(PaymentInstallmentItemRepository::class, function() {
+            return new EloquentPaymentInstallmentItemRepository(new PaymentInstallmentItem());
         });
     }
 }

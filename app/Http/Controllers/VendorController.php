@@ -99,7 +99,7 @@ class VendorController extends Controller
      */
     public function destroy(Vendor $vendor)
     {
-        $this->authorize('detroy', $vendor);
+        $this->authorize('destroy', $vendor);
 
         $this->vendorRepository->delete($vendor);
 

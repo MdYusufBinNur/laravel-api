@@ -9,6 +9,8 @@ use App\Http\Requests\PaymentInstallmentItem\UpdateRequest;
 use App\Http\Resources\PaymentInstallmentItemResource;
 use App\Http\Resources\PaymentInstallmentItemResourceCollection;
 use App\Repositories\Contracts\PaymentInstallmentItemRepository;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Response;
 
 class PaymentInstallmentItemController extends Controller
 {
@@ -31,9 +33,12 @@ class PaymentInstallmentItemController extends Controller
      *
      * @param IndexRequest $request
      * @return PaymentInstallmentItemResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [PaymentInstallmentItem::class, $request->get('propertyId')]);
+
         $paymentInstallmentItems = $this->paymentInstallmentItemRepository->findBy($request->all());
 
         return new PaymentInstallmentItemResourceCollection($paymentInstallmentItems);
@@ -44,9 +49,12 @@ class PaymentInstallmentItemController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return PaymentInstallmentItemResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [PaymentInstallmentItem::class, $request->get('propertyId')]);
+
         $paymentInstallmentItem = $this->paymentInstallmentItemRepository->save($request->all());
 
         return new PaymentInstallmentItemResource($paymentInstallmentItem);
@@ -57,9 +65,12 @@ class PaymentInstallmentItemController extends Controller
      *
      * @param PaymentInstallmentItem $paymentInstallmentItem
      * @return PaymentInstallmentItemResource
+     * @throws AuthorizationException
      */
     public function show(PaymentInstallmentItem $paymentInstallmentItem)
     {
+        $this->authorize('show', $paymentInstallmentItem);
+
         return new PaymentInstallmentItemResource($paymentInstallmentItem);
     }
 
@@ -69,9 +80,12 @@ class PaymentInstallmentItemController extends Controller
      * @param UpdateRequest $request
      * @param PaymentInstallmentItem $paymentInstallmentItem
      * @return PaymentInstallmentItemResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, PaymentInstallmentItem $paymentInstallmentItem)
     {
+        $this->authorize('update', $paymentInstallmentItem);
+
         $paymentInstallmentItem = $this->paymentInstallmentItemRepository->update($paymentInstallmentItem, $request->all());
 
         return new PaymentInstallmentItemResource($paymentInstallmentItem);
@@ -81,10 +95,13 @@ class PaymentInstallmentItemController extends Controller
      * Remove the specified resource from storage.
      *
      * @param PaymentInstallmentItem $paymentInstallmentItem
-     * @return \Illuminate\Http\Response
+     * @return Response
+     * @throws AuthorizationException
      */
     public function destroy(PaymentInstallmentItem $paymentInstallmentItem)
     {
+        $this->authorize('destroy', $paymentInstallmentItem);
+
         $this->paymentInstallmentItemRepository->delete($paymentInstallmentItem);
 
         return response()->json(null, 204);

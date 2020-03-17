@@ -34,6 +34,8 @@ use App\DbModels\LdsSlideProperty;
 use App\DbModels\Manager;
 use App\DbModels\ManagerInvitation;
 use App\DbModels\ManagerProperty;
+use App\DbModels\PaymentInstallment;
+use App\DbModels\PaymentInstallmentItem;
 use App\DbModels\PaymentItemPartial;
 use App\DbModels\StaffTimeClockDevice;
 use App\DbModels\TimeClockDevice;
@@ -141,6 +143,8 @@ use App\Policies\LdsSlidePropertyPolicy;
 use App\Policies\ManagerInvitationPolicy;
 use App\Policies\ManagerPolicy;
 use App\Policies\ManagerPropertyPolicy;
+use App\Policies\PaymentInstallmentItemPolicy;
+use App\Policies\PaymentInstallmentPolicy;
 use App\Policies\PaymentItemPartialPolicy;
 use App\Policies\StaffTimeClockDevicePolicy;
 use App\Policies\TimeClockDevicePolicy;
@@ -286,6 +290,8 @@ class AuthServiceProvider extends ServiceProvider
         Payment::class => PaymentPolicy::class,
         PaymentItem::class => PaymentItemPolicy::class,
         PaymentItemPartial::class => PaymentItemPartialPolicy::class,
+        PaymentInstallment::class => PaymentInstallmentPolicy::class,
+        PaymentInstallmentItem::class => PaymentInstallmentItemPolicy::class,
         PaymentRecurring::class => PaymentRecurringPolicy::class,
         PaymentPublishLog::class => PaymentPublishLogPolicy::class,
         PaymentPaymentMethod::class => PaymentPaymentMethodPolicy::class,

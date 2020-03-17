@@ -14,9 +14,6 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'createdByUserId' => 'exists:users,id',
-            'propertyId' => 'exists:properties,id',
-            'paymentId' => 'exists:payments,id',
             'numberOfInstallments' => 'numeric',
         ];
     }

@@ -9,6 +9,7 @@ use App\Http\Requests\PaymentInstallment\UpdateRequest;
 use App\Http\Resources\PaymentInstallmentResource;
 use App\Http\Resources\PaymentInstallmentResourceCollection;
 use App\Repositories\Contracts\PaymentInstallmentRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class PaymentInstallmentController extends Controller
 {
@@ -31,9 +32,12 @@ class PaymentInstallmentController extends Controller
      *
      * @param IndexRequest $request
      * @return PaymentInstallmentResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [PaymentInstallment::class, $request->get('propertyId')]);
+
         $paymentInstallments = $this->paymentInstallmentRepository->findBy($request->all());
 
         return new PaymentInstallmentResourceCollection($paymentInstallments);
@@ -44,9 +48,12 @@ class PaymentInstallmentController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return PaymentInstallmentResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [PaymentInstallment::class, $request->get('propertyId')]);
+
         $paymentInstallment = $this->paymentInstallmentRepository->save($request->all());
 
         return new PaymentInstallmentResource($paymentInstallment);
@@ -57,9 +64,12 @@ class PaymentInstallmentController extends Controller
      *
      * @param PaymentInstallment $paymentInstallment
      * @return PaymentInstallmentResource
+     * @throws AuthorizationException
      */
     public function show(PaymentInstallment $paymentInstallment)
     {
+        $this->authorize('show', $paymentInstallment);
+
         return new PaymentInstallmentResource($paymentInstallment);
     }
 
@@ -69,9 +79,12 @@ class PaymentInstallmentController extends Controller
      * @param UpdateRequest $request
      * @param PaymentInstallment $paymentInstallment
      * @return PaymentInstallmentResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, PaymentInstallment $paymentInstallment)
     {
+        $this->authorize('update', $paymentInstallment);
+
         $paymentInstallment = $this->paymentInstallmentRepository->update($paymentInstallment, $request->all());
 
         return new PaymentInstallmentResource($paymentInstallment);
@@ -82,9 +95,12 @@ class PaymentInstallmentController extends Controller
      *
      * @param PaymentInstallment $paymentInstallment
      * @return \Illuminate\Http\Response
+     * @throws AuthorizationException
      */
     public function destroy(PaymentInstallment $paymentInstallment)
     {
+        $this->authorize('destroy', $paymentInstallment);
+
         $this->paymentInstallmentRepository->delete($paymentInstallment);
 
         return response()->json(null, 204);

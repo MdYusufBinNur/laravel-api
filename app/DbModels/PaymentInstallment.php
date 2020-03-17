@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PaymentInstallment extends Model
 {
@@ -20,4 +21,14 @@ class PaymentInstallment extends Model
         'paymentId',
         'numberOfInstallments',
     ];
+
+    /**
+     * get the payment
+     *
+     * @return HasOne
+     */
+    public function payment()
+    {
+        return $this->hasOne(Payment::class, 'id', 'paymentId');
+    }
 }

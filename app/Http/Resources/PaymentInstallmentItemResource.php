@@ -16,8 +16,14 @@ class PaymentInstallmentItemResource extends Resource
         return [
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
+            'createdByUser' => $this->when($this->needToInclude($request, 'pimi.createdByUser'), function () {
+                return new UserResource($this->createdByUser);
+            }),
             'propertyId' => $this->propertyId,
             'paymentInstallmentId' => $this->paymentInstallmentId,
+            'paymentInstallment' => $this->when($this->needToInclude($request, 'pimi.paymentInstallment'), function () {
+                return new PaymentInstallmentResource($this->paymentInstallment);
+            }),
             'dueDate' => $this->dueDate,
             'amount' => $this->amount,
             'created_at' => $this->created_at,

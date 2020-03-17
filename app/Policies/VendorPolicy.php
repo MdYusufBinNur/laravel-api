@@ -112,7 +112,6 @@ class VendorPolicy
             return true;
         }
 
-
         return false;
     }
 }

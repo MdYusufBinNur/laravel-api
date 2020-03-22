@@ -37,7 +37,7 @@ class TowerController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [Tower::class, $request->get('propertyId')]);
+        $this->authorize('list', [Tower::class, $request->input('propertyId')]);
 
         $towers = $this->towerRepository->findBy($request->all());
 
@@ -53,7 +53,7 @@ class TowerController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [Tower::class, $request->get('propertyId')]);
+        $this->authorize('store', [Tower::class, $request->input('propertyId')]);
 
         $tower = $this->towerRepository->save($request->all());
 

@@ -36,7 +36,7 @@ class VisitorController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [Visitor::class, $request->get('propertyId'), $request->get('unitId', null), $request->get('userId', null)]);
+        $this->authorize('list', [Visitor::class, $request->input('propertyId'), $request->get('unitId', null), $request->get('userId', null)]);
 
         $visitors = $this->visitorRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class VisitorController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [Visitor::class, $request->get('propertyId')]);
+        $this->authorize('store', [Visitor::class, $request->input('propertyId')]);
 
         $visitor = $this->visitorRepository->save($request->all());
 

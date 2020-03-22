@@ -37,7 +37,7 @@ class VisitorTypeController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [VisitorType::class, $request->get('propertyId')]);
+        $this->authorize('list', [VisitorType::class, $request->input('propertyId')]);
 
         $visitorTypes = $this->visitorTypeRepository->findBy($request->all());
 
@@ -53,7 +53,7 @@ class VisitorTypeController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [VisitorType::class, $request->get('propertyId')]);
+        $this->authorize('store', [VisitorType::class, $request->input('propertyId')]);
 
         $visitorType = $this->visitorTypeRepository->save($request->all());
 

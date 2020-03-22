@@ -36,7 +36,7 @@ class PostRecommendationController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [PostRecommendation::class, $request->get('propertyId')]);
+        $this->authorize('list', [PostRecommendation::class, $request->input('propertyId')]);
 
         $postRecommendations = $this->postRecommendationRepository->findBy($request->all());
 

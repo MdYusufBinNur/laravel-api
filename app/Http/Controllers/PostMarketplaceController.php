@@ -36,7 +36,7 @@ class PostMarketplaceController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [PostMarketplace::class, $request->get('propertyId')]);
+        $this->authorize('list', [PostMarketplace::class, $request->input('propertyId')]);
 
         $postMarketplaces = $this->postMarketplaceRepository->findBy($request->all());
 

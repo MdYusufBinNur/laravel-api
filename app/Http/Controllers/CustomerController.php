@@ -36,7 +36,7 @@ class CustomerController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [Customer::class, $request->get('propertyId')]);
+        $this->authorize('list', [Customer::class, $request->input('propertyId')]);
 
         $customers = $this->customerRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class CustomerController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [Customer::class, $request->get('propertyId')]);
+        $this->authorize('store', [Customer::class, $request->input('propertyId')]);
 
         $customer = $this->customerRepository->save($request->all());
 

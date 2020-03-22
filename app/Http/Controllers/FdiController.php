@@ -37,7 +37,7 @@ class FdiController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [Fdi::class, $request->get('propertyId'), $request->get('unitId', null)]);
+        $this->authorize('list', [Fdi::class, $request->input('propertyId'), $request->get('unitId', null)]);
 
         $fdis = $this->fdiRepository->findBy($request->all());
 
@@ -53,7 +53,7 @@ class FdiController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [Fdi::class, $request->get('propertyId'), $request->get('unitId', null)]);
+        $this->authorize('store', [Fdi::class, $request->input('propertyId'), $request->get('unitId', null)]);
 
         $fdi = $this->fdiRepository->save($request->all());
 

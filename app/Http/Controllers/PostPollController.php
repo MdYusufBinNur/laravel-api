@@ -36,7 +36,7 @@ class PostPollController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [PostPoll::class, $request->get('propertyId')]);
+        $this->authorize('list', [PostPoll::class, $request->input('propertyId')]);
 
         $postPolls = $this->postPollRepository->findBy($request->all());
 

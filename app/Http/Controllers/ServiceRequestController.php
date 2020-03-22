@@ -37,7 +37,7 @@ class ServiceRequestController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [ServiceRequest::class, $request->get('propertyId'), $request->get('unitId', null)]);
+        $this->authorize('list', [ServiceRequest::class, $request->input('propertyId'), $request->get('unitId', null)]);
 
         $serviceRequests = $this->serviceRequestRepository->findBy($request->all());
 
@@ -53,7 +53,7 @@ class ServiceRequestController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [ServiceRequest::class, $request->get('propertyId'), $request->get('unitId', null)]);
+        $this->authorize('store', [ServiceRequest::class, $request->input('propertyId'), $request->get('unitId', null)]);
 
         $serviceRequest = $this->serviceRequestRepository->save($request->all());
 

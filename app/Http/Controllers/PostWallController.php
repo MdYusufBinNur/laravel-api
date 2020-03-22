@@ -36,7 +36,7 @@ class PostWallController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [PostWall::class, $request->get('propertyId')]);
+        $this->authorize('list', [PostWall::class, $request->input('propertyId')]);
 
         $postWalls = $this->postWallRepository->findBy($request->all());
 

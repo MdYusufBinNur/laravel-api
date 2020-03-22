@@ -34,7 +34,7 @@ class ResidentByUnitController extends Controller
      */
     public function index(ResidentByUnitRequest $request)
     {
-        $this->authorize('residentByUnitController', [Resident::class, $request->get('propertyId')]);
+        $this->authorize('residentByUnitController', [Resident::class, $request->input('propertyId')]);
 
         $residents = $this->residentRepository->getResidentsByUnits($request->all());
         return new ResidentByUnitResourceCollection(collect($residents));

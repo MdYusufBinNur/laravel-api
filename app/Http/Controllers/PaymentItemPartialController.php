@@ -36,7 +36,7 @@ class PaymentItemPartialController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [PaymentItemPartial::class, $request->get('propertyId')]);
+        $this->authorize('list', [PaymentItemPartial::class, $request->input('propertyId')]);
 
         $paymentItemPartials = $this->paymentItemPartialRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class PaymentItemPartialController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [PaymentItemPartial::class, $request->get('propertyId')]);
+        $this->authorize('store', [PaymentItemPartial::class, $request->input('propertyId')]);
 
         $paymentItemPartial = $this->paymentItemPartialRepository->save($request->all());
 

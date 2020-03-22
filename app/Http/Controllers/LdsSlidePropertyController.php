@@ -36,7 +36,7 @@ class LdsSlidePropertyController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [LdsSlideProperty::class, $request->get('propertyId')]);
+        $this->authorize('list', [LdsSlideProperty::class, $request->input('propertyId')]);
 
         $ldsSlideProperties = $this->ldsSlidePropertyRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class LdsSlidePropertyController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [LdsSlideProperty::class, $request->get('propertyId')]);
+        $this->authorize('store', [LdsSlideProperty::class, $request->input('propertyId')]);
 
         $ldsSlideProperty = $this->ldsSlidePropertyRepository->save($request->all());
 

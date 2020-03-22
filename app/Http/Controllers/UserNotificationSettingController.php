@@ -36,7 +36,7 @@ class UserNotificationSettingController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [UserNotificationSetting::class, $request->get('propertyId'), $request->get('userId', null)]);
+        $this->authorize('list', [UserNotificationSetting::class, $request->input('propertyId'), $request->get('userId', null)]);
 
         $userNotificationSettings = $this->userNotificationSettingRepository->findBy($request->all());
 

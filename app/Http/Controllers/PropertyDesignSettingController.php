@@ -52,7 +52,7 @@ class PropertyDesignSettingController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [PropertyDesignSettingResource::class, $request->get('propertyId')]);
+        $this->authorize('store', [PropertyDesignSettingResource::class, $request->input('propertyId')]);
 
         $propertyDesignSetting = $this->propertyDesignSettingRepository->setDesignSetting($request->all());
 

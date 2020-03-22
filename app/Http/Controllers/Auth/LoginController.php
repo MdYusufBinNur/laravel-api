@@ -50,7 +50,7 @@ class LoginController extends Controller
                 }
 
                 if ($request->has('propertyId')) {
-                    if (!$user->isUserOfTheProperty($request->get('propertyId'))) {
+                    if (!$user->isUserOfTheProperty($request->input('propertyId'))) {
                         return response(['message' => __("auth.invalid_property_login")], 422);
                     }
                 }

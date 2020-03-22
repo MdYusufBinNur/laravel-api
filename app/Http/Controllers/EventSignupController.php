@@ -37,7 +37,7 @@ class EventSignupController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [EventSignup::class, $request->get('propertyId')]);
+        $this->authorize('list', [EventSignup::class, $request->input('propertyId')]);
 
         $eventSignups = $this->eventSignupRepository->findBy($request->all());
 

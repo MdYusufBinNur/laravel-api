@@ -37,7 +37,7 @@ class CommitteeSessionController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [CommitteeSession::class, $request->get('propertyId')]);
+        $this->authorize('list', [CommitteeSession::class, $request->input('propertyId')]);
 
         $committeeSessions = $this->committeeSessionRepository->findBy($request->all());
 
@@ -53,7 +53,7 @@ class CommitteeSessionController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [CommitteeSession::class, $request->get('propertyId')]);
+        $this->authorize('store', [CommitteeSession::class, $request->input('propertyId')]);
 
         $committeeSession = $this->committeeSessionRepository->save($request->all());
 

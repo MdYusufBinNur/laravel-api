@@ -35,7 +35,7 @@ class PropertyLinkController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [PropertyLink::class, $request->get('propertyId')]);
+        $this->authorize('list', [PropertyLink::class, $request->input('propertyId')]);
 
         $propertyLinks = $this->propertyLinkRepository->findBy($request->all());
 
@@ -51,7 +51,7 @@ class PropertyLinkController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [PropertyLink::class, $request->get('propertyId')]);
+        $this->authorize('store', [PropertyLink::class, $request->input('propertyId')]);
 
         $propertyLink = $this->propertyLinkRepository->save($request->all());
 

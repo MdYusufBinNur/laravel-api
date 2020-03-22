@@ -36,7 +36,7 @@ class CommitteeHierarchyController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [CommitteeHierarchy::class, $request->get('propertyId')]);
+        $this->authorize('list', [CommitteeHierarchy::class, $request->input('propertyId')]);
 
         $committeeHierarchies = $this->committeeHierarchyRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class CommitteeHierarchyController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [CommitteeHierarchy::class, $request->get('propertyId')]);
+        $this->authorize('store', [CommitteeHierarchy::class, $request->input('propertyId')]);
 
         $committeeHierarchy = $this->committeeHierarchyRepository->save($request->all());
 

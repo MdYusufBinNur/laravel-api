@@ -36,7 +36,7 @@ class PaymentItemController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [PaymentItem::class, $request->get('propertyId'), $request->get('unitId', '')]);
+        $this->authorize('list', [PaymentItem::class, $request->input('propertyId'), $request->get('unitId', '')]);
 
         $paymentItems = $this->paymentItemRepository->findBy($request->all());
 

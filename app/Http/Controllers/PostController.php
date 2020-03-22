@@ -38,7 +38,7 @@ class PostController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [Post::class, $request->get('propertyId')]);
+        $this->authorize('list', [Post::class, $request->input('propertyId')]);
 
         $posts = $this->postRepository->findBy($request->all());
 
@@ -54,7 +54,7 @@ class PostController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [Post::class, $request->get('propertyId')]);
+        $this->authorize('store', [Post::class, $request->input('propertyId')]);
 
         $post = $this->postRepository->save($request->all());
 
@@ -117,7 +117,7 @@ class PostController extends Controller
      */
     public function likedUsers(LikedUserRequest $request)
     {
-        $this->authorize('list', [Post::class, $request->get('propertyId')]);
+        $this->authorize('list', [Post::class, $request->input('propertyId')]);
 
         $users = $this->postRepository->likedUsersByPostId($request->get('postId'));
 

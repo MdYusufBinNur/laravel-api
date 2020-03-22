@@ -36,7 +36,7 @@ class PaymentMethodController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [PaymentMethod::class, $request->get('propertyId')]);
+        $this->authorize('list', [PaymentMethod::class, $request->input('propertyId')]);
 
         $paymentMethods = $this->paymentMethodRepository->findBy($request->all());
 

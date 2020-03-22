@@ -36,7 +36,7 @@ class FdiGuestTypeController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [FdiGuestType::class, $request->get('propertyId')]);
+        $this->authorize('list', [FdiGuestType::class, $request->input('propertyId')]);
 
         $fdiGuestTypes = $this->fdiGuestTypeRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class FdiGuestTypeController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [FdiGuestType::class, $request->get('propertyId')]);
+        $this->authorize('store', [FdiGuestType::class, $request->input('propertyId')]);
 
         $fdiGuestType = $this->fdiGuestTypeRepository->save($request->all());
 

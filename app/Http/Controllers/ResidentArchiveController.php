@@ -37,7 +37,7 @@ class ResidentArchiveController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [ResidentArchive::class, $request->get('propertyId')]);
+        $this->authorize('list', [ResidentArchive::class, $request->input('propertyId')]);
 
         $residentArchives = $this->residentArchiveRepository->findBy($request->all());
 
@@ -53,7 +53,7 @@ class ResidentArchiveController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [ResidentArchive::class, $request->get('propertyId')]);
+        $this->authorize('store', [ResidentArchive::class, $request->input('propertyId')]);
 
         $residentArchives = $this->residentArchiveRepository->saveMultipleResidents($request->all());
 

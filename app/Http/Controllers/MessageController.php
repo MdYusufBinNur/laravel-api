@@ -39,7 +39,7 @@ class MessageController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [Message::class, $request->get('propertyId')]);
+        $this->authorize('list', [Message::class, $request->input('propertyId')]);
 
         $messages = $this->messageRepository->findBy($request->all());
 
@@ -55,7 +55,7 @@ class MessageController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [Message::class, $request->get('propertyId')]);
+        $this->authorize('store', [Message::class, $request->input('propertyId')]);
 
         $message = $this->messageRepository->saveMessage($request->all());
 

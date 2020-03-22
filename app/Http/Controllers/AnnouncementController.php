@@ -40,7 +40,7 @@ class AnnouncementController extends Controller
         if (strpos($request->getPathInfo(), 'property-login-page-announcements') !== false) {
             $request->merge(['showOnWebsite' => 1, 'isExpired' => 0]);
         } else {
-            $this->authorize('list', [Announcement::class, $request->get('propertyId')]);
+            $this->authorize('list', [Announcement::class, $request->input('propertyId')]);
         }
 
         $announcements = $this->announcementRepository->findBy($request->all());
@@ -57,7 +57,7 @@ class AnnouncementController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [Announcement::class, $request->get('propertyId')]);
+        $this->authorize('store', [Announcement::class, $request->input('propertyId')]);
 
         $announcement = $this->announcementRepository->save($request->all());
 

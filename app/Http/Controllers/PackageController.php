@@ -36,7 +36,7 @@ class PackageController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [Package::class, $request->get('propertyId'), $request->get('unitId', null)]);
+        $this->authorize('list', [Package::class, $request->input('propertyId'), $request->get('unitId', null)]);
 
         $packages = $this->packageRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class PackageController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [Package::class, $request->get('propertyId'), $request->get('unitId', null)]);
+        $this->authorize('store', [Package::class, $request->input('propertyId'), $request->get('unitId', null)]);
 
         $package = $this->packageRepository->save($request->all());
 

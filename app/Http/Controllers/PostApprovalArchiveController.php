@@ -34,7 +34,7 @@ class PostApprovalArchiveController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [PostApprovalArchive::class, $request->get('propertyId')]);
+        $this->authorize('list', [PostApprovalArchive::class, $request->input('propertyId')]);
 
         $postApprovalArchives = $this->postApprovalArchiveRepository->findBy($request->all());
 

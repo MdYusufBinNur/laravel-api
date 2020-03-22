@@ -123,7 +123,7 @@ class UserController extends Controller
      */
     public function usersListAutoComplete(UserListAutoCompleteRequest $request)
     {
-        $this->authorize('usersListAutoComplete', [User::class, $request->get('propertyId')]);
+        $this->authorize('usersListAutoComplete', [User::class, $request->input('propertyId')]);
         $users = $this->userRepository->usersListAutoComplete($request->all());
         return new UserListAutoCompleteResourceCollection(collect($users));
     }

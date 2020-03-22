@@ -37,7 +37,7 @@ class LdsBlacklistUnitController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [LdsBlacklistUnit::class, $request->get('propertyId')]);
+        $this->authorize('list', [LdsBlacklistUnit::class, $request->input('propertyId')]);
 
         $ldsBlackListUnits = $this->ldsBlacklistUnitRepository->findBy($request->all());
 
@@ -53,7 +53,7 @@ class LdsBlacklistUnitController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [LdsBlacklistUnit::class, $request->get('propertyId')]);
+        $this->authorize('store', [LdsBlacklistUnit::class, $request->input('propertyId')]);
 
         $ldsBlacklistUnit = $this->ldsBlacklistUnitRepository->saveBlackListUnit($request->all());
 

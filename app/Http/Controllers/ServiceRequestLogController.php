@@ -36,7 +36,7 @@ class ServiceRequestLogController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [ServiceRequestLog::class, $request->get('propertyId')]);
+        $this->authorize('list', [ServiceRequestLog::class, $request->input('propertyId')]);
 
         $serviceRequestLogs = $this->serviceRequestLogRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class ServiceRequestLogController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [ServiceRequestLog::class, $request->get('propertyId')]);
+        $this->authorize('store', [ServiceRequestLog::class, $request->input('propertyId')]);
 
         $serviceRequestLog = $this->serviceRequestLogRepository->save($request->all());
 

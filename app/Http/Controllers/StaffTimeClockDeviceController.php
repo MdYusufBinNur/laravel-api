@@ -32,7 +32,7 @@ class StaffTimeClockDeviceController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [StaffTimeClockDevice::class, $request->get('propertyId')]);
+        $this->authorize('list', [StaffTimeClockDevice::class, $request->input('propertyId')]);
 
         $staffTimeClockDevices = $this->staffTimeClockDeviceRepository->findBy($request->all());
 
@@ -48,7 +48,7 @@ class StaffTimeClockDeviceController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [StaffTimeClockDevice::class, $request->get('propertyId')]);
+        $this->authorize('store', [StaffTimeClockDevice::class, $request->input('propertyId')]);
 
         $staffTimeClockDevice = $this->staffTimeClockDeviceRepository->save($request->all());
 

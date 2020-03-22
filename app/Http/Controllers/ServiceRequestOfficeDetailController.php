@@ -36,7 +36,7 @@ class ServiceRequestOfficeDetailController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [ServiceRequestOfficeDetail::class, $request->get('propertyId')]);
+        $this->authorize('list', [ServiceRequestOfficeDetail::class, $request->input('propertyId')]);
 
         $serviceRequestOfficeDetails = $this->serviceRequestOfficeDetailRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class ServiceRequestOfficeDetailController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [ServiceRequestOfficeDetail::class, $request->get('propertyId')]);
+        $this->authorize('store', [ServiceRequestOfficeDetail::class, $request->input('propertyId')]);
 
         $serviceRequestOfficeDetail = $this->serviceRequestOfficeDetailRepository->setServiceRequestOfficeDetail($request->all());
 

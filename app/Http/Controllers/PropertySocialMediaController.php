@@ -52,7 +52,7 @@ class PropertySocialMediaController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [PropertySocialMedia::class, $request->get('propertyId')]);
+        $this->authorize('store', [PropertySocialMedia::class, $request->input('propertyId')]);
 
         $propertySocialMedia = $this->propertySocialMediaRepository->savePropertySocialMedia($request->all());
 

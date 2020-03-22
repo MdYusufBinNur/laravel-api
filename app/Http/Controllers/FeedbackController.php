@@ -53,7 +53,7 @@ class FeedbackController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [Feedback::class, $request->get('propertyId')]);
+        $this->authorize('store', [Feedback::class, $request->input('propertyId')]);
 
         $feedback = $this->feedbackRepository->save($request->all());
 

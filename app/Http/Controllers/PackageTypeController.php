@@ -36,7 +36,7 @@ class PackageTypeController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [PackageType::class, $request->get('propertyId')]);
+        $this->authorize('list', [PackageType::class, $request->input('propertyId')]);
 
         $packageTypes = $this->packageTypeRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class PackageTypeController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [PackageType::class, $request->get('propertyId')]);
+        $this->authorize('store', [PackageType::class, $request->input('propertyId')]);
 
         $packageType = $this->packageTypeRepository->save($request->all());
 

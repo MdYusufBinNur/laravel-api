@@ -36,7 +36,7 @@ class IncomeCategoryController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [IncomeCategory::class, $request->get('propertyId')]);
+        $this->authorize('list', [IncomeCategory::class, $request->input('propertyId')]);
 
         $incomeCategories = $this->incomeCategoryRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class IncomeCategoryController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [IncomeCategory::class, $request->get('propertyId')]);
+        $this->authorize('store', [IncomeCategory::class, $request->input('propertyId')]);
 
         $incomeCategory = $this->incomeCategoryRepository->save($request->all());
 

@@ -36,7 +36,7 @@ class LdsSettingController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [LdsSetting::class, $request->get('propertyId')]);
+        $this->authorize('list', [LdsSetting::class, $request->input('propertyId')]);
 
         $ldsSetting = $this->ldsSettingRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class LdsSettingController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [LdsSetting::class, $request->get('propertyId')]);
+        $this->authorize('store', [LdsSetting::class, $request->input('propertyId')]);
 
         $ldsSetting = $this->ldsSettingRepository->saveLdsSetting($request->all());
 

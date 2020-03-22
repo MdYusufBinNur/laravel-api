@@ -36,7 +36,7 @@ class PackageArchiveController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [PackageArchive::class, $request->get('propertyId'), $request->get('unitId', null), $request->get('residentId', null)]);
+        $this->authorize('list', [PackageArchive::class, $request->input('propertyId'), $request->get('unitId', null), $request->get('residentId', null)]);
 
         $packageArchives = $this->packageArchiveRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class PackageArchiveController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [PackageArchive::class, $request->get('propertyId'), $request->get('unitId', null), $request->get('residentId', null)]);
+        $this->authorize('store', [PackageArchive::class, $request->input('propertyId'), $request->get('unitId', null), $request->get('residentId', null)]);
 
         $packageArchive = $this->packageArchiveRepository->save($request->all());
 

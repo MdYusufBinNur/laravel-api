@@ -37,7 +37,7 @@ class PaymentInstallmentItemController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [PaymentInstallmentItem::class, $request->get('propertyId')]);
+        $this->authorize('list', [PaymentInstallmentItem::class, $request->input('propertyId')]);
 
         $paymentInstallmentItems = $this->paymentInstallmentItemRepository->findBy($request->all());
 
@@ -53,7 +53,7 @@ class PaymentInstallmentItemController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [PaymentInstallmentItem::class, $request->get('propertyId')]);
+        $this->authorize('store', [PaymentInstallmentItem::class, $request->input('propertyId')]);
 
         $paymentInstallmentItem = $this->paymentInstallmentItemRepository->save($request->all());
 

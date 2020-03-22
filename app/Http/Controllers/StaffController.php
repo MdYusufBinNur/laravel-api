@@ -38,7 +38,7 @@ class StaffController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [Manager::class, $request->get('propertyId')]);
+        $this->authorize('list', [Manager::class, $request->input('propertyId')]);
 
         $users = $this->managerRepository->findStaffUsers($request->all());
 
@@ -54,7 +54,7 @@ class StaffController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [Manager::class, $request->get('propertyId')]);
+        $this->authorize('store', [Manager::class, $request->input('propertyId')]);
 
         $staff = $this->managerRepository->save($request->all());
 

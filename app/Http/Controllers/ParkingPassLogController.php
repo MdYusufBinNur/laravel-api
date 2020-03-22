@@ -35,7 +35,7 @@ class ParkingPassLogController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [ParkingPassLog::class, $request->get('propertyId'), $request->get('unitId', null)]);
+        $this->authorize('list', [ParkingPassLog::class, $request->input('propertyId'), $request->get('unitId', null)]);
 
         $parkingPassLogs = $this->parkingPassLogRepository->findBy($request->all());
 

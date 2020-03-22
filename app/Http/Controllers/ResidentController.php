@@ -38,7 +38,7 @@ class ResidentController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [Resident::class, $request->get('propertyId')]);
+        $this->authorize('list', [Resident::class, $request->input('propertyId')]);
 
         $residents = $this->residentRepository->findBy($request->all());
 
@@ -117,7 +117,7 @@ class ResidentController extends Controller
      */
     public function residentTransfer(TransferResidentRequest $request)
     {
-        $this->authorize('residentTransfer', [Resident::class, $request->get('propertyId')]);
+        $this->authorize('residentTransfer', [Resident::class, $request->input('propertyId')]);
 
         $residents = $this->residentRepository->transferResidents($request->all());
 

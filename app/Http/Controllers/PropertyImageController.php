@@ -53,7 +53,7 @@ class PropertyImageController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [PropertyImage::class, $request->get('propertyId')]);
+        $this->authorize('store', [PropertyImage::class, $request->input('propertyId')]);
 
         $propertyImage = $this->propertyImageRepository->setPropertyImage($request->all());
 

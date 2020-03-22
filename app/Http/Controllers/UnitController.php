@@ -41,7 +41,7 @@ class UnitController extends Controller
     public function index(IndexRequest $request)
     {
         //todo for some reason it's not working :O
-        //$this->authorize('list', [Unit::class, $request->get('propertyId')]);
+        //$this->authorize('list', [Unit::class, $request->input('propertyId')]);
 
         $units = $this->unitRepository->findBy($request->all());
 
@@ -57,7 +57,7 @@ class UnitController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [Unit::class, $request->get('propertyId')]);
+        $this->authorize('store', [Unit::class, $request->input('propertyId')]);
 
         $unit = $this->unitRepository->save($request->all());
 
@@ -120,7 +120,7 @@ class UnitController extends Controller
      */
     public function floorListAutoComplete(FloorListAutoCompleteRequest $request)
     {
-        $this->authorize('floorListAutoComplete', [Unit::class, $request->get('propertyId')]);
+        $this->authorize('floorListAutoComplete', [Unit::class, $request->input('propertyId')]);
 
         $units = $this->unitRepository->floorListAutoComplete($request->all());
         return new FloorListAutoCompleteResourceCollection(collect($units));
@@ -135,7 +135,7 @@ class UnitController extends Controller
      */
     public function lineListAutoComplete(LineListAutoCompleteRequest $request)
     {
-        $this->authorize('lineListAutoComplete', [Unit::class, $request->get('propertyId')]);
+        $this->authorize('lineListAutoComplete', [Unit::class, $request->input('propertyId')]);
 
         $units = $this->unitRepository->lineListAutoComplete($request->all());
         return new LineListAutoCompleteResourceCollection(collect($units));

@@ -37,7 +37,7 @@ class PostEventController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [PostEvent::class, $request->get('propertyId')]);
+        $this->authorize('list', [PostEvent::class, $request->input('propertyId')]);
 
         $postEvents = $this->postEventRepository->findBy($request->all());
 

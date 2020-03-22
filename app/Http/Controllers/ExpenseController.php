@@ -33,7 +33,7 @@ class ExpenseController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [Expense::class, $request->get('propertyId')]);
+        $this->authorize('list', [Expense::class, $request->input('propertyId')]);
 
         $expenses = $this->expenseRepository->findBy($request->all());
 
@@ -49,7 +49,7 @@ class ExpenseController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [Expense::class, $request->get('propertyId')]);
+        $this->authorize('store', [Expense::class, $request->input('propertyId')]);
 
         $expense = $this->expenseRepository->save($request->all());
 

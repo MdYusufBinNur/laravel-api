@@ -36,7 +36,7 @@ class ServiceRequestMessageController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [ServiceRequestMessage::class, $request->get('propertyId'), $request->get('unitId', null)]);
+        $this->authorize('list', [ServiceRequestMessage::class, $request->input('propertyId'), $request->get('unitId', null)]);
 
         $serviceRequestMessages = $this->serviceRequestMessageRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class ServiceRequestMessageController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [ServiceRequestMessage::class, $request->get('propertyId'), $request->get('unitId', null)]);
+        $this->authorize('store', [ServiceRequestMessage::class, $request->input('propertyId'), $request->get('unitId', null)]);
 
         $serviceRequestMessage = $this->serviceRequestMessageRepository->save($request->all());
 

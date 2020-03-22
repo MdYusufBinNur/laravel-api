@@ -35,7 +35,7 @@ class FdiLogController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [FdiLog::class, $request->get('propertyId')]);
+        $this->authorize('list', [FdiLog::class, $request->input('propertyId')]);
 
         $fdiLogs = $this->fdiLogRepository->findBy($request->all());
 

@@ -36,7 +36,7 @@ class ModuleOptionPropertyController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [ModuleOptionProperty::class, $request->get('propertyId')]);
+        $this->authorize('list', [ModuleOptionProperty::class, $request->input('propertyId')]);
 
         $moduleOptionProperties = $this->moduleOptionPropertyRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class ModuleOptionPropertyController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [ModuleOptionProperty::class, $request->get('propertyId')]);
+        $this->authorize('store', [ModuleOptionProperty::class, $request->input('propertyId')]);
 
         $moduleOptionProperty = $this->moduleOptionPropertyRepository->saveModuleOptionProperty($request->all());
 

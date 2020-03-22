@@ -37,7 +37,7 @@ class PropertyGeneralInfoController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [PropertyGeneralInfo::class, $request->get('propertyId')]);
+        $this->authorize('list', [PropertyGeneralInfo::class, $request->input('propertyId')]);
 
         $propertyGeneralInfos = $this->propertyGeneralInfoRepository->findBy($request->all());
 
@@ -53,7 +53,7 @@ class PropertyGeneralInfoController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [PropertyGeneralInfo::class, $request->get('propertyId')]);
+        $this->authorize('store', [PropertyGeneralInfo::class, $request->input('propertyId')]);
 
         $propertyGeneralInfo = $this->propertyGeneralInfoRepository->save($request->all());
 

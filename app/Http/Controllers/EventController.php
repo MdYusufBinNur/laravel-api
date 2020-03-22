@@ -40,7 +40,7 @@ class EventController extends Controller
         if (strpos($request->getPathInfo(), 'property-login-page-events') !== false) {
             $request->merge(['allowedLoginPage' => 1, 'startDate' => Carbon::today()]);
         } else {
-            $this->authorize('list', [Event::class, $request->get('propertyId')]);
+            $this->authorize('list', [Event::class, $request->input('propertyId')]);
         }
 
         $events = $this->eventRepository->findBy($request->all());
@@ -57,7 +57,7 @@ class EventController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [Event::class, $request->get('propertyId')]);
+        $this->authorize('store', [Event::class, $request->input('propertyId')]);
 
         $event = $this->eventRepository->save($request->all());
 

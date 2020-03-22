@@ -34,7 +34,7 @@ class PaymentRecurringController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [PaymentRecurring::class, $request->get('propertyId')]);
+        $this->authorize('list', [PaymentRecurring::class, $request->input('propertyId')]);
 
         $paymentRecurs = $this->paymentRecurringRepository->findBy($request->all());
 

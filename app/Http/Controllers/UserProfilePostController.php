@@ -37,7 +37,7 @@ class UserProfilePostController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [UserProfilePost::class, $request->get('propertyId')]);
+        $this->authorize('list', [UserProfilePost::class, $request->input('propertyId')]);
 
         $userProfilePosts = $this->userProfilePostRepository->findBy($request->all());
 
@@ -54,7 +54,7 @@ class UserProfilePostController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [UserProfilePost::class, $request->get('propertyId')]);
+        $this->authorize('store', [UserProfilePost::class, $request->input('propertyId')]);
 
         $userProfilePost = $this->userProfilePostRepository->save($request->all());
 

@@ -37,7 +37,7 @@ class PostApprovalBlacklistUnitController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [PostApprovalBlacklistUnit::class, $request->get('propertyId')]);
+        $this->authorize('list', [PostApprovalBlacklistUnit::class, $request->input('propertyId')]);
 
         $postApprovalBlacklistUnits = $this->postApprovalBlacklistUnitRepository->findBy($request->all());
 
@@ -53,7 +53,7 @@ class PostApprovalBlacklistUnitController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [PostApprovalBlacklistUnit::class, $request->get('propertyId')]);
+        $this->authorize('store', [PostApprovalBlacklistUnit::class, $request->input('propertyId')]);
 
         $postApprovalBlacklistUnit = $this->postApprovalBlacklistUnitRepository->save($request->all());
 

@@ -36,7 +36,7 @@ class ParkingPassController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [ParkingPass::class, $request->get('propertyId'), $request->get('unitId', null)]);
+        $this->authorize('list', [ParkingPass::class, $request->input('propertyId'), $request->get('unitId', null)]);
 
         $parkingPasses = $this->parkingPassRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class ParkingPassController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [ParkingPass::class, $request->get('propertyId')]);
+        $this->authorize('store', [ParkingPass::class, $request->input('propertyId')]);
 
         $parkingPass = $this->parkingPassRepository->save($request->all());
 

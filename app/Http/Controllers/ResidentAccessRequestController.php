@@ -38,7 +38,7 @@ class ResidentAccessRequestController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [ResidentAccessRequest::class, $request->get('propertyId')]);
+        $this->authorize('list', [ResidentAccessRequest::class, $request->input('propertyId')]);
 
         $residentAccessRequests = $this->residentAccessRequestRepository->findBy($request->all());
 

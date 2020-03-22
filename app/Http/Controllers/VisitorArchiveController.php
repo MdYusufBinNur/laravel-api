@@ -36,7 +36,7 @@ class VisitorArchiveController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [VisitorArchive::class, $request->get('propertyId'), $request->get('unitId', null), $request->get('userId', null)]);
+        $this->authorize('list', [VisitorArchive::class, $request->input('propertyId'), $request->get('unitId', null), $request->get('userId', null)]);
 
         $visitorArchives = $this->visitorArchiveRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class VisitorArchiveController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [VisitorArchive::class, $request->get('propertyId')]);
+        $this->authorize('store', [VisitorArchive::class, $request->input('propertyId')]);
 
         $visitorArchive = $this->visitorArchiveRepository->save($request->all());
 

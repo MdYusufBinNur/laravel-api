@@ -36,7 +36,7 @@ class VendorController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [Vendor::class, $request->get('propertyId')]);
+        $this->authorize('list', [Vendor::class, $request->input('propertyId')]);
 
         $vendors = $this->vendorRepository->findBy($request->all());
 
@@ -52,7 +52,7 @@ class VendorController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [Vendor::class, $request->get('propertyId')]);
+        $this->authorize('store', [Vendor::class, $request->input('propertyId')]);
 
         $vendor = $this->vendorRepository->save($request->all());
 

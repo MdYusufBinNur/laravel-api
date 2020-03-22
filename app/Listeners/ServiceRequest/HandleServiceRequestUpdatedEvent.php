@@ -30,7 +30,7 @@ class HandleServiceRequestUpdatedEvent implements ShouldQueue
         if ($this->hasAFieldValueChanged($serviceRequest, $oldServiceRequest, 'status')) {
             $serviceRequestLogRepository->save([
                 'serviceRequestId' => $serviceRequest->id,
-                'userId' => $serviceRequest->userId,
+                'userId' => $eventOptions['request']['loggedInUserId'],
                 'type' => ServiceRequestLog::TYPE_STATUS,
                 'status' => $serviceRequest->status,
             ]);
@@ -40,7 +40,7 @@ class HandleServiceRequestUpdatedEvent implements ShouldQueue
         if ($this->hasAFieldValueChanged($serviceRequest, $oldServiceRequest, 'feedback')) {
             $serviceRequestLogRepository->save([
                 'serviceRequestId' => $serviceRequest->id,
-                'userId' => $serviceRequest->userId,
+                'userId' => $eventOptions['request']['loggedInUserId'],
                 'feedback' => $serviceRequest->feedback,
                 'type' => ServiceRequestLog::TYPE_FEEDBACK,
             ]);
@@ -50,7 +50,7 @@ class HandleServiceRequestUpdatedEvent implements ShouldQueue
         if ($this->hasAFieldValueChanged($serviceRequest, $oldServiceRequest, 'userId')) {
             $serviceRequestLogRepository->save([
                 'serviceRequestId' => $serviceRequest->id,
-                'userId' => $serviceRequest->userId,
+                'userId' => $eventOptions['request']['loggedInUserId'],
                 'type' => ServiceRequestLog::TYPE_ASSIGNMENT,
             ]);
         }

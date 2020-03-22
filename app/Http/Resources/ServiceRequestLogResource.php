@@ -42,9 +42,10 @@ class ServiceRequestLogResource extends Resource
     {
         $message = [];
         $user = $this->user;
+        $createdByUser = $this->createdByUser;
         switch ($this->type) {
             case ServiceRequestLog::TYPE_CREATED:
-                $message['readable'] = 'Service Request created by ' . $user->name;
+                $message['readable'] = 'Service Request created by ' . $createdByUser->name;
                 break;
             case ServiceRequestLog::TYPE_STATUS:
                 $message['readable'] = 'Status changed to ' . str_replace('_', ' ', $this->status) . ' by '. $user->name;
@@ -54,7 +55,7 @@ class ServiceRequestLogResource extends Resource
                 $message['messageDetails'] = new ServiceRequestMessageResource($this->message);
                 break;
             case ServiceRequestLog::TYPE_FEEDBACK:
-                $message['readable'] = Str::title($this->feedback) . ' feedback given by ' . $this->user->name;
+                $message['readable'] = Str::title($this->feedback) . ' feedback given by ' . $createdByUser->name;
                 $message['messageDetails'] = new ServiceRequestMessageResource($this->message);
                 break;
             case ServiceRequestLog::TYPE_ASSIGNMENT:

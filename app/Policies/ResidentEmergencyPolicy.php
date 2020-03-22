@@ -131,6 +131,13 @@ class ResidentEmergencyPolicy
      */
     public function destroy(User $currentUser, ResidentEmergency $residentEmergency)
     {
-        return false;
+        $resident= $residentEmergency->resident;
+        $propertyId = $resident->propertyId;
+
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return $currentUser->id === $resident->userId;
     }
 }

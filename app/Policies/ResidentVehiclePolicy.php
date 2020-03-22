@@ -131,6 +131,13 @@ class ResidentVehiclePolicy
      */
     public function destroy(User $currentUser, ResidentVehicle $residentVehicle)
     {
-        return false;
+        $resident= $residentVehicle->resident;
+        $propertyId = $resident->propertyId;
+
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
+        return $currentUser->id === $resident->userId;
     }
 }

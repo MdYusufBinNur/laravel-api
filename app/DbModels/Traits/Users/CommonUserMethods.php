@@ -69,7 +69,7 @@ trait CommonUserMethods
             return true;
         }
 
-        if ($this->isAStandardStaffOfTheProperty($propertyId)) {
+        if ($this->isAStandardEnterpriseUserOfTheProperty($propertyId)) {
             return true;
         }
 

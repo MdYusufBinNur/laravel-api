@@ -140,4 +140,16 @@ trait EnterpriseUserMethods
         //todo
         return $this->isAdminEnterpriseUser() && $this->isAnEnterpriseUserOfTheProperty($propertyId);
     }
+
+    /**
+     * is an admin enterprise user of the property
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function isAStandardEnterpriseUserOfTheProperty(int $propertyId)
+    {
+        //todo
+        return $this->isStandardEnterpriseUser() && $this->isAnEnterpriseUserOfTheProperty($propertyId);
+    }
 }

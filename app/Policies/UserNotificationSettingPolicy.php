@@ -33,12 +33,12 @@ class UserNotificationSettingPolicy
      */
     public function list(User $currentUser, int $propertyId, ?int $userId)
     {
-        if (isset($userId)) {
-            return $currentUser->id == $userId;
-        }
-
         if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
             return true;
+        }
+
+        if (isset($userId)) {
+            return $currentUser->id == $userId;
         }
 
         return false;

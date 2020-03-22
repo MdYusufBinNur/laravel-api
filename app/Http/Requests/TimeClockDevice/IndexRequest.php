@@ -15,6 +15,7 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
+            'propertyId'=> 'required',
             'deviceSN' => 'list:string',
             'location' => 'string'
         ];

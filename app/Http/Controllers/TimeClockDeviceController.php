@@ -36,7 +36,7 @@ class TimeClockDeviceController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', TimeClockDevice::class);
+        $this->authorize('list', [TimeClockDevice::class, $request->input('propertyId')]);
 
         $timeClockDevices = $this->timeClockDeviceRepository->findBy($request->all());
 

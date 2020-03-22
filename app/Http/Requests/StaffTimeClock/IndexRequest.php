@@ -24,6 +24,7 @@ class IndexRequest extends Request
             'endDate' => 'date_format:Y-m-d|after_or_equal:startDate',
             'onlyActive' => 'boolean',
             'onlyHistory' => 'boolean',
+            'withOutPagination' => 'boolean',
         ];
     }
 }

@@ -78,7 +78,7 @@ trait StaffRoleMethods
      */
     public function doesLimitedStaffHaveAccessToTheProperty(int $propertyId)
     {
-        return $this->isStandardStaffUserRole()
+        return $this->isLimitedStaffUserRole()
             && $this->hasThePropertyAssigned($propertyId);
     }
 

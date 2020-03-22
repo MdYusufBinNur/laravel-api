@@ -19,9 +19,9 @@ class CreateCommitteesTable extends Migration
             $table->integer('propertyId')->unsigned();
             $table->integer('committeeTypeId')->unsigned()->nullable();
             $table->integer('committeeSessionId')->unsigned()->nullable();
-            $table->integer('committeeHierarchyId')->unsigned()->nullable();;
-            $table->integer('userId')->unsigned();
-            $table->string('name');
+            $table->integer('committeeHierarchyId')->unsigned()->nullable();
+            $table->integer('userId')->unsigned()->nullable();
+            $table->string('name')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ResidentVehicle extends Model
 {
@@ -17,4 +18,14 @@ class ResidentVehicle extends Model
     protected $fillable = [
         'createdByUserId', 'residentId', 'make', 'model', 'color', 'licensePlate'
     ];
+
+    /**
+     * get the unit
+     *
+     * @return HasOne
+     */
+    public function resident()
+    {
+        return $this->hasOne(Resident::class, 'id', 'residentId');
+    }
 }

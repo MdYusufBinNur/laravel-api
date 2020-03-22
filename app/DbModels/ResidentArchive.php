@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ResidentArchive extends Model
 {
@@ -27,4 +28,24 @@ class ResidentArchive extends Model
         'startAt' => 'datetime:Y-m-d h:i',
         'endAt' => 'datetime:Y-m-d h:i',
     ];
+
+    /**
+     * get the unit
+     *
+     * @return HasOne
+     */
+    public function resident()
+    {
+        return $this->hasOne(Resident::class, 'id', 'residentId');
+    }
+
+    /**
+     * get the property related to the user's role
+     *
+     * @return hasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(Property::class, 'id', 'propertyId');
+    }
 }

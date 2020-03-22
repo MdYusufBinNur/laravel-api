@@ -36,6 +36,7 @@ class Payment extends Model
         'dueDate',
         'dueDays',
         'isRecurring',
+        'isInstallment',
         'status',
         'toUserIds',
         'toUnitIds',
@@ -199,6 +200,16 @@ class Payment extends Model
     public function paymentRecurring()
     {
         return $this->hasOne(PaymentRecurring::class, 'paymentId', 'id');
+    }
+
+    /**
+     * get the payment recurring
+     *
+     * @return HasOne
+     */
+    public function paymentInstallment()
+    {
+        return $this->hasOne(PaymentInstallment::class, 'paymentId', 'id');
     }
 
 

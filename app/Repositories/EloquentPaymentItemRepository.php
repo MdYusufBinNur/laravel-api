@@ -65,43 +65,57 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
                 'paymentId' => $payment->id,
             ];
 
-            if (!empty($payment->toUserIds)) {
-                $userIds = $payment->toUserIds;
-                foreach ($userIds as $userId) {
-                    $data['userId'] = $userId;
-                    $this->savePaymentItem($payment, $data);
+            if ($payment->isInstallment) {
+                $paymentInstallmentItems = $payment->paymentInstallment->paymentInstallmentItems;
+                foreach ($paymentInstallmentItems as $paymentInstallmentItem) {
+                    $data['paymentInstallmentItemId'] = $paymentInstallmentItem->id;
+                    $this->setPaymentItem($payment, $data);
                 }
-            }
-
-            if (!empty($payment->toUnitIds)) {
-                $vendorIds = $this->getAllUnitIds($payment);
-
-                foreach ($vendorIds as $unitId) {
-                    $data['unitId'] = $unitId;
-                    $this->savePaymentItem($payment, $data);
-                }
-            }
-
-            if (!empty($payment->toCustomerIds)) {
-                $customerIds = $payment->toCustomerIds;
-
-                foreach ($customerIds as $customerId) {
-                    $data['customerId'] = $customerId;
-                    $this->savePaymentItem($payment, $data);
-                }
-            }
-
-            if (!empty($payment->toVendorIds)) {
-                $vendorIds = $payment->toVendorIds;
-
-                foreach ($vendorIds as $vendorId) {
-                    $data['vendorId'] = $vendorId;
-                    $this->savePaymentItem($payment, $data);
-                }
+            } else {
+                $this->setPaymentItem($payment, $data);
             }
         }
 
         DB::commit();
+    }
+
+    private function setPaymentItem($payment, $data)
+    {
+
+        if (!empty($payment->toUserIds)) {
+            $userIds = $payment->toUserIds;
+            foreach ($userIds as $userId) {
+                $data['userId'] = $userId;
+                $this->savePaymentItem($payment, $data);
+            }
+        }
+
+        if (!empty($payment->toUnitIds)) {
+            $vendorIds = $this->getAllUnitIds($payment);
+
+            foreach ($vendorIds as $unitId) {
+                $data['unitId'] = $unitId;
+                $this->savePaymentItem($payment, $data);
+            }
+        }
+
+        if (!empty($payment->toCustomerIds)) {
+            $customerIds = $payment->toCustomerIds;
+
+            foreach ($customerIds as $customerId) {
+                $data['customerId'] = $customerId;
+                $this->savePaymentItem($payment, $data);
+            }
+        }
+
+        if (!empty($payment->toVendorIds)) {
+            $vendorIds = $payment->toVendorIds;
+
+            foreach ($vendorIds as $vendorId) {
+                $data['vendorId'] = $vendorId;
+                $this->savePaymentItem($payment, $data);
+            }
+        }
     }
 
     /**

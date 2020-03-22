@@ -5,10 +5,12 @@ namespace App\Repositories;
 
 
 use App\DbModels\Payment;
+use App\DbModels\PaymentInstallment;
 use App\DbModels\PaymentItem;
 use App\DbModels\PaymentRecurring;
 use App\Events\Payment\PaymentCreatedEvent;
 use App\Events\Payment\PaymentUpdatedEvent;
+use App\Repositories\Contracts\PaymentInstallmentRepository;
 use App\Repositories\Contracts\PaymentItemRepository;
 use App\Repositories\Contracts\PaymentPaymentMethodRepository;
 use App\Repositories\Contracts\PaymentRecurringRepository;
@@ -76,6 +78,8 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
         //is it recurring?
         $this->setRecurringPayment($payment, $data);
 
+        $this->setInstallmentPayment($payment, $data);
+
         $this->setPaymentMethods($payment, $data);
 
         DB::commit();
@@ -118,8 +122,35 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
                 ]);
             } else if ($data['isRecurring'] == 0) {
                 $paymentRecurring = $payment->paymentRecurring;
-                if ($payment->paymentRecurring instanceof PaymentRecurring) {
+                if ($paymentRecurring instanceof PaymentRecurring) {
                     $paymentRecurringRepository->delete($paymentRecurring);
+                }
+            }
+        }
+    }
+
+    /**
+     * set payment methods
+     * @param $payment
+     * @param $data
+     */
+    private function setInstallmentPayment($payment, $data)
+    {
+        $paymentInstallmentRepository = app(PaymentInstallmentRepository::class);
+
+        if (isset($data['isInstallment'])) {
+            if ($data['isInstallment'] == 1) {
+
+                $paymentInstallmentRepository->save([
+                    'propertyId' => $payment->propertyId,
+                    'paymentId' => $payment->id,
+                    'numberOfInstallments' => $data['installments']['numberOfInstallments'],
+                    'items' => $data['installments']['items'],
+                ]);
+            } else if ($data['isInstallment'] == 0) {
+                $paymentInstallment = $payment->paymentInstallment;
+                if ($paymentInstallment instanceof PaymentInstallment) {
+                    $paymentInstallmentRepository->delete($paymentInstallment);
                 }
             }
         }

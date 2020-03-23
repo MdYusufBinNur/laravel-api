@@ -43,7 +43,6 @@ class HandlePaymentCreatedEvent implements ShouldQueue
     {
         $payment = $event->payment;
         $eventOptions = $event->options;
-
         $this->paymentItemRepository->publishPayment($payment);
 
     }

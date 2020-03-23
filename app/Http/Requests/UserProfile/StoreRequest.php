@@ -5,6 +5,7 @@ namespace App\Http\Requests\UserProfile;
 use App\DbModels\UserProfile;
 use App\Http\Requests\Request;
 use App\Rules\CSVString;
+use Illuminate\Validation\Rule;
 
 class StoreRequest extends Request
 {
@@ -26,7 +27,10 @@ class StoreRequest extends Request
             'facebookUsername' => 'max:100',
             'twitterUsername' => 'max:100',
             'aboutMe' => 'max:16777215',
-            'interests' => [new CSVString()]
+            'interests' => [new CSVString()],
+            'user'                 => '',
+            'user.name'            => 'min:3|max:255',
+            'user.phone' => 'unique:users,phone',
         ];
     }
 }

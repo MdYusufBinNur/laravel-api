@@ -13,7 +13,7 @@ class EloquentPaymentItemLogRepository extends EloquentBaseRepository implements
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = ['pil.createdByUser' => 'createdByUser', 'pil.property' => 'property',  'pil.payment' => 'payment', 'pil.user' => 'user'];
+        $searchCriteria['eagerLoad'] = ['pil.createdByUser' => 'createdByUser', 'pil.property' => 'property',  'pil.payment' => 'payment', 'pil.updatedByUser' => 'updatedByUser','pil.paymentInstallmentItem' => 'paymentInstallmentItem', 'pil.paymentItemPartial' => 'paymentItemPartial'];
 
         return parent::findBy($searchCriteria, $withTrashed);
     }

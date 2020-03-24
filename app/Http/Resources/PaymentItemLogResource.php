@@ -19,13 +19,13 @@ class PaymentItemLogResource extends Resource
             'paymentItem' => $this->when($this->needToInclude($request, 'pil.paymentItem'), function () {
                 return new PaymentItemResource($this->paymentItem);
             }),
-            'userId' => $this->userId,
-            'user' => $this->when($this->needToInclude($request, 'pil.user'), function () {
-                return new UserResource($this->user);
+            'paymentItemPartialId' => $this->paymentItemPartialId,
+            'paymentItemPartial' => $this->when($this->needToInclude($request, 'pil.paymentItemPartial'), function () {
+                return new PaymentItemPartialResource($this->paymentItemPartial);
             }),
-            'unitId' => $this->unitId,
-            'unit' => $this->when($this->needToInclude($request, 'pil.unit'), function () {
-                return new UnitResource($this->unit);
+            'paymentInstallmentItemId' => $this->paymentItemId,
+            'paymentInstallmentItem' => $this->when($this->needToInclude($request, 'pil.paymentInstallmentItem'), function () {
+                return new PaymentInstallmentItemResource($this->paymentInstallmentItem);
             }),
             'status' => $this->status,
             'amount' => $this->amount,

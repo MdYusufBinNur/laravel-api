@@ -17,6 +17,7 @@ class CreatePaymentItemLogsTable extends Migration
             $table->increments('id');
             $table->integer('paymentItemId')->unsigned();
             $table->integer('paymentItemPartialId')->unsigned()->nullable();
+            $table->integer('paymentInstallmentItemId')->unsigned()->nullable();
             $table->integer('propertyId')->unsigned();
             $table->float('amount')->nullable();
             $table->string('status')->nullable();
@@ -37,6 +38,11 @@ class CreatePaymentItemLogsTable extends Migration
 
             $table->foreign('paymentItemPartialId')
                 ->references('id')->on('payment_item_partials')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('paymentInstallmentItemId')
+                ->references('id')->on('payment_installment_items')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 

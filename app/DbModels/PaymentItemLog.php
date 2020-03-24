@@ -18,9 +18,8 @@ class PaymentItemLog extends Model
     protected $fillable = [
         'paymentItemId',
         'paymentItemPartialId',
+        'paymentInstallmentItemId',
         'propertyId',
-        'userId',
-        'unitId',
         'status',
         'event',
         'amount',
@@ -66,6 +65,26 @@ class PaymentItemLog extends Model
     public function paymentItem()
     {
         return $this->hasOne(PaymentItem::class, 'id', 'paymentItemId');
+    }
+
+    /**
+     * get the payment-item-partial
+     *
+     * @return HasOne
+     */
+    public function paymentItemPartial()
+    {
+        return $this->hasOne(PaymentItemPartial::class, 'id', 'paymentItemPartialId');
+    }
+
+    /**
+     * get the payment-installment-items
+     *
+     * @return HasOne
+     */
+    public function paymentInstallmentItem()
+    {
+        return $this->hasOne(PaymentInstallmentItem::class, 'id', 'paymentInstallmentItemId');
     }
 
     /**

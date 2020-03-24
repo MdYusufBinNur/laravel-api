@@ -34,10 +34,10 @@ class StoreRequest extends Request
             'period' => 'required_if:isRecurring,1' .'|in:'. implode(',', PaymentRecurring::getConstantsByPrefix('PERIOD_')),
             'isInstallment' => 'boolean',
             'installments' => 'required_with:isInstallment',
-            'installments.numberOfInstallments' => 'required|numeric',
-            'installments.items' => 'required',
-            'installments.items.*.amount' => 'required',
-            'installments.items.*.dueDate' => 'required|date_format:Y-m-d',
+            'installments.numberOfInstallments' => 'required_with:installments|numeric',
+            'installments.items' => 'required_with:installments',
+            'installments.items.*.amount' => 'required_with:installments',
+            'installments.items.*.dueDate' => 'required_with:installments|date_format:Y-m-d',
         ];
     }
 }

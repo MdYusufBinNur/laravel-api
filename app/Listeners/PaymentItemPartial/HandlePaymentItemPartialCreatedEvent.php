@@ -5,6 +5,7 @@ namespace App\Listeners\PaymentItemPartial;
 use App\DbModels\PaymentItem;
 use App\Events\PaymentItemPartial\PaymentItemPartialCreatedEvent;
 use App\Listeners\CommonListenerFeatures;
+use App\Repositories\Contracts\PaymentItemLogRepository;
 use App\Repositories\Contracts\PaymentItemRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -18,12 +19,19 @@ class HandlePaymentItemPartialCreatedEvent implements ShouldQueue
     private $paymentItemRepository;
 
     /**
+     * @var PaymentItemLogRepository
+     */
+    private $paymentItemLogRepository;
+
+    /**
      * HandlePaymentItemPartialCreatedEvent constructor.
+     * @param PaymentItemLogRepository $paymentItemLogRepository
      * @param PaymentItemRepository $paymentItemRepository
      */
-    public function __construct(PaymentItemRepository $paymentItemRepository)
+    public function __construct(PaymentItemRepository $paymentItemRepository, PaymentItemLogRepository $paymentItemLogRepository)
     {
         $this->paymentItemRepository = $paymentItemRepository;
+        $this->paymentItemLogRepository = $paymentItemLogRepository;
     }
 
     /**
@@ -36,6 +44,7 @@ class HandlePaymentItemPartialCreatedEvent implements ShouldQueue
     {
         $paymentItemPartial = $event->paymentItemPartial;
         $eventOptions = $event->options;
+        $this->mergeRequestsForFutureEvents($eventOptions);
 
         $paymentItem = $paymentItemPartial->paymentItem;
         $totalAmount = $paymentItem->payment->amount;
@@ -46,5 +55,22 @@ class HandlePaymentItemPartialCreatedEvent implements ShouldQueue
         } else {
             $this->paymentItemRepository->update($paymentItem, ['status' => PaymentItem::STATUS_PARTIAL]);
         }
+
+        $this->logPaymentItem($paymentItemPartial, $paymentItem, $eventOptions);
+    }
+
+    public function logPaymentItem($paymentItemPartial, $paymentItem, $eventOptions)
+    {
+        //log event
+        $logData = [
+            'paymentItemId' => $paymentItem->id,
+            'paymentItemPartialId' => $paymentItemPartial->id,
+            'propertyId' => $paymentItem->propertyId,
+            'status' => $paymentItem->status,
+            'updatedByUserId' => $eventOptions['request']['loggedInUserId'],
+            'event' => 'partial.added',
+            'amount' => $paymentItemPartial->amount
+        ];
+        $this->paymentItemLogRepository->save($logData);
     }
 }

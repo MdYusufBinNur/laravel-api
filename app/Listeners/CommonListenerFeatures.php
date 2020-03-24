@@ -63,5 +63,10 @@ trait CommonListenerFeatures
 
         return false;
     }
+
+    public function mergeRequestsForFutureEvents($eventOptions)
+    {
+        request()->merge($eventOptions['request']);
+    }
 }
 

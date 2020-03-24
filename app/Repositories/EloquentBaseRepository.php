@@ -447,7 +447,7 @@ class EloquentBaseRepository implements BaseRepository
             $options['request'] = $request->toArray();
         }
 
-        $options['request']['loggedInUserId'] = $this->getLoggedInUser()->id;
+        $options['request']['loggedInUserId'] = $options['request']['loggedInUserId'] ?? $this->getLoggedInUser()->id;
         if ($this->oldModel instanceof \ArrayAccess) {
             $options['oldModel'] = $this->oldModel;
         }

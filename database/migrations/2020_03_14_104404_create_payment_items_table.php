@@ -22,6 +22,7 @@ class CreatePaymentItemsTable extends Migration
             $table->integer('unitId')->unsigned()->nullable();
             $table->integer('customerId')->unsigned()->nullable();
             $table->integer('vendorId')->unsigned()->nullable();
+            $table->integer('paymentInstallmentItemId')->unsigned()->nullable();
             $table->string('status');
             $table->text('note')->nullable();
             $table->timestamps();
@@ -59,6 +60,11 @@ class CreatePaymentItemsTable extends Migration
 
             $table->foreign('customerId')
                 ->references('id')->on('customers')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('paymentInstallmentItemId')
+                ->references('id')->on('payment_installment_items')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });

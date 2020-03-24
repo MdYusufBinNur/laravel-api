@@ -24,7 +24,7 @@ class PaymentInstallmentItem extends Model
     ];
 
     /**
-     * get the payment
+     * get the paymentInstallment
      *
      * @return HasOne
      */
@@ -32,4 +32,15 @@ class PaymentInstallmentItem extends Model
     {
         return $this->hasOne(PaymentInstallment::class, 'id', 'paymentInstallmentId');
     }
+
+    /**
+     * get the paymentItem
+     *
+     * @return HasOne
+     */
+    public function paymentItem()
+    {
+        return $this->hasOne(PaymentItem::class, 'paymentInstallmentItemId', 'id');
+    }
+
 }

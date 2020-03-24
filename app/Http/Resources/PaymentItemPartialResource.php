@@ -16,9 +16,18 @@ class PaymentItemPartialResource extends Resource
         return [
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
+            'createdByUser' =>  $this->when($this->needToInclude($request, 'pip.createdByUser'), function () {
+                return new UserResource($this->createdByUser);
+            }),
             'propertyId' => $this->propertyId,
             'paymentMethodId' => $this->paymentMethodId,
+            'paymentMethod' =>  $this->when($this->needToInclude($request, 'pip.paymentMethod'), function () {
+                return new PaymentMethodResource($this->paymentMethod);
+            }),
             'paymentItemId' => $this->paymentItemId,
+            'paymentItem' =>  $this->when($this->needToInclude($request, 'pip.paymentItem'), function () {
+                return new PaymentItemResource($this->paymentItem);
+            }),
             'paymentDate' => $this->paymentDate,
             'amount' => $this->amount,
             'created_at' => $this->created_at,

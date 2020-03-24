@@ -5,6 +5,7 @@ namespace App\Listeners\PaymentItemPartial;
 use App\DbModels\PaymentItem;
 use App\Events\PaymentItemPartial\PaymentItemPartialUpdatedEvent;
 use App\Listeners\CommonListenerFeatures;
+use App\Repositories\Contracts\PaymentItemLogRepository;
 use App\Repositories\Contracts\PaymentItemRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -18,12 +19,19 @@ class HandlePaymentItemPartialUpdatedEvent implements ShouldQueue
     private $paymentItemRepository;
 
     /**
+     * @var PaymentItemLogRepository
+     */
+    private $paymentItemLogRepository;
+
+    /**
      * HandlePaymentItemPartialCreatedEvent constructor.
      * @param PaymentItemRepository $paymentItemRepository
+     * @param PaymentItemLogRepository $paymentItemLogRepository
      */
-    public function __construct(PaymentItemRepository $paymentItemRepository)
+    public function __construct(PaymentItemRepository $paymentItemRepository, PaymentItemLogRepository $paymentItemLogRepository)
     {
         $this->paymentItemRepository = $paymentItemRepository;
+        $this->paymentItemLogRepository = $paymentItemLogRepository;
     }
 
     /**
@@ -47,5 +55,23 @@ class HandlePaymentItemPartialUpdatedEvent implements ShouldQueue
         } else {
             $this->paymentItemRepository->update($paymentItem, ['status' => PaymentItem::STATUS_PARTIAL]);
         }
+
+        $this->logPartialPayment($paymentItemPartial->amount, $paymentItem, $eventOptions);
+
+    }
+
+
+    public function logPartialPayment($paymentItemPartial, $paymentItem, $eventOptions)
+    {
+        //log event
+        $logData = [
+            'paymentItemId' => $paymentItem->id,
+            'propertyId' => $paymentItem->propertyId,
+            'status' => $paymentItem->status,
+            'updatedByUserId' => $eventOptions['request']['loggedInUserId'],
+            'event' => 'partial.updated',
+            'amount' => $paymentItemPartial->amount
+        ];
+        $this->paymentItemLogRepository->save($logData);
     }
 }

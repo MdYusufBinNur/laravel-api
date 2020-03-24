@@ -13,6 +13,16 @@ class EloquentPaymentItemPartialRepository extends EloquentBaseRepository implem
     /**
      * @inheritDoc
      */
+    public function findBy(array $searchCriteria = [], $withTrashed = false)
+    {
+        $searchCriteria['eagerLoad'] = ['pip.createdByUser' => 'createdByUser', 'pip.paymentItem' => 'paymentItem', 'pip.paymentMethod' => 'paymentMethod'];
+
+        return parent::findBy($searchCriteria, $withTrashed);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function save(array $data): \ArrayAccess
     {
         $paymentItemPartial = parent::save($data);

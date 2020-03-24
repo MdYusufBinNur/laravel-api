@@ -29,6 +29,7 @@ class PaymentItem extends Model
         'unitId',
         'vendorId',
         'customerId',
+        'paymentInstallmentItemId',
         'status',
         'note',
     ];

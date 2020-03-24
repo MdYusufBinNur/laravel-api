@@ -24,6 +24,9 @@ class PaymentInstallmentItemResource extends Resource
             'paymentInstallment' => $this->when($this->needToInclude($request, 'pimi.paymentInstallment'), function () {
                 return new PaymentInstallmentResource($this->paymentInstallment);
             }),
+            'paymentItem' => $this->when($this->needToInclude($request, 'pimi.paymentItem'), function () {
+                return new PaymentItemResource($this->paymentItem);
+            }),
             'dueDate' => $this->dueDate,
             'amount' => $this->amount,
             'created_at' => $this->created_at,

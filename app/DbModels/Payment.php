@@ -220,7 +220,9 @@ class Payment extends Model
      */
     public function hasAllPaymentItemsPaid()
     {
-        return $this->paymentItems()->where('status','<>',  PaymentItem::STATUS_PAID)->doesntExist();
+        $totalPaymentItems = $this->paymentItems()->count();
+        $totalPaidPaymentItems = $this->paymentItems()->where('status',PaymentItem::STATUS_PAID)->count();
+        return $totalPaymentItems === $totalPaidPaymentItems;
     }
     /**
      * check if payment is published nor not

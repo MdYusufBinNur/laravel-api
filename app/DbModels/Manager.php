@@ -74,4 +74,14 @@ class Manager extends Model
     {
         return $this->hasMany(UserRole::class, 'userId', 'userId');
     }
+
+    /**
+     * get label
+     *
+     * @return mixed
+     */
+    public function getStaffLabelAttribute()
+    {
+        return $this->title;
+    }
 }

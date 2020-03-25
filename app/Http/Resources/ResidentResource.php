@@ -53,6 +53,7 @@ class ResidentResource extends Resource
             'residentEmergency' => $this->when($this->needToInclude($request, 'resident.residentEmergency'), function () {
                 return new ResidentEmergencyResource($this->residentEmergency);
             }),
+            'label' => $this->residentLabel
         ];
     }
 }

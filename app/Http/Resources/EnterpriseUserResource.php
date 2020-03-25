@@ -31,6 +31,7 @@ class EnterpriseUserResource extends Resource
             'properties' => $this->when($this->needToInclude($request, 'eu.properties'), function () {
                 return new PropertyResourceCollection($this->getAssignedProperties());
             }),
+            'label' => $this->enterPriseUserLabel,
         ];
     }
 }

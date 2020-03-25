@@ -41,7 +41,12 @@ trait EloquentEagerLoadTrait
                 $shouldLoadRelationships[] = $eagerLoads[$relationship];
             }
         }
-        return $shouldLoadRelationships;
+        if (isset($eagerLoads['always'])) {
+            $alwaysRelationships = explode(',', $eagerLoads['always']);
+            $shouldLoadRelationships = array_merge($shouldLoadRelationships, $alwaysRelationships);
+        }
+
+        return array_unique($shouldLoadRelationships);
     }
 
 

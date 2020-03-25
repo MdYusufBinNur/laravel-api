@@ -120,4 +120,14 @@ class Resident extends Model
     {
         return $this->propertyId === $propertyId;
     }
+
+    /**
+     * get resident label attribute
+     *
+     * @return mixed
+     */
+    public function getResidentLabelAttribute()
+    {
+        return $this->unit->title;
+    }
 }

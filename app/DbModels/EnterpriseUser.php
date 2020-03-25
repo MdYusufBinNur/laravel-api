@@ -7,6 +7,7 @@ use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Str;
 
 class EnterpriseUser extends Model
 {
@@ -105,6 +106,16 @@ class EnterpriseUser extends Model
         }
 
         return $properties;
+    }
+
+    /**
+     * get label
+     *
+     * @return mixed
+     */
+    public function getEnterpriseUserLabelAttribute()
+    {
+        return Str::title(str_replace('_', ' ', $this->level));
     }
 
 }

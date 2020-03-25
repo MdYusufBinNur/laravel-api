@@ -16,7 +16,8 @@ class UpdateRequest extends Request
         return [
             'paymentMethodId' => 'exists:payment_methods,id',
             'paymentDate' => 'date_format:Y-m-d',
-            'amount' => 'max:6'
+            'amount' => 'max:6',
+            'note' => 'string|max:65535'
         ];
     }
 }

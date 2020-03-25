@@ -18,7 +18,8 @@ class StoreRequest extends Request
             'paymentMethodId' => 'exists:payment_methods,id',
             'paymentItemId' => 'exists:payment_items,id',
             'paymentDate' => 'date_format:Y-m-d',
-            'amount' => 'numeric'
+            'amount' => 'numeric',
+            'note' => 'string|max:65535'
         ];
     }
 }

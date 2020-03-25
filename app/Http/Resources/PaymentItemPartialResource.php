@@ -30,6 +30,7 @@ class PaymentItemPartialResource extends Resource
             }),
             'paymentDate' => $this->paymentDate,
             'amount' => $this->amount,
+            'note' => $this->note,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

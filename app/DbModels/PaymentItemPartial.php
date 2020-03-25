@@ -21,6 +21,7 @@ class PaymentItemPartial extends Model
         'paymentMethodId',
         'paymentItemId',
         'amount',
+        'note',
         'paymentDate'
     ];
 

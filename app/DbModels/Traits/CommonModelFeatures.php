@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 trait CommonModelFeatures
 {
     //todo experiment model caching
-    use SoftDeletes/*, Cachable*/;
+    use SoftDeletes, Cachable;
 
     /**
      * Get the user who created

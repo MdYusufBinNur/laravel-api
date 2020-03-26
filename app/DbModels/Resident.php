@@ -128,6 +128,12 @@ class Resident extends Model
      */
     public function getResidentLabelAttribute()
     {
-        return $this->unit->title;
+        $unit =  $this->unit;
+
+        if ($unit instanceof Unit) {
+            return $unit->title;
+        }
+
+        return null;
     }
 }

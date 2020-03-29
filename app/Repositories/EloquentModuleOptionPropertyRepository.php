@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 use App\DbModels\ModuleOption;
+use App\DbModels\ModuleOptionProperty;
 use App\Repositories\Contracts\ModuleOptionPropertyRepository;
 use App\Repositories\Contracts\ModuleOptionRepository;
 use App\Repositories\Contracts\ModuleRepository;
@@ -63,13 +64,18 @@ class EloquentModuleOptionPropertyRepository extends EloquentBaseRepository impl
         $thisModelTable = $this->model->getTable();
         $moduleOptionModelTable = ModuleOption::getTableName();
 
-        return $this->model
+        $moduleOptionProperty =  $this->model
             ->select($thisModelTable . '.value')
             ->join($moduleOptionModelTable, $moduleOptionModelTable . '.id', '=', $thisModelTable . '.moduleOptionId')
             ->where($thisModelTable . '.propertyId', $propertyId)
             ->where($moduleOptionModelTable . '.moduleId', $moduleOptionConst['moduleId'])
             ->where($moduleOptionModelTable . '.key', $moduleOptionConst['key'])
-            ->pluck('value')->toArray();
+            ->first();
+        if ($moduleOptionProperty instanceof ModuleOptionProperty) {
+            return $moduleOptionProperty->value;
+        }
+
+        return null;
     }
 
 }

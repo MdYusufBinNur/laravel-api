@@ -4,11 +4,29 @@
 namespace App\Repositories;
 
 
+use App\Events\Announcement\AnnouncementCreatedEvent;
 use App\Repositories\Contracts\AnnouncementRepository;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class EloquentAnnouncementRepository extends EloquentBaseRepository implements AnnouncementRepository
 {
+    /**
+     * @inheritDoc
+     */
+    public function save(array $data): \ArrayAccess
+    {
+        DB::beginTransaction();
+
+        $announcement = parent::save($data);
+
+        DB::commit();
+
+        event(new AnnouncementCreatedEvent($announcement, $this->generateEventOptionsForModel()));
+
+        return $announcement;
+    }
+
     /**
      * @inheritdoc
      */

@@ -44,18 +44,20 @@ class InsertModulesAndOptions extends Migration
             ['id' => 28, 'key' => 'RR', 'title' => 'Registration Requests'],
             ['id' => 29, 'key' => 'AS', 'title' => 'Application Settings'],
             ['id' => 30, 'key' => 'PC', 'title' => 'Property Committee'],
-            ['id' => 31, 'key' => 'PC', 'title' => 'SMS'],
+            ['id' => 31, 'key' => 'SMS', 'title' => 'Text message'],
         ]);
 
         DB::table('module_options')->insert([
 
             ['moduleId' => 2, 'key' => 'defaultView', 'title' => 'Default View'],
             ['moduleId' => 2, 'key' => 'requireSignature', 'title' => 'Require a signature for releasing a package.'],
+            ['moduleId' => 2, 'key' => 'sendSMS', 'title' => 'Enable SMS for package sign in / sign out'],
 
             ['moduleId' => 7, 'key' => 'moduleName', 'title' => 'Module name of the SR'],
             ['moduleId' => 7, 'key' => 'residentsLeaveFeedback', 'title' => 'Allow residents to leave feedback on service requests'],
             ['moduleId' => 7, 'key' => 'permissionToEnterOptions', 'title' => 'Allow "permission to enter" options'],
             ['moduleId' => 7, 'key' => 'allowOwnersToSubmitRequests', 'title' => 'Allow only owners to submit service requests'],
+            ['moduleId' => 7, 'key' => 'sendSMS', 'title' => 'Enable SMS for service request notification'],
 
             ['moduleId' => 9, 'key' => 'paymentGatewayId', 'title' => 'By which Payment Gateway '],
             ['moduleId' => 9, 'key' => 'managerId', 'title' => 'Manager of the property'],
@@ -71,6 +73,7 @@ class InsertModulesAndOptions extends Migration
             ['moduleId' => 12, 'key' => 'maxGuestsPerUnit', 'title' => 'Max guests per unit'],
             ['moduleId' => 12, 'key' => 'maxStayPerGuest', 'title' => 'Max stay per unit'],
             ['moduleId' => 12, 'key' => 'customDisclaimer', 'title' => 'Add a custom disclaimer for residents at the bottom of the "Add a Guest" form'],
+            ['moduleId' => 12, 'key' => 'sendSMS', 'title' => 'Enable SMS notification for new guest/mail/ update'],
 
             ['moduleId' => 13, 'key' => 'generalDiscussion', 'title' => 'When a general discussion is posted'],
             ['moduleId' => 13, 'key' => 'marketplaceListing', 'title' => 'When a marketplace listing is posted'],
@@ -80,6 +83,8 @@ class InsertModulesAndOptions extends Migration
             ['moduleId' => 14, 'key' => 'autoExpire', 'title' => 'Visitor Expiration'],
             ['moduleId' => 14, 'key' => 'requireVisitorSignature', 'title' => 'Require a signature for logging in visitors'],
             ['moduleId' => 14, 'key' => 'labelPrinter', 'title' => 'Allow printing of visitors tags with a label printer'],
+            ['moduleId' => 14, 'key' => 'sendSMS', 'title' => 'Enable SMS for visitor sign-in'],
+
 
             ['moduleId' => 15, 'key' => 'requireTimeclockPassword', 'title' => 'Require staff user\'s password when clocking in/out'],
             ['moduleId' => 15, 'key' => 'requireTimeclockSignature', 'title' => 'Require a signature when clocking in/out'],
@@ -89,6 +94,8 @@ class InsertModulesAndOptions extends Migration
             ['moduleId' => 15, 'key' => 'allowedStates', 'title' => 'List of states allowed'],
             ['moduleId' => 15, 'key' => 'isPhotoRequired', 'title' => 'Photo required without attendance device'],
             ['moduleId' => 15, 'key' => 'trackLocation', 'title' => 'Track location when used without attendance device'],
+            ['moduleId' => 15, 'key' => 'sendSMS', 'title' => 'Enable SMS for staff time clock'],
+
 
             ['moduleId' => 17, 'key' => 'approveReservation', 'title' => 'Require Managers to approve reservations made by resident'],
 

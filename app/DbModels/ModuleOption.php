@@ -24,11 +24,14 @@ class ModuleOption extends Model
 
     const PACKAGES_OPTION_DEFAULT_VIEW = ['moduleId' => 2, 'key' => 'defaultView'];
     const PACKAGES_OPTION_REQUIRE_SIGNATURE = ['moduleId' => 2, 'key' => 'requireSignature'];
+    const PACKAGES_OPTION_SEND_SMS = ['moduleId' => 2, 'key' => 'sendSMS'];
+
 
     const SERVICE_REQUEST_MODULE_NAME = ['moduleId' => 7, 'key' => 'moduleName'];
     const SERVICE_REQUEST_RESIDENT_FEEDBACK_ALLOWED = ['moduleId' => 7, 'key' => 'residentsLeaveFeedback'];
     const SERVICE_REQUEST_PERMISSION_TO_ENTER = ['moduleId' => 7, 'key' => 'permissionToEnterOptions'];
     const SERVICE_REQUEST_ALLOW_OWNERS_TO_SUBMIT_REQUEST = ['moduleId' => 7, 'key' => 'allowOwnersToSubmitRequests'];
+    const SERVICE_REQUEST_SEND_SMS = ['moduleId' => 7, 'key' => 'sendSMS'];
 
     const FRONT_DESK_INSTRUCTION_MAIL_HOLDS = ['moduleId' => 12, 'key' => 'mailHolds'];
     const FRONT_DESK_INSTRUCTION_GENERAL_INSTRUCTION = ['moduleId' => 12, 'key' => 'generalInstructions'];
@@ -39,6 +42,8 @@ class ModuleOption extends Model
     const FRONT_DESK_INSTRUCTION_MAX_GUEST_PER_UNIT = ['moduleId' => 12, 'key' => 'maxGuestsPerUnit'];
     const FRONT_DESK_INSTRUCTION_MAX_STAY_PER_GUEST = ['moduleId' => 12, 'key' => 'maxStayPerGuest'];
     const FRONT_DESK_INSTRUCTION_CUSTOM_DISCLAIMER = ['moduleId' => 12, 'key' => 'customDisclaimer'];
+    const FRONT_DESK_INSTRUCTION_SEND_SMS = ['moduleId' => 12, 'key' => 'sendSMS'];
+
 
     const CONTENT_GENERAL_DISCUSSION = ['moduleId' => 13, 'key' => 'generalDiscussion'];
     const CONTENT_MARKETPLACE_LISTING = ['moduleId' => 13, 'key' => 'marketplaceListing'];
@@ -48,11 +53,13 @@ class ModuleOption extends Model
     const ENTRY_LOG_AUTO_EXPIRE = ['moduleId' => 14, 'key' => 'autoExpire'];
     const ENTRY_LOG_REQUIRE_VISITOR_SIGNATURE = ['moduleId' => 14, 'key' => 'requireVisitorSignature'];
     const ENTRY_LOG_LABEL_PRINTER_ENABLED = ['moduleId' => 14, 'key' => 'labelPrinter'];
+    const ENTRY_LOG_SEND_SMS = ['moduleId' => 14, 'key' => 'sendSMS'];
 
     const EMPLOYEE_TIME_CLOCK_REQUIRE_PASSWORD = ['moduleId' => 15, 'key' => 'requireTimeclockPassword'];
     const EMPLOYEE_TIME_CLOCK_REQUIRE_SIGNATURE = ['moduleId' => 15, 'key' => 'requireTimeclockSignature'];
     const EMPLOYEE_TIME_CLOCK_REQUIRE_PHOTO = ['moduleId' => 15, 'key' => 'requireTimeclockPhoto'];
     const EMPLOYEE_TIME_CLOCK_EXTERNAL_DEVICE_SN = ['moduleId' => 15, 'key' => 'externalDeviceSN'];
+    const EMPLOYEE_TIME_CLOCK_SEND_SMS = ['moduleId' => 15, 'key' => 'sendSMS'];
 
     const AMENITY_RESERVATION_APPROVAL = ['moduleId' => 17, 'key' => 'approveReservation'];
 

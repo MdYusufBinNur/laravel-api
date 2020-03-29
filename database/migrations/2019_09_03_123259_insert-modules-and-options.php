@@ -44,6 +44,7 @@ class InsertModulesAndOptions extends Migration
             ['id' => 28, 'key' => 'RR', 'title' => 'Registration Requests'],
             ['id' => 29, 'key' => 'AS', 'title' => 'Application Settings'],
             ['id' => 30, 'key' => 'PC', 'title' => 'Property Committee'],
+            ['id' => 31, 'key' => 'PC', 'title' => 'SMS'],
         ]);
 
         DB::table('module_options')->insert([

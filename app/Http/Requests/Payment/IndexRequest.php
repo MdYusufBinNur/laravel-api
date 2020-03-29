@@ -27,6 +27,7 @@ class IndexRequest extends Request
             'isRecurring' => 'boolean',
             'status' => 'list:string',
             'activationDate' => 'date_format:Y-m-d',
+            'isInstallment' => 'boolean',
             'withOutPagination' => 'boolean'
         ];
     }

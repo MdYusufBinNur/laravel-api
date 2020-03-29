@@ -32,7 +32,7 @@ class EloquentPaymentInstallmentRepository extends EloquentBaseRepository implem
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = ['pim.createdByUser' => 'createdByUser', 'pim.payment' => 'payment'];
+        $searchCriteria['eagerLoad'] = ['pim.createdByUser' => 'createdByUser', 'pim.payment' => 'payment', 'pim.paymentInstallmentItems' => 'paymentInstallmentItems'];
 
         return parent::findBy($searchCriteria, $withTrashed);
     }

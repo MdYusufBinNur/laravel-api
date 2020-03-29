@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\DbModels\PaymentInstallmentItem;
+
 class PaymentItemResource extends Resource
 {
     /**
@@ -39,6 +41,10 @@ class PaymentItemResource extends Resource
                 return new CustomerResource($this->customer);
             }),
             'status' => $this->status,
+            'paymentInstallmentItemId' => $this->paymentInstallmentItemId,
+            'paymentInstallmentItem' => $this->when($this->needToInclude($request, 'pi.paymentInstallmentItem'), function () {
+                return new PaymentInstallmentItem($this->paymentInstallmentItem);
+            }),
             'note' => $this->note,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

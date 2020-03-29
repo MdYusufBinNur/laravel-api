@@ -127,4 +127,14 @@ class PaymentItem extends Model
     {
         return $this->hasMany(PaymentItemPartial::class, 'paymentItemId', 'id');
     }
+
+    /**
+     * get the payment-installment-item
+     *
+     * @return HasOne
+     */
+    public function paymentInstallmentItem()
+    {
+        return $this->hasOne(PaymentInstallmentItem::class, 'id', 'paymentInstallmentItemId');
+    }
 }

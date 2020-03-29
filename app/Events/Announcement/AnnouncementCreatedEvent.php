@@ -3,9 +3,12 @@
 namespace App\Events\Announcement;
 
 use App\DbModels\Announcement;
+use App\Http\Resources\AnnouncementResource;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 
-class AnnouncementCreatedEvent
+class AnnouncementCreatedEvent implements ShouldBroadcast
 {
     use SerializesModels;
 
@@ -29,5 +32,41 @@ class AnnouncementCreatedEvent
     {
         $this->announcement = $announcement;
         $this->options = $options;
+    }
+
+    /**
+     * Get the channels the event should broadcast on.
+     *
+     * @return \Illuminate\Broadcasting\Channel|\Illuminate\Broadcasting\Channel[]
+     */
+    public function broadcastOn()
+    {
+        $channels[] = new PrivateChannel('PROPERTY.' . $this->announcement->propertyId);
+
+        return $channels;
+
+    }
+
+    /**
+     * Get the data to broadcast.
+     *
+     * @return array
+     */
+    public function broadcastAs()
+    {
+        return ['announcement'];
+    }
+
+    /**
+     * Get the data to broadcast.
+     *
+     * @return array
+     */
+    public function broadcastWith()
+    {
+        return [
+            'announcement' => new AnnouncementResource($this->announcement),
+            'options' => $this->options['request']
+        ];
     }
 }

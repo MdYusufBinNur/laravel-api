@@ -38,7 +38,7 @@ class VisitorArrived extends Mailable
         $property = $visitor->property;
         $unit = $visitor->unit;
 
-        return $this->subject("You've Got A Visitor!")->view('visitor.created.index')
+        return $this->subject("You've Got A Visitor!")->view('visitor.arrived.index')
             ->with(['visitor' => $visitor, 'property' => $property, 'unit' => $unit]);
     }
 }

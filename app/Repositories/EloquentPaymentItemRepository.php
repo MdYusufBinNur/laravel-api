@@ -5,11 +5,14 @@ namespace App\Repositories;
 
 
 use App\DbModels\Payment;
+use App\DbModels\PaymentInstallmentItem;
 use App\Events\PaymentItem\PaymentItemCreatedEvent;
 use App\Events\PaymentItem\PaymentItemUpdatedEvent;
 use App\Repositories\Contracts\PaymentItemRepository;
 use App\Repositories\Contracts\UnitRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class EloquentPaymentItemRepository extends EloquentBaseRepository implements PaymentItemRepository
 {
@@ -66,11 +69,17 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
             ];
 
             if ($payment->isInstallment) {
-                $paymentInstallmentItems = $payment->paymentInstallment->paymentInstallmentItems;
-                foreach ($paymentInstallmentItems as $paymentInstallmentItem) {
-                    $data['paymentInstallmentItemId'] = $paymentInstallmentItem->id;
-                    $this->setPaymentItem($payment, $data);
+                $paymentInstallment = $payment->paymentInstallment;
+                if ($paymentInstallment instanceof PaymentInstallmentItem) {
+                    $paymentInstallmentItems = $paymentInstallment->paymentInstallmentItems;
+                    foreach ($paymentInstallmentItems as $paymentInstallmentItem) {
+                        $data['paymentInstallmentItemId'] = $paymentInstallmentItem->id;
+                        $this->setPaymentItem($payment, $data);
+                    }
+                } else {
+                    throw new \ErrorException("Couldn't find the payment installment of payment id: " . $payment->id);
                 }
+
             } else {
                 $this->setPaymentItem($payment, $data);
             }

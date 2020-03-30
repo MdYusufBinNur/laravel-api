@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Arr;
 
 class Property extends Model
 {
@@ -68,13 +69,25 @@ class Property extends Model
     }
 
     /**
-     * Get the users for the property.
+     * Get the users of the property.
      *
      * @return HasManyThrough
      */
     public function users()
     {
         return $this->hasManyThrough( User::class, UserRole::class, 'propertyId', 'id', 'id', 'userId');
+    }
+
+
+    /**
+     * Get the users of the property who has staff role
+     *
+     * @return HasManyThrough
+     * @throws
+     */
+    public function staffUsers()
+    {
+        return $this->users()->whereIn('user_roles.roleId', Arr::pluck(Role::getConstantsByPrefix('ROLE_STAFF_'), 'id'));
     }
 
     /**

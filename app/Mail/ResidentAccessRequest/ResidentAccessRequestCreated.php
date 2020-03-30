@@ -16,14 +16,20 @@ class ResidentAccessRequestCreated extends Mailable
     public $residentAccessRequest;
 
     /**
+     * @var bool
+     */
+    public $toStaff;
+
+    /**
      * Create a new message instance.
      *
      * @param ResidentAccessRequest $residentAccessRequest
-     * @return void
+     * @param bool $toStaff
      */
-    public function __construct(ResidentAccessRequest $residentAccessRequest)
+    public function __construct(ResidentAccessRequest $residentAccessRequest, $toStaff = false)
     {
         $this->residentAccessRequest = $residentAccessRequest;
+        $this->toStaff = $toStaff;
     }
 
     /**
@@ -36,8 +42,9 @@ class ResidentAccessRequestCreated extends Mailable
         $residentAccessRequest = $this->residentAccessRequest;
         $property = $this->residentAccessRequest->property;
         $unit = $this->residentAccessRequest->unit;
+        $subject = $this->toStaff ? 'A New Registration Request to your property' : ("Received! Registration request to {$property->title} community");
 
-        return $this->subject("Received! Registration request to {$property->title} community")->view('resident.access-request.index')
-            ->with(['residentAccessRequest' => $residentAccessRequest, 'property' => $property, 'unit' => $unit]);
+        return $this->subject($subject)->view('resident.access-request.index')
+            ->with(['residentAccessRequest' => $residentAccessRequest, 'property' => $property, 'unit' => $unit, 'toStaff' => $this->toStaff]);
     }
 }

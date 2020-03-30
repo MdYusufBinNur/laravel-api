@@ -11,13 +11,13 @@ use App\Repositories\Contracts\ModuleSettingPropertyRepository;
 class SmsHelper
 {
     /**
-     * is module active
+     * is sms enabled for the feature
      *
      * @param int $propertyId
      * @param array $moduleOptionConst
      * @return bool
      */
-    public static function isSmsEnabledForTheOption(array $moduleOptionConst, $propertyId)
+    public static function isSmsEnabledForTheOption(int $propertyId, array $moduleOptionConst)
     {
         if (!env('SMS_SERVICE')) {
             return false;

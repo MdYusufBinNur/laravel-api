@@ -3,12 +3,9 @@
 namespace App\Mail\Announcement;
 
 use App\DbModels\Announcement;
-use App\DbModels\Property;
 use App\DbModels\User;
-use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class AnnouncementCreated extends Mailable
 {

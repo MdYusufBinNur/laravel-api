@@ -70,11 +70,11 @@ class Property extends Model
     /**
      * Get the users for the property.
      *
-     * @return HasMany
+     * @return HasManyThrough
      */
     public function users()
     {
-        return $this->hasMany(UserRole::class, 'propertyId', 'id');
+        return $this->hasManyThrough( User::class, UserRole::class, 'propertyId', 'id', 'id', 'userId');
     }
 
     /**

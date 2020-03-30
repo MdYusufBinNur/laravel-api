@@ -34,7 +34,7 @@ class AnnouncementCreated extends Mailable
     }
 
     /**
-     * Build the message.
+     * Send Announcement created mail to property user
      *
      * @return $this
      */
@@ -42,7 +42,7 @@ class AnnouncementCreated extends Mailable
     {
         $property = $this->announcement->property;
 
-        return $this->subject("An Announcement from " . $property->title)->view('announcement.created.index')
+        return $this->subject("An Announcement From " . $property->title)->view('announcement.created.index')
             ->with(['announcement' => $this->announcement, 'user' => $this->user, 'property' => $property]);
     }
 }

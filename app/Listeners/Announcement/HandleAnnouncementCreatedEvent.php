@@ -26,11 +26,11 @@ class HandleAnnouncementCreatedEvent implements ShouldQueue
         $announcement = $event->announcement;
         $eventOptions = $event->options;
 
-        $userRepository = app (UserRepository::class);
-        $toUsers = $userRepository->findBy(['propertyId' => $announcement->propertyId]);
+        $toUsers = $announcement->property->users;
+
         $userNotificationRepository = app(UserNotificationRepository::class);
         foreach ($toUsers as $user) {
-            $message = 'An announcement from your property';
+            $message = 'An Announcement From' . $announcement->property->title;
 
             $userNotificationRepository->save([
                 'fromUserId' => $announcement->createdByUserId,

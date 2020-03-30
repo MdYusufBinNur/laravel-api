@@ -12,7 +12,7 @@
                 </tr>
                 <tr>
                     <td align="left" style="font-size:18px;color:#ffffff; text-align: left;">
-                        Dear Mr. {{ $resident->user->name }}, <br> <br>
+                        Dear Mr. {{ $unit->title || $resident->user->name }}, <br> <br>
 
                         A package has Arrived at our reception desk for you.<br>
                         Please find the details of the Package below.

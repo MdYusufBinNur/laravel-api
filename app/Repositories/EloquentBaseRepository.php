@@ -353,6 +353,9 @@ class EloquentBaseRepository implements BaseRepository
     {
         $valuesArray = is_string($values) ? explode(',', $values) : $values;
 
+        if (property_exists( $this->model , 'isCachable')) {
+            $queryBuilder = $queryBuilder->disableCache();
+        }
         $queryBuilder = $queryBuilder->where(function ($query) use ($fieldName, $valuesArray, $queryBuilder) {
             foreach ($valuesArray as $key => $value) {
                 if ($key === 0) {

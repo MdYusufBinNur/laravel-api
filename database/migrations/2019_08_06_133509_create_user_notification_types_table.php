@@ -34,7 +34,7 @@ class CreateUserNotificationTypesTable extends Migration
             ['id' => 2, 'type' => 'daily_digest'],
             ['id' => 3, 'type' => 'key_log'],
             ['id' => 4, 'type' => 'left_notes'],
-            ['id' => 5, 'type' => 'package_added'],
+            ['id' => 5, 'type' => 'package'],
             ['id' => 6, 'type' => 'service_request'],
             ['id' => 7, 'type' => 'fdi'],
             ['id' => 8, 'type' => 'amenity'],
@@ -47,7 +47,6 @@ class CreateUserNotificationTypesTable extends Migration
             ['id' => 15, 'type' => 'payment_item_updated'],
             ['id' => 16, 'type' => 'reminder'],
             ['id' => 17, 'type' => 'announcement'],
-            ['id' => 18, 'type' => 'package_signout'],
         ]);
     }
 

@@ -54,7 +54,7 @@ class HandlePackageArchivedCreatedEvent implements ShouldQueue
         $userNotificationRepository->save([
             'fromUserId' => $fromUserId,
             'toUserId' => $toUserId,
-            'userNotificationTypeId' => UserNotificationType::PACKAGE_SIGNOUT['id'],
+            'userNotificationTypeId' => UserNotificationType::PACKAGE['id'],
             'resourceId' => $resourceId,
             'message' => "Your Package has been delivered",
         ]);

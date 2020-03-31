@@ -15,7 +15,7 @@ class UserNotificationType extends Model
     const DAILY_DIGEST = ['id' => 2, 'type' => 'daily_digest'];
     const KEY_LOG = ['id' => 3, 'type' => 'key_log'];
     const LEFT_NOTES = ['id' => 4, 'type' => 'left_notes'];
-    const PACKAGE_ADDED = ['id' => 5, 'type' => 'package_added'];
+    const PACKAGE = ['id' => 5, 'type' => 'package'];
     const FDI = ['id' => 7, 'type' => 'fdi'];
     const AMENITY = ['id' => 8, 'type' => 'amenity'];
     const RESIDENT_ALLOWED_TO_CONTACT = ['id' => 9, 'type' => 'residentAllowedToContact'];
@@ -27,5 +27,4 @@ class UserNotificationType extends Model
     const PAYMENT_ITEM_UPDATED = ['id' => 15, 'type' => 'payment_item_updated'];
     const REMINDER = ['id' => 16, 'type' => 'reminder'];
     const ANNOUNCEMENT = ['id' => 17, 'type' => 'announcement'];
-    const PACKAGE_SIGNOUT = ['id' => 18, 'type' => 'package_signout'];
 }

@@ -57,7 +57,7 @@ class HandlePackageCreatedEvent implements ShouldQueue
         $userNotificationRepository->save([
             'fromUserId' => $fromUserId,
             'toUserId' => $toUserId,
-            'userNotificationTypeId' => UserNotificationType::PACKAGE_ADDED['id'],
+            'userNotificationTypeId' => UserNotificationType::PACKAGE['id'],
             'resourceId' => $resourceId,
             'message' => "You have a new Package.",
         ]);

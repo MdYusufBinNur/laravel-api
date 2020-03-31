@@ -5,6 +5,7 @@ namespace App\Repositories\Contracts;
 
 
 use App\DbModels\Payment;
+use App\DbModels\PaymentInstallmentItem;
 
 interface PaymentItemRepository extends BaseRepository
 {
@@ -25,5 +26,13 @@ interface PaymentItemRepository extends BaseRepository
      * @return mixed
      */
     public function publishPayment(Payment $payment, array $options = []);
+
+    /**
+     * set payment-item using installment-item
+     *
+     * @param PaymentInstallmentItem $paymentInstallmentItem
+     * @return mixed
+     */
+    public function setPaymentItemOfPaymentInstallmentItem(PaymentInstallmentItem $paymentInstallmentItem);
 
 }

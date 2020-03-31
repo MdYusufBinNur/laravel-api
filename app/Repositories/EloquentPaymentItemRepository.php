@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\DbModels\Payment;
 use App\DbModels\PaymentInstallment;
+use App\DbModels\PaymentInstallmentItem;
 use App\Events\PaymentItem\PaymentItemCreatedEvent;
 use App\Events\PaymentItem\PaymentItemUpdatedEvent;
 use App\Repositories\Contracts\PaymentItemRepository;
@@ -133,6 +134,21 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
         event(new PaymentItemUpdatedEvent($paymentItem, $this->generateEventOptionsForModel()));
 
         return $paymentItem;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setPaymentItemOfPaymentInstallmentItem(PaymentInstallmentItem $paymentInstallmentItem)
+    {
+        $payment = $paymentInstallmentItem->paymentInstallment->payment;
+        $data = [
+            'paymentId' => $payment->id,
+            'propertyId' => $paymentInstallmentItem->propertyId,
+            'paymentInstallmentItemId' => $paymentInstallmentItem->id
+        ];
+        $this->setPaymentItem($payment, $data);
+
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Stats;
+namespace App\Http\Requests\Stats\EnterpriseDashboard\CompanyProperties;
 
 use App\Http\Requests\Request;
 
@@ -14,6 +14,7 @@ class IndexRequest extends Request
     public function rules()
     {
         return [
+            'companyId' => 'required|exists:companies,id'
         ];
     }
 }

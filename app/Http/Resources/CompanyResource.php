@@ -23,10 +23,10 @@ class CompanyResource extends Resource
             'postCode' => $this->postCode,
             'active' => $this->active,
             'noOfProperties' => $this->when($this->needToInclude($request, 'company.noOfProperties'), function () {
-               return $this->properties->count();
+               return $this->properties()->count();
             }),
             'noOfEnterpriseUsers' => $this->when($this->needToInclude($request, 'company.noOfEnterpriseUsers'), function () {
-                return $this->noOfEnterpriseUsers->count();
+                return $this->enterpriseUsers()->count();
             }),
             'createdByUser' => $this->createdByUserId,
             'created_at' => $this->created_at,

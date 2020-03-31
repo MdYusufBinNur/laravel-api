@@ -22,13 +22,7 @@ class HandleResidentAccessRequestCreatedEvent implements ShouldQueue
         $residentAccessRequest = $event->residentAccessRequest;
         $eventOptions = $event->options;
 
-        $userRepository = app (UserRepository::class);
-        $roleIds = [
-            Role::ROLE_STAFF_PRIORITY['id'],
-            Role::ROLE_STAFF_STANDARD['id']
-        ];
-
-        $toUsers = $userRepository->getUsersByRoleIdsInAProperty($residentAccessRequest->propertyId, $roleIds);
+        $toUsers = $residentAccessRequest->property->staffUsers;
 
         /* sending mail to staff of the property */
         foreach ($toUsers as $user) {

@@ -32,6 +32,8 @@ class ModuleOption extends Model
     const SERVICE_REQUEST_PERMISSION_TO_ENTER = ['moduleId' => 7, 'key' => 'permissionToEnterOptions'];
     const SERVICE_REQUEST_ALLOW_OWNERS_TO_SUBMIT_REQUEST = ['moduleId' => 7, 'key' => 'allowOwnersToSubmitRequests'];
     const SERVICE_REQUEST_SEND_SMS = ['moduleId' => 7, 'key' => 'sendSMS'];
+    
+    const PAYMENT_CENTER_ENABLE_INSTALLMENT = ['moduleId' => 9, 'key' => 'enableInstallment'];
 
     const FRONT_DESK_INSTRUCTION_MAIL_HOLDS = ['moduleId' => 12, 'key' => 'mailHolds'];
     const FRONT_DESK_INSTRUCTION_GENERAL_INSTRUCTION = ['moduleId' => 12, 'key' => 'generalInstructions'];

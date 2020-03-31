@@ -12,7 +12,7 @@
                 </tr>
                 <tr>
                     <td align="left" style="font-size:18px;color:#ffffff; text-align: left;">
-                        Dear Mr. {{ $resident->user->name }}, <br> <br>
+                        {{ ($unit && $unit->title) ? ('Dear ' .$unit->title) : ('Dear Mr/Mrs. ' . $resident->user->name) }}, <br> <br>
 
                         Thank You for receiving your package.<br>
                         <br>

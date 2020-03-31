@@ -8,12 +8,32 @@ use App\Repositories\Contracts\UnitRepository;
 
 class EloquentUnitRepository extends EloquentBaseRepository implements UnitRepository
 {
+    /**
+     * @inheritDoc
+     */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria = $this->applyFilterInUserSearch($searchCriteria);
+        $queryBuilder = $this->model;
 
-        $searchCriteria['eagerLoad'] = ['unit.tower' => 'tower', 'unit.property' => 'property'];
-        return parent::findBy($searchCriteria, $withTrashed);
+        if (isset($searchCriteria['title'])) {
+            $queryBuilder = $queryBuilder->where('title', 'like', '%'.$searchCriteria['title'].'%');
+            unset($searchCriteria['title']);
+        }
+
+        $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
+            $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
+        });
+
+        $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;
+        $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';
+        $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
+        $queryBuilder->orderBy($orderBy, $orderDirection);
+
+        if (empty($searchCriteria['withOutPagination'])) {
+            return $queryBuilder->paginate($limit);
+        } else {
+            return $queryBuilder->get();
+        }
     }
 
     /**

@@ -59,10 +59,7 @@ class InsertModulesAndOptions extends Migration
             ['moduleId' => 7, 'key' => 'allowOwnersToSubmitRequests', 'title' => 'Allow only owners to submit service requests'],
             ['moduleId' => 7, 'key' => 'sendSMS', 'title' => 'Enable SMS for service request notification'],
 
-            ['moduleId' => 9, 'key' => 'paymentGatewayId', 'title' => 'By which Payment Gateway '],
-            ['moduleId' => 9, 'key' => 'managerId', 'title' => 'Manager of the property'],
-            ['moduleId' => 9, 'key' => 'propertyId', 'title' => 'For which Property'],
-            ['moduleId' => 9, 'key' => 'apiKey', 'title' => 'Api key'],
+            ['moduleId' => 9, 'key' => 'enableInstallment', 'title' => 'Enable Installment feature'],
 
             ['moduleId' => 12, 'key' => 'mailHolds', 'title' => 'Enable Mail Holds'],
             ['moduleId' => 12, 'key' => 'generalInstructions', 'title' => 'Enable General Instructions'],

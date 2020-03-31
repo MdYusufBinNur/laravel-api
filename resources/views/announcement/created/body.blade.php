@@ -12,32 +12,19 @@
                 </tr>
                 <tr>
                     <td align="left" style="font-size:18px;color:#ffffff; text-align: left;">
-                        {{ ($unit && $unit->title) ? ('Dear ' .$unit->title) : ('Dear Mr/Mrs. ' . $resident->user->name) }}, <br> <br>
+                        Dear Mr. {{ $user->name }}, <br> <br>
 
-                        A package has Arrived at our reception desk for you.<br>
-                        Please find the details of the Package below.
-                        <br>
-                        Arrived at: {{ $package->created_at }}
+                       Announcement!!<br>
                         <br>
                         <br>
-
-                        Package details:
+                        {{$announcement->title}}
                         <br>
                         <br>
-                        Tracking Number: {{$package->trackingNumber}}
-                        <br>
-                        Description: {{$package->description}}
-                        <br>
-                        Comments: {{$package->comment}}
+                        {{$announcement->content}}
                         <br>
                         <br>
                         <br>
-                        Please collect your package from our reception desk.<br>
-
-                        <br>
-                        <br>
-
-                        Best regards, <br>
+                        Sincerely, <br>
                         Team {{ $property->title }}
                         
                         <br>
@@ -49,6 +36,20 @@
         </td>
     </tr>
     </tbody>
+</table>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+    <tr>
+        <td>
+            <div >
+                <!--[if mso]> <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://www.sendwithus.com" style="height:50px;v-text-anchor:middle;width:200px;" arcsize="8%" stroke="f" fillcolor="#178f8f"> <w:anchorlock></w:anchorlock> <center> <![endif]-->
+                <a href="{{ $announcement->link }}" target="_blank"
+                   style="background-color:#89d6a3;border-radius:4px;color:#000;display:inline-block;font-family:Helvetica, Arial, sans-serif;font-size:16px;font-weight:bold;line-height:50px;text-align:center;text-decoration:none;width:180px;-webkit-text-size-adjust:none;">
+                    <span id="button_text">{{ $announcement->link }}</span>
+                </a>
+                <!--[if mso]> </center> </v:roundrect> <![endif]-->
+            </div>
+        </td>
+    </tr>
 </table>
 <table bgcolor="#F5774E" cellpadding="0" cellspacing="0" class="force-full-width" style="margin: 0 auto;">
     <tbody>

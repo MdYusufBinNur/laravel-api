@@ -18,7 +18,7 @@ class IndexRequest extends Request
             'id'           => 'list:numeric',
             'towerId'      => 'list:numeric',
             'propertyId'   => 'required|numeric',
-            'title'        => 'list:string',
+            'title'        => 'string',
             'floor'        => 'list:string',
             'line'         => 'list:string',
         ];

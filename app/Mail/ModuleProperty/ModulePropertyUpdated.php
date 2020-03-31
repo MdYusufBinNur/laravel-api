@@ -42,7 +42,7 @@ class ModulePropertyUpdated extends Mailable
         $module = $this->moduleProperty->module;
         $property = $this->moduleProperty->property;
         $status = $this->moduleProperty->value ? 'Activated' : 'Deactivated';
-        $subject = $module->title . 'module has been ' . $status;
+        $subject = $module->title . ' module has been ' . $status;
         return $this->subject($subject)->view('module-property.index')
             ->with([
                 'moduleProperty' => $this->moduleProperty,

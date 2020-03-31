@@ -34,8 +34,7 @@ class HandleModulePropertyCreatedEvent implements ShouldQueue
                         Role::ROLE_STAFF_LIMITED['id']
                     ];
 
-        $toUsers = $userRepository->findBy(['propertyId' => $moduleProperty->propertyId, 'roleId' => $roleIds]);
-
+        $toUsers = $userRepository->getUsersByRoleIdsInAProperty($moduleProperty->propertyId, $roleIds);
         foreach ($toUsers as $user) {
             Mail::to($user->email)->send(new ModulePropertyUpdated($moduleProperty, $user));
         }

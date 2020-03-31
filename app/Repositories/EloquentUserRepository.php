@@ -273,4 +273,27 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
 
         return $profileAttachment;
     }
+
+    /**
+     * Get the users based on roleIds of a Property
+     *
+     * @param int $propertyId
+     * @param array $roleIds
+     * @return mixed
+     */
+    public function getUsersByRoleIdsInAProperty(int $propertyId, array $roleIds)
+    {
+        $thisModelTable = $this->model->getTable();
+        $userRoleTable = UserRole::getTableName();
+
+        $users = $this->model
+            ->select($thisModelTable . '.*')
+            ->join($userRoleTable, $thisModelTable . '.id', '=', $userRoleTable . '.userId')
+            ->where($userRoleTable . '.propertyId', $propertyId)
+            ->whereIn($userRoleTable . '.roleId', $roleIds)
+            ->get();
+
+        return $users;
+    }
+
 }

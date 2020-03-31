@@ -44,4 +44,13 @@ interface UserRepository extends BaseRepository
      * @return mixed
      */
     public function getProfilePicByUserId($userId, $size = 'medium');
+
+    /**
+     * get users of a property based on roleIds
+     *
+     * @param int $propertyId
+     * @param array $roleIds
+     * @return mixed
+     */
+    public function getUsersByRoleIdsInAProperty(int $propertyId,  array $roleIds);
 }

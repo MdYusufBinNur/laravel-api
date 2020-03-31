@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\DbModels\ModuleProperty;
+use App\Events\ModuleProperty\ModulePropertyCreatedEvent;
 use App\Repositories\Contracts\ModulePropertyRepository;
 use App\Repositories\Contracts\ModuleSettingPropertyRepository;
 use Illuminate\Support\Arr;
@@ -40,7 +41,11 @@ class EloquentModulePropertyRepository extends EloquentBaseRepository implements
             }
         } else {
             $searchCriteria = Arr::only($data, ['propertyId', 'moduleId']);
-            return $this->patch($searchCriteria, $data);
+            $moduleProperty = $this->patch($searchCriteria, $data);
+
+            event(new ModulePropertyCreatedEvent($moduleProperty, $this->generateEventOptionsForModel()));
+
+            return $moduleProperty;
         }
 
         return new Collection();

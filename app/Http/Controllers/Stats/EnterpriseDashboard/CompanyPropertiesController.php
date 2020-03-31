@@ -33,6 +33,9 @@ class CompanyPropertiesController extends Controller
     public function index(IndexRequest $request)
     {
         $company = $this->companyRepository->findOne($request->companyId);
+
+        $this->authorize('show', $company);
+
         $properties = $company->properties;
         $data = [
             'totalActiveUsers' => 0,
@@ -48,7 +51,6 @@ class CompanyPropertiesController extends Controller
             $data['totalUnits'] += $property->units()->count();
             $data['totalStaffs'] += $property->staffUsers()->count();
         }
-
 
         return new CompanyPropertiesResource($data);
     }

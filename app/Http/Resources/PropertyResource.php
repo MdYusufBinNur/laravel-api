@@ -32,13 +32,13 @@ class PropertyResource extends Resource
             'unregisteredResidentNotifications' => $this->unregisteredResidentNotifications,
             'active' => $this->active,
             'noOfUsers' => $this->when($this->needToInclude($request, 'property.noOfUsers'), function () {
-                return $this->users->count();
+                return $this->users()->count();
             }),
             'noOfUnits' => $this->when($this->needToInclude($request, 'property.noOfUnits'), function () {
-                return $this->units->count();
+                return $this->units()->count();
             }),
             'noOfTowers' => $this->when($this->needToInclude($request, 'property.noOfTowers'), function () {
-                return $this->towers->count();
+                return $this->towers()->count();
             }),
             'images' => $this->when($this->needToInclude($request, 'property.images'), function () {
                 return new PropertyImageResourceCollection($this->propertyImages);

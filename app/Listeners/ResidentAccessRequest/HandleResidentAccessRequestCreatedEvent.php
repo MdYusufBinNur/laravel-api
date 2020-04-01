@@ -2,10 +2,9 @@
 
 namespace App\Listeners\ResidentAccessRequest;
 
-use App\DbModels\Role;
 use App\Events\ResidentAccessRequest\ResidentAccessRequestCreatedEvent;
 use App\Mail\ResidentAccessRequest\ResidentAccessRequestCreated;
-use App\Repositories\Contracts\UserRepository;
+use App\Mail\ResidentAccessRequest\ResidentAccessRequestToStaffCreated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
@@ -26,7 +25,7 @@ class HandleResidentAccessRequestCreatedEvent implements ShouldQueue
 
         /* sending mail to staff of the property */
         foreach ($toUsers as $user) {
-            Mail::to($user->email)->send(new ResidentAccessRequestCreated($residentAccessRequest, $toStaff = true));
+            Mail::to($user->email)->send(new ResidentAccessRequestToStaffCreated($residentAccessRequest));
         }
 
         /* Sending mail to request user */

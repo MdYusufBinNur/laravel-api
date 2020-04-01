@@ -49,13 +49,13 @@ class Company extends Model
     }
 
     /**
-     * Get the no of enterprise users of the company..
+     * Get the enterprise users of the company..
      *
-     * @return hasManyThrough
+     * @return HasMany
      */
-    public function noOfEnterpriseUsers()
+    public function enterpriseUsers()
     {
-        return $this->hasManyThrough(UserRole::class, Property::class, 'companyId', 'propertyId', 'id', 'id');
+        return $this->hasMany(EnterpriseUser::class, 'companyId','id');
     }
 
 }

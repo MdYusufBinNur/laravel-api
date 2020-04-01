@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Stats;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Stats\IndexRequest;
+use App\Http\Requests\Stats\StaffReminder\IndexRequest;
 use App\Http\Resources\Stats\StaffReminderResource;
 use App\Services\Helpers\StatsHelper\StaffReminderHelper;
 

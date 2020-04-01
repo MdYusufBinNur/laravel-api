@@ -51,7 +51,7 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
-        $searchCriteria['eagerLoad'] = ['payment.createdByUser' => 'createdByUser', 'payment.property' => 'property', 'payment.paymentPaymentMethods' => 'paymentPaymentMethods', 'payment.paymentType' => 'paymentType', 'payment.paymentItems' => 'paymentItems', 'payment.paymentRecurring' => 'paymentRecurring', 'pp.createdByUser' => 'createdByUser', 'ppm.paymentMethod' => 'paymentPaymentMethods.paymentMethod'];
+        $searchCriteria['eagerLoad'] = ['payment.createdByUser' => 'createdByUser', 'payment.property' => 'property', 'payment.paymentPaymentMethods' => 'paymentPaymentMethods', 'payment.paymentType' => 'paymentType', 'payment.paymentItems' => 'paymentItems', 'payment.paymentRecurring' => 'paymentRecurring','payment.paymentInstallment' => 'paymentInstallment', 'pp.createdByUser' => 'createdByUser', 'ppm.paymentMethod' => 'paymentPaymentMethods.paymentMethod'];
         $queryBuilder = $this->applyEagerLoad($queryBuilder, $searchCriteria);
 
         $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;

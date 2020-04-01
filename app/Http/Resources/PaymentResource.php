@@ -47,6 +47,10 @@ class PaymentResource extends Resource
             'paymentItems' => $this->when($this->needToInclude($request, 'payment.paymentItems'), function () {
                 return new PaymentItemResourceCollection($this->paymentItems);
             }),
+            'paymentInstallment' => $this->when($this->needToInclude($request, 'payment.paymentInstallment'), function () {
+                return new PaymentInstallmentResource($this->paymentInstallment);
+            }),
+
             'created_at' => $this->created_at,
             'updated_at' => $this->udpated_at,
         ];

@@ -211,6 +211,7 @@ Route::group(['prefix' => 'api/v1'], function () {
          * Related to stats
          */
         Route::get('staff-reminders', 'Stats\\StaffReminderController@index');
+        Route::get('stats-company-properties', 'Stats\\EnterpriseDashboard\\CompanyPropertiesController@index');
 
 
         /**

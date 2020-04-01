@@ -5,14 +5,13 @@ namespace App\Repositories;
 
 
 use App\DbModels\Payment;
+use App\DbModels\PaymentInstallment;
 use App\DbModels\PaymentInstallmentItem;
 use App\Events\PaymentItem\PaymentItemCreatedEvent;
 use App\Events\PaymentItem\PaymentItemUpdatedEvent;
 use App\Repositories\Contracts\PaymentItemRepository;
 use App\Repositories\Contracts\UnitRepository;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class EloquentPaymentItemRepository extends EloquentBaseRepository implements PaymentItemRepository
 {
@@ -70,7 +69,7 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
 
             if ($payment->isInstallment) {
                 $paymentInstallment = $payment->paymentInstallment;
-                if ($paymentInstallment instanceof PaymentInstallmentItem) {
+                if ($paymentInstallment instanceof PaymentInstallment) {
                     $paymentInstallmentItems = $paymentInstallment->paymentInstallmentItems;
                     foreach ($paymentInstallmentItems as $paymentInstallmentItem) {
                         $data['paymentInstallmentItemId'] = $paymentInstallmentItem->id;
@@ -79,7 +78,6 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
                 } else {
                     throw new \ErrorException("Couldn't find the payment installment of payment id: " . $payment->id);
                 }
-
             } else {
                 $this->setPaymentItem($payment, $data);
             }
@@ -90,7 +88,6 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
 
     private function setPaymentItem($payment, $data)
     {
-
         if (!empty($payment->toUserIds)) {
             $userIds = $payment->toUserIds;
             foreach ($userIds as $userId) {
@@ -137,6 +134,21 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
         event(new PaymentItemUpdatedEvent($paymentItem, $this->generateEventOptionsForModel()));
 
         return $paymentItem;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setPaymentItemOfPaymentInstallmentItem(PaymentInstallmentItem $paymentInstallmentItem)
+    {
+        $payment = $paymentInstallmentItem->paymentInstallment->payment;
+        $data = [
+            'paymentId' => $payment->id,
+            'propertyId' => $paymentInstallmentItem->propertyId,
+            'paymentInstallmentItemId' => $paymentInstallmentItem->id
+        ];
+        $this->setPaymentItem($payment, $data);
+
     }
 
     /**

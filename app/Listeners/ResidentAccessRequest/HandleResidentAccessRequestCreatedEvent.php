@@ -21,10 +21,10 @@ class HandleResidentAccessRequestCreatedEvent implements ShouldQueue
         $residentAccessRequest = $event->residentAccessRequest;
         $eventOptions = $event->options;
 
-        $toUsers = $residentAccessRequest->property->staffUsers;
+        $toStaffUsers = $residentAccessRequest->property->staffUsers;
 
         /* sending mail to staff of the property */
-        foreach ($toUsers as $user) {
+        foreach ($toStaffUsers as $user) {
             Mail::to($user->email)->send(new ResidentAccessRequestToStaffCreated($residentAccessRequest));
         }
 

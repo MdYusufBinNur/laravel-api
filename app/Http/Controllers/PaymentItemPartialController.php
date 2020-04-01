@@ -46,13 +46,13 @@ class PaymentItemPartialController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreRequest  $request
      * @return PaymentItemPartialResource
      * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [PaymentItemPartial::class, $request->input('propertyId')]);
+        $this->authorize('store', [PaymentItemPartial::class, $request->input('propertyId'), $request->input('paymentItemId')]);
 
         $paymentItemPartial = $this->paymentItemPartialRepository->save($request->all());
 

@@ -3,8 +3,10 @@
 namespace App\Policies;
 
 use App\DbModels\Module;
+use App\DbModels\PaymentItem;
 use App\DbModels\PaymentItemPartial;
 use App\DbModels\User;
+use App\Repositories\Contracts\PaymentItemRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PaymentItemPartialPolicy
@@ -24,7 +26,7 @@ class PaymentItemPartialPolicy
         }
 
         if (!$this->isModuleActiveForTheProperty(Module::MODULE_PAYMENT_CENTER)) {
-            return false;
+           return false;
         }
     }
 
@@ -33,6 +35,7 @@ class PaymentItemPartialPolicy
      *
      * @param User $currentUser
      * @param int $propertyId
+     * @param string $unitId
      * @return bool
      */
     public function list(User $currentUser, int $propertyId)
@@ -49,12 +52,26 @@ class PaymentItemPartialPolicy
      *
      * @param User $currentUser
      * @param int $propertyId
+     * @param string $unitId
      * @return bool
      */
-    public function store(User $currentUser, int $propertyId)
+    public function store(User $currentUser, int $propertyId, ?string $paymentItemId)
     {
+
+
         if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+            $paymentItemRepository = app(PaymentItemRepository::class);
+            $paymentItem = $paymentItemRepository->findOne($paymentItemId);
+            if ($paymentItem instanceof PaymentItem) {
+                $unitId = $paymentItem->unitId;
+                if (!empty($unitId) && $currentUser->isOwnerOfTheUnit($unitId)) {
+                    return true;
+                }
+            }
         }
 
         return false;
@@ -75,6 +92,13 @@ class PaymentItemPartialPolicy
             return true;
         }
 
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+            $unitId = $paymentItemPartial->paymentItem->unitId;
+            if (!empty($unitId) && $currentUser->isResidentOfTheUnits($unitId)) {
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -93,6 +117,13 @@ class PaymentItemPartialPolicy
             return true;
         }
 
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+            $unitId = $paymentItemPartial->paymentItem->unitId;
+            if (!empty($unitId) && $currentUser->isOwnerOfTheUnit($unitId)) {
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -109,6 +140,13 @@ class PaymentItemPartialPolicy
 
         if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
+        }
+
+        if ($currentUser->isResidentOfTheProperty($propertyId)) {
+            $unitId = $paymentItemPartial->paymentItem->unitId;
+            if (!empty($unitId) && $currentUser->isOwnerOfTheUnit($unitId)) {
+                return true;
+            }
         }
 
         return false;

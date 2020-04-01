@@ -34,6 +34,7 @@ class PaymentItemPolicy
      *
      * @param User $currentUser
      * @param int $propertyId
+     * @param int $unitId
      * @return bool
      */
     public function list(User $currentUser, int $propertyId, ?string $unitId)

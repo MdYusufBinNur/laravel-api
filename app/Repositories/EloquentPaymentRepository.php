@@ -15,6 +15,7 @@ use App\Repositories\Contracts\PaymentItemRepository;
 use App\Repositories\Contracts\PaymentPaymentMethodRepository;
 use App\Repositories\Contracts\PaymentRecurringRepository;
 use App\Repositories\Contracts\PaymentRepository;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
@@ -26,6 +27,16 @@ class EloquentPaymentRepository extends EloquentBaseRepository implements Paymen
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
         $queryBuilder = $this->model;
+
+        if (isset($searchCriteria['endDate'])) {
+            $queryBuilder = $queryBuilder->whereDate('created_at', '<=', Carbon::parse($searchCriteria['endDate']));
+            unset($searchCriteria['endDate']);
+        }
+
+        if (isset($searchCriteria['startDate'])) {
+            $queryBuilder = $queryBuilder->whereDate('created_at', '>=', Carbon::parse($searchCriteria['startDate']));
+            unset($searchCriteria['startDate']);
+        }
 
         if (!empty($searchCriteria['toUnitIds'])) {
             $queryBuilder = $this->applySearchInJsonField($queryBuilder, 'toUnitIds', $searchCriteria['toUnitIds']);

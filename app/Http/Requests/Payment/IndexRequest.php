@@ -28,6 +28,8 @@ class IndexRequest extends Request
             'status' => 'list:string',
             'activationDate' => 'date_format:Y-m-d',
             'isInstallment' => 'boolean',
+            'startDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d',
             'withOutPagination' => 'boolean'
         ];
     }

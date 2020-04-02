@@ -153,7 +153,9 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         $unitModelTable = Unit::getTableName();
 
         // get all residents
-        $residentBuilder = $this->model->where($thisModelTable . '.propertyId', $searchCriteria['propertyId']);
+        $residentBuilder = $this->model
+            ->where($thisModelTable . '.propertyId', $searchCriteria['propertyId'])
+            ->where($unitModelTable . '.propertyId', $searchCriteria['propertyId']);
 
         if (isset($searchCriteria['unitId'])) {
             $residentBuilder->where($thisModelTable . '.unitId', $searchCriteria['unitId']);

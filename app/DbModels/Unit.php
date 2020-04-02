@@ -47,7 +47,17 @@ class Unit extends Model
      */
     public function residents()
     {
-        return $this->hasMany(Resident::class, 'unitId', 'id')->where('propertyId', $this->propertyId);
+        return $this->hasMany(Resident::class, 'unitId', 'id');
+    }
+
+    /**
+     * Get the resident-access-requests of the unit.
+     *
+     * @return HasMany
+     */
+    public function residentAccessRequests()
+    {
+        return $this->hasMany( ResidentAccessRequest::class, 'unitId', 'id');
     }
 
     /**

@@ -51,11 +51,11 @@ class Property extends Model
     /**
      * Get all of the units for the property.
      *
-     * @return hasManyThrough
+     * @return hasMany
      */
     public function units()
     {
-        return $this->hasManyThrough(Unit::class, Tower::class, 'propertyId', 'towerId', 'id', 'id');
+        return $this->hasMany(Unit::class, 'propertyId', 'id');
     }
 
     /**

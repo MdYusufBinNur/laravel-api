@@ -9,6 +9,7 @@ use App\DbModels\Role;
 use App\DbModels\Unit;
 use App\DbModels\User;
 use App\Events\Resident\ResidentCreatedEvent;
+use App\Repositories\Contracts\PropertyRepository;
 use App\Services\Helpers\RoleHelper;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use App\Repositories\Contracts\ResidentArchiveRepository;
@@ -143,7 +144,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
     /**
      * @inheritDoc
      */
-    public function getResidentsByUnits(array $searchCriteria = [])
+    /*public function getResidentsByUnits(array $searchCriteria = [])
     {
         $userRepository = app(UserRepository::class);
 
@@ -154,7 +155,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
 
         // get all residents
         $residentBuilder = $this->model
-            ->where($thisModelTable . '.propertyId', $searchCriteria['propertyId'])
+            //->where($thisModelTable . '.propertyId', $searchCriteria['propertyId'])
             ->where($unitModelTable . '.propertyId', $searchCriteria['propertyId']);
 
         if (isset($searchCriteria['unitId'])) {
@@ -162,8 +163,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         }
         $residentBuilder = $residentBuilder->select($thisModelTable . '.id', 'units.title', $thisModelTable . '.unitId', 'users.id as userId', 'users.name', 'users.email', 'users.phone')
             ->join($userModelTable, $userModelTable . '.id', '=', $thisModelTable . '.userId')
-            ->join($unitModelTable, $unitModelTable . '.id', '=', $thisModelTable . '.unitId');
-
+            ->rightJoin($unitModelTable, $unitModelTable . '.id', '=', $thisModelTable . '.unitId');
 
         if (!empty($searchCriteria['pastResident'])) {
 
@@ -203,6 +203,66 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
         }
 
         return $residentsByUnits;
+    }*/
+
+    /**
+     * @inheritDoc
+     */
+    public function getResidentsByUnits(array $searchCriteria = [])
+    {
+        $propertyRepository = app(PropertyRepository::class);
+        $property = $propertyRepository->findOne($searchCriteria['propertyId']);
+
+
+        $queryBuilder = $property->units();
+        if (!empty($searchCriteria['pastResident'])) {
+            $queryBuilder = $queryBuilder->onlyTrashed();
+        }
+        if (isset($searchCriteria['unitId'])) {
+            $queryBuilder = $queryBuilder->where('id', $searchCriteria['unitId']);
+        }
+
+        $units = $queryBuilder->with(['property.units.residents','property.units.residents.user'])->get();
+
+        $residentsByUnits = [];
+        foreach ($units as $unit) {
+            $unitResidents = $unit->residents;
+            if ($unitResidents->count() > 0) {
+                foreach ($unitResidents as $index => $unitResident) {
+                    $resident = [];
+                    $user = $unitResident->user;
+                    $resident['id'] = $unitResident->id;
+                    $resident['title'] = $unit->title;
+                    $resident['unitId'] = $unit->id;
+                    $resident['name'] = $user->name;
+                    $resident['email'] = $user->email;
+                    $resident['phone'] = $user->phone;
+                    $resident['contactEmail'] = $unitResident->contactEmail;
+                    $resident['profilePic'] = $user->userProfilePics()->first();
+                    $residentsByUnits[$unit->title][] = $resident;
+                }
+            } else {
+                $residentsByUnits[$unit->title] = [];
+            }
+            if (empty($searchCriteria['pastResident'])) {
+                $residentAccessRequests = $unit->residentAccessRequests;
+                if ($residentAccessRequests->count() > 0) {
+                    foreach ($residentAccessRequests as $index => $residentAccessRequest) {
+                        $accessRequest = [];
+                        $accessRequest['residentAccessRequest'] = $residentAccessRequest->id;
+                        $accessRequest['title'] = $unit->title;
+                        $accessRequest['unitId'] = $unit->id;
+                        $accessRequest['phone'] = $residentAccessRequest->phone;
+                        $accessRequest['contactEmail'] = $residentAccessRequest->email;
+                        $accessRequest['profilePic'] = null;
+                        $residentsByUnits[$unit->title][] = $accessRequest;
+                    }
+                }
+            }
+        }
+
+        return $residentsByUnits;
+
     }
 
     /**

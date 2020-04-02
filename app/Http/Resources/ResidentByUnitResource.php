@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\DbModels\Attachment;
+
 class ResidentByUnitResource extends Resource
 {
     /**
@@ -12,22 +14,25 @@ class ResidentByUnitResource extends Resource
      */
     public function toArray($request)
     {
+
+        request()->merge(['include' => 'image.avatar']);
         $residentsByUnits = [];
-        foreach ($this->resource as $resident) {
+        foreach ($this->resource as $unitResident) {
+
             $residentsByUnits[] = [
-                'residentId' => $resident['id'] ?? null,
-                'title' => $resident['title'],
-                'unitId' => $resident['unitId'],
-                'name' => $resident['name'] ?? '',
-                'email' => $resident['email'] ?? '',
-                'phone' => $resident['phone'] ?? '',
-                $this->mergeWhen(isset($resident['userId']), [
-                    'contactEmail' => $resident['contactEmail'] ?? null,
-                    'type' => 'active',
-                    'profilePic' => $resident['profilePic'] ?? null
+                'residentId' => $unitResident['id'] ?? null,
+                'title' => $unitResident['title'],
+                'unitId' => $unitResident['unitId'],
+                'name' => $unitResident['name'] ?? '',
+                'email' => $unitResident['email'] ?? '',
+                'phone' => $unitResident['phone'] ?? '',
+                $this->mergeWhen(isset($unitResident['userId']), [
+                    'contactEmail' => $unitResident['contactEmail'] ?? null,
+                    'type' => 'active'
                 ]),
-                $this->mergeWhen(isset($resident['residentAccessRequestId']), [
-                    'residentAccessRequestId' => $resident['residentAccessRequestId'] ?? null,
+                'profilePic' => new AttachmentResource($unitResident['profilePic']),
+                $this->mergeWhen(isset($unitResident['residentAccessRequestId']), [
+                    'residentAccessRequestId' => $unitResident['residentAccessRequestId'] ?? null,
                     'type' => 'pending'
                 ]),
             ];

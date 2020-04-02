@@ -172,6 +172,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
 
     /**
      * @inheritDoc
+     * todo
      */
     public function usersListAutoComplete(array $searchCriteria = [])
     {

@@ -242,7 +242,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
                     $residentsByUnits[$unit->id][] = $resident;
                 }
             } else {
-                $residentsByUnits[$unit->title] = [];
+                $residentsByUnits[$unit->id] = [];
             }
             if (empty($searchCriteria['pastResident'])) {
                 $residentAccessRequests = $unit->residentAccessRequests;

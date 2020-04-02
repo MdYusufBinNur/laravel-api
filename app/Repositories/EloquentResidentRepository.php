@@ -239,7 +239,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
                     $resident['phone'] = $user->phone;
                     $resident['contactEmail'] = $unitResident->contactEmail;
                     $resident['profilePic'] = $user->userProfilePics()->first();
-                    $residentsByUnits[$unit->title][] = $resident;
+                    $residentsByUnits[$unit->id][] = $resident;
                 }
             } else {
                 $residentsByUnits[$unit->title] = [];
@@ -255,7 +255,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
                         $accessRequest['phone'] = $residentAccessRequest->phone;
                         $accessRequest['contactEmail'] = $residentAccessRequest->email;
                         $accessRequest['profilePic'] = null;
-                        $residentsByUnits[$unit->title][] = $accessRequest;
+                        $residentsByUnits[$unit->id][] = $accessRequest;
                     }
                 }
             }

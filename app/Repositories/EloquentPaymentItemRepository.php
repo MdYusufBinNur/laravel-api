@@ -11,6 +11,7 @@ use App\Events\PaymentItem\PaymentItemCreatedEvent;
 use App\Events\PaymentItem\PaymentItemUpdatedEvent;
 use App\Repositories\Contracts\PaymentItemRepository;
 use App\Repositories\Contracts\UnitRepository;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class EloquentPaymentItemRepository extends EloquentBaseRepository implements PaymentItemRepository
@@ -20,7 +21,12 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria['eagerLoad'] = ['pi.createdByUser' => 'createdByUser', 'pi.property' => 'property',  'pi.payment' => 'payment', 'pi.user' => 'user', 'pi.unit' => 'unit', 'pi.vendor' => 'vendor', 'pi.customer' => 'customer', 'pi.paymentItemLogs' => 'paymentItemLogs', 'pi.paymentItemPartials' => 'paymentItemPartials', 'pi.paymentInstallmentItem' => 'paymentInstallmentItem'];
+        $thisModelTable = $this->model->getTable();
+        $paymentTable = Payment::getTableName();
+
+        $queryBuilder = $this->model
+            ->select($thisModelTable . '.*')
+            ->join($paymentTable, $thisModelTable . '.paymentId', '=', $paymentTable . '.id');
 
         if (empty($searchCriteria['unitId'])) {
             $loggedInUser = $this->getLoggedInUser();
@@ -29,7 +35,40 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
             }
         }
 
-        return parent::findBy($searchCriteria, $withTrashed);
+        if (isset($searchCriteria['paymentTypeId'])) {
+            $queryBuilder = $queryBuilder->where($paymentTable . '.paymentTypeId', $searchCriteria['paymentTypeId']);
+            unset($searchCriteria['paymentTypeId']);
+        }
+
+        if (isset($searchCriteria['endDate'])) {
+            $queryBuilder = $queryBuilder->whereDate($thisModelTable . '.created_at', '<=', Carbon::parse($searchCriteria['endDate']));
+            unset($searchCriteria['endDate']);
+        }
+
+        if (isset($searchCriteria['startDate'])) {
+            $queryBuilder = $queryBuilder->whereDate($thisModelTable . '.created_at', '>=', Carbon::parse($searchCriteria['startDate']));
+            unset($searchCriteria['startDate']);
+        }
+
+        foreach ($searchCriteria as $key => $value) {
+            if ($key != 'include') {
+                $searchCriteria[$thisModelTable . '.' . $key] = $value;
+                unset($searchCriteria[$key]);
+            }
+        }
+
+        $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
+            $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
+        });
+
+        $searchCriteria['eagerLoad'] = ['pi.createdByUser' => 'createdByUser', 'pi.property' => 'property', 'pi.payment' => 'payment', 'pi.user' => 'user', 'pi.unit' => 'unit', 'pi.vendor' => 'vendor', 'pi.customer' => 'customer', 'pi.paymentItemLogs' => 'paymentItemLogs', 'pi.paymentItemPartials' => 'paymentItemPartials', 'pi.paymentInstallmentItem' => 'paymentInstallmentItem'];
+        $this->applyEagerLoad($queryBuilder, $searchCriteria);
+
+        $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;
+        $orderBy = !empty($searchCriteria['order_by']) ? $thisModelTable . '.' . $searchCriteria['order_by'] : $thisModelTable . '.id';
+        $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
+        $queryBuilder->orderBy($orderBy, $orderDirection);
+        return $queryBuilder->paginate($limit);
     }
 
     /**

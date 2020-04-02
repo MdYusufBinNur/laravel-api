@@ -17,6 +17,7 @@ class IndexRequest extends Request
             'id' => 'list:numeric',
             'createdByUserId' => 'list:numeric',
             'paymentId' => 'list:numeric',
+            'paymentTypeId' => 'numeric',
             'propertyId' => 'required|numeric',
             'userId' => 'list:numeric',
             'unitId' => 'list:numeric',
@@ -24,6 +25,8 @@ class IndexRequest extends Request
             'customerId' => 'list:numeric',
             'paymentInstallmentItemId' => 'list:numeric',
             'status' => 'list:string',
+            'startDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d',
             'withOutPagination' => 'boolean'
         ];
     }

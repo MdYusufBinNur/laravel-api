@@ -20,6 +20,9 @@ class IndexRequest extends Request
             'propertyId' => 'required|numeric',
             'userId' => 'list:numeric',
             'unitId' => 'list:numeric',
+            'vendorId' => 'list:numeric',
+            'customerId' => 'list:numeric',
+            'paymentInstallmentItemId' => 'list:numeric',
             'status' => 'list:string',
             'withOutPagination' => 'boolean'
         ];

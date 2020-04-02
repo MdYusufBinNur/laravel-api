@@ -15,8 +15,7 @@ class ResidentByUnitResource extends Resource
 
         request()->merge(['include' => 'image.avatar']);
         $residentsByUnits = [];
-        foreach ($this->resource as $unitResident) {
-
+        foreach ($this->resource as $key => $unitResident) {
             $residentsByUnits[] = [
                 'residentId' => $unitResident['id'] ?? null,
                 'title' => $unitResident['title'],

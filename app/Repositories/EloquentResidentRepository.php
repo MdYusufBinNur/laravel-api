@@ -239,11 +239,12 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
                     $resident['phone'] = $user->phone;
                     $resident['contactEmail'] = $unitResident->contactEmail;
                     $resident['profilePic'] = $user->userProfilePics()->first();
-                    $residentsByUnits[$unit->id][] = $resident;
+                    $residentsByUnits['id-' . $unit->id][] = $resident;
                 }
             } else {
-                $residentsByUnits[$unit->id] = [];
+                $residentsByUnits['id-' . $unit->id] = [];
             }
+
             if (empty($searchCriteria['pastResident'])) {
                 $residentAccessRequests = $unit->residentAccessRequests;
                 if ($residentAccessRequests->count() > 0) {
@@ -255,7 +256,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
                         $accessRequest['phone'] = $residentAccessRequest->phone;
                         $accessRequest['contactEmail'] = $residentAccessRequest->email;
                         $accessRequest['profilePic'] = null;
-                        $residentsByUnits[$unit->id][] = $accessRequest;
+                        $residentsByUnits['id-' . $unit->id][] = $accessRequest;
                     }
                 }
             }

@@ -51,10 +51,12 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
         }
 
         foreach ($searchCriteria as $key => $value) {
-            if ($key != 'include') {
-                $searchCriteria[$thisModelTable . '.' . $key] = $value;
-                unset($searchCriteria[$key]);
+            //skip pagination related query params
+            if (in_array($key, ['include', 'page', 'per_page', 'order_by', 'order_direction'])) {
+                continue;
             }
+            $searchCriteria[$thisModelTable . '.' . $key] = $value;
+            unset($searchCriteria[$key]);
         }
 
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {

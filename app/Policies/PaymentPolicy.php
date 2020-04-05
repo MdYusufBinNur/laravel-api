@@ -5,8 +5,6 @@ namespace App\Policies;
 use App\DbModels\Module;
 use App\DbModels\Payment;
 use App\DbModels\User;
-use App\Repositories\Contracts\UnitRepository;
-use App\Repositories\Contracts\UserRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PaymentPolicy
@@ -41,40 +39,12 @@ class PaymentPolicy
      */
     public function list(User $currentUser, int $propertyId, $unitIds = [], $userIds = [])
     {
-        $unitIds = is_string($unitIds) ?  explode(',', $unitIds): $unitIds;
-        $userIds = is_string($userIds) ?  explode(',', $userIds): $userIds;
-
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
-                return true;
-            }
-
-            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
-                return true;
-            }
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
-                return true;
-            }
-
-            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
-                return true;
-            }
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
-            if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
-                return true;
-            }
-
-            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
-                return true;
-            }
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
+            return true;
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
+            $unitIds = is_string($unitIds) ?  explode(',', $unitIds): $unitIds;
             if ($this->isOwnerOfAnyUnit($currentUser, $unitIds)) {
                 return true;
             }
@@ -94,35 +64,8 @@ class PaymentPolicy
      */
     public function store(User $currentUser, int $propertyId, ?array $unitIds, ?array $userIds)
     {
-
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
-                return true;
-            }
-
-            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
-                return true;
-            }
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
-                return true;
-            }
-
-            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
-                return true;
-            }
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
-            if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
-                return true;
-            }
-
-            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
-                return true;
-            }
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
+            return true;
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
@@ -144,40 +87,14 @@ class PaymentPolicy
     public function show(User $currentUser,  Payment $payment)
     {
         $propertyId = $payment->propertyId;
-        $userIds = $payment->toUserIds;
-        $unitIds = $payment->toUnitIds;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
-                return true;
-            }
-
-            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
-                return true;
-            }
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
-                return true;
-            }
-
-            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
-                return true;
-            }
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
-            if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
-                return true;
-            }
-
-            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
-                return true;
-            }
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
+            return true;
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
+            $unitIds = $payment->toUnitIds;
+
             if ($this->isOwnerOfAnyUnit($currentUser, $unitIds)) {
                 return true;
             }
@@ -196,40 +113,13 @@ class PaymentPolicy
     public function update(User $currentUser, Payment $payment)
     {
         $propertyId = $payment->propertyId;
-        $userIds = $payment->toUserIds;
-        $unitIds = $payment->toUnitIds;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
-                return true;
-            }
-
-            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
-                return true;
-            }
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
-                return true;
-            }
-
-            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
-                return true;
-            }
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
-            if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
-                return true;
-            }
-
-            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
-                return true;
-            }
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
+            return true;
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
+            $unitIds = $payment->toUnitIds;
             if ($this->isOwnerOfAllUnits($currentUser, $unitIds)) {
                 return true;
             }
@@ -248,40 +138,13 @@ class PaymentPolicy
     public function destroy(User $currentUser, Payment $payment)
     {
         $propertyId = $payment->propertyId;
-        $userIds = $payment->toUserIds;
-        $unitIds = $payment->toUnitIds;
 
-        if ($currentUser->isAnEnterpriseUserOfTheProperty($propertyId)) {
-            if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
-                return true;
-            }
-
-            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
-                return true;
-            }
-        }
-
-        if ($currentUser->isAPriorityStaffOfTheProperty($propertyId)) {
-            if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
-                return true;
-            }
-
-            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
-                return true;
-            }
-        }
-
-        if ($currentUser->isAStandardStaffOfTheProperty($propertyId)) {
-            if ($this->isUsersOfTheProperty($propertyId, $userIds)) {
-                return true;
-            }
-
-            if ($this->allAreUnitsOfTheProperty($propertyId, $unitIds)) {
-                return true;
-            }
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
+            return true;
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
+            $unitIds = $payment->toUnitIds;
             if ($this->isOwnerOfAllUnits($currentUser, $unitIds)) {
                 return true;
             }
@@ -318,38 +181,5 @@ class PaymentPolicy
         }
 
         return false;
-    }
-
-    private function allAreUnitsOfTheProperty($propertyId, array $unitIds)
-    {
-        if (count($unitIds) < 1) {
-            return true;
-        }
-
-        $unitRepository = app(UnitRepository::class);
-        $units = $unitRepository->getModel()->whereIn('id', $unitIds)->where('propertyId', $propertyId)->count();
-
-        return count($unitIds) == $units;
-    }
-
-    private function isUsersOfTheProperty(int $propertyId, array $userIds)
-    {
-        if (count($userIds) < 1) {
-            return false;
-        }
-
-        $userRepository = app(UserRepository::class);
-        $users = $userRepository->getModel()->whereIn('id', $userIds)->get();
-
-        if ($users->count() !== count($userIds)) {
-            return false;
-        }
-
-        foreach ($users as $user) {
-            if (!$user->isUserOfTheProperty($propertyId)) {
-                return false;
-            }
-        }
-        return true;
     }
 }

@@ -17,6 +17,9 @@ class InventoryItemResource extends Resource
             'id' => $this->id,
             'propertyId' => $this->propertyId,
             'categoryId' => $this->categoryId,
+            'category' => $this->when($this->needToInclude($request, 'ii.category'), function () {
+                return new InventoryCategoryResource($this->category);
+            }),
             'sku' => $this->sku,
             'name' => $this->name,
             'description' => $this->description,

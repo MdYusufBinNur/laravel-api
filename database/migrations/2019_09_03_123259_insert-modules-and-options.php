@@ -107,6 +107,8 @@ class InsertModulesAndOptions extends Migration
             ['moduleId' => 19, 'key' => 'messageInIssueParkingPass', 'title' => 'Add this message to the Issue Parking Passes from'],
             ['moduleId' => 19, 'key' => 'tempParkingPassValidationInHour', 'title' => 'Default parking pass validation in hour'],
 
+            ['moduleId' => 30, 'key' => 'showOnLandingPage', 'title' => 'Show property committee on landing page'],
+
         ]);
     }
 

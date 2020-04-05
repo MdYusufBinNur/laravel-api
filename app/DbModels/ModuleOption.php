@@ -76,6 +76,8 @@ class ModuleOption extends Model
     const PARKING_PASS_MESSAGE = ['moduleId' => 19, 'key' => 'messageInIssueParkingPass'];
     const PARKING_PASS_TEMP_DEFAULT_PARKING_PASS_VALIDATION = ['moduleId' => 19, 'key' => 'tempParkingPassValidationInHour'];
 
+    const PROPERTY_COMMITTEE_ON_LANDING_PAGE = ['moduleId' => 30, 'key' => 'showOnLandingPage'];
+
     /**
      * get the module
      *

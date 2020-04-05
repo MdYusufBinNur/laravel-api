@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 
+use App\DbModels\InventoryItem;
 use App\Events\InventoryItem\InventoryItemCreatedEvent;
 use App\Events\InventoryItem\InventoryItemUpdatedEvent;
 use App\Repositories\Contracts\ExpenseRepository;
@@ -85,6 +86,30 @@ class EloquentInventoryItemRepository extends EloquentBaseRepository implements 
         } else {
             return $queryBuilder->get();
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function transfer(array $data)
+    {
+        $inventoryItem = $this->findOne($data['inventoryItemId']);
+        $data = [
+            'name' => $inventoryItem->name,
+            'quantity' => $data['quantity'],
+            'propertyId' => $data['toPropertyId'],
+            'comment' => 'Transferred from the property - ' . $inventoryItem->property->title
+        ];
+
+        DB::beginTransaction();
+
+        $this->update($inventoryItem, ['quantity' => $inventoryItem->quantity - $data['quantity'] ]);
+
+        $inventoryItem = $this->save($data);
+
+        DB::commit();
+
+        return $inventoryItem;
     }
 
 }

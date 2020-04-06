@@ -1,56 +1,32 @@
-<table bgcolor="#0292B7" cellpadding="0" cellspacing="0"
-       class="force-full-width" style="margin: 0 auto;">
-    <tbody >
-    <tr>
-        <td>
-            <table cellpadding="0" cellspacing="0" style="margin: 0 auto;" width="80%">
-                <tbody>
-                <tr >
-                    <td  style="text-align:left; font-size:18px;color:#ffffff;"><br>
-                        To
+<tr>
+    <td class="email-body" width="570" cellpadding="0" cellspacing="0">
+        <table class="email-body_inner" style=" border: 1px solid #e1e1e1;" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation">
+            <!-- Body content -->
+            <tbody>
+            <tr>
+                <td class="content-cell">
+                    <div class="f-fallback">
+                        <p>
+                            To
+                            <br>
+                            {{ $property->title }} Authority
+                        </p>
+                        <p>
+                            {{ $residentAccessRequest->name }} has sent a registration request to your property.
+                        </p>
+                        <p>
+                            Please review his/her request from your property.
+                        </p>
                         <br>
-                        {{ $property->title }} Authority
-                        <br>
-                        <br>
-                        {{ $residentAccessRequest->name }} has sent a registration request to your property.
-                        <br>
-                        <br>
-                        <br>
-                        Please review his/her request from your property.
-
-                        <br>
-                        <br>
-                        <br>
-                        Thank You
-                        <br>
-                        Smart Property Team
-                        <br>
-                        <br>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </td>
-    </tr>
-    <tr >
-        <td >
-
-            <br>
-            <br>
-            <br>
-            <br>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<table bgcolor="#F5774E" cellpadding="0" cellspacing="0" class="force-full-width" style="margin: 0 auto;">
-    <tbody>
-    <tr>
-        <td style="background-color:#f5774e;">
-            <center>
-
-            </center>
-        </td>
-    </tr>
-    </tbody>
-</table>
+                        <p>
+                            Thank You
+                            <br>
+                            Smart Property Team
+                        </p>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </td>
+</tr>

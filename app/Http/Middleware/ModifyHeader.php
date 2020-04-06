@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\DbModels\Property;
 use Closure;
 
 class ModifyHeader
@@ -26,6 +27,8 @@ class ModifyHeader
         $propertyId = $request->headers->has('propertyId') ? $request->headers->get('propertyId') : $request->get('propertyId');
         if (!empty($propertyId)) {
             $request->merge(['propertyId' => $propertyId]);
+            $property = Property::find($propertyId);
+            \View::share('property', $property);
         }
 
         $response = $next($request);

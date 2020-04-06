@@ -105,9 +105,17 @@ class Property extends Model
      *
      * @return string|null
      */
-    public function getPropertyLogo()
+    public function getPropertyLogoUrl()
     {
-        return $this->propertyImages()->where('type', PropertyImage::TYPE_LOGO)->first();
+        $propertyImage = $this->propertyImages()->where('type', PropertyImage::TYPE_LOGO)->first();
+        if ($propertyImage instanceof PropertyImage) {
+            $attachment = $propertyImage->image;
+            if ($attachment instanceof Attachment) {
+                $url = $attachment->getFileUrl();
+            }
+        }
+
+        return !empty($url) ? $url : 'https://smartproperty.xyz/img/pms/Smart%20Property%20Logo.png';
     }
 
     /**

@@ -24,7 +24,7 @@ class UpdateRequest extends Request
             'billingInfo' => '',
             'dueDate' => 'date_format:Y-m-d',
             'dueDays' => 'numeric',
-            'sourceType' => 'in:' . Payment::SOURCE_TYPE_EXPENSE . ',' . Payment::SOURCE_TYPE_INCOME,
+            'sourceType' => 'in:NA,' . Payment::SOURCE_TYPE_EXPENSE . ',' . Payment::SOURCE_TYPE_INCOME,
             'toUserIds' => [new ListOfIds('users', 'id')],
             'toUnitIds' => [new ListOfIds('units', 'id', ['all_units'])],
             'toVendorIds' => [new ListOfIds('vendors', 'id')],

@@ -23,7 +23,7 @@ class StoreRequest extends Request
             'amount' => 'required',
             'note' => '',
             'billingInfo' => '',
-            'sourceType' => 'in:' . Payment::SOURCE_TYPE_EXPENSE . ',' . Payment::SOURCE_TYPE_INCOME,
+            'sourceType' => 'in:NA,' . Payment::SOURCE_TYPE_EXPENSE . ',' . Payment::SOURCE_TYPE_INCOME,
             'dueDate' => 'required_without:dueDays|date_format:Y-m-d',
             'dueDays' => 'required_without:dueDate|numeric',
             'isRecurring' => 'boolean',

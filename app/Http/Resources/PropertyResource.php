@@ -49,7 +49,7 @@ class PropertyResource extends Resource
             'propertyModules' => $this->when($this->needToInclude($request, 'property.propertyModules'), function () {
                 return new ModulePropertyResourceCollection($this->moduleProperties);
             }),
-            'loginLink' => $this->getLoginLink(),
+            'loginLink' => $this->getPropertyLink(),
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
             'created_at' => $this->created_at,

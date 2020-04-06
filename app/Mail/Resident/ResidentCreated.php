@@ -35,7 +35,7 @@ class ResidentCreated extends Mailable
     {
         $resident = $this->resident;
         $property = $resident->property;
-        $propertyLink = $property->getLoginLink();
+        $propertyLink = $property->getPropertyLink();
 
 
         return $this->view('resident.index')

@@ -36,7 +36,7 @@ class ResidentAccessRequestApproved extends Mailable
         $residentAccessRequest = $this->residentAccessRequest;
         $property = $this->residentAccessRequest->property;
         $unit = $this->residentAccessRequest->unit;
-        $propertyLink = $property->getLoginLink();
+        $propertyLink = $property->getPropertyLink();
         $completeRegistrationLink = 'https://'. $propertyLink. '/registration';
 
         return $this->subject("Approved! Welcome to {$property->title} community")->view('resident.approved-request.index')

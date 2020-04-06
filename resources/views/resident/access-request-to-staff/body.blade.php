@@ -7,25 +7,24 @@
                 <tbody>
                 <tr >
                     <td  style="text-align:left; font-size:18px;color:#ffffff;"><br>
-                        Hey {{ $residentAccessRequest->name }}
+                        To
+                        <br>
+                        {{ $property->title }} Authority
                         <br>
                         <br>
-                        Our support team received your request for registration in our community.
-                        Soon, You`ll notified by an email with a PIN.
-                        You can continue further registration process in our community, by entering PIN.
+                        {{ $residentAccessRequest->name }} has sent a registration request to your property.
                         <br>
                         <br>
                         <br>
-                        If you don’t get any email within a few days, please contact with support team of your community.
+                        Please review his/her request from your property.
+
                         <br>
                         <br>
                         <br>
                         Thank You
                         <br>
-                        {{ $property->title }} Support Team
+                        Smart Property Team
                         <br>
-                        <br>
-                        {{ $property->address }}
                         <br>
                     </td>
                 </tr>

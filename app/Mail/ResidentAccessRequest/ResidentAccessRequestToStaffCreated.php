@@ -6,7 +6,7 @@ use App\DbModels\ResidentAccessRequest;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ResidentAccessRequestCreated extends Mailable
+class ResidentAccessRequestToStaffCreated extends Mailable
 {
     use SerializesModels;
 
@@ -35,9 +35,9 @@ class ResidentAccessRequestCreated extends Mailable
         $residentAccessRequest = $this->residentAccessRequest;
         $property = $this->residentAccessRequest->property;
         $unit = $this->residentAccessRequest->unit;
-        $subject = "Received! Registration request to {$property->title} community";
+        $subject = 'A New Registration Request to your property';
 
-        return $this->subject($subject)->view('resident.access-request.index')
+        return $this->subject($subject)->view('resident.access-request-to-staff.index')
             ->with(['residentAccessRequest' => $residentAccessRequest, 'property' => $property, 'unit' => $unit]);
     }
 }

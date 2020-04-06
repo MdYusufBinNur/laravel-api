@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PasswordReset extends Model
 {
@@ -40,15 +41,14 @@ class PasswordReset extends Model
      */
     const UPDATED_AT = null;
 
+
     /**
      * get the user
      *
-     * @return User
+     * @return HasOne
      */
-    public function getUser()
+    public function user()
     {
-        return User::where(['email' => $this->email])
-            ->orWhere(['phone' => $this->phone])
-            ->first();
+        return $this->hasOne(User::class, 'email', 'email');
     }
 }

@@ -3,13 +3,17 @@
 namespace App\Listeners\PaymentItem;
 
 use App\DbModels\Payment;
+use App\DbModels\PaymentItem;
 use App\DbModels\UserNotificationType;
 use App\Events\PaymentItem\PaymentItemUpdatedEvent;
 use App\Listeners\CommonListenerFeatures;
 use App\Mail\Payment\PaymentItemUpdated;
+use App\Repositories\Contracts\ExpenseRepository;
+use App\Repositories\Contracts\IncomeRepository;
 use App\Repositories\Contracts\PaymentItemLogRepository;
 use App\Repositories\Contracts\PaymentRepository;
 use App\Repositories\Contracts\UserNotificationRepository;
+use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
@@ -73,6 +77,10 @@ class HandlePaymentItemUpdatedEvent implements ShouldQueue
             ];
             $this->paymentItemLogRepository->save($logData);
 
+            // add as income/expense
+
+            $this->addSource($paymentItem);
+
             // send email
             if (!empty($paymentItem->unitId)) {
                 $residents = $paymentItem->unit->residents;
@@ -109,5 +117,28 @@ class HandlePaymentItemUpdatedEvent implements ShouldQueue
             'resourceId' => $resourceId,
             'message' => "One of your payment status has been updated.",
         ]);
+    }
+
+    /**
+     * add the payment as an income or expense
+     *
+     * @param PaymentItem $paymentItem
+     */
+    public function addSource(PaymentItem $paymentItem)
+    {
+        if ($paymentItem->status == PaymentItem::STATUS_PAID) {
+            $payment = $paymentItem->payment;
+            $amount = $payment->amount;
+            if ($payment->sourceType == Payment::SOURCE_TYPE_EXPENSE) {
+                $expenseRepository = app(ExpenseRepository::class);
+                $expenseRepository->save(['amount' => $amount, 'expenseDate' => Carbon::today(), 'propertyId' => $paymentItem->propertyId, 'expenseReason' => 'Expense from Payment Item# ' . $paymentItem->id]);
+            }
+
+            if ($payment->sourceType == Payment::SOURCE_TYPE_INCOME) {
+                $incomeRepository = app(IncomeRepository::class);
+                $incomeRepository->save(['amount' => $amount, 'incomeDate' => Carbon::today(), 'propertyId' => $paymentItem->propertyId, 'sourceOfIncome' => 'Income from Payment Item# ' . $paymentItem->id]);
+            }
+        }
+
     }
 }

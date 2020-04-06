@@ -40,6 +40,7 @@ class PaymentResource extends Resource
             }),
             'status' => $this->status,
             'activationDate' => $this->activationDate,
+            'sourceType' => $this->sourceType,
             'toUserIds' => $this->toUserIds,
             'toUnitIds' => $this->toUnitIds,
             'toVendorIds' => $this->toVendorIds,

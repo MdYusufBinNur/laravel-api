@@ -31,6 +31,7 @@ class CreatePaymentsTable extends Migration
             $table->string('toVendorIds')->nullable();
             $table->string('toCustomerIds')->nullable();
             $table->date('activationDate')->nullable();
+            $table->string('sourceType')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

@@ -21,7 +21,7 @@
                                 </td>
                             </tr>
                             </tbody></table>
-                        <p>For security, this request was received from a `operating_system` device using `browser_name`. If you did not request a password reset, please ignore this email or <a href="#">contact support</a> if you have questions.</p>
+                        <p>For security, this request was received earlier. If you did not request a password reset, please ignore this email or <a href="https://smartproperty.xyz">contact support</a> if you have questions.</p>
                         <p>
                             Thanks,
                             <br>The SmartProperty Team

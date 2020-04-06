@@ -38,7 +38,7 @@ class ResidentCreated extends Mailable
         $propertyLink = $property->getPropertyLink();
 
 
-        return $this->view('resident.index')
+        return $this->subject("Registration Successful!")->view('resident.index')
             ->with(['resident' => $this->resident, 'property' => $property, 'propertyLink' => $propertyLink]);
     }
 }

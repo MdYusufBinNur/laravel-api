@@ -38,4 +38,14 @@ class InventoryItem extends Model
     {
         return $this->hasOne(Property::class, 'id', 'propertyId');
     }
+
+    /**
+     * get the category
+     *
+     * @return HasOne
+     */
+    public function category()
+    {
+        return $this->hasOne(InventoryCategory::class, 'id', 'categoryId');
+    }
 }

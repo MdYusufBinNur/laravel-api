@@ -204,6 +204,7 @@ Route::group(['prefix' => 'api/v1'], function () {
          */
         Route::apiResource('inventory-category', 'InventoryCategoryController');
         Route::apiResource('inventory-item', 'InventoryItemController');
+        Route::post('inventory-item-transfer', 'InventoryItemController@transfer');
         Route::apiResource('inventory-item-log', 'InventoryItemLogController', ['except' => ['store', 'update', 'destroy']]);
         Route::apiResource('equipment', 'EquipmentController');
 

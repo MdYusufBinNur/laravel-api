@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 
+use App\DbModels\InventoryItem;
 use App\Events\InventoryItem\InventoryItemCreatedEvent;
 use App\Events\InventoryItem\InventoryItemUpdatedEvent;
 use App\Repositories\Contracts\ExpenseRepository;
@@ -76,6 +77,9 @@ class EloquentInventoryItemRepository extends EloquentBaseRepository implements 
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
 
+        $searchCriteria['eagerLoad'] = ['ii.category' => 'category'];
+        $queryBuilder = $this->applyEagerLoad($queryBuilder, $searchCriteria);
+
         $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;
         $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';
         $orderDirection = !empty($searchCriteria['order_direction']) ? $searchCriteria['order_direction'] : 'desc';
@@ -85,6 +89,30 @@ class EloquentInventoryItemRepository extends EloquentBaseRepository implements 
         } else {
             return $queryBuilder->get();
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function transfer(array $data)
+    {
+        $inventoryItem = $this->findOne($data['inventoryItemId']);
+        $data = [
+            'name' => $inventoryItem->name,
+            'quantity' => $data['quantity'],
+            'propertyId' => $data['toPropertyId'],
+            'comment' => 'Transferred from the property - ' . $inventoryItem->property->title
+        ];
+
+        DB::beginTransaction();
+
+        $this->update($inventoryItem, ['quantity' => $inventoryItem->quantity - $data['quantity'] ]);
+
+        $inventoryItem = $this->save($data);
+
+        DB::commit();
+
+        return $inventoryItem;
     }
 
 }

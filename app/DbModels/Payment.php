@@ -19,6 +19,8 @@ class Payment extends Model
     const STATUS_NOT_ACTIVATED = 'not_activated';
     const STATUS_NOT_PUBLISHED = 'not_published'; // when the payment_item has not been created yet
     const STATUS_CANCELLED = 'cancelled';
+    const SOURCE_TYPE_INCOME = 'income';
+    const SOURCE_TYPE_EXPENSE = 'expense';
 
     /**
      * The attributes that are mass assignable.
@@ -42,7 +44,8 @@ class Payment extends Model
         'toUnitIds',
         'toCustomerIds',
         'toVendorIds',
-        'activationDate'
+        'activationDate',
+        'sourceType'
     ];
 
     protected $attributes = [

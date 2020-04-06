@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DbModels\InventoryItem;
 use App\Http\Requests\InventoryItem\StoreRequest;
 use App\Http\Requests\InventoryItem\IndexRequest;
+use App\Http\Requests\InventoryItem\TransferRequest;
 use App\Http\Requests\InventoryItem\UpdateRequest;
 use App\Http\Resources\InventoryItemResource;
 use App\Http\Resources\InventoryItemResourceCollection;
@@ -90,4 +91,20 @@ class InventoryItemController extends Controller
 
         return response()->json(null, 204);
     }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param TransferRequest $request
+     * @param InventoryItem $inventoryItem
+     * @return InventoryItemResource
+     */
+    public function transfer(TransferRequest $request)
+    {
+        $inventoryItem = $this->inventoryItemRepository->transfer($request->all());
+
+        return new InventoryItemResource($inventoryItem);
+    }
+
 }

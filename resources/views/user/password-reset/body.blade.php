@@ -1,59 +1,46 @@
-<table bgcolor="#0292B7" cellpadding="0" cellspacing="0"
-       class="force-full-width" style="margin: 0 auto;">
-    <tbody >
-    <tr>
-        <td>
-            <table cellpadding="0" cellspacing="0" style="margin: 0 auto;" width="80%">
-                <tbody>
-                <tr >
-                    <td  style="text-align:left; font-size:18px;color:#ffffff;"><br>
-                        Hey {{ $user->name }}
-                        <br>
-                        <br>
-                        Please click on the button below to reset your password.
-                        If you didn’t request for a new password, you can ignore this email
-                        <br>
-                        <br>
-                        <div >
-                            <!--[if mso]> <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://www.sendwithus.com" style="height:50px;v-text-anchor:middle;width:200px;" arcsize="8%" stroke="f" fillcolor="#178f8f"> <w:anchorlock></w:anchorlock> <center> <![endif]-->
-                            <a  href="{{ $resetLink }}"
-                                style="background-color:#DEE2EC;border-radius:4px;color:#000;display:inline-block;font-family:Helvetica, Arial, sans-serif;font-size:16px;font-weight:bold;line-height:50px;text-align:center;text-decoration:none;width:180px;-webkit-text-size-adjust:none;">
-                                <span id="button_text">Reset Password</span>
-                            </a>
-                            <!--[if mso]> </center> </v:roundrect> <![endif]-->
-                        </div>
-                        <br>
-                        If it doesn’t work, you can copy and paste the following link in your browser:
-                        <br>
-                        <br>
-                        <a href="{{ $resetLink }}" target="_blank"> {{ $resetLink }}</a>
-                        <br>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </td>
-    </tr>
-
-    <tr >
-        <td >
-
-            <br>
-            <br>
-            <br>
-            <br>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<table bgcolor="#F5774E" cellpadding="0" cellspacing="0" class="force-full-width" style="margin: 0 auto;">
-    <tbody>
-    <tr>
-        <td style="background-color:#f5774e;">
-            <center>
-
-            </center>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<tr>
+    <td class="email-body" width="570" cellpadding="0" cellspacing="0">
+        <table class="email-body_inner" style=" border: 1px solid #e1e1e1;" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation">
+            <!-- Body content -->
+            <tbody><tr>
+                <td class="content-cell">
+                    <div class="f-fallback">
+                        <h1> Hey {{ $user->name }},</h1>
+                        <p>You recently requested to reset your password for your SmartProperty account. Use the button below to reset it. <strong>This password reset is only valid for the next 24 hours.</strong></p>
+                        <!-- Action -->
+                        <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                            <tbody><tr>
+                                <td align="center">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
+                                        <tbody><tr>
+                                            <td align="center">
+                                                <a  href="{{ $resetLink }}" class="f-fallback button button--brand" target="_blank">Reset your password</a>
+                                            </td>
+                                        </tr>
+                                        </tbody></table>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                        <p>For security, this request was received from a `operating_system` device using `browser_name`. If you did not request a password reset, please ignore this email or <a href="#">contact support</a> if you have questions.</p>
+                        <p>
+                            Thanks,
+                            <br>The SmartProperty Team
+                        </p>
+                        <!-- Sub copy -->
+                        <table class="body-sub" role="presentation">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <p class="f-fallback sub">If you’re having trouble with the button above, copy and paste the URL below into your web browser.</p>
+                                    <p class="f-fallback sub"> {{ $resetLink }}</p>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </td>
+</tr>

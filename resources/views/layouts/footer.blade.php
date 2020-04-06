@@ -4,12 +4,12 @@
             <tbody>
                 <tr>
                     <td class="content-cell" align="center">
-                        <p class="f-fallback sub align-center">© 2020 ReformedTech, All rights reserved.</p>
                         <p class="f-fallback sub align-center">
-                            SmartProperty.xyz
-                            <br>32/1, Road: 3, Shyamoli,
-                            <br>Dhaka 1207,Bangladesh
+                            {{$property->title}}
+                            <br>{{$property->address}},
+                            <br>{{$property->city}} {{$property->postCode}},{{$property->country}}
                         </p>
+                        <p class="f-fallback sub align-center">©{{ now()->year }} SmartProperty.xyz, All rights reserved.</p>
                     </td>
                 </tr>
             </tbody>

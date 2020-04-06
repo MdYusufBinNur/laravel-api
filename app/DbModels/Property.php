@@ -143,7 +143,7 @@ class Property extends Model
      *
      * @return mixed|string
      */
-    public function getLoginLink()
+    public function getPropertyLink()
     {
         if (!empty($this->domain)) {
             return $this->domain;

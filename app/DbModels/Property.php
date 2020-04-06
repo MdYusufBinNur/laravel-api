@@ -101,6 +101,16 @@ class Property extends Model
     }
 
     /**
+     * get logo
+     *
+     * @return string|null
+     */
+    public function getPropertyLogo()
+    {
+        return $this->propertyImages()->where('type', PropertyImage::TYPE_LOGO)->first();
+    }
+
+    /**
      * get images
      *
      * @return HasMany

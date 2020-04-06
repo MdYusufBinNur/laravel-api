@@ -8,9 +8,8 @@
                     <div class="f-fallback">
                         <h1> Hey {{ $residentAccessRequest->name }}</h1>
                         <p>
-                            Our support team received your request for registration in our community.
-                            Soon, You`ll notified by an email with a PIN.
-                            You can continue further registration process in our community, by entering PIN.
+                            Our support team received your request for registration.
+                            A PIN will be sent to you soon. You can continue further registration process, by entering the PIN.
                         </p>
                         <p>
                             If you don’t get any email within a few days, please contact with support team of your community.

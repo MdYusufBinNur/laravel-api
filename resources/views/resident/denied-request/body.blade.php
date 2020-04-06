@@ -1,58 +1,33 @@
-<table bgcolor="#0292B7" cellpadding="0" cellspacing="0"
-       class="force-full-width" style="margin: 0 auto;">
-    <tbody >
-    <tr>
-        <td>
-            <table cellpadding="0" cellspacing="0" style="margin: 0 auto;" width="80%">
-                <tbody>
-                <tr >
-                    <td  style="text-align:left; font-size:18px;color:#ffffff;"><br>
-                        Hey, {{ $residentAccessRequest->name }}
+<tr>
+    <td class="email-body" width="570" cellpadding="0" cellspacing="0">
+        <table class="email-body_inner" style=" border: 1px solid #e1e1e1;" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation">
+            <!-- Body content -->
+            <tbody>
+            <tr>
+                <td class="content-cell">
+                    <div class="f-fallback">
+                        <h1>Hey {{ $residentAccessRequest->name }}</h1>
+                        <p> We have reviewed your request.
+                            And sorry to notify that you are not marked as a resident in our community.
+                            That's why we reject your request.
+                        </p>
                         <br>
+                        <p>
+                            If you are a resident of our community, please contact with the support team of our community,
+                            to consider your request again.
+                        </p>
                         <br>
-                        We have reviewed your request.
-                        And sorry to notify that you are not marked as a resident in our community.
-                        That's why we reject your request.
-                        <br>
-                        <br>
-                        <br>
-                        If you are a resident of our community, please contact with the support team of our community,
-                        to consider your request again.
-                        <br>
-                        <br>
-                        <br>
-                        Thank You
-                        <br>
-                        {{ $property->title }} Support Team
-                        <br>
-                        <br>
-                        {{ $property->address }}
-                        <br>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </td>
-    </tr>
-
-    <tr >
-        <td >
-
-            <br>
-            <br>
-            <br>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<table bgcolor="#F5774E" cellpadding="0" cellspacing="0" class="force-full-width" style="margin: 0 auto;">
-    <tbody>
-    <tr>
-        <td style="background-color:#f5774e;">
-            <center>
-
-            </center>
-        </td>
-    </tr>
-    </tbody>
-</table>
+                        <p>
+                            Thank You
+                            <br>
+                            {{ $property->title }} Support Team
+                            <br>
+                            {{ $property->address }}
+                        </p>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </td>
+</tr>

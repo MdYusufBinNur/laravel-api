@@ -46,6 +46,11 @@ trait EloquentEagerLoadTrait
             $shouldLoadRelationships = array_merge($shouldLoadRelationships, $alwaysRelationships);
         }
 
+        // always eagerload - needs to get user label
+        if (in_array('user.userLabel', $requestedRelationships)) {
+            $shouldLoadRelationships = array_merge($shouldLoadRelationships, ['userRoles', 'residents', 'residents.unit']);
+        }
+
         return array_unique($shouldLoadRelationships);
     }
 

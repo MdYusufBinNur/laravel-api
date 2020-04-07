@@ -206,9 +206,9 @@ class User extends Authenticatable
     /**
      *@draft
      */
-    public function getUserLabelAttribute()
+    public function getUserLabel($userRoles, $residents)
     {
-        $roleIds = $this->userRoles()->pluck('roleId')->toArray();
+        $roleIds = $userRoles->pluck('roleId')->toArray();
         $label = '';
 
         foreach ($roleIds as $roleId) {
@@ -224,7 +224,7 @@ class User extends Authenticatable
             }
 
             if (in_array($roleId, [Role::ROLE_RESIDENT_TENANT['id'], Role::ROLE_RESIDENT_OWNER['id']])) {
-                $resident = $this->residents()->first();
+                $resident = $residents->first();
                 if ($resident instanceof Resident) {
                     return $resident->residentLabel;
                 }

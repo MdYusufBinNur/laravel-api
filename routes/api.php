@@ -275,6 +275,7 @@ Route::group(['prefix' => 'api/v1'], function () {
 
     Route::get('property-login-page-events', 'EventController@index');
     Route::get('property-login-page-announcements', 'AnnouncementController@index');
+    Route::get('property-login-page-committees', 'CommitteeController@index');
 
 
     Route::apiResource('attachment', 'AttachmentController', ['except' => ['update']]);
@@ -283,6 +284,8 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::post('resident-access-request', 'ResidentAccessRequestController@store');
     Route::get('resident-access-request-using-pin', 'ResidentAccessRequestController@getByPin');
     Route::post('resident', 'ResidentController@store');
+
+
 
     Route::post('login', 'Auth\\LoginController@index');
     Route::get('logout', 'Auth\\LoginController@logout');

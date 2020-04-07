@@ -37,7 +37,11 @@ class CommitteeController extends Controller
      */
     public function index(IndexRequest $request)
     {
-        $this->authorize('list', [Committee::class, $request->input('propertyId')]);
+        if (strpos($request->getPathInfo(), 'property-login-page-committees') !== false) {
+            $request->merge(['current-committees' => true]);
+        } else {
+            $this->authorize('list', [Committee::class, $request->input('propertyId')]);
+        }
 
         $propertyCommittees = $this->committeeRepository->findBy($request->all());
 

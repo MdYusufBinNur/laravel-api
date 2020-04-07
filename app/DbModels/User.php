@@ -213,14 +213,14 @@ class User extends Authenticatable
 
         foreach ($roleIds as $roleId) {
             if (in_array($roleId, [Role::ROLE_ADMIN_LIMITED['id'], Role::ROLE_ADMIN_STANDARD['id'], Role::ROLE_ADMIN_SUPER['id']])) {
-               return 'Admin';
+               return 'Admin User';
             }
-            if (in_array($roleId, [Role::ROLE_STAFF_LIMITED['id'], Role::ROLE_STAFF_STANDARD['id'], Role::ROLE_STAFF_PRIORITY['id']])) {
-                return 'Staff';
+            if (in_array($roleId, [Role::ROLE_ENTERPRISE_STANDARD['id'], Role::ROLE_ENTERPRISE_ADMIN['id']])) {
+                return 'Enterprise User';
             }
 
             if (in_array($roleId, [Role::ROLE_STAFF_LIMITED['id'], Role::ROLE_STAFF_STANDARD['id'], Role::ROLE_STAFF_PRIORITY['id']])) {
-                return 'Staff';
+                return 'Staff User';
             }
 
             if (in_array($roleId, [Role::ROLE_RESIDENT_TENANT['id'], Role::ROLE_RESIDENT_OWNER['id']])) {

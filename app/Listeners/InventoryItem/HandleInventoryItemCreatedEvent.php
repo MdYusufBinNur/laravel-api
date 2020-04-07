@@ -26,14 +26,15 @@ class HandleInventoryItemCreatedEvent implements ShouldQueue
 
         // log the inventory item
         $inventoryItemLogRepository = app(InventoryItemLogRepository::class);
-
         $inventoryItemLogData = [
             'inventoryItemId' => $inventoryItem->id,
             'propertyId' => $inventoryItem->propertyId,
             'updatedByUserId' => $eventOptions['request']['loggedInUserId'],
             'QuantityChange' => $inventoryItem->quantity,
+            'description' => strpos($inventoryItem->comment, 'Transferred from the property') == 0 ? $inventoryItem->comment : 'New inventory added',
             'vendorId' => $eventOptions['request']['vendorId'] ?? NULL
         ];
+
 
         if (!empty($eventOptions['request']['cost'])) {
             $expenseRepository = app(ExpenseRepository::class);

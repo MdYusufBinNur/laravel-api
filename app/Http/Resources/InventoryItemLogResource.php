@@ -24,6 +24,7 @@ class InventoryItemLogResource extends Resource
                 return  new UserResource($this->updatedByUser);
             }),
             'QuantityChange' => $this->QuantityChange,
+            'description' => $this->description,
             'vendorId' => $this->vendorId,
             'expenseId' => $this->expenseId,
             'created_at' => $this->created_at,

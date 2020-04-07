@@ -22,6 +22,7 @@ class InventoryItemLog extends Model
         'vendorId',
         'expenseId',
         'cost',
+        'description',
     ];
 
     /**

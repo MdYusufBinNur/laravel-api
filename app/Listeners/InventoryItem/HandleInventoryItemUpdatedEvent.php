@@ -2,11 +2,13 @@
 
 namespace App\Listeners\InventoryItem;
 
+use App\DbModels\Property;
 use App\Events\InventoryItem\InventoryItemUpdatedEvent;
 use App\Listeners\CommonListenerFeatures;
 use App\Mail\InventoryItem\NotifyInventoryDecreased;
 use App\Repositories\Contracts\ExpenseRepository;
 use App\Repositories\Contracts\InventoryItemLogRepository;
+use App\Repositories\Contracts\PropertyRepository;
 use App\Repositories\Contracts\UserRoleRepository;
 use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -39,8 +41,17 @@ class HandleInventoryItemUpdatedEvent implements ShouldQueue
                 'propertyId' => $inventoryItem->propertyId,
                 'updatedByUserId' => $eventOptions['request']['loggedInUserId'],
                 'QuantityChange' => $inventoryItem->quantity - $oldInventoryItem->quantity,
+                'description' => 'Quantity changed.',
                 'vendorId' => $eventOptions['request']['vendorId'] ?? NULL
             ];
+
+            if (isset($eventOptions['request']['toPropertyId'])) {
+                $propertyRepository = app(PropertyRepository::class);
+                $property = $propertyRepository->findOne($eventOptions['request']['toPropertyId']);
+                if ($property instanceof Property) {
+                    $inventoryItemLogData['description'] = 'Transferred to the property ' . $property->title;
+                }
+            }
 
             if (!empty($eventOptions['request']['cost'])) {
                 $expenseRepository = app(ExpenseRepository::class);

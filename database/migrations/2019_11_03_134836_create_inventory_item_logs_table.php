@@ -22,6 +22,7 @@ class CreateInventoryItemLogsTable extends Migration
             $table->unsignedInteger('vendorId')->nullable();
             $table->unsignedInteger('expenseId')->nullable();
             $table->float('cost')->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

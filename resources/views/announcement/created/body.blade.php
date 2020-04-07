@@ -1,64 +1,70 @@
-<table bgcolor="#4DBFBF" cellpadding="0" cellspacing="0" class="force-full-width" style="margin: 0 auto;">
-    <tbody>
-    <tr>
-        <td>
-            <table cellpadding="0" cellspacing="0"
-                   style="margin: 0 auto;" width="80%">
-                <tbody>
-                <tr>
-                    <td height="50">
-
-                    </td>
-                </tr>
-                <tr>
-                    <td align="left" style="font-size:18px;color:#ffffff; text-align: left;">
-                        Dear Mr. {{ $user->name }}, <br> <br>
-
-                       Announcement!!<br>
-                        <br>
-                        <br>
-                        {{$announcement->title}}
-                        <br>
-                        <br>
-                        {{$announcement->content}}
-                        <br>
-                        <br>
-                        <br>
-                        Sincerely, <br>
-                        Team {{ $property->title }}
-                        
-                        <br>
-                        <br>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<table width="100%" cellspacing="0" cellpadding="0" border="0">
-    <tr>
-        <td>
-            <div >
-                <!--[if mso]> <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://www.sendwithus.com" style="height:50px;v-text-anchor:middle;width:200px;" arcsize="8%" stroke="f" fillcolor="#178f8f"> <w:anchorlock></w:anchorlock> <center> <![endif]-->
-                <a href="{{ $announcement->link }}" target="_blank"
-                   style="background-color:#89d6a3;border-radius:4px;color:#000;display:inline-block;font-family:Helvetica, Arial, sans-serif;font-size:16px;font-weight:bold;line-height:50px;text-align:center;text-decoration:none;width:180px;-webkit-text-size-adjust:none;">
-                    <span id="button_text">{{ $announcement->link }}</span>
-                </a>
-                <!--[if mso]> </center> </v:roundrect> <![endif]-->
-            </div>
-        </td>
-    </tr>
-</table>
-<table bgcolor="#F5774E" cellpadding="0" cellspacing="0" class="force-full-width" style="margin: 0 auto;">
-    <tbody>
-    <tr>
-        <td style="background-color:#f5774e;">
-            <center>
-
-            </center>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<tr>
+    <td class="email-body" width="570" cellpadding="0" cellspacing="0">
+        <table class="email-body_inner" style=" border: 1px solid #e1e1e1;" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation">
+            <!-- Body content -->
+            <tbody>
+            <tr>
+                <td class="content-cell">
+                    <div class="f-fallback">
+                        <h1> Dear Mr. {{ $user->name }},</h1>
+                    </div>
+                </td>
+            </tr>
+            <tr style="color:#4E5C6E; font-size:14px; line-height:20px;">
+                <td class="content" colspan="2" valign="top" align="center" style="padding-left:50px; padding-right:50px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff">
+                        <tbody>
+                        <tr>
+                            <td align="center">
+                                <div style="font-size: 22px; line-height: 20x; font-weight: 500; margin-left: 20px; margin-right: 20px; margin-bottom: 25px;"> Announcement!!</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="1" bgcolor="#DAE1E9"></td>
+                        </tr>
+                        <tr>
+                            <td height="24" &nbsp;=""></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px; padding-top: 10px;">
+                                <h2>{{$announcement->title}}</h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 10px; padding-top: 10px;"> {{$announcement->content}}</td>
+                        </tr>
+                        <tr>
+                            <td align="center">
+                                <table style="width: 100%; border-collapse:collapse;">
+                                    <tbody style="border: 0; padding: 0; margin-top:20px;">
+                                    <tr>
+                                        <td>
+                                            <a href="{{ $announcement->link }}" target="_blank"
+                                               class="f-fallback button button--brand">
+                                                <span id="button_text">Details</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="content-cell">
+                    <div class="f-fallback">
+                        <p>
+                            Sincerely, <br>
+                            Team {{ $property->title }}<br>
+                            {{ $property->address }}
+                        </p>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </td>
+</tr>

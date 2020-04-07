@@ -1,7 +1,8 @@
+<!-- Email Body start-->
 <tr>
     <td class="email-body" width="570" cellpadding="0" cellspacing="0">
         <table class="email-body_inner" style=" border: 1px solid #e1e1e1;" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation">
-            <!-- Body content -->
+            <!-- Body content Start -->
             <tbody>
             <tr>
                 <td height="40"></td>
@@ -21,27 +22,35 @@
                         <tr>
                             <td height="24" &nbsp;=""></td>
                         </tr>
+                        <!-- Image part Start -->
+                        @isset($visitor->image)
                         <tr>
                             <td align="center">
-                                <table style="width: 100%; border-collapse:collapse;">
-                                    <tbody style="border: 0; padding: 0; margin-top:20px;">
+                                <img src="{{$visitor->image->getFileUrl()}}">
+                            </td>
+                        </tr>
+                        @endisset
+                        <!-- Image part End -->
+                        <tr>
+                            <td height="20"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table  align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                                     <tr>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">Arrived At</td>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">{{$visitor->signInAt->toDayDateTimeString() }} </td>
+                                        <td align="center">
+                                            <h1 class="f-fallback discount_heading">{{$visitor->name}}</h1>
+                                            <span class="f-fallback "><strong>Arrived at: </strong>{{$visitor->signInAt->toDayDateTimeString() }}</span> br
+                                            @isset($visitor->unitId)
+                                            <span><strong>To Unit: </strong>{{$visitor->unit->title}}</span> <br>
+                                            @endisset
+                                            @isset($visitor->userId)
+                                                <span><strong>To Resident: </strong>{{$visitor->user->name}}</span> <br>
+                                            @endisset
+                                            <span><strong>Email: </strong>{{$visitor->email}}</span>
+                                            <span><strong>Phone: </strong>{{$visitor->phone}}</span>
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;"> Name</td>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">{{$visitor->name}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;"> Email</td>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">{{$visitor->email}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">Phone</td>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">{{$visitor->phone}}</td>
-                                    </tr>
-                                    </tbody>
                                 </table>
                             </td>
                         </tr>
@@ -56,3 +65,4 @@
         </table>
     </td>
 </tr>
+<!-- Body content end -->

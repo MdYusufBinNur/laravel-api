@@ -37,6 +37,7 @@ class UserResource extends Resource
             'userProfile' => $this->when($this->needToInclude($request, 'user.userProfile'), function () {
                 return new UserProfileResource($this->userProfile);
             }),
+            //'userLabel' => $this->userLabel, @draft
             'lastLoginAt' => $this->lastLoginAt,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at

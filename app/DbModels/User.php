@@ -202,4 +202,38 @@ class User extends Authenticatable
         }
         return $roles;
     }
+
+    /**
+     *@draft
+     */
+    public function getUserLabelAttribute()
+    {
+        $roleIds = $this->userRoles()->pluck('roleId')->toArray();
+        $label = '';
+
+        foreach ($roleIds as $roleId) {
+            if (in_array($roleId, [Role::ROLE_ADMIN_LIMITED['id'], Role::ROLE_ADMIN_STANDARD['id'], Role::ROLE_ADMIN_SUPER['id']])) {
+               return 'Admin';
+            }
+            if (in_array($roleId, [Role::ROLE_STAFF_LIMITED['id'], Role::ROLE_STAFF_STANDARD['id'], Role::ROLE_STAFF_PRIORITY['id']])) {
+                return 'Staff';
+            }
+
+            if (in_array($roleId, [Role::ROLE_STAFF_LIMITED['id'], Role::ROLE_STAFF_STANDARD['id'], Role::ROLE_STAFF_PRIORITY['id']])) {
+                return 'Staff';
+            }
+
+            if (in_array($roleId, [Role::ROLE_RESIDENT_TENANT['id'], Role::ROLE_RESIDENT_OWNER['id']])) {
+                $resident = $this->residents()->first();
+                if ($resident instanceof Resident) {
+                    return $resident->residentLabel;
+                }
+            }
+        }
+
+        return $label;
+
+    }
+
+
 }

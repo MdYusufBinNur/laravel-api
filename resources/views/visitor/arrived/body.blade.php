@@ -26,7 +26,7 @@
                         @isset($visitor->image)
                         <tr>
                             <td align="center">
-                                <img src="{{$visitor->image->getFileUrl()}}">
+                                <img src="{{$visitor->image->getFileUrl('thumbnail')}}">
                             </td>
                         </tr>
                         @endisset

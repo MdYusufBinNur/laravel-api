@@ -15,12 +15,12 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
-            'propertyId' => 'list:numeric',
+            'propertyId' => 'required|numeric',
             'categoryId' => 'list:numeric',
             'sku' => 'list:string',
-            'name' => 'list:string',
-            'location' => 'list:string',
-            'quantity' => 'list:numeric',
+            'name' => 'string',
+            'location' => 'string',
+            'quantity' => 'numeric',
             'manufacturer' => 'list:string',
             'notifyCount' => 'list:numeric',
             'startDate' => 'date_format:Y-m-d',

@@ -112,7 +112,7 @@ class ResidentAccessRequestController extends Controller
      */
     public function getByPin(GetByPinRequest $request)
     {
-        $residentAccessRequest = $this->residentAccessRequestRepository->findOneBy(['pin' => $request['pin']]);
+        $residentAccessRequest = $this->residentAccessRequestRepository->findOneBy(['pin' => $request['pin'], 'status' => ResidentAccessRequest::STATUS_APPROVED]);
 
         if (!$residentAccessRequest instanceof ResidentAccessRequest) {
             return response()->json(['status' => 404, 'message' => 'Incorrect pin!!'], 404);

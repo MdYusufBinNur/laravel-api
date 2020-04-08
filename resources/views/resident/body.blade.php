@@ -8,7 +8,7 @@
                 <td class="content-cell">
                     <div class="f-fallback">
                         <h1>Welcome, {{ $resident->user->name }}</h1>
-                        <p>We’re thrilled to have you on board. To get the most out of {{$properrty->title}}, do this primary next step:</p>
+                        <p>We’re thrilled to have you on board. To get the most out of {{$property->title}}, do this primary next step:</p>
                         <!-- Action -->
                         <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                             <tbody>

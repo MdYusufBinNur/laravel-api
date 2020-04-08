@@ -55,6 +55,12 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
 
         $resident = parent::save($data);
 
+        if (isset($data['pin'])) {
+            $residentAccessRequestRepository = app(ResidentAccessRequestRepository::class);
+            $residentAccessRequest = $residentAccessRequestRepository->findOneBy(['pin' => $data['pin']]);
+            $residentAccessRequestRepository->update($residentAccessRequest, ['status' => ResidentAccessRequest::STATUS_COMPLETED]);
+        }
+
         DB::commit();
 
         // fire resident created event

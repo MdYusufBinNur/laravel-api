@@ -17,6 +17,7 @@ class StoreRequest extends Request
     {
         return $rules = [
             'propertyId'            => 'required|exists:properties,id',
+            'pin'                   => 'exists:resident_access_requests,pin',
             'userId'                => 'required_without:user|exists:users,id',
             'unitId'                => 'required|exists:units,id',
             'contactEmail'          => 'required|email|max:255',

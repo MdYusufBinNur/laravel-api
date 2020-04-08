@@ -33,13 +33,17 @@
                                 <table style="width: 100%; border-collapse:collapse;">
                                     <tbody style="border: 0; padding: 0; margin-top:20px;">
                                     <tr>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">Name</td>
                                         <td style="padding-bottom: 10px; padding-top: 10px;">
-                                            <h2> {{$user->name}}</h2>
+                                            <strong>Name</strong>
+                                        </td>
+                                        <td style="padding-bottom: 10px; padding-top: 10px;">
+                                           {{$user->name}}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">email</td>
+                                        <td style="padding-bottom: 10px; padding-top: 10px;">
+                                            <strong>E-mail</strong>
+                                        </td>
                                         <td style="padding-bottom: 10px; padding-top: 10px;">  {{$enterpriseUser->contactEmail}}</td>
                                     </tr>
                                     </tbody>

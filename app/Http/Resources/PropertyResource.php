@@ -47,7 +47,7 @@ class PropertyResource extends Resource
                 return new PropertyDesignSettingResource($this->propertyDesignSetting);
             }),
             'propertyModules' => $this->when($this->needToInclude($request, 'property.propertyModules'), function () {
-                return new ModulePropertyResourceCollection($this->moduleProperties()->where('propertyId', $this->id)->get());
+                return new ModulePropertyResourceCollection($this->moduleProperties);
             }),
             'loginLink' => $this->getPropertyLink(),
             'latitude' => $this->latitude,

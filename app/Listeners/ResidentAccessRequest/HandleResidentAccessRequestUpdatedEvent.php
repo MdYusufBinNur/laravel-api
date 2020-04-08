@@ -9,6 +9,7 @@ use App\Mail\ResidentAccessRequest\GeneratePin;
 use App\Mail\ResidentAccessRequest\ResidentAccessRequestApproved;
 use App\Mail\ResidentAccessRequest\ResidentAccessRequestCompleted;
 use App\Mail\ResidentAccessRequest\ResidentAccessRequestDenied;
+use App\Services\Helpers\SmsHelper;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
@@ -31,12 +32,11 @@ class HandleResidentAccessRequestUpdatedEvent implements ShouldQueue
         $hasAFieldValueChanged = $this->hasAFieldValueChanged($residentAccessRequest, $oldResidentAccessRequest, 'status');
 
         if ($hasAFieldValueChanged['status'] === ResidentAccessRequest::STATUS_APPROVED) {
+            SmsHelper::sendRegistrationPin($residentAccessRequest);
             Mail::to($residentAccessRequest->email)->send(new ResidentAccessRequestApproved($residentAccessRequest));
-        }
-        else if ($hasAFieldValueChanged['status'] === ResidentAccessRequest::STATUS_DENIED) {
+        } else if ($hasAFieldValueChanged['status'] === ResidentAccessRequest::STATUS_DENIED) {
             Mail::to($residentAccessRequest->email)->send(new ResidentAccessRequestDenied($residentAccessRequest));
-        }
-        else if ($hasAFieldValueChanged['status'] === ResidentAccessRequest::STATUS_COMPLETED) {
+        } else if ($hasAFieldValueChanged['status'] === ResidentAccessRequest::STATUS_COMPLETED) {
             Mail::to($residentAccessRequest->email)->send(new ResidentAccessRequestCompleted($residentAccessRequest));
         }
 

@@ -11,7 +11,6 @@ use App\Http\Resources\ResidentAccessRequestResource;
 use App\Http\Resources\ResidentAccessRequestResourceCollection;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Http\Request;
 
 class ResidentAccessRequestController extends Controller
 {

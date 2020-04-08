@@ -40,7 +40,7 @@
                                     <tr>
                                         <td align="center">
                                             <h1 class="f-fallback discount_heading">{{$visitor->name}}</h1>
-                                            <span class="f-fallback "><strong>Arrived at: </strong>{{$visitor->signInAt->toDayDateTimeString() }}</span> br
+                                            <span class="f-fallback "><strong>Arrived at: </strong>{{$visitor->signInAt->toDayDateTimeString() }}</span> <br>
                                             @isset($visitor->unitId)
                                             <span><strong>To Unit: </strong>{{$visitor->unit->title}}</span> <br>
                                             @endisset

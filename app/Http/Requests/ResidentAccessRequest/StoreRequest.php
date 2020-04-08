@@ -20,7 +20,7 @@ class StoreRequest extends Request
             'unitId' => 'required|exists:units,id',
             'name' => 'required|min:3|max:255',
             'email' => 'required_without:phone|email|unique:resident_access_requests,email|max:255',
-            'phone' => 'required_without:email|numeric|size:11',
+            'phone' => 'required_without:email|phone:BD',
             'type' => 'in:' . implode(',', [Role::ROLE_RESIDENT_OWNER['title'], Role::ROLE_RESIDENT_TENANT['title']]),
             'groups' => 'min:3|max:255', //todo
             'status' => 'in:' . ResidentAccessRequest::STATUS_APPROVED . ',' . ResidentAccessRequest::STATUS_DENIED . ','. ResidentAccessRequest::STATUS_COMPLETED . ',' . ResidentAccessRequest::STATUS_PENDING,

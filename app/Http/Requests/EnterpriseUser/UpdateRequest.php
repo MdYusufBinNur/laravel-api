@@ -19,7 +19,7 @@ class UpdateRequest extends Request
             'userId' => 'exists:users,id',
             'companyId' => 'required_with:propertyIds|exists:companies,id',
             'contactEmail' => 'email|max:255',
-            'phone' => 'numeric|size:11',
+            'phone' => 'phone:BD',
             'title' => 'max:255',
             'propertyIds' => [new PropertyForCompanyAllowed($this->get('companyId'))],
             'level' => 'in:' . EnterpriseUser::LEVEL_ADMIN . ',' . EnterpriseUser::LEVEL_STANDARD,

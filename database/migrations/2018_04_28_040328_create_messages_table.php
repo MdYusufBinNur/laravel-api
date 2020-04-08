@@ -19,7 +19,7 @@ class CreateMessagesTable extends Migration
             $table->unsignedInteger('propertyId');
             $table->unsignedInteger('fromUserId');
             $table->unsignedInteger('toUserId')->nullable(); //nullable when group message
-            $table->string('subject');
+            $table->string('subject')->nullable();
             $table->boolean('isGroupMessage')->default(0);
             $table->mediumText('group')->nullable();
             $table->mediumText('groupNames')->nullable();

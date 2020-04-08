@@ -44,7 +44,7 @@ class HandleMessageCreatedEvent implements ShouldQueue
                 'fromUserId' => $message->fromUserId,
                 'toUserId' => $notifyAbleUser->id,
                 'userNotificationTypeId' => UserNotificationType::MESSAGE['id'],
-                'resourceId' => $message->id,
+                'resourceId' => $notifyAbleMessageUser->id,
                 'message' => 'New message from ' . $fromUser->name,
             ]);
 

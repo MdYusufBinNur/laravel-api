@@ -21,7 +21,7 @@ class UpdateRequest extends Request
             'unitId' => 'exists:units,id',
             'name' => 'min:3|max:255',
             'email' => 'email|unique:resident_access_requests,email|max:255' . $residentAccessRequestId,
-            'phone' => 'unique:resident_access_requests,phone|min:7',
+            'phone' => 'unique:resident_access_requests,phone|numeric|size:11',
             'type' => 'in:' . implode(',', [Role::ROLE_RESIDENT_OWNER['title'], Role::ROLE_RESIDENT_TENANT['title']]),
             'groups' => 'min:3|max:255', //todo
             'status' => 'in:' . ResidentAccessRequest::STATUS_APPROVED . ',' . ResidentAccessRequest::STATUS_DENIED . ','. ResidentAccessRequest::STATUS_COMPLETED . ',' . ResidentAccessRequest::STATUS_PENDING,

@@ -18,7 +18,7 @@ class UpdateRequest extends Request
             'propertyId' => 'exists:properties,id',
             'role' => 'min:2|max:100',
             'title' => 'min:2|max:100',
-            'phone' => 'min:10|max:20',
+            'phone' => 'min:10|numeric|size:11',
             'displayInCorner' => 'boolean',
             'displayPublicProfile' => 'boolean',
         ];

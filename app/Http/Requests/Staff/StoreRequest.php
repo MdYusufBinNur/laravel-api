@@ -18,7 +18,7 @@ class StoreRequest extends Request
         return $rules = [
             'contactEmail' => 'email|required|max:255',
             'propertyId' => 'required|exists:properties,id',
-            'phone' => 'max:20',
+            'phone' => 'numeric|size:11',
             'title' => 'max:255',
             'level' => ['in:' . Role::ROLE_STAFF_PRIORITY['title'] . ',' . Role::ROLE_STAFF_STANDARD['title'] . ',' . Role::ROLE_STAFF_LIMITED['title']],
             'displayInCorner' => 'boolean',

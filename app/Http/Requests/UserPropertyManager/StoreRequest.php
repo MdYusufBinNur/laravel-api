@@ -18,7 +18,7 @@ class StoreRequest extends Request
             'propertyId' => 'required|exists:properties,id',
             'role' => 'required|min:2|max:100',
             'title' => 'required|min:2|max:100',
-            'phone' => 'required|min:10|max:20',
+            'phone' => 'required|min:10|numeric|size:11',
             'displayInCorner' => 'boolean',
             'displayPublicProfile' => 'boolean',
         ];

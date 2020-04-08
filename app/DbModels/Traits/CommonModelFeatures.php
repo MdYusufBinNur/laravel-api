@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 trait CommonModelFeatures
 {
     //todo experiment model caching
-    use SoftDeletes/*, Cachable*/;
+    use SoftDeletes, Cachable;
 
     /**
      * Get the user who created
      *
-     * @return \Illuminatee\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function createdByUser()
     {

@@ -64,9 +64,18 @@ class EloquentInventoryItemRepository extends EloquentBaseRepository implements 
             unset($searchCriteria['startDate']);
         }
 
+        if (isset($searchCriteria['minQuantity'])) {
+            $queryBuilder = $queryBuilder->where('quantity', '>=', $searchCriteria['minQuantity']);
+            unset($searchCriteria['minQuantity']);
+        }
+
+        if (isset($searchCriteria['maxQuantity'])) {
+            $queryBuilder = $queryBuilder->where('quantity', '<=', $searchCriteria['maxQuantity']);
+            unset($searchCriteria['maxQuantity']);
+        }
         if (isset($searchCriteria['query'])) {
-            $queryBuilder = $this->model->where(function ($query) use ($searchCriteria, $queryBuilder) {
-                return $queryBuilder->where('name', 'like', '%' . $searchCriteria['query'] . '%')
+            $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria, $queryBuilder) {
+                return $query->where('name', 'like', '%' . $searchCriteria['query'] . '%')
                     ->orWhere('sku', 'like', '%' . $searchCriteria['query'] . '%')
                     ->orWhere('manufacturer', 'like', '%' . $searchCriteria['query'] . '%')
                     ->orWhere('location', 'like', '%' . $searchCriteria['query'] . '%')

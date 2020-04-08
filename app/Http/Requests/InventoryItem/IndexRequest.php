@@ -21,6 +21,8 @@ class IndexRequest extends Request
             'name' => 'string',
             'location' => 'string',
             'quantity' => 'numeric',
+            'minQuantity' => 'numeric',
+            'maxQuantity' => 'numeric',
             'manufacturer' => 'list:string',
             'notifyCount' => 'list:numeric',
             'startDate' => 'date_format:Y-m-d',

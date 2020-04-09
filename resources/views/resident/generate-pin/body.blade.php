@@ -15,8 +15,6 @@
                             Thank You
                             <br>
                             {{ $property->title }} Support Team
-                            <br>
-                            {{ $property->address }}
                         </p>
                     </div>
                 </td>

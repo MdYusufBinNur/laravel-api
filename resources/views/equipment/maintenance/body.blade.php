@@ -35,30 +35,42 @@
                                         <td style="padding-bottom: 10px; padding-top: 10px;"> Property</td>
                                         <td style="padding-bottom: 10px; padding-top: 10px;"> {{$property->title}}  </td>
                                     </tr>
+                                    @isset($equipment->nextMaintenanceDate)
                                     <tr>
                                         <td style="padding-bottom: 10px; padding-top: 10px;">  Next maintenance day </td>
                                         <td style="padding-bottom: 10px; padding-top: 10px;"> {{$equipment->nextMaintenanceDate->toDayDateTimeString()}}</td>
                                     </tr>
+                                    @endisset
+                                    @isset($equipment->expireDate)
                                     <tr>
                                         <td style="padding-bottom: 10px; padding-top: 10px;"> ExpiredDate</td>
                                         <td style="padding-bottom: 10px; padding-top: 10px;"> {{$equipment->expireDate->toDayDateTimeString()}}</td>
                                     </tr>
+                                    @endisset
+                                    @isset($equipment->name)
                                     <tr>
                                         <td style="padding-bottom: 10px; padding-top: 10px;"> Name</td>
                                         <td style="padding-bottom: 10px; padding-top: 10px;"> {{$equipment->name}}</td>
                                     </tr>
+                                    @endisset
+                                    @isset($equipment->description)
                                     <tr>
                                         <td style="padding-bottom: 10px; padding-top: 10px;"> Description</td>
                                         <td style="padding-bottom: 10px; padding-top: 10px;"> {{$equipment->description}}</td>
                                     </tr>
+                                    @endisset
+                                    @isset($equipment->modelNumber)
                                     <tr>
                                         <td style="padding-bottom: 10px; padding-top: 10px;">  Model No.</td>
                                         <td style="padding-bottom: 10px; padding-top: 10px;"> {{$equipment->modelNumber}}</td>
                                     </tr>
+                                    @endisset
+                                    @isset($equipment->requiredService)
                                     <tr>
                                         <td style="padding-bottom: 10px; padding-top: 10px;"> Required Service</td>
                                         <td style="padding-bottom: 10px; padding-top: 10px;"> {{$equipment->requiredService}}</td>
                                     </tr>
+                                    @endisset
                                     </tbody>
                                 </table>
                             </td>

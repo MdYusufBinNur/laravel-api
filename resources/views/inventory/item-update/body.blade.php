@@ -61,14 +61,25 @@
                                                     <br>
                                                 </td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
-                                                    <strong>{{ $inventoryItemLog->quantityChange }}</strong>
+                                                    <strong>{{ $inventoryItemLog->quantityChange > 0 ? '+' . $inventoryItemLog->quantityChange : $inventoryItemLog->quantityChange}}</strong>
                                                     <br>
                                                 </td>
                                             </tr>
                                             @endisset
+                                            @isset($inventoryItem->quantity)
+                                                <tr>
+                                                    <td style="padding-bottom: 10px; padding-top: 10px;">Current Quantity:
+                                                        <br>
+                                                    </td>
+                                                    <td style="padding-bottom: 10px; padding-top: 10px;">
+                                                        <strong>{{ $inventoryItem->quantity}}</strong>
+                                                        <br>
+                                                    </td>
+                                                </tr>
+                                            @endisset
                                             @isset($inventoryItemLog->cost)
                                             <tr>
-                                                <td style="padding-bottom: 10px; padding-top: 10px;">Amount
+                                                <td style="padding-bottom: 10px; padding-top: 10px;">Cost
                                                     <br>
                                                 </td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">

@@ -12,7 +12,7 @@
                             <tbody>
                                 <tr>
                                     <td align="center" valign="bottom" colspan="2" cellpadding="3">
-                                        <img alt="Coinbase" width="80" src="images/right.png">
+                                        <img alt="Inventory Item" width="80" src="{{ env('ASSET_PATH') . '/logo/right.png' }}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -133,7 +133,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td align="center">
-                                                        <a href="http://example.com" class="f-fallback button button--brand" target="_blank">Add More ..</a>
+                                                        <a href="{{$property->getPropertyLink()}}" class="f-fallback button button--brand" target="_blank">Add More ..</a>
                                                     </td>
                                                 </tr>
                                             </tbody>

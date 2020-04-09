@@ -35,7 +35,7 @@ class NotifyInventoryReachedThreshold extends Mailable
     {
         $property = $this->inventoryItem->property;
 
-        return $this->subject("A Inventory Item Reached Its Threshold")->view('inventory.notify-threshold.index')
+        return $this->subject("An Inventory Item Reached Its Threshold")->view('inventory.notify-threshold.index')
             ->with(['inventory' => $this->inventoryItem, 'property' => $property]);
     }
 }

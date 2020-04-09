@@ -21,7 +21,7 @@
                                 <tr>
                                     <td align="center">
                                         <div style="font-size: 22px; line-height: 32px; font-weight: 500; margin-left: 20px; margin-right: 20px; margin-bottom: 25px;">
-                                            You have added {{$inventory->quantity}} {{ $inventory->name }}, price at {{ $inventory->cost }} taka
+                                            Your Inventory Item <strong>{{ $inventory->name }}</strong> is less than <strong>{{ $inventory->notifyCount }}</strong>
                                         </div>
                                     </td>
                                 </tr>
@@ -47,11 +47,11 @@
                                                 </td>
                                             </tr>
                                             @endisset
-                                            @isset($inventory->created_at)
+                                            @isset($inventory->updated_at)
                                             <tr>
-                                                <td style="padding-bottom: 10px; padding-top: 10px;">Date</td>
+                                                <td style="padding-bottom: 10px; padding-top: 10px;">Last Updated</td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
-                                                    : {{ $inventory->created_at->toDayDateTimeString()  }}
+                                                    : {{ $inventory->updated_at->toDayDateTimeString()  }}
                                                 </td>
                                             </tr>
                                             @endisset
@@ -62,17 +62,6 @@
                                                 </td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
                                                     : <strong>{{ $inventory->quantity }}</strong>
-                                                    <br>
-                                                </td>
-                                            </tr>
-                                            @endisset
-                                            @isset($inventory->cost)
-                                            <tr>
-                                                <td style="padding-bottom: 10px; padding-top: 10px;">Amount
-                                                    <br>
-                                                </td>
-                                                <td style="padding-bottom: 10px; padding-top: 10px;">
-                                                    : <strong>{{ $inventory->cost }}</strong>
                                                     <br>
                                                 </td>
                                             </tr>
@@ -103,7 +92,7 @@
 {{--                                            </tr>--}}
                                             <tr>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">Store place</td>
-                                                <td style="padding-bottom: 10px; padding-top: 10px;">{{$inventory->location}}</td>
+                                                <td style="padding-bottom: 10px; padding-top: 10px;">: {{$inventory->location}}</td>
                                             </tr>
                                             @endisset
                                             @isset($inventory->restockNote)

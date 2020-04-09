@@ -3,13 +3,13 @@
 namespace App\Listeners\InventoryItem;
 
 use App\DbModels\Property;
+use App\DbModels\Role;
 use App\Events\InventoryItem\InventoryItemUpdatedEvent;
 use App\Listeners\CommonListenerFeatures;
-use App\Mail\Inventory\NotifyInventoryReachedThreshHold;
+use App\Mail\Inventory\NotifyInventoryReachedThreshold;
 use App\Repositories\Contracts\ExpenseRepository;
 use App\Repositories\Contracts\InventoryItemLogRepository;
 use App\Repositories\Contracts\PropertyRepository;
-use App\Repositories\Contracts\UserRoleRepository;
 use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
@@ -64,10 +64,9 @@ class HandleInventoryItemUpdatedEvent implements ShouldQueue
 
             // send email if `quantity` is less than `notifyCount`
             if ($inventoryItem->quantity < $inventoryItem->notifyCount) {
-                $userRoleRepository = app(UserRoleRepository::class);
-                $staffEmails = $userRoleRepository->getEmailsOfThePropertyStaffs($inventoryItem->propertyId);
+                $uptoStandardStaffUserEmails = $inventoryItem->property->staffUsers()->where('user_roles.roleId', '>=', Role::ROLE_ADMIN_STANDARD)->get();
 
-                foreach ($staffEmails as $staffEmail) {
+                foreach ($uptoStandardStaffUserEmails as $staffEmail) {
                     Mail::to($staffEmail)->send(new NotifyInventoryReachedThreshold($inventoryItem));
                 }
             }

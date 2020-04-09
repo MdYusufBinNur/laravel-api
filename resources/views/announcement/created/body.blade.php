@@ -25,15 +25,20 @@
                         <tr>
                             <td height="24" &nbsp;=""></td>
                         </tr>
+                        @isset($announcement->title)
                         <tr>
                             <td style="padding-bottom: 10px; padding-top: 10px;">
                                 <h2>{{$announcement->title}}</h2>
                             </td>
                         </tr>
-                        <tr>
+                        @endisset
+                        @isset($announcement->content)
+                            <tr>
                             <td style="padding-bottom: 10px; padding-top: 10px;"> {{$announcement->content}}</td>
                         </tr>
-                        <tr>
+                        @endisset
+                        @isset($announcement->link)
+                            <tr>
                             <td align="center">
                                 <table style="width: 100%; border-collapse:collapse;">
                                     <tbody style="border: 0; padding: 0; margin-top:20px;">
@@ -49,6 +54,7 @@
                                 </table>
                             </td>
                         </tr>
+                        @endisset
                         </tbody>
                     </table>
                 </td>
@@ -59,7 +65,6 @@
                         <p>
                             Sincerely, <br>
                             Team {{ $property->title }}<br>
-                            {{ $property->address }}
                         </p>
                     </div>
                 </td>

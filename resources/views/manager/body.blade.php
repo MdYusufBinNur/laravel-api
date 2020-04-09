@@ -38,12 +38,14 @@
                                           {{$user->name}}
                                         </td>
                                     </tr>
+                                    @isset($user->title)
                                     <tr>
                                         <td style="padding-bottom: 10px; padding-top: 10px;">
                                             <strong>Designation</strong>
                                         </td>
                                         <td style="padding-bottom: 10px; padding-top: 10px;">  {{$user->title}}</td>
                                     </tr>
+                                    @endisset
                                     <tr>
                                         <td style="padding-bottom: 10px; padding-top: 10px;">
                                             <strong>E-mail</strong>

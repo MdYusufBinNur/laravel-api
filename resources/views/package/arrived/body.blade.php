@@ -38,18 +38,24 @@
                                         <td style="padding-bottom: 10px; padding-top: 10px;">Arrived At</td>
                                         <td style="padding-bottom: 10px; padding-top: 10px;">{{ $package->created_at->toDayDateTimeString() }} </td>
                                     </tr>
+                                    @isset($package->trackingNumber)
                                     <tr>
                                         <td style="padding-bottom: 10px; padding-top: 10px;"> Tracking Number </td>
                                         <td style="padding-bottom: 10px; padding-top: 10px;">{{$package->trackingNumber}}</td>
                                     </tr>
+                                    @endisset
+                                    @isset($package->description)
                                     <tr>
                                         <td style="padding-bottom: 10px; padding-top: 10px;">  Description</td>
                                         <td style="padding-bottom: 10px; padding-top: 10px;">{{$package->description}}</td>
                                     </tr>
+                                    @endisset
+                                    @isset($package->comment)
                                     <tr>
                                         <td style="padding-bottom: 10px; padding-top: 10px;"> Comments</td>
                                         <td style="padding-bottom: 10px; padding-top: 10px;"> {{$package->comment}}</td>
                                     </tr>
+                                    @endisset
                                     </tbody>
                                 </table>
                             </td>
@@ -65,8 +71,6 @@
                             Sincerely
                             <br>
                             {{ $property->title }} Support Team
-                            <br>
-                            {{ $property->address }}
                         </p>
                     </div>
                 </td>

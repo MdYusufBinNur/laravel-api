@@ -39,19 +39,23 @@
                                     <td align="center">
                                         <table style="width: 100%; border-collapse:collapse;">
                                             <tbody style="border: 0; padding: 0; margin-top:20px;">
+                                            @isset($inventory->description)
                                             <tr>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">Product Description</td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
                                                     {{ $inventory->description  }}
                                                 </td>
                                             </tr>
-
+                                            @endisset
+                                            @isset($inventory->created_at)
                                             <tr>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">Date</td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
                                                     {{ $inventory->created_at->toDayDateTimeString()  }}
                                                 </td>
                                             </tr>
+                                            @endisset
+                                            @isset($inventory->quantity)
                                             <tr>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">Quantity
                                                     <br>
@@ -61,6 +65,8 @@
                                                     <br>
                                                 </td>
                                             </tr>
+                                            @endisset
+                                            @isset($inventory->cost)
                                             <tr>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">Amount
                                                     <br>
@@ -70,6 +76,8 @@
                                                     <br>
                                                 </td>
                                             </tr>
+                                            @endisset
+                                            @isset($inventory->sku)
                                             <tr>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">SKU
                                                     <br>
@@ -79,26 +87,33 @@
                                                     <br>
                                                 </td>
                                             </tr>
+                                            @endisset
+                                            @isset($inventory->manufacturer)
                                             <tr>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">Product Manufacturer</td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
                                                     {{$inventory->manufacturer}}
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td style="padding-bottom: 10px; padding-top: 10px;">warranty</td>
-                                                <td style="padding-bottom: 10px; padding-top: 10px;">1 year warranty</td>
-                                            </tr>
+                                            @endisset
+                                            @isset($inventory->location)
+{{--                                            <tr>--}}
+{{--                                                <td style="padding-bottom: 10px; padding-top: 10px;">warranty</td>--}}
+{{--                                                <td style="padding-bottom: 10px; padding-top: 10px;">1 year warranty</td>--}}
+{{--                                            </tr>--}}
                                             <tr>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">Store place</td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">{{$inventory->location}}</td>
                                             </tr>
+                                            @endisset
+                                            @isset($inventory->restockNote)
                                             <tr>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">Note</td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
                                                     {{$inventory->restockNote}}
                                                 </td>
                                             </tr>
+                                            @endisset
                                         </tbody>
                                     </table>
                                 </td>

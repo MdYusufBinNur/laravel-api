@@ -16,8 +16,10 @@ class IndexRequest extends Request
         return [
             'id' => 'list:numeric',
             'inventoryItemId' => 'list:numeric',
-            'propertyId' => 'list:numeric',
+            'propertyId' => 'required|numeric',
             'updatedByUserId' => 'list:numeric',
+            'startDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d',
         ];
     }
 }

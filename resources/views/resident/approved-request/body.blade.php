@@ -45,11 +45,13 @@
 
                                             </td>
                                         </tr>
+                                        @isset($completeRegistrationLink)
                                         <tr>
                                             <td align="center">
                                                 <a href="{{ $completeRegistrationLink }}" class="f-fallback button button--brand" target="_blank">Complete registration</a>
                                             </td>
                                         </tr>
+                                        @endisset
                                         <tr>
                                             <td height="20">
 
@@ -61,12 +63,9 @@
                                                     Thanks,
                                                     <br>
                                                     {{ $property->title }} Support Team
-                                                    <br>
-                                                    {{ $property->address }}
                                                 </p>
                                             </td>
                                         </tr>
-
                                         </tbody>
                                     </table>
                                 </td>

@@ -81,9 +81,14 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
     {
         DB::beginTransaction();
 
-        $userRoleRepository = app(UserRoleRepository::class);
-
+        if (!empty($data['notificationSeen'])) {
+            $data['notificationSeenAt'] = Carbon::now();
+            unset($data['notificationSeen']);
+        }
         $user = parent::update($model, $data);
+
+
+        $userRoleRepository = app(UserRoleRepository::class);
 
         if (array_key_exists('role', $data)) {
 

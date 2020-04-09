@@ -162,6 +162,8 @@ use App\Events\Unit\UnitUpdatedEvent;
 use App\Events\User\UserCreatedEvent;
 use App\Events\User\UserLoggedInEvent;
 use App\Events\User\UserUpdatedEvent;
+use App\Events\UserNotification\UserNotificationCreatedEvent;
+use App\Events\UserNotification\UserNotificationUpdatedEvent;
 use App\Events\UserNotificationSetting\UserNotificationSettingCreatedEvent;
 use App\Events\UserNotificationSetting\UserNotificationSettingUpdatedEvent;
 use App\Events\UserNotificationType\UserNotificationTypeCreatedEvent;
@@ -344,7 +346,10 @@ use App\Listeners\Unit\HandleUnitUpdatedEvent;
 use App\Listeners\User\HandleUserCreatedEvent;
 use App\Listeners\User\HandleUserLoggedInEvent;
 use App\Listeners\User\HandleUserUpdatedEvent;
+use App\Listeners\UserNotification\HandleUserNotificationCreatedEvent;
+use App\Listeners\UserNotification\HandleUserNotificationUpdatedEvent;
 use App\Listeners\UserNotificationType\HandleUserNotificationTypeCreatedEvent;
+use App\Listeners\UserNotificationType\HandleUserNotificationTypeUpdatedEvent;
 use App\Listeners\UserProfile\HandleUserProfileCreatedEvent;
 use App\Listeners\UserProfile\HandleUserProfileUpdatedEvent;
 use App\Listeners\UserProfileChild\HandleUserProfileChildCreatedEvent;
@@ -894,7 +899,13 @@ class EventServiceProvider extends ServiceProvider
             HandleUserNotificationTypeCreatedEvent::class
         ],
         UserNotificationTypeUpdatedEvent::class => [
-            UserNotificationTypeUpdatedEvent::class
+            HandleUserNotificationTypeUpdatedEvent::class
+        ],
+        UserNotificationCreatedEvent::class => [
+            HandleUserNotificationCreatedEvent::class
+        ],
+        UserNotificationUpdatedEvent::class => [
+            HandleUserNotificationUpdatedEvent::class
         ],
         UserProfileCreatedEvent::class => [
             HandleUserProfileCreatedEvent::class

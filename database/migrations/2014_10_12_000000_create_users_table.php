@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('locale')->nullable();
             $table->integer('isActive')->default(0);
             $table->dateTime('lastLoginAt')->nullable();
+            $table->dateTime('notificationSeenAt')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

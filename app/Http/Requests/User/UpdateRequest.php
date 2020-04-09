@@ -24,6 +24,7 @@ class UpdateRequest extends Request
             'name' => 'max:255',
             'locale' => 'in:en,bn',
             'isActive' => 'boolean',
+            'notificationSeen' => 'boolean',
             'role' => '',
             'role.id' => 'exists:user_roles,id', //todo what if, addNewRole is not given & roles.id is not given too.
             'role.roleId' => 'exists:roles,id',

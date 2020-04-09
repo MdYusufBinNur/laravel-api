@@ -19,6 +19,7 @@ class UserResource extends Resource
             'phone' => $this->phone,
             'locale' => $this->locale,
             'isActive' => $this->isActive,
+            'notificationSeenAt' => $this->notificationSeenAt,
             'roles' => $this->when($this->needToInclude($request, 'user.roles'), function () {
                 return new UserRoleResourceCollection($this->userRoles);
             }),

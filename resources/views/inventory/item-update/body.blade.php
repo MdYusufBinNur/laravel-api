@@ -21,7 +21,7 @@
                                 <tr>
                                     <td align="center">
                                         <div style="font-size: 22px; line-height: 32px; font-weight: 500; margin-left: 20px; margin-right: 20px; margin-bottom: 25px;">
-                                            Quantity updated of {{ $inventoryItem->name }}
+                                            Inventory item <strong>{{ $inventoryItem->name }}</strong> has been updated
                                         </div>
                                     </td>
                                 </tr>
@@ -43,7 +43,7 @@
                                             <tr>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">Product Description</td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
-                                                    {{ $inventoryItem->description  }}
+                                                    : {{ $inventoryItem->description  }}
                                                 </td>
                                             </tr>
                                             @endisset
@@ -51,28 +51,28 @@
                                             <tr>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">Date</td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
-                                                    {{ $inventoryItemLog->created_at->toDayDateTimeString()  }}
+                                                    : {{ $inventoryItemLog->created_at->toDayDateTimeString()  }}
                                                 </td>
                                             </tr>
                                             @endisset
                                             @isset($inventoryItemLog->quantityChange)
                                             <tr>
-                                                <td style="padding-bottom: 10px; padding-top: 10px;">Quantity Changed:
+                                                <td style="padding-bottom: 10px; padding-top: 10px;">Quantity Changed
                                                     <br>
                                                 </td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
-                                                    <strong>{{ $inventoryItemLog->quantityChange > 0 ? '+' . $inventoryItemLog->quantityChange : $inventoryItemLog->quantityChange}}</strong>
+                                                    : <strong>{{ $inventoryItemLog->quantityChange > 0 ? '+' . $inventoryItemLog->quantityChange : $inventoryItemLog->quantityChange}}</strong>
                                                     <br>
                                                 </td>
                                             </tr>
                                             @endisset
                                             @isset($inventoryItem->quantity)
                                                 <tr>
-                                                    <td style="padding-bottom: 10px; padding-top: 10px;">Current Quantity:
+                                                    <td style="padding-bottom: 10px; padding-top: 10px;">Current Quantity
                                                         <br>
                                                     </td>
                                                     <td style="padding-bottom: 10px; padding-top: 10px;">
-                                                        <strong>{{ $inventoryItem->quantity}}</strong>
+                                                        : <strong>{{ $inventoryItem->quantity}}</strong>
                                                         <br>
                                                     </td>
                                                 </tr>
@@ -83,7 +83,7 @@
                                                     <br>
                                                 </td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
-                                                    <strong>{{ $inventoryItemLog->cost }}</strong>
+                                                    : <strong>{{ $inventoryItemLog->cost }}</strong>
                                                     <br>
                                                 </td>
                                             </tr>
@@ -94,16 +94,16 @@
                                                     <br>
                                                 </td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
-                                                    <strong>{{ $inventoryItem->sku }}</strong>
+                                                    : <strong>{{ $inventoryItem->sku }}</strong>
                                                     <br>
                                                 </td>
                                             </tr>
                                             @endisset
                                             @isset($inventoryItem->vendorId)
                                             <tr>
-                                                <td style="padding-bottom: 10px; padding-top: 10px;">Product Manufacturer</td>
+                                                <td style="padding-bottom: 10px; padding-top: 10px;">Vendor</td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
-                                                    {{$inventoryItem->vendor->name}}
+                                                    : {{$inventoryItem->vendor->name}}
                                                 </td>
                                             </tr>
                                             @endisset
@@ -111,7 +111,7 @@
                                             <tr>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">Note</td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
-                                                    {{$inventoryItem->restockNote}}
+                                                    : {{$inventoryItem->restockNote}}
                                                 </td>
                                             </tr>
                                             @endisset

@@ -21,7 +21,7 @@
                                 <tr>
                                     <td align="center">
                                         <div style="font-size: 22px; line-height: 32px; font-weight: 500; margin-left: 20px; margin-right: 20px; margin-bottom: 25px;">
-                                            You have successfully added {{$inventory->quantity}} {{ $inventory->name }}, price at {{ $inventory->cost }} taka
+                                            You have added {{$inventory->quantity}} {{ $inventory->name }}, price at {{ $inventory->cost }} taka
                                         </div>
                                     </td>
                                 </tr>
@@ -43,7 +43,7 @@
                                             <tr>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">Product Description</td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
-                                                    {{ $inventory->description  }}
+                                                    : {{ $inventory->description  }}
                                                 </td>
                                             </tr>
                                             @endisset
@@ -51,7 +51,7 @@
                                             <tr>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">Date</td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
-                                                    {{ $inventory->created_at->toDayDateTimeString()  }}
+                                                    : {{ $inventory->created_at->toDayDateTimeString()  }}
                                                 </td>
                                             </tr>
                                             @endisset
@@ -61,7 +61,7 @@
                                                     <br>
                                                 </td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
-                                                    <strong>{{ $inventory->quantity }}</strong>
+                                                    : <strong>{{ $inventory->quantity }}</strong>
                                                     <br>
                                                 </td>
                                             </tr>
@@ -72,7 +72,7 @@
                                                     <br>
                                                 </td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
-                                                    <strong>{{ $inventory->cost }}</strong>
+                                                    : <strong>{{ $inventory->cost }}</strong>
                                                     <br>
                                                 </td>
                                             </tr>
@@ -83,7 +83,7 @@
                                                     <br>
                                                 </td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
-                                                    <strong>{{ $inventory->sku }}</strong>
+                                                    : <strong>{{ $inventory->sku }}</strong>
                                                     <br>
                                                 </td>
                                             </tr>
@@ -92,7 +92,7 @@
                                             <tr>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">Product Manufacturer</td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
-                                                    {{$inventory->manufacturer}}
+                                                    : {{$inventory->manufacturer}}
                                                 </td>
                                             </tr>
                                             @endisset
@@ -110,7 +110,7 @@
                                             <tr>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">Note</td>
                                                 <td style="padding-bottom: 10px; padding-top: 10px;">
-                                                    {{$inventory->restockNote}}
+                                                    : {{$inventory->restockNote}}
                                                 </td>
                                             </tr>
                                             @endisset

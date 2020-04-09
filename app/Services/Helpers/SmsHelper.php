@@ -59,7 +59,7 @@ class SmsHelper
         if (SmsHelper::isSmsModuleEnable($residentAccessRequest->propertyId)) {
             $phone = $residentAccessRequest->phone;
             if (!empty($phone)) {
-                $smsService->send($phone, 'Your pin to complete you registration at ' . $residentAccessRequest->property->title . ':  ' . $residentAccessRequest->pin);
+                $smsService->send($phone, 'Your pin to complete the registration at ' . $residentAccessRequest->property->title . ':  ' . $residentAccessRequest->pin);
             }
         }
     }

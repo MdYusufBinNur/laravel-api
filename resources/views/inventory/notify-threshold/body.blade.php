@@ -12,7 +12,7 @@
                             <tbody>
                                 <tr>
                                     <td align="center" valign="bottom" colspan="2" cellpadding="3">
-                                        <img alt="Inventory Item" width="80" src="{{ env('ASSET_PATH') . '/logo/right.png' }}">
+                                        <img alt="Inventory Item" width="80" src="{{ env('ASSET_PATH') . '/logo/warning.png' }}">
                                     </td>
                                 </tr>
                                 <tr>

@@ -26,7 +26,13 @@ class InventoryItemLogResource extends Resource
             'QuantityChange' => $this->QuantityChange,
             'description' => $this->description,
             'vendorId' => $this->vendorId,
+            'vendor' => $this->when($this->needToInclude($request, 'iil.vendor'), function () {
+                return new VendorResource($this->vendor);
+            }),
             'expenseId' => $this->expenseId,
+            'expense' => $this->when($this->needToInclude($request, 'iil.expense'), function () {
+                return new ExpenseResource($this->expense);
+            }),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

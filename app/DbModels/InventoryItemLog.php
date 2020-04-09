@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class InventoryItemLog extends Model
 {
+    use CommonModelFeatures;
 
     /**
      * The attributes that are mass assignable.
@@ -53,6 +54,26 @@ class InventoryItemLog extends Model
     public function updatedByUser()
     {
         return $this->hasOne(User::class, 'id', 'updatedByUserId');
+    }
+
+    /**
+     * get the vendor
+     *
+     * @return HasOne
+     */
+    public function vendor()
+    {
+        return $this->hasOne(Vendor::class, 'id', 'vendorId');
+    }
+
+    /**
+     * get the expense
+     *
+     * @return HasOne
+     */
+    public function expense()
+    {
+        return $this->hasOne(Expense::class, 'id', 'expenseId');
     }
 
 }

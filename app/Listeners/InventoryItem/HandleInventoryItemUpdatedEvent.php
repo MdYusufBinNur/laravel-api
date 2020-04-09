@@ -5,7 +5,7 @@ namespace App\Listeners\InventoryItem;
 use App\DbModels\Property;
 use App\Events\InventoryItem\InventoryItemUpdatedEvent;
 use App\Listeners\CommonListenerFeatures;
-use App\Mail\InventoryItem\NotifyInventoryDecreased;
+use App\Mail\Inventory\NotifyInventoryReachedThreshHold;
 use App\Repositories\Contracts\ExpenseRepository;
 use App\Repositories\Contracts\InventoryItemLogRepository;
 use App\Repositories\Contracts\PropertyRepository;
@@ -40,7 +40,7 @@ class HandleInventoryItemUpdatedEvent implements ShouldQueue
                 'inventoryItemId' => $inventoryItem->id,
                 'propertyId' => $inventoryItem->propertyId,
                 'updatedByUserId' => $eventOptions['request']['loggedInUserId'],
-                'QuantityChange' => $inventoryItem->quantity - $oldInventoryItem->quantity,
+                'quantityChange' => $inventoryItem->quantity - $oldInventoryItem->quantity,
                 'description' => 'Quantity changed.',
                 'vendorId' => $eventOptions['request']['vendorId'] ?? NULL
             ];
@@ -68,7 +68,7 @@ class HandleInventoryItemUpdatedEvent implements ShouldQueue
                 $staffEmails = $userRoleRepository->getEmailsOfThePropertyStaffs($inventoryItem->propertyId);
 
                 foreach ($staffEmails as $staffEmail) {
-                    Mail::to($staffEmail)->send(new NotifyInventoryDecreased($inventoryItem));
+                    Mail::to($staffEmail)->send(new NotifyInventoryReachedThreshold($inventoryItem));
                 }
             }
         }

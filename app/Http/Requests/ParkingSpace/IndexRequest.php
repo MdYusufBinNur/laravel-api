@@ -16,7 +16,7 @@ class IndexRequest extends Request
         return [
             'id' => 'list:numeric',
             'propertyId' => 'required',
-            'parkingNumber' => 'list:numeric',
+            'parkingNumber' => 'list:string',
             'ownedByUserId' => 'list:numeric',
             'ownedBy' => 'string',
             'createdByUserId' => 'list:numeric',

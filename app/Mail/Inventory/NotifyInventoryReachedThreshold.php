@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Mail\InventoryItem;
+namespace App\Mail\Inventory;
 
 use App\DbModels\InventoryItem;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class NotifyInventoryDecreased extends Mailable
+class NotifyInventoryReachedThreshold extends Mailable
 {
     use SerializesModels;
 
@@ -35,7 +35,7 @@ class NotifyInventoryDecreased extends Mailable
     {
         $property = $this->inventoryItem->property;
 
-        return $this->subject("A Inventory Item Decreased")->view('inventory.notify-decreased.index')
+        return $this->subject("A Inventory Item Reached Its Threshold")->view('inventory.notify-threshold.index')
             ->with(['inventory' => $this->inventoryItem, 'property' => $property]);
     }
 }

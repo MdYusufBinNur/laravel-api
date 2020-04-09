@@ -17,6 +17,7 @@ class IndexRequest extends Request
             'id' => 'list:numeric',
             'inventoryItemId' => 'list:numeric',
             'propertyId' => 'required|numeric',
+            'vendorId' => 'numeric',
             'updatedByUserId' => 'list:numeric',
             'startDate' => 'date_format:Y-m-d',
             'endDate' => 'date_format:Y-m-d',

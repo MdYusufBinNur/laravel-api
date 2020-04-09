@@ -3,5 +3,5 @@
     @include('layouts.logo')
 @endsection
 @section('content')
-    @include('inventory.notify-decreased.body', ['inventory' => $inventory,'property' => $property])
+    @include('inventory.notify-threshold.body', ['inventory' => $inventory,'property' => $property])
 @endsection

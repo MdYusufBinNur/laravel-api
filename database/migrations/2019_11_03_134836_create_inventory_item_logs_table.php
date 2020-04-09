@@ -18,7 +18,7 @@ class CreateInventoryItemLogsTable extends Migration
             $table->unsignedInteger('inventoryItemId');
             $table->unsignedInteger('propertyId');
             $table->unsignedInteger('updatedByUserId');
-            $table->string('QuantityChange');
+            $table->string('quantityChange');
             $table->unsignedInteger('vendorId')->nullable();
             $table->unsignedInteger('expenseId')->nullable();
             $table->float('cost')->nullable();

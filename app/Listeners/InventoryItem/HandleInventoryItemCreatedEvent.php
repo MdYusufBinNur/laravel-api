@@ -30,7 +30,7 @@ class HandleInventoryItemCreatedEvent implements ShouldQueue
             'inventoryItemId' => $inventoryItem->id,
             'propertyId' => $inventoryItem->propertyId,
             'updatedByUserId' => $eventOptions['request']['loggedInUserId'],
-            'QuantityChange' => $inventoryItem->quantity,
+            'quantityChange' => $inventoryItem->quantity,
             'description' => strpos($inventoryItem->comment, 'Transferred from the property') == 0 ? $inventoryItem->comment : 'New inventory added',
             'vendorId' => $eventOptions['request']['vendorId'] ?? NULL
         ];

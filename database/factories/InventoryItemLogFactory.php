@@ -10,6 +10,6 @@ $factory->define(\App\DbModels\InventoryItemLog::class, function (Faker $faker) 
         'inventoryItemId' =>  App\DbModels\InventoryItem::all()->random()->id,
         'propertyId' =>  App\DbModels\Property::all()->random()->id,
         'updatedByUserId' =>  1,
-        'QuantityChange' => $faker->word,
+        'quantityChange' => $faker->word,
     ];
 });

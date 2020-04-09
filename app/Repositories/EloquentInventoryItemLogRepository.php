@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 
+use App\Events\InventoryItemLog\InventoryItemLogCreatedEvent;
 use App\Repositories\Contracts\InventoryItemLogRepository;
 use Carbon\Carbon;
 
@@ -42,6 +43,15 @@ class EloquentInventoryItemLogRepository extends EloquentBaseRepository implemen
         } else {
             return $queryBuilder->get();
         }
+    }
+
+    public function save(array $data): \ArrayAccess
+    {
+        $inventoryItemLog =  parent::save($data);
+
+        event(new InventoryItemLogCreatedEvent($inventoryItemLog, $this->generateEventOptionsForModel()));
+
+        return $inventoryItemLog;
     }
 
 }

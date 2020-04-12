@@ -13,6 +13,7 @@ use App\DbModels\Customer;
 use App\DbModels\EnterpriseUser;
 use App\DbModels\EnterpriseUserProperty;
 use App\DbModels\Equipment;
+use App\DbModels\EquipmentMaintenanceLog;
 use App\DbModels\Event;
 use App\DbModels\EventSignup;
 use App\DbModels\Expense;
@@ -123,6 +124,7 @@ use App\Repositories\Contracts\CompanyRepository;
 use App\Repositories\Contracts\CustomerRepository;
 use App\Repositories\Contracts\EnterpriseUserPropertyRepository;
 use App\Repositories\Contracts\EnterpriseUserRepository;
+use App\Repositories\Contracts\EquipmentMaintenanceLogRepository;
 use App\Repositories\Contracts\EquipmentRepository;
 use App\Repositories\Contracts\EventRepository;
 use App\Repositories\Contracts\EventSignupRepository;
@@ -226,6 +228,7 @@ use App\Repositories\EloquentCommitteeTypeRepository;
 use App\Repositories\EloquentCustomerRepository;
 use App\Repositories\EloquentEnterpriseUserPropertyRepository;
 use App\Repositories\EloquentEnterpriseUserRepository;
+use App\Repositories\EloquentEquipmentMaintenanceLogRepository;
 use App\Repositories\EloquentEquipmentRepository;
 use App\Repositories\EloquentEventRepository;
 use App\Repositories\EloquentEventSignupRepository;
@@ -909,6 +912,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind PaymentInstallmentItemRepository
         $this->app->bind(PaymentInstallmentItemRepository::class, function() {
             return new EloquentPaymentInstallmentItemRepository(new PaymentInstallmentItem());
+        });
+
+        // bind EquipmentMaintenanceLogRepository
+        $this->app->bind(EquipmentMaintenanceLogRepository::class, function() {
+            return new EloquentEquipmentMaintenanceLogRepository(new EquipmentMaintenanceLog());
         });
     }
 }

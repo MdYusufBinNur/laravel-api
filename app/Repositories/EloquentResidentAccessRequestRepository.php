@@ -84,12 +84,29 @@ class EloquentResidentAccessRequestRepository extends EloquentBaseRepository imp
         $isUniquePin = true;
         $pin = '';
         while ($isUniquePin) {
-            $pin = strtoupper(Str::random(6));
-            if (!$this->findOneBy(['pin' => $pin]) instanceof ResidentAccessRequest) {
+            $pin = mt_rand(100000,999999);
+
+            if (!$this->getAValidAccessRequestWithPin(['pin' => $pin]) instanceof ResidentAccessRequest) {
                 $isUniquePin = false;
             }
         }
         return $pin;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAValidAccessRequestWithPin($pin, array $searchCriteria = [])
+    {
+        $queryBuilder = $this->model
+            ->where('pin', $pin)
+            ->whereDate('updated_at', '>=', Carbon::now()->subDays(3));
+
+        if (isset($searchCriteria['status'])) {
+            $queryBuilder = $queryBuilder->where('status', $searchCriteria['status']);
+        }
+
+        return $queryBuilder->first();
     }
 
     /**

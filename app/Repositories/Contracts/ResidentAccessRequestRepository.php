@@ -21,4 +21,14 @@ interface ResidentAccessRequestRepository extends BaseRepository
      */
     public function hadAccessInThePast($data);
 
+
+    /**
+     * get a valid access request using pin
+     *
+     * @param string $pin
+     * @param array $searchCriteria
+     * @return mixed
+     */
+    public function getAValidAccessRequestWithPin($pin, array $searchCriteria = []);
+
 }

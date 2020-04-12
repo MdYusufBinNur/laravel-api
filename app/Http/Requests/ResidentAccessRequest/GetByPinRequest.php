@@ -14,7 +14,7 @@ class GetByPinRequest extends Request
     public function rules()
     {
         return [
-            'pin' => 'required|string'
+            'pin' => 'required|string',
         ];
     }
 }

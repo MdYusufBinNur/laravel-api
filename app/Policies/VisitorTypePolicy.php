@@ -53,7 +53,7 @@ class VisitorTypePolicy
      */
     public function store(User $currentUser, int $propertyId)
     {
-        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -103,6 +103,12 @@ class VisitorTypePolicy
      */
     public function destroy(User $currentUser, VisitorType $visitorType)
     {
+        $propertyId = $visitorType->propertyId;
+
+        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
+            return true;
+        }
+
         return false;
     }
 }

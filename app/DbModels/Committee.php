@@ -63,7 +63,7 @@ class Committee extends Model
      */
     public function committeeHierarchy()
     {
-        return $this->hasOne(CommitteeType::class, 'id', 'committeeHierarchyId');
+        return $this->hasOne(CommitteeHierarchy::class, 'id', 'committeeHierarchyId');
     }
 
     /**

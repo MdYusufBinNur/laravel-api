@@ -37,6 +37,7 @@ class UserLoginResource extends Resource
                 return new AttachmentResource($this->userProfilePics->last());
             }),
             'lastLoginAt' => $this->lastLoginAt,
+            'notificationSeenAt' => $this->notificationSeenAt,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

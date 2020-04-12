@@ -5,7 +5,10 @@ namespace App\Services\Helpers;
 
 
 use App\DbModels\Module;
+use App\DbModels\ModuleOption;
 use App\DbModels\ResidentAccessRequest;
+use App\DbModels\User;
+use App\DbModels\Visitor;
 use App\Repositories\Contracts\ModuleOptionPropertyRepository;
 use App\Repositories\Contracts\ModuleSettingPropertyRepository;
 use App\Services\SMS\SMS;
@@ -45,7 +48,7 @@ class SmsHelper
     {
         $moduleOptionPropertyRepository = app(ModuleOptionPropertyRepository::class);
 
-        return self::isSmsModuleEnable($propertyId) ? $moduleOptionPropertyRepository->getAModuleOptionValueByProperty($propertyId, $moduleOptionConst) : false;
+        return self::isSmsModuleEnable($propertyId) ? (boolean) $moduleOptionPropertyRepository->getAModuleOptionValueByProperty($propertyId, $moduleOptionConst) : false;
     }
 
     /**
@@ -60,6 +63,27 @@ class SmsHelper
             $phone = $residentAccessRequest->phone;
             if (!empty($phone)) {
                 $smsService->send($phone, 'Your pin to complete the registration at ' . $residentAccessRequest->property->title . ':  ' . $residentAccessRequest->pin);
+            }
+        }
+    }
+
+    /**
+     * send visitor sms
+     *
+     * @param Visitor $visitor
+     * @param string|null $toPhone
+     */
+    public static function sendVisitorNotification(Visitor $visitor, $toPhone = null)
+    {
+        $smsService = app(SMS::class);
+        if (SmsHelper::isSmsEnabledForTheOption($visitor->propertyId, ModuleOption::ENTRY_LOG_SEND_SMS)) {
+            if (!empty($toPhone)) {
+                if (!empty($visitor->userId)) {
+                    $text = "A visitor named {$visitor->name} just came to you";
+                } else {
+                    $text = "A visitor named {$visitor->name} just came to " . $visitor->unit->title;
+                }
+                $smsService->send($toPhone, $text);
             }
         }
     }

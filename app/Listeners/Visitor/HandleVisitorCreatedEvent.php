@@ -8,6 +8,7 @@ use App\Events\Visitor\VisitorCreatedEvent;
 use App\Listeners\CommonListenerFeatures;
 use App\Mail\Visitor\VisitorArrived;
 use App\Repositories\Contracts\UserNotificationRepository;
+use App\Services\Helpers\SmsHelper;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
@@ -31,10 +32,14 @@ class HandleVisitorCreatedEvent implements ShouldQueue
         if ($user instanceof User) {
             $this->saveVisitorEntryNotification($visitor->createdByUserId, $user->id, $visitor->id);
             Mail::to($user->email)->send(new VisitorArrived($visitor));
+            SmsHelper::sendVisitorNotification($visitor, $user->phone);
         } else {
             foreach ($visitor->unit->residents as $resident) {
                 $this->saveVisitorEntryNotification($visitor->createdByUserId, $resident->user->id, $visitor->id);
-                Mail::to($resident->user->email)->send(new VisitorArrived($visitor));
+                $user = $resident->user;
+                Mail::to($user->email)->send(new VisitorArrived($visitor));
+
+                SmsHelper::sendVisitorNotification($visitor, $user->phone);
             }
         }
 

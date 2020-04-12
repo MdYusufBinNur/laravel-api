@@ -6,6 +6,8 @@ namespace App\Services\Helpers;
 
 use App\DbModels\Module;
 use App\DbModels\ModuleOption;
+use App\DbModels\Package;
+use App\DbModels\Resident;
 use App\DbModels\ResidentAccessRequest;
 use App\DbModels\User;
 use App\DbModels\Visitor;
@@ -83,6 +85,31 @@ class SmsHelper
                 } else {
                     $text = "A visitor named {$visitor->name} just came to " . $visitor->unit->title;
                 }
+                $smsService->send($toPhone, $text);
+            }
+        }
+    }
+
+
+    /**
+     * send package arrival sms
+     *
+     * @param Visitor $visitor
+     * @param string|null $toPhone
+     */
+    public static function sendPackageArrivalNotification(Package $package, $toPhone = null)
+    {
+        if (SmsHelper::isSmsEnabledForTheOption($package->propertyId, ModuleOption::PACKAGES_OPTION_SEND_SMS)) {
+            if (!empty($toPhone)) {
+                $smsService = app(SMS::class);
+                $resident = $package->resident;
+                if ($resident instanceof Resident) {
+                    $text = "A package ref#{$package->id} has been arrived for you. Please pick it from the gate.";
+                } else {
+                    $text = "A package ref#{$package->unit->title} has been arrived for {$package->unit->title}";
+                }
+
+                // set notifiedByText to one
                 $smsService->send($toPhone, $text);
             }
         }

@@ -9,6 +9,7 @@ use App\Listeners\CommonListenerFeatures;
 use App\Mail\Package\PackageArrived;
 use App\Repositories\Contracts\PackageRepository;
 use App\Repositories\Contracts\UserNotificationRepository;
+use App\Services\Helpers\SmsHelper;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
@@ -29,12 +30,20 @@ class HandlePackageCreatedEvent implements ShouldQueue
         $resident = $package->resident;
 
         if ($resident instanceof Resident) {
+            $user = $resident->user;
             $this->savePackageAddedNotification($package->createdByUserId, $resident->user->id, $package->id);
             Mail::to($resident->user->email)->send(new PackageArrived($package));
+
+            SmsHelper::sendPackageArrivalNotification($package, $user->phone);
+
         } else {
             foreach ($package->unit->residents as $resident) {
                 $this->savePackageAddedNotification($package->createdByUserId, $resident->user->id, $package->id);
-                Mail::to($resident->user->email)->send(new PackageArrived($package));
+                $user = $resident->user;
+                Mail::to($user->email)->send(new PackageArrived($package));
+
+                SmsHelper::sendPackageArrivalNotification($package, $user->phone);
+
             }
         }
 

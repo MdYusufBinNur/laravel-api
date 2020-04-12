@@ -10,11 +10,13 @@ use App\DbModels\Package;
 use App\DbModels\PackageArchive;
 use App\DbModels\Resident;
 use App\DbModels\ResidentAccessRequest;
+use App\DbModels\ServiceRequest;
 use App\DbModels\User;
 use App\DbModels\Visitor;
 use App\Repositories\Contracts\ModuleOptionPropertyRepository;
 use App\Repositories\Contracts\ModuleSettingPropertyRepository;
 use App\Services\SMS\SMS;
+use Illuminate\Support\Str;
 
 class SmsHelper
 {
@@ -110,7 +112,7 @@ class SmsHelper
                     $text = "A package ref#{$package->id} has been arrived for {$package->unit->title}";
                 }
 
-                // set notifiedByText to one
+                //todo set notifiedByText to one
                 $smsService->send($toPhone, $text);
             }
         }
@@ -135,8 +137,66 @@ class SmsHelper
                     $text = "The package ref#{$package->id} has been received just now. Thank you.";
                 }
 
-                // set notifiedByText to one
                 $smsService->send($toPhone, $text);
+            }
+        }
+    }
+
+    /**
+     * send service request created sms
+     *
+     * @param ServiceRequest $serviceRequest
+     */
+    public static function sendServiceRequestCreatedNotification(ServiceRequest $serviceRequest)
+    {
+        if (SmsHelper::isSmsEnabledForTheOption($serviceRequest->propertyId, ModuleOption::SERVICE_REQUEST_SEND_SMS)) {
+            $smsService = app(SMS::class);
+            $unit = $serviceRequest->unit;
+            $residents = $unit->residents;
+            foreach ($residents as $resident) {
+                if (!empty($resident->user->phone)) {
+                    $text = "A service request ref#{$serviceRequest->id} has been created for {$unit->title}";
+                    $smsService->send($resident->user->phone, $text);
+                }
+            }
+        }
+    }
+
+    /**
+     * send service request status updated sms
+     *
+     * @param ServiceRequest $serviceRequest
+     */
+    public static function sendServiceRequestStatusUpdatedNotification(ServiceRequest $serviceRequest)
+    {
+        if (SmsHelper::isSmsEnabledForTheOption($serviceRequest->propertyId, ModuleOption::SERVICE_REQUEST_SEND_SMS)) {
+            $smsService = app(SMS::class);
+            $unit = $serviceRequest->unit;
+            $residents = $unit->residents;
+            foreach ($residents as $resident) {
+                $user = $resident->user;
+                if (!empty($user->phone)) {
+                    $text = "Status of the service request ref#{$serviceRequest->id} for {$unit->title} has been updated to " . Str::title(str_replace('_', ' ', $serviceRequest->status));
+                    $smsService->send($resident->user->phone, $text);
+                }
+            }
+        }
+    }
+
+
+    /**
+     * send service request assigned notification sms
+     *
+     * @param ServiceRequest $serviceRequest
+     */
+    public static function sendServiceRequestAssignedNotification(ServiceRequest $serviceRequest)
+    {
+        if (SmsHelper::isSmsEnabledForTheOption($serviceRequest->propertyId, ModuleOption::SERVICE_REQUEST_SEND_SMS)) {
+            $smsService = app(SMS::class);
+            $user = $serviceRequest->user;
+            if (!empty($user->phone)) {
+                $text = "You have been assigned to a service request ref#{$serviceRequest->id}";
+                $smsService->send($user->phone, $text);
             }
         }
     }

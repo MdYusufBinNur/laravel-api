@@ -6,6 +6,8 @@ use App\DbModels\ServiceRequestLog;
 use App\Events\ServiceRequest\ServiceRequestUpdatedEvent;
 use App\Listeners\CommonListenerFeatures;
 use App\Repositories\Contracts\ServiceRequestLogRepository;
+use App\Repositories\Contracts\ServiceRequestOfficeDetailRepository;
+use App\Services\Helpers\SmsHelper;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class HandleServiceRequestUpdatedEvent implements ShouldQueue
@@ -28,6 +30,7 @@ class HandleServiceRequestUpdatedEvent implements ShouldQueue
 
         // log `status` changes
         if ($this->hasAFieldValueChanged($serviceRequest, $oldServiceRequest, 'status')) {
+            SmsHelper::sendServiceRequestStatusUpdatedNotification($serviceRequest);
             $serviceRequestLogRepository->save([
                 'serviceRequestId' => $serviceRequest->id,
                 'userId' => $eventOptions['request']['loggedInUserId'],
@@ -48,11 +51,18 @@ class HandleServiceRequestUpdatedEvent implements ShouldQueue
 
         // log `assignment` changes
         if ($this->hasAFieldValueChanged($serviceRequest, $oldServiceRequest, 'userId')) {
+
+            $serviceRequestOfficeDetailsRepository = app(ServiceRequestOfficeDetailRepository::class);
+
+            $serviceRequestOfficeDetailsRepository->setServiceRequestOfficeDetail(['serviceRequestId' => $serviceRequest->id, 'assignedUserId' => $serviceRequest->userId]);
             $serviceRequestLogRepository->save([
                 'serviceRequestId' => $serviceRequest->id,
                 'userId' => $eventOptions['request']['loggedInUserId'],
                 'type' => ServiceRequestLog::TYPE_ASSIGNMENT,
             ]);
+
+            SmsHelper::sendServiceRequestAssignedNotification($serviceRequest);
+
         }
 
         // todo log comment

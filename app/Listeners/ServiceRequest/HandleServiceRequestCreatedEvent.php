@@ -6,6 +6,7 @@ use App\DbModels\ServiceRequestLog;
 use App\Events\ServiceRequest\ServiceRequestCreatedEvent;
 use App\Listeners\CommonListenerFeatures;
 use App\Repositories\Contracts\ServiceRequestLogRepository;
+use App\Services\Helpers\SmsHelper;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class HandleServiceRequestCreatedEvent implements ShouldQueue
@@ -31,6 +32,7 @@ class HandleServiceRequestCreatedEvent implements ShouldQueue
             'type' => ServiceRequestLog::TYPE_CREATED,
         ]);
 
+        SmsHelper::sendServiceRequestCreatedNotification($serviceRequest);
 
     }
 }

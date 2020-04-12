@@ -7,6 +7,7 @@ namespace App\Services\Helpers;
 use App\DbModels\Module;
 use App\DbModels\ModuleOption;
 use App\DbModels\Package;
+use App\DbModels\PackageArchive;
 use App\DbModels\Resident;
 use App\DbModels\ResidentAccessRequest;
 use App\DbModels\User;
@@ -94,7 +95,7 @@ class SmsHelper
     /**
      * send package arrival sms
      *
-     * @param Visitor $visitor
+     * @param Package $package
      * @param string|null $toPhone
      */
     public static function sendPackageArrivalNotification(Package $package, $toPhone = null)
@@ -106,7 +107,32 @@ class SmsHelper
                 if ($resident instanceof Resident) {
                     $text = "A package ref#{$package->id} has been arrived for you. Please pick it from the gate.";
                 } else {
-                    $text = "A package ref#{$package->unit->title} has been arrived for {$package->unit->title}";
+                    $text = "A package ref#{$package->id} has been arrived for {$package->unit->title}";
+                }
+
+                // set notifiedByText to one
+                $smsService->send($toPhone, $text);
+            }
+        }
+    }
+
+    /**
+     * send package received sms
+     *
+     * @param PackageArchive $packageArchive
+     * @param Package $package
+     * @param string|null $toPhone
+     */
+    public static function sendPackageReceivedNotification(PackageArchive $packageArchive, Package $package, $toPhone = null)
+    {
+        if (SmsHelper::isSmsEnabledForTheOption($packageArchive->propertyId, ModuleOption::PACKAGES_OPTION_SEND_SMS)) {
+            if (!empty($toPhone)) {
+                $smsService = app(SMS::class);
+                $resident = $package->resident;
+                if ($resident instanceof Resident) {
+                   $text = "Thank You for receiving your package ref#{$package->id}";
+                } else {
+                    $text = "The package ref#{$package->id} has been received just now. Thank you.";
                 }
 
                 // set notifiedByText to one

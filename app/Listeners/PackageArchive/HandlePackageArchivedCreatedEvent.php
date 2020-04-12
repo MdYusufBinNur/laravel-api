@@ -9,6 +9,7 @@ use App\Events\PackageArchive\PackageArchivedCreatedEvent;
 use App\Listeners\CommonListenerFeatures;
 use App\Mail\PackageArchive\PackageSignOut;
 use App\Repositories\Contracts\UserNotificationRepository;
+use App\Services\Helpers\SmsHelper;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
@@ -31,11 +32,18 @@ class HandlePackageArchivedCreatedEvent implements ShouldQueue
 
         if ($resident instanceof Resident) {
             $this->savePackageSignoutNotification($packageArchive->createdByUserId, $packageArchive->signOutUserId, $packageArchive->id);
-            Mail::to($resident->user->email)->send(new PackageSignOut($packageArchive));
+            $user = $resident->user;
+
+            Mail::to($user->email)->send(new PackageSignOut($packageArchive));
+            SmsHelper::sendPackageReceivedNotification($packageArchive, $package, $user->phone);
+
         } else {
             foreach ($package->unit->residents as $resident) {
                 $this->savePackageSignoutNotification($packageArchive->createdByUserId, $packageArchive->signOutUserId, $packageArchive->id);
-                Mail::to($resident->user->email)->send(new PackageSignOut($packageArchive));
+
+                $user = $resident->user;
+                SmsHelper::sendPackageReceivedNotification($packageArchive, $package, $user->phone);
+                Mail::to($user->email)->send(new PackageSignOut($packageArchive));
             }
         }
     }

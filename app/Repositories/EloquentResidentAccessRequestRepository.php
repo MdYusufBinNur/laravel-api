@@ -86,7 +86,7 @@ class EloquentResidentAccessRequestRepository extends EloquentBaseRepository imp
         while ($isUniquePin) {
             $pin = mt_rand(100000,999999);
 
-            if (!$this->getAValidAccessRequestWithPin(['pin' => $pin]) instanceof ResidentAccessRequest) {
+            if (!$this->getAValidAccessRequestWithPin($pin) instanceof ResidentAccessRequest) {
                 $isUniquePin = false;
             }
         }

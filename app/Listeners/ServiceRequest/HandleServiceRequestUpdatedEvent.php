@@ -57,7 +57,7 @@ class HandleServiceRequestUpdatedEvent implements ShouldQueue
             $serviceRequestOfficeDetailsRepository->setServiceRequestOfficeDetail(['serviceRequestId' => $serviceRequest->id, 'assignedUserId' => $serviceRequest->userId]);
             $serviceRequestLogRepository->save([
                 'serviceRequestId' => $serviceRequest->id,
-                'userId' => $eventOptions['request']['loggedInUserId'],
+                'userId' => $serviceRequest->userId,
                 'type' => ServiceRequestLog::TYPE_ASSIGNMENT,
             ]);
 

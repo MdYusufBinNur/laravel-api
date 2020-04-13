@@ -34,6 +34,8 @@ class ModuleOption extends Model
     const SERVICE_REQUEST_SEND_SMS = ['moduleId' => 7, 'key' => 'sendSMS'];
     
     const PAYMENT_CENTER_ENABLE_INSTALLMENT = ['moduleId' => 9, 'key' => 'enableInstallment'];
+    const PAYMENT_CENTER_SEND_SMS = ['moduleId' => 9, 'key' => 'sendSMS'];
+
 
     const FRONT_DESK_INSTRUCTION_MAIL_HOLDS = ['moduleId' => 12, 'key' => 'mailHolds'];
     const FRONT_DESK_INSTRUCTION_GENERAL_INSTRUCTION = ['moduleId' => 12, 'key' => 'generalInstructions'];

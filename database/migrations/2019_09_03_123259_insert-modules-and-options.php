@@ -60,6 +60,7 @@ class InsertModulesAndOptions extends Migration
             ['moduleId' => 7, 'key' => 'sendSMS', 'title' => 'Enable SMS for service request notification'],
 
             ['moduleId' => 9, 'key' => 'enableInstallment', 'title' => 'Enable Installment feature'],
+            ['moduleId' => 10, 'key' => 'sendSMS', 'title' => 'Enable SMS as payment notification'],
 
             ['moduleId' => 12, 'key' => 'mailHolds', 'title' => 'Enable Mail Holds'],
             ['moduleId' => 12, 'key' => 'generalInstructions', 'title' => 'Enable General Instructions'],

@@ -83,7 +83,7 @@ class EloquentEquipmentRepository extends EloquentBaseRepository implements Equi
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
-        $searchCriteria['eagerLoad'] = ['equipment.createdByUser' => 'createdByUser', 'equipment.attachments' => 'attachments'];
+        $searchCriteria['eagerLoad'] = ['eq.createdByUser' => 'createdByUser', 'eq.attachments' => 'attachments',  'eq.equipmentMaintenanceLogs' => 'equipmentMaintenanceLogs'];
         $this->applyEagerLoad($queryBuilder, $searchCriteria);
 
 

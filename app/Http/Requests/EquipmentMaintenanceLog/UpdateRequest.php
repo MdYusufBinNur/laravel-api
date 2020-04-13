@@ -14,7 +14,6 @@ class UpdateRequest extends Request
     public function rules()
     {
         return [
-            'propertyId' => 'exists:properties,id',
             'note' => 'max:255',
             'nextMaintenanceDate' => 'date_format:Y-m-d',
         ];

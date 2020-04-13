@@ -31,6 +31,9 @@ class EquipmentResource extends Resource
             'attachments' => $this->when($this->needToInclude($request, 'eq.attachments'), function () {
                 return new AttachmentResourceCollection($this->attachments);
             }),
+            'equipmentMaintenanceLogs' => $this->when($this->needToInclude($request, 'eq.equipmentMaintenanceLogs'), function () {
+                return new EquipmentMaintenanceLogResourceCollection($this->equipmentMaintenanceLogs);
+            }),
         ];
     }
 }

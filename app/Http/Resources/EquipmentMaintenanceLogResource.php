@@ -17,6 +17,10 @@ class EquipmentMaintenanceLogResource extends Resource
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
             'propertyId' => $this->propertyId,
+            'equipmentId' => $this->equipmentId,
+            'equipment' => $this->when($this->needToInclude($request, 'eml.equipment'), function () {
+                return new EquipmentResource($this->equipment);
+            }),
             'note' => $this->note,
             'nextMaintenanceDate' => $this->nextMaintenanceDate,
             'created_at' => $this->created_at,

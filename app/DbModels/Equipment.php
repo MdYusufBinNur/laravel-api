@@ -71,4 +71,14 @@ class Equipment extends Model
     {
         return $this->hasMany(Attachment::class, 'resourceId')->where('type', Attachment::ATTACHMENT_TYPE_EQUIPMENT);
     }
+
+    /**
+     * get the equipmentMaintenanceLogs
+     *
+     * @return HasMany
+     */
+    public function equipmentMaintenanceLogs()
+    {
+        return $this->hasMany(EquipmentMaintenanceLog::class, 'equipmentId', 'id');
+    }
 }

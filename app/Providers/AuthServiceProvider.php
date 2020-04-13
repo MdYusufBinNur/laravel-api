@@ -14,6 +14,7 @@ use App\DbModels\Customer;
 use App\DbModels\EnterpriseUser;
 use App\DbModels\EnterpriseUserProperty;
 use App\DbModels\Equipment;
+use App\DbModels\EquipmentMaintenanceLog;
 use App\DbModels\Event;
 use App\DbModels\EventSignup;
 use App\DbModels\Expense;
@@ -122,6 +123,7 @@ use App\Policies\CompanyPolicy;
 use App\Policies\CustomerPolicy;
 use App\Policies\EnterpriseUserPolicy;
 use App\Policies\EnterpriseUserPropertyPolicy;
+use App\Policies\EquipmentMaintenanceLogPolicy;
 use App\Policies\EquipmentPolicy;
 use App\Policies\EventPolicy;
 use App\Policies\EventSignupPolicy;
@@ -245,6 +247,7 @@ class AuthServiceProvider extends ServiceProvider
         EnterpriseUser::class => EnterpriseUserPolicy::class,
         EnterpriseUserProperty::class => EnterpriseUserPropertyPolicy::class,
         Equipment::class => EquipmentPolicy::class,
+        EquipmentMaintenanceLog::class => EquipmentMaintenanceLogPolicy::class,
         Event::class => EventPolicy::class,
         EventSignup::class => EventSignupPolicy::class,
         Expense::class => ExpensePolicy::class,

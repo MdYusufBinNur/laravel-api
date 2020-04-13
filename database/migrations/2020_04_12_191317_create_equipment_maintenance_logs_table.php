@@ -17,8 +17,9 @@ class CreateEquipmentMaintenanceLogsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('createdByUserId')->nullable();
             $table->integer('propertyId')->unsigned();
-            $table->string('note');
-            $table->date('nextMaintenanceDate');
+            $table->integer('equipmentId')->unsigned();
+            $table->string('note')->nullable();
+            $table->date('nextMaintenanceDate')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
@@ -31,6 +32,11 @@ class CreateEquipmentMaintenanceLogsTable extends Migration
                 ->references('id')->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
+            $table->foreign('equipmentId')
+                ->references('id')->on('equipments')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
 
         });
     }

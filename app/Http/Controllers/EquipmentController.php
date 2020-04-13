@@ -9,6 +9,7 @@ use App\Http\Requests\Equipment\UpdateRequest;
 use App\Http\Resources\EquipmentResource;
 use App\Http\Resources\EquipmentResourceCollection;
 use App\Repositories\Contracts\EquipmentRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class EquipmentController extends Controller
 {
@@ -31,9 +32,12 @@ class EquipmentController extends Controller
      *
      * @param IndexRequest $request
      * @return EquipmentResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [Equipment::class, $request->input('propertyId')]);
+
         $equipments = $this->equipmentRepository->findBy($request->all());
 
         return new EquipmentResourceCollection($equipments);
@@ -44,9 +48,12 @@ class EquipmentController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return EquipmentResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [Equipment::class, $request->input('propertyId')]);
+
         $equipment = $this->equipmentRepository->save($request->all());
 
         return new EquipmentResource($equipment);
@@ -57,9 +64,12 @@ class EquipmentController extends Controller
      *
      * @param Equipment $equipment
      * @return EquipmentResource
+     * @throws AuthorizationException
      */
     public function show(Equipment $equipment)
     {
+        $this->authorize('show', $equipment);
+
         return new EquipmentResource($equipment);
     }
 
@@ -69,9 +79,12 @@ class EquipmentController extends Controller
      * @param UpdateRequest $request
      * @param Equipment $equipment
      * @return EquipmentResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, Equipment $equipment)
     {
+        $this->authorize('update', $equipment);
+
         $equipment = $this->equipmentRepository->update($equipment, $request->all());
 
         return new EquipmentResource($equipment);
@@ -82,9 +95,12 @@ class EquipmentController extends Controller
      *
      * @param Equipment $equipment
      * @return \Illuminate\Http\Response
+     * @throws AuthorizationException
      */
     public function destroy(Equipment $equipment)
     {
+        $this->authorize('destroy', $equipment);
+
         $this->equipmentRepository->delete($equipment);
 
         return response()->json(null, 204);

@@ -9,6 +9,7 @@ use App\Http\Requests\EquipmentMaintenanceLog\UpdateRequest;
 use App\Http\Resources\EquipmentMaintenanceLogResource;
 use App\Http\Resources\EquipmentMaintenanceLogResourceCollection;
 use App\Repositories\Contracts\EquipmentMaintenanceLogRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class EquipmentMaintenanceLogController extends Controller
 {
@@ -31,9 +32,12 @@ class EquipmentMaintenanceLogController extends Controller
      *
      * @param IndexRequest $request
      * @return EquipmentMaintenanceLogResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [EquipmentMaintenanceLog::class, $request->input('propertyId')]);
+
         $equipmentMaintenanceLogs = $this->equipmentMaintenanceLogRepository->findBy($request->all());
 
         return new EquipmentMaintenanceLogResourceCollection($equipmentMaintenanceLogs);
@@ -44,9 +48,12 @@ class EquipmentMaintenanceLogController extends Controller
      *
      * @param  StoreRequest  $request
      * @return EquipmentMaintenanceLogResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [EquipmentMaintenanceLog::class, $request->input('propertyId')]);
+
         $equipmentMaintenanceLog = $this->equipmentMaintenanceLogRepository->save($request->all());
 
         return new EquipmentMaintenanceLogResource($equipmentMaintenanceLog);
@@ -57,9 +64,12 @@ class EquipmentMaintenanceLogController extends Controller
      *
      * @param EquipmentMaintenanceLog $equipmentMaintenanceLog
      * @return EquipmentMaintenanceLogResource
+     * @throws AuthorizationException
      */
     public function show(EquipmentMaintenanceLog $equipmentMaintenanceLog)
     {
+        $this->authorize('show', $equipmentMaintenanceLog);
+
         return new EquipmentMaintenanceLogResource($equipmentMaintenanceLog);
     }
 
@@ -69,9 +79,12 @@ class EquipmentMaintenanceLogController extends Controller
      * @param UpdateRequest $request
      * @param EquipmentMaintenanceLog $equipmentMaintenanceLog
      * @return EquipmentMaintenanceLogResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, EquipmentMaintenanceLog $equipmentMaintenanceLog)
     {
+        $this->authorize('update', $equipmentMaintenanceLog);
+
         $equipmentMaintenanceLog = $this->equipmentMaintenanceLogRepository->update($equipmentMaintenanceLog, $request->all());
 
         return new EquipmentMaintenanceLogResource($equipmentMaintenanceLog);
@@ -82,9 +95,12 @@ class EquipmentMaintenanceLogController extends Controller
      *
      * @param EquipmentMaintenanceLog $equipmentMaintenanceLog
      * @return void
+     * @throws AuthorizationException
      */
     public function destroy(EquipmentMaintenanceLog $equipmentMaintenanceLog)
     {
+        $this->authorize('destroy', $equipmentMaintenanceLog);
+
         $this->equipmentMaintenanceLogRepository->delete($equipmentMaintenanceLog);
 
         return response()->json(null, 204);

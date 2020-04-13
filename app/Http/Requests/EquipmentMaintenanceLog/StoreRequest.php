@@ -15,8 +15,9 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' => 'required|exists:properties,id',
+            'equipmentId'  => 'required|exists:equipments,id',
             'note' => 'max:255',
-            'nextMaintenanceDate' => 'required|date_format:Y-m-d',
+            'nextMaintenanceDate' => 'date_format:Y-m-d',
         ];
     }
 }

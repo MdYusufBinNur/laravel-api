@@ -9,6 +9,7 @@ use App\Events\Reminder\ReminderCreatedEvent;
 use App\Repositories\Contracts\PaymentItemRepository;
 use App\Repositories\Contracts\ReminderRepository;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class EloquentReminderRepository extends EloquentBaseRepository implements ReminderRepository
 {
@@ -20,12 +21,16 @@ class EloquentReminderRepository extends EloquentBaseRepository implements Remin
         DB::beginTransaction();
 
         $repository = $this->getRepositoryNameByType($data['resourceType']);
-        $getData = $repository->findOne($data['resourceId']);
-
-        if ($data['resourceType'] === Reminder::RESOURCE_TYPE_PAYMENT_ITEM){
-            $data['propertyId'] = isset($data['propertyId']) ?  $data['propertyId'] : $getData->propertyId;
-            $data['toUserIds'] = isset($data['toUserIds']) ?  $data['toUserIds'] : $getData->userId;
-            $data['toUnitIds'] = isset($data['toUnitIds']) ?  $data['toUnitIds'] : $getData->unitId;
+        $item = $repository->findOne($data['resourceId']);
+        if (!$item instanceof \ArrayAccess) {
+            throw ValidationException::withMessages([
+                'resourceId' => ["No item found for this resource type"]
+            ]);
+        }
+        if ($data['resourceType'] === Reminder::RESOURCE_TYPE_PAYMENT_ITEM) {
+            $data['propertyId'] = isset($data['propertyId']) ?  $data['propertyId'] : $item->propertyId;
+            $data['toUserIds'] = isset($data['toUserIds']) ?  $data['toUserIds'] : $item->userId;
+            $data['toUnitIds'] = isset($data['toUnitIds']) ?  $data['toUnitIds'] : $item->unitId;
         }
 
         $reminder = parent::save($data);
@@ -51,6 +56,12 @@ class EloquentReminderRepository extends EloquentBaseRepository implements Remin
             case Reminder::RESOURCE_TYPE_PAYMENT_ITEM:
                 $repositoryName = app(PaymentItemRepository::class);
                 break;
+        }
+
+        if (empty($repositoryName)) {
+            throw ValidationException::withMessages([
+                'resourceType' => ["No reminder found for this resource."]
+            ]);
         }
         return $repositoryName;
     }

@@ -8,6 +8,7 @@ use App\DbModels\Module;
 use App\DbModels\ModuleOption;
 use App\DbModels\Package;
 use App\DbModels\PackageArchive;
+use App\DbModels\PaymentItem;
 use App\DbModels\Resident;
 use App\DbModels\ResidentAccessRequest;
 use App\DbModels\ServiceRequest;
@@ -201,4 +202,20 @@ class SmsHelper
         }
     }
 
+    /**
+     * send service request assigned notification sms
+     *
+     * @param string|null $toPhone
+     * @param PaymentItem $paymentItem
+     */
+    public static function sendPaymentItemNotification(PaymentItem $paymentItem, $toPhone)
+    {
+        if (SmsHelper::isSmsModuleEnable($paymentItem->propertyId)) {
+            $smsService = app(SMS::class);
+            if (!empty($toPhone)) {
+                $text = "You have a due invoice ref#{$paymentItem->id}. Please pay.";
+                $smsService->send($toPhone, $text);
+            }
+        }
+    }
 }

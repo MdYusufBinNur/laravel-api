@@ -10,6 +10,7 @@ use App\DbModels\UserNotificationType;
 use App\Mail\Payment\SendPaymentItemReminder;
 use App\Repositories\Contracts\PaymentItemLogRepository;
 use App\Repositories\Contracts\UserNotificationRepository;
+use App\Services\Helpers\SmsHelper;
 use Illuminate\Support\Facades\Mail;
 
 class ReminderService
@@ -45,7 +46,10 @@ class ReminderService
                 $user = $resident->user;
                 $this->savePaymentNotification($createdByUserId, $user->id, $reminder->id);
                 if ($reminder->reminderType == Reminder::REMINDER_TYPE_EMAIL){
-                    Mail::to($resident->contactEmail)->send(new SendPaymentItemReminder($reminder, $user, $$paymentItem));
+                    Mail::to($resident->contactEmail)->send(new SendPaymentItemReminder($reminder, $user, $paymentItem));
+                }
+                if ($reminder->reminderType == Reminder::REMINDER_TYPE_SMS){
+                    SmsHelper::sendPaymentItemNotification($paymentItem, $user->phone);
                 }
             }
         } else {
@@ -53,6 +57,10 @@ class ReminderService
             $this->savePaymentNotification($createdByUserId, $user->id, $reminder->id);
             if ($reminder->reminderType == Reminder::REMINDER_TYPE_EMAIL) {
                 Mail::to($user->email)->send(new SendPaymentItemReminder($reminder, $user, $paymentItem));
+            }
+
+            if ($reminder->reminderType == Reminder::REMINDER_TYPE_SMS){
+                SmsHelper::sendPaymentItemNotification($paymentItem, $user->phone);
             }
         }
         $this->logPaymentItem($paymentItem, $eventOptions);

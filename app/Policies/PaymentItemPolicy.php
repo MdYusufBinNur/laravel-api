@@ -64,6 +64,10 @@ class PaymentItemPolicy
         $payment = $paymentItem->payment;
         $propertyId = $payment->propertyId;
 
+        if ($paymentItem->userId == $currentUser->id) {
+            return true;
+        }
+
         if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }

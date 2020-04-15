@@ -16,6 +16,9 @@ class EquipmentMaintenanceLogResource extends Resource
         return [
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
+            'createdByUser' => $this->when($this->needToInclude($request, 'eml.createdByUser'), function () {
+                return new UserResource($this->createdByUser);
+            }),
             'propertyId' => $this->propertyId,
             'equipmentId' => $this->equipmentId,
             'equipment' => $this->when($this->needToInclude($request, 'eml.equipment'), function () {

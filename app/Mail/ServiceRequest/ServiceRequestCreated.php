@@ -4,10 +4,8 @@ namespace App\Mail\ServiceRequest;
 
 use App\DbModels\ServiceRequest;
 use App\DbModels\Unit;
-use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ServiceRequestCreated extends Mailable
 {

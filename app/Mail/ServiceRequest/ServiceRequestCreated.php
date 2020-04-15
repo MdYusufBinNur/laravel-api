@@ -39,7 +39,7 @@ class ServiceRequestCreated extends Mailable
     public function build()
     {
         $user = $this->serviceRequest->user;
-        $category = $this->serviceRequest->category;
+        $category = $this->serviceRequest->serviceRequestCategory;
         $property = $this->serviceRequest->property;
 
         return $this->subject('A service request made for your unit')->view('service-request.created.index')

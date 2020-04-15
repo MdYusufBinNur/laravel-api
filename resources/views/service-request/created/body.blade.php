@@ -24,25 +24,20 @@
                                                     <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse; position: relative">
                                                         <tbody>
                                                         <tr>
-                                                            <td>
-                                                                {{$serviceRequest}}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
                                                             <td align="left" class="contribution-table-label" style="border-collapse: collapse;  font-size: 14px; padding: 7px 0 0; width: 190px">Requesting service for:</td>
-                                                            <td align="left" class="contribution-table-value" style="border-collapse: collapse; font-size: 14px; font-weight: bold;  padding: 7px 0 0; white-space: pre">Ac Repair</td>
+                                                            <td align="left" class="contribution-table-value" style="border-collapse: collapse; font-size: 14px; font-weight: bold;  padding: 7px 0 0; white-space: pre">{{ $category->title }}</td>
                                                         </tr>
                                                         <tr>
                                                             <td align="left" class="contribution-table-label" style="border-collapse: collapse;  font-size: 14px; padding: 7px 0 0; width: 190px">Service Created By :</td>
-                                                            <td align="left" class="contribution-table-value" style="border-collapse: collapse; font-size: 14px; font-weight: bold; padding: 7px 0 0; white-space: pre">A.B.M Zakaria Mozumder</td>
+                                                            <td align="left" class="contribution-table-value" style="border-collapse: collapse; font-size: 14px; font-weight: bold; padding: 7px 0 0; white-space: pre">{{ $user->name }}</td>
                                                         </tr>
                                                         <tr>
                                                             <td align="left" class="contribution-table-label" style="border-collapse: collapse;  font-size: 14px; padding: 7px 0 0; width: 190px">Unit :</td>
-                                                            <td align="left" class="contribution-table-value" style="border-collapse: collapse; font-size: 14px; font-weight: bold; padding: 7px 0 0; white-space: pre">Unit 4A</td>
+                                                            <td align="left" class="contribution-table-value" style="border-collapse: collapse; font-size: 14px; font-weight: bold; padding: 7px 0 0; white-space: pre">{{ $unit->title }}</td>
                                                         </tr>
                                                         <tr>
                                                             <td align="left" class="contribution-table-label" style="border-collapse: collapse;  font-size: 14px; padding: 7px 0 0; width: 190px">Estimated Delivery:</td>
-                                                            <td align="left" class="contribution-table-value" style="border-collapse: collapse; font-size: 14px; font-weight: bold; padding: 7px 0 0; white-space: pre">November 2016</td>
+                                                            <td align="left" class="contribution-table-value" style="border-collapse: collapse; font-size: 14px; font-weight: bold; padding: 7px 0 0; white-space: pre">{{ $serviceRequest->preferredEndTime }}</td>
                                                         </tr>
 
                                                         <tr>
@@ -52,7 +47,7 @@
                                                                     <tbody>
                                                                     <tr>
                                                                         <td align="justify" style="font-size: 14px; font-weight: bold; padding: 7px 0 0">
-                                                                            Lorem ipsum, or lipsum as it is sometimes known, is dummy text used
+                                                                            {{ $serviceRequest->description }}
                                                                         </td>
                                                                     </tr>
                                                                     </tbody>
@@ -73,7 +68,7 @@
                                                                     <tbody>
                                                                     <tr>
                                                                         <td align="center">
-                                                                            <a href="{{action_url}}" class="f-fallback button button--brand" target="_blank">Details Request</a>
+                                                                            <a href="#" class="f-fallback button button--brand" target="_blank">Details Request</a>
                                                                         </td>
                                                                     </tr>
                                                                     </tbody>

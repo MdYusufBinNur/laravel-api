@@ -15,7 +15,7 @@ class IndexRequest extends Request
     {
         return [
             'id' => 'list:numeric',
-            'propertyId' => 'requierd|numeric',
+            'propertyId' => 'required|numeric',
             'createdBuUserId' => 'list:numeric',
             'equipmentId' => 'list:numeric',
             'nextMaintenanceDate' => 'date_format: Y-m-d',

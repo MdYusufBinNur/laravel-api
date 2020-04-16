@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 
-class EquipmentMaintenanceLogResource extends Resource
+class ResidentCustomFieldResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -16,16 +16,15 @@ class EquipmentMaintenanceLogResource extends Resource
         return [
             'id' => $this->id,
             'createdByUserId' => $this->createdByUserId,
-            'createdByUser' => $this->when($this->needToInclude($request, 'eml.createdByUser'), function () {
+            'createdByUser' => $this->when($this->needToInclude($request, 'rcf.user'), function () {
                 return new UserResource($this->createdByUser);
             }),
-            'propertyId' => $this->propertyId,
-            'equipmentId' => $this->equipmentId,
-            'equipment' => $this->when($this->needToInclude($request, 'eml.equipment'), function () {
-                return new EquipmentResource($this->equipment);
+            'residentId' => $this->residentId,
+            'resident' => $this->when($this->needToInclude($request, 'rcf.resident'), function () {
+                return new ResidentResource($this->resident);
             }),
-            'note' => $this->note,
-            'nextMaintenanceDate' => $this->nextMaintenanceDate,
+            'fieldName' => $this->fieldName,
+            'fieldValue' => $this->fieldValue,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,

@@ -15,6 +15,9 @@ class ServiceRequestResource extends Resource
         return [
             'id' => $this->id,
             'propertyId' => $this->propertyId,
+            'property' => $this->when($this->needToInclude($request, 'sr.property'), function () {
+                return new UserResource($this->property);
+            }),
             'createdByUserId' => $this->createdByUserId,
             'userId' => $this->userId,
             'user' => $this->when($this->needToInclude($request, 'sr.user'), function () {

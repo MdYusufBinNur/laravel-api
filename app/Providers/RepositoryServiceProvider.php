@@ -38,6 +38,7 @@ use App\DbModels\PaymentInstallment;
 use App\DbModels\PaymentInstallmentItem;
 use App\DbModels\PaymentItemPartial;
 use App\DbModels\ResidentCustomField;
+use App\DbModels\ResidentDocument;
 use App\DbModels\StaffTimeClockDevice;
 use App\DbModels\TimeClockDevice;
 use App\DbModels\Message;
@@ -150,6 +151,7 @@ use App\Repositories\Contracts\PaymentInstallmentItemRepository;
 use App\Repositories\Contracts\PaymentInstallmentRepository;
 use App\Repositories\Contracts\PaymentItemPartialRepository;
 use App\Repositories\Contracts\ResidentCustomFieldRepository;
+use App\Repositories\Contracts\ResidentDocumentRepository;
 use App\Repositories\Contracts\StaffTimeClockDeviceRepository;
 use App\Repositories\Contracts\TimeClockDeviceRepository;
 use App\Repositories\Contracts\MangerInvitationRepository;
@@ -255,6 +257,7 @@ use App\Repositories\EloquentPaymentInstallmentItemRepository;
 use App\Repositories\EloquentPaymentInstallmentRepository;
 use App\Repositories\EloquentPaymentItemPartialRepository;
 use App\Repositories\EloquentResidentCustomFieldRepository;
+use App\Repositories\EloquentResidentDocumentRepository;
 use App\Repositories\EloquentStaffTimeClockDeviceRepository;
 use App\Repositories\EloquentTimeClockDeviceRepository;
 use App\Repositories\EloquentMangerInvitationRepository;
@@ -925,6 +928,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind ResidentCustomFieldRepository
         $this->app->bind(ResidentCustomFieldRepository::class, function() {
             return new EloquentResidentCustomFieldRepository(new ResidentCustomField());
+        });
+
+        // bind ResidentDocumentRepository
+        $this->app->bind(ResidentDocumentRepository::class, function() {
+            return new EloquentResidentDocumentRepository(new ResidentDocument());
         });
     }
 }

@@ -5,6 +5,7 @@ namespace App\Listeners\ServiceRequest;
 use App\DbModels\ServiceRequestLog;
 use App\Events\ServiceRequest\ServiceRequestUpdatedEvent;
 use App\Listeners\CommonListenerFeatures;
+use App\Mail\ServiceRequest\ServiceRequestAssignToStaff;
 use App\Mail\ServiceRequest\ServiceRequestCreated;
 use App\Mail\ServiceRequest\ServiceRequestStatusUpdated;
 use App\Repositories\Contracts\ServiceRequestLogRepository;
@@ -31,6 +32,8 @@ class HandleServiceRequestUpdatedEvent implements ShouldQueue
 
         $unit = $serviceRequest->unit;
         $residents = $unit->residents;
+
+        $serviceRequestCreatedUser = $oldServiceRequest->user;
 
         $statusUpdatedByUser = $eventOptions['loggedInUser'];
 
@@ -74,6 +77,10 @@ class HandleServiceRequestUpdatedEvent implements ShouldQueue
                 'userId' => $serviceRequest->userId,
                 'type' => ServiceRequestLog::TYPE_ASSIGNMENT,
             ]);
+
+            $assignedUser =  $serviceRequest->user;
+
+            Mail::to($assignedUser->email)->send(new ServiceRequestAssignToStaff($serviceRequest, $statusUpdatedByUser, $assignedUser, $serviceRequestCreatedUser));
 
             SmsHelper::sendServiceRequestAssignedNotification($serviceRequest);
 

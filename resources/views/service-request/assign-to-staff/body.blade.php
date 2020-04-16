@@ -7,8 +7,8 @@
             <tr>
                 <td class="content-cell">
                     <div class="f-fallback">
-                        <h1>Thank You!</h1>
-                        <p>Thanks for creating the service request! You'll soon find out about your service request status.</p>
+                        <h1>Hey {{ $assignedUser->name }},</h1>
+                        <p>You’ve been assigned to a service request by <strong>{{$assignByUser->name }} </strong>. You can check the service request by clicking on the link bellow</p>
                         <!-- Action -->
                         <table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff" style="border-collapse: collapse; margin-top: 10px" class="">
                             <tbody>
@@ -29,7 +29,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td align="left" class="contribution-table-label" style="border-collapse: collapse;  font-size: 14px; padding: 7px 0 0; width: 190px">Service Created By :</td>
-                                                            <td align="left" class="contribution-table-value" style="border-collapse: collapse; font-size: 14px; font-weight: bold; padding: 7px 0 0; white-space: pre">{{ $user->name }}</td>
+                                                            <td align="left" class="contribution-table-value" style="border-collapse: collapse; font-size: 14px; font-weight: bold; padding: 7px 0 0; white-space: pre">{{ $serviceRequestCreatedUser->name }}</td>
                                                         </tr>
                                                         <tr>
                                                             <td align="left" class="contribution-table-label" style="border-collapse: collapse;  font-size: 14px; padding: 7px 0 0; width: 190px">Unit :</td>
@@ -68,7 +68,7 @@
                                                                     <tbody>
                                                                     <tr>
                                                                         <td align="center">
-                                                                            <a href="{{$serviceRequestItemPage}}" class="f-fallback button button--brand" target="_blank">Details Request</a>
+                                                                            <a href="{{$serviceRequestItemPage}}" class="f-fallback button button--brand" target="_blank">Request Details</a>
                                                                         </td>
                                                                     </tr>
                                                                     </tbody>
@@ -77,16 +77,16 @@
                                                         </tr>
                                                         </tbody>
                                                     </table>
-                                                    <hr style="align: left; border-top-color: #DDDDDD; border-top-style: solid; border-width: 1px 0 0; color: #eeeeee; display: block; height: 1px; margin: 20px 0 10px; padding: 0">
-                                                    <div style="color: #6a6a6a; font-size: 12px; text-align: left" align="left">
-                                                        <div>Questions about request ? Contact the request creator,
-                                                            <a href="https://www.indiegogo.com/individuals/14187804/a2b0?utm_campaign=contribution_receipt&amp;utm_content=receipt-campaign_owner&amp;utm_medium=email&amp;utm_source=lifecycle" style="color: #004d46; text-decoration: none">Abdullah</a>.
-                                                        </div>
-                                                        <div style="margin-top: 10px">If you have any questions about this service Request, simply reply to this email or reach out to our  team for help.
-                                                            <a href="https://www.indiegogo.com/contact/questions?i=a2b0&amp;utm_campaign=contribution_receipt&amp;utm_content=receipt-contact&amp;utm_medium=email&amp;utm_source=lifecycle" style="color: #004d46; text-decoration: none">Customer helpline</a>
-                                                            team.
-                                                        </div>
-                                                    </div>
+{{--                                                    <hr style="align: left; border-top-color: #DDDDDD; border-top-style: solid; border-width: 1px 0 0; color: #eeeeee; display: block; height: 1px; margin: 20px 0 10px; padding: 0">--}}
+{{--                                                    <div style="color: #6a6a6a; font-size: 12px; text-align: left" align="left">--}}
+{{--                                                        <div>Questions about request ? Contact the request creator,--}}
+{{--                                                            <a href="https://www.indiegogo.com/individuals/14187804/a2b0?utm_campaign=contribution_receipt&amp;utm_content=receipt-campaign_owner&amp;utm_medium=email&amp;utm_source=lifecycle" style="color: #004d46; text-decoration: none">Abdullah</a>.--}}
+{{--                                                        </div>--}}
+{{--                                                        <div style="margin-top: 10px">If you have any questions about this service Request, simply reply to this email or reach out to our  team for help.--}}
+{{--                                                            <a href="https://www.indiegogo.com/contact/questions?i=a2b0&amp;utm_campaign=contribution_receipt&amp;utm_content=receipt-contact&amp;utm_medium=email&amp;utm_source=lifecycle" style="color: #004d46; text-decoration: none">Customer helpline</a>--}}
+{{--                                                            team.--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
                                                 </div>
                                             </td>
                                         </tr>

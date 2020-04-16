@@ -2,20 +2,10 @@
 
 namespace App\Http\Requests\ResidentDocument;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Request;
 
-class UpdateRequest extends FormRequest
+class UpdateRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +14,10 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'residentId' => 'exists:residents,id',
+            'attachmentId' => '',
+            'type' => '',
+            'title' => '',
         ];
     }
 }

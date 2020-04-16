@@ -14,8 +14,24 @@ class CreateResidentDocumentsTable extends Migration
     public function up()
     {
         Schema::create('resident_documents', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->unsignedInteger('createdByUserId')->nullable();
+            $table->integer('residentId')->unsigned();
+            $table->integer('attachmentId')->unsigned();
+            $table->string('type')->nullable();
+            $table->string('title')->nullable();
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('createdByUserId')
+                ->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('residentId')
+                ->references('id')->on('residents')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

@@ -82,6 +82,16 @@ class ServiceRequest extends Model
     }
 
     /**
+     * property of the service request
+     *
+     * @return HasOne
+     */
+    public function property()
+    {
+        return $this->hasOne(Property::class, 'id', 'propertyId');
+    }
+
+    /**
      * unit of the service request
      *
      * @return HasOne

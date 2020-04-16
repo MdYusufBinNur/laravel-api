@@ -1,7 +1,7 @@
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="x-apple-disable-message-reformatting">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title></title>
     <style type="text/css" rel="stylesheet" media="all">
         /* Base ------------------------------ */
@@ -380,6 +380,13 @@
             .email-body_inner,
             .email-footer {
                 width: 100% !important;
+            }
+            .contribution-table-label{
+                display: block;
+                width: 100% !important;
+            }
+            .label{
+                display: block;
             }
         }
 

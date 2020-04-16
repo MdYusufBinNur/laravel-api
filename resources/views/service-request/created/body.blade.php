@@ -24,37 +24,37 @@
                                                     <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse; position: relative">
                                                         <tbody>
                                                         <tr>
-                                                            <td align="left" class="contribution-table-label" style="border-collapse: collapse;  font-size: 14px; padding: 7px 0 0; width: 190px">Requesting service for:</td>
-                                                            <td align="left" class="contribution-table-value" style="border-collapse: collapse; font-size: 14px; font-weight: bold;  padding: 7px 0 0; white-space: pre">{{ $category->title }}</td>
+                                                            <td class="attributes_item">
+                                                                <strong style="padding-right: 5px;">Requesting service for:</strong>
+                                                                <span class="label">{{ $category->title }}</span>
+                                                            </td>
                                                         </tr>
                                                         <tr>
-                                                            <td align="left" class="contribution-table-label" style="border-collapse: collapse;  font-size: 14px; padding: 7px 0 0; width: 190px">Service Created By :</td>
-                                                            <td align="left" class="contribution-table-value" style="border-collapse: collapse; font-size: 14px; font-weight: bold; padding: 7px 0 0; white-space: pre">{{ $user->name }}</td>
+                                                            <td class="attributes_item">
+                                                                <strong style="padding-right: 5px;">Service Created By :</strong>
+                                                                <span class="label">{{ $user->name }}</span>
+                                                            </td>
                                                         </tr>
                                                         <tr>
-                                                            <td align="left" class="contribution-table-label" style="border-collapse: collapse;  font-size: 14px; padding: 7px 0 0; width: 190px">Unit :</td>
-                                                            <td align="left" class="contribution-table-value" style="border-collapse: collapse; font-size: 14px; font-weight: bold; padding: 7px 0 0; white-space: pre">{{ $unit->title }}</td>
+                                                            <td class="attributes_item">
+                                                                <strong style="padding-right: 5px;">Unit :</strong>
+                                                                <span class="label">{{  $unit->title }}</span>
+                                                            </td>
                                                         </tr>
                                                         <tr>
-                                                            <td align="left" class="contribution-table-label" style="border-collapse: collapse;  font-size: 14px; padding: 7px 0 0; width: 190px">Estimated Delivery:</td>
-                                                            <td align="left" class="contribution-table-value" style="border-collapse: collapse; font-size: 14px; font-weight: bold; padding: 7px 0 0; white-space: pre">{{ $serviceRequest->preferredEndTime }}</td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td align="left" class="contribution-table-label" style="border-collapse: collapse;  font-size: 14px; padding: 7px 0 0; width: 190px">Problem Description :</td>
-                                                            <td>
-                                                                <table width="300" cellpadding="0" cellspacing="0" role="presentation">
-                                                                    <tbody>
-                                                                    <tr>
-                                                                        <td align="justify" style="font-size: 14px; font-weight: bold; padding: 7px 0 0">
-                                                                            {{ $serviceRequest->description }}
-                                                                        </td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                                </table>
+                                                            <td class="attributes_item">
+                                                                <strong style="padding-right: 5px;">Estimated Delivery:</strong>
+                                                                <span class="label">{{  $serviceRequest->preferredEndTime  }}</span>
                                                             </td>
                                                         </tr>
 
+                                                        <tr>
+                                                            <td>
+                                                                <h1 style="margin-top: 10px;">Problem Description:</h1>
+                                                                <hr style="align: left; border-top-color: #DDDDDD; border-top-style: solid; border-width: 1px 0 0; display: block; height: 1px; margin: 5px 0 10px; padding: 0">
+                                                                <p>{{ $serviceRequest->description }}</p>
+                                                            </td>
+                                                        </tr>
 
                                                         </tbody>
                                                     </table>

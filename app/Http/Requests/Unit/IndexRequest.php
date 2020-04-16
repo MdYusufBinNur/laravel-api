@@ -21,6 +21,7 @@ class IndexRequest extends Request
             'title'        => 'string',
             'floor'        => 'list:string',
             'line'         => 'list:string',
+            'withOutPagination' => 'boolean'
         ];
     }
 

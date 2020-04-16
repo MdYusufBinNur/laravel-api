@@ -55,9 +55,11 @@ class ServiceRequestAssignToStaff extends Mailable
         $unit = $this->serviceRequest->unit;
         $category = $this->serviceRequest->serviceRequestCategory;
         $property = $this->serviceRequest->property;
-        $subDomain = $property->subdomain. '.' . env('BRAND_SITE');
+        $property = $this->serviceRequest->property;
+
+        $serviceRequestItemPage = $property->getPropertyLink() . env('RESIDENT_PORTAL_SERVICE_REQUEST_URL_PREFIX') . '/' . $this->serviceRequest->id;
 
         return $this->subject('A service request Assigned To You')->view('service-request.assign-to-staff.index')
-            ->with(['subDomain' => $subDomain, 'serviceRequest' => $this->serviceRequest, 'serviceRequestCreatedUser' => $this->serviceRequestCreatedUser, 'assignedUser' => $this->assignedUser, 'assignByUser' => $this->assignByUser, 'unit' => $unit, 'category' => $category,  'property' => $property]);
+            ->with(['serviceRequestItemPage' => $serviceRequestItemPage, 'serviceRequest' => $this->serviceRequest, 'serviceRequestCreatedUser' => $this->serviceRequestCreatedUser, 'assignedUser' => $this->assignedUser, 'assignByUser' => $this->assignByUser, 'unit' => $unit, 'category' => $category,  'property' => $property]);
     }
 }

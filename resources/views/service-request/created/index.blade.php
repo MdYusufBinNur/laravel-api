@@ -4,5 +4,5 @@
 @endsection
 
 @section('content')
-    @include('service-request.created.body', ['serviceRequest' => $serviceRequest, 'user' => $user, 'unit' => $unit, 'category' => $category, 'property' => $property])
+    @include('service-request.created.body', ['serviceRequestItemPage' => $serviceRequestItemPage, 'serviceRequest' => $serviceRequest, 'user' => $user, 'unit' => $unit, 'category' => $category, 'property' => $property])
 @endsection

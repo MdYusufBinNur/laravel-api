@@ -68,7 +68,7 @@
                                                                     <tbody>
                                                                     <tr>
                                                                         <td align="center">
-                                                                            <a href="{{$subDomain . '/operations/service-request/' . $serviceRequest->id}}" class="f-fallback button button--brand" target="_blank">Details Request</a>
+                                                                            <a href="{{$serviceRequestItemPage}}" class="f-fallback button button--brand" target="_blank">Details Request</a>
                                                                         </td>
                                                                     </tr>
                                                                     </tbody>

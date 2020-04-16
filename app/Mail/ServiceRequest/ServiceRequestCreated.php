@@ -41,8 +41,10 @@ class ServiceRequestCreated extends Mailable
         $user = $this->serviceRequest->user;
         $category = $this->serviceRequest->serviceRequestCategory;
         $property = $this->serviceRequest->property;
-        $subDomain = $property->subdomain. '.' . env('BRAND_SITE');
+
+        $serviceRequestItemPage = $property->getPropertyLink() . env('RESIDENT_PORTAL_SERVICE_REQUEST_URL_PREFIX') . '/' . $this->serviceRequest->id;
+
         return $this->subject('A service request made for your unit')->view('service-request.created.index')
-            ->with(['subDomain' => $subDomain,'serviceRequest' => $this->serviceRequest, 'user' => $user, 'unit' => $this->unit, 'category' => $category,  'property' => $property]);
+            ->with(['serviceRequestItemPage' => $serviceRequestItemPage,'serviceRequest' => $this->serviceRequest, 'user' => $user, 'unit' => $this->unit, 'category' => $category,  'property' => $property]);
     }
 }

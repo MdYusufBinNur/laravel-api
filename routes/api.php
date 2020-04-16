@@ -79,6 +79,7 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('resident-emergency', 'ResidentEmergencyController');
         Route::apiResource('resident-vehicle', 'ResidentVehicleController');
         Route::apiResource('resident-custom-field', 'ResidentCustomFieldController');
+        Route::apiResource('resident-document', 'ResidentDocumentController');
 
 
         /**

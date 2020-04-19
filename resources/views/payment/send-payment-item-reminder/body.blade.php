@@ -59,7 +59,7 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <h3>{{$payment->id}}</h3>
+                                    <h3>#{{$payment->id}}</h3>
                                 </td>
                                 <td>
                                     <h3 class="align-right">{{$reminder->created_at->toDayDateTimeString()}}</h3>

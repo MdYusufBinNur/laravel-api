@@ -4,6 +4,7 @@ namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Resident extends Model
@@ -88,6 +89,16 @@ class Resident extends Model
     public function residentEmergency()
     {
         return $this->hasOne(ResidentEmergency::class, 'residentId', 'id');
+    }
+
+    /**
+     * get the resident-custom-fields
+     *
+     * @return HasMany
+     */
+    public function residentCustomFields()
+    {
+        return $this->hasMany(ResidentCustomField::class, 'residentId', 'id');
     }
 
     /**

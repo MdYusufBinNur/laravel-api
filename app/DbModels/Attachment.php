@@ -32,6 +32,7 @@ class Attachment extends Model
     const ATTACHMENT_TYPE_FEEDBACK = 'feedback';
     const ATTACHMENT_TYPE_STAFF_TIME_CLOCK_IN = 'staff-time-clock-in';
     const ATTACHMENT_TYPE_STAFF_TIME_CLOCK_OUT = 'staff-time-clock-out';
+    const ATTACHMENT_TYPE_RESIDENT_DOCUMENT = 'resident-document';
 
     /**
      * The database table used by the model.
@@ -150,6 +151,9 @@ class Attachment extends Model
                 break;
             case self::ATTACHMENT_TYPE_STAFF_TIME_CLOCK_OUT:
                 $directoryName = 'staff-time-clock-out';
+                break;
+            case self::ATTACHMENT_TYPE_RESIDENT_DOCUMENT:
+                $directoryName = 'resident-documents';
                 break;
         }
 

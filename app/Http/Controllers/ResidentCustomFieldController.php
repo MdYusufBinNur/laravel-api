@@ -9,6 +9,7 @@ use App\Http\Requests\ResidentCustomField\UpdateRequest;
 use App\Http\Resources\ResidentCustomFieldResource;
 use App\Http\Resources\ResidentCustomFieldResourceCollection;
 use App\Repositories\Contracts\ResidentCustomFieldRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class ResidentCustomFieldController extends Controller
 {
@@ -31,9 +32,12 @@ class ResidentCustomFieldController extends Controller
      *
      * @param IndexRequest $request
      * @return ResidentCustomFieldResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list', [ResidentCustomField::class, $request->get('residentId')]);
+
         $residentCustomFields = $this->residentCustomFieldRepository->findBy($request->all());
 
         return new ResidentCustomFieldResourceCollection($residentCustomFields);
@@ -44,9 +48,12 @@ class ResidentCustomFieldController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return ResidentCustomFieldResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('store', [ResidentCustomField::class, $request->get('residentId')]);
+
         $residentCustomField = $this->residentCustomFieldRepository->save($request->all());
 
         return new ResidentCustomFieldResource($residentCustomField);
@@ -57,9 +64,12 @@ class ResidentCustomFieldController extends Controller
      *
      * @param ResidentCustomField $residentCustomField
      * @return ResidentCustomFieldResource
+     * @throws AuthorizationException
      */
     public function show(ResidentCustomField $residentCustomField)
     {
+        $this->authorize('show', $residentCustomField);
+
         return new ResidentCustomFieldResource($residentCustomField);
 
     }
@@ -70,9 +80,12 @@ class ResidentCustomFieldController extends Controller
      * @param UpdateRequest $request
      * @param ResidentCustomField $residentCustomField
      * @return ResidentCustomFieldResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, ResidentCustomField $residentCustomField)
     {
+        $this->authorize('update', $residentCustomField);
+
         $residentCustomField = $this->residentCustomFieldRepository->update($residentCustomField, $request->all());
 
         return new ResidentCustomFieldResource($residentCustomField);

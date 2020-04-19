@@ -38,6 +38,8 @@ use App\DbModels\ManagerProperty;
 use App\DbModels\PaymentInstallment;
 use App\DbModels\PaymentInstallmentItem;
 use App\DbModels\PaymentItemPartial;
+use App\DbModels\ResidentCustomField;
+use App\DbModels\ResidentDocument;
 use App\DbModels\StaffTimeClockDevice;
 use App\DbModels\TimeClockDevice;
 use App\DbModels\Message;
@@ -148,6 +150,8 @@ use App\Policies\ManagerPropertyPolicy;
 use App\Policies\PaymentInstallmentItemPolicy;
 use App\Policies\PaymentInstallmentPolicy;
 use App\Policies\PaymentItemPartialPolicy;
+use App\Policies\ResidentCustomFieldPolicy;
+use App\Policies\ResidentDocumentPolicy;
 use App\Policies\StaffTimeClockDevicePolicy;
 use App\Policies\TimeClockDevicePolicy;
 use App\Policies\MessagePolicy;
@@ -320,6 +324,8 @@ class AuthServiceProvider extends ServiceProvider
         ResidentEmergency::class => ResidentEmergencyPolicy::class,
         Resident::class => ResidentPolicy::class,
         ResidentVehicle::class => ResidentVehiclePolicy::class,
+        ResidentCustomField::class => ResidentCustomFieldPolicy::class,
+        ResidentDocument::class => ResidentDocumentPolicy::class,
         Role::class => RolePolicy::class,
         ServiceRequestCategory::class => ServiceRequestCategoryPolicy::class,
         ServiceRequestLog::class => ServiceRequestLogPolicy::class,

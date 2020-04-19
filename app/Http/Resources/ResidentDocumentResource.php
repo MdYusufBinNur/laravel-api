@@ -23,7 +23,9 @@ class ResidentDocumentResource extends Resource
             'resident' => $this->when($this->needToInclude($request, 'rd.resident'), function () {
                 return new ResidentResource($this->resident);
             }),
-            'attachmentId' => $this->attachmentId,
+            'attachments' => $this->when($this->needToInclude($request, 'rd.attachments'), function () {
+                return new AttachmentResourceCollection($this->attachments);
+            }),
             'type' => $this->type,
             'title' => $this->title,
             'created_at' => $this->created_at,

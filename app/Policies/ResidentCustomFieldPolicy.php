@@ -3,12 +3,12 @@
 namespace App\Policies;
 
 use App\DbModels\Resident;
-use App\DbModels\ResidentDocument;
+use App\DbModels\ResidentCustomField;
 use App\DbModels\User;
 use App\Repositories\Contracts\ResidentRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ResidentDocumentPolicy
+class ResidentCustomFieldPolicy
 {
     use HandlesAuthorization;
 
@@ -88,12 +88,12 @@ class ResidentDocumentPolicy
      * Determine if a given user has permission to show
      *
      * @param User $currentUser
-     * @param ResidentDocument $residentDocument
+     * @param ResidentCustomField $residentCustomField
      * @return bool
      */
-    public function show(User $currentUser,  ResidentDocument $residentDocument)
+    public function show(User $currentUser, ResidentCustomField $residentCustomField)
     {
-        $resident= $residentDocument->resident;
+        $resident= $residentCustomField->resident;
         $propertyId = $resident->propertyId;
 
         if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
@@ -107,18 +107,18 @@ class ResidentDocumentPolicy
      * Determine if a given user can update
      *
      * @param User $currentUser
-     * @param ResidentDocument $residentDocument
+     * @param ResidentCustomField $residentCustomField
      * @return bool
      */
-    public function update(User $currentUser, ResidentDocument $residentDocument)
+    public function update(User $currentUser, ResidentCustomField $residentCustomField)
     {
-        $resident= $residentDocument->resident;
+        $resident= $residentCustomField->resident;
         $propertyId = $resident->propertyId;
 
         if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
-        
+
         return false;
 
         //return $currentUser->id === $resident->userId;
@@ -128,12 +128,12 @@ class ResidentDocumentPolicy
      * Determine if a given user can delete
      *
      * @param User $currentUser
-     * @param ResidentDocument $residentDocument
+     * @param ResidentCustomField $residentCustomField
      * @return bool
      */
-    public function destroy(User $currentUser, ResidentDocument $residentDocument)
+    public function destroy(User $currentUser, ResidentCustomField $residentCustomField)
     {
-        $resident= $residentDocument->resident;
+        $resident= $residentCustomField->resident;
         $propertyId = $resident->propertyId;
 
         if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {

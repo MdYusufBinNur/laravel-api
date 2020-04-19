@@ -102,6 +102,16 @@ class Resident extends Model
     }
 
     /**
+     * get the resident-custom-fields
+     *
+     * @return HasMany
+     */
+    public function residentDocuments()
+    {
+        return $this->hasMany(ResidentDocument::class, 'residentId', 'id');
+    }
+
+    /**
      * is a tenant type resident
      *
      * @return bool

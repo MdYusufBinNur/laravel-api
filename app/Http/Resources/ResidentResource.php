@@ -56,6 +56,9 @@ class ResidentResource extends Resource
             'residentCustomFields' => $this->when($this->needToInclude($request, 'resident.residentCustomFields'), function () {
                 return new ResidentCustomFieldResourceCollection($this->residentCustomFields);
             }),
+            'residentDocuments' => $this->when($this->needToInclude($request, 'resident.residentDocuments'), function () {
+                return new ResidentDocumentResourceCollection($this->residentDocuments);
+            }),
             'label' => $this->residentLabel
         ];
     }

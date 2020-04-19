@@ -17,7 +17,6 @@ class CreateResidentDocumentsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('createdByUserId')->nullable();
             $table->integer('residentId')->unsigned();
-            $table->integer('attachmentId')->unsigned();
             $table->string('type')->nullable();
             $table->string('title')->nullable();
             $table->timestamps();

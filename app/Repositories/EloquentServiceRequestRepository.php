@@ -35,7 +35,7 @@ class EloquentServiceRequestRepository extends EloquentBaseRepository implements
                 }
             }
 
-            unset($data['attachmentId']);
+            unset($data['attachmentIds']);
         }
 
         DB::commit();

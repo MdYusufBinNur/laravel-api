@@ -7,8 +7,8 @@
                 <td class="content-cell">
                     <div class="f-fallback">
 
-                        <h1>Hi {{ $user->name }},</h1>
-                        <p>Thanks for using SmartProperty. This is invoice is generated for using our service .</p>
+                        <h1>Greetings {{ $contactName }},</h1>
+                        <p>Thanks for using SmartProperty. This is an invoice for your using {{ $paymentType->title }}.</p>
                         <table class="attributes" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                             <tbody>
                             <tr>
@@ -18,14 +18,7 @@
                                         <tr>
                                             <td class="attributes_item">
                                                 <span class="f-fallback">
-                                                  <strong>Amount Due:</strong>  {{$payment->amount}}
-                                                </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="attributes_item">
-                                                <span class="f-fallback">
-                                                  <strong>Due Date:</strong> {{$payment->dueDate->toDayDateTimeString()}}
+                                                  <strong>Amount Due:</strong>  BDT {{$payment->amount}}
                                                 </span>
                                             </td>
                                         </tr>
@@ -35,16 +28,12 @@
                             </tr>
                             </tbody>
                         </table>
-                        <!-- Action -->
-                        <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
-                            <tbody>
-                            <tr>
+
+                        <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="margin-bottom: 0px;">
+                            <tbody><tr>
                                 <td align="center">
-                                    <!-- Border based button
-                                    https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
-                                        <tbody>
-                                        <tr>
+                                        <tbody><tr>
                                             <td align="center">
                                                 <a href="{{$paymentDetailsPage}}" class="f-fallback button button--brand" target="_blank">Pay Invoice</a>
                                             </td>
@@ -55,23 +44,47 @@
                             </tr>
                             </tbody>
                         </table>
+
                         <table class="purchase" width="100%" cellpadding="0" cellspacing="0">
                             <tbody>
                             <tr>
                                 <td>
-                                    <h3>#{{$payment->id}}</h3>
+                                    <h3>#{{$paymentItem->id}}</h3>
                                 </td>
                                 <td>
-                                    <h3 class="align-right">{{$reminder->created_at->toDayDateTimeString()}}</h3>
+                                    <h3 class="align-right">{{$paymentItem->created_at->toFormattedDateString()}}</h3>
                                 </td>
                             </tr>
                             <tr>
+                                <td width="30%" class=""><span class="f-fallback"> <strong>Pay For</strong> </span></td>
+                                <td class="align-left" width="70%"><span class="f-fallback">{{  $paymentType->title }}</span></td>
+                            </tr>
+                            @isset($payment->note)
+                                <tr>
+                                    <td width="30%" class=""><span class="f-fallback">  <strong> Note </strong></span></td>
+                                    <td class="align-left" width="70%"><span class="f-fallback">{{ $payment->note }}</span></td>
+                                </tr>
+                            @endisset
+                            @isset($payment->billingInfo)
+                                <tr>
+                                    <td width="30%" class=""><span class="f-fallback"> BillingInfo </span></td>
+                                    <td class="align-left" width="70%"><span class="f-fallback">{{ $payment->billingInfo }}</span></td>
+                                </tr>
+                            @endisset
+                            <tr>
+                                <td width="30%" class=""><span class="f-fallback"> Status </span></td>
+                                <td class="align-left" width="70%"><span class="f-fallback">{{ $paymentItem->status }}</span></td>
+                            </tr>
+                            <tr>
+                                <td width="30%" class=""><span class="f-fallback"><Strong> Due Date </Strong></span></td>
+                                <td class="align-left" width="70%"><span class="f-fallback">{{ $payment->dueDate->toFormattedDateString() }}</span></td>
+                            </tr>
+                            <tr>
+                                <td width="30%" class=""><span class="f-fallback"><strong> Due Days</Strong> </span></td>
+                                <td class="align-left" width="70%"><span class="f-fallback">{{ $payment->dueDays }}</span></td>
+                            </tr>
+                            <tr>
                                 <td colspan="2">
-
-{{--                                    {{#each invoice_details}}--}}
-
-{{--                                    {{/each}}--}}
-                                    Details
                                     <table class="purchase_content" width="100%" cellpadding="0" cellspacing="0">
                                         <tbody>
                                         <tr>
@@ -79,7 +92,6 @@
                                                 <p class="f-fallback">Description</p>
                                             </th>
                                             <th class="purchase_heading" align="right">
-                                                <p class="f-fallback">Amount</p>
                                             </th>
                                         </tr>
                                         <tr>
@@ -101,15 +113,12 @@
                             </tbody>
                         </table>
                         <p>If you have any questions about this invoice, simply reply to this email or reach out to our <a href="{{'support_url'}}">support team</a> for help.</p>
-                        <p>Cheers,
-                            <br>The SmartProperty Team</p>
-                        <!-- Sub copy -->
+                        <p>Sincerely,<br>The SmartProperty Team</p>
                         <table class="body-sub" role="presentation">
-                            <tbody>
-                            <tr>
+                            <tbody><tr>
                                 <td>
                                     <p class="f-fallback sub">If you’re having trouble with the button above, copy and paste the URL below into your web browser.</p>
-                                    <p class="f-fallback sub">{{$paymentDetailsPage}}</p>
+                                    <p class="f-fallback sub">{{'actionUrl'}}</p>
                                 </td>
                             </tr>
                             </tbody>
@@ -121,3 +130,9 @@
         </table>
     </td>
 </tr>
+
+
+
+
+
+

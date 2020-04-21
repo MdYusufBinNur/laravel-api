@@ -4,5 +4,5 @@
 @endsection
 
 @section('content')
-    @include('payment.send-invoice.body', ['contactName'=> $contactName, 'property' => $property, 'payment' => $payment, 'paymentItem' => $paymentItem])
+    @include('payment.send-invoice.body', ['contactName'=> $contactName, 'property' => $property,   'paymentDetailsPage' => $paymentDetailsPage, 'paymentType' => $paymentType, 'payment' => $payment, 'paymentItem' => $paymentItem])
 @endsection

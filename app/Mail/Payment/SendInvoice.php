@@ -44,8 +44,10 @@ class SendInvoice extends Mailable
 
         $paymentItem = $this->paymentItem;
         $payment = $paymentItem->payment;
+        $paymentType = $payment->paymentType;
 
-        $subject = "Invoice - " . $payment->paymentType->title;
+        $subject = "Invoice - " . $paymentType->title;
+        $paymentDetailsPage = $payment->property->getPropertyLink() . env('RESIDENT_PORTAL_PAYMENT_CENTER_URL_PREFIX') . '/payment/' . $payment->id;
 
         return $this->subject($subject)->view('payment.send-invoice.index')
             ->with([
@@ -53,6 +55,8 @@ class SendInvoice extends Mailable
                 'property' => $paymentItem->property,
                 'paymentItem' => $paymentItem,
                 'payment' => $payment,
+                'paymentType' => $paymentType,
+                'paymentDetailsPage' => $paymentDetailsPage
             ]);
     }
 }

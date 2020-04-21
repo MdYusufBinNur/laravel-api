@@ -7,7 +7,7 @@
                 <td class="content-cell">
                     <div class="f-fallback">
 
-                        <h1>Greetings {{ $contactName }},</h1>
+                        <h1>Greetings {{ $user->name }},</h1>
                         <p>Thanks for using SmartProperty. This is an invoice for your using {{ $paymentType->title }}.</p>
                         <table class="attributes" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                             <tbody>
@@ -49,10 +49,10 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <h3>#{{$paymentItem->id}}</h3>
+                                    <h3>#{{$details->id}}</h3>
                                 </td>
                                 <td>
-                                    <h3 class="align-right">{{$paymentItem->created_at->toFormattedDateString()}}</h3>
+                                    <h3 class="align-right">{{$details->created_at->toFormattedDateString()}}</h3>
                                 </td>
                             </tr>
                             <tr>
@@ -72,8 +72,8 @@
                                 </tr>
                             @endisset
                             <tr>
-                                <td width="30%" class=""><span class="f-fallback"> Status </span></td>
-                                <td class="align-left" width="70%"><span class="f-fallback">{{ $paymentItem->status }}</span></td>
+                                <td width="30%" class=""><span class="f-fallback"> <Strong> Status </Strong> </span></td>
+                                <td class="align-left" width="70%"><span class="f-fallback">{{ $details->status }}</span></td>
                             </tr>
                             <tr>
                                 <td width="30%" class=""><span class="f-fallback"><Strong> Due Date </Strong></span></td>
@@ -118,7 +118,7 @@
                             <tbody><tr>
                                 <td>
                                     <p class="f-fallback sub">If you’re having trouble with the button above, copy and paste the URL below into your web browser.</p>
-                                    <p class="f-fallback sub">{{'actionUrl'}}</p>
+                                    <p class="f-fallback sub">{{$paymentDetailsPage}}</p>
                                 </td>
                             </tr>
                             </tbody>

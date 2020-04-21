@@ -4,5 +4,5 @@
 @endsection
 
 @section('content')
-    @include('payment.status-change-notification.body', ['contactName' => $contactName, 'property' => $property, 'payment' => $payment, 'paymentItem' => $paymentItem])
+    @include('payment.status-change-notification.body', ['contactName' => $contactName, 'property' => $property, 'payment' => $payment,  'paymentType' => $paymentType, 'paymentItem' => $paymentItem])
 @endsection

@@ -150,7 +150,7 @@ return [
             ],
         ],
 
-        'local' => [
+        'stage' => [
             'supervisor-1' => [
                 'connection' => 'redis',
                 'queue' => ['default'],

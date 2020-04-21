@@ -22,20 +22,6 @@
                                                 </span>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td class="attributes_item">
-                                                <span class="f-fallback">
-                                                  <strong>Type </strong>  {{$payment->paymentType->title}}
-                                                </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="attributes_item">
-                                                <span class="f-fallback">
-                                                  <strong>Method </strong>  {{$payment->method}}
-                                                </span>
-                                            </td>
-                                        </tr>
                                         </tbody>
                                     </table>
                                 </td>

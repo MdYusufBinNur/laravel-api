@@ -44,6 +44,7 @@ class PaymentItemUpdated extends Mailable
 
         $paymentItem = $this->paymentItem;
         $payment = $paymentItem->payment;
+        $paymentType = $payment->paymentType;
 
         $subject = "Invoice - " . $payment->paymentType->title;
 
@@ -53,6 +54,7 @@ class PaymentItemUpdated extends Mailable
                 'property' => $paymentItem->property,
                 'paymentItem' => $paymentItem,
                 'payment' => $payment,
+                'paymentType' => $paymentType,
             ]);
     }
 }

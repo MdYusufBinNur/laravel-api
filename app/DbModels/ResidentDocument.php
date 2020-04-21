@@ -17,7 +17,7 @@ class ResidentDocument extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId', 'residentId', 'type', 'type', 'tittle'
+        'createdByUserId', 'residentId', 'type', 'type', 'title'
     ];
 
     /**

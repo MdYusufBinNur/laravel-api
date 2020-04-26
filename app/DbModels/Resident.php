@@ -82,13 +82,23 @@ class Resident extends Model
     }
 
     /**
-     * get the resident-emergency
+     * get the resident-emergencies
      *
-     * @return HasOne
+     * @return HasMany
      */
-    public function residentEmergency()
+    public function residentEmergencies()
     {
-        return $this->hasOne(ResidentEmergency::class, 'residentId', 'id');
+        return $this->hasMany(ResidentEmergency::class, 'residentId', 'id');
+    }
+
+    /**
+     * get the resident-vehicles
+     *
+     * @return HasMany
+     */
+    public function residentVehicles()
+    {
+        return $this->hasMany(ResidentVehicle::class, 'residentId', 'id');
     }
 
     /**

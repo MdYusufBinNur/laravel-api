@@ -50,8 +50,11 @@ class ResidentResource extends Resource
             'user' => $this->when($this->needToInclude($request, 'resident.user'), function () {
                 return new UserResource($this->user);
             }),
-            'residentEmergency' => $this->when($this->needToInclude($request, 'resident.residentEmergency'), function () {
-                return new ResidentEmergencyResource($this->residentEmergency);
+            'residentEmergencies' => $this->when($this->needToInclude($request, 'resident.residentEmergencies'), function () {
+                return new ResidentEmergencyResourceCollection($this->residentEmergencies);
+            }),
+            'residentVehicles' => $this->when($this->needToInclude($request, 'resident.residentVehicles'), function () {
+                return new ResidentVehicleResourceCollection($this->residentVehicles);
             }),
             'residentCustomFields' => $this->when($this->needToInclude($request, 'resident.residentCustomFields'), function () {
                 return new ResidentCustomFieldResourceCollection($this->residentCustomFields);

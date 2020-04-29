@@ -27,6 +27,7 @@ class IndexRequest extends Request
             'signature' => 'boolean',
             'permanent' => 'boolean',
             'status' => 'list:string',
+            'withOutPagination' => 'boolean',
         ];
     }
 }

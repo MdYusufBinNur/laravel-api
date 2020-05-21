@@ -12,7 +12,6 @@ use App\DbModels\PaymentItem;
 use App\DbModels\Resident;
 use App\DbModels\ResidentAccessRequest;
 use App\DbModels\ServiceRequest;
-use App\DbModels\User;
 use App\DbModels\Visitor;
 use App\Repositories\Contracts\ModuleOptionPropertyRepository;
 use App\Repositories\Contracts\ModuleSettingPropertyRepository;
@@ -31,7 +30,12 @@ class SmsHelper
     public static function isSmsModuleEnable(int $propertyId)
     {
         if (!env('SMS_SERVICE')) {
-            return false;
+            //temporary enable for reformedtech office
+            if ($propertyId == 29) {
+
+            } else {
+                return false;
+            }
         }
 
         $propertyId = $propertyId ?? request()['propertyId'];

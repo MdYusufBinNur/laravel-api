@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\DbModels\Property;
 use Closure;
+use Illuminate\Support\Facades\Config;
 
 class ModifyHeader
 {
@@ -26,8 +27,16 @@ class ModifyHeader
 
         $propertyId = $request->headers->has('propertyId') ? $request->headers->get('propertyId') : $request->get('propertyId');
         if (!empty($propertyId)) {
+
+
             $request->merge(['propertyId' => $propertyId]);
             $property = Property::find($propertyId);
+
+            //temporary enable for reformedtech office
+            if ($property->subdomain == 'test') {
+                Config::set('mail.driver', 'mailgun');
+            }
+
             \View::share('property', $property);
         }
 

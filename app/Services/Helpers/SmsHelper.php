@@ -30,12 +30,7 @@ class SmsHelper
     public static function isSmsModuleEnable(int $propertyId)
     {
         if (!env('SMS_SERVICE')) {
-            //temporary enable for reformedtech office
-            if ($propertyId == 29) {
-
-            } else {
-                return false;
-            }
+            return false;
         }
 
         $propertyId = $propertyId ?? request()['propertyId'];

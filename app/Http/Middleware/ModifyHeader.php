@@ -28,11 +28,6 @@ class ModifyHeader
         $propertyId = $request->headers->has('propertyId') ? $request->headers->get('propertyId') : $request->get('propertyId');
         if (!empty($propertyId)) {
 
-            //temporary enable for reformedtech office
-            if ($propertyId == 29) {
-                Config::set('mail.driver', 'mailgun');
-            }
-
             $request->merge(['propertyId' => $propertyId]);
             $property = Property::find($propertyId);
 

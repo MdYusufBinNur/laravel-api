@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class InventoryCategory extends Model
 {
+    use CommonModelFeatures;
 
     /**
      * The attributes that are mass assignable.

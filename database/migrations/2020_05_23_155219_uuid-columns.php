@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use \Illuminate\Support\Facades\Schema;
+use \Illuminate\Support\Facades\DB;
 
 class UuidColumns extends Migration
 {
@@ -21,13 +22,13 @@ class UuidColumns extends Migration
 
             if (!stripos($tableName, 'tele') || !stripos($tableName, 'oauth')) {
 
-                if (Schema::hasColumn($tableName, 'id'))
-                {
+                if (Schema::hasColumn($tableName, 'id')) {
                     Schema::table($tableName, function($table) {
                         $table->uuid('uuid')->nullable()->unique('uuid_unique')->after('id');
                     });
-                }
 
+                    DB::statement("UPDATE " . $tableName . " SET uuid=id");
+                }
             }
         }
 

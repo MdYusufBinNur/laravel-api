@@ -46,7 +46,7 @@ class UuidColumns extends Migration
         {
             $tableName = array_values((array) $table)[0];
 
-            if (stripos($tableName, 'tele') !== false || stripos($tableName, 'oauth') !== false) {
+            if (stripos($tableName, 'tele') === false || stripos($tableName, 'oauth') === false) {
 
                 if (Schema::hasColumn($tableName, 'uuid')) {
                     Schema::table($tableName, function($table) {

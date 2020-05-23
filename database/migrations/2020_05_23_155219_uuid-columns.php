@@ -31,12 +31,6 @@ class UuidColumns extends Migration
                 }
             }
         }
-
-
-
-
-
-
     }
 
     /**
@@ -52,9 +46,9 @@ class UuidColumns extends Migration
         {
             $tableName = array_values((array) $table)[0];
 
-            if (!stripos($tableName, 'tele') || !stripos($tableName, 'oauth')) {
+            if (stripos($tableName, 'tele') !== false || stripos($tableName, 'oauth') !== false) {
 
-                if (Schema::hasColumn($tableName, 'id')) {
+                if (Schema::hasColumn($tableName, 'uuid')) {
                     Schema::table($tableName, function($table) {
                         $table->dropUnique('uuid_unique');
                         $table->dropColumn('uuid');

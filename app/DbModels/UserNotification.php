@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class UserNotification extends Model
 {
+    use CommonModelFeatures;
 
     /**
      * Table name

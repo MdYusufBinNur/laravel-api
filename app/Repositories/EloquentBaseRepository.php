@@ -50,6 +50,11 @@ class EloquentBaseRepository implements BaseRepository
      */
     public function findOne($id, $withTrashed = false): ?\ArrayAccess
     {
+        // find using uuid instead
+        if (!is_numeric($id)) {
+            return $this->findOneBy(['uuid' => $id]);
+        }
+
         $cacheKey = 'findOne:' . $id;
         if (($item = $this->getCacheByKey($cacheKey))) {
             return $item;
@@ -61,7 +66,9 @@ class EloquentBaseRepository implements BaseRepository
             $queryBuilder->withTrashed();
         }
 
-        $item = $queryBuilder->find($id);
+        if (is_numeric($id)) {
+            $item = $queryBuilder->find($id);
+        }
 
         $this->setCacheByKey($cacheKey, $item);
 

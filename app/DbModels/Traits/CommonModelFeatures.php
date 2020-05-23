@@ -5,11 +5,34 @@ namespace App\DbModels\Traits;
 use App\DbModels\User;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 trait CommonModelFeatures
 {
     //todo experiment model caching
-    use SoftDeletes/*, Cachable*/;
+    use SoftDeletes, Cachable;
+
+
+    //uuid
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->uuid = (string) Str::uuid();
+        });
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
+
+    public function getIdOrUuid()
+    {
+        return empty($this->uuid) ? $this->id : $this->uuid;
+    }
+    // end uuid
+
 
     /**
      * Get the user who created

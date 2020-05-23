@@ -115,7 +115,7 @@ class Property extends Model
             }
         }
 
-        return !empty($url) ? $url : 'https://smartproperty.xyz/img/pms/Smart%20Property%20Logo.png';
+        return !empty($url) ? $url : 'https://smartproperty.xyz/img/Logo.png';
     }
 
     /**

@@ -16,7 +16,7 @@ class ParkingSpaceResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'propertyId' => $this->propertyId,
             'parkingNumber' => $this->parkingNumber,
             'ownerUserId' => $this->ownerUserId,

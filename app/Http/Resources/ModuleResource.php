@@ -13,7 +13,7 @@ class ModuleResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'key' => $this->key,
             'title' => $this->title,
             'moduleOptions' => $this->when($this->needToInclude($request, 'module.moduleOptions'), function () {

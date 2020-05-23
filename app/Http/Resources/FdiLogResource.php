@@ -15,7 +15,7 @@ class FdiLogResource extends Resource
     public function toArray($request)
     {
         $response =  [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'fdiId' => $this->fdiId,
             'userId' => $this->userId,
             'text' => $this->text,

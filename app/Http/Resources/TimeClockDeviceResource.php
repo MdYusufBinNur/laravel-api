@@ -14,7 +14,7 @@ class TimeClockDeviceResource extends Resource
     public function toArray($request)
     {
         return[
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'createdByUserId' => $this->createdByUserId,
             'propertyId' => $this->propertyId,
             'deviceSN' => $this->deviceSN,

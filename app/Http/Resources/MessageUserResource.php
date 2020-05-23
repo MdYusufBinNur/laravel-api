@@ -14,7 +14,7 @@ class MessageUserResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'messageId' => $this->messageId,
             'message' => $this->when($this->needToInclude($request, 'mu.message'), function () {
                 return new MessageResource($this->message);

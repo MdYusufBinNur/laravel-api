@@ -15,7 +15,7 @@ class FdiResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'propertyId' => $this->propertyId,
             'property' => $this->when($this->needToInclude($request, 'fdi.property'), function () {
                 return new UnitResource($this->property);

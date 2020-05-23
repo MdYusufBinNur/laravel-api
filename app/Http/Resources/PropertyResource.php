@@ -13,7 +13,7 @@ class PropertyResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'companyId' => $this->companyId,
             'company' => $this->when($this->needToInclude($request, 'property.company'), function () {
                 return new CompanyResource($this->company);

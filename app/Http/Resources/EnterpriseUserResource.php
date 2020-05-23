@@ -13,7 +13,7 @@ class EnterpriseUserResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'userId' => $this->userId,
             'user' => $this->when($this->needToInclude($request, 'eu.user'), function () {
                 return new UserResource($this->user);

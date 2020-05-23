@@ -14,7 +14,7 @@ class CompanyResource extends Resource
     {
 
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'title' => $this->title,
             'address' => $this->address,
             'city' => $this->city,

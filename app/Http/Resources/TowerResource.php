@@ -13,7 +13,7 @@ class TowerResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'propertyId' => $this->propertyId,
             'title' => $this->title,
             'createdByUserId' => $this->createdByUserId,

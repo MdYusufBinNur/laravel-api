@@ -14,7 +14,7 @@ class PaymentPublishLogResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'paymentId' => $this->paymenId,
             'propertyId' => $this->propertyId,
             'created_at' => $this->created_at,

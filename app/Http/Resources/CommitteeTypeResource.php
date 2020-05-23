@@ -14,7 +14,7 @@ class CommitteeTypeResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'propertyId' => $this->propertyId,
             'property' => $this->when($this->needToInclude($request, 'ct.property'), function () {
                 return new PropertyResource($this->property);

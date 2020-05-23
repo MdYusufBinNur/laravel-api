@@ -14,7 +14,7 @@ class UnitResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'createdByUserId' => $this->createdByUserId,
             'tower' => $this->when($this->needToInclude($request, 'unit.tower'), function () {
                 return new TowerResource($this->tower);

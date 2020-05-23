@@ -13,7 +13,7 @@ class EventSignupResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'createdByUserId' => $this->createdByUserId,
             'eventId' => $this->eventId,
             'event' => $this->when($this->needToInclude($request, 'es.event'), function () {

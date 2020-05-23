@@ -13,7 +13,7 @@ class ServiceRequestResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'propertyId' => $this->propertyId,
             'property' => $this->when($this->needToInclude($request, 'sr.property'), function () {
                 return new UserResource($this->property);

@@ -13,7 +13,7 @@ class UserNotificationSettingResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'createdByUserId' => $this->createdByUserId,
             'userId' => $this->userId,
             'typeId' => $this->typeId,

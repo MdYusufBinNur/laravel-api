@@ -13,7 +13,7 @@ class LdsBlacklistUnitResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' =>$this->id,
+            'id' => $this->getIdOrUuid(),
             'propertyId' =>$this->propertyId,
             'property' => $this->when($this->needToInclude($request, 'lbu.property'), function () {
                 return new PropertyResource($this->property);

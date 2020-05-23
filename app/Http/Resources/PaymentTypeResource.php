@@ -14,7 +14,7 @@ class PaymentTypeResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'createdByUserId' => $this->createdByUserId,
             'title' => $this->title,
             'propertyId' => $this->propertyId,

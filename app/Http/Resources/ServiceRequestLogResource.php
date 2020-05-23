@@ -17,7 +17,7 @@ class ServiceRequestLogResource extends Resource
     {
 
         $response  = [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'createdByUserId' => $this->createdByUserId,
             'serviceRequestId' => $this->serviceRequestId,
             'serviceRequest' => $this->when($this->needToInclude($request, 'srLog.serviceRequest'), function () {

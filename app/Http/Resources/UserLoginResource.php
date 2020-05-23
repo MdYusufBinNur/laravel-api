@@ -13,7 +13,7 @@ class UserLoginResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'name' => $this->name,
             'email' => $this->email,
             'locale' => $this->locale,

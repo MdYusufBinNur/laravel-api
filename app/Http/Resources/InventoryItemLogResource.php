@@ -13,7 +13,7 @@ class InventoryItemLogResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'inventoryItemId' => $this->inventoryItemId,
             'inventoryItem' =>$this->when($this->needToInclude($request, 'iil.inventoryItem'), function () {
                 return  new InventoryItemResource($this->inventoryItem);

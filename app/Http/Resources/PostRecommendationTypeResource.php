@@ -15,7 +15,7 @@ class PostRecommendationTypeResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'createdByUserId' =>  $this->createdByUserId,
             'title' =>  $this->title,
             'created_at' => $this->created_at,

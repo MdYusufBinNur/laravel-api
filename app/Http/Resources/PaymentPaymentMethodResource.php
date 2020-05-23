@@ -14,7 +14,7 @@ class PaymentPaymentMethodResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'paymentId' => $this->paymentId,
             'payment' => $this->when($this->needToInclude($request, 'ppm.payment'), function () {
                 return new PaymentResource($this->payment);

@@ -13,7 +13,7 @@ class EnterpriseUserPropertyResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'enterpriseUserId' => $this->enterpriseUserId,
             'enterpriseUser' => $this->when($this->needToInclude($request, 'eup.enterpriseUser'), function () {
                 return new EnterpriseUserResource($this->enterPriseUser);

@@ -14,7 +14,7 @@ class InventoryItemResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'propertyId' => $this->propertyId,
             'categoryId' => $this->categoryId,
             'category' => $this->when($this->needToInclude($request, 'ii.category'), function () {

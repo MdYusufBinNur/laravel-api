@@ -14,7 +14,7 @@ class EquipmentResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'name' => $this->name,
             'sku'  => $this->sku,
             'propertyId'  => $this->propertyId,

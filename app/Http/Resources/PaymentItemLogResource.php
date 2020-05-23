@@ -14,7 +14,7 @@ class PaymentItemLogResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'paymentItemId' => $this->paymentItemId,
             'paymentItem' => $this->when($this->needToInclude($request, 'pil.paymentItem'), function () {
                 return new PaymentItemResource($this->paymentItem);

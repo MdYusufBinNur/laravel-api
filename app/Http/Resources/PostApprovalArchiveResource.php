@@ -13,7 +13,7 @@ class PostApprovalArchiveResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'createdByUserId' =>  $this->createdByUserId,
             'postId' =>  $this->postId,
             'post' => $this->when($this->needToInclude($request, 'paa.post'), function () {

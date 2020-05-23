@@ -14,7 +14,7 @@ class UserPropertyResidentResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'user' => $this->when($this->needToInclude($request, 'upr.user'), function () {
                 return new UserResource($this->user);
             }),

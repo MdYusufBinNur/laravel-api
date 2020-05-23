@@ -14,7 +14,7 @@ class PropertyGeneralInfoResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'propertyId' => $this->propertyId,
             'officeHours' => $this->officeHours,
             'phone' => $this->phone,

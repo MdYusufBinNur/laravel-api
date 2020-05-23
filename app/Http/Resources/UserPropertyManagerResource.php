@@ -14,7 +14,7 @@ class UserPropertyManagerResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'user' => $this->when($this->needToInclude($request, 'upm.user'), function () {
                 return new UserResource($this->user);
             }),

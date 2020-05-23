@@ -13,7 +13,7 @@ class PostApprovalBlacklistUnitResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'createdByUserId' =>  $this->createdByUserId,
             'unitId' =>  $this->unitId,
             'unit' => $this->when($this->needToInclude($request, 'pabu.unit'), function () {

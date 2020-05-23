@@ -15,7 +15,7 @@ class PropertySocialMediaResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'propertyId' => $this->propertyId,
             'type' => $this->type,
             'url' => $this->url,

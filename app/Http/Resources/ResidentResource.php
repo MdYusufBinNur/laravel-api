@@ -13,7 +13,7 @@ class ResidentResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'createdByUserId' => $this->createdByUserId,
             'propertyId' => $this->propertyId,
             'property' => $this->when($this->needToInclude($request, 'resident.property'), function () {

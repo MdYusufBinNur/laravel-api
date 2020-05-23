@@ -14,7 +14,7 @@ class ModuleSettingPropertyResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'createdByUserId' => $this->createdByUserId,
             'cratedByUser' => $this->when($this->needToInclude($request, 'msp.createdByUser'), function () {
                 return new UserResource($this->createdByUser);

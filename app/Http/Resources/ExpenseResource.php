@@ -13,7 +13,7 @@ class ExpenseResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'categoryId' =>$this->categoryId,
             'category' => $this->when($this->needToInclude($request, 'expense.category'), function () {
                 return new ExpenseCategoryResource($this->category);

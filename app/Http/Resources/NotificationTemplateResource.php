@@ -14,7 +14,7 @@ class NotificationTemplateResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'typeId' => $this->typeId,
             'title' => $this->title,
             'text' => $this->text,

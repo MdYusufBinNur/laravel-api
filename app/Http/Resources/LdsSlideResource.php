@@ -14,7 +14,7 @@ class LdsSlideResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'title' => $this->title,
             'backgroundColor' => $this->backgroundColor,
             'imageId' => $this->imageId,

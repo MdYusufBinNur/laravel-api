@@ -14,7 +14,7 @@ class PaymentInstallmentItemResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'createdByUserId' => $this->createdByUserId,
             'createdByUser' => $this->when($this->needToInclude($request, 'pimi.createdByUser'), function () {
                 return new UserResource($this->createdByUser);

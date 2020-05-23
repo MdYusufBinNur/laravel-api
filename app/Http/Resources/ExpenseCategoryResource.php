@@ -14,7 +14,7 @@ class ExpenseCategoryResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->getIdOrUuid(),
             'title' => $this->title,
             'propertyId' => $this->propertyId
         ];

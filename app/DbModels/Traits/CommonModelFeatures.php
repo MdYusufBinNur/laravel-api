@@ -24,12 +24,14 @@ trait CommonModelFeatures
 
     public function getRouteKeyName()
     {
-        return 'uuid';
+        // return 'uuid';
+        return 'id';
     }
 
     public function getIdOrUuid()
     {
-        return empty($this->uuid) ? $this->id : $this->uuid;
+        //return empty($this->uuid) ? $this->id : $this->uuid;
+        return $this->id;
     }
     // end uuid
 

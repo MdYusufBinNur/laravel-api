@@ -2,14 +2,30 @@
 
 namespace App\Policies;
 
+use App\DbModels\Manager;
 use App\DbModels\Module;
 use App\DbModels\StaffTimeClock;
 use App\DbModels\User;
+use App\Repositories\Contracts\ManagerRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class StaffTimeClockPolicy
 {
     use HandlesAuthorization, ValidateModules;
+
+    /**
+     * @var ManagerRepository
+     */
+    private $managerRepository;
+
+    /**
+     * StaffTimeClockPolicy constructor.
+     * @param ManagerRepository $managerRepository
+     */
+    public function __construct(ManagerRepository $managerRepository)
+    {
+        $this->managerRepository = $managerRepository;
+    }
 
     /**
      * Intercept checks
@@ -49,15 +65,16 @@ class StaffTimeClockPolicy
      *
      * @param User $currentUser
      * @param int $propertyId
+     * @param int $managerId
      * @return bool
      */
-    public function store(User $currentUser, int $propertyId)
+    public function store(User $currentUser, int $propertyId, int $managerId)
     {
         if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 
-        return false;
+        return $this->hasAccessByUserId($currentUser, $managerId);
     }
 
     /**
@@ -75,7 +92,8 @@ class StaffTimeClockPolicy
             return true;
         }
 
-        return false;
+        return $this->hasAccessByUserId($currentUser, $staffTimeClock->managerId);
+
     }
 
     /**
@@ -93,7 +111,8 @@ class StaffTimeClockPolicy
             return true;
         }
 
-        return false;
+        return $this->hasAccessByUserId($currentUser, $staffTimeClock->managerId);
+
     }
 
     /**
@@ -105,6 +124,29 @@ class StaffTimeClockPolicy
      */
     public function destroy(User $currentUser, StaffTimeClock $staffTimeClock)
     {
+        return false;
+    }
+
+    /**
+     * has access to the property
+     *
+     * @param User $currentUser
+     * @param int|null $managerId
+     * @return bool
+     */
+    private function hasAccessByUserId(User $currentUser, ?int $managerId)
+    {
+        if (empty($managerId)) {
+            return false;
+        }
+
+        $manager = $this->managerRepository->findOne($managerId);
+        if ($manager instanceof Manager) {
+            if ($currentUser->id == $manager->userId) {
+                return true;
+            }
+        }
+
         return false;
     }
 }

@@ -235,17 +235,19 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
             $unitResidents = $unit->residents;
             if ($unitResidents->count() > 0) {
                 foreach ($unitResidents as $index => $unitResident) {
-                    $resident = [];
                     $user = $unitResident->user;
-                    $resident['id'] = $unitResident->id;
-                    $resident['title'] = $unit->title;
-                    $resident['unitId'] = $unit->id;
-                    $resident['name'] = $user->name;
-                    $resident['email'] = $user->email;
-                    $resident['phone'] = $user->phone;
-                    $resident['contactEmail'] = $unitResident->contactEmail;
-                    $resident['profilePic'] = $user->userProfilePics()->first();
-                    $residentsByUnits['id-' . $unit->id . '-title-' . $unit->title][] = $resident;
+                    if ($user instanceof User) {
+                        $resident = [];
+                        $resident['id'] = $unitResident->id;
+                        $resident['title'] = $unit->title;
+                        $resident['unitId'] = $unit->id;
+                        $resident['name'] = $user->name;
+                        $resident['email'] = $user->email;
+                        $resident['phone'] = $user->phone;
+                        $resident['contactEmail'] = $unitResident->contactEmail;
+                        $resident['profilePic'] = $user->userProfilePics()->first();
+                        $residentsByUnits['id-' . $unit->id . '-title-' . $unit->title][] = $resident;
+                    }
                 }
             } else {
                 $residentsByUnits['id-' . $unit->id . '-title-' . $unit->title] = [];

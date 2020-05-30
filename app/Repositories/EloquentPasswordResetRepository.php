@@ -42,8 +42,6 @@ class EloquentPasswordResetRepository extends EloquentBaseRepository implements 
     {
         DB::beginTransaction();
 
-        $passwordReset = $this->findOne($data['token']);
-
         $userRepository = app(UserRepository::class);
         $emailOrPhone = $passwordReset->email ?? $passwordReset->phone;
         $user = $userRepository->findUserByEmailPhone($emailOrPhone);

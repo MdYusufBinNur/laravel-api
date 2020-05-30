@@ -70,7 +70,7 @@ class StaffTimeClockPolicy
      */
     public function store(User $currentUser, int $propertyId, int $managerId)
     {
-        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -107,7 +107,7 @@ class StaffTimeClockPolicy
     {
         $propertyId = $staffTimeClock->propertyId;
 
-        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
             return true;
         }
 

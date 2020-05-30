@@ -18,7 +18,9 @@ trait CommonModelFeatures
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->uuid = (string) Str::uuid();
+            if (isset($model->uuid)) {
+                $model->uuid = (string) Str::uuid();
+            }
         });
     }
 

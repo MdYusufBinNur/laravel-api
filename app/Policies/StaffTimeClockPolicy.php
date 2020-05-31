@@ -141,6 +141,7 @@ class StaffTimeClockPolicy
         }
 
         $manager = $this->managerRepository->findOne($managerId);
+
         if ($manager instanceof Manager) {
             if ($currentUser->id == $manager->userId) {
                 return true;

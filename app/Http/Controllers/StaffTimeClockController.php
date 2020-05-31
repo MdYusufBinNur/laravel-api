@@ -52,7 +52,7 @@ class StaffTimeClockController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', [StaffTimeClock::class, $request->input('propertyId'), $request->input('propertyId')]);
+        $this->authorize('store', [StaffTimeClock::class, $request->input('propertyId'), $request->input('managerId')]);
 
         $staffTimeClock = $this->staffTimeClockRepository->save($request->all());
 

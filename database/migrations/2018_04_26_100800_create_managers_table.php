@@ -22,7 +22,8 @@ class CreateManagersTable extends Migration
             $table->string('contactEmail')->nullable();
             $table->string('phone', 20)->nullable();
             $table->string('title')->nullable();
-            $table->string('level')->nullable();;
+            $table->string('level')->nullable();
+            $table->string('timeClockDeviceUserId')->nullable();
             $table->boolean('displayInCorner')->default(1);
             $table->boolean('displayPublicProfile')->default(1);
             $table->timestamps();

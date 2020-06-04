@@ -316,9 +316,9 @@ class EloquentBaseRepository implements BaseRepository
         foreach ($searchCriteria as $key => $value) {
 
             // replace id with uuid when non numeric
-            if ($key == 'id' && !is_numeric($value)) {
+            /*if ($key == 'id' && !is_numeric($value)) {
                 return $key = 'uuid';
-            }
+            }*/
 
             //skip pagination related query params
             if (in_array($key, ['page', 'per_page', 'order_by', 'order_direction'])) {

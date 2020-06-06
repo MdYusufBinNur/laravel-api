@@ -23,6 +23,7 @@ class IndexRequest extends Request
             'address' => 'string',
             'website' => 'string',
             'query' => 'string',
+            'withOutPagination' => 'boolean'
         ];
     }
 }

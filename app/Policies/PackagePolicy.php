@@ -46,14 +46,13 @@ class PackagePolicy
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
 
-            if (!empty($residentId) && in_array($currentUser->id, $currentUser->residents()->pluck('userId')->toArray())) {
+            if (!empty($residentId) && in_array($residentId, $currentUser->residents()->pluck('id')->toArray())) {
                 return true;
             }
 
             return $currentUser->isResidentOfTheUnits($unitId);
+
         }
-
-
 
         return false;
     }

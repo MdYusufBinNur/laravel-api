@@ -48,7 +48,7 @@ class PackageArchivePolicy
                 return true;
             }
 
-            if (!empty($residentId) && in_array($currentUser->id, $currentUser->residents()->pluck('userId')->toArray())) {
+            if (!empty($residentId) && in_array($residentId, $currentUser->residents()->pluck('id')->toArray())) {
                 return true;
             }
         }
@@ -76,7 +76,7 @@ class PackageArchivePolicy
                 return true;
             }
 
-            if (!empty($residentId) && in_array($currentUser->id, $currentUser->residents()->pluck('userId')->toArray())) {
+            if (!empty($residentId) && in_array($residentId, $currentUser->residents()->pluck('id')->toArray())) {
                 return true;
             }
         }

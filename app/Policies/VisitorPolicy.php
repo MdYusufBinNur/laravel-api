@@ -79,7 +79,7 @@ class VisitorPolicy
      */
     public function show(User $currentUser,  Visitor $visitor)
     {
-        if ($visitor->id == $currentUser->userId) {
+        if ($visitor->userId == $currentUser->id) {
             return true;
         }
 

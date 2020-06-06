@@ -79,6 +79,12 @@ class VisitorArchivePolicy
      */
     public function show(User $currentUser,  VisitorArchive $visitorArchive)
     {
+        $visitor = $visitorArchive->visitor;
+
+        if ($visitor->userId == $currentUser->id) {
+            return true;
+        }
+
         $propertyId = $visitorArchive->propertyId;
 
         if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
@@ -86,7 +92,7 @@ class VisitorArchivePolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
-            return $currentUser->isResidentOfTheUnits($visitorArchive->visitor->unitId);
+            return $currentUser->isResidentOfTheUnits($visitor->unitId);
         }
 
         return false;

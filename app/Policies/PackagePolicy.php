@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\DbModels\Module;
 use App\DbModels\Package;
+use App\DbModels\Resident;
 use App\DbModels\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -34,9 +35,10 @@ class PackagePolicy
      * @param User $currentUser
      * @param int $propertyId
      * @param string $unitId
+     * @param string $residentId
      * @return bool
      */
-    public function list(User $currentUser, int $propertyId, ?string $unitId)
+    public function list(User $currentUser, int $propertyId, ?string $unitId, ?string $residentId)
     {
         if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
@@ -44,6 +46,10 @@ class PackagePolicy
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
             return $currentUser->isResidentOfTheUnits($unitId);
+        }
+
+        if (!empty($residentId) && in_array($currentUser->id, $currentUser->residents()->pluck('userId')->toArray())) {
+            return true;
         }
 
         return false;
@@ -77,11 +83,17 @@ class PackagePolicy
      * @param Package $package
      * @return bool
      */
-    public function show(User $currentUser,  Package $package)
+    public function show(User $currentUser, Package $package)
     {
         $propertyId = $package->propertyId;
         if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
+        }
+
+        // if the package is for the resident
+        $resident = $package->resident;
+        if ($resident instanceof Resident) {
+            return $resident->userId = $currentUser->id;
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {

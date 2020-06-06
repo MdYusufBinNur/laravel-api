@@ -25,7 +25,7 @@ class PackagePolicy
         }
 
         if (!$this->isModuleActiveForTheProperty(Module::MODULE_PACKAGES)) {
-            //return false;
+            return false;
         }
     }
 

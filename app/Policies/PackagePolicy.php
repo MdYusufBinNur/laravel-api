@@ -25,7 +25,7 @@ class PackagePolicy
         }
 
         if (!$this->isModuleActiveForTheProperty(Module::MODULE_PACKAGES)) {
-            return false;
+            //return false;
         }
     }
 
@@ -45,12 +45,15 @@ class PackagePolicy
         }
 
         if ($currentUser->isResidentOfTheProperty($propertyId)) {
+
+            if (!empty($residentId) && in_array($currentUser->id, $currentUser->residents()->pluck('userId')->toArray())) {
+                return true;
+            }
+
             return $currentUser->isResidentOfTheUnits($unitId);
         }
 
-        if (!empty($residentId) && in_array($currentUser->id, $currentUser->residents()->pluck('userId')->toArray())) {
-            return true;
-        }
+
 
         return false;
     }

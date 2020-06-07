@@ -35,6 +35,17 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
             }
         }
 
+        // search userId OR unitId
+        if (isset($searchCriteria['unitId']) && isset($searchCriteria['userId'])) {
+            $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria, $thisModelTable) {
+                $searchCriteria['unitId'] = is_array($searchCriteria['unitId']) ? $searchCriteria['unitId'] : explode(',', $searchCriteria['unitId']);
+                $query->whereIn('unitId', $searchCriteria['unitId'])
+                    ->orWhere('userId', $searchCriteria['userId']);
+            });
+            unset($searchCriteria['unitId']);
+            unset($searchCriteria['userId']);
+        }
+
         if (isset($searchCriteria['paymentTypeId'])) {
             $queryBuilder = $queryBuilder->where($paymentTable . '.paymentTypeId', $searchCriteria['paymentTypeId']);
             unset($searchCriteria['paymentTypeId']);

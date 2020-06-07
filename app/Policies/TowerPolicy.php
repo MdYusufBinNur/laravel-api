@@ -32,7 +32,7 @@ class TowerPolicy
      */
     public function list(User $currentUser, int $propertyId)
     {
-        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
+        if ($currentUser->isUserOfTheProperty($propertyId)) {
             return true;
         }
 

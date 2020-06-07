@@ -16,7 +16,8 @@ class CreateResidentArchivesTable extends Migration
         Schema::create('resident_archives', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('createdByUserId')->unsigned()->nullable();
-            $table->string('email');
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
             $table->unsignedInteger('propertyId');
             $table->unsignedInteger('residentId');
             $table->unsignedInteger('unitId');

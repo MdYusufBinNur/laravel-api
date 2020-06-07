@@ -47,8 +47,9 @@ class PasswordReset extends Model
      *
      * @return HasOne
      */
-    public function user()
+    public function getUser()
     {
-        return $this->hasOne(User::class, 'email', 'email');
+        return User::where(['email' => $this->email])->first();
+
     }
 }

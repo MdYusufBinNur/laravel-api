@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use App\DbModels\ParkingPass;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 
@@ -26,8 +27,7 @@ class ParkingPassAllowed implements Rule
      */
     public function passes($attribute, $value)
     {
-        $passAvailable = DB::table('parking_passes')
-            ->where('spaceId', $value)
+        $passAvailable = ParkingPass::where('spaceId', $value)
             ->whereNull('releasedAt')
             ->doesntExist();
         return $passAvailable;

@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use App\DbModels\Message;
+use App\DbModels\User;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 
@@ -35,8 +36,7 @@ class MessageToUser implements Rule
         $toUsers = explode(',', $value);
         foreach ($toUsers as $user) {
             if (is_numeric($user)) {
-                $userDoesNotExists = DB::table('users')
-                    ->where('id', $user)
+                $userDoesNotExists = User::where('id', $user)
                     ->doesntExist();
                 if ($userDoesNotExists) {
                     $this->invalidValues[] = $user;

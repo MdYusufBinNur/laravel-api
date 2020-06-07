@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use App\DbModels\Message;
+use App\DbModels\Unit;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 
@@ -61,8 +62,7 @@ class MessageToUnit implements Rule
         $notExistUnits = [];
         foreach ($toUnitIds as $toUnitId) {
             if (is_numeric($toUnitId)) {
-                $unitDoesNotExist = DB::table('units')
-                    ->where('propertyId', $this->propertyId)
+                $unitDoesNotExist = Unit::where('propertyId', $this->propertyId)
                     ->where('id', $toUnitId)
                     ->doesntExist();
                 if ($unitDoesNotExist) {

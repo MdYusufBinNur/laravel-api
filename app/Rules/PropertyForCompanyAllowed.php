@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use App\DbModels\EnterpriseUser;
+use App\DbModels\Property;
 use App\DbModels\User;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -47,8 +48,7 @@ class PropertyForCompanyAllowed implements Rule
 
 
         foreach ($propertyIds as $propertyId) {
-            $doesntExist = DB::table('properties')
-                ->where('companyId', $this->companyId)
+            $doesntExist = Property::where('companyId', $this->companyId)
                 ->where('id', $propertyId)->whereNull('deleted_at')->doesntExist();
 
             if ($doesntExist) {

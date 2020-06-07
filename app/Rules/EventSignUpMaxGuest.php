@@ -2,9 +2,11 @@
 
 namespace App\Rules;
 
+use App\DbModels\EventSignup;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use League\Event\Event;
 
 class EventSignUpMaxGuest implements Rule
 {
@@ -36,10 +38,10 @@ class EventSignUpMaxGuest implements Rule
             $eventId = request()->get('eventId');
         } else {
             $eventSignupId = request()->segment(4);
-            $eventId = DB::table('event_signups')->select('eventId')->where('id', $eventSignupId)->pluck('eventId')->first();
+            $eventId = EventSignup::select('eventId')->where('id', $eventSignupId)->pluck('eventId')->first();
         }
         if (!empty($eventId)) {
-            $event = DB::table('events')->select('maxGuests')->where('id', $eventId)->first();
+            $event = Event::select('maxGuests')->where('id', $eventId)->first();
             if (isset($event)) {
                 $this->maxGuestsAllowed = $event->maxGuests;
                 return $value <= $event->maxGuests;

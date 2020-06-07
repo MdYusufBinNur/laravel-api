@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use App\DbModels\Message;
+use App\DbModels\Unit;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 
@@ -76,8 +77,7 @@ class MessageToLine implements Rule
                 return false;
             }
 
-            $lineDoesNotExist = DB::table('units')
-                ->where('propertyId', $this->propertyId)
+            $lineDoesNotExist = Unit::where('propertyId', $this->propertyId)
                 ->where('towerId', $line['towerId'])
                 ->whereIn('line', $line['names'])
                 ->doesntExist();

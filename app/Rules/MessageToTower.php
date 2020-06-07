@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use App\DbModels\Message;
+use App\DbModels\Tower;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 
@@ -61,8 +62,7 @@ class MessageToTower implements Rule
         $notExistTowers = [];
         foreach ($toTowerIds as $towerId) {
             if (is_numeric($towerId)) {
-                $towerDoestExist = DB::table('towers')
-                    ->where('propertyId', $this->propertyId)
+                $towerDoestExist = Tower::where('propertyId', $this->propertyId)
                     ->where('id', $towerId)
                     ->doesntExist();
                 if ($towerDoestExist) {

@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use App\DbModels\Message;
+use App\DbModels\Unit;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 
@@ -75,8 +76,7 @@ class MessageToFloor implements Rule
                 return false;
             }
 
-            $floorDoesNotExist = DB::table('units')
-                ->where('propertyId', $this->propertyId)
+            $floorDoesNotExist = Unit::where('propertyId', $this->propertyId)
                 ->where('towerId', $floor['towerId'])
                 ->whereIn('floor', $floor['names'])
                 ->doesntExist();

@@ -2,8 +2,8 @@
 
 namespace App\Rules;
 
+use App\DbModels\User;
 use Illuminate\Contracts\Validation\Rule;
-use Illuminate\Support\Facades\DB;
 
 class UserEmailOrPhoneExists implements Rule
 {
@@ -26,8 +26,7 @@ class UserEmailOrPhoneExists implements Rule
      */
     public function passes($attribute, $value)
     {
-        $userEmailOrPhoneExists = DB::table('users')
-            ->where('email', $value)
+        $userEmailOrPhoneExists = User::where('email', $value)
             ->orWhere('phone', $value)
             ->exists();
         return $userEmailOrPhoneExists;

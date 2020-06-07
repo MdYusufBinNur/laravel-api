@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use App\DbModels\Event;
 use App\DbModels\User;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +28,7 @@ class EventSignUpAllowed implements Rule
      */
     public function passes($attribute, $value)
     {
-        $event = DB::table('events')->select('propertyId')->where('id', $value)->first();
+        $event = Event::select('propertyId')->where('id', $value)->first();
         if ($event && auth()->user() instanceof User) {
             return auth()->user()->isUserOfTheProperty($event->propertyId);
         }

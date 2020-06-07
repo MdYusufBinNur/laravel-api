@@ -31,7 +31,8 @@ class EloquentResidentAccessRequestRepository extends EloquentBaseRepository imp
     public function save(array $data): \ArrayAccess
     {
         if (isset($data['accessInPast'])) {
-            $isResidentArchive = $this->hadAccessInThePast($data['email']);
+            $query = $data['email'] ?? $data['phone'];
+            $isResidentArchive = $this->hadAccessInThePast($query);
 
             if ($isResidentArchive) {
                 // TODO: will be moved resident archive to active resident
@@ -115,9 +116,15 @@ class EloquentResidentAccessRequestRepository extends EloquentBaseRepository imp
     public function hadAccessInThePast($data)
     {
         $residentArchiveRepository = app(ResidentArchiveRepository::class);
+
         if ($residentArchiveRepository->findOneBy(['email' => $data]) instanceof ResidentArchive) {
             return true;
         }
+
+        if ($residentArchiveRepository->findOneBy(['phone' => $data]) instanceof ResidentArchive) {
+            return true;
+        }
+        return false;
     }
 
     private function applyFilterInUserSearch($searchCriteria)

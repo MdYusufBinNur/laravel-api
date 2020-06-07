@@ -14,7 +14,7 @@ trait CommonModelFeatures
 
 
     //uuid
-    public static function boot()
+    /*public static function boot()
     {
         parent::boot();
         self::creating(function ($model) {
@@ -34,7 +34,7 @@ trait CommonModelFeatures
     {
         //return empty($this->uuid) ? $this->id : $this->uuid;
         return $this->id;
-    }
+    }*/
     // end uuid
 
 

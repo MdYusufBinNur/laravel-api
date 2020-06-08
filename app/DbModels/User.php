@@ -3,6 +3,8 @@
 namespace App\DbModels;
 
 use App\DbModels\Traits\CommonModelFeatures;
+use App\DbModels\Traits\CommonModelHelperFeatures;
+use App\DbModels\Traits\CommonUuidFeatures;
 use App\DbModels\Traits\Users\CommonUserMethods;
 use App\DbModels\Traits\Users\EnterpriseUserMethods;
 use App\DbModels\Traits\Users\AdminUserMethods;
@@ -18,7 +20,7 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens, CommonModelFeatures;
+    use Notifiable, HasApiTokens, CommonModelHelperFeatures, CommonUuidFeatures;
 
     use AdminUserMethods, EnterpriseUserMethods, StaffUserMethods, ResidentUserMethods, CommonUserMethods;
 

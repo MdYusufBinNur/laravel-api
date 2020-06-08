@@ -148,7 +148,7 @@ class Property extends Model
         if (!empty($this->domain)) {
             return $this->domain;
         } else {
-            return $this->subdomain . '.' . env('BRAND_SITE');
+            return $this->subdomain . '.' . config('app.brand_site');
         }
     }
 }

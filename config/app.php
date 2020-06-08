@@ -14,6 +14,8 @@ return [
     */
 
     'name' => env('APP_NAME', 'PMS'),
+    'brand_site' => env('BRAND_SITE', 'smartproperty.xyz'),
+
 
     /*
     |--------------------------------------------------------------------------
@@ -237,5 +239,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class
 
     ],
+
+
 
 ];

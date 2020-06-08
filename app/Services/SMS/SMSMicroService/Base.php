@@ -19,7 +19,7 @@ abstract class Base
     {
         self::$httpClient = new Client([
             'headers' => [
-                'Token' => env('MS_SMS_API_TOKEN'),
+                'Token' => config('app.ms_sms_api_token'),
                 'Content-Type'  => 'application/json',
                 'Accept'  => 'application/json'
             ]
@@ -37,7 +37,7 @@ abstract class Base
      */
     public function requestToAPI(string $method, $uri, array $data = [])
     {
-        $url = env('MS_SMS_API') . $uri . '';
+        $url = config('app.ms_sms_api') . $uri . '';
 
         try {
             self::setClient();

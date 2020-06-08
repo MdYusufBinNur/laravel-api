@@ -57,7 +57,7 @@ class ServiceRequestAssignToStaff extends Mailable
         $property = $this->serviceRequest->property;
         $property = $this->serviceRequest->property;
 
-        $serviceRequestItemPage = $property->getPropertyLink() . env('RESIDENT_PORTAL_SERVICE_REQUEST_URL_PREFIX') . '/' . $this->serviceRequest->id;
+        $serviceRequestItemPage = $property->getPropertyLink() . config('app.resident_portal_service_request_url_prefix') . '/' . $this->serviceRequest->id;
 
         return $this->subject('A service request Assigned To You')->view('service-request.assign-to-staff.index')
             ->with(['serviceRequestItemPage' => $serviceRequestItemPage, 'serviceRequest' => $this->serviceRequest, 'serviceRequestCreatedUser' => $this->serviceRequestCreatedUser, 'assignedUser' => $this->assignedUser, 'assignByUser' => $this->assignByUser, 'unit' => $unit, 'category' => $category,  'property' => $property]);

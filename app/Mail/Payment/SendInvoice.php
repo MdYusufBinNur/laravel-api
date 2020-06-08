@@ -47,7 +47,7 @@ class SendInvoice extends Mailable
         $paymentType = $payment->paymentType;
 
         $subject = "Invoice - " . $paymentType->title;
-        $paymentDetailsPage = $payment->property->getPropertyLink() . env('RESIDENT_PORTAL_PAYMENT_CENTER_URL_PREFIX') . '/payment/' . $payment->id;
+        $paymentDetailsPage = $payment->property->getPropertyLink() . config('app.resident_portal_payment_center_url_prefix') . '/payment/' . $payment->id;
 
         return $this->subject($subject)->view('payment.send-invoice.index')
             ->with([

@@ -36,7 +36,7 @@ class HostsHelper
             return ['subdomain' => 'test'];
         }
 
-        if (strpos($domain, env('BRAND_SITE')) !== false) {
+        if (strpos($domain, config('app.brand_site')) !== false) {
             return ['subdomain' => substr($domain, 0, strpos($domain, '.'))];
         }
 

@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function (Request $request) {
+/*Route::get('/', function (Request $request) {
     return ['message' => 'Hi from PMS API!'];
-});
+});*/
 
 Route::group(['prefix' => 'api/v1'], function () {
     Route::group(['middleware' => ['auth:api']], function () {

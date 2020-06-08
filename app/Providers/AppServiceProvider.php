@@ -6,6 +6,7 @@ use App\Services\SMS\SMS;
 use App\Services\SMS\SMSMicroService\SMSMicroService;
 use App\Services\Ticket\Ticket;
 use App\Services\Ticket\TicketService\FreshDesk;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -41,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $noOfRequests = 0;
         \DB::listen(function ($query) use (&$noOfRequests) {
-            if (env('APP_ENV') !== 'prod') {
+            if (!App::environment('prod')) {
                 $noOfRequests++;
                 \Log::debug("$noOfRequests - [time: $query->time] " . $query->sql . ' , ' . json_encode($query->bindings));
             }

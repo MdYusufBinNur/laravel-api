@@ -49,7 +49,7 @@ class SendPaymentItemReminder extends Mailable
         $details = $this->details;
         $payment = $details->payment;
         $paymentType = $payment->paymentType;
-        $paymentDetailsPage = $property->getPropertyLink() . env('RESIDENT_PORTAL_PAYMENT_CENTER_URL_PREFIX') . '/payment/' . $payment->id;
+        $paymentDetailsPage = $property->getPropertyLink() . config('app.resident_portal_payment_center_url_prefix') . '/payment/' . $payment->id;
         return $this->subject("Reminder from {$property->title} community")->view('payment.send-payment-item-reminder.index')
             ->with(['reminder' => $reminder, 'paymentDetailsPage' => $paymentDetailsPage, 'property' => $property, 'user' => $user, 'details' => $details, 'payment' => $payment, 'paymentType' => $paymentType]);
     }

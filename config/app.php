@@ -15,7 +15,16 @@ return [
 
     'name' => env('APP_NAME', 'PMS'),
     'brand_site' => env('BRAND_SITE', 'smartproperty.xyz'),
-
+    'password_reset_link_prefix' => env('PASSWORD_RESET_LINK_PREFIX', 'https://login.buildo.xyz/reset-password'),
+    'brand_logo_url' => env('BRAND_LOGO_URL', 'https://smartproperty.xyz/img/pms/Smart%20Property%20Logo.png'),
+    'resident_portal_service_request_url_prefix' => env('RESIDENT_PORTAL_SERVICE_REQUEST_URL_PREFIX', '/operations/service-request'),
+    'resident_portal_payment_center_url_prefix' => env('RESIDENT_PORTAL_PAYMENT_CENTER_URL_PREFIX', '/payment-center'),
+    'fresh_desk_domain' => env('FRESH_DESK_DOMAIN', 'https://reformedtech.freshdesk.com/api/v2'),
+    'fresh_desk_api_key' => env('FRESH_DESK_API_KEY', 'I4h3mX28Tw3lfacqot'),
+    'fresh_desk_password' => env('FRESH_DESK_PASSWORD', 'abc123DEF'),
+    'ms_sms_api' => env('MS_SMS_API', 'https://ms-sms.buildo.xyz'),
+    'ms_sms_default_provider' => env('MS_SMS_DEFAULT_PROVIDER', 'onnorokomsms'),
+    'ms_sms_api_token' => env('MS_SMS_API_TOKEN', 'RTISBEST'),
 
     /*
     |--------------------------------------------------------------------------

@@ -14,7 +14,7 @@ class SMSMicroService extends Base implements SMS
         $data = [
             'numbers' => $toMobileNumber,
             'text' => $text,
-            'provider' => $options['provider'] ?? env('MS_SMS_DEFAULT_PROVIDER')
+            'provider' => $options['provider'] ?? config('app.ms_sms_default_provider')
         ];
         return $this->requestToAPI('POST', '/',  $data);
     }

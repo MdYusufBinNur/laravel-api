@@ -65,7 +65,7 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
         }
 
         if (array_key_exists('level', $data)) {
-            if ($this->getLoggedInUser()->isStandardStaff($data['propertyId'])) {
+            if ($this->getLoggedInUser()->isAStandardStaffOfTheProperty($data['propertyId'])) {
                 $roleId = Role::ROLE_STAFF_LIMITED['id'];
             } else {
                 $roleId = RoleHelper::getRoleIdByTitle($data['level']);
@@ -108,7 +108,7 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
 
         if (array_key_exists('level', $data)) {
 
-            if ($this->getLoggedInUser()->isStandardStaff($data['propertyId'])) {
+            if ($this->getLoggedInUser()->isAStandardStaffOfTheProperty($staff->propertyId)) {
                 $roleId = Role::ROLE_STAFF_LIMITED['id'];
             } else {
                 $roleId = RoleHelper::getRoleIdByTitle($data['level']);
@@ -116,7 +116,7 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
 
             // update user role
             $userRoleRepository = app(UserRoleRepository::class);
-            $userRoleRepository->update($manager->userRole, ['roleId' => $roleId]);
+            $userRoleRepository->update($staff->userRole, ['roleId' => $roleId]);
         }
 
         DB::commit();

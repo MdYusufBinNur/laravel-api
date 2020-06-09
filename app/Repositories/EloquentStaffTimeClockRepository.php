@@ -167,7 +167,7 @@ class EloquentStaffTimeClockRepository extends EloquentBaseRepository implements
                 'propertyId' => $data['externalId'],
                 'state' => $this->getOppositeOfOutState($data['state']),
                 'managerId' => $manager->id,
-                'createdByUserId' => $manager->userId,
+                //'createdByUserId' => $manager->userId,
                 'clockedIn' => $data['activityTime'],
                 'clockInNote' => 'From the device #' . $data['deviceSerialNumber'],
                 'timeClockInDeviceId' => $staffTimeClockDevice->timeClockDeviceId,

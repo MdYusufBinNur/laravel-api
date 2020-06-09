@@ -16,7 +16,7 @@ class Income extends Model
      * @var array
      */
     protected $fillable = [
-        'createdByUserId','categoryId','sourceOfIncome', 'amount', 'notes', 'incomeDate', 'propertyId'
+        'createdByUserId', 'categoryId','sourceOfIncome', 'amount', 'notes', 'incomeDate', 'propertyId'
     ];
 
     /**

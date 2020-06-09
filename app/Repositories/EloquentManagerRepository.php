@@ -65,7 +65,7 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
         }
 
         if (array_key_exists('level', $data)) {
-            if ($this->getLoggedInUser()->isAStandardStaffOfTheProperty($data['propertyId'])) {
+            if ($this->getLoggedInUser()->isOnlyStandardStaffOfTheProperty($data['propertyId'])) {
                 $roleId = Role::ROLE_STAFF_LIMITED['id'];
             } else {
                 $roleId = RoleHelper::getRoleIdByTitle($data['level']);
@@ -97,7 +97,7 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
      */
     public function updateManager(\ArrayAccess $manager, array $data): \ArrayAccess
     {
-       // DB::beginTransaction();
+        DB::beginTransaction();
 
         $staff = parent::update($manager, $data);
         $userRepository = app(UserRepository::class);
@@ -108,7 +108,7 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
 
         if (array_key_exists('level', $data)) {
 
-            if ($this->getLoggedInUser()->isAStandardStaffOfTheProperty($staff->propertyId)) {
+            if ($this->getLoggedInUser()->isOnlyStandardStaffOfTheProperty($staff->propertyId)) {
                 $roleId = Role::ROLE_STAFF_LIMITED['id'];
             } else {
                 $roleId = RoleHelper::getRoleIdByTitle($data['level']);
@@ -119,7 +119,7 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
             $userRoleRepository->update($staff->userRole, ['roleId' => $roleId]);
         }
 
-       // DB::commit();
+        DB::commit();
 
         return $staff;
     }

@@ -143,4 +143,20 @@ trait StaffUserMethods
     {
         return $this->managers()->where('propertyId', $propertyId);
     }
+
+    /**
+     * has only resident role in a property
+     *
+     * @param int $propertyId
+     * @return bool
+     */
+    public function isOnlyStandardStaffOfTheProperty(int $propertyId)
+    {
+        return $this->isAStandardStaffOfTheProperty($propertyId)
+            && !$this->isALimitedStaffOfTheProperty($propertyId)
+            && !$this->isAPriorityStaffOfTheProperty($propertyId)
+            && !$this->isResidentOfTheProperty($propertyId)
+            && !$this->isAnEnterpriseUserOfTheProperty($propertyId)
+            && !$this->isAdmin();
+    }
 }

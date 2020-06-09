@@ -97,7 +97,7 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
      */
     public function updateManager(\ArrayAccess $manager, array $data): \ArrayAccess
     {
-        DB::beginTransaction();
+       // DB::beginTransaction();
 
         $staff = parent::update($manager, $data);
         $userRepository = app(UserRepository::class);
@@ -119,7 +119,7 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
             $userRoleRepository->update($staff->userRole, ['roleId' => $roleId]);
         }
 
-        DB::commit();
+       // DB::commit();
 
         return $staff;
     }

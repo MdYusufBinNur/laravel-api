@@ -122,7 +122,9 @@
                                             <tbody>
                                                 <tr>
                                                     <td align="center">
-                                                        <a href="{{$property->getPropertyLink()}}" class="f-fallback button button--brand" target="_blank">Add More ..</a>
+                                                        <a href="{{$property->getPropertyLink()}}" class="f-fallback button button--brand" target="_blank">
+                                                            <span style="color: white"> Add More ..</span>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             </tbody>

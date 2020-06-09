@@ -35,7 +35,9 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                                         <tbody><tr>
                                             <td align="center">
-                                                <a href="{{$paymentDetailsPage}}" class="f-fallback button button--brand" target="_blank">Pay Invoice</a>
+                                                <a href="{{$paymentDetailsPage}}" class="f-fallback button button--brand" target="_blank">
+                                                    <span style="color: white;">Pay Invoice</span>
+                                                </a>
                                             </td>
                                         </tr>
                                         </tbody>

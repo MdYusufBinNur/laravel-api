@@ -18,7 +18,9 @@
                                         <tbody>
                                         <tr>
                                             <td align="center">
-                                                <a href="{{ 'https://'. $propertyLink }}" class="f-fallback button button--brand" target="_blank">Do this Next</a>
+                                                <a href="{{ 'https://'. $propertyLink }}" class="f-fallback button button--brand" target="_blank">
+                                                    <span style="color: white">Do this Next</span>
+                                                </a>
                                             </td>
                                         </tr>
                                         </tbody>

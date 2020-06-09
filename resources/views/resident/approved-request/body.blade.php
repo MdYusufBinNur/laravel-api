@@ -48,7 +48,9 @@
                                         @isset($completeRegistrationLink)
                                         <tr>
                                             <td align="center">
-                                                <a href="{{ $completeRegistrationLink }}" class="f-fallback button button--brand" target="_blank">Complete registration</a>
+                                                <a href="{{ $completeRegistrationLink }}" class="f-fallback button button--brand" target="_blank">
+                                                    <span style="color: white">Complete registration</span>
+                                                </a>
                                             </td>
                                         </tr>
                                         @endisset

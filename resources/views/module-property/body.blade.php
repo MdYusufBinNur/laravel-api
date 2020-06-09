@@ -117,7 +117,7 @@
                                                                         <p style="margin-bottom: 24px;text-align: center;">
                                                                             To ensure your account is prepared for this upgrade, please complete your account verifications on the Coinbase website.
                                                                         </p>
-                                                                        <a href="https://www.coinbase.com/signin" style="display:block; font-size: 16px; padding:15px 25px; background-color:#004d46; color:#ffffff; border: 1px solid #2E7BC4; border-radius:4px; text-decoration:none; text-align:center; font-weight:400;" )="">
+                                                                        <a href="https://www.coinbase.com/signin" style="display:block; font-size: 16px; padding:15px 25px; background-color:#004d46; color:#ffffff; border: 1px solid #2E7BC4; border-radius:4px; text-decoration:none; text-align:center; font-weight:400;">
                                                                             Update your Account
                                                                         </a>
                                                                     </div>

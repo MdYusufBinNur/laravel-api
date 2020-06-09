@@ -68,7 +68,9 @@
                                                                     <tbody>
                                                                     <tr>
                                                                         <td align="center">
-                                                                            <a href="{{$serviceRequestItemPage}}" class="f-fallback button button--brand" target="_blank">Details Request</a>
+                                                                            <a href="{{$serviceRequestItemPage}}" class="f-fallback button button--brand" target="_blank">
+                                                                                <span style="color: white">Request Details</span>
+                                                                            </a>
                                                                         </td>
                                                                     </tr>
                                                                     </tbody>

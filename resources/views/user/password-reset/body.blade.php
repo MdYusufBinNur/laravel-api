@@ -14,7 +14,9 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                                         <tbody><tr>
                                             <td align="center">
-                                                <a  href="{{ $resetLink }}" class="f-fallback button button--brand" target="_blank">Reset your password</a>
+                                                <a  href="{{ $resetLink }}" class="f-fallback button button--brand" target="_blank">
+                                                    <span style="color: white">Reset your password</span>
+                                                </a>
                                             </td>
                                         </tr>
                                         </tbody></table>

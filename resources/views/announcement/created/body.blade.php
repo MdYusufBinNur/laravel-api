@@ -46,7 +46,7 @@
                                         <td>
                                             <a href="{{ $announcement->link }}" target="_blank"
                                                class="f-fallback button button--brand">
-                                                <span id="button_text">Details</span>
+                                                <span  style="color: white" id="button_text">Details</span>
                                             </a>
                                         </td>
                                     </tr>

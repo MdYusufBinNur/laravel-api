@@ -34,7 +34,9 @@
                         @endisset
                         @isset($announcement->content)
                             <tr>
-                            <td style="padding-bottom: 10px; padding-top: 10px;"> {{$announcement->content}}</td>
+                            <td style="padding-bottom: 10px; padding-top: 10px;">
+                                {!! html_entity_decode($announcement->content, ENT_QUOTES, 'UTF-8') !!}
+                            </td>
                         </tr>
                         @endisset
                         @isset($announcement->link)

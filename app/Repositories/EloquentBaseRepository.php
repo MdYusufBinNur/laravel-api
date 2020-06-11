@@ -197,10 +197,13 @@ class EloquentBaseRepository implements BaseRepository
         $this->removeThisClassCache();
 
         // set createdBy by user from loggedInUser
-        $loggedInUser = $this->getLoggedInUser();
-        if ($loggedInUser instanceof User) {
-            $data['createdByUserId'] = $loggedInUser->id;
+        if (!isset($data['createdByUserId'])) {
+            $loggedInUser = $this->getLoggedInUser();
+            if ($loggedInUser instanceof User) {
+                $data['createdByUserId'] = $loggedInUser->id;
+            }
         }
+
 
         return $this->model->create($data);
     }

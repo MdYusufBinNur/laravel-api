@@ -71,7 +71,7 @@ class IncomePolicy
     {
         $propertyId = $income->propertyId;
 
-        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -89,7 +89,7 @@ class IncomePolicy
     {
         $propertyId = $income->propertyId;
 
-        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -107,7 +107,7 @@ class IncomePolicy
     {
         $propertyId = $income->propertyId;
 
-        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 

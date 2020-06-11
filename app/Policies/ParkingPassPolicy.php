@@ -62,10 +62,6 @@ class ParkingPassPolicy
             return true;
         }
 
-        if ($currentUser->isAStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
         return false;
     }
 

@@ -89,7 +89,7 @@ class ExpensePolicy
     {
         $propertyId = $expense->propertyId;
 
-        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -107,7 +107,7 @@ class ExpensePolicy
     {
         $propertyId = $expense->propertyId;
 
-        if ($currentUser->upToPriorityStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }
 

@@ -37,8 +37,12 @@ class PaymentItemPolicy
      * @param int $unitId
      * @return bool
      */
-    public function list(User $currentUser, int $propertyId, ?string $unitId)
+    public function list(User $currentUser, int $propertyId, ?string $unitId, ?int $userId)
     {
+        if (!empty($userId)) {
+            return $currentUser->id == $userId;
+        }
+
         if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
         }

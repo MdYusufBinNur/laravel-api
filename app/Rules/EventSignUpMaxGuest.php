@@ -2,11 +2,11 @@
 
 namespace App\Rules;
 
+use App\DbModels\Event;
 use App\DbModels\EventSignup;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use League\Event\Event;
 
 class EventSignUpMaxGuest implements Rule
 {

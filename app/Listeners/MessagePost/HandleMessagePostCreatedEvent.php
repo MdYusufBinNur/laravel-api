@@ -42,7 +42,7 @@ class HandleMessagePostCreatedEvent implements ShouldQueue
 
                 // send notification
                 $userNotificationRepository->save([
-                    'fromUserId' => $message->fromUserId,
+                    'fromUserId' => $fromUser->id,
                     'toUserId' => $notifyAbleUser->id,
                     'userNotificationTypeId' => UserNotificationType::MESSAGE['id'],
                     'resourceId' => $notifyAbleMessageUser->id,

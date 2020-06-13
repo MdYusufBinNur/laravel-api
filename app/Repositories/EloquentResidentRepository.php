@@ -245,7 +245,7 @@ class EloquentResidentRepository extends EloquentBaseRepository implements Resid
                         $resident['email'] = $user->email;
                         $resident['phone'] = $user->phone;
                         $resident['contactEmail'] = $unitResident->contactEmail;
-                        $resident['profilePic'] = $user->userProfilePics()->first();
+                        $resident['profilePic'] = $user->userProfilePics()->orderBy('id', 'desc')->first();
                         $residentsByUnits['id-' . $unit->id . '-title-' . $unit->title][] = $resident;
                     }
                 }

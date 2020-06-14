@@ -118,6 +118,10 @@ class PaymentItemTransactionController extends Controller
     {
         $paymentItemTransaction = $this->paymentItemTransactionRepository->findOneBy(['providerName' => $request->get('providerName'), 'providerId' => $request->get('providerId')]);
 
+        if (!$paymentItemTransaction instanceof PaymentItemTransaction) {
+            return response()->json(['status' => 404, 'message' => 'Resource not found with the specific id.'], 404);
+        }
+
         $this->paymentItemTransactionRepository->updateTransaction($paymentItemTransaction, $request->get('providerId'));
 
         return new PaymentItemTransactionResource($paymentItemTransaction);

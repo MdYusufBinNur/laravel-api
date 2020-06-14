@@ -87,8 +87,8 @@ class PaymentHelper
             $paymentStatusDetails = (array) $paymentItemStatusObject;
 
             $status = PaymentItemTransaction::STATUS_FAILED;
-            if (isset($paymentStatusDetails['status'])) {
-                switch ((int) $paymentStatusDetails['status']) {
+            if (isset($paymentStatusDetails['statusCode'])) {
+                switch ((int) $paymentStatusDetails['statusCode']) {
                     case 1000:
                         $status = PaymentItemTransaction::STATUS_SUCCESS;
                         break;
@@ -100,6 +100,7 @@ class PaymentHelper
                         break;
                 }
             }
+
             return ['status' => $status, 'rawData' => $paymentStatusDetails];
 
         } catch (RequestException $e) {

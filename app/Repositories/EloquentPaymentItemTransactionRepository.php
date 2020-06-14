@@ -46,6 +46,7 @@ class EloquentPaymentItemTransactionRepository extends EloquentBaseRepository im
     public function updateTransaction(PaymentItemTransaction $paymentItemTransaction, $token)
     {
         $paymentStatusDetails = PaymentHelper::getPaymentStatus($token);
+
         if ($paymentItemTransaction->status == PaymentItemTransaction::STATUS_PENDING) {
            if ($paymentStatusDetails['status'] == PaymentItemTransaction::STATUS_SUCCESS) {
 

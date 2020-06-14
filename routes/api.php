@@ -246,6 +246,7 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::apiResource('payment-item-partial', 'PaymentItemPartialController');
         Route::apiResource('payment-installment', 'PaymentInstallmentController');
         Route::apiResource('payment-installment-item', 'PaymentInstallmentItemController');
+        Route::apiResource('payment-item-transaction', 'PaymentItemTransactionController');
 
         /**
          * Related to ReminderService

@@ -27,9 +27,11 @@ class CreatePaymentMethodsTable extends Migration
         });
 
         DB::table('payment_methods')->insert([
-            'id' => 1,
-            'title' => 'Cash'
+            ['id' => 1, 'title' => 'Cash'],
+            ['id' => 2, 'title' => 'Card'],
+            ['id' => 3, 'title' => 'bKash']
         ]);
+
     }
 
     /**

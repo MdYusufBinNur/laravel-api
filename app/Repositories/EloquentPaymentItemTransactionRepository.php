@@ -40,6 +40,9 @@ class EloquentPaymentItemTransactionRepository extends EloquentBaseRepository im
         return parent::save($data);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function updateTransaction(PaymentItemTransaction $paymentItemTransaction, $token)
     {
         $paymentStatusDetails = PaymentHelper::getPaymentStatus($token);

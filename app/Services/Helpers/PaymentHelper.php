@@ -63,6 +63,12 @@ class PaymentHelper
         }
     }
 
+    /**
+     * get payment status
+     *
+     * @param string $token
+     * @return array
+     */
     public static function getPaymentStatus(string $token)
     {
         $client = new Client([
@@ -94,7 +100,6 @@ class PaymentHelper
                         break;
                 }
             }
-            $status = PaymentItemTransaction::STATUS_SUCCESS;
             return ['status' => $status, 'rawData' => $paymentStatusDetails];
 
         } catch (RequestException $e) {

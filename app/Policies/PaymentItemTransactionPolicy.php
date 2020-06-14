@@ -51,23 +51,6 @@ class PaymentItemTransactionPolicy
      */
     public function show(User $currentUser, PaymentItem $paymentItem)
     {
-        $propertyId = $paymentItem->propertyId;
-
-        if ($paymentItem->userId == $currentUser->id) {
-            return true;
-        }
-
-        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
-            return true;
-        }
-
-        if ($currentUser->isResidentOfTheProperty($propertyId)) {
-            $unitId = $paymentItem->unitId;
-            if (!empty($unitId) && $currentUser->isResidentOfTheUnits($unitId)) {
-                return true;
-            }
-        }
-
         return false;
     }
 
@@ -85,10 +68,10 @@ class PaymentItemTransactionPolicy
         $paymentItem = $paymentItemRepository->findOne($paymentItemId);
 
         if ($paymentItem instanceof PaymentItem) {
-            $payment = $paymentItem->payment;
-            $propertyId = $payment->propertyId;
+
+            $propertyId = $paymentItem->propertyId;
             if (!empty($paymentItem->userId)) {
-                return true;
+                return $currentUser->id === $paymentItem->userId;
             }
 
             if (!empty($paymentItem->unitId)) {

@@ -37,6 +37,7 @@ use App\DbModels\Committee;
 use App\DbModels\PaymentInstallment;
 use App\DbModels\PaymentInstallmentItem;
 use App\DbModels\PaymentItemPartial;
+use App\DbModels\PaymentItemTransaction;
 use App\DbModels\ResidentCustomField;
 use App\DbModels\ResidentDocument;
 use App\DbModels\StaffTimeClockDevice;
@@ -150,6 +151,7 @@ use App\Repositories\Contracts\CommitteeRepository;
 use App\Repositories\Contracts\PaymentInstallmentItemRepository;
 use App\Repositories\Contracts\PaymentInstallmentRepository;
 use App\Repositories\Contracts\PaymentItemPartialRepository;
+use App\Repositories\Contracts\PaymentItemTransactionRepository;
 use App\Repositories\Contracts\ResidentCustomFieldRepository;
 use App\Repositories\Contracts\ResidentDocumentRepository;
 use App\Repositories\Contracts\StaffTimeClockDeviceRepository;
@@ -256,6 +258,7 @@ use App\Repositories\EloquentCommitteeRepository;
 use App\Repositories\EloquentPaymentInstallmentItemRepository;
 use App\Repositories\EloquentPaymentInstallmentRepository;
 use App\Repositories\EloquentPaymentItemPartialRepository;
+use App\Repositories\EloquentPaymentItemTransactionRepository;
 use App\Repositories\EloquentResidentCustomFieldRepository;
 use App\Repositories\EloquentResidentDocumentRepository;
 use App\Repositories\EloquentStaffTimeClockDeviceRepository;
@@ -933,6 +936,11 @@ class RepositoryServiceProvider extends ServiceProvider
         // bind ResidentDocumentRepository
         $this->app->bind(ResidentDocumentRepository::class, function() {
             return new EloquentResidentDocumentRepository(new ResidentDocument());
+        });
+
+        // bind PaymentItemTransactionRepository
+        $this->app->bind(PaymentItemTransactionRepository::class, function() {
+            return new EloquentPaymentItemTransactionRepository(new PaymentItemTransaction());
         });
     }
 }

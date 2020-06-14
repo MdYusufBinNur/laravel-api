@@ -29,7 +29,7 @@ class SmsHelper
      */
     public static function isSmsModuleEnable(int $propertyId)
     {
-        if (!env('SMS_SERVICE')) {
+        if (!config('app.sms_service_enabled')) {
             return false;
         }
 

@@ -22,9 +22,11 @@ return [
     'fresh_desk_domain' => env('FRESH_DESK_DOMAIN', 'https://reformedtech.freshdesk.com/api/v2'),
     'fresh_desk_api_key' => env('FRESH_DESK_API_KEY', 'I4h3mX28Tw3lfacqot'),
     'fresh_desk_password' => env('FRESH_DESK_PASSWORD', 'abc123DEF'),
+    'sms_service_enabled' => env('SMS_SERVICE', false),
     'ms_sms_api' => env('MS_SMS_API', 'https://ms-sms.buildo.xyz'),
     'ms_sms_default_provider' => env('MS_SMS_DEFAULT_PROVIDER', 'onnorokomsms'),
     'ms_sms_api_token' => env('MS_SMS_API_TOKEN', 'RTISBEST'),
+    'payment_callback_url' => env('PAYMENT_CALLBACK_URL', 'https://payment.smartproperty.xyz/wm'),
 
     /*
     |--------------------------------------------------------------------------

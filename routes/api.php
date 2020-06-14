@@ -296,5 +296,10 @@ Route::group(['prefix' => 'api/v1'], function () {
 
     Route::post('reset-token', 'PasswordResetController@generateResetToken');
     Route::post('password-reset', 'PasswordResetController@resetPassword');
+
+
+    Route::post('notify-payment-item-transaction', 'PaymentItemTransactionController@notify');
+
+
 });
 

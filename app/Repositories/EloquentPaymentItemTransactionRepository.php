@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\DbModels\PaymentItemTransaction;
+use App\Events\PaymentItemTransaction\PaymentItemTransactionUpdatedEvent;
 use App\Repositories\Contracts\PaymentItemRepository;
 use App\Repositories\Contracts\PaymentItemTransactionRepository;
 use App\Services\Helpers\PaymentHelper;
@@ -39,4 +40,18 @@ class EloquentPaymentItemTransactionRepository extends EloquentBaseRepository im
         return parent::save($data);
     }
 
+    public function updateTransaction(PaymentItemTransaction $paymentItemTransaction, $token)
+    {
+        $paymentStatusDetails = PaymentHelper::getPaymentStatus($token);
+        if ($paymentItemTransaction->status == PaymentItemTransaction::STATUS_PENDING) {
+           if ($paymentStatusDetails['status'] == PaymentItemTransaction::STATUS_SUCCESS) {
+
+               $paymentItemTransaction = $this->update($paymentItemTransaction, $paymentStatusDetails);
+
+               event(new PaymentItemTransactionUpdatedEvent($paymentItemTransaction, $this->generateEventOptionsForModel()));
+           }
+        }
+
+        return $paymentItemTransaction;
+    }
 }

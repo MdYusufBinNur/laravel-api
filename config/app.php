@@ -27,6 +27,7 @@ return [
     'ms_sms_default_provider' => env('MS_SMS_DEFAULT_PROVIDER', 'onnorokomsms'),
     'ms_sms_api_token' => env('MS_SMS_API_TOKEN', 'RTISBEST'),
     'payment_callback_url' => env('PAYMENT_CALLBACK_URL', 'https://payment.smartproperty.xyz/wm'),
+    'payment_ms_api' => env('PAYMENT_MS_API', ''),
 
     /*
     |--------------------------------------------------------------------------

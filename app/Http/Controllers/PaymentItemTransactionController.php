@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\DbModels\PaymentItemTransaction;
 use App\Http\Requests\PaymentItemTransaction\IndexRequest;
+use App\Http\Requests\PaymentItemTransaction\NotifyRequest;
 use App\Http\Requests\PaymentItemTransaction\StoreRequest;
 use App\Http\Requests\PaymentItemTransaction\UpdateRequest;
 use App\Http\Resources\PaymentItemTransactionResource;
 use App\Http\Resources\PaymentItemTransactionResourceCollection;
 use App\Repositories\Contracts\PaymentItemTransactionRepository;
+use App\Services\Helpers\PaymentHelper;
 use Illuminate\Auth\Access\AuthorizationException;
 
 class PaymentItemTransactionController extends Controller
@@ -105,4 +107,20 @@ class PaymentItemTransactionController extends Controller
 
         return response()->json(null, 204);
     }
+
+    /**
+     * notify a transaction
+     *
+     * @param NotifyRequest $request
+     * @return PaymentItemTransactionResource
+     */
+    public function notify(NotifyRequest $request)
+    {
+        $paymentItemTransaction = $this->paymentItemTransactionRepository->findOneBy(['providerName' => $request->get('providerName'), 'providerId' => $request->get('providerId')]);
+
+        $this->paymentItemTransactionRepository->updateTransaction($paymentItemTransaction, $request->get('providerId'));
+
+        return new PaymentItemTransactionResource($paymentItemTransaction);
+    }
+
 }

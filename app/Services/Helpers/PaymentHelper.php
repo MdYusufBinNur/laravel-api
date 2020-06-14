@@ -4,6 +4,7 @@
 namespace App\Services\Helpers;
 
 use App\DbModels\PaymentItem;
+use App\DbModels\PaymentItemTransaction;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,12 @@ use Illuminate\Validation\ValidationException;
 
 class PaymentHelper
 {
+    /**
+     * generate payment link
+     *
+     * @param PaymentItem $paymentItem
+     * @return array
+     */
     public static function generatePaymentLink(PaymentItem $paymentItem)
     {
         $currentUser = Auth::user();
@@ -43,11 +50,52 @@ class PaymentHelper
 
         try {
 
-            $url = 'https://0xhq44kkal.execute-api.us-east-1.amazonaws.com/dev/generate-payment';
+            $url = config('app.payment_ms_api') . '/generate-payment';
             $response = $client->request('post', $url, ['json' => $paymentData]);
             $paymentUrlObject = json_decode($response->getBody()->getContents());
 
             return (array) $paymentUrlObject;
+
+        } catch (RequestException $e) {
+            throw ValidationException::withMessages([
+                'data' => $e->getResponse()->getBody()->getContents()
+            ]);
+        }
+    }
+
+    public static function getPaymentStatus(string $token)
+    {
+        $client = new Client([
+            'headers' => [
+                'Token' => config('app.ms_sms_api_token'),
+                'Content-Type'  => 'application/json',
+                'Accept'  => 'application/json'
+            ]
+        ]);
+
+        try {
+
+            $url = config('app.payment_ms_api') . '/check-payment';
+            $response = $client->request('post', $url, ['json' => ['id' => $token]]);
+            $paymentItemStatusObject = json_decode($response->getBody()->getContents());
+            $paymentStatusDetails = (array) $paymentItemStatusObject;
+
+            $status = PaymentItemTransaction::STATUS_FAILED;
+            if (isset($paymentStatusDetails['status'])) {
+                switch ((int) $paymentStatusDetails['status']) {
+                    case 1000:
+                        $status = PaymentItemTransaction::STATUS_SUCCESS;
+                        break;
+                    case 1001:
+                        $status = PaymentItemTransaction::STATUS_REJECTED;
+                        break;
+                   default:
+                        $status = PaymentItemTransaction::STATUS_FAILED;
+                        break;
+                }
+            }
+            $status = PaymentItemTransaction::STATUS_SUCCESS;
+            return ['status' => $status, 'rawData' => $paymentStatusDetails];
 
         } catch (RequestException $e) {
             throw ValidationException::withMessages([

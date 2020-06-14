@@ -58,7 +58,7 @@ class PaymentItemLog extends Model
     }
 
     /**
-     * get the payment
+     * get the payment item
      *
      * @return HasOne
      */

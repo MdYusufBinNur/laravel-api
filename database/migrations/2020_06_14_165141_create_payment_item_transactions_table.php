@@ -20,7 +20,9 @@ class CreatePaymentItemTransactionsTable extends Migration
             $table->string('providerName');
             $table->string('providerId');
             $table->string('status');
-            $table->mediumText('rawData');
+            $table->string('paymentProcessURL')->nullable();
+            $table->string('sourceURL');
+            $table->mediumText('rawData')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

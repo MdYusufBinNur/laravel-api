@@ -24,6 +24,8 @@ class PaymentItemTransactionResource extends Resource
             }),
             'providerName' => $this->providerName,
             'providerId' => $this->providerId,
+            'sourceURL' => $this->sourceURL,
+            'paymentProcessURL' => $this->paymentProcessURL,
             'status' => $this->status,
             'rawData' => $this->rawData,
         ];

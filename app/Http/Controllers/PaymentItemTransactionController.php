@@ -9,6 +9,7 @@ use App\Http\Requests\PaymentItemTransaction\UpdateRequest;
 use App\Http\Resources\PaymentItemTransactionResource;
 use App\Http\Resources\PaymentItemTransactionResourceCollection;
 use App\Repositories\Contracts\PaymentItemTransactionRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class PaymentItemTransactionController extends Controller
 {
@@ -31,9 +32,12 @@ class PaymentItemTransactionController extends Controller
      *
      * @param IndexRequest $request
      * @return PaymentItemTransactionResourceCollection
+     * @throws AuthorizationException
      */
     public function index(IndexRequest $request)
     {
+        $this->authorize('list' , [PaymentItemTransaction::class, $request->get('propertyId')]);
+
         $paymentItemTransactions = $this->paymentItemTransactionRepository->findBy($request->all());
 
         return new PaymentItemTransactionResourceCollection($paymentItemTransactions);
@@ -44,10 +48,13 @@ class PaymentItemTransactionController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return PaymentItemTransactionResource
+     * @throws AuthorizationException
      */
     public function store(StoreRequest $request)
     {
-        $paymentItemTransaction = $this->paymentItemTransactionRepository->save($request->all());
+        $this->authorize('store' , [PaymentItemTransaction::class, $request->get('paymentItemId')]);
+
+        $paymentItemTransaction = $this->paymentItemTransactionRepository->generateTransaction($request->all());
 
         return new PaymentItemTransactionResource($paymentItemTransaction);
     }
@@ -57,9 +64,12 @@ class PaymentItemTransactionController extends Controller
      *
      * @param PaymentItemTransaction $paymentItemTransaction
      * @return PaymentItemTransactionResource
+     * @throws AuthorizationException
      */
     public function show(PaymentItemTransaction $paymentItemTransaction)
     {
+        $this->authorize('show', $paymentItemTransaction);
+
         return new PaymentItemTransactionResource($paymentItemTransaction);
     }
 
@@ -69,9 +79,12 @@ class PaymentItemTransactionController extends Controller
      * @param UpdateRequest $request
      * @param PaymentItemTransaction $paymentItemTransaction
      * @return PaymentItemTransactionResource
+     * @throws AuthorizationException
      */
     public function update(UpdateRequest $request, PaymentItemTransaction $paymentItemTransaction)
     {
+        $this->authorize('update', $paymentItemTransaction);
+
         $paymentItemTransaction = $this->paymentItemTransactionRepository->update($paymentItemTransaction, $request->all());
 
         return new PaymentItemTransactionResource($paymentItemTransaction);
@@ -82,9 +95,12 @@ class PaymentItemTransactionController extends Controller
      *
      * @param PaymentItemTransaction $paymentItemTransaction
      * @return \Illuminate\Http\Response
+     * @throws AuthorizationException
      */
     public function destroy(PaymentItemTransaction $paymentItemTransaction)
     {
+        $this->authorize('destroy', $paymentItemTransaction);
+
         $this->paymentItemTransactionRepository->delete($paymentItemTransaction);
 
         return response()->json(null, 204);

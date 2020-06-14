@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\PaymentItemTransaction;
 
-use App\DbModels\PaymentItemTransaction;
 use App\Http\Requests\Request;
 
 class StoreRequest extends Request
@@ -16,11 +15,9 @@ class StoreRequest extends Request
     {
         return [
             'propertyId' => 'required|exists:properties,id',
-            'paymentItemId' => 'required|exists:properties,id',
-            'providerName' => 'required|min:3',
-            'providerId' => 'required',
-            'status' => 'required|in:' . PaymentItemTransaction::STATUS_SUCCESS . ',' . PaymentItemTransaction::STATUS_REJECTED . ',' . PaymentItemTransaction::STATUS_FAILED,
-            'rawData' => '',
+            'paymentItemId' => 'required|exists:payment_items,id',
+            'sourceURL' => 'required|max:255',
+            'providerName' => 'min:3'
         ];
     }
 }

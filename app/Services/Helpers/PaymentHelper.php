@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class PaymentHelper
 {
@@ -44,10 +45,14 @@ class PaymentHelper
 
             $url = 'https://0xhq44kkal.execute-api.us-east-1.amazonaws.com/dev/generate-payment';
             $response = $client->request('post', $url, ['json' => $paymentData]);
-            return json_decode($response->getBody()->getContents());
+            $paymentUrlObject = json_decode($response->getBody()->getContents());
+
+            return (array) $paymentUrlObject;
 
         } catch (RequestException $e) {
-            return json_decode($e->getResponse()->getBody()->getContents());
+            throw ValidationException::withMessages([
+                'data' => $e->getResponse()->getBody()->getContents()
+            ]);
         }
     }
 }

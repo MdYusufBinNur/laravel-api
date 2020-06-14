@@ -23,6 +23,6 @@ interface PaymentItemTransactionRepository extends BaseRepository
      * @param $token
      * @return PaymentItemTransaction|\ArrayAccess
      */
-    public function updateTransaction(PaymentItemTransaction $paymentItemTransaction, $token)''
+    public function updateTransaction(PaymentItemTransaction $paymentItemTransaction, $token);
 
 }

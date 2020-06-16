@@ -63,7 +63,7 @@ class EloquentPaymentItemRepository extends EloquentBaseRepository implements Pa
 
         foreach ($searchCriteria as $key => $value) {
             //skip pagination related query params
-            if (in_array($key, ['include', 'page', 'per_page', 'order_by', 'order_direction'])) {
+            if (in_array($key, ['include', 'page', 'per_page', 'order_by', 'order_direction', 'withOutPagination'])) {
                 continue;
             }
             $searchCriteria[$thisModelTable . '.' . $key] = $value;

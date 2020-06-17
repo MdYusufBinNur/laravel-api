@@ -50,7 +50,7 @@ class PostApprovalBlacklistUnitPolicy
      * @param int $propertyId
      * @return bool
      */
-    public function list(User $currentUser, int $unitId)
+    public function list(User $currentUser, int $propertyId)
     {
         if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;

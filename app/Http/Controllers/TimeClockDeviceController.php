@@ -52,7 +52,7 @@ class TimeClockDeviceController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $this->authorize('store', TimeClockDevice::class);
+        $this->authorize('store', [TimeClockDevice::class, $request->input('propertyId')]);
 
         $timeClockDevice = $this->timeClockDeviceRepository->save($request->all());
 

@@ -47,20 +47,14 @@ class PostApprovalBlacklistUnitPolicy
      * Determine if a given user has permission to list
      *
      * @param User $currentUser
-     * @param int $unitId
+     * @param int $propertyId
      * @return bool
      */
     public function list(User $currentUser, int $unitId)
     {
-        $unit = $this->unitRepository->findOne($unitId);
-        if ($unit instanceof Unit) {
-            $propertyId = $unit->propertyId;
-
-            if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
-                return true;
-            }
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
+            return true;
         }
-
 
         return false;
     }
@@ -69,18 +63,13 @@ class PostApprovalBlacklistUnitPolicy
      * Determine if a given user has permission to store
      *
      * @param User $currentUser
-     * @param int $unitId
+     * @param int $propertyId
      * @return bool
      */
-    public function store(User $currentUser, int $unitId)
+    public function store(User $currentUser, int $propertyId)
     {
-        $unit = $this->unitRepository->findOne($unitId);
-        if ($unit instanceof Unit) {
-            $propertyId = $unit->propertyId;
-
-            if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
-                return true;
-            }
+        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
+            return true;
         }
 
         return false;

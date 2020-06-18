@@ -47,7 +47,7 @@ class SendInvoice extends Mailable
         $paymentType = $payment->paymentType;
 
         $subject = "Invoice - " . $paymentType->title;
-        $paymentDetailsPage = $payment->property->getPropertyLink() . '/payment-center/invoices/pay/' . $payment->id;
+        $paymentDetailsPage = $payment->property->getPropertyLink() . '/payment-center/invoices/pay/' . $paymentItem->id;
         
         return $this->subject($subject)->view('payment.send-invoice.index')
             ->with([

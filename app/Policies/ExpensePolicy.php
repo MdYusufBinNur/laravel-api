@@ -69,6 +69,10 @@ class ExpensePolicy
      */
     public function show(User $currentUser,  Expense $expense)
     {
+        if ($currentUser->id == $expense->createdByUserId) {
+            return  true;
+        }
+
         $propertyId = $expense->propertyId;
 
         if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
@@ -87,6 +91,10 @@ class ExpensePolicy
      */
     public function update(User $currentUser, Expense $expense)
     {
+        if ($currentUser->id == $expense->createdByUserId) {
+            return  true;
+        }
+
         $propertyId = $expense->propertyId;
 
         if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
@@ -105,6 +113,10 @@ class ExpensePolicy
      */
     public function destroy(User $currentUser, Expense $expense)
     {
+        if ($currentUser->id == $expense->createdByUserId) {
+            return  true;
+        }
+
         $propertyId = $expense->propertyId;
 
         if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {

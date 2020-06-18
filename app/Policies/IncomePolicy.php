@@ -71,7 +71,7 @@ class IncomePolicy
     {
         $propertyId = $income->propertyId;
 
-        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -88,6 +88,10 @@ class IncomePolicy
     public function update(User $currentUser, Income $income)
     {
         $propertyId = $income->propertyId;
+
+        if ($currentUser->id == $income->createdByUserId) {
+            return  true;
+        }
 
         if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;
@@ -106,6 +110,10 @@ class IncomePolicy
     public function destroy(User $currentUser, Income $income)
     {
         $propertyId = $income->propertyId;
+
+        if ($currentUser->id == $income->createdByUserId) {
+            return  true;
+        }
 
         if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
             return true;

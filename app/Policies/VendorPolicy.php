@@ -38,7 +38,7 @@ class VendorPolicy
      */
     public function list(User $currentUser, int $propertyId)
     {
-        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 
@@ -72,7 +72,7 @@ class VendorPolicy
     {
         $propertyId = $vendor->propertyId;
 
-        if ($currentUser->upToStandardStaffOfTheProperty($propertyId)) {
+        if ($currentUser->upToLimitedStaffOfTheProperty($propertyId)) {
             return true;
         }
 

@@ -49,8 +49,9 @@ class EloquentVisitorRepository extends EloquentBaseRepository implements Visito
      */
     public function findBy(array $searchCriteria = [], $withTrashed = false)
     {
-        $searchCriteria = $this->applyFilterByUserType($searchCriteria);
         $queryBuilder = $this->model;
+
+        $queryBuilder = $this->applyFilterByUserType($queryBuilder, $searchCriteria);
 
         if (isset($searchCriteria['endDate'])) {
             $queryBuilder = $queryBuilder->whereDate('created_at', '<=', Carbon::parse($searchCriteria['endDate']));
@@ -71,6 +72,17 @@ class EloquentVisitorRepository extends EloquentBaseRepository implements Visito
             });
             unset($searchCriteria['query']);
         }
+
+        if (isset($searchCriteria['unitId'])) {
+            $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
+                $query->where('name', 'like', '%' . $searchCriteria['query'] . '%')
+                    ->orWhere('phone', 'like', '%' . $searchCriteria['query'] . '%')
+                    ->orWhere('email', 'like', '%' . $searchCriteria['query'] . '%')
+                    ->orWhere('company', 'like', '%' . $searchCriteria['query'] . '%');
+            });
+            unset($searchCriteria['query']);
+        }
+
 
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
@@ -93,28 +105,34 @@ class EloquentVisitorRepository extends EloquentBaseRepository implements Visito
 
     /**
      * add more criteria by user type
+     * @param $queryBuilder
      * @param array $searchCriteria
      * @return array
      */
-    private function applyFilterByUserType(array $searchCriteria)
+    private function applyFilterByUserType($queryBuilder, array &$searchCriteria)
     {
         $loggedInUser = $this->getLoggedInUser();
         $propertyId = $searchCriteria['propertyId'];
 
         if (!isset($searchCriteria['unitId'])) {
+
             //if a resident only
-            if (!$loggedInUser->isAdmin() &&
-                !$loggedInUser->isAnEnterpriseUserOfTheProperty($propertyId) &&
-                !$loggedInUser->isAStaffOfTheProperty($propertyId) &&
-                $this->getLoggedInUser()->isResident($propertyId)) {
+            if (!$loggedInUser->isOnlyResidentOfTheProperty($propertyId)) {
 
                 $unitIds = $this->getLoggedInUser()->getResidentsUnitIdsOfTheProperty($propertyId);
                 $searchCriteria['unitId'] = implode(',', $unitIds);
+
+                $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria, $loggedInUser) {
+                    $query->whereIn('unitId', $searchCriteria['unitId'])
+                        ->orWhere('userId', $searchCriteria['userId'] ?? $loggedInUser->id);
+                });
+
+                unset($searchCriteria['userId']);
+                unset($searchCriteria['unitId']);
             }
         }
 
-
-        return $searchCriteria;
+        return $queryBuilder;
     }
 
 }

@@ -18,6 +18,7 @@ class Property extends Model
     const TYPE_BUILDER = 'builder';
     const TYPE_FACTORY = 'factory';
     const TYPE_OFFICE = 'office';
+    const TYPE_ISP = 'isp';
 
     use CommonModelFeatures;
 

@@ -15,6 +15,7 @@ class Reminder extends Model
     const REMINDER_TYPE_NOTIFICATION_FEED = 'notification_feed';
 
     const RESOURCE_TYPE_PAYMENT_ITEM = 'payment_item';
+    const RESOURCE_TYPE_RESIDENT_ACCESS_REQUEST = 'resident_access_request';
 
     /**
      * The attributes that are mass assignable.
@@ -59,6 +60,9 @@ class Reminder extends Model
         switch ($this->resourceType) {
             case self::RESOURCE_TYPE_PAYMENT_ITEM:
                 $detailClass = PaymentItem::class;
+                break;
+            case self::RESOURCE_TYPE_RESIDENT_ACCESS_REQUEST:
+                $detailClass = ResidentAccessRequest::class;
                 break;
         }
         return $detailClass;

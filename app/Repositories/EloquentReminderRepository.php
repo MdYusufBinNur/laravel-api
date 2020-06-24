@@ -5,9 +5,11 @@ namespace App\Repositories;
 
 
 use App\DbModels\Reminder;
+use App\DbModels\ResidentAccessRequest;
 use App\Events\Reminder\ReminderCreatedEvent;
 use App\Repositories\Contracts\PaymentItemRepository;
 use App\Repositories\Contracts\ReminderRepository;
+use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
@@ -55,6 +57,9 @@ class EloquentReminderRepository extends EloquentBaseRepository implements Remin
         switch ($type) {
             case Reminder::RESOURCE_TYPE_PAYMENT_ITEM:
                 $repositoryName = app(PaymentItemRepository::class);
+                break;
+            case Reminder::RESOURCE_TYPE_RESIDENT_ACCESS_REQUEST:
+                $repositoryName = app(ResidentAccessRequestRepository::class);
                 break;
         }
 

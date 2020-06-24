@@ -8,6 +8,7 @@ use App\DbModels\PaymentItem;
 use App\DbModels\Reminder;
 use App\DbModels\UserNotificationType;
 use App\Mail\Payment\SendPaymentItemReminder;
+use App\Mail\ResidentAccessRequest\ResendResidentAccessRequestPin;
 use App\Repositories\Contracts\PaymentItemLogRepository;
 use App\Repositories\Contracts\UserNotificationRepository;
 use App\Services\Helpers\SmsHelper;
@@ -27,10 +28,30 @@ class ReminderService
             case Reminder::RESOURCE_TYPE_PAYMENT_ITEM:
                 (new ReminderService)->sendReminderOfPaymentItem($reminder, $eventOptions);
                 break;
+            case Reminder::RESOURCE_TYPE_RESIDENT_ACCESS_REQUEST:
+                (new ReminderService)->sendReminderOfResidentAccessRequestPin($reminder, $eventOptions);
+                break;
         }
     }
 
     // TODO need to add sending SMS to user feature
+
+    /**
+     * send pin to user about resident access request
+     * @param Reminder $reminder
+     * @param $eventOptions
+     */
+    private function sendReminderOfResidentAccessRequestPin(Reminder $reminder, $eventOptions){
+        $createdByUserId = $eventOptions['request']['loggedInUserId'];
+        $residentAccessRequest = $reminder->detailByType;
+
+        if (!empty($residentAccessRequest->email && $reminder->reminderType == Reminder::REMINDER_TYPE_EMAIL)){
+            Mail::to($residentAccessRequest->email)->send(new ResendResidentAccessRequestPin($residentAccessRequest));
+        }
+        if (!empty($residentAccessRequest->phone && $reminder->reminderType == Reminder::REMINDER_TYPE_SMS)){
+            SmsHelper::sendRegistrationPin($residentAccessRequest);
+        }
+    }
 
     /**
      * send reminder mail to user about payment item

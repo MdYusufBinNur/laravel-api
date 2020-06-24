@@ -3,6 +3,8 @@
 namespace App\Events\Message;
 
 use App\DbModels\Message;
+use App\Http\Resources\MessageResource;
+use App\Http\Resources\PostResource;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
@@ -74,6 +76,7 @@ class MessageCreatedEvent implements ShouldBroadcast
      */
     public function broadcastWith()
     {
+        request()->merge(['include' => 'message.fromUser,user.profilePic,image.avatar']);
         $fromUser = $this->message->fromUser;
         return [
             'subject' => $this->message->subject,
@@ -81,7 +84,7 @@ class MessageCreatedEvent implements ShouldBroadcast
             'text' => $this->options["request"]["text"],
             'created_at' => $this->message->created_at,
             'updated_at' => $this->message->updated_at,
-
+            'message' => new MessageResource($this->message)
         ];
     }
 

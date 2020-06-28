@@ -23,6 +23,7 @@ class UpdateRequest extends Request
             'contactEmail'          => 'email|max:255',
             'type'                  => 'in:' . implode(',', [Role::ROLE_RESIDENT_OWNER['title'], Role::ROLE_RESIDENT_TENANT['title']]),
             'group'                 => 'max:255',
+            'isOwnerLivingHere'     => 'boolean',
             'boardMember'           => 'boolean',
             'sendEmailPermission'   => 'boolean',
             'displayUnit'           => 'boolean',

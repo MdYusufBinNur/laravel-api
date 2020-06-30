@@ -47,7 +47,7 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
 
         return $queryBuilder->select('managers.*')
             ->orderBy($orderBy, $orderDirection)
-            ->with(['user', 'userRoles'])
+            ->with(['user', 'userRoles', 'property'])
             ->paginate($limit);
     }
 

@@ -15,6 +15,9 @@ class StaffResource extends Resource
         return [
             'id' => $this->getIdOrUuid(),
             'propertyId' => $this->propertyId,
+            'property' => $this->when($this->needToInclude($request, 'staff.property'), function () {
+                return new PropertyResource($this->property);
+            }),
             'contactEmail' => $this->contactEmail,
             'phone' => $this->phone,
             'title' => $this->title,

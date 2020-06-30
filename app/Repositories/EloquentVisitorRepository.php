@@ -73,17 +73,6 @@ class EloquentVisitorRepository extends EloquentBaseRepository implements Visito
             unset($searchCriteria['query']);
         }
 
-        if (isset($searchCriteria['unitId'])) {
-            $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
-                $query->where('name', 'like', '%' . $searchCriteria['query'] . '%')
-                    ->orWhere('phone', 'like', '%' . $searchCriteria['query'] . '%')
-                    ->orWhere('email', 'like', '%' . $searchCriteria['query'] . '%')
-                    ->orWhere('company', 'like', '%' . $searchCriteria['query'] . '%');
-            });
-            unset($searchCriteria['query']);
-        }
-
-
         $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria) {
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });

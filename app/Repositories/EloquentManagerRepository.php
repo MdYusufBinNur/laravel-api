@@ -35,8 +35,10 @@ class EloquentManagerRepository extends EloquentBaseRepository implements Manage
             $queryBuilder->where($thisTable . '.propertyId', $searchCriteria['propertyId']);
         }
         if (isset($searchCriteria['query'])) {
-            $queryBuilder->where($thisTable . '.contactEmail', 'like', '%' . $searchCriteria['query'] . '%')
-                ->orWhere($thisTable . '.title', 'like', '%' . $searchCriteria['query'] . '%');
+            $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria, $thisTable) {
+                $query->where($thisTable . '.contactEmail', 'like', '%' . $searchCriteria['query'] . '%')
+                    ->orWhere($thisTable . '.title', 'like', '%' . $searchCriteria['query'] . '%');
+            });
         }
 
         if (isset($searchCriteria['roleId'])) {

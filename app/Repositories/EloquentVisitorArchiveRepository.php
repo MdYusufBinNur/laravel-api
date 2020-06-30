@@ -49,6 +49,11 @@ class EloquentVisitorArchiveRepository extends EloquentBaseRepository implements
             unset($searchCriteria['unitId']);
         }
 
+        if (isset($searchCriteria['userId'])) {
+            $searchCriteria[$visitorModelTable. '.userId'] = $searchCriteria['userId'];
+            unset($searchCriteria['userId']);
+        }
+
         if (isset($searchCriteria['endDate'])) {
             $queryBuilder = $queryBuilder->whereDate('signOutAt', '<=', Carbon::parse($searchCriteria['endDate']));
             unset($searchCriteria['endDate']);

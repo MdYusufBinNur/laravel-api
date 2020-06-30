@@ -32,23 +32,34 @@
                         @endisset
                         <!-- Image part End -->
                         <tr>
-                            <td height="20"></td>
+                            <td height="10"></td>
                         </tr>
                         <tr>
                             <td>
                                 <table  align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                                     <tr>
                                         <td align="center">
+                                            @isset($visitor->name)
                                             <h1 class="f-fallback discount_heading">{{$visitor->name}}</h1>
+                                            @endisset
+
                                             <span class="f-fallback "><strong>Arrived at: </strong>{{$visitor->signInAt->toDayDateTimeString() }}</span> <br>
+
                                             @isset($visitor->unitId)
                                             <span><strong>To Unit: </strong>{{$visitor->unit->title}}</span> <br>
                                             @endisset
+
                                             @isset($visitor->userId)
                                                 <span><strong>To Resident: </strong>{{$visitor->user->name}}</span> <br>
                                             @endisset
-                                            <span><strong>Email: </strong>{{$visitor->email}}</span>
-                                            <span><strong>Phone: </strong>{{$visitor->phone}}</span>
+
+                                            @isset($visitor->email)
+                                            <span><strong>Email: </strong>{{$visitor->email}}</span><br>
+                                            @endisset
+
+                                            @isset($visitor->phone)
+                                            <span><strong>Phone: </strong>{{$visitor->phone}}</span><br>
+                                            @endisset
                                         </td>
                                     </tr>
                                 </table>

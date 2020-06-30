@@ -70,7 +70,7 @@ class Fdi extends Model
      */
     public function property()
     {
-        return $this->hasOne(Unit::class, 'id', 'unitId');
+        return $this->hasOne(Property::class, 'id', 'propertyId');
     }
 
     /**

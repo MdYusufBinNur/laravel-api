@@ -19,7 +19,7 @@ class IndexRequest extends Request
             'packageId' => 'list:numeric',
             'signOutUserId' => 'list:numeric',
             'startDate' => 'date_format:Y-m-d',
-            'endDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d|after_or_equal:startDate',
             'unitId' => '',
             'residentId' => '',
             'withOutPagination' => 'boolean'

@@ -22,7 +22,7 @@ class IndexRequest extends Request
             'model' => 'list:string',
             'licensePlate' => 'list:string',
             'startAt' => 'list:date_format:Y-m-d',
-            'endAt' => 'list:date_format:Y-m-d',
+            'endAt' => 'list:date_format:Y-m-d|after_or_equal:startDate',
             'withOutPagination' => 'boolean',
         ];
     }

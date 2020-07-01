@@ -18,7 +18,7 @@ class IndexRequest extends Request
             'propertyId' => 'required|numeric',
             'createdBuUserId' => 'list:numeric',
             'equipmentId' => 'list:numeric',
-            'nextMaintenanceDate' => 'date_format: Y-m-d',
+            'nextMaintenanceDate' => 'date_format:Y-m-d',
         ];
     }
 }

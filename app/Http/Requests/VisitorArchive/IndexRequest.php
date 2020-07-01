@@ -21,7 +21,7 @@ class IndexRequest extends Request
             'signature' => 'list:boolean',
             'startDate' => 'date_format:Y-m-d',
             'signOutAt' => 'date_format:Y-m-d H:i',
-            'endDate' => 'date_format:Y-m-d|after:startDate',
+            'endDate' => 'date_format:Y-m-d|after_or_equal:startDate',
             'unitId' => '',
             'userId' => 'list:numeric',
             'withOutPagination' => 'boolean',

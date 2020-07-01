@@ -22,7 +22,7 @@ class IndexRequest extends Request
             'multipleDaysEvent' => 'boolean',
             'allowedLoginPage' => 'boolean',
             'startDate' => 'date_format:Y-m-d',
-            'endDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d|after_or_equal:startDate',
         ];
     }
 }

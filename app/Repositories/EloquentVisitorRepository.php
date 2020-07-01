@@ -106,11 +106,9 @@ class EloquentVisitorRepository extends EloquentBaseRepository implements Visito
         if (!isset($searchCriteria['unitId'])) {
 
             //if a resident only
-            if (!$loggedInUser->isOnlyResidentOfTheProperty($propertyId)) {
+            if ($loggedInUser->isOnlyResidentOfTheProperty($propertyId)) {
 
-                $unitIds = $this->getLoggedInUser()->getResidentsUnitIdsOfTheProperty($propertyId);
-                $searchCriteria['unitId'] = implode(',', $unitIds);
-
+                $searchCriteria['unitId'] = $this->getLoggedInUser()->getResidentsUnitIdsOfTheProperty($propertyId);
                 $queryBuilder = $queryBuilder->where(function ($query) use ($searchCriteria, $loggedInUser) {
                     $query->whereIn('unitId', $searchCriteria['unitId'])
                         ->orWhere('userId', $searchCriteria['userId'] ?? $loggedInUser->id);

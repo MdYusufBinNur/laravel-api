@@ -21,7 +21,7 @@ class IndexRequest extends Request
             'residentId' => 'list:numeric',
             'guests' => 'numeric',
             'startDate' => 'date_format:Y-m-d',
-            'endDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d|after_or_equal:startDate',
         ];
     }
 }

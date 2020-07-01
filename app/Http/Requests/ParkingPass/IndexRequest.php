@@ -21,7 +21,7 @@ class IndexRequest extends Request
             'model' => 'list:string',
             'licensePlate' => 'list:string',
             'startDate' => 'date_format:Y-m-d',
-            'endDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d|after_or_equal:startDate',
             'releasedStartDate' => 'date_format:Y-m-d',
             'releasedEndDate' => 'date_format:Y-m-d',
             'withOutPagination' => 'boolean'

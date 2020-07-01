@@ -28,7 +28,7 @@ class IndexRequest extends Request
             'status' => 'list:string',
             'startDate' => 'date_format:Y-m-d',
             'signInAt' => 'date_format:Y-m-d H:i',
-            'endDate' => 'date_format:Y-m-d|after:startDate',
+            'endDate' => 'date_format:Y-m-d|after_or_equal:startDate',
             'withOutPagination' => 'boolean',
             'query' => '',
         ];

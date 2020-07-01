@@ -29,7 +29,7 @@ class IndexRequest extends Request
             'photo' => 'list:boolean',
             'resolvedAt' => 'list:date',
             'startDate' => 'date_format:Y-m-d',
-            'endDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d|after_or_equal:startDate',
             'withOutPagination' => 'boolean'
         ];
     }

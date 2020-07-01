@@ -26,7 +26,7 @@ class IndexRequest extends Request
             'paymentInstallmentItemId' => 'list:numeric',
             'status' => 'list:string',
             'startDate' => 'date_format:Y-m-d',
-            'endDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d|after_or_equal:startDate',
             'withOutPagination' => 'boolean'
         ];
     }

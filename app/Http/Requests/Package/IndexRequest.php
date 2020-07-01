@@ -22,7 +22,7 @@ class IndexRequest extends Request
             'enteredUserId' => 'list:numeric',
             'trackingNumber' => 'list:string',
             'startDate' => 'date_format:Y-m-d',
-            'endDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d|after_or_equal:startDate',
             'withOutPagination' => 'boolean'
         ];
     }

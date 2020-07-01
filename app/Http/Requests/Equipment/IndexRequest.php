@@ -26,7 +26,7 @@ class IndexRequest extends Request
             'notifyDuration' => 'string',
             'nextMaintenanceDate' => 'date',
             'startDate' => 'date_format:Y-m-d',
-            'endDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d|after_or_equal:startDate',
             'withOutPagination' => 'boolean',
             'query' => '',
         ];

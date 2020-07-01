@@ -19,7 +19,7 @@ class IndexRequest extends Request
             'committeeTypeId' => 'list:numeric',
             'sessionName' => 'string',
             'startedDate' => 'date_format:Y-m-d',
-            'endedDate' => 'date_format:Y-m-d|after_or_equal:startDate',
+            'endedDate' => 'date_format:Y-m-d|after_or_equal:startedDate',
         ];
     }
 }

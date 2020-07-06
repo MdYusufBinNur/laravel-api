@@ -16,7 +16,7 @@ class IndexRequest extends Request
     {
         return $rules = [
             'id'         => 'list:numeric',
-            'companyId' => 'list:numeric',
+            'companyId' => 'list:string',
             'type'       => 'list:string',
             'title'      => 'list:string',
             'domain'     => 'list:string',

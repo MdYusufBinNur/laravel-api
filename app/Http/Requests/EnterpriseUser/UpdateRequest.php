@@ -26,10 +26,10 @@ class UpdateRequest extends Request
             'propertyIds' => [new PropertyForCompanyAllowed($this->get('companyId'))],
             'level' => 'in:' . EnterpriseUser::LEVEL_ADMIN . ',' . EnterpriseUser::LEVEL_STANDARD,
 
-            'user'                 => '',
-            'user.name'            => 'min:3|max:255',
-            'email'                => Rule::unique('users')->ignore($userId, 'id'),
-            'user.isActive'        => 'boolean',
+            'users'                 => '',
+            'users.name'            => 'min:3|max:255',
+            'users.email'           => Rule::unique('users')->ignore($userId, 'id'),
+            'users.isActive'        => 'boolean',
         ];
     }
 }

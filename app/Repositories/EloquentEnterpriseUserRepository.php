@@ -102,6 +102,14 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
             }
         }
 
+
+        if (isset($data['user'])) {
+            $userRepository = app(UserRepository::class);
+            $data['user']['email'] = $data['email'];
+            $userRepository->updateUser($enterpriseUser->user, $data['user']);
+        }
+
+
         if (array_key_exists('level', $data)) {
             $roleId = RoleHelper::getRoleIdByTitle($data['level']);
 

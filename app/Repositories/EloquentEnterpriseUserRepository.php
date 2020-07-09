@@ -103,10 +103,9 @@ class EloquentEnterpriseUserRepository extends EloquentBaseRepository implements
         }
 
 
-        if (isset($data['user'])) {
+        if (isset($data['users'])) {
             $userRepository = app(UserRepository::class);
-            $data['user']['email'] = $data['email'];
-            $userRepository->updateUser($enterpriseUser->user, $data['user']);
+            $userRepository->updateUser($enterpriseUser->user, $data['users']);
         }
 
 

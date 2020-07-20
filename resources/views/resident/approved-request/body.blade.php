@@ -32,7 +32,7 @@
                                                         <tbody>
                                                         <tr>
                                                             <td align="center">
-                                                                <h1 class="f-fallback discount_heading">{{$residentAccessRequest->pin}}</h1>
+                                                                <h1 class="f-fallback discount_heading" style="margin-bottom: 0px;">{{$residentAccessRequest->pin}}</h1>
                                                             </td>
                                                         </tr>
                                                         </tbody>
@@ -49,7 +49,7 @@
                                         <tr>
                                             <td align="center">
                                                 <a href="{{ $completeRegistrationLink }}" class="f-fallback button button--brand" target="_blank">
-                                                    <span style="color: white">Complete registration</span>
+                                                    <span style="color: white">Complete Registration</span>
                                                 </a>
                                             </td>
                                         </tr>
@@ -64,7 +64,10 @@
                                                 <p>
                                                     Thanks,
                                                     <br>
-                                                    {{ $property->title }} Support Team
+                                                    <strong>
+                                                        {{ $property->title }}
+                                                    </strong>
+                                                    Support Team
                                                 </p>
                                             </td>
                                         </tr>

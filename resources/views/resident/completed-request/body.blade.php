@@ -15,7 +15,10 @@
                         <p>
                             Thank You
                             <br>
-                            {{ $property->title }} Support Team
+                            <strong>
+                                {{ $property->title }}
+                            </strong>
+                            Support Team
                         </p>
                     </div>
                 </td>

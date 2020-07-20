@@ -6,13 +6,14 @@
             <tr>
                 <td class="content-cell">
                     <div class="f-fallback">
-                        <h1> Hello {{ $property->title }} Team,</h1>
-                        <p> A staff has been added for your property</p>
+                        <h1> Hello</h1>
+                        <h1>{{ $property->title }} Team</h1>
+                        <p style="margin-bottom: 5px;"> A staff has been added for your property</p>
                     </div>
                 </td>
             </tr>
-            <tr style="color:#4E5C6E; font-size:14px; line-height:20px;">
-                <td class="content" colspan="2" valign="top" align="center" style="padding-left:50px; padding-right:50px;">
+            <tr style="color:#4E5C6E; font-size:14px; line-height:15px;">
+                <td class="content" colspan="2" valign="top" align="center" style="padding-left:35px; padding-right:35px;">
                     <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff">
                         <tbody>
                         <tr>
@@ -31,26 +32,32 @@
                                 <table style="width: 100%; border-collapse:collapse;">
                                     <tbody style="border: 0; padding: 0; margin-top:20px;">
                                     <tr>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">
-                                            <strong>Name</strong>
+                                       <td width="30%" class="">
+                                            <span class="f-fallback"><strong> Name</strong></span>
                                         </td>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">
-                                          {{$user->name}}
+                                        <td class="align-left" width="70%">
+                                            <span class="f-fallback">{{$user->name}}</span>
                                         </td>
                                     </tr>
+                                    <br>
                                     @isset($user->title)
                                     <tr>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">
-                                            <strong>Designation</strong>
+                                        <td width="30%" class="">
+                                            <span class="f-fallback"><strong>Designation</strong></span>
                                         </td>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">  {{$user->title}}</td>
+                                        <td class="align-left" width="70%">
+                                            <span class="f-fallback"> {{$user->title}}</span>
+                                        </td>
                                     </tr>
+                                    <br>
                                     @endisset
                                     <tr>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">
-                                            <strong>E-mail</strong>
+                                        <td width="30%" class="">
+                                            <span class="f-fallback"><strong>E-mail</strong></span>
                                         </td>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;"> {{$user->email}}</td>
+                                        <td class="align-left" width="70%">
+                                            <span class="f-fallback"> {{$user->email}}</span>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>

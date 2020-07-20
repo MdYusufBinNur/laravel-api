@@ -4,34 +4,28 @@
             <!-- Body content -->
             <tbody>
             <tr>
-                <td class="content-cell">
-                    <div class="f-fallback">
-                        <h1> Dear Mr. {{ $user->name }},</h1>
-                    </div>
+                <td class="content-cell" style="padding-top: 30px; padding-bottom: 10px;">
+                    <h2> Dear, Mr. {{ $user->name }}</h2>
+                    <p>You have an Announcement from <strong>{{$property->title}}</strong></p>
                 </td>
             </tr>
             <tr style="color:#4E5C6E; font-size:14px; line-height:20px;">
-                <td class="content" colspan="2" valign="top" align="center" style="padding-left:50px; padding-right:50px;">
+                <td class="content" colspan="2" valign="top" align="center" style="padding-left:20px; padding-right:50px;">
                     <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff">
                         <tbody>
                         <tr>
-                            <td align="center">
-                                <div style="font-size: 22px; line-height: 20x; font-weight: 500; margin-left: 20px; margin-right: 20px; margin-bottom: 25px;"> Announcement!!</div>
-                            </td>
-                        </tr>
-                        <tr>
                             <td height="1" bgcolor="#DAE1E9"></td>
-                        </tr>
-                        <tr>
-                            <td height="24" &nbsp;=""></td>
                         </tr>
                         @isset($announcement->title)
                         <tr>
                             <td style="padding-bottom: 10px; padding-top: 10px;">
-                                <h2>{{$announcement->title}}</h2>
+                                <h1 style="margin-bottom: 0px;">{{$announcement->title}}</h1>
                             </td>
                         </tr>
                         @endisset
+                        <tr>
+                            <td height="1" bgcolor="#DAE1E9"></td>
+                        </tr>
                         @isset($announcement->content)
                             <tr>
                             <td style="padding-bottom: 10px; padding-top: 10px;">

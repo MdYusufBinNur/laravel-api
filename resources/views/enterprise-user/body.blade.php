@@ -6,13 +6,14 @@
             <tr>
                 <td class="content-cell">
                     <div class="f-fallback">
-                        <h1> Hello {{$company->title}},</h1>
-                        <p> An Enterprise User has been created for your company.</p>
+                        <h1> Hello </h1>
+                        <h1> {{$company->title}} </h1>
+                        <p style="margin-bottom: 5px;"> An Enterprise User has been created for your company.</p>
                     </div>
                 </td>
             </tr>
-            <tr style="color:#4E5C6E; font-size:14px; line-height:20px;">
-                <td class="content" colspan="2" valign="top" align="center" style="padding-left:50px; padding-right:50px;">
+            <tr style="color:#4E5C6E; font-size:14px; line-height:15px;">
+                <td class="content" colspan="2" valign="top" align="center" style="padding-left:30px; padding-right:30px;">
                     <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff">
                         <tbody>
                         <tr>
@@ -33,18 +34,20 @@
                                 <table style="width: 100%; border-collapse:collapse;">
                                     <tbody style="border: 0; padding: 0; margin-top:20px;">
                                     <tr>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">
-                                            <strong>Name</strong>
+                                        <td width="30%" style="margin-bottom: 10px;">
+                                            <span class="f-fallback"><strong>Name</strong></span>
                                         </td>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">
-                                           {{$user->name}}
+                                        <td class="align-left" width="70%" style="margin-bottom: 10px;">
+                                            <span class="f-fallback">{{$user->name}}</span>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">
-                                            <strong>E-mail</strong>
+                                        <td width="30%" class="" style="margin-bottom: 10px;">
+                                            <span class="f-fallback"><strong>E-mail</strong></span>
                                         </td>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">  {{$enterpriseUser->contactEmail}}</td>
+                                        <td class="align-left" width="70%" style="margin-bottom: 10px;">
+                                            <span class="f-fallback">{{$enterpriseUser->contactEmail}}</span>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>

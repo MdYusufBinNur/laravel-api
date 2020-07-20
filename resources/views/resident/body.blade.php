@@ -74,7 +74,9 @@
                             <tr>
                                 <td>
                                     <p class="f-fallback sub">If you’re having trouble with the button above, copy and paste the URL below into your web browser.</p>
-                                    <p class="f-fallback sub">{{ 'https://'.$propertyLink }}</p>
+                                    <a href="{{ 'https://'.$propertyLink }}" class="f-fallback" target="_blank">
+                                        <span style="color: blue">{{ 'https://'.$propertyLink }}</span>
+                                    </a>
                                 </td>
                             </tr>
                             </tbody>

@@ -372,7 +372,7 @@
         }
 
         .content-cell {
-            padding: 35px;
+            padding: 20px;
         }
         /*Media Queries ------------------------------ */
 

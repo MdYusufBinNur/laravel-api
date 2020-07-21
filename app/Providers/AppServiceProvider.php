@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $noOfRequests = 0;
         \DB::listen(function ($query) use (&$noOfRequests) {
-            if (!App::environment('prod')) {
+            if (!App::environment('production')) {
                 $noOfRequests++;
                 \Log::debug("$noOfRequests - [time: $query->time] " . $query->sql . ' , ' . json_encode($query->bindings));
             }

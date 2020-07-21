@@ -35,33 +35,33 @@
                                 <table style="width: 100%; border-collapse:collapse;">
                                     <tbody style="border: 0; padding: 0; margin-top:20px;">
                                     <tr>
-                                        <td width="40%" style="padding-bottom: 10px; padding-top: 10px;">
+                                        <td width="40%" style="padding-bottom: 15px; padding-top: 10px; vertical-align: baseline;">
                                          <strong> Arrived At</strong>
                                         </td>
-                                        <td width=60%" style="padding-bottom: 10px; padding-top: 10px;">{{ $package->created_at->toDayDateTimeString() }} </td>
+                                        <td width=60%" style="padding-bottom: 15px; padding-top: 10px;">{{ $package->created_at->toDayDateTimeString() }} </td>
                                     </tr>
                                     @isset($package->trackingNumber)
                                     <tr>
-                                        <td  width="40%" style="padding-bottom: 10px; padding-top: 10px;">
+                                        <td  width="40%" style="padding-bottom: 15px; padding-top: 10px; vertical-align: baseline;">
                                            <strong> Tracking Number </strong>
                                         </td>
-                                        <td  width="60%" style="padding-bottom: 10px; padding-top: 10px;">{{$package->trackingNumber}}</td>
+                                        <td  width="60%" style="padding-bottom: 15px; padding-top: 10px;">{{$package->trackingNumber}}</td>
                                     </tr>
                                     @endisset
                                     @isset($package->description)
                                     <tr>
-                                        <td  width="40%" style="padding-bottom: 10px; padding-top: 10px;">
+                                        <td  width="40%" style="padding-bottom: 15px; padding-top: 10px; vertical-align: baseline;">
                                             <strong>Description</strong>
                                         </td>
-                                        <td  width="60%" style="padding-bottom: 10px; padding-top: 10px;">{{$package->description}}</td>
+                                        <td  width="60%" style="padding-bottom: 15px; padding-top: 10px;">{{$package->description}}</td>
                                     </tr>
                                     @endisset
                                     @isset($package->comment)
                                     <tr>
-                                        <td width="40%" style="padding-bottom: 10px; padding-top: 10px;">
+                                        <td width="40%" style="padding-bottom: 15px; padding-top: 10px; vertical-align: baseline;">
                                            <strong>Comments</strong>
                                         </td>
-                                        <td width="60%" style="padding-bottom: 10px; padding-top: 10px;"> {{$package->comment}}</td>
+                                        <td width="60%" style="padding-bottom: 15px; padding-top: 10px;"> {{$package->comment}}</td>
                                     </tr>
                                     @endisset
                                     </tbody>

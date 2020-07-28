@@ -47,7 +47,6 @@ class CreateUserNotificationTypesTable extends Migration
             ['id' => 15, 'type' => 'payment_item_updated'],
             ['id' => 16, 'type' => 'reminder'],
             ['id' => 17, 'type' => 'announcement'],
-            ['id' => 18, 'type' => 'visitor'],
         ]);
     }
 

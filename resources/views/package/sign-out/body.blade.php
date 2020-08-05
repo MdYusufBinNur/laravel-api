@@ -14,13 +14,13 @@
                 </td>
             </tr>
             <tr style="color:#4E5C6E; font-size:14px; line-height:20px;">
-                <td class="content" colspan="2" valign="top" align="center" style="padding-left:90px; padding-right:90px;">
+                <td class="content-cell" colspan="2" valign="top" align="center" style="padding-top: 0px; padding-bottom: 0px;">
                     <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff">
                         <tbody>
 
                         <tr>
                             <td align="center">
-                                <div style="font-size: 22px; line-height: 32px; font-weight: 500; margin-left: 20px; margin-right: 20px; margin-bottom: 25px;"> Package details</div>
+                                <div style="font-size: 22px; line-height: 32px; font-weight: 500; margin-bottom: 25px;"> Package details</div>
                             </td>
                         </tr>
                         <tr>
@@ -33,27 +33,45 @@
                             <td align="center">
                                 <table style="width: 100%; border-collapse:collapse;">
                                     <tbody style="border: 0; padding: 0; margin-top:20px;">
+                                    <tr>
+                                        <td width="4%" style="padding-bottom: 15px; padding-top: 10px; vertical-align: baseline;">
+                                            <strong> Delivered At</strong>
+                                        </td>
+                                        <td width="60%" style="padding-bottom: 15px; padding-top: 10px;">{{ $packageArchive->signOutAt->toDayDateTimeString() }} </td>
+                                    </tr>
                                     @isset($package->trackingNumber)
                                     <tr>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;"> Tracking Number </td>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">{{$package->trackingNumber}}</td>
+                                        <td width="40%" style="padding-bottom: 15px; padding-top: 10px; vertical-align: baseline;">
+                                            <strong> Tracking Number </strong>
+                                        </td>
+                                        <td width="60%" style="padding-bottom: 15px; padding-top: 10px;">{{$package->trackingNumber}}</td>
                                     </tr>
                                     @endisset
                                     @isset($package->description)
                                     <tr>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">  Description</td>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;">{{$package->description}}</td>
+                                        <td width="40%" style="padding-bottom: 15px; padding-top: 10px; vertical-align: baseline;">
+                                            <strong> Description</strong>
+                                        </td>
+                                        <td width="60%" style="padding-bottom: 15px; padding-top: 10px;">{{$package->description}}</td>
                                     </tr>
                                     @endisset
                                     @isset($package->comment)
                                     <tr>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;"> Comments</td>
-                                        <td style="padding-bottom: 10px; padding-top: 10px;"> {{$package->comment}}</td>
+                                        <td width="40%" style="padding-bottom: 15px; padding-top: 10px; vertical-align: baseline;">
+                                           <strong> Comments</strong>
+                                        </td>
+                                        <td width="60%" style="padding-bottom: 15px; padding-top: 10px;"> {{$package->comment}}</td>
                                     </tr>
                                     @endisset
                                     </tbody>
                                 </table>
                             </td>
+                        </tr>
+                        <tr>
+                            <td height="24" &nbsp;=""></td>
+                        </tr>
+                        <tr>
+                            <td height="1" bgcolor="#DAE1E9"></td>
                         </tr>
                         </tbody>
                     </table>

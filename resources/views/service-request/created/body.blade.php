@@ -24,25 +24,25 @@
                                                     <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse; position: relative">
                                                         <tbody>
                                                         <tr>
-                                                            <td class="attributes_item">
+                                                            <td class="attributes_item" style="padding-bottom: 15px;">
                                                                 <strong style="padding-right: 5px;">Requesting service for:</strong>
                                                                 <span class="label">{{ $category->title }}</span>
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="attributes_item">
+                                                            <td class="attributes_item" style="padding-bottom: 15px;">
                                                                 <strong style="padding-right: 5px;">Service Created By :</strong>
                                                                 <span class="label">{{ $user->name }}</span>
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="attributes_item">
+                                                            <td class="attributes_item" style="padding-bottom: 15px;">
                                                                 <strong style="padding-right: 5px;">Unit :</strong>
                                                                 <span class="label">{{  $unit->title }}</span>
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="attributes_item">
+                                                            <td class="attributes_item" style="padding-bottom: 15px;">
                                                                 <strong style="padding-right: 5px;">Estimated Delivery:</strong>
                                                                 <span class="label">{{  $serviceRequest->preferredEndTime  }}</span>
                                                             </td>
@@ -50,9 +50,9 @@
 
                                                         <tr>
                                                             <td>
-                                                                <h1 style="margin-top: 10px;">Problem Description:</h1>
-                                                                <hr style="align: left; border-top-color: #DDDDDD; border-top-style: solid; border-width: 1px 0 0; display: block; height: 1px; margin: 5px 0 10px; padding: 0">
-                                                                <p>{{ $serviceRequest->description }}</p>
+                                                                <h1 style="margin-top: 5px; margin-bottom: 5px;">Problem Description:</h1>
+                                                                <hr style="align: left; border-top-color: #DDDDDD; border-top-style: solid; border-width: 1px 0 0; display: block; height: 1px; margin: 0px 0 10px; padding: 0">
+                                                                <p style="margin-bottom: 0px;">{{ $serviceRequest->description }}</p>
                                                             </td>
                                                         </tr>
 

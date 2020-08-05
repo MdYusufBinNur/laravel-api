@@ -18,7 +18,7 @@
             </tr>
             @isset($fdiRequestLink)
                 <tr >
-                    <td class="content-cell" align="center">
+                    <td class="content-cell" align="center" style="padding-top: 0px;">
                         <a href="{{ $fdiRequestLink }}" class="f-fallback button button--brand" target="_blank">
                             <span style="color: white">Request link</span>
                         </a>

@@ -18,7 +18,7 @@
                                         <tr>
                                             <td class="attributes_item">
                                                 <span class="f-fallback">
-                                                  <strong>Amount Due:</strong>  BDT {{$payment->amount}}
+                                                  <strong>Amount Due: </strong>  BDT {{$payment->amount}}
                                                 </span>
                                             </td>
                                         </tr>
@@ -35,7 +35,7 @@
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                                         <tbody><tr>
                                             <td align="center">
-                                                <a href="{{$paymentDetailsPage}}" class="f-fallback button button--brand" target="_blank">
+                                                <a href="{{'https://' . $paymentDetailsPage}}" class="f-fallback button button--brand" target="_blank">
                                                     <span style="color: white;">Pay Invoice</span>
                                                 </a>
                                             </td>
@@ -58,33 +58,39 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td width="30%" class=""><span class="f-fallback"> <strong>Pay For</strong> </span></td>
-                                <td class="align-left" width="70%"><span class="f-fallback">{{  $paymentType->title }}</span></td>
+                                <td width="30%" class="" style="padding-bottom: 15px; vertical-align: baseline"><span class="f-fallback"> <strong>Pay For</strong> </span></td>
+                                <td class="align-left" width="70%" style="padding-bottom: 15px;"><span class="f-fallback">{{  $paymentType->title }}</span></td>
                             </tr>
                             @isset($payment->note)
                                 <tr>
-                                    <td width="30%" class=""><span class="f-fallback">  <strong> Note </strong></span></td>
-                                    <td class="align-left" width="70%"><span class="f-fallback">{{ $payment->note }}</span></td>
+                                    <td width="30%" class="" style="padding-bottom: 15px; vertical-align: baseline"><span class="f-fallback">  <strong> Note </strong></span></td>
+                                    <td class="align-left" width="70%" style="padding-bottom: 15px;"><span class="f-fallback">{{ $payment->note }}</span></td>
                                 </tr>
                             @endisset
                             @isset($payment->billingInfo)
                                 <tr>
-                                    <td width="30%" class=""><span class="f-fallback"> BillingInfo </span></td>
-                                    <td class="align-left" width="70%"><span class="f-fallback">{{ $payment->billingInfo }}</span></td>
+                                    <td width="30%" class="" style="padding-bottom: 15px; vertical-align: baseline"><span class="f-fallback"><strong>BillingInfo</strong>  </span></td>
+                                    <td class="align-left" width="70%" style="padding-bottom: 15px;"><span class="f-fallback">{{ $payment->billingInfo }}</span></td>
                                 </tr>
                             @endisset
-                            <tr>
-                                <td width="30%" class=""><span class="f-fallback"> <Strong> Status </Strong> </span></td>
-                                <td class="align-left" width="70%"><span class="f-fallback">{{ $details->status }}</span></td>
+                            @isset($payment->status)
+                                <tr>
+                                    <td width="30%" class="" style="padding-bottom: 15px; vertical-align: baseline"><span class="f-fallback"> <Strong> Status </Strong> </span></td>
+                                    <td class="align-left" width="70%" style="padding-bottom: 15px;"><span class="f-fallback">{{ $details->status }}</span></td>
+                                </tr>
+                            @endisset
+                            @isset($payment->dueDate)
+                                <tr>
+                                <td width="30%" class="" style="padding-bottom: 15px; vertical-align: baseline"><span class="f-fallback"><Strong> Due Date </Strong></span></td>
+                                <td class="align-left" width="70%" style="padding-bottom: 15px;"><span class="f-fallback">{{ $payment->dueDate->toFormattedDateString() }}</span></td>
                             </tr>
-                            <tr>
-                                <td width="30%" class=""><span class="f-fallback"><Strong> Due Date </Strong></span></td>
-                                <td class="align-left" width="70%"><span class="f-fallback">{{ $payment->dueDate->toFormattedDateString() }}</span></td>
-                            </tr>
-                            <tr>
-                                <td width="30%" class=""><span class="f-fallback"><strong> Due Days</Strong> </span></td>
-                                <td class="align-left" width="70%"><span class="f-fallback">{{ $payment->dueDays }}</span></td>
-                            </tr>
+                            @endisset
+                            @isset($payment->dueDays)
+                                <tr>
+                                    <td width="30%" class="" style="padding-bottom: 15px; vertical-align: baseline"><span class="f-fallback"><strong> Due Days</Strong> </span></td>
+                                    <td class="align-left" width="70%" style="padding-bottom: 15px;"><span class="f-fallback">{{ $payment->dueDays }}</span></td>
+                                </tr>
+                            @endisset
                             <tr>
                                 <td colspan="2">
                                     <table class="purchase_content" width="100%" cellpadding="0" cellspacing="0">
@@ -120,7 +126,7 @@
                             <tbody><tr>
                                 <td>
                                     <p class="f-fallback sub">If you’re having trouble with the button above, copy and paste the URL below into your web browser.</p>
-                                    <p class="f-fallback sub">{{$paymentDetailsPage}}</p>
+                                    <p class="f-fallback sub">{{'https://' . $paymentDetailsPage}}</p>
                                 </td>
                             </tr>
                             </tbody>

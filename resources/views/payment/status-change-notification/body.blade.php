@@ -18,7 +18,7 @@
                                         <tr>
                                             <td class="attributes_item">
                                                 <span class="f-fallback">
-                                                  <strong>Amount Paid</strong>  {{$payment->amount}}
+                                                  <strong>Amount Paid: </strong> BDT {{$payment->amount}}
                                                 </span>
                                             </td>
                                         </tr>
@@ -40,33 +40,37 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td width="30%" class=""><span class="f-fallback"> <strong>Pay For</strong> </span></td>
-                                <td class="align-left" width="70%"><span class="f-fallback">{{  $paymentType->title }}</span></td>
+                                <td width="30%" class="" style="padding-bottom: 15px; vertical-align: baseline"><span class="f-fallback"> <strong>Paid For</strong> </span></td>
+                                <td class="align-left" width="70%" style="padding-bottom: 15px;"><span class="f-fallback">{{  $paymentType->title }}</span></td>
                             </tr>
                             @isset($payment->note)
                                 <tr>
-                                    <td width="30%" class=""><span class="f-fallback">  <strong> Note </strong></span></td>
-                                    <td class="align-left" width="70%"><span class="f-fallback">{{ $payment->note }}</span></td>
+                                    <td width="30%" class="" style="padding-bottom: 15px; vertical-align: baseline"><span class="f-fallback">  <strong> Note </strong></span></td>
+                                    <td class="align-left" width="70%" style="padding-bottom: 15px;"><span class="f-fallback">{{ $payment->note }}</span></td>
                                 </tr>
                             @endisset
                             @isset($payment->billingInfo)
                                 <tr>
-                                    <td width="30%" class=""><span class="f-fallback"> BillingInfo </span></td>
-                                    <td class="align-left" width="70%"><span class="f-fallback">{{ $payment->billingInfo }}</span></td>
+                                    <td width="30%" class="" style="padding-bottom: 15px; vertical-align: baseline"><span class="f-fallback"> <strong> BillingInfo</strong> </span></td>
+                                    <td class="align-left" width="70%" style="padding-bottom: 15px;"><span class="f-fallback">{{ $payment->billingInfo }}</span></td>
                                 </tr>
                             @endisset
-                            <tr>
-                                <td width="30%" class=""><span class="f-fallback"> Status </span></td>
-                                <td class="align-left" width="70%"><span class="f-fallback">{{ $paymentItem->status }}</span></td>
-                            </tr>
-                            <tr>
-                                <td width="30%" class=""><span class="f-fallback"><Strong> Due Date </Strong></span></td>
-                                <td class="align-left" width="70%"><span class="f-fallback">{{ $payment->dueDate->toFormattedDateString() }}</span></td>
-                            </tr>
+                            @if($paymentItem->status )
+                                <tr>
+                                    <td width="30%" class="" style="padding-bottom: 15px; vertical-align: baseline" ><span class="f-fallback"><strong>Status </strong> </span></td>
+                                    <td class="align-left" width="70%" style="padding-bottom: 15px;"><span class="f-fallback">{{ $paymentItem->status }}</span></td>
+                                </tr>
+                            @endisset
+                            @if($payment->dueDate)
+                                <tr>
+                                    <td width="30%" class="" style="padding-bottom: 15px; vertical-align: baseline"><span class="f-fallback"><Strong> Due Date </Strong></span></td>
+                                    <td class="align-left" width="70%" style="padding-bottom: 15px;"><span class="f-fallback">{{ $payment->dueDate->toFormattedDateString() }}</span></td>
+                                </tr>
+                            @endisset
                             @if($payment->dueDays > 0)
                                 <tr>
-                                    <td width="30%" class=""><span class="f-fallback"><strong> Due Days</Strong> </span></td>
-                                    <td class="align-left" width="70%"><span class="f-fallback">{{ $payment->dueDays }}</span></td>
+                                    <td width="30%" class="" style="padding-bottom: 15px; vertical-align: baseline"><span class="f-fallback"><strong> Due Days</Strong> </span></td>
+                                    <td class="align-left" width="70%" style="padding-bottom: 15px;"><span class="f-fallback">{{ $payment->dueDays }}</span></td>
                                 </tr>
                             @endif
                             <tr>
@@ -100,15 +104,6 @@
                         </table>
                         <p>If you have any questions about this invoice, simply reply to this email or reach out to our <a href="{{'support_url'}}">support team</a> for help.</p>
                         <p>Sincerely,<br>The SmartProperty Team</p>
-                        <table class="body-sub" role="presentation">
-                            <tbody><tr>
-                                <td>
-                                    <p class="f-fallback sub">If you’re having trouble with the button above, copy and paste the URL below into your web browser.</p>
-                                    <p class="f-fallback sub">{{'actionUrl'}}</p>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </td>
             </tr>

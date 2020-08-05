@@ -24,20 +24,22 @@
                                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                                 <tbody>
                                                 <tr>
-                                                    <td align="left" valign="top" style="font-family:'Avenir',sans-serif;font-size:15px;line-height:24px;padding:62px 24px;color:#444444;">
-                                                        <div style="margin:0 auto;width:100%;max-width:450px;">
-                                                            <h1>Your Service Request Status</h1>
-                                                            <p>Hi {{ $user->name }}! Please check your service request Status in here. </p>
+                                                    <td class="content-cell" align="left" valign="top" style="font-family:'Avenir',sans-serif;font-size:15px;line-height:20px;color:#444444;">
+                                                        <div style="margin:0 auto; max-width:100%;">
 
-                                                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                            <p style="margin-bottom: 10px;">Hi <strong>{{ $user->name }}</strong></p>
+                                                            <span>Please check your service request Status in here. </span>
+                                                            <h1 class="align-center" style="margin: 25px 0px;"> Service Request Status</h1>
+
+                                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 10px;">
                                                                 <!-- Task card start -->
                                                                 <tbody>
                                                                 <tr>
-                                                                    <td style="padding-top: 1em; padding-bottom: 1em;">
+                                                                    <td>
                                                                         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-image:url({{ asset('logo/border.png') }});background-size:100% 100%;">
                                                                             <tbody>
                                                                             <tr>
-                                                                                <td valign="middle" style="padding:1.5em 1em 1em 1.5em;">
+                                                                                <td valign="middle" style="padding:10px;">
                                                                                     @if($serviceRequest->status === \App\DbModels\ServiceRequest::STATUS_IN_PROGRESS)
                                                                                         <img src="{{asset('logo/inprogress.png')}}" width="80">
                                                                                     @elseif($serviceRequest->status === \App\DbModels\ServiceRequest::STATUS_ON_HOLD)
@@ -48,7 +50,7 @@
                                                                                         <img src="{{asset('logo/solved.png')}}" width="80">
                                                                                     @endif
                                                                                 </td>
-                                                                                <td style="padding:1.5em 1.5em 1em 0.5em;">
+                                                                                <td style="padding: 10px 0px;">
                                                                                     <h1 style="font-family:'Avenir',sans-serif;font-size:18px;color:#444444;font-weight:800;margin:0 0 4px 0;text-align:left;line-height:20px;">Status {{ ucwords(str_replace('_', ' ', $serviceRequest->status))}}</h1>
                                                                                     <p style="font-family:'Avenir',sans-serif;font-size:14px;color:#444444;font-weight:400;margin:0 0 5px 0;text-align:left;line-height:20px;">Service request Status changed to <span style="color: #004d46">{{ str_replace('_', ' ', $serviceRequest->status)}}</span> by {{ $statusUpdatedByUser->name}}</p>
                                                                                 </td>

@@ -7,7 +7,7 @@
                     <td height="40"></td>
                 </tr>
                 <tr style="color:#4E5C6E; font-size:14px; line-height:20px; margin-top:20px;">
-                    <td class="content" colspan="2" valign="top" align="center" style="padding-left:90px; padding-right:90px;">
+                    <td class="content-cell" colspan="2" valign="top" align="center" >
                         <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff">
                             <tbody>
                                 <tr>
@@ -20,7 +20,7 @@
                                 </tr>
                                 <tr>
                                     <td align="center">
-                                        <div style="font-size: 22px; line-height: 32px; font-weight: 500; margin-left: 20px; margin-right: 20px; margin-bottom: 25px;">
+                                        <div style="font-size: 22px; line-height: 32px; font-weight: 500;">
                                             Inventory item <strong>{{ $inventoryItem->name }}</strong> has been updated
                                         </div>
                                     </td>
@@ -41,8 +41,8 @@
                                             <tbody style="border: 0; padding: 0; margin-top:20px;">
                                             @isset($inventoryItem->description)
                                             <tr>
-                                                <td style="padding-bottom: 10px; padding-top: 10px;">Product Description</td>
-                                                <td style="padding-bottom: 10px; padding-top: 10px;">
+                                                <td width="60%" style="padding-bottom: 10px; padding-top: 10px;">Product Description</td>
+                                                <td  width="40%"  style="padding-bottom: 10px; padding-top: 10px;">
                                                     : {{ $inventoryItem->description  }}
                                                 </td>
                                             </tr>
@@ -131,9 +131,6 @@
                             </tbody>
                         </table>
                     </td>
-                </tr>
-                <tr>
-                    <td height="60"></td>
                 </tr>
             </tbody>
         </table>

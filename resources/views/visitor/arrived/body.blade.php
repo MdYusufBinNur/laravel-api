@@ -5,15 +5,23 @@
             <!-- Body content Start -->
             <tbody>
             <tr>
-                <td height="40"></td>
+                <td class="content-cell">
+                    <div class="f-fallback">
+                        <h1> {{ ($visitor->unit && $visitor->unit->title) ? ('Dear ' .$unit->title) : ('Dear Mr/Mrs. ' . $visitor->user->name) }},</h1>
+                        <p style="margin-bottom: 0px;">
+                           You`ve got a visitor, Check about the visitors details in the below
+                        </p>
+                    </div>
+                </td>
             </tr>
+
             <tr style="color:#4E5C6E; font-size:14px; line-height:20px; margin-top:20px;">
-                <td class="content" colspan="2" valign="top" align="center" style="padding-left:90px; padding-right:90px;">
+                <td class="content-cell" colspan="2" valign="top" align="center">
                     <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff">
                         <tbody>
                         <tr>
                             <td align="center">
-                                <div style="font-size: 22px; line-height: 32px; font-weight: 500; margin-left: 20px; margin-right: 20px; margin-bottom: 25px;"> Visitor Info</div>
+                                <div style="font-size: 22px; line-height: 32px; font-weight: 500; margin-bottom: 25px;"> Visitor Info</div>
                             </td>
                         </tr>
                         <tr>
@@ -23,45 +31,92 @@
                             <td height="24" &nbsp;=""></td>
                         </tr>
                         <!-- Image part Start -->
-                        @isset($visitor->image)
                         <tr>
-                            <td align="center">
-                                <img src="{{$visitor->image->getFileUrl()}}" width="200" style="height: auto;">
-                            </td>
+                            @isset($visitor->image)
+                                <td align="center">
+                                    <img src="{{$visitor->image->getFileUrl()}}" width="200" style="height: auto;">
+                                </td>
+                            @endisset
                         </tr>
-                        @endisset
                         <!-- Image part End -->
                         <tr>
                             <td height="10"></td>
                         </tr>
                         <tr>
                             <td>
-                                <table  align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
-                                    <tr>
-                                        <td align="center">
-                                            @isset($visitor->name)
-                                            <h1 class="f-fallback discount_heading">{{$visitor->name}}</h1>
-                                            @endisset
+                                <table style="width: 100%; border-collapse:collapse;">
+                                    <tbody style="border: 0; padding: 0; margin-top:20px;">
+                                        @isset($visitor->name)
+                                            <tr>
+                                                <td width="40%" style="padding-bottom: 15px; padding-top: 10px; vertical-align: baseline;">
+                                                    <strong> Name</strong>
+                                                </td>
+                                                <td width=60%" style="padding-bottom: 15px; padding-top: 10px;">
+                                                    {{$visitor->name}}
+                                                </td>
+                                            </tr>
+                                        @endisset
+                                        <tr>
+                                            <td width="40%" style="padding-bottom: 15px; padding-top: 10px; vertical-align: baseline;">
+                                                <strong> Arrived at</strong>
+                                            </td>
+                                            <td width=60%" style="padding-bottom: 15px; padding-top: 10px;">
+                                                {{$visitor->signInAt->toDayDateTimeString()}}
+                                            </td>
+                                        </tr>
 
-                                            <span class="f-fallback "><strong>Arrived at: </strong>{{$visitor->signInAt->toDayDateTimeString() }}</span> <br>
+                                        @isset($visitor->email)
+                                            <tr>
+                                                <td width="40%" style="padding-bottom: 15px; padding-top: 10px; vertical-align: baseline;">
+                                                    <strong> Email</strong>
+                                                </td>
+                                                <td width=60%" style="padding-bottom: 15px; padding-top: 10px;">
+                                                    {{$visitor->email}}
+                                                </td>
+                                            </tr>
+                                        @endisset
 
-                                            @isset($visitor->unitId)
-                                            <span><strong>To Unit: </strong>{{$visitor->unit->title}}</span> <br>
-                                            @endisset
-
-                                            @isset($visitor->userId)
-                                                <span><strong>To Resident: </strong>{{$visitor->user->name}}</span> <br>
-                                            @endisset
-
-                                            @isset($visitor->email)
-                                            <span><strong>Email: </strong>{{$visitor->email}}</span><br>
-                                            @endisset
-
-                                            @isset($visitor->phone)
-                                            <span><strong>Phone: </strong>{{$visitor->phone}}</span><br>
-                                            @endisset
-                                        </td>
-                                    </tr>
+                                        @isset($visitor->phone)
+                                            <tr>
+                                                <td width="40%" style="padding-bottom: 15px; padding-top: 10px; vertical-align: baseline;">
+                                                    <strong> Phone</strong>
+                                                </td>
+                                                <td width=60%" style="padding-bottom: 15px; padding-top: 10px;">
+                                                    {{$visitor->phone}}
+                                                </td>
+                                            </tr>
+                                        @endisset
+                                        @isset($visitor->company)
+                                            <tr>
+                                                <td width="40%" style="padding-bottom: 15px; padding-top: 10px; vertical-align: baseline;">
+                                                    <strong> Company</strong>
+                                                </td>
+                                                <td width=60%" style="padding-bottom: 15px; padding-top: 10px;">
+                                                    {{$visitor->company}}
+                                                </td>
+                                            </tr>
+                                        @endisset
+                                        @isset($visitor->comment)
+                                            <tr>
+                                                <td width="40%" style="padding-bottom: 15px; padding-top: 10px; vertical-align: baseline;">
+                                                    <strong> Comment</strong>
+                                                </td>
+                                                <td width=60%" style="padding-bottom: 15px; padding-top: 10px;">
+                                                    {{$visitor->comment}}
+                                                </td>
+                                            </tr>
+                                        @endisset
+                                        @isset($visitor->status)
+                                            <tr>
+                                                <td width="40%" style="padding-bottom: 15px; padding-top: 10px; vertical-align: baseline;">
+                                                    <strong> Status</strong>
+                                                </td>
+                                                <td width=60%" style="padding-bottom: 15px; padding-top: 10px;">
+                                                    {{$visitor->status}}
+                                                </td>
+                                            </tr>
+                                        @endisset
+                                    </tbody>
                                 </table>
                             </td>
                         </tr>
@@ -70,7 +125,7 @@
                 </td>
             </tr>
             <tr>
-                <td height="60"></td>
+                <td height="20"></td>
             </tr>
             </tbody>
         </table>

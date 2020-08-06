@@ -1,7 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Migrations\Migration;
 
 class InsertVisitorsUserNotificationType extends Migration
@@ -25,6 +24,6 @@ class InsertVisitorsUserNotificationType extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_notification_types');
+        DB::table('user_notification_types')->where('id', '=',18)->delete();
     }
 }

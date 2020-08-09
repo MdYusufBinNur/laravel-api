@@ -267,6 +267,11 @@ Route::group(['prefix' => 'api/v1'], function () {
          */
         Route::apiResource('customer', 'CustomerController');
         Route::apiResource('vendor', 'VendorController');
+
+        /**
+         * Related to Reporting
+         */
+        Route::get('reporting-package', 'Reporting\\PackageController');
     });
 
     //route without authentication

@@ -271,7 +271,7 @@ Route::group(['prefix' => 'api/v1'], function () {
         /**
          * Related to Reporting
          */
-        Route::get('reporting-package', 'Reporting\\PackageController');
+        Route::get('reporting-package', 'Reporting\\PackageController@index');
     });
 
     //route without authentication

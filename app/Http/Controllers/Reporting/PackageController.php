@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Reporting;
 
-use App\Http\Requests\Package\IndexRequest;
+use App\Http\Requests\Package\ReportRequest;
 use App\Http\Resources\Reporting\PackageResourceCollection;
 use App\Services\Reporting\Package;
 use App\Http\Controllers\Controller;
@@ -12,10 +12,10 @@ class PackageController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param IndexRequest $request
+     * @param ReportRequest $request
      * @return PackageResourceCollection
      */
-    public function index(IndexRequest $request)
+    public function index(ReportRequest $request)
     {
         $packages = Package::packageReports($request->all());
 

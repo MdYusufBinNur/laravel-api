@@ -6,6 +6,7 @@ use App\Http\Resources\PackageTypeResource;
 use App\Http\Resources\ResidentResource;
 use App\Http\Resources\Resource;
 use App\Http\Resources\UnitResource;
+use App\Http\Resources\UserResource;
 
 class PackageResource extends Resource
 {
@@ -19,11 +20,13 @@ class PackageResource extends Resource
     {
         return [
             'id' => $this->getIdOrUuid(),
+            'propertyId' => $this->propertyId,
             'unit' => $this->when($this->needToInclude($request, 'package.unit'), function () {
                 return new UnitResource($this->unit);
             }),
-            'resident' => $this->when($this->needToInclude($request, 'package.resident'), function () {
-                return new ResidentResource($this->resident);
+            'residentId' => $this->residentId,
+            'user' => $this->when($this->needToInclude($request, 'package.user'), function () {
+                return new UserResource($this->user);
             }),
             'type' => $this->when($this->needToInclude($request, 'package.type'), function () {
                 return new PackageTypeResource($this->type);

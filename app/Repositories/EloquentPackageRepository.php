@@ -35,7 +35,7 @@ class EloquentPackageRepository extends EloquentBaseRepository implements Packag
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         });
 
-        $searchCriteria['eagerLoad'] = ['package.property' => 'property', 'package.type' => 'type', 'package.resident' => 'resident', 'package.unit' => 'unit', 'package.enteredUser' => 'enteredUser'];
+        $searchCriteria['eagerLoad'] = ['package.property' => 'property', 'package.type' => 'type', 'package.resident' => 'resident', 'property.user' => 'user', 'package.unit' => 'unit', 'package.enteredUser' => 'enteredUser'];
 
         $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15;
         $orderBy = !empty($searchCriteria['order_by']) ? $searchCriteria['order_by'] : 'id';

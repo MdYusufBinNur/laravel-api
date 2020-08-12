@@ -272,6 +272,7 @@ Route::group(['prefix' => 'api/v1'], function () {
          * Related to Reporting
          */
         Route::get('reporting-package', 'Reporting\\PackageController@index');
+        Route::get('reporting-service-request', 'Reporting\\ServiceRequestController@index');
     });
 
     //route without authentication
@@ -304,7 +305,6 @@ Route::group(['prefix' => 'api/v1'], function () {
 
 
     Route::post('notify-payment-item-transaction', 'PaymentItemTransactionController@notify');
-
-
+    
 });
 

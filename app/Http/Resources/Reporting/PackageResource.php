@@ -19,8 +19,6 @@ class PackageResource extends Resource
     {
         return [
             'id' => $this->getIdOrUuid(),
-            'createdByUserId' => $this->createdByUserId,
-            'propertyId' => $this->propertyId,
             'unit' => $this->when($this->needToInclude($request, 'package.unit'), function () {
                 return new UnitResource($this->unit);
             }),

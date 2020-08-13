@@ -5,6 +5,7 @@ namespace App\DbModels;
 use App\DbModels\Traits\CommonModelFeatures;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Package extends Model
 {
@@ -48,6 +49,16 @@ class Package extends Model
     public function resident()
     {
         return $this->hasOne(Resident::class,'id','residentId');
+    }
+
+    /**
+     * resident and user relationship
+     *
+     * @return HasOneThrough
+     */
+    public function user()
+    {
+        return $this->hasOneThrough(User::class, Resident::class,'id','id', 'residentId', 'userId');
     }
 
     /**

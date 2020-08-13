@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Reporting;
 
-use App\Http\Requests\Package\ReportRequest;
+use App\Http\Requests\Reporting\Package\ReportRequest;
 use App\Http\Resources\Reporting\PackageResourceCollection;
 use App\Services\Reporting\Package;
 use App\Http\Controllers\Controller;

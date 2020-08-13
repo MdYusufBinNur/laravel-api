@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Requests\ServiceRequest;
+namespace App\Http\Requests\Reporting\ServiceRequest;
 
 use App\Http\Requests\Request;
-use Illuminate\Foundation\Http\FormRequest;
 
 class ReportRequest extends Request
 {

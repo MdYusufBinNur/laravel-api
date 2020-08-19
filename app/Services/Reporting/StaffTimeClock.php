@@ -45,9 +45,6 @@ class StaffTimeClock
 
         $staffTimeClockReports = DB::table($thisModelTable)
             ->select(
-                DB::raw('DAY(clockedIn) as day'),
-                DB::raw('DAYNAME(clockedIn) as dayName'),
-                DB::raw('MONTHNAME(clockedIn) as month'),
                 'clockedIn',
                 'clockedOut'
             )
@@ -55,6 +52,7 @@ class StaffTimeClock
             ->where('managerId', $searchCriteria['managerId'])
             ->whereYear('clockedIn', $searchCriteria['year'])
             ->whereMonth('clockedIn', $searchCriteria['month'])
+            ->orderBy('clockedIn')
             ->get();
 
         return $staffTimeClockReports;

@@ -22,8 +22,6 @@ class StaffTimeClockWorkingHoursWiseResource extends Resource
 
         return [
             'date' => $startTime,
-            'day' => $this->day,
-            'dayName' => $this->dayName,
             'hours' => $diffInHours,
         ];
     }

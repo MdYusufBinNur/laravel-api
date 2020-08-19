@@ -21,15 +21,12 @@ class StaffTimeClock
      */
     public static function staffTimeClockStats($searchCriteria)
     {
-        $stats = [
+        return [
             'daysWorkedInAYearCount' => self::getDaysWorkedInAYearCount($searchCriteria),
             'hoursWorkedInAMonth' => self::getHoursWorkedInAMonth($searchCriteria),
             'topPerformerOfADay' => self::getTopPerformerOfADay($searchCriteria)
         ];
 
-        dd($stats);
-
-        return $stats;
     }
 
     /**

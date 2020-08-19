@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Reporting;
 
 use App\Http\Requests\Reporting\StaffTimeClock\ReportRequest;
 use App\Http\Resources\Reporting\StaffTimeClockMonthWiseResourceCollection;
+use App\Http\Resources\Reporting\StaffTimeClockStateResource;
 use App\Http\Resources\Reporting\StaffTimeClockWorkingHoursWiseResourceCollection;
 use App\Services\Reporting\StaffTimeClock;
 use App\Http\Controllers\Controller;
@@ -14,13 +15,13 @@ class StaffTimeClockController extends Controller
      * Display a listing of the resource.
      *
      * @param ReportRequest $request
-     * @return StaffTimeClockMonthWiseResourceCollection
+     * @return StaffTimeClockStateResource
      */
     public function index(ReportRequest $request)
     {
-        $monthWiseAttendanceCount = StaffTimeClock::staffTimeClockStats($request->all());
+        $stateData = StaffTimeClock::staffTimeClockStats($request->all());
 
-        return new StaffTimeClockMonthWiseResourceCollection($monthWiseAttendanceCount);
+        return new StaffTimeClockStateResource($stateData);
     }
 
     /**

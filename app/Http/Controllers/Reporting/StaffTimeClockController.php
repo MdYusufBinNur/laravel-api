@@ -16,6 +16,19 @@ class StaffTimeClockController extends Controller
      * @param ReportRequest $request
      * @return StaffTimeClockMonthWiseResourceCollection
      */
+    public function index(ReportRequest $request)
+    {
+        $monthWiseAttendanceCount = StaffTimeClock::staffTimeClockStats($request->all());
+
+        return new StaffTimeClockMonthWiseResourceCollection($monthWiseAttendanceCount);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param ReportRequest $request
+     * @return StaffTimeClockMonthWiseResourceCollection
+     */
     public function getMonthWiseStaffAttendance(ReportRequest $request)
     {
         $monthWiseAttendanceCount = StaffTimeClock::fetchMonthWiseStaffAttendance($request->all());

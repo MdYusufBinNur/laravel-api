@@ -273,6 +273,7 @@ Route::group(['prefix' => 'api/v1'], function () {
          */
         Route::get('reporting-package', 'Reporting\\PackageController@index');
         Route::get('reporting-service-request', 'Reporting\\ServiceRequestController@index');
+        Route::get('reporting-stc-month-wise-attendance-count', 'Reporting\\StaffTimeClockController@getMonthWiseStaffAttendance');
     });
 
     //route without authentication

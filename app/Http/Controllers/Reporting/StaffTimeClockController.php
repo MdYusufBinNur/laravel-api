@@ -17,7 +17,7 @@ class StaffTimeClockController extends Controller
      */
     public function getMonthWiseStaffAttendance(ReportRequest $request)
     {
-        $monthWiseAttendanceCount = StaffTimeClock::fetchMonthWiseStaffAttendanceCount($request->all());
+        $monthWiseAttendanceCount = StaffTimeClock::fetchMonthWiseStaffAttendance($request->all());
 
         return new StaffTimeClockMonthWiseResourceCollection($monthWiseAttendanceCount);
     }

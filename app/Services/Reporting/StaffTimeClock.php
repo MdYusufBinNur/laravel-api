@@ -17,7 +17,7 @@ class StaffTimeClock
      * @param $searchCriteria
      * @return Collection
      */
-    public static function fetchMonthWiseStaffAttendanceCount($searchCriteria)
+    public static function fetchMonthWiseStaffAttendance($searchCriteria)
     {
         $staffTimeClockRepository = app(StaffTimeClockRepository::class);
         $thisModelTable = $staffTimeClockRepository->getModel()->getTable();

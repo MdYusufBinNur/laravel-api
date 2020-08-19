@@ -17,6 +17,7 @@ class ReportRequest extends Request
             'propertyId' => 'exists:properties,id',
             'managerId' => 'exists:managers,id',
             'year' => '',
+            'month' => '',
         ];
     }
 }

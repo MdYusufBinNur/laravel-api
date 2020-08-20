@@ -32,7 +32,6 @@ class Visitor
             'totalVisitorsToUnit' => self::getTotalVisitorsToUnit($searchCriteria),
             'totalVisitorsToUser' => self::getTotalVisitorsToUser($searchCriteria),
         ];
-        dd($data);
         return $data;
 
     }
@@ -54,7 +53,7 @@ class Visitor
             ->whereDate( 'signInAt', Carbon::now())
             ->get();
 
-        return $totalVisitorsToday;
+        return $totalVisitorsToday[0]->totalVisitors;
     }
 
     /**
@@ -71,11 +70,11 @@ class Visitor
         $totalVisitorsToUnitToday = DB::table($thisModelTable)
             ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
-            ->where('unitId', $searchCriteria['unitId'])
+            ->where('unitId', '!=', NULL)
             ->whereDate( 'signInAt', Carbon::now())
             ->get();
 
-        return $totalVisitorsToUnitToday;
+        return $totalVisitorsToUnitToday[0]->totalVisitors;
     }
 
     /**
@@ -92,11 +91,11 @@ class Visitor
         $totalVisitorsToUserToday = DB::table($thisModelTable)
             ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
-            ->where('userId', $searchCriteria['userId'])
+            ->where('userId', '!=', NULL)
             ->whereDate( 'signInAt', Carbon::now())
             ->get();
 
-        return $totalVisitorsToUserToday;
+        return $totalVisitorsToUserToday[0]->totalVisitors;
     }
 
     /**
@@ -116,7 +115,7 @@ class Visitor
             ->where(DB::raw("WEEKOFYEAR(signInAt)"), Carbon::now()->weekOfYear)
             ->get();
 
-        return $totalVisitorsOfAWeek;
+        return $totalVisitorsOfAWeek[0]->totalVisitors;
     }
 
     /**
@@ -133,11 +132,11 @@ class Visitor
         $totalVisitorsToUnitOfAWeek = DB::table($thisModelTable)
             ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
-            ->where('unitId', $searchCriteria['unitId'])
+            ->where('unitId', '!=', NULL)
             ->where(DB::raw("WEEKOFYEAR(signInAt)"), Carbon::now()->weekOfYear)
             ->get();
 
-        return $totalVisitorsToUnitOfAWeek;
+        return $totalVisitorsToUnitOfAWeek[0]->totalVisitors;
     }
 
     /**
@@ -154,11 +153,11 @@ class Visitor
         $totalVisitorsToUserOfAWeek = DB::table($thisModelTable)
             ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
-            ->where('userId', $searchCriteria['userId'])
+            ->where('userId', '!=', NULL)
             ->where(DB::raw("WEEKOFYEAR(signInAt)"), Carbon::now()->weekOfYear)
             ->get();
 
-        return $totalVisitorsToUserOfAWeek;
+        return $totalVisitorsToUserOfAWeek[0]->totalVisitors;
     }
 
     /**
@@ -178,7 +177,7 @@ class Visitor
             ->whereYear('signInAt', $searchCriteria['year'])
             ->get();
 
-        return $totalVisitorsOfAYear;
+        return $totalVisitorsOfAYear[0]->totalVisitors;
     }
 
     /**
@@ -199,7 +198,7 @@ class Visitor
             ->whereYear('signInAt', $searchCriteria['year'])
             ->get();
 
-        return $totalVisitorsToUnitOfAYear;
+        return $totalVisitorsToUnitOfAYear[0]->totalVisitors;
     }
 
     /**
@@ -220,7 +219,7 @@ class Visitor
             ->whereYear('signInAt', $searchCriteria['year'])
             ->get();
 
-        return $totalVisitorsToUserOfAYear;
+        return $totalVisitorsToUserOfAYear[0]->totalVisitors;
     }
 
     /**
@@ -239,7 +238,7 @@ class Visitor
             ->where('propertyId', $searchCriteria['propertyId'])
             ->get();
 
-        return $totalVisitors;
+        return $totalVisitors[0]->totalVisitors;
     }
 
     /**
@@ -259,7 +258,7 @@ class Visitor
             ->where('unitId', '!=', NULL)
             ->get();
 
-        return $totalVisitorsToUnit;
+        return $totalVisitorsToUnit[0]->totalVisitors;
     }
 
     /**
@@ -279,7 +278,7 @@ class Visitor
             ->where('userId', '!=', NULL)
             ->get();
 
-        return $totalVisitorsToUser;
+        return $totalVisitorsToUser[0]->totalVisitors;
     }
 
 }

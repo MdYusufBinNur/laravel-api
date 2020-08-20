@@ -195,7 +195,7 @@ class Visitor
         $totalVisitorsToUnitOfAYear = DB::table($thisModelTable)
             ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
-            ->where('unitId', $searchCriteria['unitId'])
+            ->where('unitId', '!=', NULL)
             ->whereYear('signInAt', $searchCriteria['year'])
             ->get();
 
@@ -216,7 +216,7 @@ class Visitor
         $totalVisitorsToUserOfAYear = DB::table($thisModelTable)
             ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
-            ->where('userId', $searchCriteria['userId'])
+            ->where('userId', '!=', NULL)
             ->whereYear('signInAt', $searchCriteria['year'])
             ->get();
 
@@ -256,7 +256,7 @@ class Visitor
         $totalVisitorsToUnit = DB::table($thisModelTable)
             ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
-            ->where('userId', '=', NULL)
+            ->where('unitId', '!=', NULL)
             ->get();
 
         return $totalVisitorsToUnit;
@@ -276,7 +276,7 @@ class Visitor
         $totalVisitorsToUser = DB::table($thisModelTable)
             ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
-            ->where('unitId', '=', NULL)
+            ->where('userId', '!=', NULL)
             ->get();
 
         return $totalVisitorsToUser;

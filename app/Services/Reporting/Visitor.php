@@ -174,7 +174,7 @@ class Visitor
         $totalVisitorsOfAYear = DB::table($thisModelTable)
             ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
-            ->whereYear('signInAt', $searchCriteria['year'])
+            ->whereYear('signInAt', Carbon::now()->year)
             ->get();
 
         return $totalVisitorsOfAYear[0]->totalVisitors;
@@ -195,7 +195,7 @@ class Visitor
             ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
             ->where('unitId', '!=', NULL)
-            ->whereYear('signInAt', $searchCriteria['year'])
+            ->whereYear('signInAt', Carbon::now()->year)
             ->get();
 
         return $totalVisitorsToUnitOfAYear[0]->totalVisitors;
@@ -216,7 +216,7 @@ class Visitor
             ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
             ->where('userId', '!=', NULL)
-            ->whereYear('signInAt', $searchCriteria['year'])
+            ->whereYear('signInAt', Carbon::now()->year)
             ->get();
 
         return $totalVisitorsToUserOfAYear[0]->totalVisitors;

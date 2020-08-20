@@ -3,10 +3,7 @@
 
 namespace App\Services\Reporting;
 
-
-use App\DbModels\Manager;
-use App\DbModels\User;
-use App\Repositories\Contracts\StaffTimeClockRepository;
+use App\Repositories\Contracts\VisitorRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -21,11 +18,22 @@ class Visitor
      */
     public static function visitorState($searchCriteria)
     {
-        return [
-            'daysWorkedInAYearCount' => self::getDaysWorkedInAYearCount($searchCriteria),
-            'hoursWorkedInAMonth' => self::getHoursWorkedInAMonth($searchCriteria),
-            'topPerformerOfADay' => self::getTopPerformerOfADay($searchCriteria)
+        $data = [
+            'totalVisitorsToday' => self::getTotalVisitorsToday($searchCriteria),
+            'totalVisitorsToUnitToday' => self::getTotalVisitorsToUnitToday($searchCriteria),
+            'totalVisitorsToUserToday' => self::getTotalVisitorsToUserToday($searchCriteria),
+            'totalVisitorsOfAWeek' => self::getTotalVisitorsOfAWeek($searchCriteria),
+            'totalVisitorsToUnitOfAWeek' => self::getTotalVisitorsToUnitOfAWeek($searchCriteria),
+            'totalVisitorsToUserOfAWeek' => self::getTotalVisitorsToUserOfAWeek($searchCriteria),
+            'totalVisitorsOfAYear' => self::getTotalVisitorsOfAYear($searchCriteria),
+            'totalVisitorsToUnitOfAYear' => self::getTotalVisitorsToUnitOfAYear($searchCriteria),
+            'totalVisitorsToUserOfAYear' => self::getTotalVisitorsToUserOfAYear($searchCriteria),
+            'totalVisitors' => self::getTotalVisitors($searchCriteria),
+            'totalVisitorsToUnit' => self::getTotalVisitorsToUnit($searchCriteria),
+            'totalVisitorsToUser' => self::getTotalVisitorsToUser($searchCriteria),
         ];
+        dd($data);
+        return $data;
 
     }
 
@@ -35,18 +43,18 @@ class Visitor
      * @param $searchCriteria
      * @return Collection
      */
-    public static function getDaysWorkedInAYearCount($searchCriteria)
+    public static function getTotalVisitorsToday($searchCriteria)
     {
-        $staffTimeClockRepository = app(StaffTimeClockRepository::class);
-        $thisModelTable = $staffTimeClockRepository->getModel()->getTable();
+        $visitorRepository = app(VisitorRepository::class);
+        $thisModelTable = $visitorRepository->getModel()->getTable();
 
-        $daysWorkedInAYearCount = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(DISTINCT clockedIn) as days'))
+        $totalVisitorsToday = DB::table($thisModelTable)
+            ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
-            ->whereYear('clockedIn', $searchCriteria['year'])
+            ->whereDate( 'signInAt', Carbon::now())
             ->get();
 
-        return $daysWorkedInAYearCount;
+        return $totalVisitorsToday;
     }
 
     /**
@@ -55,19 +63,19 @@ class Visitor
      * @param $searchCriteria
      * @return Collection
      */
-    public static function getHoursWorkedInAMonth($searchCriteria)
+    public static function getTotalVisitorsToUnitToday($searchCriteria)
     {
-        $staffTimeClockRepository = app(StaffTimeClockRepository::class);
-        $thisModelTable = $staffTimeClockRepository->getModel()->getTable();
+        $visitorRepository = app(VisitorRepository::class);
+        $thisModelTable = $visitorRepository->getModel()->getTable();
 
-        $hoursWorkedInAMonth = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(DISTINCT clockedIn) as days'))
+        $totalVisitorsToUnitToday = DB::table($thisModelTable)
+            ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
-            ->whereYear('clockedIn', $searchCriteria['year'])
-            ->whereMonth('clockedIn', $searchCriteria['month'])
+            ->where('unitId', $searchCriteria['unitId'])
+            ->whereDate( 'signInAt', Carbon::now())
             ->get();
 
-        return $hoursWorkedInAMonth;
+        return $totalVisitorsToUnitToday;
     }
 
     /**
@@ -76,71 +84,202 @@ class Visitor
      * @param $searchCriteria
      * @return Collection
      */
-    public static function getTopPerformerOfADay($searchCriteria)
+    public static function getTotalVisitorsToUserToday($searchCriteria)
     {
-        $staffTimeClockRepository = app(StaffTimeClockRepository::class);
-        $thisModelTable = $staffTimeClockRepository->getModel()->getTable();
-        $managerTable = Manager::getTableName();
-        $userTable = User::getTableName();
+        $visitorRepository = app(VisitorRepository::class);
+        $thisModelTable = $visitorRepository->getModel()->getTable();
 
-        $topPerformerOfADay = DB::table($thisModelTable)
-            ->select($thisModelTable . '.clockedIn', $thisModelTable . '.state', $thisModelTable . '.managerId', $userTable . '.name' )
-            ->join($managerTable, $thisModelTable . '.managerId', '=', $managerTable . '.id')
-            ->join($userTable, $managerTable . '.userId', '=', $userTable . '.id')
-            ->where($thisModelTable . '.propertyId', $searchCriteria['propertyId'])
-            ->whereDate($thisModelTable . '.clockedIn', Carbon::now())
-            ->orderBy($thisModelTable . '.clockedIn', 'ASC')
-            ->limit(1)
+        $totalVisitorsToUserToday = DB::table($thisModelTable)
+            ->select(DB::raw('COUNT(id) as totalVisitors'))
+            ->where('propertyId', $searchCriteria['propertyId'])
+            ->where('userId', $searchCriteria['userId'])
+            ->whereDate( 'signInAt', Carbon::now())
             ->get();
 
-        return $topPerformerOfADay;
+        return $totalVisitorsToUserToday;
     }
 
     /**
-     * all open service requests
+     * all pending resident access request
      *
      * @param $searchCriteria
      * @return Collection
      */
-    public static function fetchMonthWiseStaffAttendance($searchCriteria)
+    public static function getTotalVisitorsOfAWeek($searchCriteria)
     {
-        $staffTimeClockRepository = app(StaffTimeClockRepository::class);
-        $thisModelTable = $staffTimeClockRepository->getModel()->getTable();
+        $visitorRepository = app(VisitorRepository::class);
+        $thisModelTable = $visitorRepository->getModel()->getTable();
 
-        $staffTimeClockReports = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(id) as days'), DB::raw('MONTHNAME(clockedIn) as month'))
+        $totalVisitorsOfAWeek = DB::table($thisModelTable)
+            ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
-            ->where('managerId', $searchCriteria['managerId'])
-            ->whereYear('clockedIn', $searchCriteria['year'])
-            ->groupBy('month')
+            ->where(DB::raw("WEEKOFYEAR(signInAt)"), Carbon::now()->weekOfYear)
             ->get();
 
-        return $staffTimeClockReports;
+        return $totalVisitorsOfAWeek;
     }
 
     /**
-     * all open service requests
+     * all pending resident access request
      *
      * @param $searchCriteria
      * @return Collection
      */
-    public static function fetchWorkingHoursWiseStaffAttendance($searchCriteria)
+    public static function getTotalVisitorsToUnitOfAWeek($searchCriteria)
     {
-        $staffTimeClockRepository = app(StaffTimeClockRepository::class);
-        $thisModelTable = $staffTimeClockRepository->getModel()->getTable();
+        $visitorRepository = app(VisitorRepository::class);
+        $thisModelTable = $visitorRepository->getModel()->getTable();
 
-        $staffTimeClockReports = DB::table($thisModelTable)
-            ->select(
-                'clockedIn',
-                'clockedOut'
-            )
+        $totalVisitorsToUnitOfAWeek = DB::table($thisModelTable)
+            ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
-            ->where('managerId', $searchCriteria['managerId'])
-            ->whereYear('clockedIn', $searchCriteria['year'])
-            ->whereMonth('clockedIn', $searchCriteria['month'])
-            ->orderBy('clockedIn')
+            ->where('unitId', $searchCriteria['unitId'])
+            ->where(DB::raw("WEEKOFYEAR(signInAt)"), Carbon::now()->weekOfYear)
             ->get();
 
-        return $staffTimeClockReports;
+        return $totalVisitorsToUnitOfAWeek;
     }
+
+    /**
+     * all pending resident access request
+     *
+     * @param $searchCriteria
+     * @return Collection
+     */
+    public static function getTotalVisitorsToUserOfAWeek($searchCriteria)
+    {
+        $visitorRepository = app(VisitorRepository::class);
+        $thisModelTable = $visitorRepository->getModel()->getTable();
+
+        $totalVisitorsToUserOfAWeek = DB::table($thisModelTable)
+            ->select(DB::raw('COUNT(id) as totalVisitors'))
+            ->where('propertyId', $searchCriteria['propertyId'])
+            ->where('userId', $searchCriteria['userId'])
+            ->where(DB::raw("WEEKOFYEAR(signInAt)"), Carbon::now()->weekOfYear)
+            ->get();
+
+        return $totalVisitorsToUserOfAWeek;
+    }
+
+    /**
+     * all pending resident access request
+     *
+     * @param $searchCriteria
+     * @return Collection
+     */
+    public static function getTotalVisitorsOfAYear($searchCriteria)
+    {
+        $visitorRepository = app(VisitorRepository::class);
+        $thisModelTable = $visitorRepository->getModel()->getTable();
+
+        $totalVisitorsOfAYear = DB::table($thisModelTable)
+            ->select(DB::raw('COUNT(id) as totalVisitors'))
+            ->where('propertyId', $searchCriteria['propertyId'])
+            ->whereYear('signInAt', $searchCriteria['year'])
+            ->get();
+
+        return $totalVisitorsOfAYear;
+    }
+
+    /**
+     * all pending resident access request
+     *
+     * @param $searchCriteria
+     * @return Collection
+     */
+    public static function getTotalVisitorsToUnitOfAYear($searchCriteria)
+    {
+        $visitorRepository = app(VisitorRepository::class);
+        $thisModelTable = $visitorRepository->getModel()->getTable();
+
+        $totalVisitorsToUnitOfAYear = DB::table($thisModelTable)
+            ->select(DB::raw('COUNT(id) as totalVisitors'))
+            ->where('propertyId', $searchCriteria['propertyId'])
+            ->where('unitId', $searchCriteria['unitId'])
+            ->whereYear('signInAt', $searchCriteria['year'])
+            ->get();
+
+        return $totalVisitorsToUnitOfAYear;
+    }
+
+    /**
+     * all pending resident access request
+     *
+     * @param $searchCriteria
+     * @return Collection
+     */
+    public static function getTotalVisitorsToUserOfAYear($searchCriteria)
+    {
+        $visitorRepository = app(VisitorRepository::class);
+        $thisModelTable = $visitorRepository->getModel()->getTable();
+
+        $totalVisitorsToUserOfAYear = DB::table($thisModelTable)
+            ->select(DB::raw('COUNT(id) as totalVisitors'))
+            ->where('propertyId', $searchCriteria['propertyId'])
+            ->where('userId', $searchCriteria['userId'])
+            ->whereYear('signInAt', $searchCriteria['year'])
+            ->get();
+
+        return $totalVisitorsToUserOfAYear;
+    }
+
+    /**
+     * all pending resident access request
+     *
+     * @param $searchCriteria
+     * @return Collection
+     */
+    public static function getTotalVisitors($searchCriteria)
+    {
+        $visitorRepository = app(VisitorRepository::class);
+        $thisModelTable = $visitorRepository->getModel()->getTable();
+
+        $totalVisitors = DB::table($thisModelTable)
+            ->select(DB::raw('COUNT(id) as totalVisitors'))
+            ->where('propertyId', $searchCriteria['propertyId'])
+            ->get();
+
+        return $totalVisitors;
+    }
+
+    /**
+     * all pending resident access request
+     *
+     * @param $searchCriteria
+     * @return Collection
+     */
+    public static function getTotalVisitorsToUnit($searchCriteria)
+    {
+        $visitorRepository = app(VisitorRepository::class);
+        $thisModelTable = $visitorRepository->getModel()->getTable();
+
+        $totalVisitorsToUnit = DB::table($thisModelTable)
+            ->select(DB::raw('COUNT(id) as totalVisitors'))
+            ->where('propertyId', $searchCriteria['propertyId'])
+            ->where('userId', '=', NULL)
+            ->get();
+
+        return $totalVisitorsToUnit;
+    }
+
+    /**
+     * all pending resident access request
+     *
+     * @param $searchCriteria
+     * @return Collection
+     */
+    public static function getTotalVisitorsToUser($searchCriteria)
+    {
+        $visitorRepository = app(VisitorRepository::class);
+        $thisModelTable = $visitorRepository->getModel()->getTable();
+
+        $totalVisitorsToUser = DB::table($thisModelTable)
+            ->select(DB::raw('COUNT(id) as totalVisitors'))
+            ->where('propertyId', $searchCriteria['propertyId'])
+            ->where('unitId', '=', NULL)
+            ->get();
+
+        return $totalVisitorsToUser;
+    }
+
 }

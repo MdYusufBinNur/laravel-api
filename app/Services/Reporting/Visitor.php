@@ -38,7 +38,7 @@ class Visitor
     }
 
     /**
-     * all pending resident access request
+     * visitors count for a property
      *
      * @param $searchCriteria
      * @return Collection
@@ -58,7 +58,7 @@ class Visitor
     }
 
     /**
-     * all pending resident access request
+     * visitors count for a property
      *
      * @param $searchCriteria
      * @return Collection
@@ -79,7 +79,7 @@ class Visitor
     }
 
     /**
-     * all pending resident access request
+     * visitors count for a property
      *
      * @param $searchCriteria
      * @return Collection
@@ -100,7 +100,7 @@ class Visitor
     }
 
     /**
-     * all pending resident access request
+     * visitors count for a property
      *
      * @param $searchCriteria
      * @return Collection
@@ -120,7 +120,7 @@ class Visitor
     }
 
     /**
-     * all pending resident access request
+     * visitors count for a property
      *
      * @param $searchCriteria
      * @return Collection
@@ -141,7 +141,7 @@ class Visitor
     }
 
     /**
-     * all pending resident access request
+     * visitors count for a property
      *
      * @param $searchCriteria
      * @return Collection
@@ -162,7 +162,7 @@ class Visitor
     }
 
     /**
-     * all pending resident access request
+     * visitors count for a property
      *
      * @param $searchCriteria
      * @return Collection
@@ -182,7 +182,7 @@ class Visitor
     }
 
     /**
-     * all pending resident access request
+     * visitors count for a property
      *
      * @param $searchCriteria
      * @return Collection
@@ -203,7 +203,7 @@ class Visitor
     }
 
     /**
-     * all pending resident access request
+     * visitors count for a property
      *
      * @param $searchCriteria
      * @return Collection
@@ -224,7 +224,7 @@ class Visitor
     }
 
     /**
-     * all pending resident access request
+     * visitors count for a property
      *
      * @param $searchCriteria
      * @return Collection
@@ -243,7 +243,7 @@ class Visitor
     }
 
     /**
-     * all pending resident access request
+     * visitors count for a property
      *
      * @param $searchCriteria
      * @return Collection
@@ -263,7 +263,7 @@ class Visitor
     }
 
     /**
-     * all pending resident access request
+     * visitors count for a property
      *
      * @param $searchCriteria
      * @return Collection

@@ -281,4 +281,66 @@ class Visitor
         return $totalVisitorsToUser[0]->totalVisitors;
     }
 
+    /**
+     * month wise visitors count
+     *
+     * @param $searchCriteria
+     * @return Collection
+     */
+    public static function fetchMonthWiseVisitors($searchCriteria)
+    {
+        $visitorRepository = app(VisitorRepository::class);
+        $thisModelTable = $visitorRepository->getModel()->getTable();
+
+        if (isset($searchCriteria['unitId'])){
+            $userIdOrUnit = 'unitId';
+            $userIdOrUnitId = $searchCriteria['unitId'];
+        } else {
+            $userIdOrUnit = 'userId';
+            $userIdOrUnitId = $searchCriteria['userId'];
+        }
+
+        $visitors = DB::table($thisModelTable)
+            ->select(DB::raw('COUNT(id) as visitors'), DB::raw('MONTHNAME(signInAt) as month'))
+            ->where('propertyId', $searchCriteria['propertyId'])
+            ->where($userIdOrUnit, $userIdOrUnitId)
+            ->whereYear('signInAt', $searchCriteria['year'])
+            ->groupBy('month')
+            ->get();
+
+        return $visitors;
+    }
+
+
+    /**
+     * day wise visitors count
+     *
+     * @param $searchCriteria
+     * @return Collection
+     */
+    public static function fetchDayWiseVisitors($searchCriteria)
+    {
+        $visitorRepository = app(VisitorRepository::class);
+        $thisModelTable = $visitorRepository->getModel()->getTable();
+
+        if (isset($searchCriteria['unitId'])){
+            $userIdOrUnit = 'unitId';
+            $userIdOrUnitId = $searchCriteria['unitId'];
+        } else {
+            $userIdOrUnit = 'userId';
+            $userIdOrUnitId = $searchCriteria['userId'];
+        }
+
+        $visitors = DB::table($thisModelTable)
+            ->select(DB::raw('COUNT(id) as visitors'),  'signInAt')
+            ->where('propertyId', $searchCriteria['propertyId'])
+            ->where($userIdOrUnit, $userIdOrUnitId)
+            ->whereYear('signInAt', $searchCriteria['year'])
+            ->whereMonth('signInAt', $searchCriteria['month'])
+            ->groupBy('signInAt')
+            ->get();
+
+        return $visitors;
+
+    }
 }

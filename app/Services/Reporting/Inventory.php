@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class Inventory
 {
     /**
-     * get STC stats
+     * get inventory items
      *
      * @param $searchCriteria
      * @return array
@@ -25,7 +25,7 @@ class Inventory
     }
 
     /**
-     * get STC stats
+     * get inventory stats
      *
      * @param $searchCriteria
      * @return array
@@ -42,7 +42,7 @@ class Inventory
     }
 
     /**
-     * visitors count for a property
+     * inventory state count for a property
      *
      * @param $searchCriteria
      * @return Collection
@@ -57,11 +57,11 @@ class Inventory
             ->where('propertyId', $searchCriteria['propertyId'])
             ->get();
 
-        return $totalInventoryItem;
+        return $totalInventoryItem[0]->totalInventoryItem;
     }
 
     /**
-     * visitors count for a property
+     * inventory state count for a property
      *
      * @param $searchCriteria
      * @return Collection
@@ -77,11 +77,11 @@ class Inventory
             ->where('quantity', '<=', $searchCriteria['quantity'] )
             ->get();
 
-        return $totalInventoryItem;
+        return $totalInventoryItem[0]->totalInventoryItem;
     }
 
     /**
-     * visitors count for a property
+     * inventory state count for a property
      *
      * @param $searchCriteria
      * @return Collection
@@ -97,7 +97,7 @@ class Inventory
             ->where('quantity', '>=', $searchCriteria['quantity'] )
             ->get();
 
-        return $totalInventoryItem;
+        return $totalInventoryItem[0]->totalInventoryItem;
     }
 
 }

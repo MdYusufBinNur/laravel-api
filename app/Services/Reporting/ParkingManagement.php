@@ -7,6 +7,7 @@ use App\Repositories\Contracts\InventoryItemRepository;
 use App\Repositories\Contracts\ParkingPassLogRepository;
 use App\Repositories\Contracts\ParkingPassRepository;
 use App\Repositories\Contracts\ParkingSpaceRepository;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -20,12 +21,20 @@ class ParkingManagement
      */
     public static function index($searchCriteria)
     {
-        $parkingPassRepository = app(ParkingPassRepository::class);
         $parkingPassLogRepository = app(ParkingPassLogRepository::class);
-        $parkingPassLogRepository = app(ParkingSpaceRepository::class);
-//        $data = $packageRepository->findBy($searchCriteria, true);
+        $parkingSpaceRepository = app(ParkingSpaceRepository::class);
+        $parkingPassLogTable = $parkingPassLogRepository->getModel()->getTable();
+        $parkingSpaceTable = $parkingSpaceRepository->getModel()->getTable();
 
-        return true;
+        $data = DB::table($parkingSpaceTable)
+            ->select($parkingSpaceTable . '.parkingNumber as spaceName', DB::raw('COUNT(id) as totalSpace'), DB::raw('COUNT(id) as totalSpace') )
+            ->join($parkingPassLogTable, $parkingSpaceTable . '.id', '=', $parkingPassLogTable . '.spaceId')
+            ->where($parkingSpaceTable . '.propertyId', $searchCriteria['propertyId'])
+            ->whereDate($parkingPassTable . '.startAt', Carbon::now())
+            ->whereDate($parkingPassTable . '.releaseAt', '!=', null)
+            ->get();
+
+        return $data;
 
     }
 
@@ -41,7 +50,8 @@ class ParkingManagement
         $data = [
             'totalSpace' => self::getTotalSpace($searchCriteria),
             'inUseSpace' => self::getInUseSpace($searchCriteria),
-            'todayTotalInOut' => self::getTodayTotalInOut($searchCriteria),
+            'todayTotalIn' => self::getTodayTotalIn($searchCriteria),
+            'todayTotalOut' => self::getTodayTotalOut($searchCriteria),
         ];
         return $data;
 
@@ -55,15 +65,15 @@ class ParkingManagement
      */
     public static function getTotalSpace($searchCriteria)
     {
-        $inventoryRepository = app(InventoryItemRepository::class);
-        $thisModelTable = $inventoryRepository->getModel()->getTable();
+        $parkingSpaceRepository = app(ParkingSpaceRepository::class);
+        $thisModelTable = $parkingSpaceRepository->getModel()->getTable();
 
-        $totalInventoryItem = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(id) as totalInventoryItem'))
+        $totalSpace = DB::table($thisModelTable)
+            ->select(DB::raw('COUNT(id) as totalSpace'))
             ->where('propertyId', $searchCriteria['propertyId'])
             ->get();
 
-        return $totalInventoryItem[0]->totalInventoryItem;
+        return $totalSpace[0]->totalSpace;
     }
 
     /**
@@ -74,16 +84,16 @@ class ParkingManagement
      */
     public static function getInUseSpace($searchCriteria)
     {
-        $inventoryRepository = app(InventoryItemRepository::class);
-        $thisModelTable = $inventoryRepository->getModel()->getTable();
+        $parkingPassRepository = app(ParkingPassRepository::class);
+        $parkingPassTable = $parkingPassRepository->getModel()->getTable();
 
-        $totalInventoryItem = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(id) as totalInventoryItem'))
-            ->where('propertyId', $searchCriteria['propertyId'])
-            ->where('quantity', '<=', $searchCriteria['quantity'] )
+        $totalInUseSpace = DB::table($parkingPassTable)
+            ->select(DB::raw('COUNT(id) as totalInUseSpace'))
+            ->where($parkingPassTable . '.propertyId', $searchCriteria['propertyId'])
+            ->whereNull($parkingPassTable . '.releasedAt')
             ->get();
 
-        return $totalInventoryItem[0]->totalInventoryItem;
+        return $totalInUseSpace[0]->totalInUseSpace;
     }
 
     /**
@@ -92,18 +102,40 @@ class ParkingManagement
      * @param $searchCriteria
      * @return Collection
      */
-    public static function getTodayTotalInOut($searchCriteria)
+    public static function getTodayTotalIn($searchCriteria)
     {
-        $inventoryRepository = app(InventoryItemRepository::class);
-        $thisModelTable = $inventoryRepository->getModel()->getTable();
+        $parkingPassLogRepository = app(ParkingPassLogRepository::class);
+        $parkingPassLogTable = $parkingPassLogRepository->getModel()->getTable();
 
-        $totalInventoryItem = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(id) as totalInventoryItem'))
+        $totalIn = DB::table($parkingPassLogTable)
+            ->select(DB::raw('COUNT(id) as totalIn'))
             ->where('propertyId', $searchCriteria['propertyId'])
-            ->where('quantity', '>=', $searchCriteria['quantity'] )
+            ->where($parkingPassLogTable . '.event', 'created')
+            ->whereDate($parkingPassLogTable . '.startAt', Carbon::now())
             ->get();
 
-        return $totalInventoryItem[0]->totalInventoryItem;
+        return $totalIn[0]->totalIn;
+    }
+
+    /**
+     * inventory state count for a property
+     *
+     * @param $searchCriteria
+     * @return Collection
+     */
+    public static function getTodayTotalOut($searchCriteria)
+    {
+        $parkingPassLogRepository = app(ParkingPassLogRepository::class);
+        $parkingPassLogTable = $parkingPassLogRepository->getModel()->getTable();
+
+        $totalIn = DB::table($parkingPassLogTable)
+            ->select(DB::raw('COUNT(id) as totalOut'))
+            ->where('propertyId', $searchCriteria['propertyId'])
+            ->where($parkingPassLogTable . '.event', '=', 'updated')
+            ->whereDate($parkingPassLogTable . '.releasedAt', Carbon::now())
+            ->get();
+
+        return $totalIn[0]->totalOut;
     }
 
 }

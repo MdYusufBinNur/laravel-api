@@ -278,7 +278,7 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::get('reporting-inventory-state', 'Reporting\\InventoryController@inventoryState');
 
         Route::get('reporting-parking-management', 'Reporting\\ParkingManagementController@index');
-        Route::get('reporting-parking-management-state', 'Reporting\\arkingManagementController@parkingState');
+        Route::get('reporting-parking-management-state', 'Reporting\\ParkingManagementController@parkingState');
 
         Route::get('reporting-visitor', 'Reporting\\VisitorController@index');
         Route::get('reporting-visitor-month-wise', 'Reporting\\VisitorController@getMonthWiseVisitors');

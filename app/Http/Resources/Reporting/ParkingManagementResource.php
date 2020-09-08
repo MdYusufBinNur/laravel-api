@@ -16,7 +16,6 @@ class ParkingManagementResource extends Resource
     public function toArray($request)
     {
         return [
-            'date' => $this->date,
             'spaceName' => $this->spaceName,
             'in' => $this->in,
             'out' => $this->out,

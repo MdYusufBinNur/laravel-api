@@ -37,10 +37,11 @@ class ParkingManagement
      */
     public static function parkingState($searchCriteria)
     {
+
         $data = [
-            'totalInventoryItem' => self::getTotalInventoryItem($searchCriteria),
-            'inventoryHealthyItem' => self::getInventoryHealthyItem($searchCriteria),
-            'inventoryRunningLowItem' => self::getInventoryRunningLowItem($searchCriteria),
+            'totalSpace' => self::getTotalSpace($searchCriteria),
+            'inUseSpace' => self::getInUseSpace($searchCriteria),
+            'todayTotalInOut' => self::getTodayTotalInOut($searchCriteria),
         ];
         return $data;
 
@@ -52,7 +53,7 @@ class ParkingManagement
      * @param $searchCriteria
      * @return Collection
      */
-    public static function getTotalInventoryItem($searchCriteria)
+    public static function getTotalSpace($searchCriteria)
     {
         $inventoryRepository = app(InventoryItemRepository::class);
         $thisModelTable = $inventoryRepository->getModel()->getTable();
@@ -71,7 +72,7 @@ class ParkingManagement
      * @param $searchCriteria
      * @return Collection
      */
-    public static function getInventoryHealthyItem($searchCriteria)
+    public static function getInUseSpace($searchCriteria)
     {
         $inventoryRepository = app(InventoryItemRepository::class);
         $thisModelTable = $inventoryRepository->getModel()->getTable();
@@ -91,7 +92,7 @@ class ParkingManagement
      * @param $searchCriteria
      * @return Collection
      */
-    public static function getInventoryRunningLowItem($searchCriteria)
+    public static function getTodayTotalInOut($searchCriteria)
     {
         $inventoryRepository = app(InventoryItemRepository::class);
         $thisModelTable = $inventoryRepository->getModel()->getTable();

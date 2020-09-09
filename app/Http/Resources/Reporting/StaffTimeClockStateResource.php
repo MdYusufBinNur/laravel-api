@@ -3,13 +3,14 @@
 namespace App\Http\Resources\Reporting;
 
 use App\Http\Resources\Resource;
+use Illuminate\Http\Request;
 
 class StaffTimeClockStateResource extends Resource
 {
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)

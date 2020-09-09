@@ -2,20 +2,10 @@
 
 namespace App\Http\Requests\Reporting\ResidentAccessRequest;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Request;
 
-class ReportRequest extends FormRequest
+class ReportRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +14,9 @@ class ReportRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'propertyId' => 'required|exists:properties,id',
+            'startDate' => 'date_format:Y-m-d',
+            'endDate' => 'date_format:Y-m-d|after_or_equal:startDate',
         ];
     }
 }

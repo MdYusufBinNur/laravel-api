@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources\Reporting;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 
-class ResidentAccessRequestStateResource extends JsonResource
+class ResidentAccessRequestStateResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +14,12 @@ class ResidentAccessRequestStateResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'total' => $this->total,
+            'pending' => $this->pending,
+            'approved' => $this->approved,
+            'denied' => $this->denied,
+            'completed' => $this->completed,
+        ];
     }
 }

@@ -3,21 +3,21 @@
 
 namespace App\Services\Reporting;
 
-use App\Repositories\Contracts\InventoryItemRepository;
 use App\Repositories\Contracts\ParkingPassLogRepository;
 use App\Repositories\Contracts\ParkingPassRepository;
 use App\Repositories\Contracts\ParkingSpaceRepository;
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 
 class ParkingManagement
 {
     /**
-     * get inventory items
+     * get parking space items
      *
      * @param $searchCriteria
-     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|object
+     * @return Model|Builder|object
      */
     public static function index($searchCriteria)
     {
@@ -45,7 +45,7 @@ class ParkingManagement
     }
 
     /**
-     * get inventory stats
+     * get parking management stats
      *
      * @param $searchCriteria
      * @return array
@@ -64,7 +64,7 @@ class ParkingManagement
     }
 
     /**
-     * inventory state count for a property
+     * parking management state count for a property
      *
      * @param $searchCriteria
      * @return int
@@ -81,7 +81,7 @@ class ParkingManagement
     }
 
     /**
-     * inventory state count for a property
+     * parking management state count for a property
      *
      * @param $searchCriteria
      * @return int
@@ -100,7 +100,7 @@ class ParkingManagement
     }
 
     /**
-     * inventory state count for a property
+     * parking management state count for a property
      *
      * @param $searchCriteria
      * @return int
@@ -120,7 +120,7 @@ class ParkingManagement
     }
 
     /**
-     * inventory state count for a property
+     * parking management state count for a property
      *
      * @param $searchCriteria
      * @return int

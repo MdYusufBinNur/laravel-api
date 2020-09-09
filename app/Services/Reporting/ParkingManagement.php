@@ -27,6 +27,8 @@ class ParkingManagement
         $parkingSpaceTable = $parkingSpaceRepository->getModel()->getTable();
 
         $query = isset($searchCriteria['spaceId']) ? $parkingSpaceTable . '.id' . '='. $searchCriteria['spaceId'] : '1 = 1';
+        $endDate = isset($searchCriteria['endDate']) ? Carbon::parse($searchCriteria['endDate']) : Carbon::now();
+        $startDate = isset($searchCriteria['startDate']) ? Carbon::parse($searchCriteria['startDate']) : Carbon::now();
 
         $data = DB::table($parkingSpaceTable)
             ->select($parkingSpaceTable . '.parkingNumber as spaceName')
@@ -35,8 +37,8 @@ class ParkingManagement
             ->join($parkingPassLogTable, $parkingSpaceTable . '.id', '=', $parkingPassLogTable . '.spaceId')
             ->selectRaw("count(case when " . $parkingPassLogTable.".event = 'created' then 1 end) as totalIn")
             ->selectRaw("count(case when " . $parkingPassLogTable.".event = 'updated' then 1 end) as totalOut")
-            ->whereDate($parkingPassLogTable . '.created_at', '<=', Carbon::parse($searchCriteria['endDate']))
-            ->whereDate($parkingPassLogTable . '.created_at', '>=', Carbon::parse($searchCriteria['startDate']))
+            ->whereDate($parkingPassLogTable . '.created_at', '<=', $endDate)
+            ->whereDate($parkingPassLogTable . '.created_at', '>=', $startDate)
             ->groupBy($parkingSpaceTable . '.parkingNumber')
             ->get();
 

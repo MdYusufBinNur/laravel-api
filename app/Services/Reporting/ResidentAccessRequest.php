@@ -3,7 +3,6 @@
 
 namespace App\Services\Reporting;
 
-use App\Repositories\Contracts\InventoryItemRepository;
 use App\Repositories\Contracts\ResidentAccessRequestRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -12,20 +11,6 @@ use Illuminate\Support\Facades\DB;
 
 class ResidentAccessRequest
 {
-    /**
-     * get inventory items
-     *
-     * @param $searchCriteria
-     * @return array
-     */
-    public static function index($searchCriteria)
-    {
-        $packageRepository = app(InventoryItemRepository::class);
-        $data = $packageRepository->findBy($searchCriteria, true);
-
-        return $data;
-    }
-
     /**
      * get resident access request states
      *

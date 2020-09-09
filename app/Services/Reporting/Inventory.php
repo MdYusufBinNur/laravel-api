@@ -4,7 +4,6 @@
 namespace App\Services\Reporting;
 
 use App\Repositories\Contracts\InventoryItemRepository;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class Inventory
@@ -45,7 +44,7 @@ class Inventory
      * inventory state count for a property
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getTotalInventoryItem($searchCriteria)
     {
@@ -53,18 +52,17 @@ class Inventory
         $thisModelTable = $inventoryRepository->getModel()->getTable();
 
         $totalInventoryItem = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(id) as totalInventoryItem'))
             ->where('propertyId', $searchCriteria['propertyId'])
-            ->get();
+            ->count();
 
-        return $totalInventoryItem[0]->totalInventoryItem;
+        return $totalInventoryItem;
     }
 
     /**
      * inventory state count for a property
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getInventoryHealthyItem($searchCriteria)
     {
@@ -72,19 +70,18 @@ class Inventory
         $thisModelTable = $inventoryRepository->getModel()->getTable();
 
         $totalInventoryItem = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(id) as totalInventoryItem'))
             ->where('propertyId', $searchCriteria['propertyId'])
-            ->where('quantity', '<=', $searchCriteria['quantity'] )
-            ->get();
+            ->where('quantity', '>=', $searchCriteria['quantity'] )
+            ->count();
 
-        return $totalInventoryItem[0]->totalInventoryItem;
+        return $totalInventoryItem;
     }
 
     /**
      * inventory state count for a property
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getInventoryRunningLowItem($searchCriteria)
     {
@@ -92,12 +89,11 @@ class Inventory
         $thisModelTable = $inventoryRepository->getModel()->getTable();
 
         $totalInventoryItem = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(id) as totalInventoryItem'))
             ->where('propertyId', $searchCriteria['propertyId'])
-            ->where('quantity', '>=', $searchCriteria['quantity'] )
-            ->get();
+            ->where('quantity', '<=', $searchCriteria['quantity'] )
+            ->count();
 
-        return $totalInventoryItem[0]->totalInventoryItem;
+        return $totalInventoryItem;
     }
 
 }

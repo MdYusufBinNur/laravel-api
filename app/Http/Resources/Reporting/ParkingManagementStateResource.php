@@ -18,7 +18,8 @@ class ParkingManagementStateResource extends Resource
         return [
             'totalSpace' => $this->resource['totalSpace'],
             'inUseSpace' => $this->resource['inUseSpace'],
-            'todayTotalInOut' => $this->resource['todayTotalInOut'],
+            'todayTotalIn' => $this->resource['todayTotalIn'],
+            'todayTotalOut' => $this->resource['todayTotalOut'],
         ];
     }
 }

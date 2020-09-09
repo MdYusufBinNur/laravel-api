@@ -17,8 +17,8 @@ class ParkingManagementResource extends Resource
     {
         return [
             'spaceName' => $this->spaceName,
-            'in' => $this->in,
-            'out' => $this->out,
+            'totalIn' => $this->totalIn,
+            'totalOut' => $this->totalOut,
         ];
     }
 }

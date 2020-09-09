@@ -17,7 +17,7 @@ class ParkingManagement
      * get inventory items
      *
      * @param $searchCriteria
-     * @return array
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|object
      */
     public static function index($searchCriteria)
     {
@@ -27,11 +27,14 @@ class ParkingManagement
         $parkingSpaceTable = $parkingSpaceRepository->getModel()->getTable();
 
         $data = DB::table($parkingSpaceTable)
-            ->select($parkingSpaceTable . '.parkingNumber as spaceName', DB::raw('COUNT(id) as totalSpace'), DB::raw('COUNT(id) as totalSpace') )
+            ->select($parkingSpaceTable . '.parkingNumber as spaceName')
             ->join($parkingPassLogTable, $parkingSpaceTable . '.id', '=', $parkingPassLogTable . '.spaceId')
+            ->selectRaw("count(case when " . $parkingPassLogTable.".event = 'created' then 1 end) as totalIn")
+            ->selectRaw("count(case when " . $parkingPassLogTable.".event = 'updated' then 1 end) as totalOut")
             ->where($parkingSpaceTable . '.propertyId', $searchCriteria['propertyId'])
-            ->whereDate($parkingPassTable . '.startAt', Carbon::now())
-            ->whereDate($parkingPassTable . '.releaseAt', '!=', null)
+            ->whereDate($parkingPassLogTable . '.created_at', '<=', Carbon::parse($searchCriteria['endDate']))
+            ->whereDate($parkingPassLogTable . '.created_at', '>=', Carbon::parse($searchCriteria['startDate']))
+            ->groupBy($parkingSpaceTable . '.parkingNumber')
             ->get();
 
         return $data;
@@ -61,7 +64,7 @@ class ParkingManagement
      * inventory state count for a property
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getTotalSpace($searchCriteria)
     {
@@ -69,18 +72,16 @@ class ParkingManagement
         $thisModelTable = $parkingSpaceRepository->getModel()->getTable();
 
         $totalSpace = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(id) as totalSpace'))
             ->where('propertyId', $searchCriteria['propertyId'])
-            ->get();
-
-        return $totalSpace[0]->totalSpace;
+            ->count();
+        return $totalSpace;
     }
 
     /**
      * inventory state count for a property
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getInUseSpace($searchCriteria)
     {
@@ -88,19 +89,18 @@ class ParkingManagement
         $parkingPassTable = $parkingPassRepository->getModel()->getTable();
 
         $totalInUseSpace = DB::table($parkingPassTable)
-            ->select(DB::raw('COUNT(id) as totalInUseSpace'))
             ->where($parkingPassTable . '.propertyId', $searchCriteria['propertyId'])
             ->whereNull($parkingPassTable . '.releasedAt')
-            ->get();
+            ->count();
 
-        return $totalInUseSpace[0]->totalInUseSpace;
+        return $totalInUseSpace;
     }
 
     /**
      * inventory state count for a property
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getTodayTotalIn($searchCriteria)
     {
@@ -108,20 +108,19 @@ class ParkingManagement
         $parkingPassLogTable = $parkingPassLogRepository->getModel()->getTable();
 
         $totalIn = DB::table($parkingPassLogTable)
-            ->select(DB::raw('COUNT(id) as totalIn'))
             ->where('propertyId', $searchCriteria['propertyId'])
             ->where($parkingPassLogTable . '.event', 'created')
             ->whereDate($parkingPassLogTable . '.startAt', Carbon::now())
-            ->get();
+            ->count();
 
-        return $totalIn[0]->totalIn;
+        return $totalIn;
     }
 
     /**
      * inventory state count for a property
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getTodayTotalOut($searchCriteria)
     {
@@ -129,13 +128,12 @@ class ParkingManagement
         $parkingPassLogTable = $parkingPassLogRepository->getModel()->getTable();
 
         $totalIn = DB::table($parkingPassLogTable)
-            ->select(DB::raw('COUNT(id) as totalOut'))
             ->where('propertyId', $searchCriteria['propertyId'])
             ->where($parkingPassLogTable . '.event', '=', 'updated')
             ->whereDate($parkingPassLogTable . '.releasedAt', Carbon::now())
-            ->get();
+            ->count();
 
-        return $totalIn[0]->totalOut;
+        return $totalIn;
     }
 
 }

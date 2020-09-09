@@ -40,7 +40,7 @@ class Visitor
      * visitors count for a property
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getTotalVisitorsToday($searchCriteria)
     {
@@ -48,19 +48,18 @@ class Visitor
         $thisModelTable = $visitorRepository->getModel()->getTable();
 
         $totalVisitorsToday = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
             ->whereDate( 'signInAt', Carbon::now())
-            ->get();
+            ->count();
 
-        return $totalVisitorsToday[0]->totalVisitors;
+        return $totalVisitorsToday;
     }
 
     /**
      * visitors count for a property
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getTotalVisitorsToUnitToday($searchCriteria)
     {
@@ -68,20 +67,19 @@ class Visitor
         $thisModelTable = $visitorRepository->getModel()->getTable();
 
         $totalVisitorsToUnitToday = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
             ->where('unitId', '!=', NULL)
             ->whereDate( 'signInAt', Carbon::now())
-            ->get();
+            ->count();
 
-        return $totalVisitorsToUnitToday[0]->totalVisitors;
+        return $totalVisitorsToUnitToday;
     }
 
     /**
      * visitors count for a property
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getTotalVisitorsToUserToday($searchCriteria)
     {
@@ -89,20 +87,19 @@ class Visitor
         $thisModelTable = $visitorRepository->getModel()->getTable();
 
         $totalVisitorsToUserToday = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
             ->where('userId', '!=', NULL)
             ->whereDate( 'signInAt', Carbon::now())
-            ->get();
+            ->count();
 
-        return $totalVisitorsToUserToday[0]->totalVisitors;
+        return $totalVisitorsToUserToday;
     }
 
     /**
      * visitors count for a property
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getTotalVisitorsOfAWeek($searchCriteria)
     {
@@ -110,19 +107,18 @@ class Visitor
         $thisModelTable = $visitorRepository->getModel()->getTable();
 
         $totalVisitorsOfAWeek = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
             ->where(DB::raw("WEEKOFYEAR(signInAt)"), Carbon::now()->weekOfYear)
-            ->get();
+            ->count();
 
-        return $totalVisitorsOfAWeek[0]->totalVisitors;
+        return $totalVisitorsOfAWeek;
     }
 
     /**
      * visitors count for a property
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getTotalVisitorsToUnitOfAWeek($searchCriteria)
     {
@@ -130,20 +126,19 @@ class Visitor
         $thisModelTable = $visitorRepository->getModel()->getTable();
 
         $totalVisitorsToUnitOfAWeek = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
             ->where('unitId', '!=', NULL)
             ->where(DB::raw("WEEKOFYEAR(signInAt)"), Carbon::now()->weekOfYear)
-            ->get();
+            ->count();
 
-        return $totalVisitorsToUnitOfAWeek[0]->totalVisitors;
+        return $totalVisitorsToUnitOfAWeek;
     }
 
     /**
      * visitors count for a property
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getTotalVisitorsToUserOfAWeek($searchCriteria)
     {
@@ -151,20 +146,19 @@ class Visitor
         $thisModelTable = $visitorRepository->getModel()->getTable();
 
         $totalVisitorsToUserOfAWeek = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
             ->where('userId', '!=', NULL)
             ->where(DB::raw("WEEKOFYEAR(signInAt)"), Carbon::now()->weekOfYear)
-            ->get();
+            ->count();
 
-        return $totalVisitorsToUserOfAWeek[0]->totalVisitors;
+        return $totalVisitorsToUserOfAWeek;
     }
 
     /**
      * visitors count for a property
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getTotalVisitorsOfAYear($searchCriteria)
     {
@@ -172,19 +166,18 @@ class Visitor
         $thisModelTable = $visitorRepository->getModel()->getTable();
 
         $totalVisitorsOfAYear = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
             ->whereYear('signInAt', Carbon::now()->year)
-            ->get();
+            ->count();
 
-        return $totalVisitorsOfAYear[0]->totalVisitors;
+        return $totalVisitorsOfAYear;
     }
 
     /**
      * visitors count for a property
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getTotalVisitorsToUnitOfAYear($searchCriteria)
     {
@@ -192,20 +185,19 @@ class Visitor
         $thisModelTable = $visitorRepository->getModel()->getTable();
 
         $totalVisitorsToUnitOfAYear = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
             ->where('unitId', '!=', NULL)
             ->whereYear('signInAt', Carbon::now()->year)
-            ->get();
+            ->count();
 
-        return $totalVisitorsToUnitOfAYear[0]->totalVisitors;
+        return $totalVisitorsToUnitOfAYear;
     }
 
     /**
      * visitors count for a property
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getTotalVisitorsToUserOfAYear($searchCriteria)
     {
@@ -213,20 +205,19 @@ class Visitor
         $thisModelTable = $visitorRepository->getModel()->getTable();
 
         $totalVisitorsToUserOfAYear = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
             ->where('userId', '!=', NULL)
             ->whereYear('signInAt', Carbon::now()->year)
-            ->get();
+            ->count();
 
-        return $totalVisitorsToUserOfAYear[0]->totalVisitors;
+        return $totalVisitorsToUserOfAYear;
     }
 
     /**
      * visitors count for a property
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getTotalVisitors($searchCriteria)
     {
@@ -234,18 +225,17 @@ class Visitor
         $thisModelTable = $visitorRepository->getModel()->getTable();
 
         $totalVisitors = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
-            ->get();
+            ->count();
 
-        return $totalVisitors[0]->totalVisitors;
+        return $totalVisitors;
     }
 
     /**
      * visitors count for a property
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getTotalVisitorsToUnit($searchCriteria)
     {
@@ -253,19 +243,18 @@ class Visitor
         $thisModelTable = $visitorRepository->getModel()->getTable();
 
         $totalVisitorsToUnit = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
             ->where('unitId', '!=', NULL)
-            ->get();
+            ->count();
 
-        return $totalVisitorsToUnit[0]->totalVisitors;
+        return $totalVisitorsToUnit;
     }
 
     /**
      * visitors count for a property
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getTotalVisitorsToUser($searchCriteria)
     {
@@ -273,12 +262,11 @@ class Visitor
         $thisModelTable = $visitorRepository->getModel()->getTable();
 
         $totalVisitorsToUser = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(id) as totalVisitors'))
             ->where('propertyId', $searchCriteria['propertyId'])
             ->where('userId', '!=', NULL)
-            ->get();
+            ->count();
 
-        return $totalVisitorsToUser[0]->totalVisitors;
+        return $totalVisitorsToUser;
     }
 
     /**

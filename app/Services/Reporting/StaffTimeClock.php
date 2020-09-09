@@ -33,7 +33,7 @@ class StaffTimeClock
      * all pending resident access request
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getDaysWorkedInAYearCount($searchCriteria)
     {
@@ -41,10 +41,9 @@ class StaffTimeClock
         $thisModelTable = $staffTimeClockRepository->getModel()->getTable();
 
         $daysWorkedInAYearCount = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(DISTINCT clockedIn) as days'))
             ->where('propertyId', $searchCriteria['propertyId'])
             ->whereYear('clockedIn', $searchCriteria['year'])
-            ->get();
+            ->count();
 
         return $daysWorkedInAYearCount;
     }
@@ -53,7 +52,7 @@ class StaffTimeClock
      * all pending resident access request
      *
      * @param $searchCriteria
-     * @return Collection
+     * @return int
      */
     public static function getHoursWorkedInAMonth($searchCriteria)
     {
@@ -61,11 +60,10 @@ class StaffTimeClock
         $thisModelTable = $staffTimeClockRepository->getModel()->getTable();
 
         $hoursWorkedInAMonth = DB::table($thisModelTable)
-            ->select(DB::raw('COUNT(DISTINCT clockedIn) as days'))
             ->where('propertyId', $searchCriteria['propertyId'])
             ->whereYear('clockedIn', $searchCriteria['year'])
             ->whereMonth('clockedIn', $searchCriteria['month'])
-            ->get();
+            ->count();
 
         return $hoursWorkedInAMonth;
     }

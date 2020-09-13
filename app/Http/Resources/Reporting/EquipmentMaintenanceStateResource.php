@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources\Reporting;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Resource;
 
-class EquipmentMaintenanceStateResource extends JsonResource
+class EquipmentMaintenanceStateResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +14,11 @@ class EquipmentMaintenanceStateResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'totalEquipment' => $this->total,
+            'expired' => $this->expired,
+            'expireSoon' => $this->expireSoon,
+            'nextToMaintenance' => $this->nextToMaintenance,
+        ];
     }
 }

@@ -22,7 +22,6 @@ class EquipmentMaintenance
     {
         $equipmentRepository = app(EquipmentRepository::class);
         $data = $equipmentRepository->findBy($searchCriteria, true);
-
         return $data;
     }
 
@@ -44,8 +43,9 @@ class EquipmentMaintenance
             ->selectRaw('count(*) as total')
             ->selectRaw("count(case when showOnWebsite = 1 then 1 end) as showOnWebsite")
             ->selectRaw("count(case when showOnLds = 1 then 1 end) as showOnLds")
-            ->selectRaw("count(case when expireAt >= '". Carbon::now() ."' then 1 end) as active")
-            ->selectRaw("count(case when expireAt <= '". Carbon::now() ."' then 1 end) as expired")
+            ->selectRaw("count(case when expireDate <= '". Carbon::now() ."' then 1 end) as expired")
+            ->selectRaw("count(case when expireDate >= '". Carbon::now() ."' then 1 end) as expireSoon")
+            ->selectRaw("count(case when nextMaintenanceDate >= '". Carbon::now() ."' then 1 end) as nextToMaintenance")
             ->whereDate( '.created_at', '<=', $endDate)
             ->whereDate( '.created_at', '>=', $startDate)
             ->where( '.propertyId', $searchCriteria['propertyId'])
